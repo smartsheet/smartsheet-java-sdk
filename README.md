@@ -48,6 +48,8 @@ mvn package
 ## Example Usage
 To call the API, you will need an *access token*, which looks something like this example: ll352u9jujauoqz4gstvsae05. You can generate the access token in the Smartsheet UI at Account > Personal Settings > API Access.
 
+![](https://github.com/smartsheet/smartsheet-java-sdk/blob/mainline/resources/SmartsheetTokenGeneration.gif)
+
 The following is a brief sample that shows you how to:
 
 * Initialize the client
