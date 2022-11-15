@@ -40,13 +40,13 @@ You can also navigate to the [Sonatype Library Page](https://search.maven.org/#s
 The source code for the jar can be downloaded from Github and then compiled. This can be accomplished using [git](http://git-scm.com/) and [maven](http://maven.apache.org/) with the following 3 steps.
 
 ```bash
-git clone https://github.com/smartsheet-platform/smartsheet-java-sdk.git
+git clone https://github.com/smartsheet/smartsheet-java-sdk.git
 cd smartsheet-java-sdk
 mvn package
 ```
 
 ## Example Usage
-To call the API, you will need an *access token*, which looks something like this example: ll352u9jujauoqz4gstvsae05. You can find the access token in the UI at Account > Personal Settings > API Access.
+To call the API, you will need an *access token*, which looks something like this example: ll352u9jujauoqz4gstvsae05. You can generate the access token in the Smartsheet UI at Account > Personal Settings > API Access.
 
 The following is a brief sample that shows you how to:
 
@@ -126,6 +126,6 @@ and then if there are numbers after the last decimal, that will indicate a minor
 If you have any questions or issues with this SDK please post on [StackOverflow using the tag "smartsheet-api"](http://stackoverflow.com/questions/tagged/smartsheet-api) or contact us directly at devrel@smartsheet.com.
 
 ## Release Notes
-Each specific release is available for download via [Github](https://github.com/smartsheet-platform/smartsheet-java-sdk/tags) or the [Maven repository](http://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22com.smartsheet%22%20AND%20a%3A%22smartsheet-sdk-java%22).
+Each specific release is available for download via [Github](https://github.com/smartsheet/smartsheet-java-sdk/tags) or the [Maven repository](http://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22com.smartsheet%22%20AND%20a%3A%22smartsheet-sdk-java%22).
 
-See https://github.com/smartsheet-platform/smartsheet-java-sdk/releases
+See https://github.com/smartsheet/smartsheet-java-sdk/releases
