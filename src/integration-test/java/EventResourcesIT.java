@@ -23,6 +23,7 @@ import com.smartsheet.api.models.Event;
 import com.smartsheet.api.models.EventResult;
 import com.smartsheet.api.models.User;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.Date;
@@ -40,6 +41,8 @@ public class EventResourcesIT extends ITResourcesImpl{
         smartsheet = createAuthentication();
     }
 
+    @Ignore
+    // TODO - need access token with Admin Level permissions for this test to work
     @Test
     public void testListEvents() throws SmartsheetException {
 
