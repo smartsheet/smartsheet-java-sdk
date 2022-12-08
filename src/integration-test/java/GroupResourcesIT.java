@@ -32,6 +32,8 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 public class GroupResourcesIT extends ITResourcesImpl{
+    static final String GROUP_NAME = "Test Group";
+
     Smartsheet smartsheet;
     Long groupId;
     long groupMemberId;
@@ -44,6 +46,7 @@ public class GroupResourcesIT extends ITResourcesImpl{
 
     @Test
     public void testGroupMethods() throws SmartsheetException, IOException {
+        removeExistingGroup();
         testCreateGroup();
         testListGroups();
         testGetGroupById();
@@ -54,15 +57,12 @@ public class GroupResourcesIT extends ITResourcesImpl{
     }
 
     public void testCreateGroup() throws SmartsheetException, IOException {
-        String groupName = "Test Group";
         UserProfile user = smartsheet.userResources().getCurrentUser();
-
-        removeExistingGroup(groupName);
 
         if (user.getGroupAdmin()) {
             GroupMember member = new GroupMember.AddGroupMemberBuilder().setEmail("aditi.nioding@gmail.com").build();
 
-            Group group = new Group.CreateGroupBuilder().setName(groupName).setDescription("Test group").setMembers(Arrays.asList(member)).build();
+            Group group = new Group.CreateGroupBuilder().setName(GROUP_NAME).setDescription("Test group").setMembers(Arrays.asList(member)).build();
 
             try {
                 group =  smartsheet.groupResources().createGroup(group);
@@ -73,19 +73,19 @@ public class GroupResourcesIT extends ITResourcesImpl{
         }
     }
 
-    private void removeExistingGroup(String groupName) throws SmartsheetException, IOException {
+    private void removeExistingGroup() throws SmartsheetException, IOException {
         // Make sure group doesn't exist before trying to create it
         PaginationParameters parameters = new PaginationParameters.PaginationParametersBuilder().setIncludeAll(true).build();
         groups =  smartsheet.groupResources().listGroups(parameters);
 
-        for (int i = 0; i < groups.getData().size(); i++) {
-            if (groups.getData().get(i).getName().equals(groupName)) {
-                groupId = groups.getData().get(i).getId();
+        for (Group group : groups.getData()) {
+            if (group.getName().equals(GROUP_NAME)) {
+                groupId = group.getId();
                 break;
             }
         }
 
-        if (groupId > 0L) {
+        if (groupId != null) {
             // Remove group if exists
             testDeleteGroup();
         }
@@ -97,7 +97,13 @@ public class GroupResourcesIT extends ITResourcesImpl{
         groups =  smartsheet.groupResources().listGroups(parameters);
 
         assertNotNull(groups);
-        groupId = groups.getData().get(0).getId();
+
+        for (int i = 0; i < groups.getData().size(); i++) {
+            if (groups.getData().get(i).getName().equals(GROUP_NAME)) {
+                groupId = groups.getData().get(i).getId();
+                break;
+            }
+        }
     }
 
     public void testGetGroupById() throws SmartsheetException, IOException {
