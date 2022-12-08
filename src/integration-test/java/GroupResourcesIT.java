@@ -18,10 +18,7 @@
  * %[license]
  */
 
-import com.smartsheet.api.AuthorizationException;
-import com.smartsheet.api.ResourceNotFoundException;
-import com.smartsheet.api.Smartsheet;
-import com.smartsheet.api.SmartsheetException;
+import com.smartsheet.api.*;
 import com.smartsheet.api.models.*;
 import org.junit.Before;
 import org.junit.Test;
@@ -57,12 +54,15 @@ public class GroupResourcesIT extends ITResourcesImpl{
     }
 
     public void testCreateGroup() throws SmartsheetException, IOException {
+        String groupName = "Test Group";
         UserProfile user = smartsheet.userResources().getCurrentUser();
+
+        removeExistingGroup(groupName);
 
         if (user.getGroupAdmin()) {
             GroupMember member = new GroupMember.AddGroupMemberBuilder().setEmail("aditi.nioding@gmail.com").build();
 
-            Group group = new Group.CreateGroupBuilder().setName("Test Group").setDescription("Test group").setMembers(Arrays.asList(member)).build();
+            Group group = new Group.CreateGroupBuilder().setName(groupName).setDescription("Test group").setMembers(Arrays.asList(member)).build();
 
             try {
                 group =  smartsheet.groupResources().createGroup(group);
@@ -70,6 +70,24 @@ public class GroupResourcesIT extends ITResourcesImpl{
             } catch (AuthorizationException e) {
                 fail("Not authorized.");
             }
+        }
+    }
+
+    private void removeExistingGroup(String groupName) throws SmartsheetException, IOException {
+        // Make sure group doesn't exist before trying to create it
+        PaginationParameters parameters = new PaginationParameters.PaginationParametersBuilder().setIncludeAll(true).build();
+        groups =  smartsheet.groupResources().listGroups(parameters);
+
+        for (int i = 0; i < groups.getData().size(); i++) {
+            if (groups.getData().get(i).getName().equals(groupName)) {
+                groupId = groups.getData().get(i).getId();
+                break;
+            }
+        }
+
+        if (groupId > 0L) {
+            // Remove group if exists
+            testDeleteGroup();
         }
     }
 
