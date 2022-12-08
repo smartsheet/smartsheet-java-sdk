@@ -44,7 +44,7 @@ public class ReportResourcesIT extends ITResourcesImpl{
     public void setUp() throws Exception {
          smartsheet = createAuthentication();
 
-         PagedResult<Report> reports = smartsheet.reportResources().listReports(null, null));
+         PagedResult<Report> reports = smartsheet.reportResources().listReports(null, null);
          for (Report report : reports.getData()) {
              if (report.getAccessLevel() == AccessLevel.OWNER) {
                  reportId = report.getId();
