@@ -24,12 +24,8 @@ jobs:
         env:
           GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
           PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
-      - name: Run Mock API & Integration Tests
+      - name: Publish package
+        run: mvn --batch-mode deploy
         env:
-          SMARTSHEET_ACCESS_TOKEN: ${{secrets.SMARTSHEET_ACCESS_TOKEN}}
-        run: mvn --batch-mode --update-snapshots verify
-      #- name: Publish package
-      #  run: mvn --batch-mode deploy
-      #  env:
-      #    MAVEN_USERNAME: ${{ secrets.MAVEN_USERNAME }}
-      #    MAVEN_PASSWORD: ${{ secrets.MAVEN_PASSWORD }}
+          MAVEN_USERNAME: ${{ secrets.MAVEN_USERNAME }}
+          MAVEN_PASSWORD: ${{ secrets.MAVEN_PASSWORD }}

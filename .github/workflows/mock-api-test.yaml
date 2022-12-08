@@ -1,6 +1,11 @@
 name: Java CI
 
-on: [push]
+on:
+  push:
+    pull_request:
+      branches: [ mainline ]
+
+  workflow_dispatch:
 
 jobs:
   test:
@@ -13,7 +18,15 @@ jobs:
         with:
           java-version: '11'
           distribution: 'adopt'
-      #- name: Build with Maven
-      #  run: mvn --batch-mode --update-snapshots package
-      - name: Run Mock API Tests
-        run: mvn --batch-mode --update-snapshots test
+          server-id: deployment
+          server-username: MAVEN_USERNAME
+          server-password: MAVEN_PASSWORD
+      - name: Import GPG Key
+        uses: crazy-max/ghaction-import-gpg@v1
+        env:
+          GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
+          PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
+      - name: Run Mock API & Integration Tests
+        env:
+          SMARTSHEET_ACCESS_TOKEN: ${{secrets.SMARTSHEET_ACCESS_TOKEN}}
+        run: mvn --batch-mode --update-snapshots verify
