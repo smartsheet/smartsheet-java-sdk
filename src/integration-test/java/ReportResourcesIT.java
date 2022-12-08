@@ -38,19 +38,19 @@ import static org.junit.Assert.*;
 
 public class ReportResourcesIT extends ITResourcesImpl{
     Smartsheet smartsheet;
-    private Long reportId = 6843908677232516L;
+    private Long reportId = null;
 
     @Before
     public void setUp() throws Exception {
-        smartsheet = createAuthentication();
+         smartsheet = createAuthentication();
 
-//         PagedResult<Report> reports = smartsheet.reportResources().listReports(null, new Date(1669712400000L)); // All reports since 9am 29/11/22 (GMT)
-//         for (Report report : reports.getData()) {
-//             if (report.getAccessLevel() == AccessLevel.OWNER) {
-//                 reportId = report.getId();
-//                 break;
-//             }
-//         }
+         PagedResult<Report> reports = smartsheet.reportResources().listReports(null, null));
+         for (Report report : reports.getData()) {
+             if (report.getAccessLevel() == AccessLevel.OWNER) {
+                 reportId = report.getId();
+                 break;
+             }
+         }
          if (reportId == null) {
              throw new Exception("No valid reports found for the configured account. This test requires at least one owned report");
          }
