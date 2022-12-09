@@ -6,6 +6,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.0.0] - 2022-12-09
+### Updated
+- Migrated SDK to new project
+- Updated SDK to Java 11
+
+### Added
+- Add Github Actions pipeline
+
 ## [2.146.0] - 2021-11-12
 ### Added
 - new field for the resourceManagementType
