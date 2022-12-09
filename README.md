@@ -1,4 +1,5 @@
-# Smartsheet SDK for Java ![Build Status](https://github.com/smartsheet/smartsheet-java-sdk/actions/workflows/mock-api-test.yaml/badge.svg) [![Coverage Status](https://coveralls.io/repos/github/smartsheet-platform/smartsheet-java-sdk/badge.svg?branch=master)](https://coveralls.io/github/smartsheet-platform/smartsheet-java-sdk?branch=master) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.smartsheet/smartsheet-sdk-java/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.smartsheet/smartsheet-sdk-java/)
+# Smartsheet SDK for Java 
+[![Java CI](https://github.com/smartsheet/smartsheet-java-sdk/actions/workflows/mock-api-test.yaml/badge.svg)](https://github.com/smartsheet/smartsheet-java-sdk/actions/workflows/mock-api-test.yaml) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.smartsheet/smartsheet-sdk-java/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.smartsheet/smartsheet-sdk-java/)
 
 This is a Java SDK to simplify connecting to [Smartsheet API](https://www.smartsheet.redoc.ly) in Java applications.
 
@@ -117,6 +118,8 @@ The generated SDK javadoc is here: [http://smartsheet-platform.github.io/smartsh
 If you would like to contribute a change to the SDK, please fork a branch and then submit a pull request. [More info here](https://help.github.com/articles/using-pull-requests).
 
 ## Version Numbers
+Starting from v3.0.0 release, the Smartsheet Java SDK has been updated to Java 11.
+
 Starting from the v2.68.0 release, Smartsheet SDKs will use a new versioning strategy. Since all users are on the 
 Smartsheet API 2.0, the SDK version numbers will start with 2. The 2nd number will be an internal reference number.
 The 3rd number is for incremental changes.
