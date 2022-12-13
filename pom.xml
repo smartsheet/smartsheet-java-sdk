@@ -26,9 +26,9 @@
 
 
 	<scm>
-		<url>git@github.com:smartsheet-platform/java-sdk.git</url>
-		<connection>scm:git:git@github.com:smartsheet-platform/java-sdk.git</connection>
-		<developerConnection>scm:git:git@github.com:smartsheet-platform/java-sdk.git</developerConnection>
+		<url>git@github.com:smartsheet/java-sdk.git</url>
+		<connection>scm:git:git@github.com:smartsheet/java-sdk.git</connection>
+		<developerConnection>scm:git:git@github.com:smartsheet/java-sdk.git</developerConnection>
 	</scm>
 
 	<developers>
@@ -307,7 +307,7 @@
 					<checkinComment>Publishing javadoc for ${project.artifactId}:${project.version}</checkinComment>
 					<content>${project.reporting.outputDirectory}/apidocs</content>
 					<skipDeletedFiles>true</skipDeletedFiles>
-					<pubScmUrl>scm:git:git@github.com:smartsheet-platform/smartsheet-java-sdk.git</pubScmUrl>
+					<pubScmUrl>scm:git:git@github.com:smartsheet/smartsheet-java-sdk.git</pubScmUrl>
 					<scmBranch>gh-pages</scmBranch> <!-- branch with static site -->
 				</configuration>
 			</plugin>
