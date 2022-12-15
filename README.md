@@ -148,3 +148,13 @@ If you have any questions or issues with this SDK please post on [StackOverflow 
 Each specific release is available for download via [Github](https://github.com/smartsheet/smartsheet-java-sdk/tags) or the [Maven repository](http://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22com.smartsheet%22%20AND%20a%3A%22smartsheet-sdk-java%22).
 
 See <https://github.com/smartsheet/smartsheet-java-sdk/releases>
+
+## Acknowledgements
+
+We would like to thank the following people for their contributions to this project:
+
+- Tim Wells - [timwellswa](https://github.com/timwellswa)
+- Aditi Nioding - [ANioding](https://github.com/ANioding)
+- Brett Batie - [brettbatie](https://github.com/brettbatie)
+- Ahmad Hajiismael - [ruzaimii](https://github.com/ruzaimii)
+- Steve Weil - [seweil](https://github.com/seweil)
