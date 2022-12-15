@@ -237,7 +237,7 @@
 				<version>2.9.1</version>
 				<configuration>
 					<excludePackageNames>com.smartsheet.api.internal</excludePackageNames>
-					<javadocVersion>1.8</javadocVersion>
+					<javadocVersion>11</javadocVersion>
 				</configuration>
 				<executions>
 					<execution>
