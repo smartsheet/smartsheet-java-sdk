@@ -122,7 +122,7 @@ For details about logging, testing, how to use a passthrough option, and how to 
 
 The full Smartsheet API documentation is here: <https://smartsheet.redoc.ly>
 
-The generated SDK javadoc is here: [http://smartsheet-platform.github.io/smartsheet-java-sdk](http://smartsheet-platform.github.io/smartsheet-java-sdk) (Download as a jar file [here](http://oss.sonatype.org/service/local/artifact/maven/redirect?r=releases&g=com.smartsheet&a=smartsheet-sdk-java&v=LATEST&c=javadoc).)
+The generated SDK javadoc is here: [https://smartsheet.github.io/smartsheet-java-sdk/apidocs/](https://smartsheet.github.io/smartsheet-java-sdk/apidocs/) (Download as a jar file [here](http://oss.sonatype.org/service/local/artifact/maven/redirect?r=releases&g=com.smartsheet&a=smartsheet-sdk-java&v=LATEST&c=javadoc).)
 
 ## Contributing
 
