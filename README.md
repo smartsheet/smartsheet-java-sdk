@@ -4,6 +4,10 @@
 
 This is a Java SDK to simplify connecting to [Smartsheet API](https://www.smartsheet.redoc.ly) in Java applications.
 
+## Developer Agreement
+
+Review the [Developer Program Agreement](https://www.smartsheet.com/legal/developer-program-agreement).
+
 ## System Requirements
 
 The SDK supports Java version 1.6 or later.
