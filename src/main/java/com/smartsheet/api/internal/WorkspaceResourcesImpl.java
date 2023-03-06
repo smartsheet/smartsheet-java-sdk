@@ -26,6 +26,7 @@ import com.smartsheet.api.ShareResources;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.WorkspaceFolderResources;
 import com.smartsheet.api.WorkspaceResources;
+import com.smartsheet.api.internal.http.service.WorkspaceService;
 import com.smartsheet.api.internal.util.QueryUtil;
 import com.smartsheet.api.models.ContainerDestination;
 import com.smartsheet.api.models.PagedResult;
@@ -35,6 +36,7 @@ import com.smartsheet.api.models.enums.CopyExclusion;
 import com.smartsheet.api.models.enums.SourceInclusion;
 import com.smartsheet.api.models.enums.WorkspaceCopyInclusion;
 import com.smartsheet.api.models.enums.WorkspaceRemapExclusion;
+import retrofit2.Retrofit;
 
 import java.util.EnumSet;
 import java.util.HashMap;
@@ -59,6 +61,8 @@ public class WorkspaceResourcesImpl extends AbstractResources implements Workspa
      */
     private ShareResources shares;
 
+    private WorkspaceService service;
+
     /**
      * Constructor.
      *
@@ -69,6 +73,7 @@ public class WorkspaceResourcesImpl extends AbstractResources implements Workspa
      */
     public WorkspaceResourcesImpl(SmartsheetImpl smartsheet) {
         super(smartsheet);
+        this.service = smartsheet.getRetrofit().create(WorkspaceService.class);
         this.shares = new ShareResourcesImpl(smartsheet, "workspaces");
         this.folders = new WorkspaceFolderResourcesImpl(smartsheet);
     }
@@ -100,7 +105,8 @@ public class WorkspaceResourcesImpl extends AbstractResources implements Workspa
         if (parameters != null) {
             path += parameters.toQueryString();
         }
-        return this.listResourcesWithWrapper(path, Workspace.class);
+        return this.service.listWorkspaces(parameters.toHashMap());
+        //this.listResourcesWithWrapper(path, Workspace.class);
     }
 
     /**

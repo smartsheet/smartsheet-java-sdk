@@ -21,14 +21,16 @@ package com.smartsheet.api.internal;
  */
 
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.smartsheet.api.*;
-import com.smartsheet.api.internal.http.AndroidHttpClient;
-import com.smartsheet.api.internal.http.DefaultHttpClient;
-import com.smartsheet.api.internal.http.HttpClient;
+import com.smartsheet.api.internal.http.*;
 import com.smartsheet.api.internal.json.JacksonJsonSerializer;
 import com.smartsheet.api.internal.json.JsonSerializer;
 import com.smartsheet.api.internal.util.Util;
+import okhttp3.OkHttpClient;
 import org.apache.http.impl.client.HttpClients;
+import retrofit2.Retrofit;
+import retrofit2.converter.jackson.JacksonConverterFactory;
 
 import java.io.IOException;
 import java.net.URI;
@@ -66,6 +68,13 @@ public class SmartsheetImpl implements Smartsheet {
      * It will be initialized in constructor and will not change afterwards.
      */
     private final HttpClient httpClient;
+
+    /**
+     * Represents the Retrofit instance.
+     *
+     * It will be initialized in constructor and will not change afterwards.
+     */
+    private final Retrofit retrofit;
 
     /**
      * Represents the JsonSerializer.
@@ -293,6 +302,17 @@ public class SmartsheetImpl implements Smartsheet {
         this.changeAgent = new AtomicReference<String>(null);
         this.userAgent = new AtomicReference<String>(generateUserAgent(null));
 
+        OkHttpClient client = new OkHttpClient.Builder()
+                .addInterceptor(new AuthInterceptor(accessToken))
+                .addInterceptor(new RetryInterceptor())
+                .build();
+        this.retrofit = new Retrofit.Builder()
+                .client(client)
+                .baseUrl(baseURI)
+                .addConverterFactory(
+                        JacksonConverterFactory.create(new ObjectMapper())
+                ).build();
+
         // Initialize resources
         this.home = new AtomicReference<HomeResources>();
         this.workspaces = new AtomicReference<WorkspaceResources>();
@@ -430,6 +450,15 @@ public class SmartsheetImpl implements Smartsheet {
     }
 
     /**
+     * Return the Retrofit instance
+     *
+     * @return the Retrofit instance
+     */
+    public Retrofit getRetrofit() {
+        return retrofit;
+    }
+
+    /**
      * Sets the max retry time if the HttpClient is an instance of DefaultHttpClient
      *
      * @param maxRetryTimeMillis max retry time
@@ -482,7 +511,7 @@ public class SmartsheetImpl implements Smartsheet {
      */
     public WorkspaceResources workspaceResources() {
         if (workspaces.get() == null) {
-            workspaces.compareAndSet(null, new WorkspaceResourcesImpl(this));
+            workspaces.compareAndSet(null, new WorkspaceResourcesImpl(this, retrofit));
         }
         return workspaces.get();
     }
