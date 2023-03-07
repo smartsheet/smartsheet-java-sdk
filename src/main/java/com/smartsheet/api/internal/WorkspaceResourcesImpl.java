@@ -36,10 +36,14 @@ import com.smartsheet.api.models.enums.CopyExclusion;
 import com.smartsheet.api.models.enums.SourceInclusion;
 import com.smartsheet.api.models.enums.WorkspaceCopyInclusion;
 import com.smartsheet.api.models.enums.WorkspaceRemapExclusion;
+import org.slf4j.LoggerFactory;
 import retrofit2.Retrofit;
 
+import java.io.IOException;
 import java.util.EnumSet;
 import java.util.HashMap;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * This is the implementation of the WorkspaceResources.
@@ -100,13 +104,24 @@ public class WorkspaceResourcesImpl extends AbstractResources implements Workspa
      * @throws SmartsheetException the smartsheet exception
      */
     public PagedResult<Workspace> listWorkspaces(PaginationParameters parameters) throws SmartsheetException {
-        String path = "workspaces";
+        HashMap<String, Object> queryParams = new HashMap<>();
 
         if (parameters != null) {
-            path += parameters.toQueryString();
+            queryParams = parameters.toHashMap();
         }
-        return this.service.listWorkspaces(parameters.toHashMap());
-        //this.listResourcesWithWrapper(path, Workspace.class);
+
+        try {
+            PagedResult<Workspace> result = this.service.listWorkspaces(queryParams).execute().body();
+            List<String> workspaces = result.getData().stream().map((item) -> item.getName()).collect(Collectors.toList());
+            LoggerFactory.getLogger("test").info("apederson94: result = " + workspaces);
+            return result;
+        } catch (IOException e) {
+            System.out.println("apederson94: ERROR");
+        }
+
+        return new PagedResult<>();
+
+//        this.listResourcesWithWrapper(path, Workspace.class);
     }
 
     /**

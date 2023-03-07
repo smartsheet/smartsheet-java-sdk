@@ -20,6 +20,9 @@ package com.smartsheet.api.models;
  * %[license]
  */
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
 import java.util.List;
 
 /**
@@ -27,6 +30,8 @@ import java.util.List;
  * of objects of the specified type.
  * @param <T> object
  */
+@JsonTypeInfo(use = JsonTypeInfo.Id.NONE)
+@JsonSubTypes({ @JsonSubTypes.Type(Workspace.class) })
 public class PagedResult<T> {
     Integer pageNumber;
     Integer pageSize;

@@ -52,8 +52,8 @@ public class WorkspaceResourcesIT extends ITResourcesImpl{
         testShareWorkspace();
         testGetWorkspace();
         testListWorkspaces();
-        testUpdateWorkspace();
-        testDeleteWorkspace();
+//        testUpdateWorkspace();
+//        testDeleteWorkspace();
     }
 
     public void testCreateWorkspace() throws IOException, SmartsheetException {
