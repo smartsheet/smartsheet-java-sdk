@@ -37,7 +37,7 @@ import java.io.ByteArrayOutputStream;
 /**
  *
  */
-public class LoggingTest {
+class LoggingTest {
     @BeforeAll
     public static void dontFailOnUnrecongnizedFields() {
         // Setup the serializer
@@ -71,7 +71,7 @@ public class LoggingTest {
     }
 
     @Test
-    public void testCustomLogging() throws Exception {
+    void testCustomLogging() throws Exception {
         ByteArrayOutputStream traceStream = new ByteArrayOutputStream();
         DefaultHttpClient.setTraceStream(traceStream);
         Smartsheet client = new SmartsheetBuilder().setAccessToken("ll352u9jujauoqz4gstvsae05").build(); // using "null" as token results in NPE

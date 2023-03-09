@@ -24,10 +24,10 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-public class RecipientGroupTest {
+class RecipientGroupTest {
 
     @Test
-    public void testRecipientGroup() {
+    void testRecipientGroup() {
         RecipientGroup recipient = new RecipientGroup();
         recipient.setGroupId(123456789L);
 

@@ -59,7 +59,7 @@ public class SheetSummaryResourcesIT extends ITResourcesImpl {
     }
 
     @Test
-    public void testSheetSummaryMethods() throws SmartsheetException, IOException {
+    void testSheetSummaryMethods() throws SmartsheetException, IOException {
         testAddSheetSummaryFields();
         testGetSheetSummary();
         testAddSheetSummaryFieldsWithPartialSuccess();

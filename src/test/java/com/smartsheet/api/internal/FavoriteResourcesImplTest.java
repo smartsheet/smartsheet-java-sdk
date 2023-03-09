@@ -36,7 +36,7 @@ import java.util.Set;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-public class FavoriteResourcesImplTest extends ResourcesImplBase {
+class FavoriteResourcesImplTest extends ResourcesImplBase {
     private FavoriteResourcesImpl favoriteResources;
 
     @BeforeEach
@@ -46,7 +46,7 @@ public class FavoriteResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testAddFavorites() throws Exception {
+    void testAddFavorites() throws Exception {
         server.setResponseBody(new File("src/test/resources/addFavorites.json"));
         List<Favorite> favoritesToAdd = new Favorite.AddFavoriteBuilder().addFavorite(8400677765441412L, FavoriteType.SHEET).build();
         List < Favorite > addedfavorites = favoriteResources.addFavorites(favoritesToAdd);
@@ -54,7 +54,7 @@ public class FavoriteResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testListFavorites() throws Exception {
+    void testListFavorites() throws Exception {
         server.setResponseBody(new File("src/test/resources/listFavorites.json"));
         PaginationParameters parameters = new PaginationParameters(false,1,1);
         PagedResult<Favorite> favorites = favoriteResources.listFavorites(parameters);
@@ -63,7 +63,7 @@ public class FavoriteResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testRemoveFavorites() throws Exception {
+    void testRemoveFavorites() throws Exception {
         server.setResponseBody(new File("src/test/resources/removeFavorites.json"));
         Set<Long> folderIds = new HashSet<Long>();
         folderIds.add(123L);

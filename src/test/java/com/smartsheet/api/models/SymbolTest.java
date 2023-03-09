@@ -27,14 +27,10 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-public class SymbolTest {
-
-    @BeforeEach
-    public void setUp() throws Exception {
-    }
+class SymbolTest {
 
     @Test
-    public void test() {
+    void test() {
         assertNotNull(Symbol.valueOf("FLAG"));
         assertNotNull(Symbol.valueOf("STAR"));
         assertNotNull(Symbol.valueOf("HARVEY_BALLS"));

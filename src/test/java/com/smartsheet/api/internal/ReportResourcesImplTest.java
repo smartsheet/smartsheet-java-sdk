@@ -9,9 +9,9 @@ package com.smartsheet.api.internal;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -40,7 +40,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class ReportResourcesImplTest extends ResourcesImplBase {
+class ReportResourcesImplTest extends ResourcesImplBase {
 
     private ReportResourcesImpl reportResources;
 
@@ -52,15 +52,15 @@ public class ReportResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testGetReport() throws SmartsheetException, IOException {
+    void testGetReport() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/getReport.json"));
         Report report = reportResources.getReport(4583173393803140L, EnumSet.of(ReportInclusion.ATTACHMENTS, ReportInclusion.DISCUSSIONS), 1,1);
-        assertEquals(report.getPermalink(), "https://app.smartsheet.com/b/home?lx=pWNSDH9itjBXxBzFmyf-5w");
+        assertEquals("https://app.smartsheet.com/b/home?lx=pWNSDH9itjBXxBzFmyf-5w", report.getPermalink());
         assertTrue(report.getColumns().get(0).getVirtualId() == 4583173393803140L);
     }
 
     @Test
-    public void testSendSheet() throws Exception {
+    void testSendSheet() throws Exception {
         server.setResponseBody(new File("src/test/resources/sendEmails.json"));
 
         List<Recipient> recipients = new ArrayList<Recipient>();
@@ -84,7 +84,7 @@ public class ReportResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testListReports() throws  SmartsheetException, IOException {
+    void testListReports() throws  SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/listReports.json"));
         PaginationParameters pagination = new PaginationParameters(true, null, null);
         PagedResult<Report> reportsWrapper = reportResources.listReports(pagination, null);
@@ -96,7 +96,7 @@ public class ReportResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testGetReportAsExcel() throws SmartsheetException, IOException{
+    void testGetReportAsExcel() throws SmartsheetException, IOException{
         File file = new File("src/test/resources/getExcel.xls");
         server.setResponseBody(file);
         server.setContentType("application/vnd.ms-excel");
@@ -112,7 +112,7 @@ public class ReportResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testGetReportAsCsv() throws SmartsheetException, IOException{
+    void testGetReportAsCsv() throws SmartsheetException, IOException{
         File file = new File("src/test/resources/getExcel.xls");
         server.setResponseBody(file);
         server.setContentType("text/csv");

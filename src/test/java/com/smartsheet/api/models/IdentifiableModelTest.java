@@ -25,14 +25,10 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class IdentifiableModelTest {
-
-    @BeforeEach
-    public void setUp() throws Exception {
-    }
+class IdentifiableModelTest {
 
     @Test
-    public void testHashCode() {
+    void testHashCode() {
         Row row = new Row();
         // Same Object
         assertEquals(row,row);
@@ -48,7 +44,7 @@ public class IdentifiableModelTest {
     }
 
     @Test
-    public void testEqualsObject() {
+    void testEqualsObject() {
         Row row = new Row();
         assertNotNull(row.hashCode());
     }

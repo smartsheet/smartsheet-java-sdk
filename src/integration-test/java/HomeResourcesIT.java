@@ -40,7 +40,7 @@ public class HomeResourcesIT extends ITResourcesImpl{
     }
 
     @Test
-    public void testGetHome() throws SmartsheetException, IOException {
+    void testGetHome() throws SmartsheetException, IOException {
         List<Home> homes = new ArrayList<Home>();
         homes.add(smartsheet.homeResources().getHome(EnumSet.of(SourceInclusion.SOURCE)));
         homes.add(smartsheet.homeResources().getHome(null));

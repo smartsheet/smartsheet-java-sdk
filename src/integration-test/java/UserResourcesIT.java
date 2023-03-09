@@ -42,20 +42,20 @@ public class UserResourcesIT extends ITResourcesImpl{
     }
 
     @Test
-    public void testGetCurrentUser() throws SmartsheetException, IOException {
+    void testGetCurrentUser() throws SmartsheetException, IOException {
         UserProfile user = smartsheet.userResources().getCurrentUser();
         Account account = user.getAccount();
         assertNotNull(user);
     }
 
     @Test
-    public void testGetUser() throws SmartsheetException, IOException {
+    void testGetUser() throws SmartsheetException, IOException {
         UserProfile user = smartsheet.userResources().getUser(smartsheet.userResources().getCurrentUser().getId());
         assertNotNull(user);
     }
 
     @Test
-    public void testListUsers() throws SmartsheetException, IOException {
+    void testListUsers() throws SmartsheetException, IOException {
         PaginationParameters parameters = new PaginationParameters.PaginationParametersBuilder().setIncludeAll(true).build();
 
         PagedResult<User> userWrapper = smartsheet.userResources().listUsers(new HashSet(Arrays.asList("aditi.nioding@gmail.com")), parameters);
@@ -65,7 +65,7 @@ public class UserResourcesIT extends ITResourcesImpl{
     }
 
     @Test
-    public void testAddProfileImage() throws SmartsheetException, IOException {
+    void testAddProfileImage() throws SmartsheetException, IOException {
         UserProfile me = smartsheet.userResources().getCurrentUser();
         assertNotNull(me);
         smartsheet.userResources().addProfileImage(me.getId(), "src/integration-test/resources/exclam.png", "image/png");
@@ -94,7 +94,7 @@ public class UserResourcesIT extends ITResourcesImpl{
     }
 
     @Test
-    public void testListOrgSheets() throws SmartsheetException, IOException {
+    void testListOrgSheets() throws SmartsheetException, IOException {
         //PagedResult<Sheet> sheets = smartsheet.userResources().listOrgSheets();
         //not executed in test due to low permission
         //assertNotNull(sheets);

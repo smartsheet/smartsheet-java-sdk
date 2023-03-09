@@ -25,14 +25,10 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class OAuthTokenExceptionTest {
-
-    @BeforeEach
-    public void setUp() throws Exception {
-    }
+class OAuthTokenExceptionTest {
 
     @Test
-    public void testOAuthTokenExceptionString() {
+    void testOAuthTokenExceptionString() {
         try{
             throw new OAuthTokenException("message");
         }catch(OAuthTokenException e){
@@ -41,7 +37,7 @@ public class OAuthTokenExceptionTest {
     }
 
     @Test
-    public void testOAuthTokenExceptionStringThrowable() {
+    void testOAuthTokenExceptionStringThrowable() {
         try{
             throw new OAuthTokenException("message", null);
         }catch(OAuthTokenException ex){

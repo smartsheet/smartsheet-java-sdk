@@ -27,14 +27,10 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-public class ColumnTypeTest {
-
-    @BeforeEach
-    public void setUp() throws Exception {
-    }
+class ColumnTypeTest {
 
     @Test
-    public void test() {
+    void test() {
 
         assertNotNull(ColumnType.valueOf("TEXT_NUMBER"));
         assertNotNull(ColumnType.valueOf("PICKLIST"));

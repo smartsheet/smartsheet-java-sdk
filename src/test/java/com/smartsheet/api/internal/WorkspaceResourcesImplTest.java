@@ -9,9 +9,9 @@ package com.smartsheet.api.internal;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -36,7 +36,7 @@ import java.util.EnumSet;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-public class WorkspaceResourcesImplTest extends ResourcesImplBase {
+class WorkspaceResourcesImplTest extends ResourcesImplBase {
 
     private WorkspaceResourcesImpl workspaceResources;
 
@@ -47,10 +47,7 @@ public class WorkspaceResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testWorkspaceResourcesImpl() {}
-
-    @Test
-    public void testListWorkspaces() throws SmartsheetException, IOException {
+    void testListWorkspaces() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/listWorkspaces.json"));
         PaginationParameters parameters = new PaginationParameters(false, 1, 1);
         PagedResult<Workspace> workspace = workspaceResources.listWorkspaces(parameters);
@@ -67,7 +64,7 @@ public class WorkspaceResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testGetWorkspace() throws IOException, SmartsheetException {
+    void testGetWorkspace() throws IOException, SmartsheetException {
         server.setResponseBody(new File("src/test/resources/getWorkspace.json"));
 
         Workspace workspace = workspaceResources.getWorkspace(1234L, true, EnumSet.allOf(SourceInclusion.class));
@@ -88,7 +85,7 @@ public class WorkspaceResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testCreateWorkspace() throws IOException, SmartsheetException {
+    void testCreateWorkspace() throws IOException, SmartsheetException {
         server.setResponseBody(new File("src/test/resources/createWorkspace.json"));
 
         Workspace workspace = new Workspace();
@@ -101,7 +98,7 @@ public class WorkspaceResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testUpdateWorkspace() throws IOException, SmartsheetException {
+    void testUpdateWorkspace() throws IOException, SmartsheetException {
         server.setResponseBody(new File("src/test/resources/updateWorkspace.json"));
 
         Workspace workspace = new Workspace();
@@ -114,18 +111,18 @@ public class WorkspaceResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testDeleteWorkspace() throws IOException, SmartsheetException {
+    void testDeleteWorkspace() throws IOException, SmartsheetException {
         server.setResponseBody(new File("src/test/resources/deleteWorkspace.json"));
         workspaceResources.deleteWorkspace(1234L);
     }
 
     @Test
-    public void testCopyWorkspace() throws IOException, SmartsheetException {
+    void testCopyWorkspace() throws IOException, SmartsheetException {
         server.setResponseBody(new File("src/test/resources/copyWorkspace.json"));
         ContainerDestination containerDestination = new ContainerDestination();
         containerDestination.setDestinationType(DestinationType.WORKSPACE);
 
         Folder folder = workspaceResources.copyWorkspace(123L, containerDestination, null, null);
-        assertEquals(folder.getPermalink(), "https://{url}?lx=VL4YlIUnyYgASeX02grbLQ");
+        assertEquals("https://{url}?lx=VL4YlIUnyYgASeX02grbLQ", folder.getPermalink());
     }
 }

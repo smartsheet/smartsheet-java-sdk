@@ -33,7 +33,7 @@ import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class SheetRowResourcesImplTest extends ResourcesImplBase {
+class SheetRowResourcesImplTest extends ResourcesImplBase {
 
     private SheetRowResourcesImpl sheetRowResource;
 
@@ -44,10 +44,7 @@ public class SheetRowResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testSheetRowResourcesImpl() {}
-
-    @Test
-    public void testInsertRows() throws SmartsheetException, IOException {
+    void testInsertRows() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/insertRows.json"));
 
         // Create a set of cells
@@ -78,7 +75,7 @@ public class SheetRowResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testGetRow() throws SmartsheetException, IOException {
+    void testGetRow() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/getRow.json"));
 
         Row row = sheetRowResource.getRow(1234L, 5678L, EnumSet.of(RowInclusion.COLUMNS, RowInclusion.FORMAT), EnumSet.of(ObjectExclusion.NONEXISTENT_CELLS));
@@ -91,7 +88,7 @@ public class SheetRowResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testSendRows() throws SmartsheetException, IOException {
+    void testSendRows() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/sendRow.json"));
 
         RecipientEmail recipient = new RecipientEmail();
@@ -113,7 +110,7 @@ public class SheetRowResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testUpdateRows() throws SmartsheetException, IOException {
+    void testUpdateRows() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/updateRows.json"));
 
         List<Row> rows = new ArrayList<Row>();
@@ -130,7 +127,7 @@ public class SheetRowResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testMoveRows() throws SmartsheetException, IOException {
+    void testMoveRows() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/moveRow.json"));
         CopyOrMoveRowDirective copyOrMoveRowDirective = new CopyOrMoveRowDirective();
         CopyOrMoveRowDestination copyOrMoveRowDestination = new CopyOrMoveRowDestination();
@@ -144,7 +141,7 @@ public class SheetRowResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testCopyRows() throws SmartsheetException, IOException {
+    void testCopyRows() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/moveRow.json"));
         CopyOrMoveRowDirective copyOrMoveRowDirective = new CopyOrMoveRowDirective();
         CopyOrMoveRowDestination copyOrMoveRowDestination = new CopyOrMoveRowDestination();
@@ -158,7 +155,7 @@ public class SheetRowResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testDeleteRows() throws SmartsheetException, IOException {
+    void testDeleteRows() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/deleteRow.json"));
 
         Set<Long> rowIds = new HashSet<Long>();

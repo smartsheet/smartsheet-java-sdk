@@ -47,7 +47,7 @@ public class ColumnResourcesIT extends ITResourcesImpl{
     }
 
     @Test
-    public void testColumnMethods() throws SmartsheetException, IOException {
+    void testColumnMethods() throws SmartsheetException, IOException {
         testAddColumn();
         testListColumns();
         testUpdateColumn();

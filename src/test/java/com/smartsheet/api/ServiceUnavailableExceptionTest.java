@@ -26,14 +26,10 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ServiceUnavailableExceptionTest {
-
-    @BeforeEach
-    public void setUp() throws Exception {
-    }
+class ServiceUnavailableExceptionTest {
 
     @Test
-    public void testServiceUnavailableException() {
+    void testServiceUnavailableException() {
         try{
             Error error = new Error();
             error.setErrorCode(1);

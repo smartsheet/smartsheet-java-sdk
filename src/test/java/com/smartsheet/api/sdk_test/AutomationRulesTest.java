@@ -31,10 +31,10 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AutomationRulesTest {
+class AutomationRulesTest {
 
     @Test
-    public void ListAutomationRules() {
+    void ListAutomationRules() {
         try {
             Smartsheet ss = HelperFunctions.SetupClient("List Automation Rules");
             PagedResult<AutomationRule> automationRules = ss.sheetResources().automationRuleResources().listAutomationRules(324, null);
@@ -45,7 +45,7 @@ public class AutomationRulesTest {
     }
 
     @Test
-    public void GetAutomationRule() {
+    void GetAutomationRule() {
         Smartsheet ss = HelperFunctions.SetupClient("Get Automation Rule");
         try {
             AutomationRule automationRule = ss.sheetResources().automationRuleResources().getAutomationRule(324, 284);
@@ -58,7 +58,7 @@ public class AutomationRulesTest {
 
     @Disabled("awaiting API update to return Result object")
     @Test
-    public void UpdateAutomationRule() {
+    void UpdateAutomationRule() {
         Smartsheet ss = HelperFunctions.SetupClient("Update Automation Rule");
         AutomationAction autoRuleAction = new AutomationAction();
         RecipientEmail recipient = new RecipientEmail();
@@ -79,7 +79,7 @@ public class AutomationRulesTest {
     }
 
     @Test
-    public void DeleteAutomationRule() {
+    void DeleteAutomationRule() {
         Smartsheet ss = HelperFunctions.SetupClient("Delete Automation Rule");
         try {
             ss.sheetResources().automationRuleResources().deleteAutomationRule(324, 284);

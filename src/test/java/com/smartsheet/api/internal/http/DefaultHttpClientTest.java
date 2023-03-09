@@ -31,22 +31,11 @@ import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
-public class DefaultHttpClientTest {
-    HttpClient client;
-
-    @BeforeEach
-    public void setUp() throws Exception {
-        client = new DefaultHttpClient();
-    }
+class DefaultHttpClientTest {
+    private final HttpClient client = new DefaultHttpClient();
 
     @Test
-    public void testDefaultHttpClient() {}
-
-    @Test
-    public void testDefaultHttpClientCloseableHttpClient() { }
-
-    @Test
-    public void testRequest() throws HttpClientException, URISyntaxException {
+    void testRequest() throws HttpClientException, URISyntaxException {
         // Null Argument
         try {
             client.request(null);
@@ -66,7 +55,7 @@ public class DefaultHttpClientTest {
             // Expected
         }
 
-////        // Test each http method
+       // Test each http method
         request.setUri(new URI("http://google.com"));
         request.setMethod(HttpMethod.GET);
         client.request(request);

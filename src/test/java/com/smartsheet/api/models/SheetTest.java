@@ -29,14 +29,10 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-public class SheetTest {
-
-    @BeforeEach
-    public void setUp() throws Exception {
-    }
+class SheetTest {
 
     @Test
-    public void testGetRowByRowNumber() {
+    void testGetRowByRowNumber() {
         Sheet sheet = new Sheet();
         sheet.setReadOnly(false);
         sheet.setDiscussions(new ArrayList<Discussion>());

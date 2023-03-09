@@ -46,7 +46,7 @@ public class WorkspaceResourcesIT extends ITResourcesImpl{
     }
 
     @Test
-    public void testWorkspaceMethods() throws IOException, SmartsheetException {
+    void testWorkspaceMethods() throws IOException, SmartsheetException {
         testCreateWorkspace();
         testCopyWorkspace();
         testShareWorkspace();

@@ -27,14 +27,10 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-public class AccessLevelTest {
-
-    @BeforeEach
-    public void setUp() throws Exception {
-    }
+class AccessLevelTest {
 
     @Test
-    public void test() {
+    void test() {
         assertNotNull(AccessLevel.valueOf("VIEWER"));
         assertNotNull(AccessLevel.valueOf("EDITOR"));
         assertNotNull(AccessLevel.valueOf("EDITOR_SHARE"));

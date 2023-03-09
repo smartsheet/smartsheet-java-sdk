@@ -37,13 +37,13 @@ public class SearchResourcesIT extends ITResourcesImpl{
     }
 
     @Test
-    public void testSearch() throws IOException, SmartsheetException {
+    void testSearch() throws IOException, SmartsheetException {
         SearchResult result = smartsheet.searchResources().search("aditi");
         assertNotNull(result.getResults());
     }
 
     @Test
-    public void testSearchSheet() throws IOException, SmartsheetException {
+    void testSearchSheet() throws IOException, SmartsheetException {
         //create sheet
         Sheet sheet = smartsheet.sheetResources().createSheet(createSheetObject());
 

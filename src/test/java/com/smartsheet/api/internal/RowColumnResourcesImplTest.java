@@ -24,9 +24,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -34,7 +34,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  * limitations under the License.
  * %[license]
  */
-public class RowColumnResourcesImplTest extends ResourcesImplBase {
+class RowColumnResourcesImplTest extends ResourcesImplBase {
     private RowColumnResourcesImpl rowColumnResources;
 
     @BeforeEach
@@ -44,13 +44,13 @@ public class RowColumnResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testGetCellHistory() throws SmartsheetException, IOException {
+    void testGetCellHistory() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/getCellHistory.json"));
         PaginationParameters parameters = new PaginationParameters(false, 1, 1);
         PagedResult<CellHistory> cellHistory= rowColumnResources.getCellHistory(123L, 123L, 123L, parameters);
 
         assertTrue(cellHistory.getTotalPages() == 1);
-        assertEquals(cellHistory.getData().get(1).getModifiedBy().getName(), "Joe Smart");
+        assertEquals("Joe Smart", cellHistory.getData().get(1).getModifiedBy().getName());
     }
 
 }

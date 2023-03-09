@@ -41,7 +41,7 @@ public class FavoriteResourcesIT extends ITResourcesImpl{
     }
 
     @Test
-    public void testAddFavorites() throws SmartsheetException, IOException {
+    void testAddFavorites() throws SmartsheetException, IOException {
         Sheet sheet = smartsheet.sheetResources().createSheet(createSheetObject());
         Folder folder = createFolder();
 
@@ -53,14 +53,14 @@ public class FavoriteResourcesIT extends ITResourcesImpl{
     }
 
     @Test
-    public void testListFavorites() throws SmartsheetException {
+    void testListFavorites() throws SmartsheetException {
         PaginationParameters parameters = new PaginationParameters.PaginationParametersBuilder().setIncludeAll(true).build();
         PagedResult<Favorite> favorites = smartsheet.favoriteResources().listFavorites(parameters);
         assertNotNull(favorites);
     }
 
     @Test
-    public void testRemoveFavorites() throws Exception {
+    void testRemoveFavorites() throws Exception {
 
         Folder folder1= createFolder();
         Folder folder2= createFolder();
@@ -76,7 +76,7 @@ public class FavoriteResourcesIT extends ITResourcesImpl{
     }
 
     @Test
-    public void testDeleteUser() throws IOException, SmartsheetException {
+    void testDeleteUser() throws IOException, SmartsheetException {
         DeleteUserParameters parameters = new DeleteUserParameters(12345L, true, true);
         //smartsheet.userResources().deleteUser(1234L, parameters);
     }

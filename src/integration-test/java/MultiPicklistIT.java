@@ -56,7 +56,7 @@ public class MultiPicklistIT extends ITResourcesImpl {
     }
 
     @Test
-    public void testMultiPicklistMethods() throws SmartsheetException, IOException {
+    void testMultiPicklistMethods() throws SmartsheetException, IOException {
         testAddMultiPicklistColumn();
         testListMultiPicklistColumn();
         testAddMultiPicklistRow();

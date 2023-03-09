@@ -26,9 +26,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -36,9 +36,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  * limitations under the License.
  * %[license]
  */
-public class CommentAttachmentResourcesImplTest extends ResourcesImplBase {
+class CommentAttachmentResourcesImplTest extends ResourcesImplBase {
 
-    private  CommentAttachmentResourcesImpl commentAttachmentResources;
+    private CommentAttachmentResourcesImpl commentAttachmentResources;
 
     @BeforeEach
     public void setUp() throws Exception {
@@ -47,7 +47,7 @@ public class CommentAttachmentResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testAttachURL() throws SmartsheetException, IOException {
+    void testAttachURL() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/attachLink.json"));
 
         Attachment attachment = new Attachment();
@@ -62,7 +62,7 @@ public class CommentAttachmentResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testattachFile() throws SmartsheetException, IOException {
+    void testAttachFile() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/attachFile.json"));
         File file = new File("src/test/resources/large_sheet.pdf");
         Attachment attachment = commentAttachmentResources.attachFile(1234L, 345L, file,
@@ -76,7 +76,7 @@ public class CommentAttachmentResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testAttachFileAsInputStream() throws SmartsheetException, IOException {
+    void testAttachFileAsInputStream() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/attachFile.json"));
         File file = new File("src/test/resources/large_sheet.pdf");
         InputStream inputStream = new FileInputStream(file);

@@ -9,9 +9,9 @@ package com.smartsheet.api.internal;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -34,8 +34,8 @@ import java.io.IOException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class ContactResourcesImplTest extends ResourcesImplBase {
-    ContactResourcesImpl contactResources;
+class ContactResourcesImplTest extends ResourcesImplBase {
+    private ContactResourcesImpl contactResources;
 
     @BeforeEach
     public void setUp() throws Exception {
@@ -44,17 +44,17 @@ public class ContactResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testGetContact() throws SmartsheetException, IOException {
+    void testGetContact() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/getContact.json"));
         Contact contact = contactResources.getContact("xyz");
-        assertEquals(contact.getName(), "David Davidson");
+        assertEquals("David Davidson", contact.getName());
     }
 
     @Test
-    public void testListContacts() throws SmartsheetException, IOException {
+    void testListContacts() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/listContacts.json"));
         PagedResult<Contact> contacts = contactResources.listContacts(new PaginationParameters.PaginationParametersBuilder().setIncludeAll(true).build());
-        assertEquals(contacts.getData().get(0).getName(), "David Davidson");
+        assertEquals("David Davidson", contacts.getData().get(0).getName());
         assertTrue(contacts.getTotalCount() == 2);
     }
 }

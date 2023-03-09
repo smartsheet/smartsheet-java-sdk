@@ -22,7 +22,7 @@ package com.smartsheet.api.internal.util;
 
 public class Util {
 
-    public Util() {}
+    private Util() {}
 
     /** faster util method that avoids creation of array for single-arg cases */
     public static <T> T throwIfNull(T obj) {

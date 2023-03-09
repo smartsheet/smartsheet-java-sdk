@@ -27,14 +27,10 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-public class AttachmentParentTypeTest {
-
-    @BeforeEach
-    public void setUp() throws Exception {
-    }
+class AttachmentParentTypeTest {
 
     @Test
-    public void test() {
+    void test() {
         assertNotNull(AttachmentParentType.valueOf("SHEET"));
         assertNotNull(AttachmentParentType.valueOf("ROW"));
         assertNotNull(AttachmentParentType.valueOf("COMMENT"));

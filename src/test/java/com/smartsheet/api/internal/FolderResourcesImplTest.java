@@ -9,9 +9,9 @@ package com.smartsheet.api.internal;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -38,7 +38,7 @@ import java.util.EnumSet;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class FolderResourcesImplTest extends ResourcesImplBase {
+class FolderResourcesImplTest extends ResourcesImplBase {
 
     @BeforeEach
     public void setUp() {
@@ -48,11 +48,7 @@ public class FolderResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testFolderResourcesImpl() {
-    }
-
-    @Test
-    public void testGetFolder() throws SmartsheetException, IOException {
+    void testGetFolder() throws SmartsheetException, IOException {
 
         // Set a fake response
         server.setResponseBody(new File("src/test/resources/getFolder.json"));
@@ -67,7 +63,7 @@ public class FolderResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testUpdateFolder() throws SmartsheetException, IOException {
+    void testUpdateFolder() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/updateFolder.json"));
 
         Folder newFolder = new Folder.UpdateFolderBuilder().setName("New Name").build();
@@ -77,13 +73,13 @@ public class FolderResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testDeleteFolder() throws SmartsheetException, IOException {
+    void testDeleteFolder() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/deleteFolder.json"));
         folderResource.deleteFolder(7752230582413188L);
     }
 
     @Test
-    public void testListFolders() throws SmartsheetException, IOException {
+    void testListFolders() throws SmartsheetException, IOException {
 
         server.setResponseBody(new File("src/test/resources/listFolders.json"));
         PaginationParameters parameters = new PaginationParameters(true,1,1);
@@ -96,7 +92,7 @@ public class FolderResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testCreateFolder() throws SmartsheetException, IOException {
+    void testCreateFolder() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/createFolder.json"));
 
         Folder newFolder = new Folder.CreateFolderBuilder().setName("new folder by brett").build();
@@ -106,17 +102,17 @@ public class FolderResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testCopyFolder() throws Exception {
+    void testCopyFolder() throws Exception {
         server.setResponseBody(new File("src/test/resources/copyFolder.json"));
         ContainerDestination containerDestination = new ContainerDestination();
         containerDestination.setDestinationType(DestinationType.FOLDER);
 
         Folder folder = folderResource.copyFolder(123L, containerDestination, null, null);
-        assertEquals(folder.getPermalink(), "https://{base_url}?lx=lB0JaOh6AX1wGwqxsQIMaA");
+        assertEquals("https://{base_url}?lx=lB0JaOh6AX1wGwqxsQIMaA", folder.getPermalink());
     }
 
     @Test
-    public void testMoveFolder() throws Exception {
+    void testMoveFolder() throws Exception {
         server.setResponseBody(new File("src/test/resources/moveFolder.json"));
         ContainerDestination containerDestination = new ContainerDestination();
         containerDestination.setDestinationType(DestinationType.FOLDER);

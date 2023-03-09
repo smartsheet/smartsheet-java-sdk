@@ -32,7 +32,7 @@ import java.io.IOException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-public class DiscussionResourcesImplTest extends ResourcesImplBase {
+class DiscussionResourcesImplTest extends ResourcesImplBase {
 
     private DiscussionResourcesImpl discussionResources;
 
@@ -43,11 +43,7 @@ public class DiscussionResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testDiscussionResourcesImpl() {
-    }
-
-    @Test
-    public void testAddDiscussionComment() throws SmartsheetException, IOException {
+    void testAddDiscussionComment() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/addDiscussionComment.json"));
 
         Comment comment = new Comment();
@@ -60,7 +56,7 @@ public class DiscussionResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testAttachments() {
+    void testAttachments() {
         assertNull(discussionResources.attachments());
     }
 }

@@ -27,14 +27,10 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-public class ColumnTagTest {
-
-    @BeforeEach
-    public void setUp() throws Exception {
-    }
+class ColumnTagTest {
 
     @Test
-    public void test() {
+    void test() {
         assertNotNull(ColumnTag.valueOf("CALENDAR_START_DATE"));
         assertNotNull(ColumnTag.valueOf("CALENDAR_END_DATE"));
         assertNotNull(ColumnTag.valueOf("GANTT_START_DATE"));

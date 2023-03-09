@@ -29,14 +29,10 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class RowTest {
-
-    @BeforeEach
-    public void setUp() throws Exception {
-    }
+class RowTest {
 
     @Test
-    public void testGetColumnByIndex() {
+    void testGetColumnByIndex() {
         Row row = new Row();
         Column col = new Column();
         col.setId(1234L);
@@ -61,7 +57,7 @@ public class RowTest {
     }
 
     @Test
-    public void testInsertRowBuilder() {
+    void testInsertRowBuilder() {
         Format format = new Format("new format");
         List<Cell> cells = new ArrayList<Cell>();
         Row row = new Row.AddRowBuilder().setToTop(true).setExpanded(false).setFormat(format).setCells(cells).build();
@@ -77,7 +73,7 @@ public class RowTest {
     }
 
     @Test
-    public void testUpdateRowBuilder() {
+    void testUpdateRowBuilder() {
         Format format = new Format("new format");
         List<Cell> cells = new ArrayList<Cell>();
         Row row = new Row.UpdateRowBuilder().setToTop(true).setExpanded(false).setFormat(format).setCells(cells).setLocked(true).build();

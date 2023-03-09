@@ -27,14 +27,10 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-public class ObjectExclusionTest {
-
-    @BeforeEach
-    public void setUp() throws Exception {
-    }
+class ObjectExclusionTest {
 
     @Test
-    public void testObjectInclusion() {
+    void testObjectInclusion() {
         assertNotNull(ObjectExclusion.valueOf("NONEXISTENT_CELLS"));
 
         assertEquals(1,ObjectExclusion.values().length);

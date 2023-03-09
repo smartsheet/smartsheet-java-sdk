@@ -37,7 +37,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * limitations under the License.
  * %[license]
  */
-public class SheetAttachmentResourcesImplTest extends ResourcesImplBase {
+class SheetAttachmentResourcesImplTest extends ResourcesImplBase {
 
     private SheetAttachmentResourcesImpl sheetAttachmentResources;
 
@@ -48,14 +48,14 @@ public class SheetAttachmentResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testDeleteAttachment() throws SmartsheetException, IOException {
+    void testDeleteAttachment() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/deleteAttachment.json"));
 
         sheetAttachmentResources.deleteAttachment(1234L, 4567L);
     }
 
     @Test
-    public void testAttachUrl() throws SmartsheetException, IOException {
+    void testAttachUrl() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/attachLink.json"));
 
         Attachment attachment = new Attachment();
@@ -70,7 +70,7 @@ public class SheetAttachmentResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testGetAttachment() throws SmartsheetException, IOException {
+    void testGetAttachment() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/getAttachment.json"));
 
         Attachment attachment = sheetAttachmentResources.getAttachment(1234L, 345L);
@@ -79,7 +79,7 @@ public class SheetAttachmentResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testListAttachments() throws SmartsheetException, IOException {
+    void testListAttachments() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/listAssociatedAttachments.json"));
         PaginationParameters parameters = new PaginationParameters(false, 1,1);
 
@@ -89,7 +89,7 @@ public class SheetAttachmentResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testAttachFile() throws SmartsheetException, IOException {
+    void testAttachFile() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/attachFile.json"));
         File file = new File("src/test/resources/large_sheet.pdf");
         Attachment attachment = sheetAttachmentResources.attachFile(1234L, file,
@@ -103,7 +103,7 @@ public class SheetAttachmentResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testAttachFileAsInputStream() throws SmartsheetException, IOException {
+    void testAttachFileAsInputStream() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/attachFile.json"));
         File file = new File("src/test/resources/large_sheet.pdf");
         InputStream inputStream = new FileInputStream(file);

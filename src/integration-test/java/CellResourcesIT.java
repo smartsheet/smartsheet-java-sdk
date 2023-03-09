@@ -38,7 +38,7 @@ public class CellResourcesIT extends ITResourcesImpl{
     }
 
     @Test
-    public void testGetCellHistory() throws SmartsheetException, IOException {
+    void testGetCellHistory() throws SmartsheetException, IOException {
         //create sheet
         Sheet sheet = smartsheet.sheetResources().createSheet(createSheetObject());
         PaginationParameters parameters = new PaginationParameters.PaginationParametersBuilder().setIncludeAll(true).build();
@@ -56,7 +56,7 @@ public class CellResourcesIT extends ITResourcesImpl{
     }
 
     @Test
-    public void testAddCellImage() throws SmartsheetException, IOException {
+    void testAddCellImage() throws SmartsheetException, IOException {
         Sheet sheet = smartsheet.sheetResources().createSheet(createSheetObject());
         PaginationParameters parameters = new PaginationParameters.PaginationParametersBuilder().setIncludeAll(true).build();
 

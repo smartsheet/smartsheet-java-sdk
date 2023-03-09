@@ -39,7 +39,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  * limitations under the License.
  * %[license]
  */
-public class RowAttachmentResourcesImplTest extends ResourcesImplBase {
+class RowAttachmentResourcesImplTest extends ResourcesImplBase {
 
     private  RowAttachmentResourcesImpl rowAttachmentResources;
 
@@ -49,7 +49,7 @@ public class RowAttachmentResourcesImplTest extends ResourcesImplBase {
                 "accessToken", new DefaultHttpClient(), serializer));
     }
     @Test
-    public void testAttachUrl() throws SmartsheetException, IOException {
+    void testAttachUrl() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/attachLink.json"));
 
         Attachment attachment = new Attachment();
@@ -64,7 +64,7 @@ public class RowAttachmentResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testGetAttachments() throws SmartsheetException, IOException {
+    void testGetAttachments() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/listAssociatedAttachments.json"));
         PaginationParameters parameters = new PaginationParameters(false, 1,1);
 
@@ -74,7 +74,7 @@ public class RowAttachmentResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testAttachFile() throws SmartsheetException, IOException {
+    void testAttachFile() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/attachFile.json"));
         File file = new File("src/test/resources/large_sheet.pdf");
         Attachment attachment = rowAttachmentResources.attachFile(1234L, 345L, file,
@@ -88,7 +88,7 @@ public class RowAttachmentResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testAttachFileAsInputStream() throws SmartsheetException, IOException {
+    void testAttachFileAsInputStream() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/attachFile.json"));
         File file = new File("src/test/resources/large_sheet.pdf");
         InputStream inputStream = new FileInputStream(file);
@@ -100,7 +100,7 @@ public class RowAttachmentResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testAttachFileAsInputStreamWrongContentLength() throws IOException {
+    void testAttachFileAsInputStreamWrongContentLength() throws IOException {
         server.setResponseBody(new File("src/test/resources/attachFile.json"));
         File file = new File("src/test/resources/large_sheet.pdf");
         InputStream inputStream = new FileInputStream(file);

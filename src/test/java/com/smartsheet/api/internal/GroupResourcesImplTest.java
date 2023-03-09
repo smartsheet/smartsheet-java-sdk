@@ -39,7 +39,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class GroupResourcesImplTest extends ResourcesImplBase {
+class GroupResourcesImplTest extends ResourcesImplBase {
 
     private GroupResourcesImpl groupResources;
 
@@ -50,10 +50,7 @@ public class GroupResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testHomeResourcesImpl() {}
-
-    @Test
-    public void testGetGroups() throws SmartsheetException, IOException {
+    void testGetGroups() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/listGroups.json"));
 
         PaginationParameters parameters = new PaginationParameters(false,1,1);
@@ -71,7 +68,7 @@ public class GroupResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testGetGroupById() throws SmartsheetException, IOException {
+    void testGetGroupById() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/getGroup.json"));
 
         Group group =  groupResources.getGroup(123l);
@@ -93,7 +90,7 @@ public class GroupResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testCreateGroup() throws SmartsheetException, IOException {
+    void testCreateGroup() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/createGroup.json"));
 
         CreateGroupBuilder builder = new CreateGroupBuilder();
@@ -126,7 +123,7 @@ public class GroupResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testUpdateGroup() throws SmartsheetException, IOException {
+    void testUpdateGroup() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/updateGroup.json"));
 
         UpdateGroupBuilder builder = new UpdateGroupBuilder();
@@ -147,13 +144,13 @@ public class GroupResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testDeleteGroup() throws SmartsheetException, IOException {
+    void testDeleteGroup() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/deleteGroup.json"));
         groupResources.deleteGroup(1234l);
     }
 
     @Test
-    public void testAddMembersToGroup() throws SmartsheetException, IOException {
+    void testAddMembersToGroup() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/addGroupMembers.json"));
         List<GroupMember> newMembers = new ArrayList<GroupMember>();
         newMembers.add(new GroupMember.AddGroupMemberBuilder().setEmail("test3@test.com").build());
@@ -167,7 +164,7 @@ public class GroupResourcesImplTest extends ResourcesImplBase {
         }
     }
     @Test
-    public void testRemoveMemberFromGroup() throws SmartsheetException, IOException {
+    void testRemoveMemberFromGroup() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/deleteMemberFromGroup.json"));
         groupResources.memberResources().deleteGroupMember(1234l, 1234l);
     }

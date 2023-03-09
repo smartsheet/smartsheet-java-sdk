@@ -26,14 +26,10 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class AccessTokenExpiredExceptionTest {
-
-    @BeforeEach
-    public void setUp() throws Exception {
-    }
+class AccessTokenExpiredExceptionTest {
 
     @Test
-    public void testAccessTokenExpiredException() {
+    void testAccessTokenExpiredException() {
         try{
             Error error = new Error();
             error.setErrorCode(1);
