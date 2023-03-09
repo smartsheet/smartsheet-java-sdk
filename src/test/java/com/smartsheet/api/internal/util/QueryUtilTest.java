@@ -21,15 +21,15 @@ package com.smartsheet.api.internal.util;
  */
 
 import com.smartsheet.api.models.enums.ObjectInclusion;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class QueryUtilTest {
 

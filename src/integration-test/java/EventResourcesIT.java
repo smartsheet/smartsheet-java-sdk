@@ -22,26 +22,26 @@ import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.models.Event;
 import com.smartsheet.api.models.EventResult;
 import com.smartsheet.api.models.User;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class EventResourcesIT extends ITResourcesImpl{
     Smartsheet smartsheet;
     User user;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         smartsheet = createAuthentication();
     }
 
-    @Ignore
+    @Disabled
     // TODO - need access token with Admin Level permissions for this test to work
     @Test
     public void testListEvents() throws SmartsheetException {

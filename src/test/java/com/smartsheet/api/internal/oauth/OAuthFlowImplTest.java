@@ -29,9 +29,9 @@ import com.smartsheet.api.internal.json.JSONSerializerException;
 import com.smartsheet.api.internal.json.JacksonJsonSerializer;
 import com.smartsheet.api.internal.json.JsonSerializer;
 import com.smartsheet.api.oauth.*;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;
@@ -40,8 +40,8 @@ import java.net.URISyntaxException;
 import java.security.NoSuchAlgorithmException;
 import java.util.EnumSet;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class OAuthFlowImplTest {
 
@@ -56,12 +56,12 @@ public class OAuthFlowImplTest {
 
     HttpTestServer server;
 
-    @After
+    @AfterEach
     public void baseTearDown() throws Exception {
         server.stop();
     }
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         oauth = new OAuthFlowImpl(clientId,clientSecret,redirectURL,authorizationURL,tokenURL, httpClient, json);
 

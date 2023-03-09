@@ -25,7 +25,7 @@ import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Request;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.AbstractHandler;
-import org.junit.Ignore;
+import org.junit.jupiter.api.Disabled;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -38,7 +38,7 @@ import java.io.InputStream;
 /**
  * A server for answering HTTP requests with test response data.
  */
-@Ignore
+@Disabled
 public class HttpTestServer {
     private Server _server;
     //private String _responseBody;

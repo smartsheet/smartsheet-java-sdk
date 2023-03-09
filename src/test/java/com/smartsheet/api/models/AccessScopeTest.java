@@ -21,12 +21,12 @@ package com.smartsheet.api.models;
  */
 
 import com.smartsheet.api.models.enums.AccessScope;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class AccessScopeTest {
 
@@ -59,9 +59,9 @@ public class AccessScopeTest {
         }
 
         for (com.smartsheet.api.oauth.AccessScope accessScope : com.smartsheet.api.oauth.AccessScope.values()) {
-            assertTrue("Verify '" + accessScope.name() + "' exists", scopeNames.contains(accessScope.name()));
+            assertTrue(scopeNames.contains(accessScope.name()), "Verify '" + accessScope.name() + "' exists");
         }
 
-        assertEquals("Verify lengths are the same", com.smartsheet.api.oauth.AccessScope.values().length, AccessScope.values().length);
+        assertEquals(com.smartsheet.api.oauth.AccessScope.values().length, AccessScope.values().length, "Verify lengths are the same");
     }
 }

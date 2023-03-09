@@ -21,17 +21,17 @@ import com.smartsheet.api.Smartsheet;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.models.SearchResult;
 import com.smartsheet.api.models.Sheet;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class SearchResourcesIT extends ITResourcesImpl{
     Smartsheet smartsheet;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         smartsheet = createAuthentication();
     }

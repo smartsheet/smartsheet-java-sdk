@@ -21,19 +21,19 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.smartsheet.api.Smartsheet;
 import com.smartsheet.api.SmartsheetException;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.HashMap;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PassthroughResourcesIT extends ITResourcesImpl {
     Smartsheet smartsheet;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         smartsheet = createAuthentication();
     }

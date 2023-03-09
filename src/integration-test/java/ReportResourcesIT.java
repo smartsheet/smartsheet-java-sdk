@@ -25,8 +25,8 @@ import com.smartsheet.api.models.enums.PaperSize;
 import com.smartsheet.api.models.enums.ReportInclusion;
 import com.smartsheet.api.models.enums.SheetEmailFormat;
 import org.apache.commons.io.output.ByteArrayOutputStream;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -34,13 +34,13 @@ import java.util.Date;
 import java.util.EnumSet;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ReportResourcesIT extends ITResourcesImpl{
     Smartsheet smartsheet;
     private Long reportId = null;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
          smartsheet = createAuthentication();
 

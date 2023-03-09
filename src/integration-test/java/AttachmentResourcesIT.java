@@ -21,13 +21,13 @@ import com.smartsheet.api.Smartsheet;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.models.*;
 import com.smartsheet.api.models.enums.AttachmentType;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class AttachmentResourcesIT extends ITResourcesImpl{
     Smartsheet smartsheet;
@@ -39,7 +39,7 @@ public class AttachmentResourcesIT extends ITResourcesImpl{
     long sheetAttachmentId;
     long attachmentWithVersionId;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         smartsheet = createAuthentication();
     }

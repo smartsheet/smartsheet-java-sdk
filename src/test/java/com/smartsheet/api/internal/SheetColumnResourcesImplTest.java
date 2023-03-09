@@ -27,8 +27,8 @@ import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.PaginationParameters;
 import com.smartsheet.api.models.enums.ColumnInclusion;
 import com.smartsheet.api.models.enums.ColumnType;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;
@@ -36,13 +36,13 @@ import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class SheetColumnResourcesImplTest extends ResourcesImplBase {
 
     private SheetColumnResourcesImpl sheetColumnResourcesImpl;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         sheetColumnResourcesImpl = new SheetColumnResourcesImpl(new SmartsheetImpl("http://localhost:9090/1.1/",
                 "accessToken", new DefaultHttpClient(), serializer));

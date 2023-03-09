@@ -23,19 +23,19 @@ package com.smartsheet.api.internal;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
 import com.smartsheet.api.models.ServerInfo;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ServerInfoResourcesImplTest extends ResourcesImplBase {
     private ServerInfoResourcesImpl serverInfoResources;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         serverInfoResources = new ServerInfoResourcesImpl(new SmartsheetImpl("http://localhost:9090/1.1/",
                 "accessToken", new DefaultHttpClient(), serializer));

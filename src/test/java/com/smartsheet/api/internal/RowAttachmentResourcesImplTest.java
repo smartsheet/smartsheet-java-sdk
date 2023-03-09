@@ -8,16 +8,17 @@ import com.smartsheet.api.models.PaginationParameters;
 import com.smartsheet.api.models.enums.AttachmentParentType;
 import com.smartsheet.api.models.enums.AttachmentSubType;
 import com.smartsheet.api.models.enums.AttachmentType;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /*
  * #[license]
@@ -42,7 +43,7 @@ public class RowAttachmentResourcesImplTest extends ResourcesImplBase {
 
     private  RowAttachmentResourcesImpl rowAttachmentResources;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         rowAttachmentResources = new RowAttachmentResourcesImpl(new SmartsheetImpl("http://localhost:9090/1.1/",
                 "accessToken", new DefaultHttpClient(), serializer));
@@ -98,11 +99,11 @@ public class RowAttachmentResourcesImplTest extends ResourcesImplBase {
         assertEquals(AttachmentType.FILE, attachment.getAttachmentType());
     }
 
-    @Test(expected = SmartsheetException.class)
-    public void testAttachFileAsInputStreamWrongContentLength() throws SmartsheetException, IOException {
+    @Test
+    public void testAttachFileAsInputStreamWrongContentLength() throws IOException {
         server.setResponseBody(new File("src/test/resources/attachFile.json"));
         File file = new File("src/test/resources/large_sheet.pdf");
         InputStream inputStream = new FileInputStream(file);
-        rowAttachmentResources.attachFile(1234L, 345L, inputStream, "application/pdf", file.length() + 5, file.getName());
+        assertThrows(SmartsheetException.class, () -> rowAttachmentResources.attachFile(1234L, 345L, inputStream, "application/pdf", file.length() + 5, file.getName()));
     }
 }

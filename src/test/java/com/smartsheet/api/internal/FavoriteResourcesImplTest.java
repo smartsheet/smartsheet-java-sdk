@@ -25,21 +25,21 @@ import com.smartsheet.api.models.Favorite;
 import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.PaginationParameters;
 import com.smartsheet.api.models.enums.FavoriteType;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class FavoriteResourcesImplTest extends ResourcesImplBase {
     private FavoriteResourcesImpl favoriteResources;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         favoriteResources = new FavoriteResourcesImpl(new SmartsheetImpl("http://localhost:9090/1.1/",
                 "accessToken", new DefaultHttpClient(), serializer));

@@ -21,22 +21,22 @@
 import com.smartsheet.api.Smartsheet;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.models.*;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class UserResourcesIT extends ITResourcesImpl{
     Smartsheet smartsheet;
     User user;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         smartsheet = createAuthentication();
     }

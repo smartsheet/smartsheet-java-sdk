@@ -21,13 +21,13 @@ import com.smartsheet.api.Smartsheet;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.models.*;
 import com.smartsheet.api.models.enums.*;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.*;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class RowResourcesIT extends ITResourcesImpl{
     Smartsheet smartsheet;
@@ -37,7 +37,7 @@ public class RowResourcesIT extends ITResourcesImpl{
     Column addedColumn;
     Sheet copyToSheet;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         smartsheet = createAuthentication();
     }

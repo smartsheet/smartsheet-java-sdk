@@ -22,8 +22,8 @@ import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.models.*;
 import com.smartsheet.api.models.enums.AccessLevel;
 import com.smartsheet.api.models.enums.ReportInclusion;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -31,8 +31,8 @@ import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class ShareResourcesIT extends ITResourcesImpl{
     Smartsheet smartsheet;
@@ -44,7 +44,7 @@ public class ShareResourcesIT extends ITResourcesImpl{
     List<Share> reportShares = new ArrayList<Share>();
     List<Share> sheetShares = new ArrayList<Share>();
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         smartsheet = createAuthentication();
     }
@@ -69,7 +69,7 @@ public class ShareResourcesIT extends ITResourcesImpl{
 
         if (reportsWrapper != null) {
             Report report = smartsheet.reportResources().getReport(reportsWrapper.getData().get(0).getId(), EnumSet.of(ReportInclusion.ATTACHMENTS, ReportInclusion.DISCUSSIONS), 1, 1);
-            assertNotNull("No reports to share", report);
+            assertNotNull(report, "No reports to share");
         }
 
         List<Share> reportShares = Arrays.asList(new Share.CreateUserShareBuilder().setEmailAddress("jane.doe@smartsheet.com").setAccessLevel(AccessLevel.EDITOR).build());
@@ -80,7 +80,7 @@ public class ShareResourcesIT extends ITResourcesImpl{
             reportShares = smartsheet.reportResources().shareResources().shareTo(8623082916079492L, reportShares, true);
             assertNotNull(reportShares);
         }
-        
+
         reportId = reportsWrapper.getData().get(0).getId();
     }
 

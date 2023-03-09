@@ -5,8 +5,8 @@ import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
 import com.smartsheet.api.models.*;
 import com.smartsheet.api.models.enums.DiscussionInclusion;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,7 +15,7 @@ import java.util.Date;
 import java.util.EnumSet;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 /*
  * #[license]
@@ -41,7 +41,7 @@ public class SheetDiscussionResourcesImplTest extends ResourcesImplBase {
 
     private SheetDiscussionResourcesImpl sheetDiscussionResources;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         sheetDiscussionResources = new SheetDiscussionResourcesImpl(new SmartsheetImpl("http://localhost:9090/1.1/",
                 "accessToken", new DefaultHttpClient(), serializer));

@@ -23,14 +23,14 @@ package com.smartsheet.api;
 import com.smartsheet.api.internal.SmartsheetImpl;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
 import com.smartsheet.api.internal.json.JacksonJsonSerializer;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class SmartsheetBuilderTest {
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
     }
 

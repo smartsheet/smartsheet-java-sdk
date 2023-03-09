@@ -24,14 +24,14 @@ import com.smartsheet.api.models.enums.DestinationType;
 import com.smartsheet.api.models.enums.FolderCopyInclusion;
 import com.smartsheet.api.models.enums.FolderRemapExclusion;
 import com.smartsheet.api.models.enums.SourceInclusion;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.EnumSet;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 public class FolderResourcesIT extends ITResourcesImpl {
@@ -42,7 +42,7 @@ public class FolderResourcesIT extends ITResourcesImpl {
     Folder newFolderWorkspace;
     Workspace workspace;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         smartsheet = createAuthentication();
     }

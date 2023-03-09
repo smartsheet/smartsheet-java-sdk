@@ -24,19 +24,19 @@ import com.smartsheet.api.internal.http.DefaultHttpClient;
 import com.smartsheet.api.models.Attachment;
 import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.PaginationParameters;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class DiscussionAttachmentResourcesImplTest extends ResourcesImplBase {
 
     private DiscussionAttachmentResourcesImpl discussionAttachmentResources;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         discussionAttachmentResources = new DiscussionAttachmentResourcesImpl(new SmartsheetImpl("http://localhost:9090/1.1/",
                 "accessToken", new DefaultHttpClient(), serializer));

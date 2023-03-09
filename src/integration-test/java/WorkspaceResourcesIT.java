@@ -24,15 +24,15 @@ import com.smartsheet.api.models.*;
 import com.smartsheet.api.models.enums.AccessLevel;
 import com.smartsheet.api.models.enums.WorkspaceCopyInclusion;
 import com.smartsheet.api.models.enums.WorkspaceRemapExclusion;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class WorkspaceResourcesIT extends ITResourcesImpl{
 
@@ -40,7 +40,7 @@ public class WorkspaceResourcesIT extends ITResourcesImpl{
     long workspaceId;
     Workspace workspace;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         smartsheet = createAuthentication();
     }

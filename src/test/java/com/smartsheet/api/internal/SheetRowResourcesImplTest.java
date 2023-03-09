@@ -24,20 +24,20 @@ import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
 import com.smartsheet.api.models.*;
 import com.smartsheet.api.models.enums.*;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class SheetRowResourcesImplTest extends ResourcesImplBase {
 
     private SheetRowResourcesImpl sheetRowResource;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         sheetRowResource = new SheetRowResourcesImpl(new SmartsheetImpl("http://localhost:9090/1.1/", "accessToken",
                 new DefaultHttpClient(), serializer));

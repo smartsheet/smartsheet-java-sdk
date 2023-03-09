@@ -5,14 +5,14 @@ import com.smartsheet.api.internal.http.DefaultHttpClient;
 import com.smartsheet.api.models.CellHistory;
 import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.PaginationParameters;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 /*
@@ -37,7 +37,7 @@ import static org.junit.Assert.assertTrue;
 public class RowColumnResourcesImplTest extends ResourcesImplBase {
     private RowColumnResourcesImpl rowColumnResources;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         rowColumnResources = new RowColumnResourcesImpl(new SmartsheetImpl("http://localhost:9090/1.1/", "accessToken",
                 new DefaultHttpClient(), serializer));

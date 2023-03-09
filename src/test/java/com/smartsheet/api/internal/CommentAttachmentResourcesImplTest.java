@@ -6,16 +6,16 @@ import com.smartsheet.api.models.Attachment;
 import com.smartsheet.api.models.enums.AttachmentParentType;
 import com.smartsheet.api.models.enums.AttachmentSubType;
 import com.smartsheet.api.models.enums.AttachmentType;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /*
  * #[license]
@@ -40,7 +40,7 @@ public class CommentAttachmentResourcesImplTest extends ResourcesImplBase {
 
     private  CommentAttachmentResourcesImpl commentAttachmentResources;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         commentAttachmentResources = new CommentAttachmentResourcesImpl(new SmartsheetImpl("http://localhost:9090/1.1/",
                 "accessToken", new DefaultHttpClient(), serializer));

@@ -21,19 +21,19 @@ package com.smartsheet.api.internal;
  */
 
 import com.smartsheet.api.internal.http.DefaultHttpClient;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
 
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class DiscussionAttachmentResourcesTest extends ResourcesImplBase  {
 
     private DiscussionAttachmentResources discussionAttachmentResources;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         discussionAttachmentResources = new DiscussionAttachmentResources(new SmartsheetImpl("http://localhost:9090/1.1/",
                 "accessToken", new DefaultHttpClient(), serializer));

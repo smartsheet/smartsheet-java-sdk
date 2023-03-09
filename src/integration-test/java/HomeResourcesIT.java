@@ -21,20 +21,20 @@ import com.smartsheet.api.Smartsheet;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.models.Home;
 import com.smartsheet.api.models.enums.SourceInclusion;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class HomeResourcesIT extends ITResourcesImpl{
     Smartsheet smartsheet;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         smartsheet = createAuthentication();
     }

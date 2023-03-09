@@ -20,16 +20,16 @@
 
 import com.smartsheet.api.*;
 import com.smartsheet.api.models.*;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class GroupResourcesIT extends ITResourcesImpl{
     static final String GROUP_NAME = "Test Group";
@@ -39,7 +39,7 @@ public class GroupResourcesIT extends ITResourcesImpl{
     long groupMemberId;
     PagedResult<Group> groups;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         smartsheet = createAuthentication();
     }

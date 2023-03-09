@@ -21,14 +21,14 @@ import com.smartsheet.api.Smartsheet;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.models.*;
 import com.smartsheet.api.models.enums.DiscussionInclusion;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.EnumSet;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class DiscussionResourcesIT extends ITResourcesImpl{
     Smartsheet smartsheet;
@@ -37,7 +37,7 @@ public class DiscussionResourcesIT extends ITResourcesImpl{
     Discussion newDiscussionSheet;
     Row row;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         smartsheet = createAuthentication();
     }

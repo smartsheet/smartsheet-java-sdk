@@ -20,48 +20,46 @@ package com.smartsheet.api.internal.json;
  * %[license]
  */
 
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.CoreMatchers.is;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class JSONSerializerExceptionTest {
-
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
-
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
     }
 
     @Test
-    public void testJSONSerializerExceptionString() throws JSONSerializerException {
-        thrown.expect(JSONSerializerException.class);
-        String message = "Test Exception";
-        thrown.expectMessage(message);
-        throw new JSONSerializerException(message);
+    public void testJSONSerializerExceptionString() {
+        Throwable throwable = assertThrows(JSONSerializerException.class, () -> {
+            throw new JSONSerializerException("Test Exception");
+        });
+        assertEquals("Test Exception", throwable.getMessage());
     }
 
 
 
     @Test
     public void testJSONSerializerExceptionStringThrowable() throws JSONSerializerException {
-        thrown.expect(JSONSerializerException.class);
-        String message = "Test Exception1";
-        thrown.expectMessage(message);
-        JSONSerializerException ex = new JSONSerializerException("test");
-        thrown.expectCause(is(ex));
-        throw new JSONSerializerException(message,ex);
+        NullPointerException cause = new NullPointerException();
+        Throwable throwable = assertThrows(JSONSerializerException.class, () -> {
+            throw new JSONSerializerException("Test Exception1", cause);
+        });
+        assertEquals("Test Exception1", throwable.getMessage());
+        assertEquals(cause, throwable.getCause());
+
+
     }
 
     @Test
     public void testJSONSerializerExceptionException() throws JSONSerializerException {
-        thrown.expect(JSONSerializerException.class);
-        JSONSerializerException ex = new JSONSerializerException("test");
-        thrown.expectCause(is(ex));
-        throw new JSONSerializerException(ex);
+        NullPointerException cause = new NullPointerException();
+        Throwable throwable = assertThrows(JSONSerializerException.class, () -> {
+            throw new JSONSerializerException(cause);
+        });
+        assertEquals(cause, throwable.getCause());
     }
 
 }

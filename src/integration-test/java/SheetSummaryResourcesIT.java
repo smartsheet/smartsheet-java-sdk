@@ -21,9 +21,9 @@ import com.smartsheet.api.Smartsheet;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.models.*;
 import com.smartsheet.api.models.enums.*;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -31,7 +31,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.*;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class SheetSummaryResourcesIT extends ITResourcesImpl {
 
@@ -39,7 +39,7 @@ public class SheetSummaryResourcesIT extends ITResourcesImpl {
     Sheet sheet;
     List<SummaryField> asf;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         smartsheet = createAuthentication();
 
@@ -53,7 +53,7 @@ public class SheetSummaryResourcesIT extends ITResourcesImpl {
         }
     }
 
-    @After
+    @AfterEach
     public void Teardown() throws Exception {
         smartsheet.sheetResources().deleteSheet(sheet.getId());
     }

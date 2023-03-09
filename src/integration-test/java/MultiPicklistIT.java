@@ -21,22 +21,22 @@ import com.smartsheet.api.Smartsheet;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.models.*;
 import com.smartsheet.api.models.enums.*;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.*;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class MultiPicklistIT extends ITResourcesImpl {
     Smartsheet smartsheet;
     Sheet sheet;
     List<Column> addCols;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         smartsheet = createAuthentication();
 
@@ -50,7 +50,7 @@ public class MultiPicklistIT extends ITResourcesImpl {
         }
     }
 
-    @After
+    @AfterEach
     public void Teardown() throws Exception {
         smartsheet.sheetResources().deleteSheet(sheet.getId());
     }

@@ -22,17 +22,17 @@ import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.PaginationParameters;
 import com.smartsheet.api.models.Template;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class TemplateResourcesIT extends ITResourcesImpl{
     Smartsheet smartsheet;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         smartsheet = createAuthentication();
     }

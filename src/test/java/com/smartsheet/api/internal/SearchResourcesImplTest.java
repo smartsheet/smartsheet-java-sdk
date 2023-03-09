@@ -24,21 +24,22 @@ import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
 import com.smartsheet.api.models.SearchResult;
 import com.smartsheet.api.models.SearchResultItem;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class SearchResourcesImplTest  extends ResourcesImplBase  {
 
     private SearchResourcesImpl searchResources;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         searchResources = new SearchResourcesImpl(new SmartsheetImpl("http://localhost:9090/1.1/",
                 "accessToken", new DefaultHttpClient(), serializer));
@@ -82,23 +83,23 @@ public class SearchResourcesImplTest  extends ResourcesImplBase  {
         assertEquals("SDK Code Checklist", results.get(0).getParentObjectName());
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void nullQuerySearchSheet() throws SmartsheetException {
-        searchResources.searchSheet(1234L, null);
+    @Test
+    public void nullQuerySearchSheet() {
+        assertThrows(IllegalArgumentException.class, () -> searchResources.searchSheet(1234L, null));
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void emptyQuerySearchSheet() throws SmartsheetException {
-        searchResources.searchSheet(1234L, "");
+    @Test
+    public void emptyQuerySearchSheet() {
+        assertThrows(IllegalArgumentException.class, () -> searchResources.searchSheet(1234L, ""));
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void nullQueryOnSeaerch() throws SmartsheetException {
-        searchResources.search(null);
+    @Test
+    public void nullQueryOnSeaerch() {
+        assertThrows(IllegalArgumentException.class, () -> searchResources.search(null));
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void emptyQuerySearch() throws SmartsheetException {
-        searchResources.search("");
+    @Test
+    public void emptyQuerySearch() {
+        assertThrows(IllegalArgumentException.class, () -> searchResources.search(""));
     }
 }

@@ -26,19 +26,19 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.smartsheet.api.models.Folder;
 import com.smartsheet.api.models.Result;
 import com.smartsheet.api.models.User;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class JacksonJsonSerializerTest {
     JacksonJsonSerializer jjs;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         jjs = new JacksonJsonSerializer();
     }
@@ -103,7 +103,7 @@ public class JacksonJsonSerializerTest {
         user1.setId(123L);
         user1.setEmail("test@test.com");
         try{
-            assertFalse("The id field should not be serialized. Instead the id is used in the url and not sent as part of the body.", jjs.serialize(user1).contains("id"));
+            assertFalse(jjs.serialize(user1).contains("id"), "The id field should not be serialized. Instead the id is used in the url and not sent as part of the body.");
         }catch(JSONSerializerException e){
             fail("Shouldn't throw an exception");
         }
@@ -169,7 +169,7 @@ public class JacksonJsonSerializerTest {
         User user = jjs.deserialize(User.class, new ByteArrayInputStream(b.toByteArray()));
 
         assertEquals(originalUser.getFirstName(), user.getFirstName());
-        assertNotEquals("The id was not deserialized into the User object.", originalUser.getId(), user.getId());
+        assertNotEquals(originalUser.getId(), user.getId(), "The id was not deserialized into the User object.");
     }
 
     @Test

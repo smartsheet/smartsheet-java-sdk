@@ -27,10 +27,10 @@ import com.smartsheet.api.Trace;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
 import com.smartsheet.api.internal.json.JacksonJsonSerializer;
 import com.smartsheet.api.models.Sheet;
-import org.junit.AfterClass;
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
 
@@ -38,13 +38,13 @@ import java.io.ByteArrayOutputStream;
  *
  */
 public class LoggingTest {
-    @BeforeClass
+    @BeforeAll
     public static void dontFailOnUnrecongnizedFields() {
         // Setup the serializer
         JacksonJsonSerializer.setFailOnUnknownProperties(false);    // no idea why we enable this in ResourcesImplBase.baseSetup
     }
 
-    @AfterClass
+    @AfterAll
     public static void failOnUnrecongnizedFields() {
         // Setup the serializer
         JacksonJsonSerializer.setFailOnUnknownProperties(true);    // put it back the way we found it
@@ -57,21 +57,16 @@ public class LoggingTest {
         client.setTraces(Trace.Request, Trace.Response);    // should log entire request and response
         try {
             Sheet sheet = client.sheetResources().getSheet(42, null, null, null, null, null, 1, 1);
-            Assert.fail("expected SmartsheetException");
+           Assertions.fail("expected SmartsheetException");
         } catch (SmartsheetException expected) {
             String output = traceStream.toString();
             // not super-robust but asserts some of the important parts
-            Assert.assertTrue("request not found in - " + output,
-                    output.contains("\"request\" : {"));
-            Assert.assertTrue("Auth header not found in - " + output,
-                    output.contains("\"Authorization\" : \"Bearer ****null")); // truncated Auth header
-            Assert.assertTrue("response not found in - " + output,
-                    output.contains("\"response\" : {"));
-            Assert.assertTrue("response-body not found in - " + output,
-                    output.contains("\"body\" : \"{\\n  \\\"errorCode\\\" : 1002,\\n  \\\"message\\\" : " +
-                            "\\\"Your Access Token is invalid.\\\",\\n  \\\"refId\\\" :"));
-            Assert.assertTrue("status not found in - " + output,
-                    output.contains("\"status\" : \"HTTP/1.1 401 Unauthorized\""));
+           Assertions.assertTrue(output.contains("\"request\" : {"), "request not found in - " + output);
+           Assertions.assertTrue(output.contains("\"Authorization\" : \"Bearer ****null"), "Auth header not found in - " + output); // truncated Auth header
+           Assertions.assertTrue(output.contains("\"response\" : {"), "response not found in - " + output);
+           Assertions.assertTrue(output.contains("\"body\" : \"{\\n  \\\"errorCode\\\" : 1002,\\n  \\\"message\\\" : " +
+                            "\\\"Your Access Token is invalid.\\\",\\n  \\\"refId\\\" :"), "response-body not found in - " + output);
+           Assertions.assertTrue(output.contains("\"status\" : \"HTTP/1.1 401 Unauthorized\""), "status not found in - " + output);
         }
     }
 
@@ -83,16 +78,15 @@ public class LoggingTest {
         client.setTraces(Trace.Request, Trace.Response);    // should log entire request and response
         try {
             Sheet sheet = client.sheetResources().getSheet(42, null, null, null, null, null, 1, 1);
-            Assert.fail("expected SmartsheetException");
+           Assertions.fail("expected SmartsheetException");
         } catch (SmartsheetException expected) {
             String output = traceStream.toString();
             // not super-robust but asserts some of the important parts
-            Assert.assertTrue("request not found in - " + output, output.contains("request:{"));
-            Assert.assertTrue("Auth header not found in - " + output, output.contains("'Authorization':'Bearer ****ae05")); // truncated Auth header
-            Assert.assertTrue("response not found in - " + output, output.contains("response:{"));
-            Assert.assertTrue("response-body not found in - " + output,
-                    output.contains("body:'{\n  \"errorCode\" : 1002,\n  \"message\" : \"Your Access Token is invalid.\",\n  \"refId\" :"));
-            Assert.assertTrue("status not found in - " + output, output.contains("status:'HTTP/1.1 401 Unauthorized'"));
+           Assertions.assertTrue(output.contains("request:{"), "request not found in - " + output);
+           Assertions.assertTrue(output.contains("'Authorization':'Bearer ****ae05"), "Auth header not found in - " + output); // truncated Auth header
+           Assertions.assertTrue(output.contains("response:{"), "response not found in - " + output);
+           Assertions.assertTrue(output.contains("body:'{\n  \"errorCode\" : 1002,\n  \"message\" : \"Your Access Token is invalid.\",\n  \"refId\" :"), "response-body not found in - " + output);
+           Assertions.assertTrue(output.contains("status:'HTTP/1.1 401 Unauthorized'"), "status not found in - " + output);
         }
     }
 }
