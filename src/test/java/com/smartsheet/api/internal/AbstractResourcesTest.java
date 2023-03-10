@@ -24,9 +24,9 @@ import com.smartsheet.api.SmartsheetBuilder;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
 import com.smartsheet.api.models.Home;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 import java.util.Map;
 
 /**
@@ -48,11 +48,11 @@ public class AbstractResourcesTest {
         assertEquals(headers.get("Smartsheet-Change-Agent"), changeAgent);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void createResourceWithObjectClassNull() throws SmartsheetException {
         AbstractResources resources = new AbstractResources(new SmartsheetImpl(SmartsheetBuilder.DEFAULT_BASE_URI, tokenValue,  new DefaultHttpClient(), null)) {};
         Home home = new Home();
 
-        resources.createResource("someValidPath", null, home);
+        assertThrows(IllegalArgumentException.class, () -> resources.createResource("someValidPath", null, home));
     }
 }

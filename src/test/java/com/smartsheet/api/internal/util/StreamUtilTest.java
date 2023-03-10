@@ -22,8 +22,8 @@ package com.smartsheet.api.internal.util;
 
 
 import org.apache.commons.io.input.CharSequenceInputStream;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
@@ -46,13 +46,13 @@ public class StreamUtilTest {
             System.out.println("same stream returned (reset)");
             // verify readBytesFromStream gets everything from the inputStream (it also verifies cloneContent resets the source)
             byte[] streamBytes = StreamUtil.readBytesFromStream(inputStream);
-            Assert.assertArrayEquals(testBytes, streamBytes); // it's all US-ASCII so it should match UTF-8 bytes
+            Assertions.assertArrayEquals(testBytes, streamBytes); // it's all US-ASCII so it should match UTF-8 bytes
         } else {
             System.out.println("new stream returned");
             byte[] backupBytes = StreamUtil.readBytesFromStream(backupStream);
-            Assert.assertArrayEquals(testBytes, backupBytes);
+           Assertions.assertArrayEquals(testBytes, backupBytes);
         }
 
-        Assert.assertArrayEquals(testBytes, copyStream.toByteArray());
+       Assertions.assertArrayEquals(testBytes, copyStream.toByteArray());
     }
 }

@@ -26,8 +26,8 @@ import com.smartsheet.api.models.*;
 import com.smartsheet.api.models.enums.*;
 import com.smartsheet.api.models.format.VerticalAlignment;
 import org.apache.commons.io.output.ByteArrayOutputStream;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;
@@ -35,13 +35,13 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 public class SheetResourcesImplTest extends ResourcesImplBase {
     SheetResourcesImpl sheetResource;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         // Create a folder resource
         sheetResource = new SheetResourcesImpl(new SmartsheetImpl("http://localhost:9090/1.1/", "accessToken",
@@ -132,9 +132,9 @@ public class SheetResourcesImplTest extends ResourcesImplBase {
 
         sheetResource.getSheetAsPDF(1234L, output, null);
 
-        assertNotNull("Downloaded PDF is null.",output);
-        assertTrue("Downloaded PDF is empty.", output.toByteArray().length > 0);
-        assertEquals("Downloaded PDF does not match the original size.",107906,output.toByteArray().length);
+        assertNotNull(output, "Downloaded PDF is null.");
+        assertTrue(output.toByteArray().length > 0, "Downloaded PDF is empty.");
+        assertEquals(107906,output.toByteArray().length, "Downloaded PDF does not match the original size.");
 
         //test a larger PDF
         file = new File("src/test/resources/large_sheet.pdf");
@@ -142,9 +142,9 @@ public class SheetResourcesImplTest extends ResourcesImplBase {
         server.setContentType("application/pdf");
         output = new ByteArrayOutputStream();
         sheetResource.getSheetAsPDF(1234L, output, PaperSize.LEGAL);
-        assertNotNull("Downloaded PDF is null.", output);
-        assertTrue("Downloaded PDF is empty.", output.toByteArray().length > 0);
-        assertEquals("Downloaded PDF does not match the original size.",936995,output.toByteArray().length);
+        assertNotNull(output, "Downloaded PDF is null.");
+        assertTrue(output.toByteArray().length > 0, "Downloaded PDF is empty.");
+        assertEquals(936995,output.toByteArray().length, "Downloaded PDF does not match the original size.");
     }
 
     @Test
@@ -266,7 +266,7 @@ public class SheetResourcesImplTest extends ResourcesImplBase {
         Sheet sheet = new Sheet.UpdateSheetBuilder().setName("new name").build();
         Sheet newSheet = sheetResource.updateSheet(sheet);
 
-        assertEquals("Sheet update (rename) failed.", sheet.getName(), newSheet.getName());
+        assertEquals(sheet.getName(), newSheet.getName(), "Sheet update (rename) failed.");
     }
 
     @Test

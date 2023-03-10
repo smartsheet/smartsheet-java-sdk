@@ -20,25 +20,24 @@ package com.smartsheet.api.internal.http;
  * %[license]
  */
 
-import org.junit.Before;
-import org.junit.Test;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayInputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.HashMap;
 
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class DefaultHttpClientTest {
     HttpClient client;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         client = new DefaultHttpClient();
     }
-
-
 
     @Test
     public void testDefaultHttpClient() {}

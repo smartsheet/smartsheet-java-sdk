@@ -26,19 +26,19 @@ import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.PaginationParameters;
 import com.smartsheet.api.models.enums.AttachmentParentType;
 import com.smartsheet.api.models.enums.AttachmentType;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class AttachmentVersioningResourcesImplTest extends ResourcesImplBase {
 
     private AttachmentVersioningResourcesImpl attachmentVersioningResources;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         attachmentVersioningResources = new AttachmentVersioningResourcesImpl(new SmartsheetImpl("http://localhost:9090/1.1/", "accessToken",
                 new DefaultHttpClient(), serializer));

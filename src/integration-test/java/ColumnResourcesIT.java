@@ -26,22 +26,22 @@ import com.smartsheet.api.models.PaginationParameters;
 import com.smartsheet.api.models.Sheet;
 import com.smartsheet.api.models.enums.ColumnInclusion;
 import com.smartsheet.api.models.enums.ColumnType;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ColumnResourcesIT extends ITResourcesImpl{
     Smartsheet smartsheet;
     Sheet newSheet;
     Column addedColumn;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         smartsheet = createAuthentication();
     }

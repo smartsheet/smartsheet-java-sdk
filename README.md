@@ -6,7 +6,7 @@ This is a Java SDK to simplify connecting to [Smartsheet API](https://www.smarts
 
 ## System Requirements
 
-The SDK supports Java version 1.6 or later.
+The SDK supports Java 11 or later.
 
 ## Installation
 
@@ -131,13 +131,6 @@ If you would like to contribute a change to the SDK, please fork a branch and th
 ## Version Numbers
 
 Starting from v3.0.0 release, the Smartsheet Java SDK has been updated to Java 11.
-
-Starting from the v2.68.0 release, Smartsheet SDKs will use a new versioning strategy. Since all users are on the
-Smartsheet API 2.0, the SDK version numbers will start with 2. The 2nd number will be an internal reference number.
-The 3rd number is for incremental changes.
-
-For example, v2.68.0 means that you are using our 2.0 version of the API, the API is synced internally to a tag of 68,
-and then if there are numbers after the last decimal, that will indicate a minor change.
 
 ## Support
 

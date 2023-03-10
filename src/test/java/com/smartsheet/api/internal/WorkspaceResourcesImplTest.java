@@ -26,21 +26,21 @@ import com.smartsheet.api.models.*;
 import com.smartsheet.api.models.enums.AccessLevel;
 import com.smartsheet.api.models.enums.DestinationType;
 import com.smartsheet.api.models.enums.SourceInclusion;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.EnumSet;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class WorkspaceResourcesImplTest extends ResourcesImplBase {
 
     private WorkspaceResourcesImpl workspaceResources;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         workspaceResources = new WorkspaceResourcesImpl(new SmartsheetImpl("http://localhost:9090/1.1/",
                 "accessToken", new DefaultHttpClient(), serializer));

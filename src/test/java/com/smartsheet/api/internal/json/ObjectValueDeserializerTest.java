@@ -22,7 +22,7 @@ package com.smartsheet.api.internal.json;
 
 import com.smartsheet.api.models.*;
 import com.smartsheet.api.models.enums.ObjectValueType;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -30,8 +30,8 @@ import java.text.ParseException;
 import java.util.Date;
 import java.util.Map;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ObjectValueDeserializerTest {
     private static final double DELTA = 0.000001;
@@ -319,11 +319,11 @@ public class ObjectValueDeserializerTest {
         Map<String, Object> serializedMap = jacksonJsonSerializer.deserializeMap(new ByteArrayInputStream(json.getBytes()));
 
         for (ExpectedAttributeValue expectedAttribute : expected) {
-            assertTrue("Expected attribute '" + expectedAttribute.attributeName + "' in serialized object was missing!\n" + json, serializedMap.containsKey(expectedAttribute.attributeName));
-            assertEquals("Expected value for attribute '"+ expectedAttribute.attributeName +"'", expectedAttribute.attributeValue, serializedMap.get(expectedAttribute.attributeName));
+            assertTrue(serializedMap.containsKey(expectedAttribute.attributeName), "Expected attribute '" + expectedAttribute.attributeName + "' in serialized object was missing!\n" + json);
+            assertEquals(expectedAttribute.attributeValue, serializedMap.get(expectedAttribute.attributeName), "Expected value for attribute '"+ expectedAttribute.attributeName +"'");
         }
 
-        assertEquals("Number of serialized attributes did not equal the expected value.\n" + json, serializedMap.keySet().size(), expected.length);
+        assertEquals(serializedMap.keySet().size(), expected.length, "Number of serialized attributes did not equal the expected value.\n" + json);
     }
 
 

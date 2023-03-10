@@ -22,10 +22,10 @@ package com.smartsheet.api.internal;
 
 import com.smartsheet.api.internal.http.DefaultHttpClient;
 import com.smartsheet.api.internal.http.HttpClient;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class SmartsheetImplTest extends ResourcesImplBase {
 
@@ -34,7 +34,7 @@ public class SmartsheetImplTest extends ResourcesImplBase {
     private final String baseURI = "http://localhost:9090/1.1/";
     private final String accessToken = "accessToken";
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         httpClient = new DefaultHttpClient();
         smartsheet = new SmartsheetImpl(baseURI, accessToken, httpClient, serializer);

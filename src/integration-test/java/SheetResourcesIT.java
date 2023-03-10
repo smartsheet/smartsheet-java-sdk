@@ -22,14 +22,14 @@ import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.models.*;
 import com.smartsheet.api.models.enums.*;
 import org.apache.commons.io.output.ByteArrayOutputStream;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class SheetResourcesIT extends ITResourcesImpl{
     Smartsheet smartsheet;
@@ -40,7 +40,7 @@ public class SheetResourcesIT extends ITResourcesImpl{
 
     Folder folder;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         smartsheet = createAuthentication();
     }
@@ -261,7 +261,7 @@ public class SheetResourcesIT extends ITResourcesImpl{
                 .build();
         SheetPublish newSheetPublish = smartsheet.sheetResources().updatePublishStatus(newSheetHome.getId(), sheetPublish);
 
-        assertTrue("read write show toolbar should be enabled", newSheetPublish.getReadWriteShowToolbar());
+        assertTrue(newSheetPublish.getReadWriteShowToolbar(), "read write show toolbar should be enabled");
     }
 
     public void testPublishSheet() throws SmartsheetException, IOException {
@@ -275,8 +275,8 @@ public class SheetResourcesIT extends ITResourcesImpl{
                 .build();
         SheetPublish newSheetPublish = smartsheet.sheetResources().updatePublishStatus(newSheetHome.getId(), sheetPublish);
 
-        assertFalse("read write show toolbar should not be enabled", newSheetPublish.getReadWriteShowToolbar());
-        assertFalse("read only full show toolbar should not be enabled", newSheetPublish.getReadOnlyFullShowToolbar());
+        assertFalse(newSheetPublish.getReadWriteShowToolbar(), "read write show toolbar should not be enabled");
+        assertFalse(newSheetPublish.getReadOnlyFullShowToolbar(), "read only full show toolbar should not be enabled");
     }
 
     public void testUpdatePublishStatus() throws SmartsheetException, IOException {

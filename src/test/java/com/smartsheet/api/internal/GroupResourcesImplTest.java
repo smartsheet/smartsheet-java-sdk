@@ -28,22 +28,22 @@ import com.smartsheet.api.models.Group.UpdateGroupBuilder;
 import com.smartsheet.api.models.GroupMember;
 import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.PaginationParameters;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class GroupResourcesImplTest extends ResourcesImplBase {
 
     private GroupResourcesImpl groupResources;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         groupResources = new GroupResourcesImpl(new SmartsheetImpl("http://localhost:9090/1.1/",
                 "accessToken", new DefaultHttpClient(), serializer));

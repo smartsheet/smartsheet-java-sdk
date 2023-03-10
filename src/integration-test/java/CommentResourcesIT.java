@@ -22,13 +22,13 @@ import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.models.Comment;
 import com.smartsheet.api.models.Discussion;
 import com.smartsheet.api.models.Sheet;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class CommentResourcesIT extends ITResourcesImpl{
     Smartsheet smartsheet;
@@ -36,7 +36,7 @@ public class CommentResourcesIT extends ITResourcesImpl{
     Discussion newDiscussion;
     Comment newComment;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         smartsheet = createAuthentication();
     }

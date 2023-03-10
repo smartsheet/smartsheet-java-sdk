@@ -8,15 +8,15 @@ import com.smartsheet.api.models.PaginationParameters;
 import com.smartsheet.api.models.enums.AttachmentParentType;
 import com.smartsheet.api.models.enums.AttachmentSubType;
 import com.smartsheet.api.models.enums.AttachmentType;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 /*
  * #[license]
@@ -41,7 +41,7 @@ public class SheetAttachmentResourcesImplTest extends ResourcesImplBase {
 
     private SheetAttachmentResourcesImpl sheetAttachmentResources;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         sheetAttachmentResources = new SheetAttachmentResourcesImpl(new SmartsheetImpl("http://localhost:9090/1.1/",
                 "accessToken", new DefaultHttpClient(), serializer));

@@ -21,13 +21,13 @@
 import com.smartsheet.api.Smartsheet;
 import com.smartsheet.api.oauth.OAuthFlow;
 import com.smartsheet.api.oauth.OAuthFlowBuilder;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class TokenResourcesIT extends ITResourcesImpl{
     Smartsheet smartsheet;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         smartsheet = createAuthentication();
     }

@@ -21,45 +21,39 @@ package com.smartsheet.api;
  */
 
 
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.CoreMatchers.is;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
 public class SmartsheetExceptionTest {
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
-
-
-    @Before
-    public void setUp() throws Exception {
+    @Test
+    public void testSmartsheetExceptionString() {
+        Throwable throwable = assertThrows(SmartsheetException.class, () -> {
+            throw new SmartsheetException("My Exception");
+        });
+        assertEquals("My Exception", throwable.getMessage());
     }
 
     @Test
-    public void testSmartsheetExceptionString() throws SmartsheetException {
-        thrown.expect(SmartsheetException.class);
-        thrown.expectMessage("My Exception");
-        throw new SmartsheetException("My Exception");
+    public void testSmartsheetExceptionStringThrowable() {
+        NullPointerException cause = new NullPointerException();
+        Throwable throwable = assertThrows(SmartsheetException.class, () -> {
+            throw new SmartsheetException("Throwable exception", cause);
+        });
+        assertEquals("Throwable exception", throwable.getMessage());
+        assertEquals(cause, throwable.getCause());
     }
 
     @Test
-    public void testSmartsheetExceptionStringThrowable() throws SmartsheetException {
-        NullPointerException expected = new NullPointerException();
-        thrown.expect(SmartsheetException.class);
-        thrown.expectMessage("Throwable exception");
-        thrown.expectCause(is(expected));
-        throw new SmartsheetException("Throwable exception", expected);
-    }
-
-    @Test
-    public void testSmartsheetExceptionException() throws SmartsheetException {
-        NullPointerException expected = new NullPointerException();
-        thrown.expect(SmartsheetException.class);
-        thrown.expectCause(is(expected));
-        throw new SmartsheetException(expected);
+    public void testSmartsheetExceptionException() {
+        NullPointerException cause = new NullPointerException();
+        Throwable throwable = assertThrows(SmartsheetException.class, () -> {
+            throw new SmartsheetException(cause);
+        });
+        assertEquals(cause, throwable.getCause());
     }
 
 }

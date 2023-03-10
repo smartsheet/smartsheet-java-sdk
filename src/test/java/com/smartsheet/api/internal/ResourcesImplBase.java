@@ -22,8 +22,8 @@ package com.smartsheet.api.internal;
 
 import com.smartsheet.api.HttpTestServer;
 import com.smartsheet.api.internal.json.JacksonJsonSerializer;
-import org.junit.After;
-import org.junit.Before;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 
 public class ResourcesImplBase {
 
@@ -31,7 +31,7 @@ public class ResourcesImplBase {
     FolderResourcesImpl folderResource;
     JacksonJsonSerializer serializer;
 
-    @Before
+    @BeforeEach
     public void baseSetUp() throws Exception {
         // Setup test server
         server = new HttpTestServer();
@@ -42,7 +42,7 @@ public class ResourcesImplBase {
         JacksonJsonSerializer.setFailOnUnknownProperties(true);
     }
 
-    @After
+    @AfterEach
     public void baseTearDown() throws Exception {
         server.stop();
     }

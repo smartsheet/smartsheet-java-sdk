@@ -22,19 +22,19 @@ package com.smartsheet.api.models.format;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.SerializerProvider;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.io.IOException;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class FormatTest {
 
     @Mock
@@ -42,7 +42,7 @@ public class FormatTest {
     @Mock
     SerializerProvider provider;
 
-    @Before
+    @BeforeEach
     public void setup() {
 
     }
@@ -72,9 +72,9 @@ public class FormatTest {
             Format f = new Format(t.format);
             int i = 0;
             for (; i< t.output.length; i++) {
-                assertEquals("index " + i +" failed in " + t, t.output[i], f.formatArray[i]);
+                assertEquals(t.output[i], f.formatArray[i], "index " + i +" failed in " + t);
             }
-            assertTrue("Did not parse the correct amount: " + i, i >= ParserTests.EXPECTED_COUNT);
+            assertTrue(i >= ParserTests.EXPECTED_COUNT, "Did not parse the correct amount: " + i);
         }
     }
 
@@ -127,7 +127,7 @@ public class FormatTest {
     public void testFormatStringParsing(FormatTestCase<?>[] testCases) throws IOException {
         for (FormatTestCase test : testCases) {
             Format format = new Format(test.getFormat());
-            assertEquals ("Test case " + test, test.getExpected(), test.getResult(format));
+            assertEquals(test.getExpected(), test.getResult(format), "Test case " + test);
         }
     }
 
@@ -174,7 +174,7 @@ public class FormatTest {
         Format.FormatSerializer formatSerializer = new Format.FormatSerializer();
         formatSerializer.serialize(format, generator, provider);
         Mockito.verify(generator).writeString(expected);
-        Mockito.verifyZeroInteractions(provider);
+        Mockito.verifyNoInteractions(provider);
         Mockito.reset(generator, provider);
     }
 
