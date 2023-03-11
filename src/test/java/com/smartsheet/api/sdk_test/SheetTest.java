@@ -22,26 +22,28 @@ package com.smartsheet.api.sdk_test;
 
 import com.smartsheet.api.Smartsheet;
 import com.smartsheet.api.SmartsheetException;
-import com.smartsheet.api.models.*;
-
+import com.smartsheet.api.models.Column;
+import com.smartsheet.api.models.PagedResult;
+import com.smartsheet.api.models.Sheet;
 import com.smartsheet.api.models.enums.SourceInclusion;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.EnumSet;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 
 public class SheetTest {
 
-	
+
 	@Test
 	public void ListSheets_NoParams()
 	{
 		try {
 			Smartsheet ss = HelperFunctions.SetupClient("List Sheets - No Params");
 			PagedResult<Sheet> sheets = ss.sheetResources().listSheets(null, null, null);
-			Assertions.assertEquals("Copy of Sample Sheet", sheets.getData().get(0).getName());
+			assertEquals("Copy of Sample Sheet", sheets.getData().get(0).getName());
 		}catch(Exception ex){
 			HelperFunctions.ExceptionMessage(ex.getMessage(), ex.getCause());
 		}
@@ -53,7 +55,7 @@ public class SheetTest {
 		try{
 			Smartsheet ss =  HelperFunctions.SetupClient("List Sheets - Include Owner Info");
 			PagedResult<Sheet> sheets = ss.sheetResources().listSheets(EnumSet.of(SourceInclusion.OWNERINFO), null, null);
-			Assertions.assertEquals("john.doe@smartsheet.com", sheets.getData().get(0).getOwner());
+		assertEquals("john.doe@smartsheet.com", sheets.getData().get(0).getOwner());
 		}catch(Exception ex){
 			HelperFunctions.ExceptionMessage(ex.getMessage(), ex.getCause());
 		}
@@ -71,7 +73,7 @@ public class SheetTest {
 			ss.sheetResources().createSheet(sheetA);
 
 		}catch(SmartsheetException ex){
-			Assertions.assertEquals("The new sheet requires either a fromId or columns.", ex.getMessage());
+		assertEquals("The new sheet requires either a fromId or columns.", ex.getMessage());
 
 		}catch(Exception ex){
 			HelperFunctions.ExceptionMessage(ex.getMessage(), ex.getCause());

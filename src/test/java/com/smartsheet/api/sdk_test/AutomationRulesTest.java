@@ -22,14 +22,20 @@ package com.smartsheet.api.sdk_test;
 
 import com.smartsheet.api.Smartsheet;
 import com.smartsheet.api.SmartsheetException;
-import com.smartsheet.api.models.*;
+import com.smartsheet.api.models.AutomationAction;
+import com.smartsheet.api.models.AutomationRule;
+import com.smartsheet.api.models.PagedResult;
+import com.smartsheet.api.models.Recipient;
+import com.smartsheet.api.models.RecipientEmail;
 import com.smartsheet.api.models.enums.AutomationActionFrequency;
 import com.smartsheet.api.models.enums.AutomationActionType;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class AutomationRulesTest {
 
@@ -38,7 +44,7 @@ public class AutomationRulesTest {
         try {
             Smartsheet ss = HelperFunctions.SetupClient("List Automation Rules");
             PagedResult<AutomationRule> automationRules = ss.sheetResources().automationRuleResources().listAutomationRules(324, null);
-           Assertions.assertEquals(2, (long)automationRules.getTotalCount());
+          assertEquals(2, (long)automationRules.getTotalCount());
         } catch (Exception ex) {
             HelperFunctions.ExceptionMessage(ex.getMessage(), ex.getCause());
         }
@@ -49,7 +55,7 @@ public class AutomationRulesTest {
         Smartsheet ss = HelperFunctions.SetupClient("Get Automation Rule");
         try {
             AutomationRule automationRule = ss.sheetResources().automationRuleResources().getAutomationRule(324, 284);
-           Assertions.assertEquals(284, (long)automationRule.getId());
+          assertEquals(284, (long)automationRule.getId());
         }
         catch(SmartsheetException ex) {
             HelperFunctions.ExceptionMessage(ex.getMessage(), ex.getCause());

@@ -28,11 +28,13 @@ import com.smartsheet.api.internal.http.DefaultHttpClient;
 import com.smartsheet.api.internal.json.JacksonJsonSerializer;
 import com.smartsheet.api.models.Sheet;
 import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  *
@@ -57,16 +59,16 @@ public class LoggingTest {
         client.setTraces(Trace.Request, Trace.Response);    // should log entire request and response
         try {
             Sheet sheet = client.sheetResources().getSheet(42, null, null, null, null, null, 1, 1);
-           Assertions.fail("expected SmartsheetException");
+          fail("expected SmartsheetException");
         } catch (SmartsheetException expected) {
             String output = traceStream.toString();
             // not super-robust but asserts some of the important parts
-           Assertions.assertTrue(output.contains("\"request\" : {"), "request not found in - " + output);
-           Assertions.assertTrue(output.contains("\"Authorization\" : \"Bearer ****null"), "Auth header not found in - " + output); // truncated Auth header
-           Assertions.assertTrue(output.contains("\"response\" : {"), "response not found in - " + output);
-           Assertions.assertTrue(output.contains("\"body\" : \"{\\n  \\\"errorCode\\\" : 1002,\\n  \\\"message\\\" : " +
+          assertTrue(output.contains("\"request\" : {"), "request not found in - " + output);
+          assertTrue(output.contains("\"Authorization\" : \"Bearer ****null"), "Auth header not found in - " + output); // truncated Auth header
+          assertTrue(output.contains("\"response\" : {"), "response not found in - " + output);
+          assertTrue(output.contains("\"body\" : \"{\\n  \\\"errorCode\\\" : 1002,\\n  \\\"message\\\" : " +
                             "\\\"Your Access Token is invalid.\\\",\\n  \\\"refId\\\" :"), "response-body not found in - " + output);
-           Assertions.assertTrue(output.contains("\"status\" : \"HTTP/1.1 401 Unauthorized\""), "status not found in - " + output);
+          assertTrue(output.contains("\"status\" : \"HTTP/1.1 401 Unauthorized\""), "status not found in - " + output);
         }
     }
 
@@ -78,15 +80,15 @@ public class LoggingTest {
         client.setTraces(Trace.Request, Trace.Response);    // should log entire request and response
         try {
             Sheet sheet = client.sheetResources().getSheet(42, null, null, null, null, null, 1, 1);
-           Assertions.fail("expected SmartsheetException");
+          fail("expected SmartsheetException");
         } catch (SmartsheetException expected) {
             String output = traceStream.toString();
             // not super-robust but asserts some of the important parts
-           Assertions.assertTrue(output.contains("request:{"), "request not found in - " + output);
-           Assertions.assertTrue(output.contains("'Authorization':'Bearer ****ae05"), "Auth header not found in - " + output); // truncated Auth header
-           Assertions.assertTrue(output.contains("response:{"), "response not found in - " + output);
-           Assertions.assertTrue(output.contains("body:'{\n  \"errorCode\" : 1002,\n  \"message\" : \"Your Access Token is invalid.\",\n  \"refId\" :"), "response-body not found in - " + output);
-           Assertions.assertTrue(output.contains("status:'HTTP/1.1 401 Unauthorized'"), "status not found in - " + output);
+          assertTrue(output.contains("request:{"), "request not found in - " + output);
+          assertTrue(output.contains("'Authorization':'Bearer ****ae05"), "Auth header not found in - " + output); // truncated Auth header
+          assertTrue(output.contains("response:{"), "response not found in - " + output);
+          assertTrue(output.contains("body:'{\n  \"errorCode\" : 1002,\n  \"message\" : \"Your Access Token is invalid.\",\n  \"refId\" :"), "response-body not found in - " + output);
+          assertTrue(output.contains("status:'HTTP/1.1 401 Unauthorized'"), "status not found in - " + output);
         }
     }
 }

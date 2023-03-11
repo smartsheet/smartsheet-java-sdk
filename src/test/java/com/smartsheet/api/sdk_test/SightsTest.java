@@ -22,11 +22,15 @@ package com.smartsheet.api.sdk_test;
 
 import com.smartsheet.api.Smartsheet;
 import com.smartsheet.api.SmartsheetException;
-import com.smartsheet.api.models.*;
+import com.smartsheet.api.models.ContainerDestination;
+import com.smartsheet.api.models.PagedResult;
+import com.smartsheet.api.models.Sight;
+import com.smartsheet.api.models.SightPublish;
 import com.smartsheet.api.models.enums.DestinationType;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class SightsTest {
 
@@ -35,7 +39,7 @@ public class SightsTest {
         try {
             Smartsheet ss = HelperFunctions.SetupClient("List Sights");
             PagedResult<Sight> sights = ss.sightResources().listSights(null, null);
-           Assertions.assertEquals(6, (long)sights.getTotalCount());
+          assertEquals(6, (long)sights.getTotalCount());
         } catch (Exception ex) {
             HelperFunctions.ExceptionMessage(ex.getMessage(), ex.getCause());
         }
@@ -46,7 +50,7 @@ public class SightsTest {
         Smartsheet ss = HelperFunctions.SetupClient("Get Sight");
         try {
             Sight sight = ss.sightResources().getSight(52);
-           Assertions.assertEquals(52, (long)sight.getId());
+          assertEquals(52, (long)sight.getId());
         }
         catch(SmartsheetException ex) {
             HelperFunctions.ExceptionMessage(ex.getMessage(), ex.getCause());
@@ -102,7 +106,7 @@ public class SightsTest {
         Smartsheet ss = HelperFunctions.SetupClient("Get Sight Publish Status");
         try {
             SightPublish publish = ss.sightResources().getPublishStatus(812L);
-           Assertions.assertEquals(publish.getReadOnlyFullEnabled(), true);
+          assertEquals(publish.getReadOnlyFullEnabled(), true);
         }
         catch(SmartsheetException ex) {
             HelperFunctions.ExceptionMessage(ex.getMessage(), ex.getCause());

@@ -23,7 +23,7 @@ package com.smartsheet.api.sdk_test;
 
 import com.smartsheet.api.Smartsheet;
 import com.smartsheet.api.SmartsheetBuilder;
-import org.junit.jupiter.api.Assertions;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class HelperFunctions {
 	public static Smartsheet SetupClient(String apiScenario){
@@ -37,6 +37,6 @@ public class HelperFunctions {
 		return ss;
 	}
 	public static void ExceptionMessage(String message, Throwable cause){
-		Assertions.fail(String.format("Exception: %s Detail: %s", message, cause));
+		fail(String.format("Exception: %s Detail: %s", message, cause));
 	}
 }

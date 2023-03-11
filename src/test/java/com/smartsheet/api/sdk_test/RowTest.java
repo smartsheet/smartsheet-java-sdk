@@ -8,9 +8,9 @@ package com.smartsheet.api.sdk_test;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -22,12 +22,21 @@ package com.smartsheet.api.sdk_test;
 
 import com.smartsheet.api.Smartsheet;
 import com.smartsheet.api.SmartsheetException;
-import com.smartsheet.api.models.*;
-import org.junit.jupiter.api.Assertions;
+import com.smartsheet.api.models.Cell;
+import com.smartsheet.api.models.CellLink;
+import com.smartsheet.api.models.Duration;
+import com.smartsheet.api.models.Hyperlink;
+import com.smartsheet.api.models.PagedResult;
+import com.smartsheet.api.models.Predecessor;
+import com.smartsheet.api.models.PredecessorList;
+import com.smartsheet.api.models.Row;
+import com.smartsheet.api.models.Sheet;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class RowTest {
 
@@ -38,7 +47,7 @@ public class RowTest {
 		try {
 			Smartsheet ss = HelperFunctions.SetupClient("List Sheets - No Params");
 			PagedResult<Sheet> sheets = ss.sheetResources().listSheets(null, null, null);
-			Assertions.assertEquals("Copy of Sample Sheet", sheets.getData().get(0).getName());
+			assertEquals("Copy of Sample Sheet", sheets.getData().get(0).getName());
 		}catch(Exception ex){
 			HelperFunctions.ExceptionMessage(ex.getMessage(), ex.getCause());
 		}
@@ -72,7 +81,7 @@ public class RowTest {
 			// Update rows in sheet
 			List<Row> addedRows = ss.sheetResources().rowResources().addRows(1L, Arrays.asList(rowA,rowB));
 
-			Assertions.assertEquals(101L, addedRows.get(0).getCells().get(0).getColumnId().longValue());
+			assertEquals(101L, addedRows.get(0).getCells().get(0).getColumnId().longValue());
 		}catch(Exception ex){
 			HelperFunctions.ExceptionMessage(ex.getMessage(), ex.getCause());
 		}
@@ -97,9 +106,9 @@ public class RowTest {
 			// Update rows in sheet
 			List<Row> addedRows = ss.sheetResources().rowResources().addRows(1, Arrays.asList(rowA));
 
-			Assertions.assertEquals("Apple", addedRows.get(0).getCells().get(0).getValue());
-			Assertions.assertEquals(1, addedRows.get(0).getRowNumber().intValue());
-			Assertions.assertEquals(101L, addedRows.get(0).getCells().get(0).getColumnId().longValue());
+			assertEquals("Apple", addedRows.get(0).getCells().get(0).getValue());
+			assertEquals(1, addedRows.get(0).getRowNumber().intValue());
+			assertEquals(101L, addedRows.get(0).getCells().get(0).getColumnId().longValue());
 		}catch(Exception ex){
 			HelperFunctions.ExceptionMessage(ex.getMessage(), ex.getCause());
 		}
@@ -125,9 +134,9 @@ public class RowTest {
 			// Update rows in sheet
 			List<Row> addedRows = ss.sheetResources().rowResources().addRows(1, Arrays.asList(rowA));
 
-			Assertions.assertEquals("Apple", addedRows.get(0).getCells().get(0).getValue());
-			Assertions.assertEquals(100, addedRows.get(0).getRowNumber().intValue());
-			Assertions.assertEquals(101L, addedRows.get(0).getCells().get(0).getColumnId().longValue());
+			assertEquals("Apple", addedRows.get(0).getCells().get(0).getValue());
+			assertEquals(100, addedRows.get(0).getRowNumber().intValue());
+			assertEquals(101L, addedRows.get(0).getCells().get(0).getColumnId().longValue());
 		}catch(Exception ex){
 			HelperFunctions.ExceptionMessage(ex.getMessage(), ex.getCause());
 		}
@@ -161,8 +170,8 @@ public class RowTest {
 			// Update rows in sheet
 			List<Row> addedRows = ss.sheetResources().rowResources().addRows(1, Arrays.asList(rowA, rowB));
 
-			Assertions.assertEquals(100, addedRows.get(0).getCells().get(0).getValue());
-			Assertions.assertEquals(101L, addedRows.get(0).getCells().get(0).getColumnId().longValue());
+			assertEquals(100, addedRows.get(0).getCells().get(0).getValue());
+			assertEquals(101L, addedRows.get(0).getCells().get(0).getColumnId().longValue());
 
 		}catch(Exception ex){
 			HelperFunctions.ExceptionMessage(ex.getMessage(), ex.getCause());
@@ -196,9 +205,9 @@ public class RowTest {
 			// Update rows in sheet
 			List<Row> addedRows = ss.sheetResources().rowResources().addRows(1, Arrays.asList(rowA, rowB));
 
-			Assertions.assertEquals(10, addedRows.get(0).getId().intValue());
-			Assertions.assertEquals(true, addedRows.get(0).getCells().get(0).getValue());
-			Assertions.assertEquals(101L, addedRows.get(0).getCells().get(0).getColumnId().longValue());
+			assertEquals(10, addedRows.get(0).getId().intValue());
+			assertEquals(true, addedRows.get(0).getCells().get(0).getValue());
+			assertEquals(101L, addedRows.get(0).getCells().get(0).getColumnId().longValue());
 
 		}catch(Exception ex){
 			HelperFunctions.ExceptionMessage(ex.getMessage(), ex.getCause());
@@ -223,8 +232,8 @@ public class RowTest {
 			// Update rows in sheet
 			List<Row> addedRows = ss.sheetResources().rowResources().addRows(1, Arrays.asList(rowA));
 
-			Assertions.assertEquals("=SUM([Column2]3, [Column2]3, [Column2]4)", addedRows.get(0).getCells().get(1).getFormula());
-			Assertions.assertEquals(102L, addedRows.get(0).getCells().get(1).getColumnId().longValue());
+			assertEquals("=SUM([Column2]3, [Column2]3, [Column2]4)", addedRows.get(0).getCells().get(1).getFormula());
+			assertEquals(102L, addedRows.get(0).getCells().get(1).getColumnId().longValue());
 
 		}catch(Exception ex){
 			HelperFunctions.ExceptionMessage(ex.getMessage(), ex.getCause());
@@ -255,9 +264,9 @@ public class RowTest {
 			// Update rows in sheet
 			List<Row> addedRows = ss.sheetResources().rowResources().addRows(1, Arrays.asList(rowA));
 
-			Assertions.assertEquals("Google", addedRows.get(0).getCells().get(0).getValue());
-			Assertions.assertEquals(101L, addedRows.get(0).getCells().get(0).getColumnId().longValue());
-			Assertions.assertEquals("http://google.com", addedRows.get(0).getCells().get(0).getHyperlink().getUrl());
+			assertEquals("Google", addedRows.get(0).getCells().get(0).getValue());
+			assertEquals(101L, addedRows.get(0).getCells().get(0).getColumnId().longValue());
+			assertEquals("http://google.com", addedRows.get(0).getCells().get(0).getHyperlink().getUrl());
 
 		}catch(Exception ex){
 			HelperFunctions.ExceptionMessage(ex.getMessage(), ex.getCause());
@@ -288,9 +297,9 @@ public class RowTest {
 			// Update rows in sheet
 			List<Row> addedRows = ss.sheetResources().rowResources().addRows(1, Arrays.asList(rowA));
 
-			Assertions.assertEquals("Sheet3", addedRows.get(0).getCells().get(1).getValue());
-			Assertions.assertEquals(102L, addedRows.get(0).getCells().get(1).getColumnId().longValue());
-			Assertions.assertEquals(3L, addedRows.get(0).getCells().get(1).getHyperlink().getSheetId().longValue());
+			assertEquals("Sheet3", addedRows.get(0).getCells().get(1).getValue());
+			assertEquals(102L, addedRows.get(0).getCells().get(1).getColumnId().longValue());
+			assertEquals(3L, addedRows.get(0).getCells().get(1).getHyperlink().getSheetId().longValue());
 
 		}catch(Exception ex){
 			HelperFunctions.ExceptionMessage(ex.getMessage(), ex.getCause());
@@ -321,9 +330,9 @@ public class RowTest {
 			// Update rows in sheet
 			List<Row> addedRows = ss.sheetResources().rowResources().addRows(1, Arrays.asList(rowA));
 
-			Assertions.assertEquals("Report8", addedRows.get(0).getCells().get(1).getValue());
-			Assertions.assertEquals(102L, addedRows.get(0).getCells().get(1).getColumnId().longValue());
-			Assertions.assertEquals(8L, addedRows.get(0).getCells().get(1).getHyperlink().getReportId().longValue());
+			assertEquals("Report8", addedRows.get(0).getCells().get(1).getValue());
+			assertEquals(102L, addedRows.get(0).getCells().get(1).getColumnId().longValue());
+			assertEquals(8L, addedRows.get(0).getCells().get(1).getHyperlink().getReportId().longValue());
 
 		}catch(Exception ex){
 			HelperFunctions.ExceptionMessage(ex.getMessage(), ex.getCause());
@@ -356,7 +365,7 @@ public class RowTest {
 			List<Row> addedRows = ss.sheetResources().rowResources().addRows(1, Arrays.asList(rowA));
 
 		}catch(SmartsheetException ex){
-			Assertions.assertEquals("hyperlink.url must be null for sheet, report, or Sight hyperlinks.", ex.getMessage());
+			assertEquals("hyperlink.url must be null for sheet, report, or Sight hyperlinks.", ex.getMessage());
 		}catch(Exception ex){
 			HelperFunctions.ExceptionMessage(ex.getMessage(), ex.getCause());
 		}
@@ -382,7 +391,7 @@ public class RowTest {
 			List<Row> addedRows = ss.sheetResources().rowResources().addRows(1, Arrays.asList(rowA));
 
 		}catch(SmartsheetException ex){
-			Assertions.assertEquals("If cell.formula is specified, then value, objectValue, image, hyperlink, and linkInFromCell must not be specified.", ex.getMessage());
+			assertEquals("If cell.formula is specified, then value, objectValue, image, hyperlink, and linkInFromCell must not be specified.", ex.getMessage());
 		}catch(Exception ex){
 			HelperFunctions.ExceptionMessage(ex.getMessage(), ex.getCause());
 		}
@@ -410,8 +419,8 @@ public class RowTest {
 
 			List<Row> addedRows = ss.sheetResources().rowResources().addRows(1, Arrays.asList(rowA));
 
-			Assertions.assertEquals(101L, addedRows.get(0).getCells().get(1).getColumnId().longValue());
-			Assertions.assertEquals("2FS +2.5d", addedRows.get(0).getCells().get(1).getValue());
+			assertEquals(101L, addedRows.get(0).getCells().get(1).getColumnId().longValue());
+			assertEquals("2FS +2.5d", addedRows.get(0).getCells().get(1).getValue());
 
 		}catch(Exception ex){
 			HelperFunctions.ExceptionMessage(ex.getMessage(), ex.getCause());
@@ -447,8 +456,8 @@ public class RowTest {
 			// Update rows in sheet
 			List<Row> updatedRows = ss.sheetResources().rowResources().updateRows(1L, Arrays.asList(rowA,rowB));
 
-			Assertions.assertEquals(101L, updatedRows.get(0).getCells().get(0).getColumnId().longValue());
-			Assertions.assertEquals("Apple", updatedRows.get(0).getCells().get(0).getValue());
+			assertEquals(101L, updatedRows.get(0).getCells().get(0).getColumnId().longValue());
+			assertEquals("Apple", updatedRows.get(0).getCells().get(0).getValue());
 
 		}catch(Exception ex){
 			HelperFunctions.ExceptionMessage(ex.getMessage(), ex.getCause());
@@ -484,8 +493,8 @@ public class RowTest {
 			// Update rows in sheet
 			List<Row> updatedRows = ss.sheetResources().rowResources().updateRows(1L, Arrays.asList(rowA,rowB));
 
-			Assertions.assertEquals(101L, updatedRows.get(0).getCells().get(0).getColumnId().longValue());
-			Assertions.assertEquals(100, updatedRows.get(0).getCells().get(0).getValue());
+			assertEquals(101L, updatedRows.get(0).getCells().get(0).getColumnId().longValue());
+			assertEquals(100, updatedRows.get(0).getCells().get(0).getValue());
 
 		}catch(Exception ex){
 			HelperFunctions.ExceptionMessage(ex.getMessage(), ex.getCause());
@@ -521,8 +530,8 @@ public class RowTest {
 			// Update rows in sheet
 			List<Row> updatedRows = ss.sheetResources().rowResources().updateRows(1L, Arrays.asList(rowA,rowB));
 
-			Assertions.assertEquals(101L, updatedRows.get(0).getCells().get(0).getColumnId().longValue());
-			Assertions.assertEquals(true, updatedRows.get(0).getCells().get(0).getValue());
+			assertEquals(101L, updatedRows.get(0).getCells().get(0).getColumnId().longValue());
+			assertEquals(true, updatedRows.get(0).getCells().get(0).getValue());
 
 		}catch(Exception ex){
 			HelperFunctions.ExceptionMessage(ex.getMessage(), ex.getCause());
@@ -548,8 +557,8 @@ public class RowTest {
 			// Update rows in sheet
 			List<Row> updatedRows = ss.sheetResources().rowResources().updateRows(1, Arrays.asList(rowA));
 
-			Assertions.assertEquals("=SUM([Column2]3, [Column2]3, [Column2]4)", updatedRows.get(0).getCells().get(1).getFormula());
-			Assertions.assertEquals(102L, updatedRows.get(0).getCells().get(1).getColumnId().longValue());
+			assertEquals("=SUM([Column2]3, [Column2]3, [Column2]4)", updatedRows.get(0).getCells().get(1).getFormula());
+			assertEquals(102L, updatedRows.get(0).getCells().get(1).getColumnId().longValue());
 
 		}catch(Exception ex){
 			HelperFunctions.ExceptionMessage(ex.getMessage(), ex.getCause());
@@ -581,9 +590,9 @@ public class RowTest {
 			// Update rows in sheet
 			List<Row> updatedRows = ss.sheetResources().rowResources().updateRows(1, Arrays.asList(rowA));
 
-			Assertions.assertEquals("Google", updatedRows.get(0).getCells().get(0).getValue());
-			Assertions.assertEquals(101L, updatedRows.get(0).getCells().get(0).getColumnId().longValue());
-			Assertions.assertEquals("http://google.com", updatedRows.get(0).getCells().get(0).getHyperlink().getUrl());
+			assertEquals("Google", updatedRows.get(0).getCells().get(0).getValue());
+			assertEquals(101L, updatedRows.get(0).getCells().get(0).getColumnId().longValue());
+			assertEquals("http://google.com", updatedRows.get(0).getCells().get(0).getHyperlink().getUrl());
 
 		}catch(Exception ex){
 			HelperFunctions.ExceptionMessage(ex.getMessage(), ex.getCause());
@@ -615,9 +624,9 @@ public class RowTest {
 			// Update rows in sheet
 			List<Row> updatedRows = ss.sheetResources().rowResources().updateRows(1, Arrays.asList(rowA));
 
-			Assertions.assertEquals("Sheet3", updatedRows.get(0).getCells().get(1).getValue());
-			Assertions.assertEquals(102L, updatedRows.get(0).getCells().get(1).getColumnId().longValue());
-			Assertions.assertEquals(3L, updatedRows.get(0).getCells().get(1).getHyperlink().getSheetId().longValue());
+			assertEquals("Sheet3", updatedRows.get(0).getCells().get(1).getValue());
+			assertEquals(102L, updatedRows.get(0).getCells().get(1).getColumnId().longValue());
+			assertEquals(3L, updatedRows.get(0).getCells().get(1).getHyperlink().getSheetId().longValue());
 
 		}catch(Exception ex){
 			HelperFunctions.ExceptionMessage(ex.getMessage(), ex.getCause());
@@ -649,9 +658,9 @@ public class RowTest {
 			// Update rows in sheet
 			List<Row> updatedRows = ss.sheetResources().rowResources().updateRows(1, Arrays.asList(rowA));
 
-			Assertions.assertEquals("Report8", updatedRows.get(0).getCells().get(1).getValue());
-			Assertions.assertEquals(102L, updatedRows.get(0).getCells().get(1).getColumnId().longValue());
-			Assertions.assertEquals(8L, updatedRows.get(0).getCells().get(1).getHyperlink().getReportId().longValue());
+			assertEquals("Report8", updatedRows.get(0).getCells().get(1).getValue());
+			assertEquals(102L, updatedRows.get(0).getCells().get(1).getColumnId().longValue());
+			assertEquals(8L, updatedRows.get(0).getCells().get(1).getHyperlink().getReportId().longValue());
 
 		}catch(Exception ex){
 			HelperFunctions.ExceptionMessage(ex.getMessage(), ex.getCause());
@@ -685,7 +694,7 @@ public class RowTest {
 			List<Row> updatedRows = ss.sheetResources().rowResources().updateRows(1, Arrays.asList(rowA));
 
 		}catch(SmartsheetException ex){
-			Assertions.assertEquals("hyperlink.url must be null for sheet, report, or Sight hyperlinks.", ex.getMessage());
+			assertEquals("hyperlink.url must be null for sheet, report, or Sight hyperlinks.", ex.getMessage());
 		}catch(Exception ex){
 			HelperFunctions.ExceptionMessage(ex.getMessage(), ex.getCause());
 		}
@@ -712,7 +721,7 @@ public class RowTest {
 			List<Row> updatedRows = ss.sheetResources().rowResources().updateRows(1, Arrays.asList(rowA));
 
 		}catch(SmartsheetException ex){
-			Assertions.assertEquals("If cell.formula is specified, then value, objectValue, image, hyperlink, and linkInFromCell must not be specified.", ex.getMessage());
+			assertEquals("If cell.formula is specified, then value, objectValue, image, hyperlink, and linkInFromCell must not be specified.", ex.getMessage());
 		}catch(Exception ex){
 			HelperFunctions.ExceptionMessage(ex.getMessage(), ex.getCause());
 		}
@@ -733,8 +742,8 @@ public class RowTest {
 
 			List<Row> updatedRows = ss.sheetResources().rowResources().updateRows(1, Arrays.asList(rowA));
 
-			Assertions.assertEquals(101L, updatedRows.get(0).getCells().get(0).getColumnId().longValue());
-			Assertions.assertEquals(null, updatedRows.get(0).getCells().get(0).getValue());
+			assertEquals(101L, updatedRows.get(0).getCells().get(0).getColumnId().longValue());
+			assertEquals(null, updatedRows.get(0).getCells().get(0).getValue());
 
 		}catch(Exception ex){
 			HelperFunctions.ExceptionMessage(ex.getMessage(), ex.getCause());
@@ -756,8 +765,8 @@ public class RowTest {
 
 			List<Row> updatedRows = ss.sheetResources().rowResources().updateRows(1, Arrays.asList(rowA));
 
-			Assertions.assertEquals(101L, updatedRows.get(0).getCells().get(0).getColumnId().longValue());
-			Assertions.assertEquals(false, updatedRows.get(0).getCells().get(0).getValue());
+			assertEquals(101L, updatedRows.get(0).getCells().get(0).getColumnId().longValue());
+			assertEquals(false, updatedRows.get(0).getCells().get(0).getValue());
 
 		}catch(Exception ex){
 			HelperFunctions.ExceptionMessage(ex.getMessage(), ex.getCause());
@@ -780,9 +789,9 @@ public class RowTest {
 
 			List<Row> updatedRows = ss.sheetResources().rowResources().updateRows(1, Arrays.asList(rowA));
 
-			Assertions.assertEquals(101L, updatedRows.get(0).getCells().get(0).getColumnId().longValue());
-			Assertions.assertEquals(null, updatedRows.get(0).getCells().get(0).getValue());
-			Assertions.assertEquals(null, updatedRows.get(0).getCells().get(0).getHyperlink());
+			assertEquals(101L, updatedRows.get(0).getCells().get(0).getColumnId().longValue());
+			assertEquals(null, updatedRows.get(0).getCells().get(0).getValue());
+			assertEquals(null, updatedRows.get(0).getCells().get(0).getHyperlink());
 
 		}catch(Exception ex){
 			HelperFunctions.ExceptionMessage(ex.getMessage(), ex.getCause());
@@ -805,9 +814,9 @@ public class RowTest {
 
 			List<Row> updatedRows = ss.sheetResources().rowResources().updateRows(1, Arrays.asList(rowA));
 
-			Assertions.assertEquals(101L, updatedRows.get(0).getCells().get(0).getColumnId().longValue());
-			Assertions.assertEquals(null, updatedRows.get(0).getCells().get(0).getValue());
-			Assertions.assertEquals(null, updatedRows.get(0).getCells().get(0).getLinkInFromCell());
+			assertEquals(101L, updatedRows.get(0).getCells().get(0).getColumnId().longValue());
+			assertEquals(null, updatedRows.get(0).getCells().get(0).getValue());
+			assertEquals(null, updatedRows.get(0).getCells().get(0).getLinkInFromCell());
 
 		}catch(Exception ex){
 			HelperFunctions.ExceptionMessage(ex.getMessage(), ex.getCause());
@@ -838,7 +847,7 @@ public class RowTest {
 			List<Row> updatedRows = ss.sheetResources().rowResources().updateRows(1, Arrays.asList(rowA));
 
 		}catch(SmartsheetException ex){
-			Assertions.assertEquals("Only one of cell.hyperlink or cell.linkInFromCell may be non-null.", ex.getMessage());
+			assertEquals("Only one of cell.hyperlink or cell.linkInFromCell may be non-null.", ex.getMessage());
 		}catch(Exception ex){
 			HelperFunctions.ExceptionMessage(ex.getMessage(), ex.getCause());
 		}
@@ -856,8 +865,8 @@ public class RowTest {
 
 			List<Row> updatedRows = ss.sheetResources().rowResources().updateRows(1, Arrays.asList(rowA));
 
-			Assertions.assertEquals(10L, updatedRows.get(0).getId().longValue());
-			Assertions.assertEquals(1L, updatedRows.get(0).getRowNumber().longValue());
+			assertEquals(10L, updatedRows.get(0).getId().longValue());
+			assertEquals(1L, updatedRows.get(0).getRowNumber().longValue());
 
 		}catch(Exception ex){
 			HelperFunctions.ExceptionMessage(ex.getMessage(), ex.getCause());
@@ -876,8 +885,8 @@ public class RowTest {
 
 			List<Row> updatedRows = ss.sheetResources().rowResources().updateRows(1, Arrays.asList(rowA));
 
-			Assertions.assertEquals(10L, updatedRows.get(0).getId().longValue());
-			Assertions.assertEquals(100L, updatedRows.get(0).getRowNumber().longValue());
+			assertEquals(10L, updatedRows.get(0).getId().longValue());
+			assertEquals(100L, updatedRows.get(0).getRowNumber().longValue());
 
 		}catch(Exception ex){
 			HelperFunctions.ExceptionMessage(ex.getMessage(), ex.getCause());
