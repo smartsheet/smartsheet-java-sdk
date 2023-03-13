@@ -393,35 +393,6 @@ class SheetResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    void testShareResources() throws Exception {
-
-    }
-
-    @Test
-    void testRowResources() throws Exception {
-
-    }
-
-    @Test
-    void testColumnResources() throws Exception {
-
-    }
-
-    @Test
-    void testAttachmentResources() throws Exception {
-
-    }
-
-    @Test
-    void testDiscussionResources() throws Exception {
-
-    }
-
-    @Test
-    void testCommentResources() throws Exception {
-    }
-
-    @Test
     void testCreateUpdateRequest() throws Exception {
         server.setResponseBody(new File("src/test/resources/createUpdateRequest.json"));
 
@@ -443,10 +414,5 @@ class SheetResourcesImplTest extends ResourcesImplBase {
         criteria.add(criterion);
         specifier.setSortCriteria(criteria);
         Sheet sheet = sheetResource.sortSheet(123L, specifier);
-    }
-
-    @Test
-    void testCopyStream() throws Exception {
-
     }
 }
