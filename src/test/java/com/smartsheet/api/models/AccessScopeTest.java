@@ -28,10 +28,10 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class AccessScopeTest {
+class AccessScopeTest {
 
     @Test
-    public void test() {
+    void test() {
         assertNotNull(AccessScope.valueOf("ADMIN_SHEETS"));
         assertNotNull(AccessScope.valueOf("ADMIN_SIGHTS"));
         assertNotNull(AccessScope.valueOf("ADMIN_USERS"));
@@ -52,7 +52,7 @@ public class AccessScopeTest {
     }
 
     @Test
-    public void bothVersionsOfAccessScopeAreIdentical() {
+    void bothVersionsOfAccessScopeAreIdentical() {
         Set<String> scopeNames = new HashSet<String>();
         for (AccessScope accessScope : AccessScope.values()) {
             scopeNames.add(accessScope.name());

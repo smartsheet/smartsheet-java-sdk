@@ -58,7 +58,7 @@ public class ReportResourcesIT extends ITResourcesImpl{
     }
 
     @Test
-    public void testReportMethods() throws SmartsheetException, IOException {
+    void testReportMethods() throws SmartsheetException, IOException {
         testListReports();
         testGetReport();
         testGetReportAsExcel();

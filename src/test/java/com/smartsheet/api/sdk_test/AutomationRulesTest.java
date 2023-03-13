@@ -9,9 +9,9 @@ package com.smartsheet.api.sdk_test;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -37,10 +37,10 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class AutomationRulesTest {
+class AutomationRulesTest {
 
     @Test
-    public void ListAutomationRules() {
+    void ListAutomationRules() {
         try {
             Smartsheet ss = HelperFunctions.SetupClient("List Automation Rules");
             PagedResult<AutomationRule> automationRules = ss.sheetResources().automationRuleResources().listAutomationRules(324, null);
@@ -51,7 +51,7 @@ public class AutomationRulesTest {
     }
 
     @Test
-    public void GetAutomationRule() {
+    void GetAutomationRule() {
         Smartsheet ss = HelperFunctions.SetupClient("Get Automation Rule");
         try {
             AutomationRule automationRule = ss.sheetResources().automationRuleResources().getAutomationRule(324, 284);
@@ -64,7 +64,7 @@ public class AutomationRulesTest {
 
     @Disabled("awaiting API update to return Result object")
     @Test
-    public void UpdateAutomationRule() {
+    void UpdateAutomationRule() {
         Smartsheet ss = HelperFunctions.SetupClient("Update Automation Rule");
         AutomationAction autoRuleAction = new AutomationAction();
         RecipientEmail recipient = new RecipientEmail();
@@ -85,7 +85,7 @@ public class AutomationRulesTest {
     }
 
     @Test
-    public void DeleteAutomationRule() {
+    void DeleteAutomationRule() {
         Smartsheet ss = HelperFunctions.SetupClient("Delete Automation Rule");
         try {
             ss.sheetResources().automationRuleResources().deleteAutomationRule(324, 284);

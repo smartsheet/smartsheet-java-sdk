@@ -38,7 +38,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class HomeResourcesImplTest extends ResourcesImplBase {
+class HomeResourcesImplTest extends ResourcesImplBase {
 
     private HomeResourcesImpl homeResources;
 
@@ -49,10 +49,7 @@ public class HomeResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testHomeResourcesImpl() {}
-
-    @Test
-    public void testGetHome() throws SmartsheetException, IOException {
+    void testGetHome() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/getHome.json"));
 
         List<Home> homes = new ArrayList<Home>();
@@ -71,7 +68,7 @@ public class HomeResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testFolders() throws IOException, SmartsheetException {
+    void testFolders() throws IOException, SmartsheetException {
         server.setResponseBody(new File("src/test/resources/getHomeFolders.json"));
 
         HomeFolderResources folders = homeResources.folderResources();

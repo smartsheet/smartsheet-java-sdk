@@ -30,7 +30,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * limitations under the License.
  * %[license]
  */
-public class DiscussionCommentResourcesImplTest extends ResourcesImplBase {
+class DiscussionCommentResourcesImplTest extends ResourcesImplBase {
 
     private DiscussionCommentResourcesImpl discussionCommentResources;
 
@@ -41,7 +41,7 @@ public class DiscussionCommentResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testAddComment() throws SmartsheetException, IOException {
+    void testAddComment() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/addDiscussionComment.json"));
 
         Comment comment = new Comment();
@@ -54,7 +54,7 @@ public class DiscussionCommentResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testAddCommentWithAttachment() throws SmartsheetException, IOException {
+    void testAddCommentWithAttachment() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/addDiscussionComment.json"));
         File file = new File("src/test/resources/large_sheet.pdf");
         Comment comment = new Comment.AddCommentBuilder().setText("new comment").build();

@@ -26,10 +26,10 @@ import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class PaginationParametersTest {
+class PaginationParametersTest {
 
     @Test
-    public void testPaginationParameters() {
+    void testPaginationParameters() {
         PaginationParameters parameters = new PaginationParameters(true, 1, 1);
 
         assertTrue(parameters.isIncludeAll());
@@ -38,7 +38,7 @@ public class PaginationParametersTest {
     }
 
     @Test
-    public void testToQueryString() {
+    void testToQueryString() {
         PaginationParameters parameters1 = new PaginationParameters(true, null, null);
         assertEquals("?includeAll=true", parameters1.toQueryString());
 
@@ -53,7 +53,8 @@ public class PaginationParametersTest {
         }
     }
 
-    @Test public void testToHashMap() {
+    @Test
+    void testToHashMap() {
         PaginationParameters parameters1 = new PaginationParameters(true, null, null);
         HashMap<String, Object> map = parameters1.toHashMap();
         assertTrue(map.containsKey("includeAll"));
@@ -79,7 +80,7 @@ public class PaginationParametersTest {
     }
 
     @Test
-    public void testBuilder() {
+    void testBuilder() {
         PaginationParameters pagination = new PaginationParameters.PaginationParametersBuilder().setIncludeAll(true).setPageSize(2).setPage(1).build();
         assertTrue(pagination.isIncludeAll());
         assertEquals(2, pagination.getPageSize().longValue());

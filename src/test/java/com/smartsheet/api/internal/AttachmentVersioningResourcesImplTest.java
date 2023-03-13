@@ -34,7 +34,7 @@ import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class AttachmentVersioningResourcesImplTest extends ResourcesImplBase {
+class AttachmentVersioningResourcesImplTest extends ResourcesImplBase {
 
     private AttachmentVersioningResourcesImpl attachmentVersioningResources;
 
@@ -46,14 +46,14 @@ public class AttachmentVersioningResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testDeleteAllVersions() throws SmartsheetException, IOException {
+    void testDeleteAllVersions() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/deleteAttachment.json"));
 
         attachmentVersioningResources.deleteAllVersions(1234L, 5678L);
     }
 
     @Test
-    public void testListAllVersions() throws SmartsheetException, IOException {
+    void testListAllVersions() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/listAttachmentVersions.json"));
 
         PaginationParameters parameters = new PaginationParameters(false, 1,1);
@@ -64,7 +64,7 @@ public class AttachmentVersioningResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testAttachNewVersion() throws IOException, SmartsheetException  {
+    void testAttachNewVersion() throws IOException, SmartsheetException  {
         server.setResponseBody(new File("src/test/resources/attachFile.json"));
         File file = new File("src/test/resources/large_sheet.pdf");
         Attachment attachment = attachmentVersioningResources.attachNewVersion(1234L, 345L,file,

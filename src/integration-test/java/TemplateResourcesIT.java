@@ -38,7 +38,7 @@ public class TemplateResourcesIT extends ITResourcesImpl{
     }
 
     @Test
-    public void testListPublicTemplates() throws IOException, SmartsheetException {
+    void testListPublicTemplates() throws IOException, SmartsheetException {
         PaginationParameters parameters = new PaginationParameters.PaginationParametersBuilder().setIncludeAll(true).build();
         PagedResult<Template> templates = smartsheet.templateResources().listPublicTemplates(null);
 
@@ -46,7 +46,7 @@ public class TemplateResourcesIT extends ITResourcesImpl{
     }
 
     @Test
-    public void testListTemplates() throws IOException, SmartsheetException {
+    void testListTemplates() throws IOException, SmartsheetException {
         PaginationParameters parameters = new PaginationParameters.PaginationParametersBuilder().setIncludeAll(true).build();
         PagedResult<Template> templates = smartsheet.templateResources().listUserCreatedTemplates(parameters);
 

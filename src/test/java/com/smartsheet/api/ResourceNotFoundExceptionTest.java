@@ -26,14 +26,10 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ResourceNotFoundExceptionTest {
-
-    @BeforeEach
-    public void setUp() throws Exception {
-    }
+class ResourceNotFoundExceptionTest {
 
     @Test
-    public void testResourceNotFoundException() {
+    void testResourceNotFoundException() {
         try{
             Error error = new Error();
             error.setErrorCode(1);

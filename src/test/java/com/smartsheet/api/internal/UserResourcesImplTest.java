@@ -36,7 +36,7 @@ import java.util.Set;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class UserResourcesImplTest extends ResourcesImplBase {
+class UserResourcesImplTest extends ResourcesImplBase {
 
     private UserResourcesImpl userResources;
 
@@ -47,10 +47,7 @@ public class UserResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testUserResourcesImpl() {}
-
-    @Test
-    public void testListUsers() throws SmartsheetException, IOException {
+    void testListUsers() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/listUsers.json"));
         Set<String> email = new HashSet<String>();
         email.add("test@example.com");
@@ -60,7 +57,7 @@ public class UserResourcesImplTest extends ResourcesImplBase {
         pagination.setPage(1);
 
         PagedResult<User> userWrapper1 = userResources.listUsers();
-        assertTrue(userWrapper1.getData().size() == 2);
+        assertEquals(2, userWrapper1.getData().size());
 
         PagedResult<User> userWrapper = userResources.listUsers(email, pagination);
         assertTrue(userWrapper.getPageNumber() == 1);
@@ -79,7 +76,7 @@ public class UserResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testAddUserUser() throws IOException, SmartsheetException {
+    void testAddUserUser() throws IOException, SmartsheetException {
         server.setResponseBody(new File("src/test/resources/addUser.json"));
 
         User user = new User();
@@ -98,7 +95,7 @@ public class UserResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testAddUserUserBoolean() throws IOException, SmartsheetException {
+    void testAddUserUserBoolean() throws IOException, SmartsheetException {
         server.setResponseBody(new File("src/test/resources/addUser.json"));
 
         User user = new User();
@@ -117,7 +114,7 @@ public class UserResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testGetUser() throws SmartsheetException, IOException {
+    void testGetUser() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/getUser.json"));
 
         UserProfile user = userResources.getUser(12345L);
@@ -130,7 +127,7 @@ public class UserResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testGetCurrentUser() throws SmartsheetException, IOException {
+    void testGetCurrentUser() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/getCurrentUser.json"));
 
         UserProfile user = userResources.getCurrentUser();
@@ -147,7 +144,7 @@ public class UserResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testUpdateUser() throws SmartsheetException, IOException {
+    void testUpdateUser() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/updateUser.json"));
 
         User user = new User();
@@ -163,14 +160,14 @@ public class UserResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testDeleteUser() throws IOException, SmartsheetException {
+    void testDeleteUser() throws IOException, SmartsheetException {
         server.setResponseBody(new File("src/test/resources/deleteUser.json"));
         DeleteUserParameters parameters = new DeleteUserParameters(12345L, true, true);
         userResources.deleteUser(1234L, parameters);
     }
 
     @Test
-    public void testListOrgSheets() throws SmartsheetException, IOException {
+    void testListOrgSheets() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/listOrgSheets.json"));
 
         PaginationParameters pagination = new PaginationParameters();

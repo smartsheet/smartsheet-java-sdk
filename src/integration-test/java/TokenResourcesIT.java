@@ -33,7 +33,7 @@ public class TokenResourcesIT extends ITResourcesImpl{
     }
 
     @Test
-    public void tokenResources() throws Exception{
+    void tokenResources() throws Exception{
         //TODO
         OAuthFlow oAuthFlow = new OAuthFlowBuilder().setClientId("YOUR_CLIENT_ID").setRedirectURL("https://www.google.com").setClientSecret("YOUR_CLIENT_SECRET").build();
 

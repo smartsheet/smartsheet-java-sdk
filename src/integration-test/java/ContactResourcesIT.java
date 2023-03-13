@@ -41,7 +41,7 @@ public class ContactResourcesIT extends ITResourcesImpl{
     }
 
     @Test
-    public void testContactMethods() throws SmartsheetException, IOException {
+    void testContactMethods() throws SmartsheetException, IOException {
         testListContacts();
         testGetContact();
     }

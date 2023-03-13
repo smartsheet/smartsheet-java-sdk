@@ -24,10 +24,10 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-public class RecipientEmailTest {
+class RecipientEmailTest {
 
     @Test
-    public void testRecipientEmail() {
+    void testRecipientEmail() {
         RecipientEmail recipient = new RecipientEmail();
         recipient.setEmail("johndoe@smartsheet.com");
 

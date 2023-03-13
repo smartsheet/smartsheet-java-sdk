@@ -38,8 +38,8 @@ import java.util.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 
-public class SheetResourcesImplTest extends ResourcesImplBase {
-    SheetResourcesImpl sheetResource;
+class SheetResourcesImplTest extends ResourcesImplBase {
+    private SheetResourcesImpl sheetResource;
 
     @BeforeEach
     public void setUp() throws Exception {
@@ -49,7 +49,7 @@ public class SheetResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testListSheets() throws SmartsheetException, IOException {
+    void testListSheets() throws SmartsheetException, IOException {
 
         server.setResponseBody(new File("src/test/resources/listSheets.json"));
         PaginationParameters parameters = new PaginationParameters.PaginationParametersBuilder().setIncludeAll(false).setPageSize(1).setPage(1).build();
@@ -65,7 +65,7 @@ public class SheetResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testListOrganizationSheets() throws SmartsheetException, IOException {
+    void testListOrganizationSheets() throws SmartsheetException, IOException {
 
         server.setResponseBody(new File("src/test/resources/listSheets.json"));
         PaginationParameters parameters = new PaginationParameters.PaginationParametersBuilder().setIncludeAll(true).build();
@@ -74,7 +74,7 @@ public class SheetResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testGetSheet() throws SmartsheetException, IOException {
+    void testGetSheet() throws SmartsheetException, IOException {
 
         server.setResponseBody(new File("src/test/resources/getSheet.json"));
         Sheet sheet = sheetResource.getSheet(123123L, null, null, null, null, null, null, null);
@@ -95,7 +95,7 @@ public class SheetResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testGetSheetWithFormat() throws SmartsheetException, IOException {
+    void testGetSheetWithFormat() throws SmartsheetException, IOException {
 
         server.setResponseBody(new File("src/test/resources/getSheetWithFormat.json"));
         Sheet sheet = sheetResource.getSheet(123123L, null, null, null, null, null, null, null);
@@ -105,7 +105,7 @@ public class SheetResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testGetSheetAsExcel() throws SmartsheetException, IOException {
+    void testGetSheetAsExcel() throws SmartsheetException, IOException {
         File file = new File("src/test/resources/getExcel.xls");
         server.setResponseBody(file);
         server.setContentType("application/vnd.ms-excel");
@@ -122,7 +122,7 @@ public class SheetResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testGetSheetAsPDF() throws SmartsheetException, IOException {
+    void testGetSheetAsPDF() throws SmartsheetException, IOException {
 
         File file = new File("src/test/resources/getPDF.pdf");
         server.setResponseBody(file);
@@ -148,7 +148,7 @@ public class SheetResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testCreateSheet() throws SmartsheetException, IOException {
+    void testCreateSheet() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/createSheet.json"));
 
         ArrayList<Column> list = new ArrayList<Column>();
@@ -167,7 +167,7 @@ public class SheetResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testCreateSheetFromTemplate() throws SmartsheetException, IOException {
+    void testCreateSheetFromTemplate() throws SmartsheetException, IOException {
 
         server.setResponseBody(new File("src/test/resources/createSheetFromExisting.json"));
 
@@ -181,7 +181,7 @@ public class SheetResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testCreateSheetInFolder() throws SmartsheetException, IOException {
+    void testCreateSheetInFolder() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/createSheet.json"));
 
         ArrayList<Column> list = new ArrayList<Column>();
@@ -204,7 +204,7 @@ public class SheetResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testCreateSheetInFolderFromTemplate() throws SmartsheetException, IOException {
+    void testCreateSheetInFolderFromTemplate() throws SmartsheetException, IOException {
 
         server.setResponseBody(new File("src/test/resources/createSheetFromExisting.json"));
 
@@ -222,7 +222,7 @@ public class SheetResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testCreateSheetInWorkspace() throws SmartsheetException, IOException {
+    void testCreateSheetInWorkspace() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/createSheet.json"));
 
         ArrayList<Column> list = new ArrayList<Column>();
@@ -238,7 +238,7 @@ public class SheetResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testCreateSheetInWorkspaceFromTemplate() throws SmartsheetException, IOException {
+    void testCreateSheetInWorkspaceFromTemplate() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/createSheetFromExisting.json"));
 
         Sheet sheet = new Sheet();
@@ -254,13 +254,13 @@ public class SheetResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testDeleteSheet() throws SmartsheetException, IOException {
+    void testDeleteSheet() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/deleteSheet.json"));
         sheetResource.deleteSheet(1234L);
     }
 
     @Test
-    public void testUpdateSheet() throws SmartsheetException, IOException {
+    void testUpdateSheet() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/updateSheet.json"));
 
         Sheet sheet = new Sheet.UpdateSheetBuilder().setName("new name").build();
@@ -270,7 +270,7 @@ public class SheetResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testGetSheetVersion() throws SmartsheetException, IOException {
+    void testGetSheetVersion() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/getSheetVersion.json"));
         int version = sheetResource.getSheetVersion(1234L);
         if (version != 1) {
@@ -279,7 +279,7 @@ public class SheetResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testSendSheet() throws SmartsheetException, IOException {
+    void testSendSheet() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/sendEmails.json"));
 
         List<Recipient> recipients = new ArrayList<Recipient>();
@@ -303,27 +303,27 @@ public class SheetResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testShares() {
+    void testShares() {
         sheetResource.shareResources();
     }
 
     @Test
-    public void testRows() {
+    void testRows() {
         sheetResource.rowResources();
     }
 
     @Test
-    public void testColumns() {
+    void testColumns() {
         sheetResource.columnResources();
     }
 
     @Test
-    public void testDiscussions() {
+    void testDiscussions() {
         sheetResource.discussionResources();
     }
 
     @Test
-    public void testGetPublishStatus() throws SmartsheetException, IOException {
+    void testGetPublishStatus() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/getPublishStatus.json"));
 
         SheetPublish publishStatus = sheetResource.getPublishStatus(1234L);
@@ -336,7 +336,7 @@ public class SheetResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testUpdatePublishStatus() throws SmartsheetException, IOException {
+    void testUpdatePublishStatus() throws SmartsheetException, IOException {
 
         server.setResponseBody(new File("src/test/resources/setPublishStatus.json"));
 
@@ -358,17 +358,17 @@ public class SheetResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testCopySheet() throws SmartsheetException, IOException {
+    void testCopySheet() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/copySheet.json"));
         ContainerDestination containerDestination = new ContainerDestination();
         containerDestination.setDestinationType(DestinationType.FOLDER);
 
         Sheet sheet = sheetResource.copySheet(123L, containerDestination, null);
-        assertEquals(sheet.getName(), "newSheetName");
+        assertEquals("newSheetName", sheet.getName());
     }
 
     @Test
-    public void testMoveSheet() throws SmartsheetException, IOException {
+    void testMoveSheet() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/moveSheet.json"));
         ContainerDestination containerDestination = new ContainerDestination();
         containerDestination.setDestinationType(DestinationType.FOLDER);
@@ -377,7 +377,7 @@ public class SheetResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testGetSheetAsCSV() throws SmartsheetException, IOException {
+    void testGetSheetAsCSV() throws SmartsheetException, IOException {
         File file = new File("src/test/resources/getCsv.csv");
         server.setResponseBody(file);
         server.setContentType("text/csv");
@@ -393,36 +393,7 @@ public class SheetResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testShareResources() throws Exception {
-
-    }
-
-    @Test
-    public void testRowResources() throws Exception {
-
-    }
-
-    @Test
-    public void testColumnResources() throws Exception {
-
-    }
-
-    @Test
-    public void testAttachmentResources() throws Exception {
-
-    }
-
-    @Test
-    public void testDiscussionResources() throws Exception {
-
-    }
-
-    @Test
-    public void testCommentResources() throws Exception {
-    }
-
-    @Test
-    public void testCreateUpdateRequest() throws Exception {
+    void testCreateUpdateRequest() throws Exception {
         server.setResponseBody(new File("src/test/resources/createUpdateRequest.json"));
 
         List<Recipient> recipients = new ArrayList<Recipient>();
@@ -433,7 +404,7 @@ public class SheetResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testSortSheet() throws Exception {
+    void testSortSheet() throws Exception {
         server.setResponseBody(new File("src/test/resources/getSheet.json"));
         SortSpecifier specifier = new SortSpecifier();
         SortCriterion criterion = new SortCriterion();
@@ -443,10 +414,5 @@ public class SheetResourcesImplTest extends ResourcesImplBase {
         criteria.add(criterion);
         specifier.setSortCriteria(criteria);
         Sheet sheet = sheetResource.sortSheet(123L, specifier);
-    }
-
-    @Test
-    public void testCopyStream() throws Exception {
-
     }
 }

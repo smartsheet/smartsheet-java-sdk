@@ -31,7 +31,7 @@ import java.io.IOException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class SheetCommentResourcesImplTest extends ResourcesImplBase {
+class SheetCommentResourcesImplTest extends ResourcesImplBase {
     private SheetCommentResourcesImpl sheetCommentResources;
 
     @BeforeEach
@@ -40,7 +40,7 @@ public class SheetCommentResourcesImplTest extends ResourcesImplBase {
                 "accessToken", new DefaultHttpClient(), serializer));
     }
     @Test
-    public void testGetComment() throws SmartsheetException, IOException {
+    void testGetComment() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/getComment.json"));
 
         Comment comment = sheetCommentResources.getComment(1234L, 1245L);
@@ -56,7 +56,7 @@ public class SheetCommentResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testDeleteComment() throws SmartsheetException, IOException {
+    void testDeleteComment() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/deleteComment.json"));
 
         sheetCommentResources.deleteComment(1234L, 2345L);

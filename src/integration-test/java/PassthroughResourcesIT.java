@@ -39,7 +39,7 @@ public class PassthroughResourcesIT extends ITResourcesImpl {
     }
 
     @Test
-    public void testPassthroughMethods() throws SmartsheetException, IOException {
+    void testPassthroughMethods() throws SmartsheetException, IOException {
         Long id = 0L;
         String payload =
                 "{\"name\": \"my new sheet\"," +

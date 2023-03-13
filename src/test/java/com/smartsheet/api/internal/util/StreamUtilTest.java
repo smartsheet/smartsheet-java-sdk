@@ -32,9 +32,9 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 /**
  *
  */
-public class StreamUtilTest {
+class StreamUtilTest {
     @Test
-    public void testReadBytesFromStream() throws Exception {
+    void testReadBytesFromStream() throws Exception {
         final String testString = "fuzzy wuzzy was a bear; fuzzy wuzzy had no hair...";
         final byte[] testBytes = testString.getBytes("UTF-8");
         final InputStream inputStream = new CharSequenceInputStream(testString, "UTF-8");

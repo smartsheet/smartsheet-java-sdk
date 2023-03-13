@@ -32,7 +32,7 @@ import java.io.IOException;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class ServerInfoResourcesImplTest extends ResourcesImplBase {
+class ServerInfoResourcesImplTest extends ResourcesImplBase {
     private ServerInfoResourcesImpl serverInfoResources;
 
     @BeforeEach
@@ -43,7 +43,7 @@ public class ServerInfoResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testGetServerInfo() throws SmartsheetException, IOException {
+    void testGetServerInfo() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/getServerInfo.json"));
         ServerInfo serverInfo = serverInfoResources.getServerInfo();
 

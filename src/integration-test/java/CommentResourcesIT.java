@@ -42,7 +42,7 @@ public class CommentResourcesIT extends ITResourcesImpl{
     }
 
     @Test
-    public void testCommentMethods() throws SmartsheetException, IOException {
+    void testCommentMethods() throws SmartsheetException, IOException {
         testAddComment();
         testGetComment();
         testAddCommentWithAttachment();

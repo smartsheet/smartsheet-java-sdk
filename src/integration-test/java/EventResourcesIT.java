@@ -44,7 +44,7 @@ public class EventResourcesIT extends ITResourcesImpl{
     @Disabled
     // TODO - need access token with Admin Level permissions for this test to work
     @Test
-    public void testListEvents() throws SmartsheetException {
+    void testListEvents() throws SmartsheetException {
 
         Date lastHour = new Date(System.currentTimeMillis() - TimeUnit.HOURS.toMillis(1));
         EventResult eventResult = smartsheet.eventResources().listEvents(lastHour, null, 10, false);
@@ -78,7 +78,7 @@ public class EventResourcesIT extends ITResourcesImpl{
     }
 
     @Test
-    public void testInvalidParams() {
+    void testInvalidParams() {
         try {
             EventResult eventResult = smartsheet.eventResources().listEvents(0, "2.1.0An4ZapaQaOXPdojlmediSZ1WqMdi5U_3l9gViOW7ic", 10, null);
             assertTrue(true);

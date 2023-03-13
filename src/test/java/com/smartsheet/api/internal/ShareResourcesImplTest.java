@@ -38,7 +38,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class ShareResourcesImplTest extends ResourcesImplBase {
+class ShareResourcesImplTest extends ResourcesImplBase {
 
     private ShareResourcesImpl shareResourcesImpl;
 
@@ -49,11 +49,7 @@ public class ShareResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testShareResourcesImpl() {
-    }
-
-    @Test
-    public void testListShares() throws SmartsheetException, IOException {
+    void testListShares() throws SmartsheetException, IOException {
 
         server.setResponseBody(new File("src/test/resources/listShares.json"));
         PaginationParameters parameters = new PaginationParameters(false, 1, 1);
@@ -65,7 +61,7 @@ public class ShareResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testGetShare() throws SmartsheetException, IOException {
+    void testGetShare() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/getShare.json"));
 
         Share share = shareResourcesImpl.getShare(1234L, "fhqwhgads");
@@ -76,7 +72,7 @@ public class ShareResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testUpdateShare() throws SmartsheetException, IOException {
+    void testUpdateShare() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/updateShare.json"));
         Share share = new Share();
         share.setAccessLevel(AccessLevel.ADMIN);
@@ -85,19 +81,19 @@ public class ShareResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testUpdateShareWithNullShare() {
+    void testUpdateShareWithNullShare() {
         assertThrows(IllegalArgumentException.class, () -> shareResourcesImpl.updateShare(123L, null));
     }
 
     @Test
-    public void testDeleteShare() throws SmartsheetException, IOException {
+    void testDeleteShare() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/deleteShare.json"));
 
         shareResourcesImpl.deleteShare(1234L, "fhqwhgads");
     }
 
     @Test
-    public void testShareTo() throws SmartsheetException, IOException {
+    void testShareTo() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/shareTo.json"));
 
         List<Share> shares = new ArrayList<Share>();
@@ -109,7 +105,7 @@ public class ShareResourcesImplTest extends ResourcesImplBase {
                 .setAccessLevel(AccessLevel.EDITOR).build());
 
         shares = shareResourcesImpl.shareTo(1234L, shares, true);
-        assertTrue(shares.size() == 1);
+        assertEquals(1, shares.size());
         assertEquals("jane.doe@smartsheet.com", shares.get(0).getEmail());
         assertEquals("Jane Doe", shares.get(0).getName());
     }

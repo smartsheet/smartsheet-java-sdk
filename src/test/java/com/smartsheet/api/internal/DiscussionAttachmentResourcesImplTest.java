@@ -32,7 +32,7 @@ import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class DiscussionAttachmentResourcesImplTest extends ResourcesImplBase {
+class DiscussionAttachmentResourcesImplTest extends ResourcesImplBase {
 
     private DiscussionAttachmentResourcesImpl discussionAttachmentResources;
 
@@ -43,7 +43,7 @@ public class DiscussionAttachmentResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testGetAttachments() throws SmartsheetException, IOException {
+    void testGetAttachments() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/listAssociatedAttachments.json"));
         PaginationParameters parameters = new PaginationParameters(false, 1,1);
 

@@ -45,7 +45,7 @@ public class GroupResourcesIT extends ITResourcesImpl{
     }
 
     @Test
-    public void testGroupMethods() throws SmartsheetException, IOException {
+    void testGroupMethods() throws SmartsheetException, IOException {
         removeExistingGroup();
         testCreateGroup();
         testListGroups();

@@ -31,10 +31,10 @@ import java.util.Set;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class QueryUtilTest {
+class QueryUtilTest {
 
     @Test
-    public void testGenerateCommaSeparatedList() {
+    void testGenerateCommaSeparatedList() {
         Set<Long> list = new HashSet<Long>();
         list.add(123456789L);
         list.add(987654321L);
@@ -51,7 +51,7 @@ public class QueryUtilTest {
     }
 
     @Test
-    public void testGenerateUrl() {
+    void testGenerateUrl() {
         assertEquals("", QueryUtil.generateUrl(null, null));
         assertEquals("url", QueryUtil.generateUrl("url", null));
 

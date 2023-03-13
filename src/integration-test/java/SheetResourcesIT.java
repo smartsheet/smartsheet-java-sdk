@@ -46,7 +46,7 @@ public class SheetResourcesIT extends ITResourcesImpl{
     }
 
     @Test
-    public void testSheetMethods() throws SmartsheetException, IOException {
+    void testSheetMethods() throws SmartsheetException, IOException {
         testCreateSheetHome();
         testCopySheet();
         testMoveSheet();

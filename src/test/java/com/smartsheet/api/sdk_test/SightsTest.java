@@ -9,9 +9,9 @@ package com.smartsheet.api.sdk_test;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -31,11 +31,12 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class SightsTest {
+class SightsTest {
 
     @Test
-    public void ListSights() {
+    void ListSights() {
         try {
             Smartsheet ss = HelperFunctions.SetupClient("List Sights");
             PagedResult<Sight> sights = ss.sightResources().listSights(null, null);
@@ -46,7 +47,7 @@ public class SightsTest {
     }
 
     @Test
-    public void GetSight() {
+    void GetSight() {
         Smartsheet ss = HelperFunctions.SetupClient("Get Sight");
         try {
             Sight sight = ss.sightResources().getSight(52);
@@ -59,7 +60,7 @@ public class SightsTest {
 
     @Disabled("destination types differ because of case")
     @Test
-    public void CopySight() {
+    void CopySight() {
         Smartsheet ss = HelperFunctions.SetupClient("Copy Sight");
         try {
             ContainerDestination dest = new ContainerDestination();
@@ -74,7 +75,7 @@ public class SightsTest {
     }
 
     @Test
-    public void UpdateSight() {
+    void UpdateSight() {
         Smartsheet ss = HelperFunctions.SetupClient("Update Sight");
         try {
             Sight sight = new Sight();
@@ -88,7 +89,7 @@ public class SightsTest {
     }
 
     @Test
-    public void SetPublishStatus() {
+    void SetPublishStatus() {
         Smartsheet ss = HelperFunctions.SetupClient("Set Sight Publish Status");
         try {
             SightPublish publish = new SightPublish();
@@ -102,11 +103,11 @@ public class SightsTest {
     }
 
     @Test
-    public void GetPublishStatus() {
+    void GetPublishStatus() {
         Smartsheet ss = HelperFunctions.SetupClient("Get Sight Publish Status");
         try {
             SightPublish publish = ss.sightResources().getPublishStatus(812L);
-          assertEquals(publish.getReadOnlyFullEnabled(), true);
+            assertTrue(publish.getReadOnlyFullEnabled());
         }
         catch(SmartsheetException ex) {
             HelperFunctions.ExceptionMessage(ex.getMessage(), ex.getCause());
@@ -114,7 +115,7 @@ public class SightsTest {
     }
 
     @Test
-    public void DeleteSight() {
+    void DeleteSight() {
         Smartsheet ss = HelperFunctions.SetupClient("Delete Sight");
         try {
             ss.sightResources().deleteSight(700L);

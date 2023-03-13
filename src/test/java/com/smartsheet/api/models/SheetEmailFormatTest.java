@@ -27,14 +27,10 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-public class SheetEmailFormatTest {
-
-    @BeforeEach
-    public void setUp() throws Exception {
-    }
+class SheetEmailFormatTest {
 
     @Test
-    public void test() {
+    void test() {
         assertNotNull(SheetEmailFormat.valueOf("PDF"));
         assertNotNull(SheetEmailFormat.valueOf("EXCEL"));
         assertEquals(3,SheetEmailFormat.values().length);

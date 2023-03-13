@@ -35,17 +35,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ExtendWith(MockitoExtension.class)
-public class FormatTest {
+class FormatTest {
 
     @Mock
-    JsonGenerator generator;
+    private JsonGenerator generator;
     @Mock
-    SerializerProvider provider;
-
-    @BeforeEach
-    public void setup() {
-
-    }
+    private SerializerProvider provider;
     private final static int U = Format.UNSET;
     enum ParserTests {
         VALID_A     (",,1,1,1,,,,20,29,,,,,,",      new int[]{U,U,1,1,1,U,U,U,20,29,U,U,U,U,U,U}),
@@ -67,7 +62,7 @@ public class FormatTest {
     }
 
     @Test
-    public void testParser() {
+    void testParser() {
         for (ParserTests t : ParserTests.values()) {
             Format f = new Format(t.format);
             int i = 0;
@@ -79,7 +74,7 @@ public class FormatTest {
     }
 
     @Test
-    public void testFormatBuilderAllDefaults() throws IOException {
+    void testFormatBuilderAllDefaults() throws IOException {
         Format actual = new Format.FormatBuilder()
                 .build();
 
@@ -87,7 +82,7 @@ public class FormatTest {
     }
 
     @Test
-    public void testFormatBuilderVariousSettings() throws IOException {
+    void testFormatBuilderVariousSettings() throws IOException {
         Format actual = new Format.FormatBuilder()
                 .withBackgroundColor(Color.ORANGE_4)
                 .withCurrency(Currency.BRAZIL_REAIS)
@@ -100,7 +95,7 @@ public class FormatTest {
     }
 
     @Test
-    public void testAllFormats() throws IOException {
+    void testAllFormats() throws IOException {
         runTestCases(FontFamilyTest.values());
         runTestCases(FontSizeTest.values());
         runTestCases(BoldTest.values());

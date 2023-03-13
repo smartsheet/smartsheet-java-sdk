@@ -25,7 +25,7 @@ import com.smartsheet.api.internal.http.DefaultHttpClient;
 import com.smartsheet.api.internal.http.HttpRequest;
 import org.apache.http.client.methods.HttpRequestBase;
 
-public class TestHttpClient extends DefaultHttpClient {
+class TestHttpClient extends DefaultHttpClient {
 
     private String apiScenario;
 

@@ -26,31 +26,28 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.smartsheet.api.models.Folder;
 import com.smartsheet.api.models.Result;
 import com.smartsheet.api.models.User;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
-public class JacksonJsonSerializerTest {
-    JacksonJsonSerializer jjs;
-
-    @BeforeEach
-    public void setUp() throws Exception {
-        jjs = new JacksonJsonSerializer();
-    }
+class JacksonJsonSerializerTest {
+    JacksonJsonSerializer jjs  = new JacksonJsonSerializer();
 
     @Test
-    public void testJacksonJsonSerializer() {}
-
-    @Test
-    public void testInit() {}
-
-    @Test
-    public void testSerialize() {
+    void testSerialize() {
         try{
             // Illegal Argument due to null
             try{
@@ -126,7 +123,7 @@ public class JacksonJsonSerializerTest {
     }
 
     @Test
-    public void testDeserialize() throws JSONSerializerException, JsonParseException, JsonMappingException, IOException {
+    void testDeserialize() throws JSONSerializerException, JsonParseException, JsonMappingException, IOException {
         try{
             // Illegal argument due to null
             try {
@@ -173,7 +170,7 @@ public class JacksonJsonSerializerTest {
     }
 
     @Test
-    public void testDeserializeMap() throws JSONSerializerException, FileNotFoundException, IOException {
+    void testDeserializeMap() throws JSONSerializerException, FileNotFoundException, IOException {
         // Test null pointer exceptions
         try {
             jjs.deserializeMap(null);
@@ -217,7 +214,7 @@ public class JacksonJsonSerializerTest {
     }
 
     @Test
-    public void testDeserializeList() throws JsonParseException, IOException, JSONSerializerException {
+    void testDeserializeList() throws JsonParseException, IOException, JSONSerializerException {
         // Test null pointer exceptions
         try {
             jjs.deserializeList(null, null);
@@ -287,7 +284,7 @@ public class JacksonJsonSerializerTest {
 
 
     @Test
-    public void testDeserializeResult() {
+    void testDeserializeResult() {
         try{
             try {
                 jjs.deserializeResult(null, null);
@@ -362,7 +359,7 @@ public class JacksonJsonSerializerTest {
     }
 
     @Test
-    public void testDeserializeListResult() {
+    void testDeserializeListResult() {
         try {
             try {
                 jjs.deserializeListResult(null, null);

@@ -43,7 +43,7 @@ import java.util.EnumSet;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
-public class OAuthFlowImplTest {
+class OAuthFlowImplTest {
 
     OAuthFlowImpl oauth;
     String clientId = "clientID";
@@ -76,7 +76,7 @@ public class OAuthFlowImplTest {
     }
 
     @Test
-    public void testOAuthFlowImpl() {
+    void testOAuthFlowImpl() {
 
         assertEquals(clientId,oauth.getClientId());
         assertEquals(clientSecret, oauth.getClientSecret());
@@ -88,7 +88,7 @@ public class OAuthFlowImplTest {
     }
 
     @Test
-    public void testNewAuthorizationURL() throws UnsupportedEncodingException {
+    void testNewAuthorizationURL() throws UnsupportedEncodingException {
         try {
             oauth.newAuthorizationURL(null, null);
             fail("Should have thrown an exception.");
@@ -104,7 +104,7 @@ public class OAuthFlowImplTest {
     }
 
     @Test
-    public void testExtractAuthorizationResult() throws URISyntaxException, OAuthAuthorizationCodeException {
+    void testExtractAuthorizationResult() throws URISyntaxException, OAuthAuthorizationCodeException {
 
         try{
             oauth.extractAuthorizationResult(null);
@@ -167,7 +167,7 @@ public class OAuthFlowImplTest {
     }
 
     @Test
-    public void testObtainNewToken() throws NoSuchAlgorithmException, OAuthTokenException,
+    void testObtainNewToken() throws NoSuchAlgorithmException, OAuthTokenException,
         JSONSerializerException, HttpClientException, OAuthAuthorizationCodeException, URISyntaxException, InvalidRequestException, IOException {
         server.setStatus(403);
         server.setContentType("application/x-www-form-urlencoded");
@@ -188,7 +188,7 @@ public class OAuthFlowImplTest {
 
 
     @Test
-    public void testRefreshToken() throws InvalidRequestException, NoSuchAlgorithmException,
+    void testRefreshToken() throws InvalidRequestException, NoSuchAlgorithmException,
         UnsupportedEncodingException, OAuthTokenException, JSONSerializerException, HttpClientException,
         URISyntaxException {
         oauth.setTokenURL("https://api.smartsheet.com/1.1/token");
@@ -212,7 +212,7 @@ public class OAuthFlowImplTest {
     }
 
     @Test
-    public void testRevokeAccessToken() throws InvalidRequestException, NoSuchAlgorithmException,
+    void testRevokeAccessToken() throws InvalidRequestException, NoSuchAlgorithmException,
             UnsupportedEncodingException, OAuthTokenException, JSONSerializerException, HttpClientException,
             URISyntaxException {
         oauth.setTokenURL("https://api.smartsheet.com/1.1/token");

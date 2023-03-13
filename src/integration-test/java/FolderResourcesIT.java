@@ -48,7 +48,7 @@ public class FolderResourcesIT extends ITResourcesImpl {
     }
 
     @Test
-    public void testFolderMethods() throws IOException, SmartsheetException {
+    void testFolderMethods() throws IOException, SmartsheetException {
         testCreateFolderInHome();
         testListFoldersInHome();
         testCreateFolderInFolder();

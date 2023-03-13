@@ -27,14 +27,10 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-public class SystemColumnTypeTest {
-
-    @BeforeEach
-    public void setUp() throws Exception {
-    }
+class SystemColumnTypeTest {
 
     @Test
-    public void test() {
+    void test() {
         assertNotNull(SystemColumnType.valueOf("AUTO_NUMBER"));
         assertNotNull(SystemColumnType.valueOf("MODIFIED_DATE"));
         assertNotNull(SystemColumnType.valueOf("MODIFIED_BY"));

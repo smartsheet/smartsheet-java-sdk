@@ -28,22 +28,10 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class SmartsheetBuilderTest {
-
-    @BeforeEach
-    public void setUp() throws Exception {
-    }
+class SmartsheetBuilderTest {
 
     @Test
-    public void testSmartsheetBuilder() {}
-
-    @Test
-    public void testSetHttpClient() {
-
-    }
-
-    @Test
-    public void testBuild() {
+    void testBuild() {
         Smartsheet smartsheet = new SmartsheetBuilder().build();
         assertTrue(smartsheet instanceof SmartsheetImpl);
 

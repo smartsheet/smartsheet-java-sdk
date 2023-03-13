@@ -25,7 +25,7 @@ import com.smartsheet.api.Smartsheet;
 import com.smartsheet.api.SmartsheetBuilder;
 import static org.junit.jupiter.api.Assertions.fail;
 
-public class HelperFunctions {
+class HelperFunctions {
 	public static Smartsheet SetupClient(String apiScenario){
 		TestHttpClient testHttpClient = new TestHttpClient(apiScenario);
 		Smartsheet ss = new SmartsheetBuilder()

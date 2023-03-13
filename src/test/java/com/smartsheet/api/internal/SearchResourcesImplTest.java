@@ -35,7 +35,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class SearchResourcesImplTest  extends ResourcesImplBase  {
+class SearchResourcesImplTest  extends ResourcesImplBase  {
 
     private SearchResourcesImpl searchResources;
 
@@ -46,11 +46,7 @@ public class SearchResourcesImplTest  extends ResourcesImplBase  {
     }
 
     @Test
-    public void testSearchResourcesImpl() {
-    }
-
-    @Test
-    public void testSearch() throws IOException, SmartsheetException {
+    void testSearch() throws IOException, SmartsheetException {
         server.setResponseBody(new File("src/test/resources/search.json"));
 
         SearchResult result = searchResources.search("brett");
@@ -66,7 +62,7 @@ public class SearchResourcesImplTest  extends ResourcesImplBase  {
     }
 
     @Test
-    public void testSearchSheet() throws IOException, SmartsheetException {
+    void testSearchSheet() throws IOException, SmartsheetException {
         server.setResponseBody(new File("src/test/resources/searchSheet.json"));
 
         SearchResult searchSheet = searchResources.searchSheet(1234L, "java");
@@ -84,22 +80,22 @@ public class SearchResourcesImplTest  extends ResourcesImplBase  {
     }
 
     @Test
-    public void nullQuerySearchSheet() {
+    void nullQuerySearchSheet() {
         assertThrows(IllegalArgumentException.class, () -> searchResources.searchSheet(1234L, null));
     }
 
     @Test
-    public void emptyQuerySearchSheet() {
+    void emptyQuerySearchSheet() {
         assertThrows(IllegalArgumentException.class, () -> searchResources.searchSheet(1234L, ""));
     }
 
     @Test
-    public void nullQueryOnSeaerch() {
+    void nullQueryOnSeaerch() {
         assertThrows(IllegalArgumentException.class, () -> searchResources.search(null));
     }
 
     @Test
-    public void emptyQuerySearch() {
+    void emptyQuerySearch() {
         assertThrows(IllegalArgumentException.class, () -> searchResources.search(""));
     }
 }

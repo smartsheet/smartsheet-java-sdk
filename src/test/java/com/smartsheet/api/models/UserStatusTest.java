@@ -27,14 +27,10 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-public class UserStatusTest {
-
-    @BeforeEach
-    public void setUp() throws Exception {
-    }
+class UserStatusTest {
 
     @Test
-    public void test() {
+    void test() {
         assertNotNull(UserStatus.valueOf("ACTIVE"));
         assertNotNull(UserStatus.valueOf("PENDING"));
         assertNotNull(UserStatus.valueOf("DECLINED"));

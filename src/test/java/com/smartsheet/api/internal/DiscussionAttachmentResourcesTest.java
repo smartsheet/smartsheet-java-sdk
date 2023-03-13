@@ -29,7 +29,7 @@ import java.io.File;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
-public class DiscussionAttachmentResourcesTest extends ResourcesImplBase  {
+class DiscussionAttachmentResourcesTest extends ResourcesImplBase  {
 
     private DiscussionAttachmentResources discussionAttachmentResources;
 
@@ -40,7 +40,7 @@ public class DiscussionAttachmentResourcesTest extends ResourcesImplBase  {
     }
 
     @Test
-    public void testAttachFileLongFileString() {
+    void testAttachFileLongFileString() {
         try{
             discussionAttachmentResources.attachFile(1234L, new File("src/test/rescoures/getPDF.pdf"), "application/pdf");
             fail("Exception should have been thrown.");
@@ -50,7 +50,7 @@ public class DiscussionAttachmentResourcesTest extends ResourcesImplBase  {
     }
 
     @Test
-    public void testAttachFileLongFileStringLong(){
+    void testAttachFileLongFileStringLong(){
         try{
             discussionAttachmentResources.attachFile(1234L, new ByteArrayInputStream(new byte[]{}), "application/pdf", 1234L, "file.pdf");
             fail("Exception should have been thrown.");
@@ -58,8 +58,5 @@ public class DiscussionAttachmentResourcesTest extends ResourcesImplBase  {
             // Expected
         }
     }
-
-    @Test
-    public void testDiscussionAttachmentResources() {}
 
 }

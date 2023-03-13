@@ -27,14 +27,10 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-public class PaperSizeTest {
-
-    @BeforeEach
-    public void setUp() throws Exception {
-    }
+class PaperSizeTest {
 
     @Test
-    public void test() {
+    void test() {
 
         assertNotNull(PaperSize.valueOf("LETTER"));
         assertNotNull(PaperSize.valueOf("LEGAL"));

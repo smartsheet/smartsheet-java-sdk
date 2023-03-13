@@ -27,14 +27,10 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-public class AttachmentTypeTest {
-
-    @BeforeEach
-    public void setUp() throws Exception {
-    }
+class AttachmentTypeTest {
 
     @Test
-    public void test() {
+    void test() {
         assertNotNull(AttachmentType.valueOf("FILE"));
         assertNotNull(AttachmentType.valueOf("GOOGLE_DRIVE"));
         assertNotNull(AttachmentType.valueOf("LINK"));

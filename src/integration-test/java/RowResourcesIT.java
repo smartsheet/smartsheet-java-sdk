@@ -43,7 +43,7 @@ public class RowResourcesIT extends ITResourcesImpl{
     }
 
     @Test
-    public void testRowMethods() throws SmartsheetException, IOException {
+    void testRowMethods() throws SmartsheetException, IOException {
         testAddRows();
         testGetRow();
         testCopyRow();
@@ -91,7 +91,7 @@ public class RowResourcesIT extends ITResourcesImpl{
     }
 
     @Test
-    public void testUpdateRows() throws SmartsheetException, IOException {
+    void testUpdateRows() throws SmartsheetException, IOException {
          //create sheet
         Sheet sheet = smartsheet.sheetResources().createSheet(createSheetObject());
         PaginationParameters parameters = new PaginationParameters.PaginationParametersBuilder().setIncludeAll(true).build();
@@ -166,7 +166,7 @@ public class RowResourcesIT extends ITResourcesImpl{
 
 
     @Test
-    public void testPartialInsertRows() throws SmartsheetException, IOException {
+    void testPartialInsertRows() throws SmartsheetException, IOException {
         Sheet sheet = smartsheet.sheetResources().createSheet(createSheetObjectWithAutoNumberColumn());
 
         PaginationParameters parameters = new PaginationParameters.PaginationParametersBuilder().setIncludeAll(true).build();
@@ -203,7 +203,7 @@ public class RowResourcesIT extends ITResourcesImpl{
     }
 
     @Test
-    public void testPartialUpdateRows() throws SmartsheetException, IOException {
+    void testPartialUpdateRows() throws SmartsheetException, IOException {
         Sheet sheet = smartsheet.sheetResources().createSheet(createSheetObjectWithAutoNumberColumn());
 
         PaginationParameters parameters = new PaginationParameters.PaginationParametersBuilder().setIncludeAll(true).build();

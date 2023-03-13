@@ -38,7 +38,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class SheetColumnResourcesImplTest extends ResourcesImplBase {
+class SheetColumnResourcesImplTest extends ResourcesImplBase {
 
     private SheetColumnResourcesImpl sheetColumnResourcesImpl;
 
@@ -49,11 +49,7 @@ public class SheetColumnResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testSheetColumnResourcesImpl() {
-    }
-
-    @Test
-    public void testListColumns() throws SmartsheetException, IOException {
+    void testListColumns() throws SmartsheetException, IOException {
 
         server.setResponseBody(new File("src/test/resources/listColumns.json"));
         PaginationParameters paginationParameters = new PaginationParameters(true, 1, 1);
@@ -68,7 +64,7 @@ public class SheetColumnResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testAddColumn() throws SmartsheetException, IOException {
+    void testAddColumn() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/addColumn.json"));
         List<Column> columnsToCreate = new ArrayList<Column>();
 
@@ -80,7 +76,7 @@ public class SheetColumnResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testUpdateColumn() throws SmartsheetException, IOException {
+    void testUpdateColumn() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/updateColumn.json"));
 
         Column col = new Column();
@@ -104,13 +100,13 @@ public class SheetColumnResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testDeleteColumn() throws SmartsheetException, IOException {
+    void testDeleteColumn() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/deleteColumn.json"));
         sheetColumnResourcesImpl.deleteColumn(123456789L, 987654321L);
     }
 
     @Test
-    public void testGetColumn() throws SmartsheetException, IOException {
+    void testGetColumn() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/getColumn.json"));
         Column col = new Column();
         col.setIndex(2);

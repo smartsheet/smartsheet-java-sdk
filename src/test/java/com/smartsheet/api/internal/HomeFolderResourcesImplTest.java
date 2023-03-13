@@ -34,7 +34,7 @@ import java.io.IOException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class HomeFolderResourcesImplTest extends ResourcesImplBase {
+class HomeFolderResourcesImplTest extends ResourcesImplBase {
 
     private HomeFolderResourcesImpl homeFolderResources;
 
@@ -45,11 +45,7 @@ public class HomeFolderResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testHomeFolderResourcesImpl() {
-    }
-
-    @Test
-    public void testListFolders() throws SmartsheetException, IOException {
+    void testListFolders() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/listFolders.json"));
 
         PaginationParameters parameters = new PaginationParameters(true, null, null);
@@ -62,7 +58,7 @@ public class HomeFolderResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testCreateFolder() throws IOException, SmartsheetException {
+    void testCreateFolder() throws IOException, SmartsheetException {
         server.setResponseBody(new File("src/test/resources/createFolders.json"));
 
         Folder folder = new Folder.CreateFolderBuilder().setName("Hello World").build();

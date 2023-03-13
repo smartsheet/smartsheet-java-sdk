@@ -36,7 +36,7 @@ public class ServerInfoIT extends ITResourcesImpl{
     }
 
     @Test
-    public void testGetServerInfo() throws SmartsheetException, IOException {
+    void testGetServerInfo() throws SmartsheetException, IOException {
         ServerInfo serverInfo = smartsheet.serverInfoResources().getServerInfo();
         assertNotNull(serverInfo.getFormats());
     }

@@ -31,14 +31,15 @@ import java.util.Date;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class ObjectValueDeserializerTest {
+class ObjectValueDeserializerTest {
     private static final double DELTA = 0.000001;
-    private JacksonJsonSerializer jacksonJsonSerializer = new JacksonJsonSerializer();
+    private final JacksonJsonSerializer jacksonJsonSerializer = new JacksonJsonSerializer();
 
     @Test
-    public void unknownObjectType() throws IOException, JSONSerializerException {
+    void unknownObjectType() throws IOException, JSONSerializerException {
         // If a new object type is introduced to the Smartsheet API, it shouldn't break existing integrations.
         String json = "{\"objectValue\": {\n" +
                 "                        \"objectType\": \"FUTURE_OBJECT_TYPE\"," +
@@ -47,11 +48,11 @@ public class ObjectValueDeserializerTest {
 
         ObjectValue objectValue = getObjectValue(json);
 
-        assertEquals(null, objectValue);
+        assertNull(objectValue);
     }
 
     @Test
-    public void unknownAttribute() throws IOException, JSONSerializerException {
+    void unknownAttribute() throws IOException, JSONSerializerException {
         // Verify that unknown attributes are ignored by the SDK
         String json = "{\"objectValue\": {\n" +
                 "                        \"objectType\": \"DURATION\",\n" +
@@ -71,7 +72,7 @@ public class ObjectValueDeserializerTest {
     }
 
     @Test
-    public void duration_someAttributes() throws IOException, JSONSerializerException {
+    void duration_someAttributes() throws IOException, JSONSerializerException {
         String json = "{\"objectValue\": {\n" +
                 "                        \"objectType\": \"DURATION\",\n" +
                 "                        \"days\": 1,\n" +
@@ -96,7 +97,7 @@ public class ObjectValueDeserializerTest {
     }
 
     @Test
-    public void duration_allAttributes() throws IOException, JSONSerializerException {
+    void duration_allAttributes() throws IOException, JSONSerializerException {
         String json = "{\"objectValue\": {\n" +
                 "                        \"objectType\": \"DURATION\",\n" +
                 "                        \"negative\": true,\n" +
@@ -135,7 +136,7 @@ public class ObjectValueDeserializerTest {
     }
 
     @Test
-    public void duration_floatingPointValues() throws JSONSerializerException, IOException {
+    void duration_floatingPointValues() throws JSONSerializerException, IOException {
         String json = "{\"objectValue\": {\n" +
                 "                        \"objectType\": \"DURATION\",\n" +
                 "                        \"negative\": true,\n" +
@@ -174,7 +175,7 @@ public class ObjectValueDeserializerTest {
     }
 
     @Test
-    public void abstractDateTime() throws IOException, JSONSerializerException {
+    void abstractDateTime() throws IOException, JSONSerializerException {
         String json = "{\"objectValue\": {\n" +
                 "                        \"objectType\": \"ABSTRACT_DATETIME\",\n" +
                 "                        \"value\": \"2017-07-01T16:30:07\"\n" +
@@ -193,7 +194,7 @@ public class ObjectValueDeserializerTest {
     }
 
     @Test
-    public void date() throws IOException, JSONSerializerException {
+    void date() throws IOException, JSONSerializerException {
         String json = "{\"objectValue\": {\n" +
                 "                        \"objectType\": \"DATE\",\n" +
                 "                        \"value\": \"2017-07-17\"\n" +
@@ -212,7 +213,7 @@ public class ObjectValueDeserializerTest {
     }
 
     @Test
-    public void dateObjectValue_toDate() throws IOException, JSONSerializerException, ParseException {
+    void dateObjectValue_toDate() throws IOException, JSONSerializerException, ParseException {
         String json = "{\"objectValue\": {\n" +
                 "                        \"objectType\": \"DATETIME\",\n" +
                 "                        \"value\": \"2017-07-17T20:27:57Z\"\n" +
@@ -234,7 +235,7 @@ public class ObjectValueDeserializerTest {
     }
 
     @Test
-    public void dateTime() throws IOException, JSONSerializerException, ParseException {
+    void dateTime() throws IOException, JSONSerializerException, ParseException {
         String json = "{\"objectValue\": {\n" +
                 "                        \"objectType\": \"DATETIME\",\n" +
                 "                        \"value\": \"2017-07-17T20:27:57Z\"\n" +
@@ -263,7 +264,7 @@ public class ObjectValueDeserializerTest {
     }
 
     @Test
-    public void longObjectValue() throws IOException, JSONSerializerException {
+    void longObjectValue() throws IOException, JSONSerializerException {
         String json = "{\"objectValue\":123456}";
         ObjectValue actual = getObjectValue(json);
         PrimitiveObjectValue<Number> numberPrimitiveObjectValue = (PrimitiveObjectValue<Number>) actual;
@@ -273,7 +274,7 @@ public class ObjectValueDeserializerTest {
     }
 
     @Test
-    public void numberObjectValue() throws IOException, JSONSerializerException {
+    void numberObjectValue() throws IOException, JSONSerializerException {
         String json = "{\"objectValue\":123456.789}";
         ObjectValue actual = getObjectValue(json);
         PrimitiveObjectValue<Number> numberPrimitiveObjectValue = (PrimitiveObjectValue<Number>) actual;
@@ -283,7 +284,7 @@ public class ObjectValueDeserializerTest {
     }
 
     @Test
-    public void stringObjectValue() throws IOException, JSONSerializerException {
+    void stringObjectValue() throws IOException, JSONSerializerException {
         String json = "{\"objectValue\":\"foo\"}";
         ObjectValue actual = getObjectValue(json);
         PrimitiveObjectValue<String> primitiveObjectValue = (PrimitiveObjectValue<String>) actual;
@@ -293,7 +294,7 @@ public class ObjectValueDeserializerTest {
     }
 
     @Test
-    public void booleanObjectValue() throws IOException, JSONSerializerException {
+    void booleanObjectValue() throws IOException, JSONSerializerException {
         String json = "{\"objectValue\":true}";
         ObjectValue actual = getObjectValue(json);
         PrimitiveObjectValue<Boolean> primitiveObjectValue = (PrimitiveObjectValue<Boolean>) actual;

@@ -36,7 +36,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * limitations under the License.
  * %[license]
  */
-public class SheetDiscussionResourcesImplTest extends ResourcesImplBase {
+class SheetDiscussionResourcesImplTest extends ResourcesImplBase {
 
 
     private SheetDiscussionResourcesImpl sheetDiscussionResources;
@@ -48,7 +48,7 @@ public class SheetDiscussionResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testCreateDiscussion() throws SmartsheetException, IOException {
+    void testCreateDiscussion() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/createDiscussion.json"));
 
         // Test success
@@ -91,7 +91,7 @@ public class SheetDiscussionResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testCreateDiscussionWithAttachment() throws Exception {
+    void testCreateDiscussionWithAttachment() throws Exception {
         server.setResponseBody(new File("src/test/resources/createDiscussion.json"));
         File file = new File("src/test/resources/large_sheet.pdf");
         // Test success
@@ -134,7 +134,7 @@ public class SheetDiscussionResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testGetDiscussion() throws SmartsheetException, IOException {
+    void testGetDiscussion() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/getDiscussion.json"));
 
         Discussion discussion = sheetDiscussionResources.getDiscussion(1234L, 5678L);
@@ -149,14 +149,14 @@ public class SheetDiscussionResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testDeleteDiscussion() throws SmartsheetException, IOException {
+    void testDeleteDiscussion() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/deleteDiscussion.json"));
 
         sheetDiscussionResources.deleteDiscussion(1234L, 2345L);
     }
 
     @Test
-    public void testGetAllDiscussions() throws SmartsheetException, IOException {
+    void testGetAllDiscussions() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/getAllDiscussions.json"));
         PaginationParameters parameters = new PaginationParameters(false, 1, 1);
 

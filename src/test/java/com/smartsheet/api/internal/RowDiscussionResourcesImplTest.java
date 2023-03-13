@@ -34,7 +34,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  * limitations under the License.
  * %[license]
  */
-public class RowDiscussionResourcesImplTest extends ResourcesImplBase {
+class RowDiscussionResourcesImplTest extends ResourcesImplBase {
 
     private RowDiscussionResourcesImpl discussionRowResources;
     @BeforeEach
@@ -44,7 +44,7 @@ public class RowDiscussionResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testCreateDiscussion() throws Exception {
+    void testCreateDiscussion() throws Exception {
         server.setResponseBody(new File("src/test/resources/createDiscussionOnRow.json"));
 
         Discussion discussion = new Discussion();
@@ -55,18 +55,18 @@ public class RowDiscussionResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testCreateDiscussionWithAttachment() throws Exception {
+    void testCreateDiscussionWithAttachment() throws Exception {
         server.setResponseBody(new File("src/test/resources/createDiscussionOnRow.json"));
         File file = new File("src/test/resources/large_sheet.pdf");
         Comment comment = new Comment.AddCommentBuilder().setText("New comment").build();
         Discussion discussion = new Discussion.CreateDiscussionBuilder().setComment(comment).setTitle("Some title").build();
 
         Discussion newDiscussion = discussionRowResources.createDiscussionWithAttachment(123L, 456L, discussion, file, "application/pdf");
-        assertEquals(newDiscussion.getTitle(), "This is a new discussion");
+        assertEquals("This is a new discussion", newDiscussion.getTitle());
     }
 
     @Test
-    public void testListDiscussions() throws Exception {
+    void testListDiscussions() throws Exception {
         server.setResponseBody(new File("src/test/resources/getRowDiscussions.json"));
 
         Discussion discussion = new Discussion();

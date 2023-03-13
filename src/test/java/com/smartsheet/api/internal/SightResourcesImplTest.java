@@ -28,7 +28,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
-public class SightResourcesImplTest extends ResourcesImplBase {
+class SightResourcesImplTest extends ResourcesImplBase {
     private SightResourcesImpl sightResourcesImpl;
 
     @BeforeEach
@@ -38,7 +38,7 @@ public class SightResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void updateWithNullSight() {
+    void updateWithNullSight() {
         assertThrows(IllegalArgumentException.class, () -> sightResourcesImpl.updateSight(null));
     }
 }

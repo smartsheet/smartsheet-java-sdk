@@ -50,7 +50,7 @@ public class ShareResourcesIT extends ITResourcesImpl{
     }
 
     @Test
-    public void testShareMethods() throws SmartsheetException, IOException{
+    void testShareMethods() throws SmartsheetException, IOException{
         //Commenting report sharing testing as report ID needs to be provided
         //testReportShareTo();
         testSheetShareTo();

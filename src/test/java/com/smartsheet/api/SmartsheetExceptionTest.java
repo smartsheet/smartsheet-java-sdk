@@ -28,9 +28,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
-public class SmartsheetExceptionTest {
+class SmartsheetExceptionTest {
     @Test
-    public void testSmartsheetExceptionString() {
+    void testSmartsheetExceptionString() {
         Throwable throwable = assertThrows(SmartsheetException.class, () -> {
             throw new SmartsheetException("My Exception");
         });
@@ -38,7 +38,7 @@ public class SmartsheetExceptionTest {
     }
 
     @Test
-    public void testSmartsheetExceptionStringThrowable() {
+    void testSmartsheetExceptionStringThrowable() {
         NullPointerException cause = new NullPointerException();
         Throwable throwable = assertThrows(SmartsheetException.class, () -> {
             throw new SmartsheetException("Throwable exception", cause);
@@ -48,7 +48,7 @@ public class SmartsheetExceptionTest {
     }
 
     @Test
-    public void testSmartsheetExceptionException() {
+    void testSmartsheetExceptionException() {
         NullPointerException cause = new NullPointerException();
         Throwable throwable = assertThrows(SmartsheetException.class, () -> {
             throw new SmartsheetException(cause);

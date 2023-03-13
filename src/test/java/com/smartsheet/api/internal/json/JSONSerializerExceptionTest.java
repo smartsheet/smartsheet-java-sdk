@@ -26,13 +26,10 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class JSONSerializerExceptionTest {
-    @BeforeEach
-    public void setUp() throws Exception {
-    }
+class JSONSerializerExceptionTest {
 
     @Test
-    public void testJSONSerializerExceptionString() {
+    void testJSONSerializerExceptionString() {
         Throwable throwable = assertThrows(JSONSerializerException.class, () -> {
             throw new JSONSerializerException("Test Exception");
         });
@@ -42,7 +39,7 @@ public class JSONSerializerExceptionTest {
 
 
     @Test
-    public void testJSONSerializerExceptionStringThrowable() throws JSONSerializerException {
+    void testJSONSerializerExceptionStringThrowable() throws JSONSerializerException {
         NullPointerException cause = new NullPointerException();
         Throwable throwable = assertThrows(JSONSerializerException.class, () -> {
             throw new JSONSerializerException("Test Exception1", cause);
@@ -54,7 +51,7 @@ public class JSONSerializerExceptionTest {
     }
 
     @Test
-    public void testJSONSerializerExceptionException() throws JSONSerializerException {
+    void testJSONSerializerExceptionException() throws JSONSerializerException {
         NullPointerException cause = new NullPointerException();
         Throwable throwable = assertThrows(JSONSerializerException.class, () -> {
             throw new JSONSerializerException(cause);

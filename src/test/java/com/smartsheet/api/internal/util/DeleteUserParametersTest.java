@@ -25,10 +25,10 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class DeleteUserParametersTest {
+class DeleteUserParametersTest {
 
     @Test
-    public void testDeleteUserParametersModel() {
+    void testDeleteUserParametersModel() {
         DeleteUserParameters parameters = new DeleteUserParameters();
         parameters.setTransferToId(12345L);
         parameters.setTransferSheets(true);
@@ -45,7 +45,7 @@ public class DeleteUserParametersTest {
     }
 
     @Test
-    public void testToQueryString() {
+    void testToQueryString() {
         DeleteUserParameters parameters = new DeleteUserParameters(12345L, true, true);
         String[] matches1 = new String[] {"transferSheets=true", "removeFromSharing=true", "transferTo=12345"};
         for (String s : matches1)

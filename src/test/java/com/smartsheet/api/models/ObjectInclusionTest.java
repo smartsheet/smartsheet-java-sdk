@@ -27,14 +27,10 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-public class ObjectInclusionTest {
-
-    @BeforeEach
-    public void setUp() throws Exception {
-    }
+class ObjectInclusionTest {
 
     @Test
-    public void testObjectInclusion() {
+    void testObjectInclusion() {
         assertNotNull(ObjectInclusion.valueOf("DISCUSSIONS"));
         assertNotNull(ObjectInclusion.valueOf("ATTACHMENTS"));
         assertNotNull(ObjectInclusion.valueOf("DATA"));

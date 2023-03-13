@@ -43,7 +43,7 @@ public class DiscussionResourcesIT extends ITResourcesImpl{
     }
 
     @Test
-    public void testDiscussionMethods() throws SmartsheetException, IOException {
+    void testDiscussionMethods() throws SmartsheetException, IOException {
         testCreateDiscussionOnSheet();
         testCreateDiscussionOnRow();
         testGetRowDiscussions();

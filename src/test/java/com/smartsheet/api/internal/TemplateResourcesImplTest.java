@@ -35,7 +35,7 @@ import java.io.IOException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-public class TemplateResourcesImplTest extends ResourcesImplBase {
+class TemplateResourcesImplTest extends ResourcesImplBase {
 
     private TemplateResourcesImpl templateResources;
 
@@ -46,10 +46,7 @@ public class TemplateResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testTemplateResourcesImpl() {}
-
-    @Test
-    public void testListTemplates() throws IOException, SmartsheetException {
+    void testListTemplates() throws IOException, SmartsheetException {
         server.setResponseBody(new File("src/test/resources/listTemplates.json"));
 
         PaginationParameters parameters = new PaginationParameters(false, 1, 1);
@@ -63,7 +60,7 @@ public class TemplateResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testListPublicTemplates() throws IOException, SmartsheetException {
+    void testListPublicTemplates() throws IOException, SmartsheetException {
         server.setResponseBody(new File("src/test/resources/listTemplates.json"));
 
         PaginationParameters parameters = new PaginationParameters(false, 1, 1);

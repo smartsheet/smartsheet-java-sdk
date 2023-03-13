@@ -8,9 +8,9 @@ package com.smartsheet.api.sdk_test;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
+ * 
  *      http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -38,11 +38,11 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class RowTest {
+class RowTest {
 
 
 	@Test
-	public void ListSheets_NoParams()
+	void ListSheets_NoParams()
 	{
 		try {
 			Smartsheet ss = HelperFunctions.SetupClient("List Sheets - No Params");
@@ -54,7 +54,7 @@ public class RowTest {
 	}
 
 	@Test
-	public void addRows_AssignValues_String()
+	void addRows_AssignValues_String()
 	{
 		try{
 			Smartsheet ss = HelperFunctions.SetupClient("Add Rows - Assign Values - String");
@@ -88,7 +88,7 @@ public class RowTest {
 	}
 
 	@Test
-	public void addRows_Location_Top()
+	void addRows_Location_Top()
 	{
 		try{
 			Smartsheet ss = HelperFunctions.SetupClient("Add Rows - Location - Top");
@@ -116,7 +116,7 @@ public class RowTest {
 	}
 
   	@Test
-	public void addRows_Location_Bottom()
+	void addRows_Location_Bottom()
 	{
 		try{
 			Smartsheet ss = HelperFunctions.SetupClient("Add Rows - Location - Bottom");
@@ -143,7 +143,7 @@ public class RowTest {
 	}
 
 	@Test
-	public void addRows_AssignValues_Int()
+	void addRows_AssignValues_Int()
 	{
 		try{
 			Smartsheet ss = HelperFunctions.SetupClient("Add Rows - Assign Values - Int");
@@ -179,7 +179,7 @@ public class RowTest {
 	}
 
 	@Test
-	public void addRows_AssignValues_Bool()
+	void addRows_AssignValues_Bool()
 	{
 		try{
 			Smartsheet ss = HelperFunctions.SetupClient("Add Rows - Assign Values - Bool");
@@ -215,7 +215,7 @@ public class RowTest {
 	}
 
 	@Test
-	public void addRows_AssignFormulae()
+	void addRows_AssignFormulae()
 	{
 		try{
 			Smartsheet ss = HelperFunctions.SetupClient("Add Rows - Assign Formulae");
@@ -241,7 +241,7 @@ public class RowTest {
 	}
 
 	@Test
-	public void addRows_AssignValues_Hyperlink()
+	void addRows_AssignValues_Hyperlink()
 	{
 		try{
 			Smartsheet ss = HelperFunctions.SetupClient("Add Rows - Assign Values - Hyperlink");
@@ -274,7 +274,7 @@ public class RowTest {
 	}
 
 	@Test
-	public void addRows_AssignValues_HyperlinkSheetID()
+	void addRows_AssignValues_HyperlinkSheetID()
 	{
 		try{
 			Smartsheet ss = HelperFunctions.SetupClient("Add Rows - Assign Values - Hyperlink SheetID");
@@ -307,7 +307,7 @@ public class RowTest {
 	}
 
 	@Test
-	public void addRows_AssignValues_HyperlinkReportID()
+	void addRows_AssignValues_HyperlinkReportID()
 	{
 		try{
 			Smartsheet ss = HelperFunctions.SetupClient("Add Rows - Assign Values - Hyperlink ReportID");
@@ -340,7 +340,7 @@ public class RowTest {
 	}
 
 	@Test
-	public void addRows_Invalid_AssignHyperlinkUrlandSheetId()
+	void addRows_Invalid_AssignHyperlinkUrlandSheetId()
 	{
 		try{
 			Smartsheet ss = HelperFunctions.SetupClient("Add Rows - Invalid - Assign Hyperlink URL and SheetId");
@@ -372,7 +372,7 @@ public class RowTest {
 	}
 
 	@Test
-	public void addRows_Invalid_AssignValueAndFormulae()
+	void addRows_Invalid_AssignValueAndFormulae()
 	{
 		try{
 			Smartsheet ss = HelperFunctions.SetupClient("Add Rows - Invalid - Assign Value and Formulae");
@@ -398,7 +398,7 @@ public class RowTest {
 	}
 
 	@Test
-	public void AddRows_AssignObjectValue_PredecessorList()
+	void AddRows_AssignObjectValue_PredecessorList()
 	{
 		try{
 			Smartsheet ss = HelperFunctions.SetupClient("Add Rows - Assign Object Value - Predecessor List (using floats)");
@@ -428,7 +428,7 @@ public class RowTest {
 	}
 
 	@Test
-	public void UpdateRows_AssignValues_String()
+	void UpdateRows_AssignValues_String()
 	{
 		try{
 			Smartsheet ss = HelperFunctions.SetupClient("Update Rows - Assign Values - String");
@@ -465,7 +465,7 @@ public class RowTest {
 	}
 
 	@Test
-	public void UpdateRows_AssignValues_Int()
+	void UpdateRows_AssignValues_Int()
 	{
 		try{
 			Smartsheet ss = HelperFunctions.SetupClient("Update Rows - Assign Values - Int");
@@ -502,7 +502,7 @@ public class RowTest {
 	}
 
 	@Test
-	public void UpdateRows_AssignValues_Bool()
+	void UpdateRows_AssignValues_Bool()
 	{
 		try{
 			Smartsheet ss = HelperFunctions.SetupClient("Update Rows - Assign Values - Bool");
@@ -539,7 +539,7 @@ public class RowTest {
 	}
 
 	@Test
-	public void UpdateRows_AssignFormulae()
+	void UpdateRows_AssignFormulae()
 	{
 		try{
 			Smartsheet ss =  HelperFunctions.SetupClient("Update Rows - Assign Formulae");
@@ -566,7 +566,7 @@ public class RowTest {
 	}
 
 	@Test
-	public void UpdateRows_AssignValues_Hyperlink()
+	void UpdateRows_AssignValues_Hyperlink()
 	{
 		try{
 			Smartsheet ss = HelperFunctions.SetupClient("Update Rows - Assign Values - Hyperlink");
@@ -600,7 +600,7 @@ public class RowTest {
 	}
 
 	@Test
-	public void UpdateRows_AssignValues_HyperlinkSheetID()
+	void UpdateRows_AssignValues_HyperlinkSheetID()
 	{
 		try{
 			Smartsheet ss = HelperFunctions.SetupClient("Update Rows - Assign Values - Hyperlink SheetID");
@@ -634,7 +634,7 @@ public class RowTest {
 	}
 
 	@Test
-	public void UpdateRows_AssignValues_HyperlinkReportID()
+	void UpdateRows_AssignValues_HyperlinkReportID()
 	{
 		try{
 			Smartsheet ss = HelperFunctions.SetupClient("Update Rows - Assign Values - Hyperlink ReportID");
@@ -668,7 +668,7 @@ public class RowTest {
 	}
 
 	@Test
-	public void UpdateRows_Invalid_AssignHyperlinkUrlandSheetId()
+	void UpdateRows_Invalid_AssignHyperlinkUrlandSheetId()
 	{
 		try{
 			Smartsheet ss = HelperFunctions.SetupClient("Update Rows - Invalid - Assign Hyperlink URL and SheetId");
@@ -701,7 +701,7 @@ public class RowTest {
 	}
 
 	@Test
-	public void UpdateRows_Invalid_AssignValueAndFormulae()
+	void UpdateRows_Invalid_AssignValueAndFormulae()
 	{
 		try{
 			Smartsheet ss =  HelperFunctions.SetupClient("Update Rows - Invalid - Assign Value and Formulae");
@@ -728,7 +728,7 @@ public class RowTest {
 	}
 
 	@Test
-	public void UpdateRows_ClearValue_TextNumber()
+	void UpdateRows_ClearValue_TextNumber()
 	{
 		try{
 			Smartsheet ss = HelperFunctions.SetupClient("Update Rows - Clear Value - Text Number");
@@ -751,7 +751,7 @@ public class RowTest {
 	}
 
     @Test
-	public void UpdateRows_ClearValue_Checkbox()
+	void UpdateRows_ClearValue_Checkbox()
 	{
 		try{
 			Smartsheet ss = HelperFunctions.SetupClient("Update Rows - Clear Value - Checkbox");
@@ -774,7 +774,7 @@ public class RowTest {
 	}
 
     @Test
-	public void UpdateRows_ClearValue_Hyperlink()
+	void UpdateRows_ClearValue_Hyperlink()
 	{
 		try{
 			Smartsheet ss = HelperFunctions.SetupClient("Update Rows - Clear Value - Hyperlink");
@@ -799,7 +799,7 @@ public class RowTest {
 	}
 
     @Test
-	public void UpdateRows_ClearValue_CellLink()
+	void UpdateRows_ClearValue_CellLink()
 	{
 		try{
 			Smartsheet ss = HelperFunctions.SetupClient("Update Rows - Clear Value - Cell Link");
@@ -824,7 +824,7 @@ public class RowTest {
 	}
 
 	@Test
-	public void UpdateRows_Invalid_AssignHyperlinkAndCellLink()
+	void UpdateRows_Invalid_AssignHyperlinkAndCellLink()
 	{
 		try{
 			Smartsheet ss = HelperFunctions.SetupClient("Update Rows - Invalid - Assign Hyperlink and Cell Link");
@@ -854,7 +854,7 @@ public class RowTest {
 	}
 
     @Test
-	public void UpdateRows_Location_Top()
+	void UpdateRows_Location_Top()
 	{
 		try{
 			Smartsheet ss = HelperFunctions.SetupClient("Update Rows - Location - Top");
@@ -874,7 +874,7 @@ public class RowTest {
 	}
 
     @Test
-	public void UpdateRows_Location_Bottom()
+	void UpdateRows_Location_Bottom()
 	{
 		try{
 			Smartsheet ss = HelperFunctions.SetupClient("Update Rows - Location - Bottom");

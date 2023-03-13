@@ -32,12 +32,12 @@ import java.util.Map;
 /**
  * Created by kskeem on 3/1/16.
  */
-public class AbstractResourcesTest {
+class AbstractResourcesTest {
 
-    private String tokenValue = "somevalue";
-    private String changeAgent = "mychangeagent";
+    private final String tokenValue = "somevalue";
+    private final String changeAgent = "mychangeagent";
     @Test
-    public void testHeaders() {
+    void testHeaders() {
 
         SmartsheetImpl smartsheet = new SmartsheetImpl("doesnt/matter", tokenValue,  new DefaultHttpClient(), null);
         smartsheet.setChangeAgent(changeAgent);
@@ -49,7 +49,7 @@ public class AbstractResourcesTest {
     }
 
     @Test
-    public void createResourceWithObjectClassNull() throws SmartsheetException {
+    void createResourceWithObjectClassNull() {
         AbstractResources resources = new AbstractResources(new SmartsheetImpl(SmartsheetBuilder.DEFAULT_BASE_URI, tokenValue,  new DefaultHttpClient(), null)) {};
         Home home = new Home();
 
