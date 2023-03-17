@@ -12,7 +12,7 @@
 
 * Ensure the PR description clearly describes the problem and solution. Include the relevant issue number if applicable.
 
-* A maintainer should review your PR within the next few days. If the PR has been dormant for more an a week, consider sending an email to sdk-java@smartsheet.com 
+* A maintainer should review your PR within the next few days. If the PR has been dormant for more than a week, consider sending an email to sdk-java@smartsheet.com 
 
 #### **Did you fix whitespace, format code, or make a purely cosmetic patch?**
 
@@ -20,7 +20,7 @@ Changes that are cosmetic in nature and do not add anything substantial to the s
 
 #### **Do you intend to add a new feature or change an existing one?**
 
-* Suggest your change as an issue in the with the label #enhancement. Make sure that your new feature description outlines why this would be helpful for users, and how difficult a change it would be to make.
+* Suggest your change as an issue with the label #enhancement. Make sure that your new feature description outlines why this would be helpful for users, and how difficult a change it would be to make.
 
 #### **Do you have questions about the source code or using the SDK?**
 
