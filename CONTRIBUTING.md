@@ -2,6 +2,8 @@
 
 #### **Did you find a bug?**
 
+* **Send all security related bugs to our maintainer email, sdk-java@smartsheet.com**
+
 * **Ensure the bug was not already reported** by searching on GitHub under [Issues](https://github.com/smartsheet/smartsheet-java-sdk/issues).
 
 * If you're unable to find an open issue addressing the problem, [open a new one](https://github.com/smartsheet/smartsheet-java-sdk/issues/new). Be sure to include a **title and clear description**, as much relevant information as possible, and a **[MRE code sample](https://stackoverflow.com/help/minimal-reproducible-example)** or an **executable test case** demonstrating the expected behavior that is not occurring. If possible please also note if this issue concerns the API itself or just the java sdk.
