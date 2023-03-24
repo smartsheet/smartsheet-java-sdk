@@ -36,6 +36,7 @@ import com.smartsheet.api.models.enums.CopyExclusion;
 import com.smartsheet.api.models.enums.SourceInclusion;
 import com.smartsheet.api.models.enums.WorkspaceCopyInclusion;
 import com.smartsheet.api.models.enums.WorkspaceRemapExclusion;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import retrofit2.Retrofit;
 
@@ -65,7 +66,14 @@ public class WorkspaceResourcesImpl extends AbstractResources implements Workspa
      */
     private ShareResources shares;
 
+    /**
+     * Represents the WorkspaceService
+     *
+     * It will be initialized in constructor and not change afterwards.
+     */
     private WorkspaceService service;
+
+    private static final Logger log = LoggerFactory.getLogger(WorkspaceResourcesImpl.class);
 
     /**
      * Constructor.
@@ -112,16 +120,11 @@ public class WorkspaceResourcesImpl extends AbstractResources implements Workspa
 
         try {
             PagedResult<Workspace> result = this.service.listWorkspaces(queryParams).execute().body();
-            List<String> workspaces = result.getData().stream().map((item) -> item.getName()).collect(Collectors.toList());
-            LoggerFactory.getLogger("test").info("apederson94: result = " + workspaces);
             return result;
-        } catch (IOException e) {
-            System.out.println("apederson94: ERROR");
+        } catch (Exception e) {
+            log.info("failure calling 'listWorkspaces'", e);
+            throw new SmartsheetException(e);
         }
-
-        return new PagedResult<>();
-
-//        this.listResourcesWithWrapper(path, Workspace.class);
     }
 
     /**

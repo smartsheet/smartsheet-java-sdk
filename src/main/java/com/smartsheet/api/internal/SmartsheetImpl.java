@@ -25,6 +25,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.smartsheet.api.*;
 import com.smartsheet.api.internal.http.*;
 import com.smartsheet.api.internal.http.interceptor.HeadersInterceptor;
+import com.smartsheet.api.internal.http.interceptor.LoggingInterceptor;
 import com.smartsheet.api.internal.http.interceptor.RetryInterceptor;
 import com.smartsheet.api.internal.json.JacksonJsonSerializer;
 import com.smartsheet.api.internal.json.JsonSerializer;
@@ -325,18 +326,13 @@ public class SmartsheetImpl implements Smartsheet {
 
         this.headersInterceptor = new HeadersInterceptor(accessToken, assumedUser.get(), changeAgent.get(), userAgent.get());
         this.retryInterceptor = new RetryInterceptor(jsonSerializer);
-//        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
-//        loggingInterceptor.redactHeader("Authorization");
-//        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+
         ObjectMapper mapper = new ObjectMapper();
-//        SimpleModule module = new SimpleModule();
-//        module.addDeserializer(PagedResult.class, new PagedResultDeserializer());
-//        mapper.registerModule(module);
 
         OkHttpClient client = new OkHttpClient.Builder()
                 .addInterceptor(headersInterceptor)
                 .addInterceptor(retryInterceptor)
-//                .addInterceptor(loggingInterceptor)
+                .addInterceptor(new LoggingInterceptor())
                 .build();
 
         this.retrofit = new Retrofit.Builder()

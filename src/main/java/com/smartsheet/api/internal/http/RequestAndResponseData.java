@@ -22,6 +22,12 @@ package com.smartsheet.api.internal.http;
 
 
 import com.smartsheet.api.Trace;
+import kotlin.Pair;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+import okhttp3.ResponseBody;
+import okio.Buffer;
 import org.apache.commons.codec.binary.Hex;
 import org.apache.http.Header;
 import org.apache.http.client.methods.HttpRequestBase;
@@ -303,8 +309,77 @@ public class RequestAndResponseData {
         return new RequestAndResponseData(requestBuilder.build(), responseBuilder.build());
     }
 
+    /**
+     * factory method for creating a RequestAndResponseData object from request and response okhttp data with the specified trace fields
+     */
+    public static RequestAndResponseData of(Request request, Response response, Set<Trace> traces)
+            throws IOException {
+        RequestData.Builder requestBuilder = new RequestData.Builder();
+        ResponseData.Builder responseBuilder = new ResponseData.Builder();
+
+        if (request != null) {
+            requestBuilder.withCommand(request.method() + " " + request.url());
+            boolean binaryBody = false;
+            if (traces.contains(Trace.RequestHeaders)) {
+                requestBuilder.withHeaders();
+                for (Pair<? extends String, ? extends String> header : request.headers()) {
+                    String headerName = header.getFirst();
+                    String headerValue = header.getSecond();
+                    if ("Authorization".equals(headerName) && headerValue.length() > 0) {
+                        headerValue = "Bearer ****" + headerValue.substring(Math.max(0, headerValue.length() - 4));
+                    } else if ("Content-Disposition".equals(headerName)) {
+                        binaryBody = true;
+                    }
+                    requestBuilder.addHeader(headerName, headerValue);
+                }
+            }
+
+            RequestBody requestBody = request.body();
+            if (requestBody != null) {
+                if (traces.contains(Trace.RequestBody)) {
+                    requestBuilder.setBody(binaryBody ? binaryBody(requestBody) : getContentAsText(requestBody));
+                } else if (traces.contains(Trace.RequestBodySummary)) {
+                    requestBuilder.setBody(binaryBody ? binaryBody(requestBody) : truncateAsNeeded(getContentAsText(requestBody), TRUNCATE_LENGTH));
+                }
+            }
+        }
+        if (response != null) {
+            boolean binaryBody = false;
+            responseBuilder.withStatus(String.valueOf(response.code()));
+            if (traces.contains(Trace.ResponseHeaders)) {
+                responseBuilder.withHeaders();
+                for (Pair<? extends String, ? extends String> header : request.headers()) {
+                    String headerName = header.getFirst();
+                    String headerValue = header.getSecond();
+                    if ("Content-Disposition".equals(headerName)) {
+                        binaryBody = true;
+                    }
+                    responseBuilder.addHeader(headerName, headerValue);
+                }
+            }
+
+            ResponseBody responseBody = response.body();
+            if (responseBody != null) {
+                if (traces.contains(Trace.ResponseBody)) {
+                    responseBuilder.setBody(binaryBody ? binaryBody(responseBody) : getContentAsText(responseBody));
+                } else if (traces.contains(Trace.ResponseBodySummary)) {
+                    responseBuilder.setBody(binaryBody ? binaryBody(responseBody) : truncateAsNeeded(getContentAsText(responseBody), TRUNCATE_LENGTH));
+                }
+            }
+        }
+        return new RequestAndResponseData(requestBuilder.build(), responseBuilder.build());
+    }
+
     static String binaryBody(HttpEntitySnapshot entity) {
         return "**possibly-binary(type:" + entity.getContentType() + ", len:" + entity.getContentLength() + ")**";
+    }
+
+    static String binaryBody(RequestBody body) throws IOException {
+        return "**possibly-binary(type:" + body.contentType() + ", len:" + body.contentLength() + ")**";
+    }
+
+    static String binaryBody(ResponseBody body) throws IOException {
+        return "**possibly-binary(type:" + body.contentType() + ", len:" + body.contentLength() + ")**";
     }
 
     public static String getContentAsText(HttpEntitySnapshot entity) throws IOException {
@@ -319,6 +394,25 @@ public class RequestAndResponseData {
             contentAsText = new String(Hex.encodeHex(contentBytes));
         }
         return contentAsText;
+    }
+
+    public static String getContentAsText(RequestBody body) throws IOException {
+        if (body == null) {
+            return "";
+        }
+
+        Buffer bodyBuffer = new Buffer();
+        body.writeTo(bodyBuffer);
+
+        return bodyBuffer.readUtf8();
+    }
+
+    public static String getContentAsText(ResponseBody body) throws IOException {
+        if (body == null) {
+            return "";
+        }
+
+        return body.string();
     }
 
     public static String truncateAsNeeded(String string, int truncateLen) {
