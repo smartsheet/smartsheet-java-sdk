@@ -122,7 +122,7 @@ public class WorkspaceResourcesImpl extends AbstractResources implements Workspa
             PagedResult<Workspace> result = this.service.listWorkspaces(queryParams).execute().body();
             return result;
         } catch (Exception e) {
-            log.info("failure calling 'listWorkspaces'", e);
+            log.error("failure calling 'listWorkspaces'", e);
             throw new SmartsheetException(e);
         }
     }
