@@ -26,6 +26,7 @@ import com.smartsheet.api.ShareResources;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.WorkspaceFolderResources;
 import com.smartsheet.api.WorkspaceResources;
+import com.smartsheet.api.internal.http.service.WorkspaceService;
 import com.smartsheet.api.internal.util.QueryUtil;
 import com.smartsheet.api.models.ContainerDestination;
 import com.smartsheet.api.models.PagedResult;
@@ -35,9 +36,15 @@ import com.smartsheet.api.models.enums.CopyExclusion;
 import com.smartsheet.api.models.enums.SourceInclusion;
 import com.smartsheet.api.models.enums.WorkspaceCopyInclusion;
 import com.smartsheet.api.models.enums.WorkspaceRemapExclusion;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import retrofit2.Retrofit;
 
+import java.io.IOException;
 import java.util.EnumSet;
 import java.util.HashMap;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * This is the implementation of the WorkspaceResources.
@@ -60,6 +67,15 @@ public class WorkspaceResourcesImpl extends AbstractResources implements Workspa
     private ShareResources shares;
 
     /**
+     * Represents the WorkspaceService
+     *
+     * It will be initialized in constructor and not change afterwards.
+     */
+    private WorkspaceService service;
+
+    private static final Logger log = LoggerFactory.getLogger(WorkspaceResourcesImpl.class);
+
+    /**
      * Constructor.
      *
      * Exceptions:
@@ -69,6 +85,7 @@ public class WorkspaceResourcesImpl extends AbstractResources implements Workspa
      */
     public WorkspaceResourcesImpl(SmartsheetImpl smartsheet) {
         super(smartsheet);
+        this.service = smartsheet.getRetrofit().create(WorkspaceService.class);
         this.shares = new ShareResourcesImpl(smartsheet, "workspaces");
         this.folders = new WorkspaceFolderResourcesImpl(smartsheet);
     }
@@ -95,12 +112,19 @@ public class WorkspaceResourcesImpl extends AbstractResources implements Workspa
      * @throws SmartsheetException the smartsheet exception
      */
     public PagedResult<Workspace> listWorkspaces(PaginationParameters parameters) throws SmartsheetException {
-        String path = "workspaces";
+        HashMap<String, Object> queryParams = new HashMap<>();
 
         if (parameters != null) {
-            path += parameters.toQueryString();
+            queryParams = parameters.toHashMap();
         }
-        return this.listResourcesWithWrapper(path, Workspace.class);
+
+        try {
+            PagedResult<Workspace> result = this.service.listWorkspaces(queryParams).execute().body();
+            return result;
+        } catch (Exception e) {
+            log.error("failure calling 'listWorkspaces'", e);
+            throw new SmartsheetException(e);
+        }
     }
 
     /**

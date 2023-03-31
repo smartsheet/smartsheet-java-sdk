@@ -21,14 +21,22 @@ package com.smartsheet.api.internal;
  */
 
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.smartsheet.api.*;
-import com.smartsheet.api.internal.http.AndroidHttpClient;
-import com.smartsheet.api.internal.http.DefaultHttpClient;
-import com.smartsheet.api.internal.http.HttpClient;
+import com.smartsheet.api.internal.http.*;
+import com.smartsheet.api.internal.http.interceptor.HeadersInterceptor;
+import com.smartsheet.api.internal.http.interceptor.LoggingInterceptor;
+import com.smartsheet.api.internal.http.interceptor.RetryInterceptor;
 import com.smartsheet.api.internal.json.JacksonJsonSerializer;
 import com.smartsheet.api.internal.json.JsonSerializer;
 import com.smartsheet.api.internal.util.Util;
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import org.apache.http.impl.client.HttpClients;
+import org.jetbrains.annotations.NotNull;
+import org.slf4j.LoggerFactory;
+import retrofit2.Retrofit;
+import retrofit2.converter.jackson.JacksonConverterFactory;
 
 import java.io.IOException;
 import java.net.URI;
@@ -66,6 +74,29 @@ public class SmartsheetImpl implements Smartsheet {
      * It will be initialized in constructor and will not change afterwards.
      */
     private final HttpClient httpClient;
+
+    /**
+     * Represents the Retrofit instance.
+     *
+     * It will be initialized in constructor and will not change afterwards.
+     */
+    private final Retrofit retrofit;
+
+    /**
+     * Represents the headers interceptor instance.
+     *
+     * It will be initialized in constructor and will be updated occasionally.
+     * It will update when the accessToken, userAgent, changeAgent, or assumeUser fields change.
+     */
+    private final HeadersInterceptor headersInterceptor;
+
+    /**
+     * Represents the retry interceptor instance.
+     *
+     * It will be initialized in constructor and will be updated occasionally.
+     * It will update when the maxRetryTimeMillis updates.
+     */
+    private final RetryInterceptor retryInterceptor;
 
     /**
      * Represents the JsonSerializer.
@@ -293,6 +324,24 @@ public class SmartsheetImpl implements Smartsheet {
         this.changeAgent = new AtomicReference<String>(null);
         this.userAgent = new AtomicReference<String>(generateUserAgent(null));
 
+        this.headersInterceptor = new HeadersInterceptor(accessToken, assumedUser.get(), changeAgent.get(), userAgent.get());
+        this.retryInterceptor = new RetryInterceptor(jsonSerializer);
+
+        ObjectMapper mapper = new ObjectMapper();
+
+        OkHttpClient client = new OkHttpClient.Builder()
+                .addInterceptor(headersInterceptor)
+                .addInterceptor(retryInterceptor)
+                .addInterceptor(new LoggingInterceptor())
+                .build();
+
+        this.retrofit = new Retrofit.Builder()
+                .client(client)
+                .baseUrl(baseURI)
+                .addConverterFactory(
+                        JacksonConverterFactory.create(mapper)
+                ).build();
+
         // Initialize resources
         this.home = new AtomicReference<HomeResources>();
         this.workspaces = new AtomicReference<WorkspaceResources>();
@@ -355,6 +404,7 @@ public class SmartsheetImpl implements Smartsheet {
      */
     public void setAccessToken(String accessToken) {
         this.accessToken.set(accessToken);
+        this.headersInterceptor.setAccessToken(accessToken);
     }
 
     /**
@@ -391,6 +441,7 @@ public class SmartsheetImpl implements Smartsheet {
      */
     public void setAssumedUser(String assumedUser) {
         this.assumedUser.set(assumedUser);
+        this.headersInterceptor.setAssumedUser(assumedUser);
     }
 
     /**
@@ -409,6 +460,7 @@ public class SmartsheetImpl implements Smartsheet {
      */
     public void setChangeAgent(String changeAgent) {
         this.changeAgent.set(changeAgent);
+        this.headersInterceptor.setChangeAgent(changeAgent);
     }
 
     /**
@@ -427,6 +479,16 @@ public class SmartsheetImpl implements Smartsheet {
      */
     public void setUserAgent(String userAgent) {
         this.userAgent.set(generateUserAgent(userAgent));
+        this.headersInterceptor.setUserAgent(userAgent);
+    }
+
+    /**
+     * Return the Retrofit instance
+     *
+     * @return the Retrofit instance
+     */
+    public Retrofit getRetrofit() {
+        return retrofit;
     }
 
     /**
@@ -437,9 +499,11 @@ public class SmartsheetImpl implements Smartsheet {
     public void setMaxRetryTimeMillis(long maxRetryTimeMillis) {
         if (this.httpClient instanceof DefaultHttpClient) {
             ((DefaultHttpClient) this.httpClient).setMaxRetryTimeMillis(maxRetryTimeMillis);
+            retryInterceptor.setMaxRetryTimeMillis(maxRetryTimeMillis);
         }
         else if (this.httpClient instanceof AndroidHttpClient) {
             ((AndroidHttpClient) this.httpClient).setMaxRetryTimeMillis(maxRetryTimeMillis);
+            retryInterceptor.setMaxRetryTimeMillis(maxRetryTimeMillis);
         }
         else
             throw new UnsupportedOperationException("Invalid operation for class " + this.httpClient.getClass());

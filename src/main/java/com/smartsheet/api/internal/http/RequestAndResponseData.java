@@ -22,6 +22,12 @@ package com.smartsheet.api.internal.http;
 
 
 import com.smartsheet.api.Trace;
+import kotlin.Pair;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+import okhttp3.ResponseBody;
+import okio.Buffer;
 import org.apache.commons.codec.binary.Hex;
 import org.apache.http.Header;
 import org.apache.http.client.methods.HttpRequestBase;
@@ -303,8 +309,95 @@ public class RequestAndResponseData {
         return new RequestAndResponseData(requestBuilder.build(), responseBuilder.build());
     }
 
+    /**
+     * factory method for creating a RequestAndResponseData object from request and response okhttp data with the specified trace fields
+     */
+    public static RequestAndResponseData of(Request request, Response response, Set<Trace> traces)
+            throws IOException {
+        RequestData requestData = null;
+        ResponseData responseData = null;
+
+        if (request != null) {
+            requestData = buildRequestData(request, traces);
+        }
+        if (response != null) {
+            responseData = buildResponseData(response, traces);
+        }
+        return new RequestAndResponseData(requestData, responseData);
+    }
+
+    private static RequestData buildRequestData(Request request, Set<Trace> traces) throws IOException {
+        RequestData.Builder builder = new RequestData.Builder();
+
+        builder.withCommand(request.method() + " " + request.url());
+        boolean binaryBody = false;
+        if (traces.contains(Trace.RequestHeaders)) {
+            builder.withHeaders();
+            for (Pair<? extends String, ? extends String> header : request.headers()) {
+                String headerName = header.getFirst();
+                String headerValue = header.getSecond();
+                if ("Authorization".equals(headerName) && headerValue.length() > 0) {
+                    // gets the last four characters of a string or all of them if the string is less than 5 characters
+                    String lastFourChars = headerValue.substring(Math.max(0, headerValue.length() - 4));
+                    headerValue = "Bearer ****" + lastFourChars;
+                } else if ("Content-Disposition".equals(headerName)) {
+                    binaryBody = true;
+                }
+                builder.addHeader(headerName, headerValue);
+            }
+        }
+
+        RequestBody requestBody = request.body();
+        if (requestBody != null) {
+            if (traces.contains(Trace.RequestBody)) {
+                builder.setBody(binaryBody ? binaryBody(requestBody) : getContentAsText(requestBody));
+            } else if (traces.contains(Trace.RequestBodySummary)) {
+                builder.setBody(binaryBody ? binaryBody(requestBody) : truncateAsNeeded(getContentAsText(requestBody), TRUNCATE_LENGTH));
+            }
+        }
+
+        return builder.build();
+    }
+
+    private static ResponseData buildResponseData(Response response, Set<Trace> traces) throws IOException {
+        ResponseData.Builder builder = new ResponseData.Builder();
+
+        boolean binaryBody = false;
+        builder.withStatus(String.valueOf(response.code()));
+        if (traces.contains(Trace.ResponseHeaders)) {
+            builder.withHeaders();
+            for (Pair<? extends String, ? extends String> header : response.headers()) {
+                String headerName = header.getFirst();
+                String headerValue = header.getSecond();
+                if ("Content-Disposition".equals(headerName)) {
+                    binaryBody = true;
+                }
+                builder.addHeader(headerName, headerValue);
+            }
+        }
+
+        ResponseBody responseBody = response.body();
+        if (responseBody != null) {
+            if (traces.contains(Trace.ResponseBody)) {
+                builder.setBody(binaryBody ? binaryBody(responseBody) : getContentAsText(responseBody));
+            } else if (traces.contains(Trace.ResponseBodySummary)) {
+                builder.setBody(binaryBody ? binaryBody(responseBody) : truncateAsNeeded(getContentAsText(responseBody), TRUNCATE_LENGTH));
+            }
+        }
+
+        return builder.build();
+    }
+
     static String binaryBody(HttpEntitySnapshot entity) {
         return "**possibly-binary(type:" + entity.getContentType() + ", len:" + entity.getContentLength() + ")**";
+    }
+
+    static String binaryBody(RequestBody body) throws IOException {
+        return "**possibly-binary(type:" + body.contentType() + ", len:" + body.contentLength() + ")**";
+    }
+
+    static String binaryBody(ResponseBody body) throws IOException {
+        return "**possibly-binary(type:" + body.contentType() + ", len:" + body.contentLength() + ")**";
     }
 
     public static String getContentAsText(HttpEntitySnapshot entity) throws IOException {
@@ -319,6 +412,25 @@ public class RequestAndResponseData {
             contentAsText = new String(Hex.encodeHex(contentBytes));
         }
         return contentAsText;
+    }
+
+    public static String getContentAsText(RequestBody body) throws IOException {
+        if (body == null) {
+            return "";
+        }
+
+        Buffer bodyBuffer = new Buffer();
+        body.writeTo(bodyBuffer);
+
+        return bodyBuffer.readUtf8();
+    }
+
+    public static String getContentAsText(ResponseBody body) throws IOException {
+        if (body == null) {
+            return "";
+        }
+
+        return body.string();
     }
 
     public static String truncateAsNeeded(String string, int truncateLen) {
