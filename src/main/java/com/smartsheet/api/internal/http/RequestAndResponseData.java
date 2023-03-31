@@ -314,60 +314,78 @@ public class RequestAndResponseData {
      */
     public static RequestAndResponseData of(Request request, Response response, Set<Trace> traces)
             throws IOException {
-        RequestData.Builder requestBuilder = new RequestData.Builder();
-        ResponseData.Builder responseBuilder = new ResponseData.Builder();
+        RequestData requestData = null;
+        ResponseData responseData = null;
 
         if (request != null) {
-            requestBuilder.withCommand(request.method() + " " + request.url());
-            boolean binaryBody = false;
-            if (traces.contains(Trace.RequestHeaders)) {
-                requestBuilder.withHeaders();
-                for (Pair<? extends String, ? extends String> header : request.headers()) {
-                    String headerName = header.getFirst();
-                    String headerValue = header.getSecond();
-                    if ("Authorization".equals(headerName) && headerValue.length() > 0) {
-                        headerValue = "Bearer ****" + headerValue.substring(Math.max(0, headerValue.length() - 4));
-                    } else if ("Content-Disposition".equals(headerName)) {
-                        binaryBody = true;
-                    }
-                    requestBuilder.addHeader(headerName, headerValue);
-                }
-            }
-
-            RequestBody requestBody = request.body();
-            if (requestBody != null) {
-                if (traces.contains(Trace.RequestBody)) {
-                    requestBuilder.setBody(binaryBody ? binaryBody(requestBody) : getContentAsText(requestBody));
-                } else if (traces.contains(Trace.RequestBodySummary)) {
-                    requestBuilder.setBody(binaryBody ? binaryBody(requestBody) : truncateAsNeeded(getContentAsText(requestBody), TRUNCATE_LENGTH));
-                }
-            }
+            requestData = buildRequestData(request, traces);
         }
         if (response != null) {
-            boolean binaryBody = false;
-            responseBuilder.withStatus(String.valueOf(response.code()));
-            if (traces.contains(Trace.ResponseHeaders)) {
-                responseBuilder.withHeaders();
-                for (Pair<? extends String, ? extends String> header : request.headers()) {
-                    String headerName = header.getFirst();
-                    String headerValue = header.getSecond();
-                    if ("Content-Disposition".equals(headerName)) {
-                        binaryBody = true;
-                    }
-                    responseBuilder.addHeader(headerName, headerValue);
-                }
-            }
+            responseData = buildResponseData(response, traces);
+        }
+        return new RequestAndResponseData(requestData, responseData);
+    }
 
-            ResponseBody responseBody = response.body();
-            if (responseBody != null) {
-                if (traces.contains(Trace.ResponseBody)) {
-                    responseBuilder.setBody(binaryBody ? binaryBody(responseBody) : getContentAsText(responseBody));
-                } else if (traces.contains(Trace.ResponseBodySummary)) {
-                    responseBuilder.setBody(binaryBody ? binaryBody(responseBody) : truncateAsNeeded(getContentAsText(responseBody), TRUNCATE_LENGTH));
+    private static RequestData buildRequestData(Request request, Set<Trace> traces) throws IOException {
+        RequestData.Builder builder = new RequestData.Builder();
+
+        builder.withCommand(request.method() + " " + request.url());
+        boolean binaryBody = false;
+        if (traces.contains(Trace.RequestHeaders)) {
+            builder.withHeaders();
+            for (Pair<? extends String, ? extends String> header : request.headers()) {
+                String headerName = header.getFirst();
+                String headerValue = header.getSecond();
+                if ("Authorization".equals(headerName) && headerValue.length() > 0) {
+                    // gets the last four characters of a string or all of them if the string is less than 5 characters
+                    String lastFourChars = headerValue.substring(Math.max(0, headerValue.length() - 4));
+                    headerValue = "Bearer ****" + lastFourChars;
+                } else if ("Content-Disposition".equals(headerName)) {
+                    binaryBody = true;
                 }
+                builder.addHeader(headerName, headerValue);
             }
         }
-        return new RequestAndResponseData(requestBuilder.build(), responseBuilder.build());
+
+        RequestBody requestBody = request.body();
+        if (requestBody != null) {
+            if (traces.contains(Trace.RequestBody)) {
+                builder.setBody(binaryBody ? binaryBody(requestBody) : getContentAsText(requestBody));
+            } else if (traces.contains(Trace.RequestBodySummary)) {
+                builder.setBody(binaryBody ? binaryBody(requestBody) : truncateAsNeeded(getContentAsText(requestBody), TRUNCATE_LENGTH));
+            }
+        }
+
+        return builder.build();
+    }
+
+    private static ResponseData buildResponseData(Response response, Set<Trace> traces) throws IOException {
+        ResponseData.Builder builder = new ResponseData.Builder();
+
+        boolean binaryBody = false;
+        builder.withStatus(String.valueOf(response.code()));
+        if (traces.contains(Trace.ResponseHeaders)) {
+            builder.withHeaders();
+            for (Pair<? extends String, ? extends String> header : response.headers()) {
+                String headerName = header.getFirst();
+                String headerValue = header.getSecond();
+                if ("Content-Disposition".equals(headerName)) {
+                    binaryBody = true;
+                }
+                builder.addHeader(headerName, headerValue);
+            }
+        }
+
+        ResponseBody responseBody = response.body();
+        if (responseBody != null) {
+            if (traces.contains(Trace.ResponseBody)) {
+                builder.setBody(binaryBody ? binaryBody(responseBody) : getContentAsText(responseBody));
+            } else if (traces.contains(Trace.ResponseBodySummary)) {
+                builder.setBody(binaryBody ? binaryBody(responseBody) : truncateAsNeeded(getContentAsText(responseBody), TRUNCATE_LENGTH));
+            }
+        }
+
+        return builder.build();
     }
 
     static String binaryBody(HttpEntitySnapshot entity) {
