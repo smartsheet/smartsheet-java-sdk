@@ -699,7 +699,7 @@ class FormatTest {
         ;
         final String format;
         ThousandsSeparator expected;
-        private ThousandsSeparatorTest (String format, ThousandsSeparator expected) {
+        ThousandsSeparatorTest (String format, ThousandsSeparator expected) {
             this.expected = expected;
             this.format = format;
         }
@@ -727,7 +727,7 @@ class FormatTest {
         ;
         final String format;
         NumberFormat expected;
-        private NumberFormatTest (String format, NumberFormat expected) {
+        NumberFormatTest (String format, NumberFormat expected) {
             this.expected = expected;
             this.format = format;
         }
@@ -753,7 +753,7 @@ class FormatTest {
         ;
         final String format;
         TextWrap expected;
-        private TextWrapTest (String format, TextWrap expected) {
+        TextWrapTest (String format, TextWrap expected) {
             this.expected = expected;
             this.format = format;
         }

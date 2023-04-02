@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -48,7 +48,7 @@ public interface SightResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public PagedResult<Sight> listSights(PaginationParameters paging, Date modifiedSince) throws SmartsheetException;
+    PagedResult<Sight> listSights(PaginationParameters paging, Date modifiedSince) throws SmartsheetException;
 
     /**
      * <p>Get a specified Sight.</p>
@@ -64,24 +64,7 @@ public interface SightResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public Sight getSight(long sightId) throws SmartsheetException;
-
-    /**
-     * <p>Get a specified Sight.</p>
-     *
-     * <p>It mirrors to the following Smartsheet REST API method: GET /sights/{sightId}</p>
-     *
-     * @param sightId the Id of the Sight
-     * @param level compatibility level
-     * @return the Sight resource.
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
-     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
-     */
-    public Sight getSight(long sightId, Integer level) throws SmartsheetException;
+    Sight getSight(long sightId) throws SmartsheetException;
 
     /**
      * <p>Get a specified Sight.</p>
@@ -98,7 +81,24 @@ public interface SightResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public Sight getSight(long sightId, EnumSet<SightInclusion> includes, Integer level) throws SmartsheetException;
+    Sight getSight(long sightId, Integer level) throws SmartsheetException;
+
+    /**
+     * <p>Get a specified Sight.</p>
+     *
+     * <p>It mirrors to the following Smartsheet REST API method: GET /sights/{sightId}</p>
+     *
+     * @param sightId the Id of the Sight
+     * @param level compatibility level
+     * @return the Sight resource.
+     * @throws IllegalArgumentException if any argument is null or empty string
+     * @throws InvalidRequestException if there is any problem with the REST API request
+     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetException if there is any other error during the operation
+     */
+    Sight getSight(long sightId, EnumSet<SightInclusion> includes, Integer level) throws SmartsheetException;
 
     /**
      * <p>Get a specified Sight.</p>
@@ -114,7 +114,7 @@ public interface SightResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public Sight updateSight(Sight sight) throws SmartsheetException;
+    Sight updateSight(Sight sight) throws SmartsheetException;
 
     /**
      * <p>Delete a specified Sight.</p>
@@ -129,7 +129,7 @@ public interface SightResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public void deleteSight(long sightId) throws SmartsheetException;
+    void deleteSight(long sightId) throws SmartsheetException;
 
     /**
      * <p>Creates s copy of the specified Sight.</p>
@@ -146,7 +146,7 @@ public interface SightResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public Sight copySight(long sightId, ContainerDestination destination) throws SmartsheetException;
+    Sight copySight(long sightId, ContainerDestination destination) throws SmartsheetException;
 
     /**
      * <p>Creates s copy of the specified Sight.</p>
@@ -163,7 +163,7 @@ public interface SightResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public Sight moveSight(long sightId, ContainerDestination destination) throws SmartsheetException;
+    Sight moveSight(long sightId, ContainerDestination destination) throws SmartsheetException;
 
     /**
      * <p>Get the publish status of a Sight.</p>
@@ -179,7 +179,7 @@ public interface SightResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public SightPublish getPublishStatus(long sightId) throws SmartsheetException;
+    SightPublish getPublishStatus(long sightId) throws SmartsheetException;
 
     /**
      * <p>Sets the publish status of a Sight and returns the new status, including the URLs of any enabled publishing.</p>
@@ -196,7 +196,7 @@ public interface SightResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public SightPublish setPublishStatus(long sightId, SightPublish sightPublish) throws SmartsheetException;
+    SightPublish setPublishStatus(long sightId, SightPublish sightPublish) throws SmartsheetException;
 
     /**
      * <p>Return the ShareResources object that provides access to share resources associated with
@@ -204,5 +204,5 @@ public interface SightResources {
      *
      * @return the associated share resources
      */
-    public ShareResources shareResources();
+    ShareResources shareResources();
 }

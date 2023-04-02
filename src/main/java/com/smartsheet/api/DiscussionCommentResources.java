@@ -14,9 +14,9 @@ import java.io.IOException;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -42,7 +42,7 @@ public interface DiscussionCommentResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public Comment addComment(long sheetId, long discussionId, Comment comment) throws SmartsheetException;
+    Comment addComment(long sheetId, long discussionId, Comment comment) throws SmartsheetException;
 
     /**
      * <p>Add a comment to a discussion with an attachment.</p>
@@ -63,7 +63,7 @@ public interface DiscussionCommentResources {
      * @throws SmartsheetException if there is any other error during the operation
      * @throws IOException is there is any error with file
      */
-    public Comment addCommentWithAttachment(long sheetId, long discussionId, Comment comment, File file, String contentType) throws SmartsheetException, IOException;
+    Comment addCommentWithAttachment(long sheetId, long discussionId, Comment comment, File file, String contentType) throws SmartsheetException, IOException;
 
     /**
      * <p>Update the specified comment</p>
@@ -80,5 +80,5 @@ public interface DiscussionCommentResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public Comment updateComment(long sheetId, Comment comment) throws SmartsheetException;
+    Comment updateComment(long sheetId, Comment comment) throws SmartsheetException;
 }

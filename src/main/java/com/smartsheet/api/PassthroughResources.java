@@ -9,9 +9,9 @@ package com.smartsheet.api;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -42,7 +42,7 @@ public interface PassthroughResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public String getRequest(String endpoint, Map<String, Object> parameters) throws SmartsheetException;
+    String getRequest(String endpoint, Map<String, Object> parameters) throws SmartsheetException;
 
     /**
      * <p>Issue an HTTP POST request.</p>
@@ -58,7 +58,7 @@ public interface PassthroughResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public String postRequest(String endpoint, String payload, Map<String, Object> parameters) throws SmartsheetException;
+    String postRequest(String endpoint, String payload, Map<String, Object> parameters) throws SmartsheetException;
 
     /**
      * <p>Issue an HTTP PUT request.</p>
@@ -74,7 +74,7 @@ public interface PassthroughResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public String putRequest(String endpoint, String payload,  Map<String, Object> parameters) throws SmartsheetException;
+    String putRequest(String endpoint, String payload,  Map<String, Object> parameters) throws SmartsheetException;
 
     /**
      * <p>Issue an HTTP DELETE request.</p>
@@ -88,5 +88,5 @@ public interface PassthroughResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public String deleteRequest(String endpoint) throws SmartsheetException;
+    String deleteRequest(String endpoint) throws SmartsheetException;
 }

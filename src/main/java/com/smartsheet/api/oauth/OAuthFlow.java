@@ -9,9 +9,9 @@ package com.smartsheet.api.oauth;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -30,7 +30,7 @@ import java.util.EnumSet;
 
 /**
  * <p>OAuthFlow interface provides methods to do the OAuth2 authorization.</p>
- * 
+ *
  * <p>Thread Safety: Implementation of this interface must be thread safe.</p>
  */
 public interface OAuthFlow {
@@ -44,7 +44,7 @@ public interface OAuthFlow {
      * @return the authorization URL
      * @throws IllegalArgumentException if scopes is null or empty
      */
-    public String newAuthorizationURL(EnumSet<AccessScope> scopes, String state);
+    String newAuthorizationURL(EnumSet<AccessScope> scopes, String state);
 
     /**
      * Extract AuthorizationResult from the authorization response URL (i.e. the redirectURL with the response
@@ -59,7 +59,7 @@ public interface OAuthFlow {
      * @throws OAuthAuthorizationCodeException the o auth authorization code exception
      * @throws IllegalArgumentException if any other error occurred during the operation
      */
-    public AuthorizationResult extractAuthorizationResult(String authorizationResponseURL) throws
+    AuthorizationResult extractAuthorizationResult(String authorizationResponseURL) throws
         URISyntaxException, AccessDeniedException, UnsupportedResponseTypeException, InvalidScopeException,
         OAuthAuthorizationCodeException;
 
@@ -75,7 +75,7 @@ public interface OAuthFlow {
      * @throws InvalidRequestException the invalid request exception
      * @throws IllegalArgumentException if any other error occurred during the operation
      */
-    public Token obtainNewToken(AuthorizationResult authorizationResult) throws OAuthTokenException, JSONSerializerException, HttpClientException, URISyntaxException, InvalidRequestException;
+    Token obtainNewToken(AuthorizationResult authorizationResult) throws OAuthTokenException, JSONSerializerException, HttpClientException, URISyntaxException, InvalidRequestException;
 
     /**
      * Refresh token.
@@ -89,7 +89,7 @@ public interface OAuthFlow {
      * @throws InvalidRequestException the invalid request exception
      * @throws IllegalArgumentException if any other error occurred during the operation
      */
-    public Token refreshToken(Token token) throws OAuthTokenException, JSONSerializerException, HttpClientException, URISyntaxException, InvalidRequestException;
+    Token refreshToken(Token token) throws OAuthTokenException, JSONSerializerException, HttpClientException, URISyntaxException, InvalidRequestException;
 
     /**
      * Revoke access token.
@@ -110,6 +110,6 @@ public interface OAuthFlow {
      * @throws URISyntaxException the URI syntax exception
      * @throws InvalidRequestException the invalid request exception
      */
-    public void revokeAccessToken(Token token) throws OAuthTokenException, JSONSerializerException, HttpClientException,
+    void revokeAccessToken(Token token) throws OAuthTokenException, JSONSerializerException, HttpClientException,
             URISyntaxException, InvalidRequestException;
 }

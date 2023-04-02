@@ -57,7 +57,7 @@ public interface UserResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public PagedResult<User> listUsers() throws SmartsheetException;
+    PagedResult<User> listUsers() throws SmartsheetException;
 
     /**
      * <p>List all users.</p>
@@ -74,7 +74,7 @@ public interface UserResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public PagedResult<User> listUsers(Set<String> email, PaginationParameters pagination) throws SmartsheetException;
+    PagedResult<User> listUsers(Set<String> email, PaginationParameters pagination) throws SmartsheetException;
 
     /**
      * <p>List all users.</p>
@@ -92,7 +92,7 @@ public interface UserResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public PagedResult<User> listUsers(Set<String> email, EnumSet<ListUserInclusion> includes,
+    PagedResult<User> listUsers(Set<String> email, EnumSet<ListUserInclusion> includes,
                                        PaginationParameters pagination) throws SmartsheetException;
 
     /**
@@ -109,7 +109,7 @@ public interface UserResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public User addUser(User user) throws SmartsheetException;
+    User addUser(User user) throws SmartsheetException;
 
     /**
      * <p>Add a user to the organization, without sending email.</p>
@@ -126,7 +126,7 @@ public interface UserResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public User addUser(User user, boolean sendEmail) throws SmartsheetException;
+    User addUser(User user, boolean sendEmail) throws SmartsheetException;
 
     /**
      * <p>Get the current user.</p>
@@ -142,7 +142,7 @@ public interface UserResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public UserProfile getUser(long userId) throws SmartsheetException;
+    UserProfile getUser(long userId) throws SmartsheetException;
 
     /**
      * <p>Get the current user.</p>
@@ -157,7 +157,7 @@ public interface UserResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public UserProfile getCurrentUser() throws SmartsheetException;
+    UserProfile getCurrentUser() throws SmartsheetException;
 
     /**
      * <p>Get the current user.</p>
@@ -173,7 +173,7 @@ public interface UserResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public UserProfile getCurrentUser(EnumSet<UserInclusion> includes) throws SmartsheetException;
+    UserProfile getCurrentUser(EnumSet<UserInclusion> includes) throws SmartsheetException;
 
     /**
      * <p>Update a user.</p>
@@ -189,7 +189,7 @@ public interface UserResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public User updateUser(User user) throws SmartsheetException;
+    User updateUser(User user) throws SmartsheetException;
 
     /**
      * <p>Delete a user in the organization.</p>
@@ -205,7 +205,7 @@ public interface UserResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public void deleteUser(long id, DeleteUserParameters parameters) throws SmartsheetException;
+    void deleteUser(long id, DeleteUserParameters parameters) throws SmartsheetException;
 
     /**
      * <p>List all organisation sheets.</p>
@@ -222,7 +222,7 @@ public interface UserResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public PagedResult<Sheet> listOrgSheets(PaginationParameters pagination, Date modifiedSince) throws SmartsheetException;
+    PagedResult<Sheet> listOrgSheets(PaginationParameters pagination, Date modifiedSince) throws SmartsheetException;
 
     /**
      * <p>List all organisation sheets.</p>
@@ -239,7 +239,7 @@ public interface UserResources {
      * @throws SmartsheetException if there is any other error during the operation
      */
     @Deprecated
-    public PagedResult<Sheet> listOrgSheets(PaginationParameters pagination) throws SmartsheetException;
+    PagedResult<Sheet> listOrgSheets(PaginationParameters pagination) throws SmartsheetException;
 
     /**
      * <p>List all user alternate email(s).</p>
@@ -256,7 +256,7 @@ public interface UserResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public PagedResult<AlternateEmail> listAlternateEmails(long userId, PaginationParameters pagination) throws SmartsheetException;
+    PagedResult<AlternateEmail> listAlternateEmails(long userId, PaginationParameters pagination) throws SmartsheetException;
 
     /**
      * <p>Get alternate email.</p>
@@ -273,7 +273,7 @@ public interface UserResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public AlternateEmail getAlternateEmail(long userId, long altEmailId) throws SmartsheetException;
+    AlternateEmail getAlternateEmail(long userId, long altEmailId) throws SmartsheetException;
 
     /**
      * <p>Add an alternate email.</p>
@@ -290,7 +290,7 @@ public interface UserResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public List<AlternateEmail> addAlternateEmail(long userId, List<AlternateEmail> altEmails) throws SmartsheetException;
+    List<AlternateEmail> addAlternateEmail(long userId, List<AlternateEmail> altEmails) throws SmartsheetException;
 
     /**
      * <p>Delete an alternate email.</p>
@@ -306,7 +306,7 @@ public interface UserResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public void deleteAlternateEmail(long userId, long altEmailId) throws SmartsheetException;
+    void deleteAlternateEmail(long userId, long altEmailId) throws SmartsheetException;
 
     /**
      * <p>Promote and alternate email to primary.</p>
@@ -321,7 +321,7 @@ public interface UserResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException f there is any other error during the operation
      */
-    public AlternateEmail promoteAlternateEmail(long userId, long altEmailId) throws SmartsheetException;
+    AlternateEmail promoteAlternateEmail(long userId, long altEmailId) throws SmartsheetException;
 
     /**
      * <p>Uploads a profile image for the specified user.</p>
@@ -337,5 +337,5 @@ public interface UserResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException f there is any other error during the operation
      */
-    public User addProfileImage(long userId, String file, String fileType) throws SmartsheetException, FileNotFoundException;
+    User addProfileImage(long userId, String file, String fileType) throws SmartsheetException, FileNotFoundException;
 }

@@ -43,10 +43,10 @@ public interface HttpClient extends Closeable {
      * @return the http response
      * @throws HttpClientException the http client exception
      */
-    public HttpResponse request(HttpRequest request) throws HttpClientException;
+    HttpResponse request(HttpRequest request) throws HttpClientException;
 
     /**
      * Release connection.
      */
-    public void releaseConnection();
+    void releaseConnection();
 }

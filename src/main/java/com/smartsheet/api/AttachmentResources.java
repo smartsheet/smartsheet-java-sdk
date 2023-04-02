@@ -9,9 +9,9 @@ package com.smartsheet.api;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -29,7 +29,7 @@ import java.io.InputStream;
 /**
  * @deprecated As of release 2.0
  * <p>This interface provides methods to access Attachment resources by their id.</p>
- * 
+ *
  * <p>Thread Safety: Implementation of this interface must be thread safe.</p>
  */
 @Deprecated
@@ -44,7 +44,7 @@ public interface AttachmentResources {
      * rather than returning null).
      */
     @Deprecated
-    public Attachment attachNewVersion(long attachmentId, File file, String contentType);
+    Attachment attachNewVersion(long attachmentId, File file, String contentType);
 
     /**
      * @deprecated As of release 2.0
@@ -56,5 +56,5 @@ public interface AttachmentResources {
      * @return the created attachment
      */
     @Deprecated
-    public Attachment attachNewVersion (long attachmentId, InputStream inputStream, String contentType, long contentLength, String attachmentName);
+    Attachment attachNewVersion (long attachmentId, InputStream inputStream, String contentType, long contentLength, String attachmentName);
 }

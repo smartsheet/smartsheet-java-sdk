@@ -57,7 +57,7 @@ public interface JsonSerializer {
      * @param outputStream the output stream
      * @throws JSONSerializerException the JSON serializer exception
      */
-    public <T> void serialize(T object, java.io.OutputStream outputStream) throws JSONSerializerException;
+    <T> void serialize(T object, java.io.OutputStream outputStream) throws JSONSerializerException;
 
     /**
      * Serialize an object to JSON.
@@ -74,7 +74,7 @@ public interface JsonSerializer {
      * @param object the object
      * @throws JSONSerializerException the JSON serializer exception
      */
-    public <T> String serialize(T object) throws JSONSerializerException;
+    <T> String serialize(T object) throws JSONSerializerException;
 
     /**
      * De-serialize json to PagedResult.
@@ -84,7 +84,7 @@ public interface JsonSerializer {
      * @return the PagedResult containing a list of type T
      * @throws JSONSerializerException
      */
-    public <T> PagedResult<T> deserializeDataWrapper(Class<T> objectClass, java.io.InputStream inputStream) throws JSONSerializerException;
+    <T> PagedResult<T> deserializeDataWrapper(Class<T> objectClass, java.io.InputStream inputStream) throws JSONSerializerException;
 
     /**
      * De-serialize an object from JSON.
@@ -105,7 +105,7 @@ public interface JsonSerializer {
      * @throws JsonMappingException the json mapping exception
      * @throws IOException Signals that an I/O exception has occurred.
      */
-    public <T> T deserialize(Class<T> objectClass, java.io.InputStream inputStream) throws JsonParseException,
+    <T> T deserialize(Class<T> objectClass, java.io.InputStream inputStream) throws JsonParseException,
             JsonMappingException, IOException;
 
     /**
@@ -125,7 +125,7 @@ public interface JsonSerializer {
      * @return the list
      * @throws JSONSerializerException the JSON serializer exception
      */
-    public <T> List<T> deserializeList(Class<T> objectClass, java.io.InputStream inputStream)
+    <T> List<T> deserializeList(Class<T> objectClass, java.io.InputStream inputStream)
             throws JSONSerializerException;
 
 
@@ -136,7 +136,7 @@ public interface JsonSerializer {
      * @return the map
      * @throws JSONSerializerException the JSON serializer exception
      */
-    public Map<String, Object> deserializeMap(InputStream inputStream) throws JSONSerializerException;
+    Map<String, Object> deserializeMap(InputStream inputStream) throws JSONSerializerException;
 
     /**
      * De-serialize a Result<T> object from JSON.
@@ -155,7 +155,7 @@ public interface JsonSerializer {
      * @return the result
      * @throws JSONSerializerException the JSON serializer exception
      */
-    public <T> Result<T> deserializeResult(Class<T> objectClass, java.io.InputStream inputStream)
+    <T> Result<T> deserializeResult(Class<T> objectClass, java.io.InputStream inputStream)
             throws JSONSerializerException;
 
     /**
@@ -175,7 +175,7 @@ public interface JsonSerializer {
      * @return the result
      * @throws JSONSerializerException the JSON serializer exception
      */
-    public <T> Result<List<T>> deserializeListResult(Class<T> objectClass, java.io.InputStream inputStream)
+    <T> Result<List<T>> deserializeListResult(Class<T> objectClass, java.io.InputStream inputStream)
             throws JSONSerializerException;
     /**
      * De-serialize a BulkItemResult object from JSON.
@@ -194,7 +194,7 @@ public interface JsonSerializer {
      * @return the result
      * @throws JSONSerializerException the JSON serializer exception
      */
-    public <T> BulkItemResult<T> deserializeBulkItemResult(Class<T> objectClass, java.io.InputStream inputStream)
+    <T> BulkItemResult<T> deserializeBulkItemResult(Class<T> objectClass, java.io.InputStream inputStream)
             throws JSONSerializerException;
 
     /**
@@ -212,7 +212,7 @@ public interface JsonSerializer {
      * @return the result
      * @throws JSONSerializerException the JSON serializer exception
      */
-    public CopyOrMoveRowResult deserializeCopyOrMoveRow(java.io.InputStream inputStream)
+    CopyOrMoveRowResult deserializeCopyOrMoveRow(java.io.InputStream inputStream)
             throws JSONSerializerException;
 
     /**
@@ -221,7 +221,7 @@ public interface JsonSerializer {
      * @return the EventResult containing a list of Event
      * @throws JSONSerializerException
      */
-    public EventResult deserializeEventResult(java.io.InputStream inputStream)
+    EventResult deserializeEventResult(java.io.InputStream inputStream)
             throws JSONSerializerException;
 
 }

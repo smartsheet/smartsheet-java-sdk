@@ -54,7 +54,7 @@ public interface RowResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public Row getRow(long id, EnumSet<ObjectInclusion> includes) throws SmartsheetException;
+    Row getRow(long id, EnumSet<ObjectInclusion> includes) throws SmartsheetException;
 
     /**
      * <p>Move a row.</p>
@@ -71,7 +71,7 @@ public interface RowResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public List<Row> moveRow(long id, RowWrapper rowWrapper) throws SmartsheetException;
+    List<Row> moveRow(long id, RowWrapper rowWrapper) throws SmartsheetException;
 
     /**
      * <p>Delete a row.</p>
@@ -86,7 +86,7 @@ public interface RowResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public void deleteRow(long id) throws SmartsheetException;
+    void deleteRow(long id) throws SmartsheetException;
 
     /**
      * <p>Send a row via email to the designated recipients.</p>
@@ -102,7 +102,7 @@ public interface RowResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public void sendRow(long id, RowEmail email) throws SmartsheetException;
+    void sendRow(long id, RowEmail email) throws SmartsheetException;
 
     /**
      * <p>Update the values of the Cells in a Row.</p>
@@ -119,7 +119,7 @@ public interface RowResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public List<Cell> updateCells(long rowId, List<Cell> cells) throws SmartsheetException;
+    List<Cell> updateCells(long rowId, List<Cell> cells) throws SmartsheetException;
 
     /**
      * <p>Get the cell modification history.</p>
@@ -137,7 +137,7 @@ public interface RowResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public List<CellHistory> getCellHistory(long rowId, long columnId) throws SmartsheetException;
+    List<CellHistory> getCellHistory(long rowId, long columnId) throws SmartsheetException;
 
     /**
      * <p>Return the AssociatedAttachmentResources object that provides access to attachment resources associated with Row
@@ -145,7 +145,7 @@ public interface RowResources {
      *
      * @return the associated attachment resources
      */
-    public AssociatedAttachmentResources attachments();
+    AssociatedAttachmentResources attachments();
 
     /**
      * <p>Return the AssociatedDiscussionResources object that provides access to discussion resources associated with
@@ -153,5 +153,5 @@ public interface RowResources {
      *
      * @return the associated discussion resources
      */
-    public AssociatedDiscussionResources discussions();
+    AssociatedDiscussionResources discussions();
 }

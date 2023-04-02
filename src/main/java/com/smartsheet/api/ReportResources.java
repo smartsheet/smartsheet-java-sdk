@@ -210,7 +210,7 @@ public interface ReportResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public ReportPublish updatePublishStatus(long id, ReportPublish reportPublish) throws SmartsheetException;
+    ReportPublish updatePublishStatus(long id, ReportPublish reportPublish) throws SmartsheetException;
 
     /**
      * <p>Creates an object of ShareResources.</p>
