@@ -8,9 +8,9 @@ package com.smartsheet.api.models.format;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -20,7 +20,6 @@ package com.smartsheet.api.models.format;
  */
 
 
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -30,10 +29,10 @@ import java.util.Set;
  * An enumeration representing the available font families within Smartsheet.
  */
 public enum FontFamily {
-    ARIAL             ("Arial", Arrays.asList("sans-serif")),
-    TAHOMA            ("Tahoma", Arrays.asList("sans-serif")),
-    TIMES_NEW_ROMAN    ("Times New Roman", Arrays.asList("serif")),
-    VERDANA            ("Verdana", Arrays.asList("sans-serif")),
+    ARIAL("Arial", List.of("sans-serif")),
+    TAHOMA("Tahoma", List.of("sans-serif")),
+    TIMES_NEW_ROMAN("Times New Roman", List.of("serif")),
+    VERDANA("Verdana", List.of("sans-serif")),
     ;
     private final String fontName;
     private final Set<String> traits;

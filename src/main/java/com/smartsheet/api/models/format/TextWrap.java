@@ -25,8 +25,8 @@ package com.smartsheet.api.models.format;
  * An enumeration representing the available text wrap settings within Smartsheet.
  */
 public enum TextWrap {
-    NONE    (false),
-    ON      (true),
+    NONE(false),
+    ON(true),
     ;
     private final boolean wrapped;
 

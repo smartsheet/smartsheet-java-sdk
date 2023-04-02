@@ -161,7 +161,7 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
      */
     public void sendReport(long reportId, SheetEmail email) throws SmartsheetException{
          this.createResource("reports/" + reportId + "/emails", SheetEmail.class, email);
-    };
+    }
 
     /**
      * List all reports.

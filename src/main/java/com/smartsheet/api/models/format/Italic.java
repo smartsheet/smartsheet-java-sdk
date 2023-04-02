@@ -25,8 +25,8 @@ package com.smartsheet.api.models.format;
  * An enumeration representing the available Italic state for a format.
  */
 public enum Italic {
-    NONE     (false),
-    ON        (true),
+    NONE(false),
+    ON(true),
     ;
     private final boolean italic;
 
