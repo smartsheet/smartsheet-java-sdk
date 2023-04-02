@@ -108,7 +108,7 @@ public class SheetRowResourcesImpl extends AbstractResources implements SheetRow
     public List<Row> addRows(long sheetId, List<Row> rows, EnumSet<RowInclusion> includes, EnumSet<ObjectExclusion> excludes) throws SmartsheetException {
         String path = "sheets/" + sheetId + "/rows";
 
-        HashMap<String, Object> parameters = new HashMap<String, Object>();
+        Map<String, Object> parameters = new HashMap<>();
 
         parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
         parameters.put("exclude", QueryUtil.generateCommaSeparatedList(excludes));
@@ -184,7 +184,7 @@ public class SheetRowResourcesImpl extends AbstractResources implements SheetRow
     public Row getRow(long sheetId, long rowId, EnumSet<RowInclusion> includes, EnumSet<ObjectExclusion> excludes) throws SmartsheetException {
         String path = "sheets/" + sheetId + "/rows/" + rowId;
 
-        HashMap<String, Object> parameters = new HashMap<String, Object>();
+        Map<String, Object> parameters = new HashMap<>();
 
         parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
         parameters.put("exclude", QueryUtil.generateCommaSeparatedList(excludes));
@@ -243,7 +243,7 @@ public class SheetRowResourcesImpl extends AbstractResources implements SheetRow
      */
     public List<Long> deleteRows(long sheetId, Set<Long> rowIds, boolean ignoreRowsNotFound) throws SmartsheetException {
         Util.throwIfNull(rowIds);
-        HashMap<String, Object> parameters = new HashMap<String, Object>();
+        Map<String, Object> parameters = new HashMap<>();
         String path = "sheets/" + sheetId + "/rows/";
         parameters.put("ids", QueryUtil.generateCommaSeparatedList(rowIds));
         parameters.put("ignoreRowsNotFound", ignoreRowsNotFound);
@@ -343,7 +343,7 @@ public class SheetRowResourcesImpl extends AbstractResources implements SheetRow
     public List<Row> updateRows(long sheetId, List<Row> rows, EnumSet<RowInclusion> includes, EnumSet<ObjectExclusion> excludes) throws SmartsheetException {
         String path = "sheets/" + sheetId + "/rows";
 
-        HashMap<String, Object> parameters = new HashMap<String, Object>();
+        Map<String, Object> parameters = new HashMap<>();
 
         parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
         parameters.put("exclude", QueryUtil.generateCommaSeparatedList(excludes));
@@ -411,7 +411,7 @@ public class SheetRowResourcesImpl extends AbstractResources implements SheetRow
         }
 
         String path = "sheets/" + sheetId + "/rows";
-        HashMap<String, Object> parameters = new HashMap<String, Object>();
+        Map<String, Object> parameters = new HashMap<>();
         parameters.put("allowPartialSuccess", "true");
         parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
         parameters.put("exclude", QueryUtil.generateCommaSeparatedList(excludes));
@@ -487,7 +487,7 @@ public class SheetRowResourcesImpl extends AbstractResources implements SheetRow
      */
     public CopyOrMoveRowResult moveRows(Long sheetId, EnumSet<RowMoveInclusion> includes, Boolean ignoreRowsNotFound, CopyOrMoveRowDirective moveParameters) throws SmartsheetException {
         String path = "sheets/" + sheetId +"/rows/move";
-        HashMap<String, Object> parameters = new HashMap<String, Object>();
+        Map<String, Object> parameters = new HashMap<>();
         parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
 
         if (ignoreRowsNotFound != null){
@@ -521,7 +521,7 @@ public class SheetRowResourcesImpl extends AbstractResources implements SheetRow
      */
     public CopyOrMoveRowResult copyRows(Long sheetId, EnumSet<RowCopyInclusion> includes, Boolean ignoreRowsNotFound, CopyOrMoveRowDirective copyParameters) throws SmartsheetException {
         String path = "sheets/" + sheetId +"/rows/copy";
-        HashMap<String, Object> parameters = new HashMap<String, Object>();
+        Map<String, Object> parameters = new HashMap<>();
         parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
 
         if (ignoreRowsNotFound != null){

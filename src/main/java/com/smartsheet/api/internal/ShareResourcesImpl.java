@@ -29,10 +29,11 @@ import com.smartsheet.api.models.Share;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * This is the implementation of the ShareResources.
- * 
+ *
  * Thread Safety: This class is thread safe because it is immutable and its base class is thread safe.
  */
 public class ShareResourcesImpl extends AbstractAssociatedResources implements ShareResources {
@@ -79,7 +80,7 @@ public class ShareResourcesImpl extends AbstractAssociatedResources implements S
     public PagedResult<Share> listShares(long objectId, PaginationParameters pagination, Boolean includeWorkspaceShares) throws SmartsheetException {
         String path = getMasterResourceType() + "/" + objectId + "/shares";
 
-        HashMap<String, Object> parameters = new HashMap<String, Object>();
+        Map<String, Object> parameters = new HashMap<>();
         if (pagination != null) {
             parameters = pagination.toHashMap();
         }

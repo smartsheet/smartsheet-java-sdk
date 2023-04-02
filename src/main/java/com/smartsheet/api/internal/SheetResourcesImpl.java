@@ -35,11 +35,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.EnumSet;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 /**
  * This is the implementation of the SheetResources.
- * 
+ *
  * Thread Safety: This class is thread safe because it is immutable and its base class is thread safe.
  */
 public class SheetResourcesImpl extends AbstractResources implements SheetResources {
@@ -164,7 +165,7 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
     public PagedResult<Sheet> listSheets(EnumSet<SourceInclusion> includes, PaginationParameters pagination, Date modifiedSince) throws SmartsheetException {
         String path = "sheets";
 
-        HashMap<String, Object> parameters = new HashMap<String, Object>();
+        Map<String, Object> parameters = new HashMap<>();
         if (pagination != null) {
             parameters = pagination.toHashMap();
         }
@@ -304,7 +305,7 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
         String path = "sheets/" + id;
 
         // Add the parameters to a map and build the query string at the end
-        HashMap<String, Object>    parameters = new HashMap<String, Object>();
+        Map<String, Object> parameters = new HashMap<>();
 
         parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
         parameters.put("exclude", QueryUtil.generateCommaSeparatedList(excludes));
@@ -415,7 +416,7 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
      * @throws SmartsheetException the smartsheet exception
      */
     public Sheet createSheetFromTemplate(Sheet sheet, EnumSet<SheetTemplateInclusion> includes) throws SmartsheetException {
-        HashMap<String, Object> parameters = new HashMap<String, Object>();
+        Map<String, Object> parameters = new HashMap<>();
         parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
         String path = QueryUtil.generateUrl("sheets", parameters);
 
@@ -512,7 +513,7 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
      * @throws SmartsheetException the smartsheet exception
      */
     public Sheet createSheetInFolderFromTemplate(long folderId, Sheet sheet, EnumSet<SheetTemplateInclusion> includes) throws SmartsheetException {
-        HashMap<String, Object> parameters = new HashMap<String, Object>();
+        Map<String, Object> parameters = new HashMap<>();
         parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
         String path = QueryUtil.generateUrl("folders/" + folderId + "/sheets", parameters);
 
@@ -613,7 +614,7 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
      */
     public Sheet createSheetInWorkspaceFromTemplate(long workspaceId, Sheet sheet, EnumSet<SheetTemplateInclusion> includes)
             throws SmartsheetException {
-        HashMap<String, Object> parameters = new HashMap<String, Object>();
+        Map<String, Object> parameters = new HashMap<>();
         parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
         String path = QueryUtil.generateUrl("workspaces/" + workspaceId + "/sheets", parameters);
 
@@ -862,7 +863,7 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
                            EnumSet<CopyExclusion> excludes) throws SmartsheetException {
 
         String path = "sheets/" + sheetId + "/copy";
-        HashMap<String, Object> parameters = new HashMap<String, Object>();
+        Map<String, Object> parameters = new HashMap<>();
 
         parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
         parameters.put("exclude", QueryUtil.generateCommaSeparatedList(excludes));
@@ -1125,7 +1126,7 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
         Util.throwIfEmpty(path, file, contentType);
 
         File f = new File(file);
-        HashMap<String, Object> parameters = new HashMap();
+        Map<String, Object> parameters = new HashMap<>();
         if (sheetName == null) {
             sheetName = f.getName();
         }

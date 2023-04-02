@@ -23,6 +23,7 @@ package com.smartsheet.api.models;
 import com.smartsheet.api.internal.util.QueryUtil;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class PaginationParameters {
     /**
@@ -100,12 +101,12 @@ public class PaginationParameters {
     }
 
     public String toQueryString() {
-        HashMap<String, Object> parameters = toHashMap();
+        Map<String, Object> parameters = toHashMap();
         return QueryUtil.generateUrl(null, parameters);
     }
 
-    public HashMap<String, Object> toHashMap() {
-        HashMap<String, Object> parameters = new HashMap<String, Object>();
+    public Map<String, Object> toHashMap() {
+        Map<String, Object> parameters = new HashMap<>();
 
         parameters.put("includeAll", Boolean.toString(includeAll));
         if (includeAll) {

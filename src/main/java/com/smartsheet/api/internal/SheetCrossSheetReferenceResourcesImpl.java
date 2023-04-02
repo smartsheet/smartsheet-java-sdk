@@ -25,6 +25,7 @@ import com.smartsheet.api.internal.util.QueryUtil;
 import com.smartsheet.api.models.*;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class SheetCrossSheetReferenceResourcesImpl extends AbstractResources implements SheetCrossSheetReferenceResources {
 
@@ -60,7 +61,7 @@ public class SheetCrossSheetReferenceResourcesImpl extends AbstractResources imp
     public PagedResult<CrossSheetReference> listCrossSheetReferences(long sheetId, PaginationParameters pagination) throws SmartsheetException
     {
         String path = "sheets/" + sheetId + "/crosssheetreferences";
-        HashMap<String, Object> parameters = new HashMap<String, Object>();
+        Map<String, Object> parameters = new HashMap<>();
 
         if (pagination != null) {
             parameters = pagination.toHashMap();

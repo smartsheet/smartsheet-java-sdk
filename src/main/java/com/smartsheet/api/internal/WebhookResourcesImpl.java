@@ -21,6 +21,7 @@ package com.smartsheet.api.internal;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Map;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -64,7 +65,7 @@ public class WebhookResourcesImpl extends AbstractResources implements WebhookRe
     public PagedResult<Webhook> listWebhooks(PaginationParameters paging) throws SmartsheetException {
         String path = "webhooks";
 
-        HashMap<String, Object> parameters = new HashMap<String, Object>();
+        Map<String, Object> parameters = new HashMap<>();
         if (paging != null) {
             parameters = paging.toHashMap();
         }

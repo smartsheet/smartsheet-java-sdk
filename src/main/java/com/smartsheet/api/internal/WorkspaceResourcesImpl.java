@@ -10,8 +10,7 @@ package com.smartsheet.api.internal;
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  * 
- *      http://www.apache.org/licenses/LICENSE
-     *   -2.0
+ *      http://www.apache.org/licenses/LICENSE-2.0
  * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -38,10 +37,11 @@ import com.smartsheet.api.models.enums.WorkspaceRemapExclusion;
 
 import java.util.EnumSet;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * This is the implementation of the WorkspaceResources.
- * 
+ *
  * Thread Safety: This class is thread safe because it is immutable and its base class is thread safe.
  */
 public class WorkspaceResourcesImpl extends AbstractResources implements WorkspaceResources {
@@ -133,7 +133,7 @@ public class WorkspaceResourcesImpl extends AbstractResources implements Workspa
         String path = "workspaces/" + id;
 
         // Add the parameters to a map and build the query string at the end
-        HashMap<String, Object> parameters = new HashMap<String, Object>();
+        Map<String, Object> parameters = new HashMap<>();
 
         parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
         if (loadAll != null) {
@@ -271,7 +271,7 @@ public class WorkspaceResourcesImpl extends AbstractResources implements Workspa
                                    EnumSet<WorkspaceRemapExclusion> skipRemap, EnumSet<CopyExclusion> excludes) throws SmartsheetException {
 
         String path = "workspaces/" + workspaceId + "/copy";
-        HashMap<String, Object> parameters = new HashMap<String, Object>();
+        Map<String, Object> parameters = new HashMap<>();
 
         parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
         parameters.put("skipRemap", QueryUtil.generateCommaSeparatedList(skipRemap));

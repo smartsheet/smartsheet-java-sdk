@@ -23,6 +23,7 @@ package com.smartsheet.api.models;
 import com.smartsheet.api.internal.util.QueryUtil;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class DeleteUserParameters {
     /**
@@ -109,7 +110,7 @@ public class DeleteUserParameters {
     }
 
     public String toQueryString() {
-        HashMap<String, Object> parameters = new HashMap<String, Object>();
+        Map<String, Object> parameters = new HashMap<>();
 
         parameters.put("transferTo", transferToId);
         parameters.put("transferSheets", transferSheets);

@@ -25,6 +25,7 @@ import com.smartsheet.api.internal.util.QueryUtil;
 import com.smartsheet.api.internal.util.Util;
 import com.smartsheet.api.models.*;
 import java.util.HashMap;
+import java.util.Map;
 
 public class SheetAutomationRuleResourcesImpl extends AbstractResources implements SheetAutomationRuleResources {
 
@@ -59,7 +60,7 @@ public class SheetAutomationRuleResourcesImpl extends AbstractResources implemen
      */
     public PagedResult<AutomationRule> listAutomationRules(long sheetId, PaginationParameters pagination) throws SmartsheetException {
         String path = "sheets/" + sheetId + "/automationrules";
-        HashMap<String, Object> parameters = new HashMap<String, Object>();
+        Map<String, Object> parameters = new HashMap<>();
 
         if (pagination != null) {
             parameters = pagination.toHashMap();

@@ -34,10 +34,11 @@ import com.smartsheet.api.models.enums.SourceInclusion;
 
 import java.util.EnumSet;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * This is the implementation of the FolderResources.
- * 
+ *
  * Thread Safety: This class is thread safe because it is immutable and its base class is thread safe.
  */
 public class FolderResourcesImpl extends AbstractResources implements FolderResources {
@@ -76,7 +77,7 @@ public class FolderResourcesImpl extends AbstractResources implements FolderReso
      */
     public Folder getFolder(long folderId, EnumSet<SourceInclusion> includes) throws SmartsheetException {
         String path = "folders/" + folderId;
-        HashMap<String, Object> parameters = new HashMap<String, Object>();
+        Map<String, Object> parameters = new HashMap<>();
         parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
         path += QueryUtil.generateUrl(null, parameters);
 
@@ -230,7 +231,7 @@ public class FolderResourcesImpl extends AbstractResources implements FolderReso
                              EnumSet<FolderRemapExclusion> skipRemap, EnumSet<CopyExclusion> excludes) throws SmartsheetException {
 
         String path = "folders/" + folderId + "/copy";
-        HashMap<String, Object> parameters = new HashMap<String, Object>();
+        Map<String, Object> parameters = new HashMap<>();
 
         parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
         parameters.put("skipRemap", QueryUtil.generateCommaSeparatedList(skipRemap));

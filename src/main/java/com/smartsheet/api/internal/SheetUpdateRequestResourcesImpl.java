@@ -20,6 +20,7 @@ package com.smartsheet.api.internal;
  */
 
 import java.util.HashMap;
+import java.util.Map;
 
 import com.smartsheet.api.AuthorizationException;
 import com.smartsheet.api.InvalidRequestException;
@@ -47,7 +48,7 @@ public class SheetUpdateRequestResourcesImpl extends AbstractResources implement
     public SheetUpdateRequestResourcesImpl(SmartsheetImpl smartsheet) {
         super(smartsheet);
     }
-    
+
     /**
      * Gets a list of all Update Requests that have future schedules associated with the specified Sheet.
      *
@@ -65,7 +66,7 @@ public class SheetUpdateRequestResourcesImpl extends AbstractResources implement
     public PagedResult<UpdateRequest> listUpdateRequests(long sheetId, PaginationParameters paging) throws SmartsheetException {
         String path = "sheets/" + sheetId + "/updaterequests";
 
-        HashMap<String, Object> parameters = new HashMap<String, Object>();
+        Map<String, Object> parameters = new HashMap<>();
         if (paging != null) {
             parameters = paging.toHashMap();
         }
@@ -169,7 +170,7 @@ public class SheetUpdateRequestResourcesImpl extends AbstractResources implement
     public PagedResult<SentUpdateRequest> listSentUpdateRequests(long sheetId, PaginationParameters paging) throws SmartsheetException {
         String path = "sheets/" + sheetId + "/sentupdaterequests";
 
-        HashMap<String, Object> parameters = new HashMap<String, Object>();
+        Map<String, Object> parameters = new HashMap<>();
         if (paging != null) {
             parameters = paging.toHashMap();
         }
@@ -194,7 +195,7 @@ public class SheetUpdateRequestResourcesImpl extends AbstractResources implement
      * @throws SmartsheetException if there is any other error during the operation
      */
     public SentUpdateRequest getSentUpdateRequest(long sheetId, long sentUpdateRequestId) throws SmartsheetException {
-        return this.getResource("sheets/" + sheetId + "/sentupdaterequests/" + sentUpdateRequestId, 
+        return this.getResource("sheets/" + sheetId + "/sentupdaterequests/" + sentUpdateRequestId,
                 SentUpdateRequest.class);
     }
 
