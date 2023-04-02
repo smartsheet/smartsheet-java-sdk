@@ -9,9 +9,9 @@ package com.smartsheet.api.internal;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -22,8 +22,32 @@ package com.smartsheet.api.internal;
 
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
-import com.smartsheet.api.models.*;
-import com.smartsheet.api.models.enums.*;
+import com.smartsheet.api.models.Column;
+import com.smartsheet.api.models.ContainerDestination;
+import com.smartsheet.api.models.FormatDetails;
+import com.smartsheet.api.models.MultiRowEmail;
+import com.smartsheet.api.models.PagedResult;
+import com.smartsheet.api.models.PaginationParameters;
+import com.smartsheet.api.models.Recipient;
+import com.smartsheet.api.models.RecipientEmail;
+import com.smartsheet.api.models.RecipientGroup;
+import com.smartsheet.api.models.Sheet;
+import com.smartsheet.api.models.SheetEmail;
+import com.smartsheet.api.models.SheetPublish;
+import com.smartsheet.api.models.SortCriterion;
+import com.smartsheet.api.models.SortSpecifier;
+import com.smartsheet.api.models.Source;
+import com.smartsheet.api.models.UpdateRequest;
+import com.smartsheet.api.models.enums.AccessLevel;
+import com.smartsheet.api.models.enums.ColumnType;
+import com.smartsheet.api.models.enums.DestinationType;
+import com.smartsheet.api.models.enums.ObjectExclusion;
+import com.smartsheet.api.models.enums.PaperSize;
+import com.smartsheet.api.models.enums.SheetEmailFormat;
+import com.smartsheet.api.models.enums.SheetInclusion;
+import com.smartsheet.api.models.enums.SheetTemplateInclusion;
+import com.smartsheet.api.models.enums.SortDirection;
+import com.smartsheet.api.models.enums.SourceInclusion;
 import com.smartsheet.api.models.format.VerticalAlignment;
 import org.apache.commons.io.output.ByteArrayOutputStream;
 import org.junit.jupiter.api.BeforeEach;
@@ -33,9 +57,18 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.EnumSet;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 
 class SheetResourcesImplTest extends ResourcesImplBase {

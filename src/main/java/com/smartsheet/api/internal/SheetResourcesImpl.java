@@ -9,9 +9,9 @@ package com.smartsheet.api.internal;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -20,17 +20,54 @@ package com.smartsheet.api.internal;
  * %[license]
  */
 
-import com.smartsheet.api.*;
+import com.smartsheet.api.AuthorizationException;
+import com.smartsheet.api.InvalidRequestException;
+import com.smartsheet.api.ResourceNotFoundException;
+import com.smartsheet.api.ServiceUnavailableException;
+import com.smartsheet.api.ShareResources;
+import com.smartsheet.api.SheetAttachmentResources;
+import com.smartsheet.api.SheetAutomationRuleResources;
+import com.smartsheet.api.SheetColumnResources;
+import com.smartsheet.api.SheetCommentResources;
+import com.smartsheet.api.SheetCrossSheetReferenceResources;
+import com.smartsheet.api.SheetDiscussionResources;
+import com.smartsheet.api.SheetFilterResources;
+import com.smartsheet.api.SheetResources;
+import com.smartsheet.api.SheetRowResources;
+import com.smartsheet.api.SheetSummaryResources;
+import com.smartsheet.api.SheetUpdateRequestResources;
+import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.http.HttpEntity;
 import com.smartsheet.api.internal.http.HttpMethod;
 import com.smartsheet.api.internal.http.HttpRequest;
 import com.smartsheet.api.internal.http.HttpResponse;
 import com.smartsheet.api.internal.util.QueryUtil;
 import com.smartsheet.api.internal.util.Util;
-import com.smartsheet.api.models.*;
-import com.smartsheet.api.models.enums.*;
+import com.smartsheet.api.models.ContainerDestination;
+import com.smartsheet.api.models.MultiRowEmail;
+import com.smartsheet.api.models.PagedResult;
+import com.smartsheet.api.models.PaginationParameters;
+import com.smartsheet.api.models.Sheet;
+import com.smartsheet.api.models.SheetEmail;
+import com.smartsheet.api.models.SheetPublish;
+import com.smartsheet.api.models.SortSpecifier;
+import com.smartsheet.api.models.UpdateRequest;
+import com.smartsheet.api.models.enums.CopyExclusion;
+import com.smartsheet.api.models.enums.ObjectExclusion;
+import com.smartsheet.api.models.enums.PaperSize;
+import com.smartsheet.api.models.enums.SheetCopyInclusion;
+import com.smartsheet.api.models.enums.SheetInclusion;
+import com.smartsheet.api.models.enums.SheetTemplateInclusion;
+import com.smartsheet.api.models.enums.SourceInclusion;
 
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.EnumSet;

@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -17,9 +17,17 @@
  * limitations under the License.
  * %[license]
  */
+
 import com.smartsheet.api.Smartsheet;
 import com.smartsheet.api.SmartsheetException;
-import com.smartsheet.api.models.*;
+import com.smartsheet.api.models.FormatDetails;
+import com.smartsheet.api.models.PagedResult;
+import com.smartsheet.api.models.PaginationParameters;
+import com.smartsheet.api.models.Recipient;
+import com.smartsheet.api.models.RecipientEmail;
+import com.smartsheet.api.models.Report;
+import com.smartsheet.api.models.ReportPublish;
+import com.smartsheet.api.models.SheetEmail;
 import com.smartsheet.api.models.enums.AccessLevel;
 import com.smartsheet.api.models.enums.PaperSize;
 import com.smartsheet.api.models.enums.ReportInclusion;
@@ -30,11 +38,12 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.EnumSet;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ReportResourcesIT extends ITResourcesImpl{
     Smartsheet smartsheet;

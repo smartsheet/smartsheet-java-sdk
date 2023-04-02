@@ -9,9 +9,9 @@ package com.smartsheet.api.internal.oauth;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -22,12 +22,28 @@ package com.smartsheet.api.internal.oauth;
 
 
 import com.smartsheet.api.InvalidRequestException;
-import com.smartsheet.api.internal.http.*;
+import com.smartsheet.api.internal.http.HttpClient;
+import com.smartsheet.api.internal.http.HttpClientException;
+import com.smartsheet.api.internal.http.HttpMethod;
+import com.smartsheet.api.internal.http.HttpRequest;
+import com.smartsheet.api.internal.http.HttpResponse;
 import com.smartsheet.api.internal.json.JSONSerializerException;
 import com.smartsheet.api.internal.json.JsonSerializer;
 import com.smartsheet.api.internal.util.QueryUtil;
 import com.smartsheet.api.internal.util.Util;
-import com.smartsheet.api.oauth.*;
+import com.smartsheet.api.oauth.AccessDeniedException;
+import com.smartsheet.api.oauth.AccessScope;
+import com.smartsheet.api.oauth.AuthorizationResult;
+import com.smartsheet.api.oauth.InvalidOAuthClientException;
+import com.smartsheet.api.oauth.InvalidOAuthGrantException;
+import com.smartsheet.api.oauth.InvalidScopeException;
+import com.smartsheet.api.oauth.InvalidTokenRequestException;
+import com.smartsheet.api.oauth.OAuthAuthorizationCodeException;
+import com.smartsheet.api.oauth.OAuthFlow;
+import com.smartsheet.api.oauth.OAuthTokenException;
+import com.smartsheet.api.oauth.Token;
+import com.smartsheet.api.oauth.UnsupportedOAuthGrantTypeException;
+import com.smartsheet.api.oauth.UnsupportedResponseTypeException;
 
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
