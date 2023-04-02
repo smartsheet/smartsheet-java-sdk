@@ -9,9 +9,9 @@ package com.smartsheet.api.internal;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -34,6 +34,7 @@ import com.smartsheet.api.models.enums.SummaryFieldInclusion;
 
 import java.io.*;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.List;
@@ -329,11 +330,7 @@ public class SheetSummaryResourcesImpl extends AbstractResources implements Shee
         path += QueryUtil.generateUrl(null, parameters);
 
         HttpRequest request = createHttpRequest(this.smartsheet.getBaseURI().resolve(path), HttpMethod.POST);
-        try {
-            request.getHeaders().put("Content-Disposition", "attachment; filename=\"" + URLEncoder.encode(imageName, "UTF-8") + "\"");
-        } catch (UnsupportedEncodingException e) {
-            throw new RuntimeException(e);
-        }
+        request.getHeaders().put("Content-Disposition", "attachment; filename=\"" + URLEncoder.encode(imageName, StandardCharsets.UTF_8) + "\"");
 
         HttpEntity entity = new HttpEntity();
         entity.setContentType(contentType);

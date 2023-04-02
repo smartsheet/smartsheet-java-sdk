@@ -9,9 +9,9 @@ package com.smartsheet.api.internal;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -30,6 +30,7 @@ import com.smartsheet.api.models.enums.SearchScope;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.EnumSet;
@@ -37,7 +38,7 @@ import java.util.HashMap;
 
 /**
  * This is the implementation of the SearchResources.
- * 
+ *
  * Thread Safety: This class is thread safe because it is immutable and its base class is thread safe.
  */
 public class SearchResourcesImpl extends AbstractResources implements SearchResources {
@@ -136,17 +137,12 @@ public class SearchResourcesImpl extends AbstractResources implements SearchReso
      * @param query the query
      * @return the search result (note that if there is no such resource, this method will throw
      * ResourceNotFoundException rather than returning null).
-     * @throws UnsupportedEncodingException the unsupported encoding exception
      * @throws SmartsheetException the smartsheet exception
      */
     public SearchResult searchSheet(long sheetId, String query) throws SmartsheetException {
         Util.throwIfNull(query);
         Util.throwIfEmpty(query);
-        try {
-            return this.getResource("search/sheets/" + sheetId + "?query=" + URLEncoder.encode(query,
-                    "utf-8"), SearchResult.class);
-        } catch (UnsupportedEncodingException e) {
-            throw new RuntimeException(e);
-        }
+        return this.getResource("search/sheets/" + sheetId + "?query=" + URLEncoder.encode(query,
+                StandardCharsets.UTF_8), SearchResult.class);
     }
 }

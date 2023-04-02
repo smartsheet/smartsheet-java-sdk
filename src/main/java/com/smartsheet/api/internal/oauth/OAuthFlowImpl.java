@@ -9,9 +9,9 @@ package com.smartsheet.api.internal.oauth;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -33,6 +33,7 @@ import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.EnumSet;
@@ -257,11 +258,8 @@ public class OAuthFlowImpl implements OAuthFlow {
             throw new RuntimeException("Your JVM does not support SHA-256, which is required for OAuth with Smartsheet.", e);
         }
         byte[] digest;
-        try {
-            digest = md.digest(doHash.getBytes("UTF-8"));
-        } catch (UnsupportedEncodingException e) {
-            throw new RuntimeException(e);
-        }
+        digest = md.digest(doHash.getBytes(StandardCharsets.UTF_8));
+
         //String hash = javax.xml.bind.DatatypeConverter.printHexBinary(digest);
         String hash = org.apache.commons.codec.binary.Hex.encodeHexString(digest);
 
@@ -291,8 +289,6 @@ public class OAuthFlowImpl implements OAuthFlow {
      *
      * @param token the token to refresh
      * @return the refreshed token
-     * @throws NoSuchAlgorithmException the no such algorithm exception
-     * @throws UnsupportedEncodingException the unsupported encoding exception
      * @throws OAuthTokenException the o auth token exception
      * @throws JSONSerializerException the JSON serializer exception
      * @throws HttpClientException the http client exception
@@ -309,11 +305,7 @@ public class OAuthFlowImpl implements OAuthFlow {
             throw new RuntimeException("Your JVM does not support SHA-256, which is required for OAuth with Smartsheet.", e);
         }
         byte[] digest;
-        try {
-            digest = md.digest(doHash.getBytes("UTF-8"));
-        } catch (UnsupportedEncodingException e) {
-            throw new RuntimeException(e);
-        }
+        digest = md.digest(doHash.getBytes(StandardCharsets.UTF_8));
         //String hash = javax.xml.bind.DatatypeConverter.printHexBinary(digest);
         String hash = org.apache.commons.codec.binary.Hex.encodeHexString(digest);
 
