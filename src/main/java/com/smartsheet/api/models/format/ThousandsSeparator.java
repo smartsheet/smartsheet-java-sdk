@@ -24,8 +24,8 @@ package com.smartsheet.api.models.format;
  * An enumeration representing the state of the Thousands separator.
  */
 public enum ThousandsSeparator {
-    NONE    (false),
-    ON      (true),
+    NONE(false),
+    ON(true),
     ;
     private final boolean separated;
 

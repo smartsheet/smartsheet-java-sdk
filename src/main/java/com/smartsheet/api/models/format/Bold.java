@@ -24,8 +24,8 @@ package com.smartsheet.api.models.format;
  * An enumeration representing the available Bold state for a format.
  */
 public enum Bold {
-    NONE     (false),
-    ON        (true),
+    NONE(false),
+    ON(true),
     ;
     private final boolean bold;
 
