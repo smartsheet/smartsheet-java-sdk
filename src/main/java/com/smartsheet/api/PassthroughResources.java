@@ -20,7 +20,7 @@ package com.smartsheet.api;
  * %[license]
  */
 
-import java.util.HashMap;
+import java.util.Map;
 
 /**
  * <p>This interface provides methods to access Passthrough resources.</p>
@@ -42,7 +42,7 @@ public interface PassthroughResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public String getRequest(String endpoint, HashMap<String, Object> parameters) throws SmartsheetException;
+    public String getRequest(String endpoint, Map<String, Object> parameters) throws SmartsheetException;
 
     /**
      * <p>Issue an HTTP POST request.</p>
@@ -58,7 +58,7 @@ public interface PassthroughResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public String postRequest(String endpoint, String payload, HashMap<String, Object> parameters) throws SmartsheetException;
+    public String postRequest(String endpoint, String payload, Map<String, Object> parameters) throws SmartsheetException;
 
     /**
      * <p>Issue an HTTP PUT request.</p>
@@ -74,7 +74,7 @@ public interface PassthroughResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public String putRequest(String endpoint, String payload,  HashMap<String, Object> parameters) throws SmartsheetException;
+    public String putRequest(String endpoint, String payload,  Map<String, Object> parameters) throws SmartsheetException;
 
     /**
      * <p>Issue an HTTP DELETE request.</p>

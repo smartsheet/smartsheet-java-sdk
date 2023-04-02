@@ -27,6 +27,7 @@ import com.smartsheet.api.models.enums.EventSource;
 
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.TimeZone;
 
 public class Event {
@@ -44,7 +45,7 @@ public class Event {
     /**
      * Container object for additional event-specific properties.
      */
-    private HashMap<String, Object> additionalDetails;
+    private Map<String, Object> additionalDetails;
 
     /**
      * Unique event identifier
@@ -124,7 +125,7 @@ public class Event {
      *
      * @return the hashmap
      */
-    public HashMap<String, Object> getAdditionalDetails() {
+    public Map<String, Object> getAdditionalDetails() {
         return additionalDetails;
     }
 
@@ -133,7 +134,7 @@ public class Event {
      *
      * @param additionalDetails the hashmap
      */
-    public Event setAdditionalDetails(HashMap<String, Object> additionalDetails) {
+    public Event setAdditionalDetails(Map<String, Object> additionalDetails) {
         this.additionalDetails = additionalDetails;
         return this;
     }

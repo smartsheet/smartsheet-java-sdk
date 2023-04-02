@@ -26,6 +26,7 @@ import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.PaginationParameters;
 import com.smartsheet.api.models.SheetFilter;
 import java.util.HashMap;
+import java.util.Map;
 
 public class SheetFilterResourcesImpl extends  AbstractResources implements SheetFilterResources {
 
@@ -109,7 +110,7 @@ public class SheetFilterResourcesImpl extends  AbstractResources implements Shee
      */
     public PagedResult<SheetFilter> listFilters(long sheetId, PaginationParameters pagination) throws SmartsheetException {
         String path = "sheets/" + sheetId + "/filters";
-        HashMap<String, Object> parameters = new HashMap<String, Object>();
+        Map<String, Object> parameters = new HashMap<>();
 
         if (pagination != null) {
             parameters = pagination.toHashMap();

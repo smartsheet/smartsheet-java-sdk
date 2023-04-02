@@ -9,9 +9,9 @@ package com.smartsheet.api.internal;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
+ * 
  *      http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -38,6 +38,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public class SheetSummaryResourcesImpl extends AbstractResources implements SheetSummaryResources {
@@ -74,7 +75,7 @@ public class SheetSummaryResourcesImpl extends AbstractResources implements Shee
         String path = "sheets/" + sheetId + "/summary";
 
         // Add the parameters to a map and build the query string at the end
-        HashMap<String, Object> parameters = new HashMap<String, Object>();
+        Map<String, Object> parameters = new HashMap<>();
 
         parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
         parameters.put("exclude", QueryUtil.generateCommaSeparatedList(excludes));
@@ -107,7 +108,7 @@ public class SheetSummaryResourcesImpl extends AbstractResources implements Shee
                                                            PaginationParameters pagination) throws SmartsheetException {
         String path = "sheets/" + sheetId + "/summary/fields";
 
-        HashMap<String, Object> parameters = new HashMap<String, Object>();
+        Map<String, Object> parameters = new HashMap<>();
         if (pagination != null) {
             parameters = pagination.toHashMap();
         }
@@ -137,7 +138,7 @@ public class SheetSummaryResourcesImpl extends AbstractResources implements Shee
     public List<SummaryField> addSheetSummaryFields(long sheetId, List<SummaryField> fields, Boolean renameIfConflict) throws SmartsheetException {
         String path = "sheets/" + sheetId + "/summary/fields";
 
-        HashMap<String, Object> parameters = new HashMap<String, Object>();
+        Map<String, Object> parameters = new HashMap<>();
         parameters.put("renameIfConflict", renameIfConflict);
 
         path += QueryUtil.generateUrl(null, parameters);
@@ -184,7 +185,7 @@ public class SheetSummaryResourcesImpl extends AbstractResources implements Shee
     public List<SummaryField> updateSheetSummaryFields(long sheetId, List<SummaryField> fields, Boolean renameIfConflict) throws SmartsheetException {
         String path = "sheets/" + sheetId + "/summary/fields";
 
-        HashMap<String, Object> parameters = new HashMap<String, Object>();
+        Map<String, Object> parameters = new HashMap<>();
         parameters.put("renameIfConflict", renameIfConflict);
 
         path += QueryUtil.generateUrl(null, parameters);
@@ -229,7 +230,7 @@ public class SheetSummaryResourcesImpl extends AbstractResources implements Shee
      * @throws SmartsheetException if there is any other error during the operation
      */
     public List<Long> deleteSheetSummaryFields(long sheetId, Set<Long> fieldIds, Boolean ignoreSummaryFieldsNotFound) throws SmartsheetException {
-        HashMap<String, Object> parameters = new HashMap<String, Object>();
+        Map<String, Object> parameters = new HashMap<>();
         String path = "sheets/" + sheetId + "/summary/fields";
         parameters.put("ids", QueryUtil.generateCommaSeparatedList(fieldIds));
         parameters.put("ignoreSummaryFieldsNotFound", ignoreSummaryFieldsNotFound);
@@ -323,7 +324,7 @@ public class SheetSummaryResourcesImpl extends AbstractResources implements Shee
             contentType = "application/octet-stream";
         }
 
-        HashMap<String, Object> parameters = new HashMap<String, Object>();
+        Map<String, Object> parameters = new HashMap<>();
         if (altText != null) {
             parameters.put("altText", altText);
         }
@@ -355,7 +356,7 @@ public class SheetSummaryResourcesImpl extends AbstractResources implements Shee
     private BulkItemResult<SummaryField> doBulkOperation (long sheetId, List<SummaryField> fields,
                                                           Boolean renameIfConflict, HttpMethod method) throws SmartsheetException {
         String path = "sheets/" + sheetId + "/summary/fields";
-        HashMap<String, Object> parameters = new HashMap<String, Object>();
+        Map<String, Object> parameters = new HashMap<>();
         parameters.put("allowPartialSuccess", "true");
         parameters.put("renameIfConflict", renameIfConflict);
 

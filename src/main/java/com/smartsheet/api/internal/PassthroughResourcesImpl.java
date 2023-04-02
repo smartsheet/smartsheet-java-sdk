@@ -29,7 +29,7 @@ import com.smartsheet.api.internal.util.QueryUtil;
 import com.smartsheet.api.internal.util.Util;
 
 import java.io.*;
-import java.util.HashMap;
+import java.util.Map;
 
 public class PassthroughResourcesImpl extends AbstractResources implements PassthroughResources {
 
@@ -57,7 +57,7 @@ public class PassthroughResourcesImpl extends AbstractResources implements Passt
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public String getRequest(String endpoint, HashMap<String, Object> parameters) throws SmartsheetException {
+    public String getRequest(String endpoint, Map<String, Object> parameters) throws SmartsheetException {
         return passthroughRequest(HttpMethod.GET, endpoint, null, parameters);
     }
 
@@ -75,7 +75,7 @@ public class PassthroughResourcesImpl extends AbstractResources implements Passt
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public String postRequest(String endpoint, String payload, HashMap<String, Object> parameters) throws SmartsheetException {
+    public String postRequest(String endpoint, String payload, Map<String, Object> parameters) throws SmartsheetException {
         Util.throwIfNull(payload);
         return passthroughRequest(HttpMethod.POST, endpoint, payload, parameters);
     }
@@ -94,7 +94,7 @@ public class PassthroughResourcesImpl extends AbstractResources implements Passt
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public String putRequest(String endpoint, String payload,  HashMap<String, Object> parameters) throws SmartsheetException {
+    public String putRequest(String endpoint, String payload,  Map<String, Object> parameters) throws SmartsheetException {
         Util.throwIfNull(payload);
         return passthroughRequest(HttpMethod.PUT, endpoint, payload, parameters);
     }
@@ -126,7 +126,7 @@ public class PassthroughResourcesImpl extends AbstractResources implements Passt
      * @throws SmartsheetException
      */
     private String passthroughRequest(HttpMethod method, String endpoint, String payload,
-                                      HashMap<String, Object> parameters) throws SmartsheetException {
+                                      Map<String, Object> parameters) throws SmartsheetException {
         Util.throwIfNull(endpoint);
         Util.throwIfEmpty(endpoint);
 

@@ -26,6 +26,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -61,7 +62,7 @@ public class PassthroughResourcesIT extends ITResourcesImpl {
             e.printStackTrace();
         }
 
-        HashMap<String, Object> parameters = new HashMap<String, Object>();
+        Map<String, Object> parameters = new HashMap<>();
         parameters.put("include", "objectValue");
         jsonResponse = smartsheet.passthroughResources().getRequest("sheets/" + id, parameters);
         try {

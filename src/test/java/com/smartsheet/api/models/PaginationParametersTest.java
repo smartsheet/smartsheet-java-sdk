@@ -23,6 +23,7 @@ package com.smartsheet.api.models;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -56,7 +57,7 @@ class PaginationParametersTest {
     @Test
     void testToHashMap() {
         PaginationParameters parameters1 = new PaginationParameters(true, null, null);
-        HashMap<String, Object> map = parameters1.toHashMap();
+        Map<String, Object> map = parameters1.toHashMap();
         assertTrue(map.containsKey("includeAll"));
         assertEquals("true", map.get("includeAll"));
         assertFalse(map.containsKey("pageSize"));
