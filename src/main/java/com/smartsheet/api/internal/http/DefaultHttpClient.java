@@ -9,9 +9,9 @@ package com.smartsheet.api.internal.http;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -91,10 +91,10 @@ public class DefaultHttpClient implements HttpClient {
     private CloseableHttpResponse apacheHttpResponse;
 
     /** to avoid creating new sets for each call (we use Sets for practical and perf reasons) */
-    private static final Set<Trace> REQUEST_RESPONSE_SUMMARY = Collections.unmodifiableSet(new HashSet<Trace>(
+    private static final Set<Trace> REQUEST_RESPONSE_SUMMARY = Collections.unmodifiableSet(new HashSet<>(
             Arrays.asList(Trace.RequestHeaders, Trace.RequestBodySummary, Trace.ResponseHeaders, Trace.ResponseBodySummary)));
 
-    private static final Set<Trace> REQUEST_RESPONSE = Collections.unmodifiableSet(new HashSet<Trace>(
+    private static final Set<Trace> REQUEST_RESPONSE = Collections.unmodifiableSet(new HashSet<>(
             Arrays.asList(Trace.RequestHeaders, Trace.RequestBody, Trace.ResponseHeaders, Trace.ResponseBody)));
 
     /** default values for trace-logging extracted from system-properties (can still be overwritten at the instance level) */
@@ -112,7 +112,7 @@ public class DefaultHttpClient implements HttpClient {
     }
 
     /** the set of Trace levels to use in trace-logging */
-    private final Set<Trace> traces = new HashSet<Trace>(TRACE_DEFAULT_TRACE_SET);
+    private final Set<Trace> traces = new HashSet<>(TRACE_DEFAULT_TRACE_SET);
 
     /** whether to log pretty or compact */
     private boolean tracePrettyPrint = TRACE_PRETTY_PRINT_DEFAULT;

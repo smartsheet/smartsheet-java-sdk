@@ -9,9 +9,9 @@ package com.smartsheet.api.internal.json;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -256,7 +256,7 @@ class JacksonJsonSerializerTest {
 
         // Test serializing/deserializing a simple ArrayList
         jjs = new JacksonJsonSerializer();
-        List<String> originalList = new ArrayList<String>();
+        List<String> originalList = new ArrayList<>();
         originalList.add("something");
         originalList.add("something-else");
         b = new ByteArrayOutputStream();
@@ -310,7 +310,7 @@ class JacksonJsonSerializerTest {
             fail("Exception should not be thrown: "+ex);
         }
 
-        Result<Folder> result = new Result<Folder>();
+        Result<Folder> result = new Result<>();
         result.setMessage("Test Result");
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 
@@ -325,7 +325,7 @@ class JacksonJsonSerializerTest {
         // Test JSONMappingException - Test Mapping a list back to one object
         try{
             outputStream = new ByteArrayOutputStream();
-            ArrayList<User> users = new ArrayList<User>();
+            ArrayList<User> users = new ArrayList<>();
             jjs.serialize(users, outputStream);
             jjs.deserializeResult(Result.class, new ByteArrayInputStream(outputStream.toByteArray()));
             fail("Exception should have been thrown");
@@ -385,7 +385,7 @@ class JacksonJsonSerializerTest {
             fail("Exception should not be thrown: "+ex);
         }
 
-        Result<ArrayList<Object>> result = new Result<ArrayList<Object>>();
+        Result<ArrayList<Object>> result = new Result<>();
         result.setMessage("Test Message");
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 
@@ -416,7 +416,7 @@ class JacksonJsonSerializerTest {
         // Test JSONMappingException - Test Mapping a list back to one object
         try{
             outputStream = new ByteArrayOutputStream();
-            ArrayList<User> users = new ArrayList<User>();
+            ArrayList<User> users = new ArrayList<>();
             jjs.serialize(users, outputStream);
             jjs.deserializeListResult(Result.class, new ByteArrayInputStream(outputStream.toByteArray()));
             fail("Exception should have been thrown");
