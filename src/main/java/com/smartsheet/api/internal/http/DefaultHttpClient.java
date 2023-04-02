@@ -225,7 +225,7 @@ public class DefaultHttpClient implements HttpClient {
                     // we need access to the original request stream so we can log it (in the event of errors and/or tracing)
                     requestEntityCopy = new HttpEntitySnapshot(entity);
                 } catch (IOException iox) {
-                    logger.error("failed to make copy of original request entity - {}", iox);
+                    logger.error("failed to make copy of original request entity", iox);
                 }
 
                 InputStreamEntity streamEntity = new InputStreamEntity(entity.getContent(), entity.getContentLength());
@@ -502,7 +502,7 @@ public class DefaultHttpClient implements HttpClient {
                 apacheHttpResponse.close();
                 apacheHttpResponse = null;
             } catch (IOException e) {
-                logger.error("error closing Apache HttpResponse - {}", e);
+                logger.error("error closing Apache HttpResponse", e);
             }
         }
     }
