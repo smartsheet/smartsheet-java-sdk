@@ -19,9 +19,9 @@ import java.util.EnumSet;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -57,7 +57,7 @@ public interface RowColumnResources {
      * ResourceNotFoundException rather than returning null).
      * @throws SmartsheetException the smartsheet exception
      */
-    public PagedResult<CellHistory> getCellHistory(long sheetId, long rowId, long columnId, PaginationParameters pagination) throws SmartsheetException;
+    PagedResult<CellHistory> getCellHistory(long sheetId, long rowId, long columnId, PaginationParameters pagination) throws SmartsheetException;
 
     /**
      * <p>Get the cell modification history.</p>
@@ -82,12 +82,12 @@ public interface RowColumnResources {
      * ResourceNotFoundException rather than returning null).
      * @throws SmartsheetException the smartsheet exception
      */
-    public PagedResult<CellHistory> getCellHistory(long sheetId, long rowId, long columnId, PaginationParameters pagination,
+    PagedResult<CellHistory> getCellHistory(long sheetId, long rowId, long columnId, PaginationParameters pagination,
                                                    EnumSet<CellHistoryInclusion> includes, Integer level) throws SmartsheetException;
 
     /**
      * <p>Uploads an image to the specified cell within a sheet.</p>
-     * 
+     *
      * <p>It mirrors to the following Smartsheet REST API method: POST /sheets/{sheetId}/rows/{rowId}/columns/{columnId}/cellimages</p>
      *
      * Exceptions:
@@ -107,7 +107,7 @@ public interface RowColumnResources {
      * @throws SmartsheetException the smartsheet exception
      * @throws FileNotFoundException image file not found
      */
-    public void addImageToCell(long sheetId, long rowId, long columnId, String file, String contentType) throws FileNotFoundException, SmartsheetException;
+    void addImageToCell(long sheetId, long rowId, long columnId, String file, String contentType) throws FileNotFoundException, SmartsheetException;
 
     /**
      * <p>Uploads an image to the specified cell within a sheet.</p>
@@ -133,7 +133,7 @@ public interface RowColumnResources {
      * @throws SmartsheetException the smartsheet exception
      * @throws FileNotFoundException image file not found
      */
-    public void addImageToCell(long sheetId, long rowId, long columnId, String file, String contentType, boolean overrideValidation, String altText) throws FileNotFoundException, SmartsheetException;
+    void addImageToCell(long sheetId, long rowId, long columnId, String file, String contentType, boolean overrideValidation, String altText) throws FileNotFoundException, SmartsheetException;
 
     /**
      * Add an image to a cell.
@@ -158,7 +158,7 @@ public interface RowColumnResources {
      * @throws SmartsheetException the smartsheet exception
      * @throws FileNotFoundException image file not found
      */
-    public void addImageToCell(long sheetId, long rowId, long columnId, File file, String contentType,
+    void addImageToCell(long sheetId, long rowId, long columnId, File file, String contentType,
                                boolean overrideValidation, String altText) throws FileNotFoundException, SmartsheetException;
 
     /**
@@ -185,6 +185,6 @@ public interface RowColumnResources {
      * @throws SmartsheetException the smartsheet exception
      * @throws FileNotFoundException image file not found
      */
-    public void addImageToCell(long sheetId, long rowId, long columnId, InputStream inputStream, String contentType,
+    void addImageToCell(long sheetId, long rowId, long columnId, InputStream inputStream, String contentType,
                                long contentLength, boolean overrideValidation, String altText) throws SmartsheetException;
 }

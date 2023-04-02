@@ -9,9 +9,9 @@ package com.smartsheet.api;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -34,7 +34,7 @@ import java.util.EnumSet;
 
 /**
  * <p>This interface provides methods to access Folder resources.</p>
- * 
+ *
  * <p>Thread Safety: Implementation of this interface must be thread safe.</p>
  */
 public interface FolderResources {
@@ -55,7 +55,7 @@ public interface FolderResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public Folder getFolder(long folderId, EnumSet<SourceInclusion> includes) throws SmartsheetException;
+    Folder getFolder(long folderId, EnumSet<SourceInclusion> includes) throws SmartsheetException;
 
     /**
      * <p>Update a folder.</p>
@@ -70,7 +70,7 @@ public interface FolderResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public Folder updateFolder(Folder folder) throws SmartsheetException;
+    Folder updateFolder(Folder folder) throws SmartsheetException;
 
     /**
      * <p>Delete a folder.</p>
@@ -85,7 +85,7 @@ public interface FolderResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public void deleteFolder(long folderId) throws SmartsheetException;
+    void deleteFolder(long folderId) throws SmartsheetException;
 
     /**
      * <p>List child folders of a given folder.</p>
@@ -102,7 +102,7 @@ public interface FolderResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public PagedResult<Folder> listFolders(long parentFolderId, PaginationParameters parameters) throws SmartsheetException;
+    PagedResult<Folder> listFolders(long parentFolderId, PaginationParameters parameters) throws SmartsheetException;
 
     /**
      * <p>Create a folder.</p>
@@ -119,7 +119,7 @@ public interface FolderResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public Folder createFolder(long parentFolderId, Folder folder) throws SmartsheetException;
+    Folder createFolder(long parentFolderId, Folder folder) throws SmartsheetException;
 
     /**
      * <p>Creates a copy of the specified Folder.</p>
@@ -141,7 +141,7 @@ public interface FolderResources {
      * @return the folder
      * @throws SmartsheetException the smartsheet exception
      */
-    public Folder copyFolder(long folderId, ContainerDestination containerDestination, EnumSet<FolderCopyInclusion> includes, EnumSet<FolderRemapExclusion> skipRemap) throws SmartsheetException;
+    Folder copyFolder(long folderId, ContainerDestination containerDestination, EnumSet<FolderCopyInclusion> includes, EnumSet<FolderRemapExclusion> skipRemap) throws SmartsheetException;
 
     /**
      * <p>Creates a copy of the specified Folder.</p>
@@ -165,7 +165,7 @@ public interface FolderResources {
      * @throws SmartsheetException the smartsheet exception
      */
     @Deprecated
-    public Folder copyFolder(long folderId, ContainerDestination containerDestination, EnumSet<FolderCopyInclusion> includes,
+    Folder copyFolder(long folderId, ContainerDestination containerDestination, EnumSet<FolderCopyInclusion> includes,
                              EnumSet<FolderRemapExclusion> skipRemap, EnumSet<CopyExclusion> excludes) throws SmartsheetException;
 
     /**
@@ -186,5 +186,5 @@ public interface FolderResources {
      * @return the folder
      * @throws SmartsheetException the smartsheet exception
      */
-    public Folder moveFolder(long folderId, ContainerDestination containerDestination) throws SmartsheetException;
+    Folder moveFolder(long folderId, ContainerDestination containerDestination) throws SmartsheetException;
 }

@@ -9,9 +9,9 @@ package com.smartsheet.api;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -29,7 +29,7 @@ import java.util.EnumSet;
 
 /**
  * <p>This interface provides methods to access Home resources.</p>
- * 
+ *
  * <p>Thread Safety: Implementation of this interface must be thread safe.</p>
  */
 public interface HomeResources {
@@ -50,7 +50,7 @@ public interface HomeResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public Home getHome(EnumSet<SourceInclusion> includes) throws SmartsheetException;
+    Home getHome(EnumSet<SourceInclusion> includes) throws SmartsheetException;
 
     /**
      * <p>Get a nested list of all Home objects, including sheets, workspaces and folders, and optionally reports and/or
@@ -69,12 +69,12 @@ public interface HomeResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public Home getHome(EnumSet<SourceInclusion> includes, EnumSet<SourceExclusion> excludes) throws SmartsheetException;
+    Home getHome(EnumSet<SourceInclusion> includes, EnumSet<SourceExclusion> excludes) throws SmartsheetException;
 
     /**
      * <p>Return the HomeFolderResources object that provides access to Folder resources under home.</p>
      *
      * @return the home folder resources
      */
-    public HomeFolderResources folderResources();
+    HomeFolderResources folderResources();
 }

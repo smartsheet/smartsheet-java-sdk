@@ -44,7 +44,7 @@ public interface SheetCrossSheetReferenceResources {
      * @return a list of cross sheet references
      * @throws SmartsheetException the smartsheet exception
      */
-    public PagedResult<CrossSheetReference> listCrossSheetReferences(long sheetId, PaginationParameters pagination) throws SmartsheetException;
+    PagedResult<CrossSheetReference> listCrossSheetReferences(long sheetId, PaginationParameters pagination) throws SmartsheetException;
 
     /**
      * <p>Get a cross sheet reference.</p>
@@ -62,7 +62,7 @@ public interface SheetCrossSheetReferenceResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public CrossSheetReference getCrossSheetReference(long sheetId, long crossSheetReferenceId) throws SmartsheetException;
+    CrossSheetReference getCrossSheetReference(long sheetId, long crossSheetReferenceId) throws SmartsheetException;
 
     /**
      * <p>Create a cross sheet reference in the given sheet.</p>
@@ -79,5 +79,5 @@ public interface SheetCrossSheetReferenceResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public CrossSheetReference createCrossSheetReference(long sheetId, CrossSheetReference crossSheetReference) throws SmartsheetException;
+    CrossSheetReference createCrossSheetReference(long sheetId, CrossSheetReference crossSheetReference) throws SmartsheetException;
 }

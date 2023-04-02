@@ -9,9 +9,9 @@ package com.smartsheet.api;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -31,7 +31,7 @@ import java.util.List;
 
 /**
  * <p>This interface provides methods to access column resources that are associated to a sheet object.</p>
- * 
+ *
  * <p>Thread Safety: Implementation of this interface must be thread safe.</p>
  */
 public interface SheetColumnResources {
@@ -52,7 +52,7 @@ public interface SheetColumnResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public PagedResult<Column> listColumns(long sheetId, EnumSet<ColumnInclusion> includes, PaginationParameters pagination) throws SmartsheetException;
+    PagedResult<Column> listColumns(long sheetId, EnumSet<ColumnInclusion> includes, PaginationParameters pagination) throws SmartsheetException;
 
     /**
      * <p>List columns of a given sheet.</p>
@@ -71,7 +71,7 @@ public interface SheetColumnResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public PagedResult<Column> listColumns(long sheetId, EnumSet<ColumnInclusion> includes, PaginationParameters pagination, Integer level) throws SmartsheetException;
+    PagedResult<Column> listColumns(long sheetId, EnumSet<ColumnInclusion> includes, PaginationParameters pagination, Integer level) throws SmartsheetException;
 
     /**
      * <p>Add column to a sheet.</p>
@@ -88,7 +88,7 @@ public interface SheetColumnResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public List<Column> addColumns(long sheetId, List<Column> columns) throws SmartsheetException;
+    List<Column> addColumns(long sheetId, List<Column> columns) throws SmartsheetException;
 
     /**
      * <p>Delete column.</p>
@@ -104,7 +104,7 @@ public interface SheetColumnResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public void deleteColumn(long sheetId, long columnId) throws SmartsheetException;
+    void deleteColumn(long sheetId, long columnId) throws SmartsheetException;
 
     /**
      * <p>Update a column.</p>
@@ -128,7 +128,7 @@ public interface SheetColumnResources {
      * ResourceNotFoundException rather than returning null).
      * @throws SmartsheetException the smartsheet exception
      */
-    public Column updateColumn(long sheetId, Column column) throws SmartsheetException;
+    Column updateColumn(long sheetId, Column column) throws SmartsheetException;
 
     /**
      * <p>Gets the Column specified in the URL.</p>
@@ -149,5 +149,5 @@ public interface SheetColumnResources {
      * @return the column (note that empty list will be returned if there is none)
      * @throws SmartsheetException the smartsheet exception
      */
-    public Column getColumn(long sheetId, long columnId, EnumSet<ColumnInclusion> includes) throws SmartsheetException;
+    Column getColumn(long sheetId, long columnId, EnumSet<ColumnInclusion> includes) throws SmartsheetException;
 }

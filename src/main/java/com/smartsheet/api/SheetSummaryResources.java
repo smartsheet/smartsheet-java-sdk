@@ -55,7 +55,7 @@ public interface SheetSummaryResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public SheetSummary getSheetSummary(long sheetId, EnumSet<SummaryFieldInclusion> includes,
+    SheetSummary getSheetSummary(long sheetId, EnumSet<SummaryFieldInclusion> includes,
                                         EnumSet<SummaryFieldExclusion> excludes) throws SmartsheetException;
 
     /**
@@ -75,7 +75,7 @@ public interface SheetSummaryResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public PagedResult<SummaryField> getSheetSummaryFields(long sheetId, EnumSet<SummaryFieldInclusion> includes,
+    PagedResult<SummaryField> getSheetSummaryFields(long sheetId, EnumSet<SummaryFieldInclusion> includes,
                                                            EnumSet<SummaryFieldExclusion> excludes,
                                                            PaginationParameters pagination) throws SmartsheetException;
 
@@ -95,7 +95,7 @@ public interface SheetSummaryResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public List<SummaryField> addSheetSummaryFields(long sheetId, List<SummaryField> fields, Boolean renameIfConflict) throws SmartsheetException;
+    List<SummaryField> addSheetSummaryFields(long sheetId, List<SummaryField> fields, Boolean renameIfConflict) throws SmartsheetException;
 
     /**
      * <p>Insert fields into a sheet summary.</p>
@@ -113,7 +113,7 @@ public interface SheetSummaryResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public BulkItemResult<SummaryField> addSheetSummaryFieldsWithPartialSuccess(long sheetId, List<SummaryField> fields,
+    BulkItemResult<SummaryField> addSheetSummaryFieldsWithPartialSuccess(long sheetId, List<SummaryField> fields,
                                                                                 Boolean renameIfConflict) throws SmartsheetException;
 
     /**
@@ -132,7 +132,7 @@ public interface SheetSummaryResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public List<SummaryField> updateSheetSummaryFields(long sheetId, List<SummaryField> fields, Boolean renameIfConflict) throws SmartsheetException;
+    List<SummaryField> updateSheetSummaryFields(long sheetId, List<SummaryField> fields, Boolean renameIfConflict) throws SmartsheetException;
 
     /**
      * <p>Update fields in a sheet summary.</p>
@@ -150,7 +150,7 @@ public interface SheetSummaryResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public BulkItemResult<SummaryField> updateSheetSummaryFieldsWithPartialSuccess(long sheetId, List<SummaryField> fields,
+    BulkItemResult<SummaryField> updateSheetSummaryFieldsWithPartialSuccess(long sheetId, List<SummaryField> fields,
                                                                                    Boolean renameIfConflict) throws SmartsheetException;
 
     /**
@@ -169,7 +169,7 @@ public interface SheetSummaryResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public List<Long> deleteSheetSummaryFields(long sheetId, Set<Long> fieldIds, Boolean ignoreSummaryFieldsNotFound) throws SmartsheetException;
+    List<Long> deleteSheetSummaryFields(long sheetId, Set<Long> fieldIds, Boolean ignoreSummaryFieldsNotFound) throws SmartsheetException;
 
     /**
      * <p>Adds an image to the sheet summary field.</p>
@@ -189,7 +189,7 @@ public interface SheetSummaryResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public Result<SummaryField> addSheetSummaryFieldImage(long sheetId, long fieldId, String file, String contentType, String altText)
+    Result<SummaryField> addSheetSummaryFieldImage(long sheetId, long fieldId, String file, String contentType, String altText)
             throws SmartsheetException, FileNotFoundException;
 
     /**
@@ -210,7 +210,7 @@ public interface SheetSummaryResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public Result<SummaryField> addSheetSummaryFieldImage(long sheetId, long fieldId, File file, String contentType, String altText) throws SmartsheetException, FileNotFoundException;
+    Result<SummaryField> addSheetSummaryFieldImage(long sheetId, long fieldId, File file, String contentType, String altText) throws SmartsheetException, FileNotFoundException;
 
     /**
      * Adds an image to the sheet summary field.
@@ -231,6 +231,6 @@ public interface SheetSummaryResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public Result<SummaryField> addSheetSummaryFieldImage(long sheetId, long fieldId, InputStream inputStream, String contentType,
+    Result<SummaryField> addSheetSummaryFieldImage(long sheetId, long fieldId, InputStream inputStream, String contentType,
                                                           long contentLength, String altText) throws SmartsheetException, FileNotFoundException;
 }

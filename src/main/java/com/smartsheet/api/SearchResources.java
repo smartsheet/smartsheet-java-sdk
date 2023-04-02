@@ -51,7 +51,7 @@ public interface SearchResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public SearchResult search(String query) throws SmartsheetException;
+    SearchResult search(String query) throws SmartsheetException;
 
     /**
      * <p>Performs a search across all Sheets to which user has access.</p>
@@ -73,7 +73,7 @@ public interface SearchResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public SearchResult search(String query, EnumSet<SearchInclusion> includes, SearchLocation location, Date modifiedSince, EnumSet<SearchScope> scopes) throws SmartsheetException;
+    SearchResult search(String query, EnumSet<SearchInclusion> includes, SearchLocation location, Date modifiedSince, EnumSet<SearchScope> scopes) throws SmartsheetException;
 
     /**
      * <p>Performs a search within a sheet.</p>
@@ -91,5 +91,5 @@ public interface SearchResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public SearchResult searchSheet(long sheetId, String query) throws SmartsheetException;
+    SearchResult searchSheet(long sheetId, String query) throws SmartsheetException;
 }

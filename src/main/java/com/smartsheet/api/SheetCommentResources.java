@@ -10,9 +10,9 @@ package com.smartsheet.api;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -39,7 +39,7 @@ public interface SheetCommentResources {
      * rather than returning null).
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public Comment getComment(long sheetId, long commentId) throws SmartsheetException;
+    Comment getComment(long sheetId, long commentId) throws SmartsheetException;
 
     /**
      * <p>Delete a comment.</p>
@@ -50,7 +50,7 @@ public interface SheetCommentResources {
      * @param commentId the ID of the comment
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public void deleteComment(long sheetId, long commentId) throws SmartsheetException;
+    void deleteComment(long sheetId, long commentId) throws SmartsheetException;
 
     /**
      * <p>Creates an object of CommentAttachmentResources.</p>
@@ -58,5 +58,5 @@ public interface SheetCommentResources {
      * @return the created attachment
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public com.smartsheet.api.CommentAttachmentResources attachmentResources() throws SmartsheetException;
+    com.smartsheet.api.CommentAttachmentResources attachmentResources() throws SmartsheetException;
 }
