@@ -257,7 +257,7 @@ public class DefaultHttpClient implements HttpClient {
                 }
 
                 // Set returned headers
-                smartsheetResponse.setHeaders(new HashMap<String, String>());
+                smartsheetResponse.setHeaders(new HashMap<>());
                 for (Header header : apacheHttpResponse.getAllHeaders()) {
                     smartsheetResponse.getHeaders().put(header.getName(), header.getValue());
                 }

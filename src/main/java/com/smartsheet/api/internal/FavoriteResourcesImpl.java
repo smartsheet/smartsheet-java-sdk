@@ -30,6 +30,7 @@ import com.smartsheet.api.models.enums.FavoriteType;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -121,7 +122,7 @@ public class FavoriteResourcesImpl extends AbstractResources implements Favorite
      */
     public void removeFavorites(FavoriteType favoriteType, Set<Long> objectIds) throws SmartsheetException{
         String path = "favorites/" + favoriteType.toString();
-        HashMap<String, Object> parameters = new HashMap<String, Object>();
+        Map<String, Object> parameters = new HashMap<>();
 
         if (objectIds != null) {
             parameters.put("objectIds", QueryUtil.generateCommaSeparatedList(objectIds));

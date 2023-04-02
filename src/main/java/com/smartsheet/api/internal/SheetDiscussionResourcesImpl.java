@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.EnumSet;
 import java.util.HashMap;
+import java.util.Map;
 
 /*
  * #[license]
@@ -172,7 +173,7 @@ public class SheetDiscussionResourcesImpl extends  AbstractResources implements 
      */
     public PagedResult<Discussion> listDiscussions(long sheetId, PaginationParameters pagination, EnumSet<DiscussionInclusion> includes) throws SmartsheetException{
         String path = "sheets/" + sheetId + "/discussions";
-        HashMap<String, Object> parameters = new HashMap<String, Object>();
+        Map<String, Object> parameters = new HashMap<>();
 
         if (pagination != null) {
             parameters = pagination.toHashMap();

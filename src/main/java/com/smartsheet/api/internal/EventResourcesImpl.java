@@ -31,6 +31,7 @@ import com.smartsheet.api.models.*;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Date;
+import java.util.Map;
 
 /**
  * This is the implementation of the SheetResources.
@@ -76,7 +77,7 @@ public class EventResourcesImpl extends AbstractResources implements EventResour
                                   Boolean numericDates) throws SmartsheetException {
         String path = "events";
 
-        HashMap<String, Object> parameters = new HashMap<String, Object>();
+        Map<String, Object> parameters = new HashMap<>();
         if(since instanceof Date) {
             String isoDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").format(since);
             parameters.put("since", isoDate);

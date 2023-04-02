@@ -9,9 +9,9 @@ package com.smartsheet.api.internal.oauth;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
+ * 
  *      http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -139,7 +139,7 @@ public class OAuthFlowImpl implements OAuthFlow {
         if(state == null){state = "";}
 
         // Build a map of parameters for the URL
-        HashMap<String,Object> params = new HashMap<String, Object>();
+        Map<String,Object> params = new HashMap<>();
         params.put("response_type", "code");
         params.put("client_id", clientId);
         params.put("redirect_uri", redirectURL);
@@ -183,7 +183,7 @@ public class OAuthFlowImpl implements OAuthFlow {
             throw new OAuthAuthorizationCodeException("There must be a query string in the response URL");
         }
 
-        Map<String, String> map = new HashMap<String,String>();
+        Map<String, String> map = new HashMap<>();
         for (String param : query.split("&")) {
             int index = param.indexOf('=');
             map.put(param.substring(0, index), param.substring(index + 1));
@@ -264,7 +264,7 @@ public class OAuthFlowImpl implements OAuthFlow {
         String hash = org.apache.commons.codec.binary.Hex.encodeHexString(digest);
 
         // create a Map of the parameters
-        HashMap<String, Object> params = new HashMap<String, Object>();
+        Map<String, Object> params = new HashMap<>();
         params.put("grant_type", "authorization_code");
         params.put("client_id", clientId);
         params.put("code", authorizationResult.getCode());
@@ -311,7 +311,7 @@ public class OAuthFlowImpl implements OAuthFlow {
 
 
         // Create a map of the parameters
-        Map<String,Object> params = new HashMap<String,Object>();
+        Map<String,Object> params = new HashMap<>();
         params.put("grant_type", "refresh_token");
         params.put("client_id",clientId);
         params.put("refresh_token",token.getRefreshToken());
@@ -349,7 +349,7 @@ public class OAuthFlowImpl implements OAuthFlow {
         HttpRequest request = new HttpRequest();
         request.setUri(new URI(url));
         request.setMethod(HttpMethod.POST);
-        request.setHeaders(new HashMap<String, String>());
+        request.setHeaders(new HashMap<>());
         request.getHeaders().put("Content-Type", "application/x-www-form-urlencoded");
         HttpResponse response = httpClient.request(request);
 
@@ -425,7 +425,7 @@ public class OAuthFlowImpl implements OAuthFlow {
         request.setUri(new URI(tokenURL));
         request.setMethod(HttpMethod.DELETE);
 
-        request.setHeaders(new HashMap<String, String>());
+        request.setHeaders(new HashMap<>());
         request.getHeaders().put("Authorization", "Bearer " + token.getAccessToken());
         HttpResponse response = httpClient.request(request);
 

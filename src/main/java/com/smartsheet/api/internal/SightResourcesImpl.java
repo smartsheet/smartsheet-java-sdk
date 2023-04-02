@@ -24,6 +24,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.EnumSet;
 import java.util.HashMap;
+import java.util.Map;
 
 import com.smartsheet.api.AuthorizationException;
 import com.smartsheet.api.InvalidRequestException;
@@ -74,7 +75,7 @@ public class SightResourcesImpl extends AbstractResources implements SightResour
     public PagedResult<Sight> listSights(PaginationParameters paging, Date modifiedSince) throws SmartsheetException {
         String path = "sights";
 
-        HashMap<String, Object> parameters = new HashMap<String, Object>();
+        Map<String, Object> parameters = new HashMap<>();
         if (paging != null) {
             parameters = paging.toHashMap();
         }
@@ -142,7 +143,7 @@ public class SightResourcesImpl extends AbstractResources implements SightResour
     public Sight getSight(long sightId, EnumSet<SightInclusion> includes, Integer level) throws SmartsheetException {
         String path = "sights/" + sightId;
 
-        HashMap<String, Object> parameters = new HashMap<String, Object>();
+        Map<String, Object> parameters = new HashMap<>();
         parameters.put("level", level);
         parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
         path += QueryUtil.generateUrl(null, parameters);

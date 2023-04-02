@@ -31,10 +31,11 @@ import com.smartsheet.api.models.enums.SourceInclusion;
 
 import java.util.EnumSet;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * This is the implementation of the HomeResources.
- * 
+ *
  * Thread Safety: This class is thread safe because it is immutable and its base class is thread safe.
  */
 public class HomeResourcesImpl extends AbstractResources implements HomeResources {
@@ -100,7 +101,7 @@ public class HomeResourcesImpl extends AbstractResources implements HomeResource
      * @throws SmartsheetException the smartsheet exception
      */
     public Home getHome(EnumSet<SourceInclusion> includes, EnumSet<SourceExclusion> excludes) throws SmartsheetException {
-        HashMap<String, Object> parameters = new HashMap<String, Object>();
+        Map<String, Object> parameters = new HashMap<>();
 
         parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
         parameters.put("exclude", QueryUtil.generateCommaSeparatedList(excludes));

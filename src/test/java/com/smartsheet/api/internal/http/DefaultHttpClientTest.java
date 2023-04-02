@@ -28,6 +28,7 @@ import java.io.ByteArrayInputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.HashMap;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -77,7 +78,7 @@ class DefaultHttpClientTest {
 
 
         // Test request with set headers and http entity but a null content
-        HashMap<String, String> headers = new HashMap<String, String>();
+        Map<String, String> headers = new HashMap<>();
         headers.put("name","value");
         HttpEntity entity = new HttpEntity();
         entity.setContentType("text/html; charset=ISO-8859-4");

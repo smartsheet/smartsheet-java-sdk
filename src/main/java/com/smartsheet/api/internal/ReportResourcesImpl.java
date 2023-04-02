@@ -43,6 +43,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.EnumSet;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * This is the implementation of the ReportResources.
@@ -122,7 +123,7 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
      */
     public Report getReport(long reportId, EnumSet<ReportInclusion> includes, Integer pageSize, Integer page, Integer level) throws SmartsheetException{
         String path = "reports/" + reportId;
-        HashMap<String, Object> parameters = new HashMap<String, Object>();
+        Map<String, Object> parameters = new HashMap<>();
 
         parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
         if (pageSize != null) {
@@ -186,7 +187,7 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
     public PagedResult<Report> listReports(PaginationParameters pagination, Date modifiedSince) throws SmartsheetException {
         String path= "reports";
 
-        HashMap<String, Object> parameters = new HashMap<String, Object>();
+        Map<String, Object> parameters = new HashMap<>();
         if (pagination != null) {
             parameters = pagination.toHashMap();
         }

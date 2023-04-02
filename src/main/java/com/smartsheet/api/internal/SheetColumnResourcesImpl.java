@@ -31,10 +31,11 @@ import com.smartsheet.api.models.enums.ColumnInclusion;
 import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * This is the implementation of the SheetColumnResources.
- * 
+ *
  * Thread Safety: This class is thread safe because it is immutable and its base class is thread safe.
  */
 public class SheetColumnResourcesImpl extends AbstractResources implements SheetColumnResources {
@@ -96,7 +97,7 @@ public class SheetColumnResourcesImpl extends AbstractResources implements Sheet
     public PagedResult<Column> listColumns(long sheetId, EnumSet<ColumnInclusion> includes, PaginationParameters pagination, Integer level) throws SmartsheetException  {
         String path = "sheets/" + sheetId + "/columns";
 
-        HashMap<String, Object> parameters = new HashMap<String, Object>();
+        Map<String, Object> parameters = new HashMap<>();
         if (pagination != null) {
             parameters = pagination.toHashMap();
         }
@@ -201,7 +202,7 @@ public class SheetColumnResourcesImpl extends AbstractResources implements Sheet
     public Column getColumn(long sheetId, long columnId, EnumSet<ColumnInclusion> includes) throws SmartsheetException  {
         String path = "sheets/" + sheetId + "/columns/" + columnId;
 
-        HashMap<String, Object> parameters = new HashMap<String, Object>();
+        Map<String, Object> parameters = new HashMap<>();
         parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
 
         path = QueryUtil.generateUrl(path, parameters);
