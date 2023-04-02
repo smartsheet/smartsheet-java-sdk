@@ -4,7 +4,7 @@ package com.smartsheet.api.internal.json;
  * #[license]
  * Smartsheet SDK for Java
  * %%
- * Copyright (C) 2014 Smartsheet
+ * Copyright (C) 2023 Smartsheet
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,7 +26,7 @@ import com.smartsheet.api.SmartsheetException;
 
 /**
  * This is the exception throw by JSONSerializer to indicate errors occurred during JSON serialization/de-serialization.
- * 
+ *
  * Thread safety: Exceptions are not thread safe.
  */
 public class JSONSerializerException extends SmartsheetException {

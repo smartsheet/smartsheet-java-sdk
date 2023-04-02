@@ -4,7 +4,7 @@ package com.smartsheet.api;
  * #[license]
  * Smartsheet SDK for Java
  * %%
- * Copyright (C) 2014 Smartsheet
+ * Copyright (C) 2023 Smartsheet
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,9 +25,9 @@ package com.smartsheet.api;
 import com.smartsheet.api.models.Error;
 
 /**
- * <p>This is the exception to indicate that an access token expired error returned from Smartsheet REST API. This 
+ * <p>This is the exception to indicate that an access token expired error returned from Smartsheet REST API. This
  * exception will be thrown when the Smartsheet REST API generates a "1003 Your Access Token has expired" error.</p>
- * 
+ *
  * <p>Thread safety: Exceptions are not thread safe.</p>
  */
 public class AccessTokenExpiredException extends AuthorizationException {

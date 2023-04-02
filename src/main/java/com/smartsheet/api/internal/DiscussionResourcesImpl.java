@@ -4,7 +4,7 @@ package com.smartsheet.api.internal;
  * #[license]
  * Smartsheet SDK for Java
  * %%
- * Copyright (C) 2014 Smartsheet
+ * Copyright (C) 2023 Smartsheet
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,7 +29,7 @@ import com.smartsheet.api.models.Comment;
 
 /**
  * This is the implementation of the DiscussionResources.
- * 
+ *
  * Thread Safety: This class is thread safe because it is immutable and its base class is thread safe.
  */
 public class DiscussionResourcesImpl extends AbstractResources implements DiscussionResources {

@@ -6,7 +6,7 @@ import com.smartsheet.api.internal.util.Util;
  * #[license]
  * Smartsheet SDK for Java
  * %%
- * Copyright (C) 2014 Smartsheet
+ * Copyright (C) 2023 Smartsheet
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,7 +26,7 @@ import com.smartsheet.api.internal.util.Util;
 
 /**
  * This is the base class of the Smartsheet REST API resources that are associated to other resources.
- * 
+ *
  * Thread Safety: This class is thread safe because it is immutable and its base class is thread safe.
  */
 public abstract class AbstractAssociatedResources extends AbstractResources {

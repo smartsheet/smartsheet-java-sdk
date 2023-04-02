@@ -4,7 +4,7 @@ package com.smartsheet.api;
  * #[license]
  * Smartsheet SDK for Java
  * %%
- * Copyright (C) 2014 Smartsheet
+ * Copyright (C) 2023 Smartsheet
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,7 +28,7 @@ import com.smartsheet.api.internal.json.JsonSerializer;
 
 /**
  * <p>A convenience class to help create a {@link Smartsheet} instance with the appropriate fields.</p>
- * 
+ *
  * <p>Thread Safety: This class is not thread safe since it's mutable, one builder instance is NOT expected to be used in
  * multiple threads.</p>
  */

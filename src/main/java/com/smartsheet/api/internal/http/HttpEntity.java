@@ -4,7 +4,7 @@ package com.smartsheet.api.internal.http;
  * #[license]
  * Smartsheet SDK for Java
  * %%
- * Copyright (C) 2014 Smartsheet
+ * Copyright (C) 2023 Smartsheet
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,7 +25,7 @@ import java.io.InputStream;
 
 /**
  * This class represents an HTTP Entity (http://www.w3.org/Protocols/rfc2616/rfc2616-sec7.html).
- * 
+ *
  * Thread Safety: This class is not thread safe since it's mutable.
  */
 public class HttpEntity {

@@ -4,7 +4,7 @@ package com.smartsheet.api.internal.http;
  * #[license]
  * Smartsheet SDK for Java
  * %%
- * Copyright (C) 2014 Smartsheet
+ * Copyright (C) 2023 Smartsheet
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,7 +24,7 @@ package com.smartsheet.api.internal.http;
 
 /**
  * This class represents an HTTP response.
- * 
+ *
  * Thread Safety: This class is not thread safe since it's mutable.
  */
 public class HttpResponse extends HttpMessage {
