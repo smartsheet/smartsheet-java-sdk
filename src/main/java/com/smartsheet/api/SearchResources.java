@@ -9,9 +9,9 @@ package com.smartsheet.api;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -21,19 +21,17 @@ package com.smartsheet.api;
  */
 
 
-
 import com.smartsheet.api.models.SearchResult;
 import com.smartsheet.api.models.enums.SearchInclusion;
 import com.smartsheet.api.models.enums.SearchLocation;
 import com.smartsheet.api.models.enums.SearchScope;
-import com.smartsheet.api.models.enums.SourceInclusion;
 
 import java.util.Date;
 import java.util.EnumSet;
 
 /**
  * This interface provides methods to access search resources.
- * 
+ *
  * Thread Safety: Implementation of this interface must be thread safe.
  */
 public interface SearchResources {

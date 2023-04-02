@@ -9,9 +9,9 @@ package com.smartsheet.api.internal;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -22,7 +22,13 @@ package com.smartsheet.api.internal;
 
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
-import com.smartsheet.api.models.*;
+import com.smartsheet.api.models.ContainerDestination;
+import com.smartsheet.api.models.Folder;
+import com.smartsheet.api.models.PagedResult;
+import com.smartsheet.api.models.PaginationParameters;
+import com.smartsheet.api.models.Sheet;
+import com.smartsheet.api.models.Source;
+import com.smartsheet.api.models.Workspace;
 import com.smartsheet.api.models.enums.AccessLevel;
 import com.smartsheet.api.models.enums.DestinationType;
 import com.smartsheet.api.models.enums.SourceInclusion;

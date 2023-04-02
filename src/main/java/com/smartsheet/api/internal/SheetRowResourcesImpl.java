@@ -9,9 +9,9 @@ package com.smartsheet.api.internal;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -20,25 +20,48 @@ package com.smartsheet.api.internal;
  * %[license]
  */
 
-import com.smartsheet.api.*;
-import com.smartsheet.api.internal.http.*;
-import com.smartsheet.api.internal.json.JSONSerializerException;
+import com.smartsheet.api.AuthorizationException;
+import com.smartsheet.api.InvalidRequestException;
+import com.smartsheet.api.ResourceNotFoundException;
+import com.smartsheet.api.RowAttachmentResources;
+import com.smartsheet.api.RowColumnResources;
+import com.smartsheet.api.RowDiscussionResources;
+import com.smartsheet.api.ServiceUnavailableException;
+import com.smartsheet.api.SheetRowResources;
+import com.smartsheet.api.SmartsheetException;
+import com.smartsheet.api.internal.http.HttpEntity;
+import com.smartsheet.api.internal.http.HttpMethod;
+import com.smartsheet.api.internal.http.HttpRequest;
+import com.smartsheet.api.internal.http.HttpResponse;
 import com.smartsheet.api.internal.util.QueryUtil;
 import com.smartsheet.api.internal.util.Util;
-import com.smartsheet.api.models.*;
+import com.smartsheet.api.models.BulkItemFailure;
+import com.smartsheet.api.models.BulkItemResult;
+import com.smartsheet.api.models.BulkRowFailedItem;
+import com.smartsheet.api.models.Cell;
+import com.smartsheet.api.models.CopyOrMoveRowDirective;
+import com.smartsheet.api.models.CopyOrMoveRowResult;
+import com.smartsheet.api.models.MultiRowEmail;
+import com.smartsheet.api.models.PartialRowUpdateResult;
+import com.smartsheet.api.models.Row;
+import com.smartsheet.api.models.RowEmail;
 import com.smartsheet.api.models.enums.ObjectExclusion;
 import com.smartsheet.api.models.enums.RowCopyInclusion;
 import com.smartsheet.api.models.enums.RowInclusion;
 import com.smartsheet.api.models.enums.RowMoveInclusion;
-import org.jetbrains.annotations.NotNull;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.EnumSet;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * This is the implementation of the SheetRowResources.
- * 
+ *
  * Thread Safety: This class is thread safe because it is immutable and its base class is thread safe.
  */
 public class SheetRowResourcesImpl extends AbstractResources implements SheetRowResources {

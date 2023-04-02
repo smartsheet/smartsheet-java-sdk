@@ -8,9 +8,9 @@ package com.smartsheet.api.internal.json;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -27,7 +27,20 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
-import com.smartsheet.api.models.*;
+import com.smartsheet.api.models.CellDataItem;
+import com.smartsheet.api.models.CellLinkWidgetContent;
+import com.smartsheet.api.models.ChartWidgetContent;
+import com.smartsheet.api.models.Column;
+import com.smartsheet.api.models.ImageWidgetContent;
+import com.smartsheet.api.models.ObjectValue;
+import com.smartsheet.api.models.ReportWidgetContent;
+import com.smartsheet.api.models.SelectionRange;
+import com.smartsheet.api.models.ShortcutDataItem;
+import com.smartsheet.api.models.ShortcutWidgetContent;
+import com.smartsheet.api.models.TitleRichTextWidgetContent;
+import com.smartsheet.api.models.WebContentWidgetContent;
+import com.smartsheet.api.models.WidgetContent;
+import com.smartsheet.api.models.WidgetHyperlink;
 import com.smartsheet.api.models.enums.WidgetType;
 import com.smartsheet.api.models.format.Format;
 
