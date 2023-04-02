@@ -9,9 +9,9 @@ package com.smartsheet.api.models.enums;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -27,5 +27,9 @@ package com.smartsheet.api.models.enums;
  * @see <a href="http://www.smartsheet.com/developers/api-documentation#h.umfgm4xt25dq">Access Level Help</a>
  */
 public enum AccessLevel {
-    VIEWER, EDITOR, EDITOR_SHARE, ADMIN, OWNER;
+    VIEWER,
+    EDITOR,
+    EDITOR_SHARE,
+    ADMIN,
+    OWNER
 }

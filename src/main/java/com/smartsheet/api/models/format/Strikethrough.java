@@ -25,8 +25,8 @@ package com.smartsheet.api.models.format;
  * An enumeration representing the available Strikethrough state for a format.
  */
 public enum Strikethrough {
-    NONE    (false),
-    ON      (true),
+    NONE(false),
+    ON(true),
     ;
     private final boolean striken;
 
