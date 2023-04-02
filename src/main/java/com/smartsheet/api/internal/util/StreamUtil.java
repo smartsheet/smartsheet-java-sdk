@@ -9,9 +9,9 @@ package com.smartsheet.api.internal.util;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -28,6 +28,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.charset.StandardCharsets;
 
 /**
  * a collection of Stream-oriented utility methods
@@ -66,7 +67,6 @@ public class StreamUtil {
      * @param target     the target OutputStream to which to write the data (not closed when done)
      * @param bufferSize the size of the transfer buffer to use
      * @param readToEOF  if we should read to end-of-file of the source (true) or just 1 buffer's worth (false)
-     * @throws IOException
      */
     public static long copyContentIntoOutputStream(InputStream source, OutputStream target, int bufferSize,
                                                    boolean readToEOF) throws IOException {
@@ -134,7 +134,7 @@ public class StreamUtil {
 
         String result;
         try {
-            result = byteStream.toString("UTF-8");
+            result = byteStream.toString(StandardCharsets.UTF_8);
         } catch (Exception notUtf8) {
             result = Hex.encodeHexString(byteStream.toByteArray());
         }

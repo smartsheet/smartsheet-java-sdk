@@ -9,9 +9,9 @@ package com.smartsheet.api.internal;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -60,13 +60,14 @@ import java.io.UnsupportedEncodingException;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URI;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 /**
  * This is the base class of the Smartsheet REST API resources.
- * 
+ *
  * Thread Safety: This class is thread safe because it is immutable and the underlying SmartsheetImpl is thread safe.
  */
 public abstract class AbstractResources {
@@ -786,11 +787,7 @@ public abstract class AbstractResources {
             throws SmartsheetException {
         Util.throwIfNull(inputStream, contentType);
         HttpRequest request = createHttpRequest(this.getSmartsheet().getBaseURI().resolve(url), HttpMethod.POST);
-        try {
-            request.getHeaders().put("Content-Disposition", "attachment; filename=\"" + URLEncoder.encode(attachmentName, "UTF-8") + "\"");
-        } catch (UnsupportedEncodingException e) {
-            throw new RuntimeException(e);
-        }
+        request.getHeaders().put("Content-Disposition", "attachment; filename=\"" + URLEncoder.encode(attachmentName, StandardCharsets.UTF_8) + "\"");
         HttpEntity entity = new HttpEntity();
         entity.setContentType(contentType);
         entity.setContent(new LengthEnforcingInputStream(inputStream, contentLength));
@@ -989,18 +986,10 @@ public abstract class AbstractResources {
 
         // Set assumed user
         if (smartsheet.getAssumedUser() != null) {
-            try {
-                headers.put("Assume-User", URLEncoder.encode(smartsheet.getAssumedUser(), "utf-8"));
-            } catch (UnsupportedEncodingException e) {
-                throw new RuntimeException ("Unsupported encode. You must support utf-8 for the Smartsheet Java SDK to work",e);
-            }
+            headers.put("Assume-User", URLEncoder.encode(smartsheet.getAssumedUser(), StandardCharsets.UTF_8));
         }
          if (smartsheet.getChangeAgent() != null) {
-             try {
-                 headers.put("Smartsheet-Change-Agent", URLEncoder.encode(smartsheet.getChangeAgent(), "utf-8"));
-             } catch (UnsupportedEncodingException e) {
-                 throw new RuntimeException ("Unsupported encode. You must support utf-8 for the Smartsheet Java SDK to work",e);
-             }
+             headers.put("Smartsheet-Change-Agent", URLEncoder.encode(smartsheet.getChangeAgent(), StandardCharsets.UTF_8));
          }
          if (smartsheet.getUserAgent() != null) {
              headers.put("User-Agent", smartsheet.getUserAgent());
