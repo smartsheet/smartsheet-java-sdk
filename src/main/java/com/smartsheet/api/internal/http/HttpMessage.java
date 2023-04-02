@@ -4,7 +4,7 @@ package com.smartsheet.api.internal.http;
  * #[license]
  * Smartsheet SDK for Java
  * %%
- * Copyright (C) 2014 Smartsheet
+ * Copyright (C) 2023 Smartsheet
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,7 +26,7 @@ import java.util.Map;
 
 /**
  * This is the base class of HTTP messages, it holds headers and an HttpEntity.
- * 
+ *
  * Thread Safety: This class is not thread safe since it's mutable.
  */
 public abstract class HttpMessage {

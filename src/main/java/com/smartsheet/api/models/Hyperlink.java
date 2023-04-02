@@ -4,7 +4,7 @@ package com.smartsheet.api.models;
  * #[license]
  * Smartsheet SDK for Java
  * %%
- * Copyright (C) 2014 Smartsheet
+ * Copyright (C) 2023 Smartsheet
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -48,7 +48,7 @@ public class Hyperlink {
      * If true, update will serialize a null to reset the hyperlink
      */
     private boolean isNull = true;
-    
+
     /**
      * Gets the url
      *
@@ -129,7 +129,7 @@ public class Hyperlink {
 
     /**
      * Get the value of the isNull flag
-     * 
+     *
      * @return value of isNull flag
      */
     @JsonIgnore

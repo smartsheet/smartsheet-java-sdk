@@ -4,7 +4,7 @@ package com.smartsheet.api;
  * #[license]
  * Smartsheet SDK for Java
  * %%
- * Copyright (C) 2014 Smartsheet
+ * Copyright (C) 2023 Smartsheet
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,9 +27,9 @@ import com.smartsheet.api.models.Error;
 /**
  * <p>This is the exception to indicate a service unavailable error (possibly due to rate limiting) returned from the
  * Smartsheet REST API.</p>
- * 
+ *
  * <p>Basically this exception will be thrown when the Smartsheet REST API responds with "503 SERVICE UNAVAILABLE".</p>
- * 
+ *
  * <p>Thread safety: Exceptions are not thread safe.</p>
  */
 public class ServiceUnavailableException extends SmartsheetRestException {

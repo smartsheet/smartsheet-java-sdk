@@ -4,7 +4,7 @@ package com.smartsheet.api.internal;
  * #[license]
  * Smartsheet SDK for Java
  * %%
- * Copyright (C) 2014 Smartsheet
+ * Copyright (C) 2023 Smartsheet
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,7 +31,7 @@ import java.util.List;
  * @deprecated As of release 2.0
  */
 @Deprecated
-public class AssociatedAttachmentResourcesImpl extends AbstractAssociatedResources 
+public class AssociatedAttachmentResourcesImpl extends AbstractAssociatedResources
     implements AssociatedAttachmentResources {
 
     /**
