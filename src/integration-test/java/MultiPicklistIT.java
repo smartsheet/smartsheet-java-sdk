@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -107,13 +107,13 @@ public class MultiPicklistIT extends ITResourcesImpl {
 
     public void testGetMultiPicklistSheet() throws SmartsheetException {
         Sheet mpl = smartsheet.sheetResources().getSheet(sheet.getId(), EnumSet.of(SheetInclusion.OBJECT_VALUE),
-                null, null, null, new HashSet<Long>(Arrays.asList(addCols.get(0).getId())), null,
+                null, null, null, new HashSet<>(Arrays.asList(addCols.get(0).getId())), null,
                 null, null,null);
         // should be TEXT_NUMBER since level not specified
         assertTrue(mpl.getRows().get(0).getCells().get(0).getObjectValue() instanceof StringObjectValue);
 
         mpl = smartsheet.sheetResources().getSheet(sheet.getId(), EnumSet.of(SheetInclusion.OBJECT_VALUE),
-                null, null, null, new HashSet<Long>(Arrays.asList(addCols.get(0).getId())), null,
+                null, null, null, new HashSet<>(Arrays.asList(addCols.get(0).getId())), null,
                 null, null,2);
         // should be MULTI_PICKLIST since level 2 specified
         assertTrue(mpl.getRows().get(0).getCells().get(0).getObjectValue() instanceof MultiPicklistObjectValue);

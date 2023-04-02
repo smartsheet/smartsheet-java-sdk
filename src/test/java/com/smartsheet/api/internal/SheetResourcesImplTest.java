@@ -9,9 +9,9 @@ package com.smartsheet.api.internal;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -118,7 +118,7 @@ class SheetResourcesImplTest extends ResourcesImplBase {
         assertNotNull(source.getId());
         assertNotNull(source.getType());
 
-        Set<Long> rowIds = new HashSet<Long>();
+        Set<Long> rowIds = new HashSet<>();
         rowIds.add(123456789L);
         rowIds.add(987654321L);
 
@@ -184,7 +184,7 @@ class SheetResourcesImplTest extends ResourcesImplBase {
     void testCreateSheet() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/createSheet.json"));
 
-        ArrayList<Column> list = new ArrayList<Column>();
+        ArrayList<Column> list = new ArrayList<>();
         Column col1 = new Column.AddColumnToSheetBuilder().setTitle("Test Column 1").setType(ColumnType.TEXT_NUMBER).setPrimary(true).build();
         list.add(col1);
         Column col2 = new Column.AddColumnToSheetBuilder().setTitle("Test Column 2").setType(ColumnType.TEXT_NUMBER).setPrimary(false).build();
@@ -217,7 +217,7 @@ class SheetResourcesImplTest extends ResourcesImplBase {
     void testCreateSheetInFolder() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/createSheet.json"));
 
-        ArrayList<Column> list = new ArrayList<Column>();
+        ArrayList<Column> list = new ArrayList<>();
         Column col = new Column.AddColumnToSheetBuilder().setTitle("column1").setType(ColumnType.TEXT_NUMBER).setPrimary(true).build();
         list.add(col);
         col = new Column.AddColumnToSheetBuilder().setTitle("column2").setType(ColumnType.TEXT_NUMBER).setPrimary(false).build();
@@ -258,7 +258,7 @@ class SheetResourcesImplTest extends ResourcesImplBase {
     void testCreateSheetInWorkspace() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/createSheet.json"));
 
-        ArrayList<Column> list = new ArrayList<Column>();
+        ArrayList<Column> list = new ArrayList<>();
         Column col = new Column.AddColumnToSheetBuilder().setTitle("column1").setType(ColumnType.TEXT_NUMBER).setPrimary(true).build();
         list.add(col);
         col = new Column.AddColumnToSheetBuilder().setTitle("column2").setType(ColumnType.TEXT_NUMBER).setPrimary(false).build();
@@ -315,7 +315,7 @@ class SheetResourcesImplTest extends ResourcesImplBase {
     void testSendSheet() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/sendEmails.json"));
 
-        List<Recipient> recipients = new ArrayList<Recipient>();
+        List<Recipient> recipients = new ArrayList<>();
         RecipientEmail recipientEmail = new RecipientEmail();
         recipientEmail.setEmail("johndoe@smartsheet.com");
 
@@ -429,7 +429,7 @@ class SheetResourcesImplTest extends ResourcesImplBase {
     void testCreateUpdateRequest() throws Exception {
         server.setResponseBody(new File("src/test/resources/createUpdateRequest.json"));
 
-        List<Recipient> recipients = new ArrayList<Recipient>();
+        List<Recipient> recipients = new ArrayList<>();
         MultiRowEmail multiRowEmail = new MultiRowEmail();
         multiRowEmail.setSendTo(recipients);
 
@@ -443,7 +443,7 @@ class SheetResourcesImplTest extends ResourcesImplBase {
         SortCriterion criterion = new SortCriterion();
         criterion.setColumnId(1234L);
         criterion.setDirection(SortDirection.DESCENDING);
-        List<SortCriterion> criteria = new ArrayList<SortCriterion>();
+        List<SortCriterion> criteria = new ArrayList<>();
         criteria.add(criterion);
         specifier.setSortCriteria(criteria);
         Sheet sheet = sheetResource.sortSheet(123L, specifier);

@@ -9,9 +9,9 @@ package com.smartsheet.api.internal;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -25,7 +25,6 @@ import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
 import com.smartsheet.api.models.Home;
 import com.smartsheet.api.models.PaginationParameters;
-import com.smartsheet.api.models.Template;
 import com.smartsheet.api.models.enums.SourceInclusion;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -54,7 +53,7 @@ class HomeResourcesImplTest extends ResourcesImplBase {
     void testGetHome() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/getHome.json"));
 
-        List<Home> homes = new ArrayList<Home>();
+        List<Home> homes = new ArrayList<>();
         homes.add(homeResources.getHome(EnumSet.of(SourceInclusion.SOURCE)));
         homes.add(homeResources.getHome(null));
         for(Home home : homes){
@@ -65,7 +64,7 @@ class HomeResourcesImplTest extends ResourcesImplBase {
             assertNotNull(home.getWorkspaces());
             assertTrue(home.getWorkspaces().size() == 7);
             assertNull(home.getTemplates());
-            home.setTemplates(new ArrayList<Template>());
+            home.setTemplates(new ArrayList<>());
         }
     }
 

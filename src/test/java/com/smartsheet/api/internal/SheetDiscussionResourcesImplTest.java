@@ -3,7 +3,6 @@ package com.smartsheet.api.internal;
 import com.smartsheet.api.InvalidRequestException;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
-import com.smartsheet.api.models.Attachment;
 import com.smartsheet.api.models.Comment;
 import com.smartsheet.api.models.Discussion;
 import com.smartsheet.api.models.PagedResult;
@@ -34,9 +33,9 @@ import static org.junit.jupiter.api.Assertions.fail;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -60,17 +59,17 @@ class SheetDiscussionResourcesImplTest extends ResourcesImplBase {
         server.setResponseBody(new File("src/test/resources/createDiscussion.json"));
 
         // Test success
-        List<Comment> comments = new ArrayList<Comment>();
+        List<Comment> comments = new ArrayList<>();
         Comment comment = new Comment();
         comment.setText("This is a test.");
-        comment.setAttachments(new ArrayList<Attachment>());
+        comment.setAttachments(new ArrayList<>());
         comments.add(comment);
         Discussion discussion = new Discussion();
         discussion.setTitle("New Discussion");
         discussion.setComments(comments);
         discussion.setLastCommentedUser(new User());
         discussion.setLastCommentedAt(new Date());
-        discussion.setCommentAttachments(new ArrayList<Attachment>());
+        discussion.setCommentAttachments(new ArrayList<>());
         Discussion newDiscussion = sheetDiscussionResources.createDiscussion(1234L, discussion);
 
         assertNotNull(newDiscussion.getComments());
@@ -103,17 +102,17 @@ class SheetDiscussionResourcesImplTest extends ResourcesImplBase {
         server.setResponseBody(new File("src/test/resources/createDiscussion.json"));
         File file = new File("src/test/resources/large_sheet.pdf");
         // Test success
-        List<Comment> comments = new ArrayList<Comment>();
+        List<Comment> comments = new ArrayList<>();
         Comment comment = new Comment();
         comment.setText("This is a test.");
-        comment.setAttachments(new ArrayList<Attachment>());
+        comment.setAttachments(new ArrayList<>());
         comments.add(comment);
         Discussion discussion = new Discussion();
         discussion.setTitle("New Discussion");
         discussion.setComments(comments);
         discussion.setLastCommentedUser(new User());
         discussion.setLastCommentedAt(new Date());
-        discussion.setCommentAttachments(new ArrayList<Attachment>());
+        discussion.setCommentAttachments(new ArrayList<>());
         Discussion newDiscussion = sheetDiscussionResources.createDiscussionWithAttachment(1234L, discussion, file, "application/pdf");
 
         assertNotNull(newDiscussion.getComments());

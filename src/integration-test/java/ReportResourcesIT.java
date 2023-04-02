@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -106,7 +106,7 @@ public class ReportResourcesIT extends ITResourcesImpl{
     }
 
     public void testSendSheet() throws SmartsheetException, IOException {
-        List<Recipient> recipients = new ArrayList<Recipient>();
+        List<Recipient> recipients = new ArrayList<>();
         RecipientEmail recipientEmail = new RecipientEmail.AddRecipientEmailBuilder()
                 .setEmail("aditi.nioding@smartsheet.com").build();
         //RecipientGroup recipientGroup = new RecipientGroup.AddRecipientGroupBuilder().setGroupId(1234L).build();

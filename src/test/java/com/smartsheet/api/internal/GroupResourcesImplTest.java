@@ -9,9 +9,9 @@ package com.smartsheet.api.internal;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -96,7 +96,7 @@ class GroupResourcesImplTest extends ResourcesImplBase {
         CreateGroupBuilder builder = new CreateGroupBuilder();
         builder.setName("My Test Group")
             .setDescription("My awesome group")
-            .setMembers(new ArrayList<GroupMember>());
+            .setMembers(new ArrayList<>());
 
         builder.getMembers().add(new GroupMember.AddGroupMemberBuilder().setEmail("test@test.com").build());
         builder.getMembers().add(new GroupMember.AddGroupMemberBuilder().setEmail("test2@test.com").build());
@@ -152,7 +152,7 @@ class GroupResourcesImplTest extends ResourcesImplBase {
     @Test
     void testAddMembersToGroup() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/addGroupMembers.json"));
-        List<GroupMember> newMembers = new ArrayList<GroupMember>();
+        List<GroupMember> newMembers = new ArrayList<>();
         newMembers.add(new GroupMember.AddGroupMemberBuilder().setEmail("test3@test.com").build());
         newMembers.add(new GroupMember.AddGroupMemberBuilder().setEmail("test4@test.com").build());
         List<GroupMember> addedMembers = groupResources.memberResources().addGroupMembers(1234L, newMembers);
