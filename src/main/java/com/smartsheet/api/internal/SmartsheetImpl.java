@@ -9,9 +9,9 @@ package com.smartsheet.api.internal;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -21,7 +21,26 @@ package com.smartsheet.api.internal;
  */
 
 
-import com.smartsheet.api.*;
+import com.smartsheet.api.ContactResources;
+import com.smartsheet.api.EventResources;
+import com.smartsheet.api.FavoriteResources;
+import com.smartsheet.api.FolderResources;
+import com.smartsheet.api.GroupResources;
+import com.smartsheet.api.HomeResources;
+import com.smartsheet.api.ImageUrlResources;
+import com.smartsheet.api.PassthroughResources;
+import com.smartsheet.api.ReportResources;
+import com.smartsheet.api.SearchResources;
+import com.smartsheet.api.ServerInfoResources;
+import com.smartsheet.api.SheetResources;
+import com.smartsheet.api.SightResources;
+import com.smartsheet.api.Smartsheet;
+import com.smartsheet.api.TemplateResources;
+import com.smartsheet.api.TokenResources;
+import com.smartsheet.api.Trace;
+import com.smartsheet.api.UserResources;
+import com.smartsheet.api.WebhookResources;
+import com.smartsheet.api.WorkspaceResources;
 import com.smartsheet.api.internal.http.AndroidHttpClient;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
 import com.smartsheet.api.internal.http.HttpClient;
@@ -38,7 +57,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * This is the implementation of Smartsheet interface.
- * 
+ *
  * Thread Safety: This class is thread safe because all its mutable fields are safe-guarded using AtomicReference to
  * ensure atomic modifications, and also the underlying HttpClient and JsonSerializer interfaces are thread safe.
  */
