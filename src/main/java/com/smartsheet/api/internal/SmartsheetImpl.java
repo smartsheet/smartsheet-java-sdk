@@ -9,9 +9,9 @@ package com.smartsheet.api.internal;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -316,13 +316,13 @@ public class SmartsheetImpl implements Smartsheet {
         Util.throwIfEmpty(baseURI);
 
         this.baseURI = URI.create(baseURI);
-        this.accessToken = new AtomicReference<String>(accessToken);
+        this.accessToken = new AtomicReference<>(accessToken);
         this.jsonSerializer = ((jsonSerializer == null) ? new JacksonJsonSerializer() : jsonSerializer);
         this.httpClient = ((httpClient == null) ?
                 new DefaultHttpClient(HttpClients.createDefault(), this.jsonSerializer) :  httpClient);
-        this.assumedUser = new AtomicReference<String>(null);
-        this.changeAgent = new AtomicReference<String>(null);
-        this.userAgent = new AtomicReference<String>(generateUserAgent(null));
+        this.assumedUser = new AtomicReference<>(null);
+        this.changeAgent = new AtomicReference<>(null);
+        this.userAgent = new AtomicReference<>(generateUserAgent(null));
 
         this.headersInterceptor = new HeadersInterceptor(accessToken, assumedUser.get(), changeAgent.get(), userAgent.get());
         this.retryInterceptor = new RetryInterceptor(jsonSerializer);
@@ -343,24 +343,24 @@ public class SmartsheetImpl implements Smartsheet {
                 ).build();
 
         // Initialize resources
-        this.home = new AtomicReference<HomeResources>();
-        this.workspaces = new AtomicReference<WorkspaceResources>();
-        this.folders = new AtomicReference<FolderResources>();
-        this.templates = new AtomicReference<TemplateResources>();
-        this.sheets = new AtomicReference<SheetResources>();
-        this.sights = new AtomicReference<SightResources>();
-        this.favorites = new AtomicReference<FavoriteResources>();
-        this.users = new AtomicReference<UserResources>();
-        this.groups = new AtomicReference<GroupResources>();
-        this.search = new AtomicReference<SearchResources>();
-        this.reports = new AtomicReference<ReportResources>();
-        this.serverInfo = new AtomicReference<ServerInfoResources>();
-        this.tokens = new AtomicReference<TokenResources>();
-        this.contacts = new AtomicReference<ContactResources>();
-        this.imageUrls = new AtomicReference<ImageUrlResources>();
-        this.webhooks = new AtomicReference<WebhookResources>();
-        this.passthrough = new AtomicReference<PassthroughResources>();
-        this.events = new AtomicReference<EventResources>();
+        this.home = new AtomicReference<>();
+        this.workspaces = new AtomicReference<>();
+        this.folders = new AtomicReference<>();
+        this.templates = new AtomicReference<>();
+        this.sheets = new AtomicReference<>();
+        this.sights = new AtomicReference<>();
+        this.favorites = new AtomicReference<>();
+        this.users = new AtomicReference<>();
+        this.groups = new AtomicReference<>();
+        this.search = new AtomicReference<>();
+        this.reports = new AtomicReference<>();
+        this.serverInfo = new AtomicReference<>();
+        this.tokens = new AtomicReference<>();
+        this.contacts = new AtomicReference<>();
+        this.imageUrls = new AtomicReference<>();
+        this.webhooks = new AtomicReference<>();
+        this.passthrough = new AtomicReference<>();
+        this.events = new AtomicReference<>();
     }
 
     /**

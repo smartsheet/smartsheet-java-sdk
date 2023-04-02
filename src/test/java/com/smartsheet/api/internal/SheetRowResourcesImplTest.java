@@ -9,9 +9,9 @@ package com.smartsheet.api.internal;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -63,7 +63,7 @@ class SheetRowResourcesImplTest extends ResourcesImplBase {
         server.setResponseBody(new File("src/test/resources/insertRows.json"));
 
         // Create a set of cells
-        List<Cell> cells = new ArrayList<Cell>();
+        List<Cell> cells = new ArrayList<>();
         Cell cell = new Cell();
         cell.setDisplayValue("Testing");
         cell.setColumnId(8764071660021636L);
@@ -71,7 +71,7 @@ class SheetRowResourcesImplTest extends ResourcesImplBase {
         cell.setFormula("=1+1");
 
         // Create a row and add the cells to it.
-        List<Row> rows = new ArrayList<Row>();
+        List<Row> rows = new ArrayList<>();
         Row row = new Row();
         row.setCells(cells);
         rows.add(row);
@@ -111,7 +111,7 @@ class SheetRowResourcesImplTest extends ResourcesImplBase {
 
         MultiRowEmail email = new MultiRowEmail();
 
-        List<Recipient> to = new ArrayList<Recipient>();
+        List<Recipient> to = new ArrayList<>();
         to.add(recipient);
 
         email.setSendTo(to);
@@ -128,7 +128,7 @@ class SheetRowResourcesImplTest extends ResourcesImplBase {
     void testUpdateRows() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/updateRows.json"));
 
-        List<Row> rows = new ArrayList<Row>();
+        List<Row> rows = new ArrayList<>();
 
         List<Row> updatedRows = sheetRowResource.updateRows(1234L, rows);
         Row row1 = updatedRows.get(0);
@@ -149,7 +149,7 @@ class SheetRowResourcesImplTest extends ResourcesImplBase {
         copyOrMoveRowDestination.setSheetId(2258256056870788L);
 
         copyOrMoveRowDirective.setTo(copyOrMoveRowDestination);
-        List<Long> rowIds = new ArrayList<Long>();
+        List<Long> rowIds = new ArrayList<>();
         rowIds.add(145417762563972L);
         copyOrMoveRowDirective.setRowIds(rowIds);
         sheetRowResource.moveRows(2258256056870788L, EnumSet.of(RowMoveInclusion.ATTACHMENTS), false, copyOrMoveRowDirective);
@@ -163,7 +163,7 @@ class SheetRowResourcesImplTest extends ResourcesImplBase {
         copyOrMoveRowDestination.setSheetId(2258256056870788L);
 
         copyOrMoveRowDirective.setTo(copyOrMoveRowDestination);
-        List<Long> rowIds = new ArrayList<Long>();
+        List<Long> rowIds = new ArrayList<>();
         rowIds.add(145417762563972L);
         copyOrMoveRowDirective.setRowIds(rowIds);
         sheetRowResource.copyRows(2258256056870788L, EnumSet.of(RowCopyInclusion.ATTACHMENTS), false, copyOrMoveRowDirective);
@@ -173,7 +173,7 @@ class SheetRowResourcesImplTest extends ResourcesImplBase {
     void testDeleteRows() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/deleteRow.json"));
 
-        Set<Long> rowIds = new HashSet<Long>();
+        Set<Long> rowIds = new HashSet<>();
         rowIds.add(123456789L);
         rowIds.add(987654321L);
 

@@ -9,9 +9,9 @@ package com.smartsheet.api.models;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -40,12 +40,12 @@ class RowTest {
         Column col = new Column();
         col.setId(1234L);
         col.setIndex(2);
-        List<Column> columns = new ArrayList<Column>();
+        List<Column> columns = new ArrayList<>();
         columns.add(col);
         row.setColumns(columns);
         //row.setParentRowNumber(1);
-        row.setDiscussions(new ArrayList<Discussion>());
-        row.setAttachments(new ArrayList<Attachment>());
+        row.setDiscussions(new ArrayList<>());
+        row.setAttachments(new ArrayList<>());
 
         assertEquals(col, row.getColumnById(1234L));
         assertEquals(col, row.getColumnByIndex(2));
@@ -54,7 +54,7 @@ class RowTest {
         assertNull(new Row().getColumnById(213L));
         assertNull(new Row().getColumnByIndex(33));
         Row row1 = new Row();
-        row1.setColumns(new ArrayList<Column>());
+        row1.setColumns(new ArrayList<>());
         assertNull(row1.getColumnById(1L));
         assertNull(row1.getColumnByIndex(1));
     }
@@ -62,7 +62,7 @@ class RowTest {
     @Test
     void testInsertRowBuilder() {
         Format format = new Format("new format");
-        List<Cell> cells = new ArrayList<Cell>();
+        List<Cell> cells = new ArrayList<>();
         Row row = new Row.AddRowBuilder().setToTop(true).setExpanded(false).setFormat(format).setCells(cells).build();
 
         assertTrue(row.getToTop());
@@ -78,7 +78,7 @@ class RowTest {
     @Test
     void testUpdateRowBuilder() {
         Format format = new Format("new format");
-        List<Cell> cells = new ArrayList<Cell>();
+        List<Cell> cells = new ArrayList<>();
         Row row = new Row.UpdateRowBuilder().setToTop(true).setExpanded(false).setFormat(format).setCells(cells).setLocked(true).build();
 
         assertTrue(row.getToTop());
