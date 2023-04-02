@@ -58,7 +58,7 @@ public interface SheetRowResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public List<Row> addRows(long sheetId, List<Row> rows) throws SmartsheetException;
+    List<Row> addRows(long sheetId, List<Row> rows) throws SmartsheetException;
 
     /**
      * <p>Insert rows to a sheet.</p>
@@ -77,7 +77,7 @@ public interface SheetRowResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public List<Row> addRows(long sheetId, List<Row> rows, EnumSet<RowInclusion> includes, EnumSet<ObjectExclusion> excludes ) throws SmartsheetException;
+    List<Row> addRows(long sheetId, List<Row> rows, EnumSet<RowInclusion> includes, EnumSet<ObjectExclusion> excludes ) throws SmartsheetException;
 
     /**
      * <p>Insert rows to a sheet, allowing partial success. If a row cannot be inserted, it will fail, while the others may succeed..</p>
@@ -94,7 +94,7 @@ public interface SheetRowResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public PartialRowUpdateResult addRowsAllowPartialSuccess(long sheetId, List<Row> rows) throws SmartsheetException;
+    PartialRowUpdateResult addRowsAllowPartialSuccess(long sheetId, List<Row> rows) throws SmartsheetException;
 
     /**
      * <p>Insert rows to a sheet, allowing partial success. If a row cannot be inserted, it will fail, while the others may succeed..</p>
@@ -113,7 +113,7 @@ public interface SheetRowResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public PartialRowUpdateResult addRowsAllowPartialSuccess(long sheetId, List<Row> rows,
+    PartialRowUpdateResult addRowsAllowPartialSuccess(long sheetId, List<Row> rows,
                                                              EnumSet<RowInclusion> includes, EnumSet<ObjectExclusion> excludes) throws SmartsheetException;
 
     /**
@@ -134,7 +134,7 @@ public interface SheetRowResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public Row getRow(long sheetId, long rowId, EnumSet<RowInclusion> includes, EnumSet<ObjectExclusion> excludes) throws SmartsheetException;
+    Row getRow(long sheetId, long rowId, EnumSet<RowInclusion> includes, EnumSet<ObjectExclusion> excludes) throws SmartsheetException;
 
     /**
      * <p>@deprecated as of API 2.0.2 release, replaced by {@link #deleteRows(long, Set, boolean)}</p>
@@ -156,7 +156,7 @@ public interface SheetRowResources {
      * @throws SmartsheetException the smartsheet exception
      */
     @Deprecated
-    public void deleteRow(long sheetId, long rowId) throws SmartsheetException;
+    void deleteRow(long sheetId, long rowId) throws SmartsheetException;
 
     /**
      * <p>@deprecated as of API V2.0.2, replaced by {@link #sendRows(long, MultiRowEmail)}</p>
@@ -179,7 +179,7 @@ public interface SheetRowResources {
      * @throws SmartsheetException the smartsheet exception
      */
     @Deprecated
-    public void sendRow(long sheetId, long rowId, RowEmail email) throws SmartsheetException;
+    void sendRow(long sheetId, long rowId, RowEmail email) throws SmartsheetException;
 
     /**
      * <p>Send a row via email to the designated recipients.</p>
@@ -198,7 +198,7 @@ public interface SheetRowResources {
      * @param email the multi row email
      * @throws SmartsheetException the smartsheet exception
      */
-    public void sendRows(long sheetId, MultiRowEmail email) throws SmartsheetException;
+    void sendRows(long sheetId, MultiRowEmail email) throws SmartsheetException;
 
     /**
      * <p>Deletes one or more row(s) from the Sheet specified in the URL.</p>
@@ -219,7 +219,7 @@ public interface SheetRowResources {
      * @return a list of deleted rows
      * @throws SmartsheetException the smartsheet exception
      */
-    public List<Long> deleteRows(long sheetId, Set<Long> rowIds, boolean ignoreRowsNotFound) throws SmartsheetException;
+    List<Long> deleteRows(long sheetId, Set<Long> rowIds, boolean ignoreRowsNotFound) throws SmartsheetException;
 
     /**
      * <p>Update rows.</p>
@@ -239,7 +239,7 @@ public interface SheetRowResources {
      * @return a list of rows
      * @throws SmartsheetException the smartsheet exception
      */
-    public List<Row> updateRows(long sheetId, List<Row> rows) throws SmartsheetException;
+    List<Row> updateRows(long sheetId, List<Row> rows) throws SmartsheetException;
 
     /**
      * <p>Update rows.</p>
@@ -261,7 +261,7 @@ public interface SheetRowResources {
      * @return a list of rows
      * @throws SmartsheetException the smartsheet exception
      */
-    public List<Row> updateRows(long sheetId, List<Row> rows, EnumSet<RowInclusion> includes, EnumSet<ObjectExclusion> excludes) throws SmartsheetException;
+    List<Row> updateRows(long sheetId, List<Row> rows, EnumSet<RowInclusion> includes, EnumSet<ObjectExclusion> excludes) throws SmartsheetException;
 
     /**
      * <p>Update rows, but allow partial success. The PartialRowUpdateResult will contain the successful
@@ -282,7 +282,7 @@ public interface SheetRowResources {
      * @return a list of rows
      * @throws SmartsheetException the smartsheet exception
      */
-    public PartialRowUpdateResult updateRowsAllowPartialSuccess(long sheetId, List<Row> rows) throws SmartsheetException;
+    PartialRowUpdateResult updateRowsAllowPartialSuccess(long sheetId, List<Row> rows) throws SmartsheetException;
 
     /**
      * <p>Update rows, but allow partial success. The PartialRowUpdateResult will contain the successful
@@ -305,7 +305,7 @@ public interface SheetRowResources {
      * @return a list of rows
      * @throws SmartsheetException the smartsheet exception
      */
-    public PartialRowUpdateResult updateRowsAllowPartialSuccess(long sheetId, List<Row> rows,
+    PartialRowUpdateResult updateRowsAllowPartialSuccess(long sheetId, List<Row> rows,
                                                                 EnumSet<RowInclusion> includes, EnumSet<ObjectExclusion> excludes) throws SmartsheetException;
 
     /**
@@ -328,7 +328,7 @@ public interface SheetRowResources {
      * @return the result object
      * @throws SmartsheetException the smartsheet exception
      */
-    public CopyOrMoveRowResult moveRows(Long sheetId, EnumSet<RowMoveInclusion> includes, Boolean ignoreRowsNotFound, CopyOrMoveRowDirective moveParameters) throws SmartsheetException;
+    CopyOrMoveRowResult moveRows(Long sheetId, EnumSet<RowMoveInclusion> includes, Boolean ignoreRowsNotFound, CopyOrMoveRowDirective moveParameters) throws SmartsheetException;
 
     /**
      * <p>Copies Row(s) from the Sheet specified in the URL to (the bottom of) another sheet.</p>
@@ -350,26 +350,26 @@ public interface SheetRowResources {
      * @return the result object
      * @throws SmartsheetException the smartsheet exception
      */
-    public CopyOrMoveRowResult copyRows(Long sheetId, EnumSet<RowCopyInclusion> includes, Boolean ignoreRowsNotFound, CopyOrMoveRowDirective copyParameters) throws SmartsheetException;
+    CopyOrMoveRowResult copyRows(Long sheetId, EnumSet<RowCopyInclusion> includes, Boolean ignoreRowsNotFound, CopyOrMoveRowDirective copyParameters) throws SmartsheetException;
 
     /**
      * <p>Creates an object of RowAttachmentResources.</p>
      *
      * @return the created RowAttachmentResources object
      */
-    public RowAttachmentResources attachmentResources();
+    RowAttachmentResources attachmentResources();
 
     /**
      * <p>Creates an object of RowDiscussionResources.</p>
      *
      * @return the created RowDiscussionResources object
      */
-    public RowDiscussionResources discussionResources();
+    RowDiscussionResources discussionResources();
 
     /**
      * <p>Creates an object of RowColumnResources.</p>
      *
      * @return the created RowColumnResources object
      */
-    public RowColumnResources cellResources();
+    RowColumnResources cellResources();
 }

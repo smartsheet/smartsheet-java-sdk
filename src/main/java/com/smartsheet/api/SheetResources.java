@@ -66,7 +66,7 @@ public interface SheetResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public PagedResult<Sheet> listSheets(EnumSet<SourceInclusion> includes, PaginationParameters pagination, Date modifiedSince) throws SmartsheetException;
+    PagedResult<Sheet> listSheets(EnumSet<SourceInclusion> includes, PaginationParameters pagination, Date modifiedSince) throws SmartsheetException;
 
     /**
      * <p>List all sheets.</p>
@@ -84,7 +84,7 @@ public interface SheetResources {
      * @throws SmartsheetException if there is any other error during the operation
      */
     @Deprecated
-    public PagedResult<Sheet> listSheets(EnumSet<SourceInclusion> includes, PaginationParameters pagination) throws SmartsheetException;
+    PagedResult<Sheet> listSheets(EnumSet<SourceInclusion> includes, PaginationParameters pagination) throws SmartsheetException;
 
     /**
      * <p>List all sheets in the organization.</p>
@@ -101,7 +101,7 @@ public interface SheetResources {
      * @throws SmartsheetException if there is any other error during the operation
      */
     @Deprecated
-    public PagedResult<Sheet> listOrganizationSheets(PaginationParameters parameters) throws SmartsheetException;
+    PagedResult<Sheet> listOrganizationSheets(PaginationParameters parameters) throws SmartsheetException;
 
     /**
      * <p>Get a sheet.</p>
@@ -125,7 +125,7 @@ public interface SheetResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public Sheet getSheet(long id,
+    Sheet getSheet(long id,
                           EnumSet<SheetInclusion> includes,
                           EnumSet<ObjectExclusion> excludes,
                           Set<Long> rowIds,
@@ -157,7 +157,7 @@ public interface SheetResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public Sheet getSheet(long id,
+    Sheet getSheet(long id,
                           EnumSet<SheetInclusion> includes,
                           EnumSet<ObjectExclusion> excludes,
                           Set<Long> rowIds,
@@ -191,7 +191,7 @@ public interface SheetResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public Sheet getSheet(long id,
+    Sheet getSheet(long id,
                           EnumSet<SheetInclusion> includes,
                           EnumSet<ObjectExclusion> excludes,
                           Set<Long> rowIds,
@@ -216,7 +216,7 @@ public interface SheetResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public void getSheetAsExcel(long id, OutputStream outputStream) throws SmartsheetException;
+    void getSheetAsExcel(long id, OutputStream outputStream) throws SmartsheetException;
 
     /**
      * <p>Get a sheet as an Excel file.</p>
@@ -232,7 +232,7 @@ public interface SheetResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public void getSheetAsCSV(long id, OutputStream outputStream) throws SmartsheetException;
+    void getSheetAsCSV(long id, OutputStream outputStream) throws SmartsheetException;
 
     /**
      * <p>Get a sheet as a PDF file.</p>
@@ -249,7 +249,7 @@ public interface SheetResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public void getSheetAsPDF(long id, OutputStream outputStream, PaperSize paperSize) throws SmartsheetException;
+    void getSheetAsPDF(long id, OutputStream outputStream, PaperSize paperSize) throws SmartsheetException;
 
     /**
      * <p>Create a sheet in default "Sheets" collection.</p>
@@ -265,7 +265,7 @@ public interface SheetResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public Sheet createSheet(Sheet sheet) throws SmartsheetException;
+    Sheet createSheet(Sheet sheet) throws SmartsheetException;
 
     /**
      * <p>Create a sheet (from existing sheet or template) in default "Sheets" collection.</p>
@@ -282,7 +282,7 @@ public interface SheetResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public Sheet createSheetFromTemplate(Sheet sheet, EnumSet<SheetTemplateInclusion> includes) throws SmartsheetException;
+    Sheet createSheetFromTemplate(Sheet sheet, EnumSet<SheetTemplateInclusion> includes) throws SmartsheetException;
 
     /**
      * <p>Imports a sheet.</p>
@@ -301,7 +301,7 @@ public interface SheetResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public Sheet importCsv(String file, String sheetName, Integer headerRowIndex, Integer primaryRowIndex) throws SmartsheetException;
+    Sheet importCsv(String file, String sheetName, Integer headerRowIndex, Integer primaryRowIndex) throws SmartsheetException;
 
     /**
      * <p>Imports a sheet.</p>
@@ -320,7 +320,7 @@ public interface SheetResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public Sheet importXlsx(String file, String sheetName, Integer headerRowIndex, Integer primaryRowIndex) throws SmartsheetException;
+    Sheet importXlsx(String file, String sheetName, Integer headerRowIndex, Integer primaryRowIndex) throws SmartsheetException;
 
     /**
      * <p>Create a sheet in given folder.</p>
@@ -337,7 +337,7 @@ public interface SheetResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public Sheet createSheetInFolder(long folderId, Sheet sheet) throws SmartsheetException;
+    Sheet createSheetInFolder(long folderId, Sheet sheet) throws SmartsheetException;
 
     /**
      * <p>Create a sheet (from existing sheet or template) in given folder.</p>
@@ -355,7 +355,7 @@ public interface SheetResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public Sheet createSheetInFolderFromTemplate(long folderID, Sheet sheet, EnumSet<SheetTemplateInclusion> includes) throws SmartsheetException;
+    Sheet createSheetInFolderFromTemplate(long folderID, Sheet sheet, EnumSet<SheetTemplateInclusion> includes) throws SmartsheetException;
 
     /**
      * <p>Imports a sheet in given folder.</p>
@@ -375,7 +375,7 @@ public interface SheetResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public Sheet importCsvInFolder(long folderID, String file, String sheetName, Integer headerRowIndex, Integer primaryRowIndex) throws SmartsheetException;
+    Sheet importCsvInFolder(long folderID, String file, String sheetName, Integer headerRowIndex, Integer primaryRowIndex) throws SmartsheetException;
 
     /**
      * <p>Imports a sheet in given folder.</p>
@@ -395,7 +395,7 @@ public interface SheetResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public Sheet importXlsxInFolder(long folderID, String file, String sheetName, Integer headerRowIndex, Integer primaryRowIndex) throws SmartsheetException;
+    Sheet importXlsxInFolder(long folderID, String file, String sheetName, Integer headerRowIndex, Integer primaryRowIndex) throws SmartsheetException;
 
     /**
      * <p>Create a sheet in given workspace.</p>
@@ -412,7 +412,7 @@ public interface SheetResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public Sheet createSheetInWorkspace(long workspaceId, Sheet sheet) throws SmartsheetException;
+    Sheet createSheetInWorkspace(long workspaceId, Sheet sheet) throws SmartsheetException;
 
     /**
      * <p>Create a sheet (from existing sheet or template) in given workspace.</p>
@@ -430,7 +430,7 @@ public interface SheetResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public Sheet createSheetInWorkspaceFromTemplate(long workspaceId, Sheet sheet, EnumSet<SheetTemplateInclusion> includes) throws SmartsheetException;
+    Sheet createSheetInWorkspaceFromTemplate(long workspaceId, Sheet sheet, EnumSet<SheetTemplateInclusion> includes) throws SmartsheetException;
 
     /**
      * <p>Imports a sheet in given workspace.</p>
@@ -450,7 +450,7 @@ public interface SheetResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public Sheet importCsvInWorkspace(long workspaceId, String file, String sheetName, Integer headerRowIndex, Integer primaryRowIndex) throws SmartsheetException;
+    Sheet importCsvInWorkspace(long workspaceId, String file, String sheetName, Integer headerRowIndex, Integer primaryRowIndex) throws SmartsheetException;
 
     /**
      * <p>Imports a sheet in given workspace.</p>
@@ -470,7 +470,7 @@ public interface SheetResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public Sheet importXlsxInWorkspace(long workspaceId, String file, String sheetName, Integer headerRowIndex, Integer primaryRowIndex) throws SmartsheetException;
+    Sheet importXlsxInWorkspace(long workspaceId, String file, String sheetName, Integer headerRowIndex, Integer primaryRowIndex) throws SmartsheetException;
 
     /**
      * <p>Delete a sheet.</p>
@@ -490,7 +490,7 @@ public interface SheetResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public void deleteSheet(long id) throws SmartsheetException;
+    void deleteSheet(long id) throws SmartsheetException;
 
     /**
      * <p>Update a sheet.</p>
@@ -506,7 +506,7 @@ public interface SheetResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public Sheet updateSheet(Sheet sheet) throws SmartsheetException;
+    Sheet updateSheet(Sheet sheet) throws SmartsheetException;
 
     /**
      * <p>Get a sheet version.</p>
@@ -523,7 +523,7 @@ public interface SheetResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public int getSheetVersion(long id) throws SmartsheetException;
+    int getSheetVersion(long id) throws SmartsheetException;
 
     /**
      * <p>Send a sheet as a PDF attachment via email to the designated recipients.</p>
@@ -539,7 +539,7 @@ public interface SheetResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public void sendSheet(long id, SheetEmail email) throws SmartsheetException;
+    void sendSheet(long id, SheetEmail email) throws SmartsheetException;
 
     /**
      * <p>Get the status of the Publish settings of the sheet, including the URLs of any enabled publishings.</p>
@@ -555,7 +555,7 @@ public interface SheetResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public SheetPublish getPublishStatus(long id) throws SmartsheetException;
+    SheetPublish getPublishStatus(long id) throws SmartsheetException;
 
     /**
      * <p>Sets the publish status of a sheet and returns the new status, including the URLs of any enabled publishings.</p>
@@ -573,7 +573,7 @@ public interface SheetResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public SheetPublish updatePublishStatus(long id, SheetPublish publish) throws SmartsheetException;
+    SheetPublish updatePublishStatus(long id, SheetPublish publish) throws SmartsheetException;
 
     /**
      * <p>Creates a copy of the specified sheet.</p>
@@ -594,7 +594,7 @@ public interface SheetResources {
      * @return the sheet
      * @throws SmartsheetException the smartsheet exception
      */
-    public Sheet copySheet(long sheetId, ContainerDestination containerDestination, EnumSet<SheetCopyInclusion> includes) throws SmartsheetException;
+    Sheet copySheet(long sheetId, ContainerDestination containerDestination, EnumSet<SheetCopyInclusion> includes) throws SmartsheetException;
 
     /**
      * <p>Creates a copy of the specified sheet.</p>
@@ -616,7 +616,7 @@ public interface SheetResources {
      * @return the sheet
      * @throws SmartsheetException the smartsheet exception
      */
-    public Sheet copySheet(long sheetId, ContainerDestination containerDestination, EnumSet<SheetCopyInclusion> includes,
+    Sheet copySheet(long sheetId, ContainerDestination containerDestination, EnumSet<SheetCopyInclusion> includes,
                            EnumSet<CopyExclusion> excludes) throws SmartsheetException;
 
     /**
@@ -637,7 +637,7 @@ public interface SheetResources {
      * @return the sheet
      * @throws SmartsheetException the smartsheet exception
      */
-    public Sheet moveSheet(long sheetId, ContainerDestination containerDestination) throws SmartsheetException;
+    Sheet moveSheet(long sheetId, ContainerDestination containerDestination) throws SmartsheetException;
 
     /**
      * <p>Creates an Update Request for the specified Row(s) within the Sheet.</p>
@@ -658,7 +658,7 @@ public interface SheetResources {
      * @throws SmartsheetException the smartsheet exception
      */
     @Deprecated
-    public UpdateRequest createUpdateRequest(long sheetId, MultiRowEmail email) throws SmartsheetException;
+    UpdateRequest createUpdateRequest(long sheetId, MultiRowEmail email) throws SmartsheetException;
 
     /**
      * <p>Sort a sheet according to the sort criteria.</p>
@@ -674,7 +674,7 @@ public interface SheetResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public Sheet sortSheet(long sheetId, SortSpecifier sortSpecifier) throws SmartsheetException;
+    Sheet sortSheet(long sheetId, SortSpecifier sortSpecifier) throws SmartsheetException;
 
     /**
      * <p>Sort a sheet according to the sort criteria.</p>
@@ -691,28 +691,28 @@ public interface SheetResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public Sheet sortSheet(long sheetId, SortSpecifier sortSpecifier, Integer level) throws SmartsheetException;
+    Sheet sortSheet(long sheetId, SortSpecifier sortSpecifier, Integer level) throws SmartsheetException;
 
     /**
      * <p>Return the ShareResources object that provides access to Share resources associated with Sheet resources.</p>
      *
      * @return the share resources object
      */
-    public ShareResources shareResources();
+    ShareResources shareResources();
 
     /**
      * <p>Return the SheetRowResources object that provides access to Row resources associated with Sheet resources.</p>
      *
      * @return the sheet row resources
      */
-    public SheetRowResources rowResources();
+    SheetRowResources rowResources();
 
     /**
      * <p>Return the SheetColumnResources object that provides access to Column resources associated with Sheet resources.</p>
      *
      * @return the sheet column resources
      */
-    public SheetColumnResources columnResources();
+    SheetColumnResources columnResources();
 
     /**
      * <p>Return the AttachmentResources object that provides access to attachment resources associated with
@@ -720,7 +720,7 @@ public interface SheetResources {
      *
      * @return the associated attachment resources
      */
-    public SheetAttachmentResources attachmentResources();
+    SheetAttachmentResources attachmentResources();
 
     /**
      * <p>Return the SheetDiscussionResources object that provides access to discussion resources associated with
@@ -728,7 +728,7 @@ public interface SheetResources {
      *
      * @return the associated discussion resources
      */
-    public SheetDiscussionResources discussionResources();
+    SheetDiscussionResources discussionResources();
 
 
     /**
@@ -737,7 +737,7 @@ public interface SheetResources {
      *
      * @return the associated comment resources
      */
-    public SheetCommentResources commentResources();
+    SheetCommentResources commentResources();
 
     /**
      * <p>Return the SheetUpdateRequestResources object that provides access to update request resources
@@ -745,7 +745,7 @@ public interface SheetResources {
      *
      * @return the associated update request resources
      */
-    public SheetUpdateRequestResources updateRequestResources();
+    SheetUpdateRequestResources updateRequestResources();
 
     /**
      * <p>Return the SheetFilterResources object that provides access to sheet filter resources
@@ -753,7 +753,7 @@ public interface SheetResources {
      *
      * @return the associated sheet filter resources
      */
-    public SheetFilterResources filterResources();
+    SheetFilterResources filterResources();
 
     /**
      * <p>Return the SheetAutomationRuleResources object that provides access to automation rule resources
@@ -761,7 +761,7 @@ public interface SheetResources {
      *
      * @return the associated automation rule resources
      */
-    public SheetAutomationRuleResources automationRuleResources();
+    SheetAutomationRuleResources automationRuleResources();
 
     /**
      * <p>Return the CrossSheetReferenceResources object that provides access to cross sheet reference resources
@@ -769,7 +769,7 @@ public interface SheetResources {
      *
      * @return the associated cross sheet reference resources
      */
-    public SheetCrossSheetReferenceResources crossSheetReferenceResources();
+    SheetCrossSheetReferenceResources crossSheetReferenceResources();
 
     /**
      * Return the SheetSummaryResources object that provides access to the sheet summary resources
@@ -777,5 +777,5 @@ public interface SheetResources {
      *
      * @return the sheet summary resources
      */
-    public SheetSummaryResources summaryResources();
+    SheetSummaryResources summaryResources();
 }

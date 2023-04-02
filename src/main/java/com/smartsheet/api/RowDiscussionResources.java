@@ -8,9 +8,9 @@ package com.smartsheet.api;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -54,7 +54,7 @@ public interface RowDiscussionResources {
      * @return the created comment
      * @throws SmartsheetException the smartsheet exception
      */
-    public Discussion createDiscussion(long sheetId, long rowId, Discussion discussion) throws SmartsheetException;
+    Discussion createDiscussion(long sheetId, long rowId, Discussion discussion) throws SmartsheetException;
 
     /**
      * <p>Gets a list of all Discussions associated with the specified Row.</p>
@@ -76,7 +76,7 @@ public interface RowDiscussionResources {
      * @return the row discussions
      * @throws SmartsheetException the smartsheet exception
      */
-    public PagedResult<Discussion> listDiscussions(long sheetId, long rowId, PaginationParameters pagination, EnumSet<DiscussionInclusion> includes) throws SmartsheetException;
+    PagedResult<Discussion> listDiscussions(long sheetId, long rowId, PaginationParameters pagination, EnumSet<DiscussionInclusion> includes) throws SmartsheetException;
 
     /**
      * <p>Create discussion on a row.</p>
@@ -100,5 +100,5 @@ public interface RowDiscussionResources {
      * @throws SmartsheetException the smartsheet exception
      * @throws IOException is there is an I/O exception
      */
-    public Discussion createDiscussionWithAttachment(long sheetId, long rowId, Discussion discussion, File file, String contentType) throws SmartsheetException, IOException;
+    Discussion createDiscussionWithAttachment(long sheetId, long rowId, Discussion discussion, File file, String contentType) throws SmartsheetException, IOException;
 }

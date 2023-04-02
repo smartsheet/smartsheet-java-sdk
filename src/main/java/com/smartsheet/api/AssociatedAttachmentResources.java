@@ -9,9 +9,9 @@ package com.smartsheet.api;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -38,7 +38,7 @@ public interface AssociatedAttachmentResources {
      * @return the attachments (note that empty list will be returned if there is none)
      */
     @Deprecated
-    public List<Attachment> listAttachments(long objectId);
+    List<Attachment> listAttachments(long objectId);
 
     /**
      * @deprecated As of release 2.0
@@ -48,7 +48,7 @@ public interface AssociatedAttachmentResources {
      * @return the created attachment
      */
     @Deprecated
-    public Attachment attachFile(long objectId, File file, String contentType);
+    Attachment attachFile(long objectId, File file, String contentType);
 
     /**
      * @deprecated As of release 2.0
@@ -60,7 +60,7 @@ public interface AssociatedAttachmentResources {
      * @return the created attachment
      */
     @Deprecated
-    public Attachment attachFile(long objectId, InputStream inputStream, String contentType, long contentLength, String attachmentName);
+    Attachment attachFile(long objectId, InputStream inputStream, String contentType, long contentLength, String attachmentName);
 
     /**
      * @deprecated As of release 2.0
@@ -69,5 +69,5 @@ public interface AssociatedAttachmentResources {
      * @return the created attachment
      */
     @Deprecated
-    public Attachment attachURL(long objectId, Attachment attachment);
+    Attachment attachURL(long objectId, Attachment attachment);
 }

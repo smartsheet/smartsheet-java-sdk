@@ -18,9 +18,9 @@ import java.util.EnumSet;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -45,7 +45,7 @@ public interface SheetDiscussionResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public Discussion createDiscussion(long sheetId, Discussion discussion) throws SmartsheetException;
+    Discussion createDiscussion(long sheetId, Discussion discussion) throws SmartsheetException;
 
     /**
      * <p>Create a discussion with attachments on a sheet.</p>
@@ -65,7 +65,7 @@ public interface SheetDiscussionResources {
      * @throws SmartsheetException if there is any other error during the operation
      * @throws IOException is there is with file
      */
-    public Discussion createDiscussionWithAttachment(long sheetId, Discussion discussion, File file, String contentType) throws SmartsheetException, IOException;
+    Discussion createDiscussionWithAttachment(long sheetId, Discussion discussion, File file, String contentType) throws SmartsheetException, IOException;
 
     /**
      * <p>Get a discussion.</p>
@@ -83,7 +83,7 @@ public interface SheetDiscussionResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public Discussion getDiscussion(long sheetId, long discussionId) throws SmartsheetException;
+    Discussion getDiscussion(long sheetId, long discussionId) throws SmartsheetException;
 
     /**
      * <p>Delete discussion.</p>
@@ -102,7 +102,7 @@ public interface SheetDiscussionResources {
      * @param discussionId the discussion ID
      * @throws SmartsheetException the smartsheet exception
      */
-    public void deleteDiscussion(long sheetId, long discussionId) throws SmartsheetException;
+    void deleteDiscussion(long sheetId, long discussionId) throws SmartsheetException;
 
     /**
      * <p>Get all discussions</p>
@@ -123,7 +123,7 @@ public interface SheetDiscussionResources {
      * @return a list of discussions
      * @throws SmartsheetException the smartsheet exception
      */
-    public PagedResult<Discussion> listDiscussions(long sheetId, PaginationParameters pagination, EnumSet<DiscussionInclusion> includes) throws SmartsheetException;
+    PagedResult<Discussion> listDiscussions(long sheetId, PaginationParameters pagination, EnumSet<DiscussionInclusion> includes) throws SmartsheetException;
 
     /**
      * <p>Creates an object of DiscussionCommentResources for access to discussion comments through SheetDiscussionResources.</p>
@@ -131,7 +131,7 @@ public interface SheetDiscussionResources {
      * @return the created DiscussionCommentResources object
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public DiscussionCommentResources commentResources() throws SmartsheetException;
+    DiscussionCommentResources commentResources() throws SmartsheetException;
 
     /**
      * <p>Creates an object of DiscussionAttachmentResources for access to discussion attachments through SheetDiscussionResources.</p>
@@ -139,5 +139,5 @@ public interface SheetDiscussionResources {
      * @return the created DiscussionAttachmentResources object
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public DiscussionAttachmentResources attachmentResources() throws SmartsheetException;
+    DiscussionAttachmentResources attachmentResources() throws SmartsheetException;
 }

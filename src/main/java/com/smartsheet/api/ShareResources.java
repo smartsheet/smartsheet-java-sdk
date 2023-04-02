@@ -9,9 +9,9 @@ package com.smartsheet.api;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -29,7 +29,7 @@ import java.util.List;
 
 /**
  * <p>This interface provides methods to access Share resources.</p>
- * 
+ *
  * <p>Thread Safety: Implementation of this interface must be thread safe.</p>
  */
 public interface ShareResources {
@@ -52,7 +52,7 @@ public interface ShareResources {
      * @throws SmartsheetException if there is any other error during the operation
      */
     @Deprecated
-    public PagedResult<Share> listShares(long objectId, PaginationParameters parameters) throws SmartsheetException;
+    PagedResult<Share> listShares(long objectId, PaginationParameters parameters) throws SmartsheetException;
 
     /**
      * <p>List shares of a given object.</p>
@@ -72,7 +72,7 @@ public interface ShareResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public PagedResult<Share> listShares(long objectId, PaginationParameters parameters, Boolean includeWorkspaceShares) throws SmartsheetException;
+    PagedResult<Share> listShares(long objectId, PaginationParameters parameters, Boolean includeWorkspaceShares) throws SmartsheetException;
 
     /**
      * <p>Get a Share.</p>
@@ -96,7 +96,7 @@ public interface ShareResources {
      * rather than returning null).
      * @throws SmartsheetException the smartsheet exception
      */
-    public Share getShare(long objectId, String shareId) throws SmartsheetException;
+    Share getShare(long objectId, String shareId) throws SmartsheetException;
 
     /**
      * <p>Shares the object with the specified Users and Groups.</p>
@@ -121,7 +121,7 @@ public interface ShareResources {
      * @return the created shares
      * @throws SmartsheetException the smartsheet exception
      */
-    public List<Share> shareTo(long objectId, List<Share> shares, Boolean sendEmail) throws SmartsheetException;
+    List<Share> shareTo(long objectId, List<Share> shares, Boolean sendEmail) throws SmartsheetException;
 
     /**
      * <p>Update a share.</p>
@@ -142,7 +142,7 @@ public interface ShareResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public Share updateShare(long objectId, Share share) throws SmartsheetException;
+    Share updateShare(long objectId, Share share) throws SmartsheetException;
 
     /**
      * <p>Delete a share.</p>
@@ -164,5 +164,5 @@ public interface ShareResources {
      * @param shareId the ID of the share to delete
      * @throws SmartsheetException the smartsheet exception
      */
-    public void deleteShare(long objectId, String shareId) throws SmartsheetException;
+    void deleteShare(long objectId, String shareId) throws SmartsheetException;
 }

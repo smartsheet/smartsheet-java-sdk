@@ -8,9 +8,9 @@ package com.smartsheet.api;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -46,7 +46,7 @@ public interface SheetAttachmentResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public Attachment attachUrl(long sheetId, Attachment attachment) throws SmartsheetException;
+    Attachment attachUrl(long sheetId, Attachment attachment) throws SmartsheetException;
 
     /**
      * <p>Delete an attachment.</p>
@@ -65,7 +65,7 @@ public interface SheetAttachmentResources {
      * @param attachmentId the ID of the attachment
      * @throws SmartsheetException the smartsheet exception
      */
-    public void deleteAttachment(long sheetId, long attachmentId) throws SmartsheetException;
+    void deleteAttachment(long sheetId, long attachmentId) throws SmartsheetException;
 
     /**
      * <p>Get an attachment.</p>
@@ -86,7 +86,7 @@ public interface SheetAttachmentResources {
      * rather than returning null).
      * @throws SmartsheetException the smartsheet exception
      */
-    public Attachment getAttachment(long sheetId, long attachmentId) throws SmartsheetException;
+    Attachment getAttachment(long sheetId, long attachmentId) throws SmartsheetException;
 
     /**
      * <p>Gets a list of all Attachments that are on the Sheet, including Sheet, Row, and Discussion level Attachments.</p>
@@ -106,7 +106,7 @@ public interface SheetAttachmentResources {
      * @return the attachments (note that empty list will be returned if there is none)
      * @throws SmartsheetException the smartsheet exception
      */
-    public PagedResult<Attachment> listAttachments(long sheetId, PaginationParameters parameters) throws SmartsheetException;
+    PagedResult<Attachment> listAttachments(long sheetId, PaginationParameters parameters) throws SmartsheetException;
 
     /**
      * <p>Attach a file to a sheet with simple upload.</p>
@@ -125,7 +125,7 @@ public interface SheetAttachmentResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public Attachment attachFile(long sheetId, File file, String contentType) throws FileNotFoundException, SmartsheetException;
+    Attachment attachFile(long sheetId, File file, String contentType) throws FileNotFoundException, SmartsheetException;
 
     /**
      * <p>Attach file for simple upload.</p>
@@ -138,7 +138,7 @@ public interface SheetAttachmentResources {
      * @return the attachment
      * @throws SmartsheetException the smartsheet exception
      */
-    public Attachment attachFile(long sheetId, InputStream inputStream, String contentType, long contentLength, String attachmentName) throws SmartsheetException;
+    Attachment attachFile(long sheetId, InputStream inputStream, String contentType, long contentLength, String attachmentName) throws SmartsheetException;
 
     /**
      * <p>Creates an object of AttachmentVersioningResources for access to versioning through SheetAttachmentResources.</p>
@@ -146,5 +146,5 @@ public interface SheetAttachmentResources {
      * @return the created attachment
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public AttachmentVersioningResources versioningResources() throws SmartsheetException;
+    AttachmentVersioningResources versioningResources() throws SmartsheetException;
 }

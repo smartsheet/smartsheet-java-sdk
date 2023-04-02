@@ -9,9 +9,9 @@ package com.smartsheet.api;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -54,7 +54,7 @@ public interface RowAttachmentResources{
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public Attachment attachUrl(long sheetId, long rowId, Attachment attachment) throws SmartsheetException;
+    Attachment attachUrl(long sheetId, long rowId, Attachment attachment) throws SmartsheetException;
 
     /**
      * <p>Get row attachment.</p>
@@ -76,7 +76,7 @@ public interface RowAttachmentResources{
      * rather than returning null).
      * @throws SmartsheetException the smartsheet exception
      */
-    public PagedResult<Attachment> getAttachments(long sheetId, long rowId, PaginationParameters parameters) throws SmartsheetException;
+    PagedResult<Attachment> getAttachments(long sheetId, long rowId, PaginationParameters parameters) throws SmartsheetException;
 
     /**
      * <p>Attach a file to a row with simple upload.</p>
@@ -96,7 +96,7 @@ public interface RowAttachmentResources{
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public Attachment attachFile(long sheetId, long rowId, File file, String contentType) throws FileNotFoundException, SmartsheetException;
+    Attachment attachFile(long sheetId, long rowId, File file, String contentType) throws FileNotFoundException, SmartsheetException;
 
     /**
      * <p>Attach file for simple upload.</p>
@@ -110,5 +110,5 @@ public interface RowAttachmentResources{
      * @return the attachment
      * @throws SmartsheetException the smartsheet exception
      */
-    public Attachment attachFile(long sheetId, long rowId, InputStream inputStream, String contentType, long contentLength, String attachmentName) throws SmartsheetException;
+    Attachment attachFile(long sheetId, long rowId, InputStream inputStream, String contentType, long contentLength, String attachmentName) throws SmartsheetException;
 }
