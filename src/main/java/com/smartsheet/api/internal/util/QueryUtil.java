@@ -9,9 +9,9 @@ package com.smartsheet.api.internal.util;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -20,34 +20,38 @@ package com.smartsheet.api.internal.util;
  * %[license]
  */
 
-import java.io.UnsupportedEncodingException;
+
+import org.jetbrains.annotations.Nullable;
+
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.Collection;
-import java.util.List;
 import java.util.Map;
 
 public class QueryUtil {
 
-    public QueryUtil() {}
+    private QueryUtil() {}
 
     /**
      * Returns a comma seperated list of items as a string
-     * @param list the collecion
+     * @param list the collection
      * @param <T> the type
      * @return comma separated string
      */
-    public static <T> String generateCommaSeparatedList(Collection<T> list) {
-        if (list == null || list.size() == 0) {
+    public static <T> String generateCommaSeparatedList(@Nullable Collection<T> list) {
+        if (list == null || list.isEmpty()) {
             return "";
         }
         StringBuilder result = new StringBuilder();
         for (Object obj : list) {
+            // is there a better way?
             result.append(',').append(obj.toString());
         }
-        return result.length() == 0 ? "" : result.substring(1);
+        // Remove the extra comma at the beginning
+        return result.substring(1);
     }
 
-    public static String generateUrl(String baseUrl, Map<String, Object> parameters) {
+    public static String generateUrl(@Nullable String  baseUrl, @Nullable Map<String, ? extends Object> parameters) {
         if (baseUrl == null) {
             baseUrl = "";
         }
@@ -60,21 +64,17 @@ public class QueryUtil {
      * @param parameters the map of query string keys and values
      * @return the query string
      */
-    protected static String generateQueryString(Map<String, Object> parameters) {
-        if (parameters == null || parameters.size() == 0) {
+    private static String generateQueryString(@Nullable Map<String, ? extends Object> parameters) {
+        if (parameters == null || parameters.isEmpty()) {
             return "";
         }
         StringBuilder result = new StringBuilder();
-        try {
-            for(Map.Entry<String, Object> entry : parameters.entrySet()) {
-                // Check to see if the key/value isn't null or empty string
-                if (entry.getKey() != null && (entry.getValue() != null && !entry.getValue().toString().equals(""))) {
-                    result.append('&').append(URLEncoder.encode(entry.getKey(), "utf-8")).append("=")
-                            .append(URLEncoder.encode(entry.getValue().toString(), "utf-8"));
-                }
+        for(Map.Entry<String, ? extends Object> entry : parameters.entrySet()) {
+            // Check to see if the key/value isn't null or empty string
+            if (entry.getKey() != null && (entry.getValue() != null && !entry.getValue().toString().equals(""))) {
+                result.append('&').append(URLEncoder.encode(entry.getKey(), StandardCharsets.UTF_8)).append("=")
+                        .append(URLEncoder.encode(entry.getValue().toString(), StandardCharsets.UTF_8));
             }
-        } catch (UnsupportedEncodingException e) {
-            throw new RuntimeException(e);
         }
 
         return result.length() == 0 ? "" : "?" + result.substring(1);

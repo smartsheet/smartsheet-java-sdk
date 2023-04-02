@@ -9,9 +9,9 @@ package com.smartsheet.api.internal.util;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -20,83 +20,150 @@ package com.smartsheet.api.internal.util;
  * %[license]
  */
 
-import com.smartsheet.api.models.enums.ObjectInclusion;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import java.util.EnumSet;
+import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
+import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class QueryUtilTest {
 
-    @Test
-    void testGenerateCommaSeparatedList() {
-        Set<Long> list = new HashSet<Long>();
-        list.add(123456789L);
-        list.add(987654321L);
 
-        // List
-        String commaSeparatedStringList = QueryUtil.generateCommaSeparatedList(list);
-        assertEquals("123456789,987654321", commaSeparatedStringList);
+    @Nested
+    class GenerateCommaSeparatedList {
+        @Test
+        void generateCommaSeparatedList_emptyCollection() {
+            // Act
+            String result = QueryUtil.generateCommaSeparatedList(Collections.emptySet());
 
-        // EnumSet
-        String commaSeparatedStringEnumSet = QueryUtil.generateCommaSeparatedList(EnumSet.of(ObjectInclusion.DISCUSSIONS, ObjectInclusion.ATTACHMENTS));
-        assertEquals("discussions,attachments", commaSeparatedStringEnumSet);
-
-        assertEquals("", QueryUtil.generateCommaSeparatedList(null));
-    }
-
-    @Test
-    void testGenerateUrl() {
-        assertEquals("", QueryUtil.generateUrl(null, null));
-        assertEquals("url", QueryUtil.generateUrl("url", null));
-
-        HashMap<String, Object> map = new HashMap<String, Object>();
-        map.put("param1", "1");
-        map.put("param2", "2");
-        assertEquals("?param1=1&param2=2", QueryUtil.generateUrl(null, map));
-        map.clear();
-
-        map.put("param3", null);
-        assertEquals("", QueryUtil.generateUrl(null, map));
-        map.clear();
-
-        map.put(null, null);
-        assertEquals("", QueryUtil.generateUrl(null, map));
-        map.clear();
-
-        map.put("param1", 1);
-        map.put("param2", null);
-        assertEquals("?param1=1", QueryUtil.generateUrl(null, map));
-        map.clear();
-
-        map.put("param1", 1);
-        map.put("param2", null);
-        map.put("param3", 3);
-        String[] matches1 = new String[] {"param3=3", "param1=1"};
-        for (String s : matches1)
-        {
-            assertTrue(QueryUtil.generateUrl(null, map).contains(s));
+            // Assert
+            assertThat(result).isEmpty();
         }
-        map.clear();
 
-        map.put("param1", 1);
-        map.put("param2", "");
-        assertEquals("?param1=1", QueryUtil.generateUrl(null, map));
-        map.clear();
+        @Test
+        void generateCommaSeparatedList_nullCollection() {
+            // Act
+            String result = QueryUtil.generateCommaSeparatedList(null);
 
-        map.put("param1", "");
-        map.put("param2", "");
-        assertEquals("", QueryUtil.generateUrl(null, map));
-        map.clear();
+            // Assert
+            assertThat(result).isEmpty();
+        }
 
-        map.put(null, "");
-        map.put("param2", "");
-        assertEquals("", QueryUtil.generateUrl(null, map));
-        map.clear();
+        @Test
+        void generateCommaSeparatedList_stringCollection() {
+            // Arrange
+            List<String> stringCollection = List.of("first", "second", "third");
+
+            // Act
+            String result = QueryUtil.generateCommaSeparatedList(stringCollection);
+
+            // Assert
+            assertThat(result).isEqualTo("first,second,third");
+        }
+
+        @Test
+        void generateCommaSeparatedList_longCollection() {
+            // Arrange
+            List<Long> longCollection = List.of(1L, 2L, 3L);
+
+            // Act
+            String result = QueryUtil.generateCommaSeparatedList(longCollection);
+
+            // Assert
+            assertThat(result).isEqualTo("1,2,3");
+        }
+    }
+    @Nested
+    class GenerateUrl {
+        @Test
+        void generateUrl_bothNull() {
+            // Act
+            String result = QueryUtil.generateUrl(null, null);
+
+            // Assert
+            assertThat(result).isEmpty();
+
+        }
+
+        @Test
+        void generateUrl_nullBaseUrl_withParams() {
+            // Arrange
+            Map<String, String> params = Map.of("paramOne", "valueOne", "paramTwo", "valueTwo");
+
+            // Act
+            String result = QueryUtil.generateUrl(null, params);
+
+            // Assert
+            // note: must test both orders because the map order is non-deterministic
+            assertThat(result).isIn(
+                    "?paramOne=valueOne&paramTwo=valueTwo",
+                    "?paramTwo=valueTwo&paramOne=valueOne"
+            );
+
+        }
+
+        @Test
+        void generateUrl_nullBaseUrl_emptyParams() {
+            // Act
+            String result = QueryUtil.generateUrl(null, Collections.emptyMap());
+
+            // Assert
+            assertThat(result).isEmpty();
+
+        }
+
+        @Test
+        void generateUrl_withBaseUrl_nullParams() {
+            // Act
+            String result = QueryUtil.generateUrl("baseUrl.com", null);
+
+            // Assert
+            assertThat(result).isEqualTo("baseUrl.com");
+
+        }
+
+        @Test
+        void generateUrl_withBaseUrl_withNullValueParam() {
+            // Arrange
+            Map<String, String> params = new HashMap<>();
+            params.put("paramOne", null);
+            params.put("paramTwo", "valueTwo");
+
+            // Act
+            String result = QueryUtil.generateUrl("baseUrl.com", params);
+
+            // Assert
+            assertThat(result).isEqualTo("baseUrl.com?paramTwo=valueTwo");
+        }
+
+        @Test
+        void generateUrl_withBaseUrl_withEmptyParam() {
+            // Arrange
+            Map<String, String> params = Map.of("paramOne", "", "paramTwo", "valueTwo");
+
+            // Act
+            String result = QueryUtil.generateUrl("baseUrl.com", params);
+
+            // Assert
+            assertThat(result).isEqualTo("baseUrl.com?paramTwo=valueTwo");
+        }
+
+        @Test
+        void generateUrl_withBaseUrl_withNullKeyParam() {
+            // Arrange
+            Map<String, String> params = new HashMap<>();
+            params.put(null, "valueOne");
+            params.put("paramTwo", "valueTwo");
+
+            // Act
+            String result = QueryUtil.generateUrl("baseUrl.com", params);
+
+            // Assert
+            assertThat(result).isEqualTo("baseUrl.com?paramTwo=valueTwo");
+        }
     }
 }
