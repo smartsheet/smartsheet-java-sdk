@@ -31,7 +31,8 @@ import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
-class DefaultHttpClientTest {
+// Note this is an IT test because at least one of the tests requires an internet connection
+class DefaultHttpClientIT {
     private final HttpClient client = new DefaultHttpClient();
 
     @Test
@@ -55,7 +56,8 @@ class DefaultHttpClientTest {
             // Expected
         }
 
-       // Test each http method
+        // Test each http method
+        // Note this requires an internet connection
         request.setUri(new URI("http://google.com"));
         request.setMethod(HttpMethod.GET);
         client.request(request);

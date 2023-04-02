@@ -36,10 +36,8 @@ import java.io.ByteArrayOutputStream;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
-/**
- *
- */
-class LoggingTest {
+// Note this is an IT test because at least one of the tests requires an internet connection
+class LoggingIT {
     @BeforeAll
     public static void dontFailOnUnrecongnizedFields() {
         // Setup the serializer
@@ -47,17 +45,19 @@ class LoggingTest {
     }
 
     @AfterAll
-    public static void failOnUnrecongnizedFields() {
+    public static void failOnUnrecognizedFields() {
         // Setup the serializer
         JacksonJsonSerializer.setFailOnUnknownProperties(true);    // put it back the way we found it
     }
 
-    public void testConsoleLogging() throws Exception {
+    @Test
+    void testConsoleLogging() {
         ByteArrayOutputStream traceStream = new ByteArrayOutputStream();
         DefaultHttpClient.setTraceStream(traceStream);
         Smartsheet client = new SmartsheetBuilder().build();
         client.setTraces(Trace.Request, Trace.Response);    // should log entire request and response
         try {
+            // Note this requires an internet connection
             Sheet sheet = client.sheetResources().getSheet(42, null, null, null, null, null, 1, 1);
           fail("expected SmartsheetException");
         } catch (SmartsheetException expected) {
@@ -73,12 +73,13 @@ class LoggingTest {
     }
 
     @Test
-    void testCustomLogging() throws Exception {
+    void testCustomLogging() {
         ByteArrayOutputStream traceStream = new ByteArrayOutputStream();
         DefaultHttpClient.setTraceStream(traceStream);
         Smartsheet client = new SmartsheetBuilder().setAccessToken("ll352u9jujauoqz4gstvsae05").build(); // using "null" as token results in NPE
         client.setTraces(Trace.Request, Trace.Response);    // should log entire request and response
         try {
+            // Note this requires an internet connection
             Sheet sheet = client.sheetResources().getSheet(42, null, null, null, null, null, 1, 1);
           fail("expected SmartsheetException");
         } catch (SmartsheetException expected) {
