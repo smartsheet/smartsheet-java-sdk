@@ -9,9 +9,9 @@ package com.smartsheet.api.internal;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -71,7 +71,7 @@ class GroupResourcesImplTest extends ResourcesImplBase {
     void testGetGroupById() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/getGroup.json"));
 
-        Group group =  groupResources.getGroup(123l);
+        Group group =  groupResources.getGroup(123L);
         assertNotNull(group.getId());
         assertNotNull(group.getName());
         assertNotNull(group.getOwner());
@@ -146,7 +146,7 @@ class GroupResourcesImplTest extends ResourcesImplBase {
     @Test
     void testDeleteGroup() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/deleteGroup.json"));
-        groupResources.deleteGroup(1234l);
+        groupResources.deleteGroup(1234L);
     }
 
     @Test
@@ -155,7 +155,7 @@ class GroupResourcesImplTest extends ResourcesImplBase {
         List<GroupMember> newMembers = new ArrayList<GroupMember>();
         newMembers.add(new GroupMember.AddGroupMemberBuilder().setEmail("test3@test.com").build());
         newMembers.add(new GroupMember.AddGroupMemberBuilder().setEmail("test4@test.com").build());
-        List<GroupMember> addedMembers = groupResources.memberResources().addGroupMembers(1234l, newMembers);
+        List<GroupMember> addedMembers = groupResources.memberResources().addGroupMembers(1234L, newMembers);
         assertTrue(addedMembers.size() > 0);
 
         for(GroupMember member : addedMembers) {
@@ -166,6 +166,6 @@ class GroupResourcesImplTest extends ResourcesImplBase {
     @Test
     void testRemoveMemberFromGroup() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/deleteMemberFromGroup.json"));
-        groupResources.memberResources().deleteGroupMember(1234l, 1234l);
+        groupResources.memberResources().deleteGroupMember(1234L, 1234L);
     }
 }
