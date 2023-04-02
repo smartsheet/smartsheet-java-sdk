@@ -9,9 +9,9 @@ package com.smartsheet.api.internal.oauth;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -50,7 +50,8 @@ import java.util.EnumSet;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
-class OAuthFlowImplTest {
+// Note this is an IT test because at least one of the tests requires an internet connection
+class OAuthFlowImplIT {
 
     OAuthFlowImpl oauth;
     String clientId = "clientID";
@@ -195,9 +196,8 @@ class OAuthFlowImplTest {
 
 
     @Test
-    void testRefreshToken() throws InvalidRequestException, NoSuchAlgorithmException,
-        UnsupportedEncodingException, OAuthTokenException, JSONSerializerException, HttpClientException,
-        URISyntaxException {
+    void testRefreshToken() throws Exception {
+        // Note this requires an internet connection
         oauth.setTokenURL("https://api.smartsheet.com/1.1/token");
 
         Token token = new Token();
@@ -219,9 +219,8 @@ class OAuthFlowImplTest {
     }
 
     @Test
-    void testRevokeAccessToken() throws InvalidRequestException, NoSuchAlgorithmException,
-            UnsupportedEncodingException, OAuthTokenException, JSONSerializerException, HttpClientException,
-            URISyntaxException {
+    void testRevokeAccessToken() throws Exception {
+        // note this requires internet connection
         oauth.setTokenURL("https://api.smartsheet.com/1.1/token");
 
         Token token = new Token();
