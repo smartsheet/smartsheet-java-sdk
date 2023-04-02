@@ -4,7 +4,7 @@ package com.smartsheet.api.models;
  * #[license]
  * Smartsheet Java SDK
  * %%
- * Copyright (C) 2014 - 2015 Smartsheet
+ * Copyright (C) 2023 Smartsheet
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -77,13 +77,13 @@ public class SheetUserSettings {
 
     /**
      * True if the user has display summary tasks enabled
-     * 
+     *
      * @return displaySummaryTasks
      */
     public Boolean isDisplaySummaryTasksEnabled() {
         return displaySummaryTasks;
     }
-    
+
     /**
      * Sets the value for display summary tasks.
      *
@@ -93,7 +93,7 @@ public class SheetUserSettings {
         this.displaySummaryTasks = displaySummaryTasks;
         return this;
     }
-    
+
     /**
      * The Class AddUserSettingsBuilder.
      */
@@ -102,7 +102,7 @@ public class SheetUserSettings {
          * Identifies if the user has critical path enabled.
          */
         private Boolean criticalPathEnabled;
-        
+
         /**
          * Identifies if the user has display summary tasks enabled.
          */
@@ -119,13 +119,13 @@ public class SheetUserSettings {
 
         /**
          * True if the user has display summary tasks enabled
-         * 
+         *
          * @return displaySummaryTasks;
          */
         public Boolean isDisplaySummaryTasksEnabled() {
             return displaySummaryTasks;
         }
-        
+
         /**
          * Sets the value for critical path enabled.
          *
@@ -139,7 +139,7 @@ public class SheetUserSettings {
 
         /**
          * Sets the value for display summary tasks.
-         * 
+         *
          * @param displaySummaryTasks
          * @return the builder
          */
@@ -147,7 +147,7 @@ public class SheetUserSettings {
             this.displaySummaryTasks = displaySummaryTasks;
             return this;
         }
-        
+
         public SheetUserSettings build() {
             SheetUserSettings sheetUserSettings = new SheetUserSettings();
             sheetUserSettings.criticalPathEnabled = criticalPathEnabled;

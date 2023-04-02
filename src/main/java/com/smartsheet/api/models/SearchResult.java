@@ -4,7 +4,7 @@ package com.smartsheet.api.models;
  * #[license]
  * Smartsheet SDK for Java
  * %%
- * Copyright (C) 2014 Smartsheet
+ * Copyright (C) 2023 Smartsheet
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,7 +24,7 @@ import java.util.List;
 
 /**
  * Represents the results of a search.
- * @see <a href="http://help.smartsheet.com/customer/portal/articles/522231-searching-in-smartsheet">Help Searching in 
+ * @see <a href="http://help.smartsheet.com/customer/portal/articles/522231-searching-in-smartsheet">Help Searching in
  * Smartsheet</a>
  */
 public class SearchResult {

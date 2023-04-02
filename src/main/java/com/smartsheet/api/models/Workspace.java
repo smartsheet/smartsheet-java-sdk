@@ -4,7 +4,7 @@ package com.smartsheet.api.models;
  * #[license]
  * Smartsheet SDK for Java
  * %%
- * Copyright (C) 2014 Smartsheet
+ * Copyright (C) 2023 Smartsheet
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,9 +23,9 @@ package com.smartsheet.api.models;
 import com.smartsheet.api.models.enums.AccessLevel;
 
 /**
- * Represents the Workspace object which is an area in which sheets, reports, templates and sub-folders can be 
+ * Represents the Workspace object which is an area in which sheets, reports, templates and sub-folders can be
  * organized, similar to a folder.
- * @see <a href="http://help.smartsheet.com/customer/portal/articles/506687-creating-a-workspace">Help Creating a 
+ * @see <a href="http://help.smartsheet.com/customer/portal/articles/506687-creating-a-workspace">Help Creating a
  * Workspace</a>
  */
 public class Workspace extends Folder {

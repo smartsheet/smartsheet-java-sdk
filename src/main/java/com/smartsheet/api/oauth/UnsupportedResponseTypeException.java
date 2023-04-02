@@ -4,7 +4,7 @@ package com.smartsheet.api.oauth;
  * #[license]
  * Smartsheet SDK for Java
  * %%
- * Copyright (C) 2014 Smartsheet
+ * Copyright (C) 2023 Smartsheet
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,7 +25,7 @@ package com.smartsheet.api.oauth;
 /**
  * <p>This is the exception thrown by {@link OAuthFlow} to indicate "unsupported_response_type" error occurred when obtaining
  * an authorization code.</p>
- * 
+ *
  * <p>Thread safety: Exceptions are not thread safe.</p>
  */
 public class UnsupportedResponseTypeException extends OAuthAuthorizationCodeException {
