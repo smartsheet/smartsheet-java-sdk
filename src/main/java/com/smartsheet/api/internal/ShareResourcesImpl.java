@@ -74,7 +74,6 @@ public class ShareResourcesImpl extends AbstractAssociatedResources implements S
      *
      * @param objectId the id of the object to share.
      * @param pagination the pagination parameters
-     * @param includeWorkspaceShares include workspace shares in enumeration
      * @return the shares (note that empty list will be returned if there is none)
      * @throws SmartsheetException the smartsheet exception
      */

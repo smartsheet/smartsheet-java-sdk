@@ -286,7 +286,7 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
      *   - SmartsheetException : if there is any other error occurred during the operation
      *
      * @param id the ID of the report
-     * @param publish the ReportPublish object
+     * @param reportPublish the ReportPublish object
      * @return the updated ReportPublish (note that if there is no such resource, this method will
      *     throw ResourceNotFoundException rather than returning null)
      * @throws IllegalArgumentException if any argument is null or empty string
