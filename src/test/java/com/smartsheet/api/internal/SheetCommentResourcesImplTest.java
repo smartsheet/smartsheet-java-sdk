@@ -28,8 +28,7 @@ import org.junit.jupiter.api.Test;
 import java.io.File;
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class SheetCommentResourcesImplTest extends ResourcesImplBase {
     private SheetCommentResourcesImpl sheetCommentResources;
@@ -44,15 +43,15 @@ class SheetCommentResourcesImplTest extends ResourcesImplBase {
         server.setResponseBody(new File("src/test/resources/getComment.json"));
 
         Comment comment = sheetCommentResources.getComment(1234L, 1245L);
-        assertEquals(3831661625403268L, comment.getId().longValue());
-        assertEquals("This text is the body of the first comment", comment.getText());
-        assertEquals("Brett Batie",comment.getCreatedBy().getName());
-        assertEquals("email@email.com", comment.getCreatedBy().getEmail());
+        assertThat(comment.getId().longValue()).isEqualTo(3831661625403268L);
+        assertThat(comment.getText()).isEqualTo("This text is the body of the first comment");
+        assertThat(comment.getCreatedBy().getName()).isEqualTo("Brett Batie");
+        assertThat(comment.getCreatedBy().getEmail()).isEqualTo("email@email.com");
 
         // Test equals method
         Comment newComment = new Comment();
         newComment.setId(3831661625403268L);
-        assertTrue(comment.hashCode() == newComment.hashCode());
+        assertThat(newComment).hasSameHashCodeAs(comment);
     }
 
     @Test

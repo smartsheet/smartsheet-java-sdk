@@ -23,18 +23,17 @@ package com.smartsheet.api.models;
 import com.smartsheet.api.models.enums.AccessLevel;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class AccessLevelTest {
 
     @Test
     void test() {
-        assertNotNull(AccessLevel.valueOf("VIEWER"));
-        assertNotNull(AccessLevel.valueOf("EDITOR"));
-        assertNotNull(AccessLevel.valueOf("EDITOR_SHARE"));
-        assertNotNull(AccessLevel.valueOf("ADMIN"));
-        assertNotNull(AccessLevel.valueOf("OWNER"));
-        assertEquals(5,AccessLevel.values().length);
+        assertThat(AccessLevel.valueOf("VIEWER")).isNotNull();
+        assertThat(AccessLevel.valueOf("EDITOR")).isNotNull();
+        assertThat(AccessLevel.valueOf("EDITOR_SHARE")).isNotNull();
+        assertThat(AccessLevel.valueOf("ADMIN")).isNotNull();
+        assertThat(AccessLevel.valueOf("OWNER")).isNotNull();
+        assertThat(AccessLevel.values()).hasSize(5);
     }
 }

@@ -33,8 +33,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class UserResourcesIT extends ITResourcesImpl{
     Smartsheet smartsheet;
@@ -49,13 +48,13 @@ public class UserResourcesIT extends ITResourcesImpl{
     void testGetCurrentUser() throws SmartsheetException, IOException {
         UserProfile user = smartsheet.userResources().getCurrentUser();
         Account account = user.getAccount();
-        assertNotNull(user);
+        assertThat(user).isNotNull();
     }
 
     @Test
     void testGetUser() throws SmartsheetException, IOException {
         UserProfile user = smartsheet.userResources().getUser(smartsheet.userResources().getCurrentUser().getId());
-        assertNotNull(user);
+        assertThat(user).isNotNull();
     }
 
     @Test
@@ -71,13 +70,13 @@ public class UserResourcesIT extends ITResourcesImpl{
     @Test
     void testAddProfileImage() throws SmartsheetException, IOException {
         UserProfile me = smartsheet.userResources().getCurrentUser();
-        assertNotNull(me);
+        assertThat(me).isNotNull();
         smartsheet.userResources().addProfileImage(me.getId(), "src/integration-test/resources/exclam.png", "image/png");
         me = smartsheet.userResources().getCurrentUser();
-        assertNotNull(me.getProfileImage());
+        assertThat(me.getProfileImage()).isNotNull();
         final Long squareProfileImageSize = 1050L;
-        assertEquals(squareProfileImageSize, me.getProfileImage().getWidth());
-        assertEquals(squareProfileImageSize, me.getProfileImage().getHeight());
+        assertThat(me.getProfileImage().getWidth()).isEqualTo(squareProfileImageSize);
+        assertThat(me.getProfileImage().getHeight()).isEqualTo(squareProfileImageSize);
     }
 
     @Test
@@ -94,14 +93,14 @@ public class UserResourcesIT extends ITResourcesImpl{
     public void testUpdateUser(long userId) throws SmartsheetException, IOException {
 //        User user = new User.UpdateUserBuilder().setAdmin(true).setUserId(userId).setFirstName("Adi").setLicensedSheetCreator(true).build();
 //        User updatedUser = smartsheet.userResources().updateUser(user);
-//        assertNotNull(updatedUser);
+//        assertThat(updatedUser).isNotNull();
     }
 
     @Test
     void testListOrgSheets() throws SmartsheetException, IOException {
         //PagedResult<Sheet> sheets = smartsheet.userResources().listOrgSheets();
         //not executed in test due to low permission
-        //assertNotNull(sheets);
+        //assertThat(sheets).isNotNull();
     }
 
     @Test

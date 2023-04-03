@@ -34,9 +34,7 @@ import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class ColumnResourcesIT extends ITResourcesImpl{
     Smartsheet smartsheet;
@@ -72,13 +70,13 @@ public class ColumnResourcesIT extends ITResourcesImpl{
 
         //add columns
         List<Column> addedColumns = smartsheet.sheetResources().columnResources().addColumns(newSheet.getId(), Arrays.asList(column1, column2, column3));
-        assertEquals(3, addedColumns.size());
+        assertThat(addedColumns).hasSize(3);
     }
 
     public void testGetColumn() throws SmartsheetException, IOException {
         Column newColumn = smartsheet.sheetResources().columnResources().getColumn(newSheet.getId(), addedColumn.getId(), EnumSet.allOf(ColumnInclusion.class));
         Column newColumn1 = smartsheet.sheetResources().columnResources().getColumn(newSheet.getId(), addedColumn.getId(), null);
-        assertNotNull(newColumn);
+        assertThat(newColumn).isNotNull();
     }
 
     public void testListColumns() throws SmartsheetException, IOException {
@@ -89,27 +87,27 @@ public class ColumnResourcesIT extends ITResourcesImpl{
 
         List<Column> columns = wrapper.getData();
         addedColumn = columns.get(2);
-        assertNotNull(columns);
+        assertThat(columns).isNotNull();
     }
 
     public void testUpdateColumn() throws SmartsheetException, IOException {
         Column column1 = new Column.UpdateColumnBuilder().setColumnId(addedColumn.getId()).setTitle("First Column").setIndex(0).setType(ColumnType.PICKLIST).setOptions(Arrays.asList("One", "Two")).build();
         Column updatedColumn = smartsheet.sheetResources().columnResources().updateColumn(newSheet.getId(), column1);
 
-        assertNotNull(updatedColumn);
+        assertThat(updatedColumn).isNotNull();
     }
 
     public void testColumnFormula() throws SmartsheetException {
         Column col = new Column.AddColumnToSheetBuilder().setIndex(0).setTitle("colFormula").setType(ColumnType.DATE).build();
         col.setFormula("=TODAY()");
         List<Column> cols = smartsheet.sheetResources().columnResources().addColumns(newSheet.getId(), Arrays.asList(col));
-        assertEquals(1, cols.size());
-        assertNotNull(cols.get(0).getFormula());
+        assertThat(cols).hasSize(1);
+        assertThat(cols.get(0).getFormula()).isNotNull();
 
         col.setFormula("");
         col.setId(cols.get(0).getId());
         Column updateColumn = smartsheet.sheetResources().columnResources().updateColumn(newSheet.getId(), col);
-        assertNull(updateColumn.getFormula());
+        assertThat(updateColumn.getFormula()).isNull();
     }
 
     public void testDeleteColumn() throws SmartsheetException, IOException {

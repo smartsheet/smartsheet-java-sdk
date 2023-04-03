@@ -28,7 +28,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  *
@@ -48,13 +48,13 @@ class StreamUtilTest {
             System.out.println("same stream returned (reset)");
             // verify readBytesFromStream gets everything from the inputStream (it also verifies cloneContent resets the source)
             byte[] streamBytes = StreamUtil.readBytesFromStream(inputStream);
-           assertArrayEquals(testBytes, streamBytes); // it's all US-ASCII so it should match UTF-8 bytes
+           assertThat(streamBytes).containsExactly(testBytes); // it's all US-ASCII so it should match UTF-8 bytes
         } else {
             System.out.println("new stream returned");
             byte[] backupBytes = StreamUtil.readBytesFromStream(backupStream);
-          assertArrayEquals(testBytes, backupBytes);
+          assertThat(backupBytes).containsExactly(testBytes);
         }
 
-      assertArrayEquals(testBytes, copyStream.toByteArray());
+      assertThat(copyStream.toByteArray()).containsExactly(testBytes);
     }
 }

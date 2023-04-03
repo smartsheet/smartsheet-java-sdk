@@ -29,8 +29,7 @@ import org.junit.jupiter.api.Test;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class EventResourcesIT extends ITResourcesImpl{
     Smartsheet smartsheet;
@@ -48,31 +47,33 @@ public class EventResourcesIT extends ITResourcesImpl{
 
         Date lastHour = new Date(System.currentTimeMillis() - TimeUnit.HOURS.toMillis(1));
         EventResult eventResult = smartsheet.eventResources().listEvents(lastHour, null, 10, false);
-        assertTrue(eventResult.getData().size() <= 10);
+        assertThat(eventResult.getData()).hasSizeGreaterThanOrEqualTo(10);
         for (Event event: eventResult.getData()) {
-            assertNotNull(event.getObjectType());
-            assertNotNull(event.getAction());
-            assertNotNull(event.getObjectId());
-            assertNotNull(event.getEventId());
-            assertTrue(event.getEventTimestamp() instanceof Date);
-            assertNotNull(event.getUserId());
-            assertNotNull(event.getRequestUserId());
-            assertNotNull(event.getSource());
+            assertThat(event.getObjectType()).isNotNull();
+            assertThat(event.getAction()).isNotNull();
+            assertThat(event.getObjectId()).isNotNull();
+            assertThat(event.getEventId()).isNotNull();
+            assertThat(event.getEventTimestamp()).isInstanceOf(Date.class);
+            assertThat(event.getUserId()).isNotNull();
+            assertThat(event.getRequestUserId()).isNotNull();
+            assertThat(event.getSource()).isNotNull();
         }
 
         while(eventResult.getMoreAvailable()) {
             eventResult = smartsheet.eventResources().listEvents(null, eventResult.getNextStreamPosition(), 10, true);
-            assertTrue(eventResult.getData().size() != 0);
-            assertTrue(eventResult.getData().size() <= 10);
+            assertThat(eventResult.getData())
+                    .isNotEmpty()
+                    .hasSizeLessThanOrEqualTo(10);
+
             for (Event event: eventResult.getData()) {
-                assertNotNull(event.getObjectType());
-                assertNotNull(event.getAction());
-                assertNotNull(event.getObjectId());
-                assertNotNull(event.getEventId());
-                assertTrue(event.getEventTimestamp() instanceof Long);
-                assertNotNull(event.getUserId());
-                assertNotNull(event.getRequestUserId());
-                assertNotNull(event.getSource());
+                assertThat(event.getObjectType()).isNotNull();
+                assertThat(event.getAction()).isNotNull();
+                assertThat(event.getObjectId()).isNotNull();
+                assertThat(event.getEventId()).isNotNull();
+                assertThat(event.getEventTimestamp()).isInstanceOf(Long.class);
+                assertThat(event.getUserId()).isNotNull();
+                assertThat(event.getRequestUserId()).isNotNull();
+                assertThat(event.getSource()).isNotNull();
             }
         }
     }
@@ -81,12 +82,10 @@ public class EventResourcesIT extends ITResourcesImpl{
     void testInvalidParams() {
         try {
             EventResult eventResult = smartsheet.eventResources().listEvents(0, "2.1.0An4ZapaQaOXPdojlmediSZ1WqMdi5U_3l9gViOW7ic", 10, null);
-            assertTrue(true);
         } catch (SmartsheetException e) { }
 
         try {
             EventResult eventResult = smartsheet.eventResources().listEvents(new Date(), null, 10, true);
-            assertTrue(true);
         } catch (SmartsheetException e) { }
     }
 }

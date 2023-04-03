@@ -9,9 +9,9 @@ package com.smartsheet.api.internal;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
+ * 
  *      http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -39,8 +39,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class UserResourcesImplTest extends ResourcesImplBase {
 
@@ -63,22 +62,22 @@ class UserResourcesImplTest extends ResourcesImplBase {
         pagination.setPage(1);
 
         PagedResult<User> userWrapper1 = userResources.listUsers();
-        assertEquals(2, userWrapper1.getData().size());
+        assertThat(userWrapper1.getData()).hasSize(2);
 
         PagedResult<User> userWrapper = userResources.listUsers(email, pagination);
-        assertTrue(userWrapper.getPageNumber() == 1);
-        assertTrue(userWrapper.getPageSize() == 100);
-        assertTrue(userWrapper.getTotalCount() == 418);
-        assertTrue(userWrapper.getTotalPages() == 5);
+        assertThat(userWrapper.getPageNumber()).isEqualTo(1);
+        assertThat(userWrapper.getPageSize()).isEqualTo(100);
+        assertThat(userWrapper.getTotalCount()).isEqualTo(418);
+        assertThat(userWrapper.getTotalPages()).isEqualTo(5);
 
         List<User> users = userWrapper.getData();
-        assertEquals(2, users.size());
-        assertEquals(242165701390534L, users.get(0).getId().longValue());
-        assertEquals(false, users.get(0).getAdmin());
-        assertEquals("test@smartsheet.com", users.get(0).getEmail());
-        assertEquals("John Doe", users.get(0). getName());
-        assertEquals(true, users.get(0).getLicensedSheetCreator());
-        assertEquals(UserStatus.ACTIVE, users.get(0).getStatus());
+        assertThat(users).hasSize(2);
+        assertThat(users.get(0).getId().longValue()).isEqualTo(242165701390534L);
+        assertThat(users.get(0).getAdmin()).isFalse();
+        assertThat(users.get(0).getEmail()).isEqualTo("test@smartsheet.com");
+        assertThat(users.get(0). getName()).isEqualTo("John Doe");
+        assertThat(users.get(0).getLicensedSheetCreator()).isTrue();
+        assertThat(users.get(0).getStatus()).isEqualTo(UserStatus.ACTIVE);
     }
 
     @Test
@@ -93,11 +92,11 @@ class UserResourcesImplTest extends ResourcesImplBase {
         user.setLicensedSheetCreator(true);
         User newUser = userResources.addUser(user);
 
-        assertEquals("test@test.com", newUser.getEmail());
-        assertEquals("test425 test425", newUser.getName());
-        assertEquals(false, newUser.getAdmin());
-        assertEquals(true, newUser.getLicensedSheetCreator());
-        assertEquals(3210982882338692L, newUser.getId().longValue());
+        assertThat(newUser.getEmail()).isEqualTo("test@test.com");
+        assertThat(newUser.getName()).isEqualTo("test425 test425");
+        assertThat(newUser.getAdmin()).isFalse();
+        assertThat(newUser.getLicensedSheetCreator()).isTrue();
+        assertThat(newUser.getId().longValue()).isEqualTo(3210982882338692L);
     }
 
     @Test
@@ -112,11 +111,11 @@ class UserResourcesImplTest extends ResourcesImplBase {
         user.setLicensedSheetCreator(true);
         User newUser = userResources.addUser(user, false);
 
-        assertEquals("test@test.com", newUser.getEmail());
-        assertEquals("test425 test425", newUser.getName());
-        assertEquals(false, newUser.getAdmin());
-        assertEquals(true, newUser.getLicensedSheetCreator());
-        assertEquals(3210982882338692L, newUser.getId().longValue());
+        assertThat(newUser.getEmail()).isEqualTo("test@test.com");
+        assertThat(newUser.getName()).isEqualTo("test425 test425");
+        assertThat(newUser.getAdmin()).isFalse();
+        assertThat(newUser.getLicensedSheetCreator()).isTrue();
+        assertThat(newUser.getId().longValue()).isEqualTo(3210982882338692L);
     }
 
     @Test
@@ -124,12 +123,12 @@ class UserResourcesImplTest extends ResourcesImplBase {
         server.setResponseBody(new File("src/test/resources/getUser.json"));
 
         UserProfile user = userResources.getUser(12345L);
-        assertEquals("john.doe@smartsheet.com",user.getEmail());
-        assertEquals(48569348493401200L, user.getId().longValue());
-        assertEquals("John", user.getFirstName());
-        assertEquals("Doe", user.getLastName());
-        assertEquals("en_US", user.getLocale());
-        assertEquals("US/Pacific", user.getTimeZone());
+        assertThat(user.getEmail()).isEqualTo("john.doe@smartsheet.com");
+        assertThat(user.getId().longValue()).isEqualTo(48569348493401200L);
+        assertThat(user.getFirstName()).isEqualTo("John");
+        assertThat(user.getLastName()).isEqualTo("Doe");
+        assertThat(user.getLocale()).isEqualTo("en_US");
+        assertThat(user.getTimeZone()).isEqualTo("US/Pacific");
     }
 
     @Test
@@ -137,16 +136,16 @@ class UserResourcesImplTest extends ResourcesImplBase {
         server.setResponseBody(new File("src/test/resources/getCurrentUser.json"));
 
         UserProfile user = userResources.getCurrentUser();
-        assertEquals("test@smartsheet.com",user.getEmail());
-        assertEquals(2222222222L, user.getId().longValue());
-        assertEquals("John", user.getFirstName());
-        assertEquals("Doe", user.getLastName());
-        assertEquals("en_US", user.getLocale());
-        assertEquals("US/Pacific", user.getTimeZone());
+        assertThat(user.getEmail()).isEqualTo("test@smartsheet.com");
+        assertThat(user.getId().longValue()).isEqualTo(2222222222L);
+        assertThat(user.getFirstName()).isEqualTo("John");
+        assertThat(user.getLastName()).isEqualTo("Doe");
+        assertThat(user.getLocale()).isEqualTo("en_US");
+        assertThat(user.getTimeZone()).isEqualTo("US/Pacific");
 
         Account account = user.getAccount();
-        assertEquals("Smartsheet", account.getName());
-        assertEquals(111111111111L, account.getId().longValue());
+        assertThat(account.getName()).isEqualTo("Smartsheet");
+        assertThat(account.getId().longValue()).isEqualTo(111111111111L);
     }
 
     @Test
@@ -158,11 +157,11 @@ class UserResourcesImplTest extends ResourcesImplBase {
         user.setAdmin(true);
         user.setLicensedSheetCreator(true);
         User updatedUser = userResources.updateUser(user);
-        assertEquals("email@email.com", updatedUser.getEmail());
-        assertEquals(false, updatedUser.getAdmin());
-        assertEquals(true, updatedUser.getLicensedSheetCreator());
-        assertEquals(8166691168380804L, updatedUser.getId().longValue());
-        assertEquals(UserStatus.ACTIVE, updatedUser.getStatus());
+        assertThat(updatedUser.getEmail()).isEqualTo("email@email.com");
+        assertThat(updatedUser.getAdmin()).isFalse();
+        assertThat(updatedUser.getLicensedSheetCreator()).isTrue();
+        assertThat(updatedUser.getId().longValue()).isEqualTo(8166691168380804L);
+        assertThat(updatedUser.getStatus()).isEqualTo(UserStatus.ACTIVE);
     }
 
     @Test

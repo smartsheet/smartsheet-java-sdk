@@ -35,8 +35,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class FavoriteResourcesIT extends ITResourcesImpl{
     Smartsheet smartsheet;
@@ -53,7 +52,7 @@ public class FavoriteResourcesIT extends ITResourcesImpl{
 
         List<Favorite> favoritesToAdd = new Favorite.AddFavoriteBuilder().addFavorite(sheet.getId(), FavoriteType.SHEET).addFavorite(folder.getId(), FavoriteType.FOLDER).build();
         List < Favorite > addedfavorites = smartsheet.favoriteResources().addFavorites(favoritesToAdd);
-        assertEquals(2, addedfavorites.size());
+        assertThat(addedfavorites).hasSize(2);
         deleteFolder(folder.getId());
         deleteSheet(sheet.getId());
     }
@@ -62,7 +61,7 @@ public class FavoriteResourcesIT extends ITResourcesImpl{
     void testListFavorites() throws SmartsheetException {
         PaginationParameters parameters = new PaginationParameters.PaginationParametersBuilder().setIncludeAll(true).build();
         PagedResult<Favorite> favorites = smartsheet.favoriteResources().listFavorites(parameters);
-        assertNotNull(favorites);
+        assertThat(favorites).isNotNull();
     }
 
     @Test
@@ -74,7 +73,7 @@ public class FavoriteResourcesIT extends ITResourcesImpl{
         smartsheet.favoriteResources().addFavorites(new Favorite.AddFavoriteBuilder().addFavorite(folder1.getId(), FavoriteType.FOLDER).addFavorite(folder2.getId(), FavoriteType.FOLDER).build());
 
         smartsheet.favoriteResources().removeFavorites(FavoriteType.FOLDER, new HashSet(Arrays.asList(folder1.getId())));
-        //assertNotNull(smartsheet.favoriteResources().listFavorites(null));
+        //assertThat(smartsheet.favoriteResources().listFavorites(null)).isNotNull();
 
         //clean up
         deleteFolder(folder1.getId());

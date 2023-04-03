@@ -23,9 +23,7 @@ package com.smartsheet.api.internal.util;
 import com.smartsheet.api.models.DeleteUserParameters;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class DeleteUserParametersTest {
 
@@ -36,14 +34,14 @@ class DeleteUserParametersTest {
         parameters.setTransferSheets(true);
         parameters.setRemoveFromSharing(true);
 
-        assertEquals(12345, parameters.getTransferToId().longValue());
-        assertTrue(parameters.isTransferSheets());
-        assertTrue(parameters.isRemoveFromSharing());
+        assertThat(parameters.getTransferToId().longValue()).isEqualTo(12345);
+        assertThat(parameters.isTransferSheets()).isTrue();
+        assertThat(parameters.isRemoveFromSharing()).isTrue();
 
         DeleteUserParameters parameters2 = new DeleteUserParameters(6789L, false, false);
-        assertEquals(6789, parameters2.getTransferToId().longValue());
-        assertFalse(parameters2.isTransferSheets());
-        assertFalse(parameters2.isRemoveFromSharing());
+        assertThat(parameters2.getTransferToId().longValue()).isEqualTo(6789);
+        assertThat(parameters2.isTransferSheets()).isFalse();
+        assertThat(parameters2.isRemoveFromSharing()).isFalse();
     }
 
     @Test
@@ -52,20 +50,20 @@ class DeleteUserParametersTest {
         String[] matches1 = new String[] {"transferSheets=true", "removeFromSharing=true", "transferTo=12345"};
         for (String s : matches1)
         {
-            assertTrue(parameters.toQueryString().contains(s));
+            assertThat(parameters.toQueryString()).contains(s);
         }
 
         DeleteUserParameters parameters2 = new DeleteUserParameters(null, true, true);
         String[] matches2 = new String[] {"transferSheets=true", "removeFromSharing=true"};
         for (String s : matches2)
         {
-            assertTrue(parameters2.toQueryString().contains(s));
+            assertThat(parameters2.toQueryString()).contains(s);
         }
 
         DeleteUserParameters parameters3 = new DeleteUserParameters(null, null, true);
-        assertEquals("?removeFromSharing=true", parameters3.toQueryString());
+        assertThat(parameters3.toQueryString()).isEqualTo("?removeFromSharing=true");
 
         DeleteUserParameters parameters4 = new DeleteUserParameters(null, null, null);
-        assertEquals("", parameters4.toQueryString());
+        assertThat(parameters4.toQueryString()).isEmpty();
     }
 }

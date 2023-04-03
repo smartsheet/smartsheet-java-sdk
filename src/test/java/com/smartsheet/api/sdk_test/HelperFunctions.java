@@ -37,7 +37,9 @@ class HelperFunctions {
 
 		return ss;
 	}
-	public static void ExceptionMessage(String message, Throwable cause){
+
+	// Todo: fix this... there is no point of this logging
+	public static void ExceptionMessage(String message, Throwable cause) {
 		fail(String.format("Exception: %s Detail: %s", message, cause));
 	}
 }

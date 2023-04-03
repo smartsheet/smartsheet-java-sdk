@@ -23,7 +23,7 @@ package com.smartsheet.api;
 import com.smartsheet.api.models.Error;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class ServiceUnavailableExceptionTest {
 
@@ -35,8 +35,8 @@ class ServiceUnavailableExceptionTest {
             error.setMessage("testing testing");
             throw new ServiceUnavailableException(error);
         }catch(ServiceUnavailableException e){
-            assertEquals("testing testing",e.getMessage());
-            assertEquals(1, e.getErrorCode());
+            assertThat(e.getMessage()).isEqualTo("testing testing");
+            assertThat(e.getErrorCode()).isEqualTo(1);
         }
     }
 

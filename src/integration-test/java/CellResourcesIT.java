@@ -34,7 +34,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class CellResourcesIT extends ITResourcesImpl{
     Smartsheet smartsheet;
@@ -56,7 +56,7 @@ public class CellResourcesIT extends ITResourcesImpl{
         Row row = addRows(sheet.getId());
 
         PagedResult<CellHistory> cellHistory= smartsheet.sheetResources().rowResources().cellResources().getCellHistory(sheet.getId(), row.getId() ,columns.getData().get(0).getId(), parameters);
-        assertNotNull(cellHistory);
+        assertThat(cellHistory).isNotNull();
 
         //cleanup
         deleteSheet(sheet.getId());

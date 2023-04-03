@@ -31,9 +31,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class SearchResourcesImplTest  extends ResourcesImplBase  {
 
@@ -50,15 +49,14 @@ class SearchResourcesImplTest  extends ResourcesImplBase  {
         server.setResponseBody(new File("src/test/resources/search.json"));
 
         SearchResult result = searchResources.search("brett");
-        assertNotNull(result.getResults());
+        assertThat(result.getResults()).isNotNull();
         List<SearchResultItem> results = result.getResults();
-        assertNotNull(results);
-        assertEquals(50, results.size());
-        assertEquals(50, result.getTotalCount().intValue());
-        assertEquals("Brett Task Sheet", results.get(0).getText());
-        assertEquals("sheet", results.get(0).getObjectType());
-        assertEquals(714377448974212L, results.get(0).getObjectId().longValue());
-        assertEquals("Platform / Team", results.get(0).getContextData().get(0));
+        assertThat(results).isNotNull().hasSize(50);
+        assertThat(result.getTotalCount().intValue()).isEqualTo(50);
+        assertThat(results.get(0).getText()).isEqualTo("Brett Task Sheet");
+        assertThat(results.get(0).getObjectType()).isEqualTo("sheet");
+        assertThat(results.get(0).getObjectId().longValue()).isEqualTo(714377448974212L);
+        assertThat(results.get(0).getContextData().get(0)).isEqualTo("Platform / Team");
     }
 
     @Test
@@ -66,36 +64,40 @@ class SearchResourcesImplTest  extends ResourcesImplBase  {
         server.setResponseBody(new File("src/test/resources/searchSheet.json"));
 
         SearchResult searchSheet = searchResources.searchSheet(1234L, "java");
-        assertNotNull(searchSheet);
+        assertThat(searchSheet).isNotNull();
         List<SearchResultItem> results = searchSheet.getResults();
-        assertEquals(100,results.size());
-        assertEquals(130, searchSheet.getTotalCount().intValue());
-        assertEquals("HomeResources.java", results.get(0).getText());
-        assertEquals("row", results.get(0).getObjectType());
-        assertEquals(7243572589160324L, results.get(0).getObjectId().longValue());
-        assertEquals("Row 12", results.get(0).getContextData().get(0));
-        assertEquals("sheet", results.get(0).getParentObjectType());
-        assertEquals(2630121841551236L, results.get(0).getParentObjectId().longValue());
-        assertEquals("SDK Code Checklist", results.get(0).getParentObjectName());
+        assertThat(results).hasSize(100);
+        assertThat(searchSheet.getTotalCount().intValue()).isEqualTo(130);
+        assertThat(results.get(0).getText()).isEqualTo("HomeResources.java");
+        assertThat(results.get(0).getObjectType()).isEqualTo("row");
+        assertThat(results.get(0).getObjectId().longValue()).isEqualTo(7243572589160324L);
+        assertThat(results.get(0).getContextData().get(0)).isEqualTo("Row 12");
+        assertThat(results.get(0).getParentObjectType()).isEqualTo("sheet");
+        assertThat(results.get(0).getParentObjectId().longValue()).isEqualTo(2630121841551236L);
+        assertThat(results.get(0).getParentObjectName()).isEqualTo("SDK Code Checklist");
     }
 
     @Test
     void nullQuerySearchSheet() {
-        assertThrows(IllegalArgumentException.class, () -> searchResources.searchSheet(1234L, null));
+        assertThatThrownBy(() -> searchResources.searchSheet(1234L, null))
+                .isInstanceOf(IllegalArgumentException.class);
     }
 
     @Test
     void emptyQuerySearchSheet() {
-        assertThrows(IllegalArgumentException.class, () -> searchResources.searchSheet(1234L, ""));
+        assertThatThrownBy(() -> searchResources.searchSheet(1234L, ""))
+                .isInstanceOf(IllegalArgumentException.class);
     }
 
     @Test
     void nullQueryOnSeaerch() {
-        assertThrows(IllegalArgumentException.class, () -> searchResources.search(null));
+        assertThatThrownBy(() -> searchResources.search(null))
+                .isInstanceOf(IllegalArgumentException.class);
     }
 
     @Test
     void emptyQuerySearch() {
-        assertThrows(IllegalArgumentException.class, () -> searchResources.search(""));
+        assertThatThrownBy(() -> searchResources.search(""))
+                .isInstanceOf(IllegalArgumentException.class);
     }
 }

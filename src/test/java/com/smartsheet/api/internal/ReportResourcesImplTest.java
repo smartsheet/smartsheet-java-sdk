@@ -9,9 +9,9 @@ package com.smartsheet.api.internal;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
+ * 
  *      http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -45,9 +45,7 @@ import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class ReportResourcesImplTest extends ResourcesImplBase {
 
@@ -64,8 +62,8 @@ class ReportResourcesImplTest extends ResourcesImplBase {
     void testGetReport() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/getReport.json"));
         Report report = reportResources.getReport(4583173393803140L, EnumSet.of(ReportInclusion.ATTACHMENTS, ReportInclusion.DISCUSSIONS), 1,1);
-        assertEquals("https://app.smartsheet.com/b/home?lx=pWNSDH9itjBXxBzFmyf-5w", report.getPermalink());
-        assertTrue(report.getColumns().get(0).getVirtualId() == 4583173393803140L);
+        assertThat(report.getPermalink()).isEqualTo("https://app.smartsheet.com/b/home?lx=pWNSDH9itjBXxBzFmyf-5w");
+        assertThat(report.getColumns().get(0).getVirtualId()).isEqualTo(4583173393803140L);
     }
 
     @Test
@@ -98,10 +96,10 @@ class ReportResourcesImplTest extends ResourcesImplBase {
         PaginationParameters pagination = new PaginationParameters(true, null, null);
         PagedResult<Report> reportsWrapper = reportResources.listReports(pagination, null);
 
-        assertTrue(reportsWrapper.getTotalPages() == 1);
-        assertEquals("r1", reportsWrapper.getData().get(0).getName());
-        assertEquals("r2", reportsWrapper.getData().get(1).getName());
-        assertTrue(6761305928427396L == reportsWrapper.getData().get(0).getId());
+        assertThat(reportsWrapper.getTotalPages()).isEqualTo(1);
+        assertThat(reportsWrapper.getData().get(0).getName()).isEqualTo("r1");
+        assertThat(reportsWrapper.getData().get(1).getName()).isEqualTo("r2");
+        assertThat(reportsWrapper.getData().get(0).getId()).isEqualTo(6761305928427396L);
     }
 
     @Test
@@ -112,12 +110,12 @@ class ReportResourcesImplTest extends ResourcesImplBase {
 
         ByteArrayOutputStream output = new ByteArrayOutputStream();
         reportResources.getReportAsExcel(4583173393803140L, output);
-        assertNotNull(output);
+        assertThat(output).isNotNull();
 
-        assertTrue(output.toByteArray().length > 0);
+        assertThat(output.toByteArray()).isNotEmpty();
 
         byte[] data = Files.readAllBytes(Paths.get(file.getPath()));
-        assertEquals(data.length, output.toByteArray().length);
+        assertThat(output.toByteArray()).hasSameSizeAs(data);
     }
 
     @Test
@@ -128,11 +126,11 @@ class ReportResourcesImplTest extends ResourcesImplBase {
 
         ByteArrayOutputStream output = new ByteArrayOutputStream();
         reportResources.getReportAsExcel(4583173393803140L, output);
-        assertNotNull(output);
+        assertThat(output).isNotNull();
 
-        assertTrue(output.toByteArray().length > 0);
+        assertThat(output.toByteArray()).isNotEmpty();
 
         byte[] data = Files.readAllBytes(Paths.get(file.getPath()));
-        assertEquals(data.length, output.toByteArray().length);
+        assertThat(output.toByteArray()).hasSameSizeAs(data);
     }
 }

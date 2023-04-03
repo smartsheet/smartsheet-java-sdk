@@ -16,9 +16,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /*
  * #[license]
@@ -67,8 +65,8 @@ class SheetAttachmentResourcesImplTest extends ResourcesImplBase {
         attachment.setAttachmentSubType(AttachmentSubType.PDF);
 
         Attachment newAttachment = sheetAttachmentResources.attachUrl(1234L, attachment);
-        assertEquals("Search Engine", newAttachment.getName());
-        assertEquals(AttachmentType.LINK, newAttachment.getAttachmentType());
+        assertThat(newAttachment.getName()).isEqualTo("Search Engine");
+        assertThat(newAttachment.getAttachmentType()).isEqualTo(AttachmentType.LINK);
     }
 
     @Test
@@ -76,8 +74,8 @@ class SheetAttachmentResourcesImplTest extends ResourcesImplBase {
         server.setResponseBody(new File("src/test/resources/getAttachment.json"));
 
         Attachment attachment = sheetAttachmentResources.getAttachment(1234L, 345L);
-        assertNotNull(attachment.getUrl());
-        assertEquals("AbstractResources.mup",attachment.getName());
+        assertThat(attachment.getUrl()).isNotNull();
+        assertThat(attachment.getName()).isEqualTo("AbstractResources.mup");
     }
 
     @Test
@@ -86,8 +84,8 @@ class SheetAttachmentResourcesImplTest extends ResourcesImplBase {
         PaginationParameters parameters = new PaginationParameters(false, 1,1);
 
         PagedResult<Attachment> attachments = sheetAttachmentResources.listAttachments(1234L, parameters);
-        assertTrue(attachments.getTotalCount() == 2);
-        assertTrue(attachments.getData().get(0).getId() == 4583173393803140L);
+        assertThat(attachments.getTotalCount()).isEqualTo(2);
+        assertThat(attachments.getData().get(0).getId()).isEqualTo(4583173393803140L);
     }
 
     @Test
@@ -96,12 +94,12 @@ class SheetAttachmentResourcesImplTest extends ResourcesImplBase {
         File file = new File("src/test/resources/large_sheet.pdf");
         Attachment attachment = sheetAttachmentResources.attachFile(1234L, file,
                 "application/pdf");
-        assertTrue(attachment.getId() == 7265404226692996L);
-        assertEquals("Testing.PDF", attachment.getName());
-        assertEquals(AttachmentType.FILE, attachment.getAttachmentType());
-        assertEquals("application/pdf", attachment.getMimeType());
-        assertTrue(1831L == attachment.getSizeInKb());
-        assertEquals(AttachmentParentType.SHEET, attachment.getParentType());
+        assertThat(attachment.getId()).isEqualTo(7265404226692996L);
+        assertThat(attachment.getName()).isEqualTo("Testing.PDF");
+        assertThat(attachment.getAttachmentType()).isEqualTo(AttachmentType.FILE);
+        assertThat(attachment.getMimeType()).isEqualTo("application/pdf");
+        assertThat(attachment.getSizeInKb()).isEqualTo(1831L);
+        assertThat(attachment.getParentType()).isEqualTo(AttachmentParentType.SHEET);
     }
 
     @Test
@@ -110,12 +108,12 @@ class SheetAttachmentResourcesImplTest extends ResourcesImplBase {
         File file = new File("src/test/resources/large_sheet.pdf");
         InputStream inputStream = new FileInputStream(file);
         Attachment attachment = sheetAttachmentResources.attachFile(1234L, inputStream, "application/pdf", file.length(), file.getName());
-        assertTrue(attachment.getId() == 7265404226692996L);
-        assertEquals("Testing.PDF", attachment.getName());
-        assertEquals(AttachmentType.FILE, attachment.getAttachmentType());
-        assertEquals("application/pdf", attachment.getMimeType());
-        assertTrue(1831L == attachment.getSizeInKb());
-        assertEquals(AttachmentParentType.SHEET, attachment.getParentType());
+        assertThat(attachment.getId()).isEqualTo(7265404226692996L);
+        assertThat(attachment.getName()).isEqualTo("Testing.PDF");
+        assertThat(attachment.getAttachmentType()).isEqualTo(AttachmentType.FILE);
+        assertThat(attachment.getMimeType()).isEqualTo("application/pdf");
+        assertThat(attachment.getSizeInKb()).isEqualTo(1831L);
+        assertThat(attachment.getParentType()).isEqualTo(AttachmentParentType.SHEET);
 
     }
 }

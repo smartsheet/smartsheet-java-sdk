@@ -23,40 +23,39 @@ package com.smartsheet.api.models;
 import com.smartsheet.api.models.enums.Symbol;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class SymbolTest {
 
     @Test
     void test() {
-        assertNotNull(Symbol.valueOf("FLAG"));
-        assertNotNull(Symbol.valueOf("STAR"));
-        assertNotNull(Symbol.valueOf("HARVEY_BALLS"));
-        assertNotNull(Symbol.valueOf("RYG"));
-        assertNotNull(Symbol.valueOf("PRIORITY"));
-        assertNotNull(Symbol.valueOf("PRIORITY_HML"));
-        assertNotNull(Symbol.valueOf("DECISION_SYMBOLS"));
-        assertNotNull(Symbol.valueOf("DECISION_SHAPES"));
-        assertNotNull(Symbol.valueOf("VCR"));
-        assertNotNull(Symbol.valueOf("RYGB"));
-        assertNotNull(Symbol.valueOf("RYGG"));
-        assertNotNull(Symbol.valueOf("WEATHER"));
-        assertNotNull(Symbol.valueOf("PROGRESS"));
-        assertNotNull(Symbol.valueOf("ARROWS_3_WAY"));
-        assertNotNull(Symbol.valueOf("ARROWS_4_WAY"));
-        assertNotNull(Symbol.valueOf("ARROWS_5_WAY"));
-        assertNotNull(Symbol.valueOf("DIRECTIONS_3_WAY"));
-        assertNotNull(Symbol.valueOf("DIRECTIONS_4_WAY"));
-        assertNotNull(Symbol.valueOf("SKI"));
-        assertNotNull(Symbol.valueOf("SIGNAL"));
-        assertNotNull(Symbol.valueOf("STAR_RATING"));
-        assertNotNull(Symbol.valueOf("HEARTS"));
-        assertNotNull(Symbol.valueOf("MONEY"));
-        assertNotNull(Symbol.valueOf("EFFORT"));
-        assertNotNull(Symbol.valueOf("PAIN"));
+        assertThat(Symbol.valueOf("FLAG")).isNotNull();
+        assertThat(Symbol.valueOf("STAR")).isNotNull();
+        assertThat(Symbol.valueOf("HARVEY_BALLS")).isNotNull();
+        assertThat(Symbol.valueOf("RYG")).isNotNull();
+        assertThat(Symbol.valueOf("PRIORITY")).isNotNull();
+        assertThat(Symbol.valueOf("PRIORITY_HML")).isNotNull();
+        assertThat(Symbol.valueOf("DECISION_SYMBOLS")).isNotNull();
+        assertThat(Symbol.valueOf("DECISION_SHAPES")).isNotNull();
+        assertThat(Symbol.valueOf("VCR")).isNotNull();
+        assertThat(Symbol.valueOf("RYGB")).isNotNull();
+        assertThat(Symbol.valueOf("RYGG")).isNotNull();
+        assertThat(Symbol.valueOf("WEATHER")).isNotNull();
+        assertThat(Symbol.valueOf("PROGRESS")).isNotNull();
+        assertThat(Symbol.valueOf("ARROWS_3_WAY")).isNotNull();
+        assertThat(Symbol.valueOf("ARROWS_4_WAY")).isNotNull();
+        assertThat(Symbol.valueOf("ARROWS_5_WAY")).isNotNull();
+        assertThat(Symbol.valueOf("DIRECTIONS_3_WAY")).isNotNull();
+        assertThat(Symbol.valueOf("DIRECTIONS_4_WAY")).isNotNull();
+        assertThat(Symbol.valueOf("SKI")).isNotNull();
+        assertThat(Symbol.valueOf("SIGNAL")).isNotNull();
+        assertThat(Symbol.valueOf("STAR_RATING")).isNotNull();
+        assertThat(Symbol.valueOf("HEARTS")).isNotNull();
+        assertThat(Symbol.valueOf("MONEY")).isNotNull();
+        assertThat(Symbol.valueOf("EFFORT")).isNotNull();
+        assertThat(Symbol.valueOf("PAIN")).isNotNull();
 
-        assertEquals(25,Symbol.values().length);
+        assertThat(Symbol.values()).hasSize(25);
     }
 
 }

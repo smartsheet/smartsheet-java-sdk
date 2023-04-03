@@ -22,25 +22,25 @@ package com.smartsheet.api.oauth;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class OAuthTokenExceptionTest {
 
     @Test
     void testOAuthTokenExceptionString() {
-        try{
+        try {
             throw new OAuthTokenException("message");
-        }catch(OAuthTokenException e){
-            assertEquals("message", e.getMessage());
+        } catch(OAuthTokenException e) {
+            assertThat(e.getMessage()).isEqualTo("message");
         }
     }
 
     @Test
     void testOAuthTokenExceptionStringThrowable() {
-        try{
+        try {
             throw new OAuthTokenException("message", null);
-        }catch(OAuthTokenException ex){
-            assertEquals("message", ex.getMessage());
+        } catch(OAuthTokenException ex) {
+            assertThat(ex.getMessage()).isEqualTo("message");
         }
     }
 }

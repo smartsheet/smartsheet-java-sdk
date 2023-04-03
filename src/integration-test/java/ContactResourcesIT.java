@@ -28,8 +28,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class ContactResourcesIT extends ITResourcesImpl{
     Smartsheet smartsheet;
@@ -48,13 +47,13 @@ public class ContactResourcesIT extends ITResourcesImpl{
 
     public void testGetContact() throws SmartsheetException, IOException {
         Contact contact = smartsheet.contactResources().getContact(contactId);
-        assertNotNull(contact.getEmail());
+        assertThat(contact.getEmail()).isNotNull();
     }
 
     public void testListContacts() throws SmartsheetException, IOException {
         PagedResult<Contact> contacts = smartsheet.contactResources().listContacts(new PaginationParameters.PaginationParametersBuilder().setIncludeAll(true).build());
         //assertEquals(contacts.getData().get(0).getName(), "David Davidson");
-        assertTrue(contacts.getTotalCount() > 0);
+        assertThat(contacts.getTotalCount()).isPositive();
         contactId = contacts.getData().get(0).getId();
     }
 }

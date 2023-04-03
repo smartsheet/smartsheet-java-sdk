@@ -23,18 +23,17 @@ package com.smartsheet.api.models;
 import com.smartsheet.api.models.enums.UserStatus;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class UserStatusTest {
 
     @Test
     void test() {
-        assertNotNull(UserStatus.valueOf("ACTIVE"));
-        assertNotNull(UserStatus.valueOf("PENDING"));
-        assertNotNull(UserStatus.valueOf("DECLINED"));
+        assertThat(UserStatus.valueOf("ACTIVE")).isNotNull();
+        assertThat(UserStatus.valueOf("PENDING")).isNotNull();
+        assertThat(UserStatus.valueOf("DECLINED")).isNotNull();
 
-        assertEquals(3,UserStatus.values().length);
+        assertThat(UserStatus.values()).hasSize(3);
     }
 
 }

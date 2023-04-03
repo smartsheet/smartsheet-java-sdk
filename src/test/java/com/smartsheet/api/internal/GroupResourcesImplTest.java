@@ -9,9 +9,9 @@ package com.smartsheet.api.internal;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
+ * 
  *      http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -36,8 +36,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class GroupResourcesImplTest extends ResourcesImplBase {
 
@@ -56,14 +55,14 @@ class GroupResourcesImplTest extends ResourcesImplBase {
         PaginationParameters parameters = new PaginationParameters(false,1,1);
         PagedResult<Group> groups =  groupResources.listGroups(parameters);
 
-            assertNotNull(groups.getData().get(0).getId());
-            assertNotNull(groups.getData().get(0).getName());
-            assertNotNull(groups.getData().get(0).getOwner());
-            assertNotNull(groups.getData().get(0).getOwnerId());
-            assertNotNull(groups.getData().get(0).getCreatedAt());
-            assertNotNull(groups.getData().get(0).getModifiedAt());
-            assertNotNull(groups.getData().get(0).getDescription());
-            //assertNotNull(groups.getData().get(1).getId());
+        assertThat(groups.getData().get(0).getId()).isNotNull();
+        assertThat(groups.getData().get(0).getName()).isNotNull();
+        assertThat(groups.getData().get(0).getOwner()).isNotNull();
+        assertThat(groups.getData().get(0).getOwnerId()).isNotNull();
+        assertThat(groups.getData().get(0).getCreatedAt()).isNotNull();
+        assertThat(groups.getData().get(0).getModifiedAt()).isNotNull();
+        assertThat(groups.getData().get(0).getDescription()).isNotNull();
+        //assertThat(groups.getData().get(1).getId()).isNotNull();
 
     }
 
@@ -72,20 +71,20 @@ class GroupResourcesImplTest extends ResourcesImplBase {
         server.setResponseBody(new File("src/test/resources/getGroup.json"));
 
         Group group =  groupResources.getGroup(123L);
-        assertNotNull(group.getId());
-        assertNotNull(group.getName());
-        assertNotNull(group.getOwner());
-        assertNotNull(group.getOwnerId());
-        assertNotNull(group.getCreatedAt());
-        assertNotNull(group.getModifiedAt());
-        assertNotNull(group.getDescription());
-        assertNotNull(group.getId());
+        assertThat(group.getId()).isNotNull();
+        assertThat(group.getName()).isNotNull();
+        assertThat(group.getOwner()).isNotNull();
+        assertThat(group.getOwnerId()).isNotNull();
+        assertThat(group.getCreatedAt()).isNotNull();
+        assertThat(group.getModifiedAt()).isNotNull();
+        assertThat(group.getDescription()).isNotNull();
+        assertThat(group.getId()).isNotNull();
 
         for (GroupMember member : group.getMembers()) {
-            assertNotNull(member.getFirstName());
-            assertNotNull(member.getLastName());
-            assertNotNull(member.getId());
-            assertNotNull(member.getEmail());
+            assertThat(member.getFirstName()).isNotNull();
+            assertThat(member.getLastName()).isNotNull();
+            assertThat(member.getId()).isNotNull();
+            assertThat(member.getEmail()).isNotNull();
         }
     }
 
@@ -104,20 +103,20 @@ class GroupResourcesImplTest extends ResourcesImplBase {
 
 
         Group group =  groupResources.createGroup(builder.build());
-        assertNotNull(group.getId());
-        assertNotNull(group.getName());
-        assertNotNull(group.getOwner());
-        assertNotNull(group.getOwnerId());
-        assertNotNull(group.getCreatedAt());
-        assertNotNull(group.getModifiedAt());
-        assertNotNull(group.getDescription());
-        assertNotNull(group.getId());
+        assertThat(group.getId()).isNotNull();
+        assertThat(group.getName()).isNotNull();
+        assertThat(group.getOwner()).isNotNull();
+        assertThat(group.getOwnerId()).isNotNull();
+        assertThat(group.getCreatedAt()).isNotNull();
+        assertThat(group.getModifiedAt()).isNotNull();
+        assertThat(group.getDescription()).isNotNull();
+        assertThat(group.getId()).isNotNull();
 
         for (GroupMember member : group.getMembers()) {
-            assertNotNull(member.getFirstName());
-            assertNotNull(member.getLastName());
-            assertNotNull(member.getId());
-            assertNotNull(member.getEmail());
+            assertThat(member.getFirstName()).isNotNull();
+            assertThat(member.getLastName()).isNotNull();
+            assertThat(member.getId()).isNotNull();
+            assertThat(member.getEmail()).isNotNull();
         }
 
     }
@@ -132,14 +131,14 @@ class GroupResourcesImplTest extends ResourcesImplBase {
             .setId(123L);
 
         Group group =  groupResources.updateGroup(builder.build());
-        assertNotNull(group.getId());
-        assertNotNull(group.getName());
-        assertNotNull(group.getOwner());
-        assertNotNull(group.getOwnerId());
-        assertNotNull(group.getCreatedAt());
-        assertNotNull(group.getModifiedAt());
-        assertNotNull(group.getDescription());
-        assertNotNull(group.getId());
+        assertThat(group.getId()).isNotNull();
+        assertThat(group.getName()).isNotNull();
+        assertThat(group.getOwner()).isNotNull();
+        assertThat(group.getOwnerId()).isNotNull();
+        assertThat(group.getCreatedAt()).isNotNull();
+        assertThat(group.getModifiedAt()).isNotNull();
+        assertThat(group.getDescription()).isNotNull();
+        assertThat(group.getId()).isNotNull();
 
     }
 
@@ -156,11 +155,11 @@ class GroupResourcesImplTest extends ResourcesImplBase {
         newMembers.add(new GroupMember.AddGroupMemberBuilder().setEmail("test3@test.com").build());
         newMembers.add(new GroupMember.AddGroupMemberBuilder().setEmail("test4@test.com").build());
         List<GroupMember> addedMembers = groupResources.memberResources().addGroupMembers(1234L, newMembers);
-        assertTrue(addedMembers.size() > 0);
+        assertThat(addedMembers).isNotEmpty();
 
         for(GroupMember member : addedMembers) {
-            assertNotNull(member.getEmail());
-            assertNotNull(member.getId());
+            assertThat(member.getEmail()).isNotNull();
+            assertThat(member.getId()).isNotNull();
         }
     }
     @Test

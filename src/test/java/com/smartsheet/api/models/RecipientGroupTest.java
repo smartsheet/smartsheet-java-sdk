@@ -22,8 +22,7 @@ package com.smartsheet.api.models;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-
+import static org.assertj.core.api.Assertions.assertThat;
 class RecipientGroupTest {
 
     @Test
@@ -31,6 +30,6 @@ class RecipientGroupTest {
         RecipientGroup recipient = new RecipientGroup();
         recipient.setGroupId(123456789L);
 
-        assertNotNull(recipient.getGroupId());
+        assertThat(recipient.getGroupId()).isNotNull();
     }
 }

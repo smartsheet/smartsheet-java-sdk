@@ -25,14 +25,14 @@ import com.smartsheet.api.internal.http.DefaultHttpClient;
 import com.smartsheet.api.internal.json.JacksonJsonSerializer;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class SmartsheetBuilderTest {
 
     @Test
     void testBuild() {
         Smartsheet smartsheet = new SmartsheetBuilder().build();
-        assertTrue(smartsheet instanceof SmartsheetImpl);
+        assertThat(smartsheet).isInstanceOf(SmartsheetImpl.class);
 
         Smartsheet ss = (SmartsheetImpl)new SmartsheetBuilder().setBaseURI("a").setAccessToken("b").setHttpClient(
                 new DefaultHttpClient()).setJsonSerializer(new JacksonJsonSerializer()).setAssumedUser("user").build();

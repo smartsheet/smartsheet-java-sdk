@@ -29,8 +29,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class PassthroughResourcesIT extends ITResourcesImpl {
     Smartsheet smartsheet;
@@ -54,10 +53,9 @@ public class PassthroughResourcesIT extends ITResourcesImpl {
         try {
             ObjectMapper mapper = new ObjectMapper();
             JsonNode root = mapper.readTree(jsonResponse);
-            assertNotNull(root.get("message").asText());
-            assertEquals(root.get("message").asText(), "SUCCESS");
+            assertThat(root.get("message").asText()).isEqualTo("SUCCESS");
             JsonNode result = root.get("result");
-            assertNotNull(result.get("id").asLong());
+            assertThat(result.get("id").asLong()).isNotNull();
             id = result.get("id").asLong();
         } catch (IOException e) {
             e.printStackTrace();
@@ -69,7 +67,7 @@ public class PassthroughResourcesIT extends ITResourcesImpl {
         try {
             ObjectMapper mapper = new ObjectMapper();
             JsonNode root = mapper.readTree(jsonResponse);
-            assertEquals(root.get("name").asText(), "my new sheet");
+            assertThat(root.get("name").asText()).isEqualTo("my new sheet");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -79,9 +77,9 @@ public class PassthroughResourcesIT extends ITResourcesImpl {
         try {
             ObjectMapper mapper = new ObjectMapper();
             JsonNode root = mapper.readTree(jsonResponse);
-            assertEquals(root.get("message").asText(), "SUCCESS");
+            assertThat(root.get("message").asText()).isEqualTo("SUCCESS");
             JsonNode result = root.get("result");
-            assertEquals(result.get("name").asText(), "my new new sheet");
+            assertThat(result.get("name").asText()).isEqualTo("my new new sheet");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -90,8 +88,7 @@ public class PassthroughResourcesIT extends ITResourcesImpl {
         try {
             ObjectMapper mapper = new ObjectMapper();
             JsonNode root = mapper.readTree(jsonResponse);
-            assertNotNull(root.get("message").asText());
-            assertEquals(root.get("message").asText(), "SUCCESS");
+            assertThat(root.get("message").asText()).isEqualTo("SUCCESS");
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -23,27 +23,26 @@ package com.smartsheet.api.models;
 import com.smartsheet.api.models.enums.ColumnType;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class ColumnTypeTest {
 
     @Test
     void test() {
 
-        assertNotNull(ColumnType.valueOf("TEXT_NUMBER"));
-        assertNotNull(ColumnType.valueOf("PICKLIST"));
-        assertNotNull(ColumnType.valueOf("DATE"));
-        assertNotNull(ColumnType.valueOf("DATETIME"));
-        assertNotNull(ColumnType.valueOf("CONTACT_LIST"));
-        assertNotNull(ColumnType.valueOf("CHECKBOX"));
-        assertNotNull(ColumnType.valueOf("DURATION"));
-        assertNotNull(ColumnType.valueOf("PREDECESSOR"));
-        assertNotNull(ColumnType.valueOf("ABSTRACT_DATETIME"));
-        assertNotNull(ColumnType.valueOf("MULTI_CONTACT_LIST"));
-        assertNotNull(ColumnType.valueOf("MULTI_PICKLIST"));
+        assertThat(ColumnType.valueOf("TEXT_NUMBER")).isNotNull();
+        assertThat(ColumnType.valueOf("PICKLIST")).isNotNull();
+        assertThat(ColumnType.valueOf("DATE")).isNotNull();
+        assertThat(ColumnType.valueOf("DATETIME")).isNotNull();
+        assertThat(ColumnType.valueOf("CONTACT_LIST")).isNotNull();
+        assertThat(ColumnType.valueOf("CHECKBOX")).isNotNull();
+        assertThat(ColumnType.valueOf("DURATION")).isNotNull();
+        assertThat(ColumnType.valueOf("PREDECESSOR")).isNotNull();
+        assertThat(ColumnType.valueOf("ABSTRACT_DATETIME")).isNotNull();
+        assertThat(ColumnType.valueOf("MULTI_CONTACT_LIST")).isNotNull();
+        assertThat(ColumnType.valueOf("MULTI_PICKLIST")).isNotNull();
 
-        assertEquals(11,ColumnType.values().length);
+        assertThat(ColumnType.values()).hasSize(11);
     }
 
 }
