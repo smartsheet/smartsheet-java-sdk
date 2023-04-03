@@ -25,10 +25,7 @@ import com.smartsheet.api.internal.http.HttpClient;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class SmartsheetImplTest extends ResourcesImplBase {
 
@@ -44,72 +41,72 @@ class SmartsheetImplTest extends ResourcesImplBase {
     }
     @Test
     void testGetHttpClient() {
-        assertSame(httpClient, smartsheet.getHttpClient());
+        assertThat(smartsheet.getHttpClient()).isEqualTo(httpClient);
     }
 
     @Test
     void testGetJsonSerializer() {
-        assertNotNull(smartsheet.getJsonSerializer());
+        assertThat(smartsheet.getJsonSerializer()).isNotNull();
     }
 
     @Test
     void testGetBaseURI() {
-        assertEquals(baseURI, smartsheet.getBaseURI().toString());
+        assertThat(smartsheet.getBaseURI()).hasToString(baseURI);
     }
 
     @Test
     void testGetAssumedUser() {
-        assertNull(smartsheet.getAssumedUser());
+        assertThat(smartsheet.getAssumedUser()).isNull();
     }
 
     @Test
     void testGetAccessToken() {
-        assertEquals(accessToken, smartsheet.getAccessToken());
+        assertThat(smartsheet.getAccessToken()).isEqualTo(accessToken);
     }
 
     @Test
     void testHome() {
-        assertNotNull(smartsheet.homeResources());
+        assertThat(smartsheet.homeResources()).isNotNull();
     }
 
     @Test
     void testWorkspaces() {
-        assertNotNull(smartsheet.workspaceResources());
+        assertThat(smartsheet.workspaceResources()).isNotNull();
     }
 
     @Test
     void testFolders() {
-        assertNotNull(smartsheet.folderResources());
+        assertThat(smartsheet.folderResources()).isNotNull();
     }
 
     @Test
     void testTemplates() {
-        assertNotNull(smartsheet.templateResources());
+        assertThat(smartsheet.templateResources()).isNotNull();
     }
 
     @Test
     void testSheets() {
-        assertNotNull(smartsheet.sheetResources());
+        assertThat(smartsheet.sheetResources()).isNotNull();
     }
 
     @Test
     void testfavorites() {
-        assertNotNull(smartsheet.favoriteResources());
+        assertThat(smartsheet.favoriteResources()).isNotNull();
     }
 
     @Test
     void testUsers() {
-        assertNotNull(smartsheet.userResources());
+        assertThat(smartsheet.userResources()).isNotNull();
     }
 
     @Test
     void testSearch() {
-        assertNotNull(smartsheet.searchResources());
+        assertThat(smartsheet.searchResources()).isNotNull();
     }
 
     @Test
     void testReports() {
-        assertNotNull(smartsheet.reportResources());
+        assertThat(smartsheet.reportResources()).isNotNull();
     }
 
     @Test
@@ -119,5 +116,8 @@ class SmartsheetImplTest extends ResourcesImplBase {
     void testSetAccessToken() { smartsheet.setAccessToken("1234"); }
 
     @Test
-    void testSights() { assertNotNull(smartsheet.sightResources()); }
+    void testSights() {
+        assertThat(smartsheet.sightResources()).isNotNull();
+    }
+
 }

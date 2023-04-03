@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
+ * 
  *      http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -39,9 +39,7 @@ import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class MultiPicklistIT extends ITResourcesImpl {
     Smartsheet smartsheet;
@@ -57,9 +55,7 @@ public class MultiPicklistIT extends ITResourcesImpl {
 
         //create sheet
         sheet = smartsheet.sheetResources().createSheet(sheetHome);
-        if (sheet.getColumns().size() != sheetHome.getColumns().size()) {
-            fail("Issue creating a sheet");
-        }
+        assertThat(sheet.getColumns()).hasSameSizeAs(sheetHome.getColumns());
     }
 
     @AfterEach
@@ -80,19 +76,19 @@ public class MultiPicklistIT extends ITResourcesImpl {
         mpl.setTitle("This is a multi-picklist column").setIndex(0).setType(ColumnType.MULTI_PICKLIST)
                 .setOptions(Arrays.asList("Cat", "Rat", "Bat"));
         addCols = smartsheet.sheetResources().columnResources().addColumns(sheet.getId(), Arrays.asList(mpl));
-        assertEquals(addCols.size(), 1);
+        assertThat(addCols).hasSize(1);
     }
 
     public void testListMultiPicklistColumn() throws SmartsheetException {
         PagedResult<Column> cols = smartsheet.sheetResources().columnResources().listColumns(sheet.getId(),
                 null, null, null);
         // should be TEXT_NUMBER since level not specified
-        assertEquals(cols.getData().get(0).getType(), ColumnType.TEXT_NUMBER);
+        assertThat(cols.getData().get(0).getType()).isEqualTo(ColumnType.TEXT_NUMBER);
 
         cols = smartsheet.sheetResources().columnResources().listColumns(sheet.getId(),
                 null, null, 2);
         // should be MULTI_PICKLIST since level 2 specified
-        assertEquals(cols.getData().get(0).getType(), ColumnType.MULTI_PICKLIST);
+        assertThat(cols.getData().get(0).getType()).isEqualTo(ColumnType.MULTI_PICKLIST);
     }
 
     public void testAddMultiPicklistRow() throws SmartsheetException {
@@ -102,7 +98,7 @@ public class MultiPicklistIT extends ITResourcesImpl {
         insert_row.setToTop(true).setCells(insert_cells);
         List<Row> insert_rows = smartsheet.sheetResources().rowResources().addRows(sheet.getId(),
                 Arrays.asList(insert_row));
-        assertEquals(insert_rows.size(), 1);
+        assertThat(insert_rows).hasSize(1);
     }
 
     public void testGetMultiPicklistSheet() throws SmartsheetException {
@@ -110,12 +106,12 @@ public class MultiPicklistIT extends ITResourcesImpl {
                 null, null, null, new HashSet<>(Arrays.asList(addCols.get(0).getId())), null,
                 null, null,null);
         // should be TEXT_NUMBER since level not specified
-        assertTrue(mpl.getRows().get(0).getCells().get(0).getObjectValue() instanceof StringObjectValue);
+        assertThat(mpl.getRows().get(0).getCells().get(0).getObjectValue()).isInstanceOf(StringObjectValue.class);
 
         mpl = smartsheet.sheetResources().getSheet(sheet.getId(), EnumSet.of(SheetInclusion.OBJECT_VALUE),
                 null, null, null, new HashSet<>(Arrays.asList(addCols.get(0).getId())), null,
                 null, null,2);
         // should be MULTI_PICKLIST since level 2 specified
-        assertTrue(mpl.getRows().get(0).getCells().get(0).getObjectValue() instanceof MultiPicklistObjectValue);
+        assertThat(mpl.getRows().get(0).getCells().get(0).getObjectValue()).isInstanceOf(MultiPicklistObjectValue.class);
     }
 }

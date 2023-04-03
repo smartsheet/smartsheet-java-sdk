@@ -25,8 +25,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-
+import static org.assertj.core.api.Assertions.assertThat;
 public class ServerInfoIT extends ITResourcesImpl{
     Smartsheet smartsheet;
 
@@ -38,6 +37,6 @@ public class ServerInfoIT extends ITResourcesImpl{
     @Test
     void testGetServerInfo() throws SmartsheetException, IOException {
         ServerInfo serverInfo = smartsheet.serverInfoResources().getServerInfo();
-        assertNotNull(serverInfo.getFormats());
+        assertThat(serverInfo.getFormats()).isNotNull();
     }
 }

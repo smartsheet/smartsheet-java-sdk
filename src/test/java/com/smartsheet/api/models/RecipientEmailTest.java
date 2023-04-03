@@ -22,7 +22,7 @@ package com.smartsheet.api.models;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class RecipientEmailTest {
 
@@ -31,6 +31,6 @@ class RecipientEmailTest {
         RecipientEmail recipient = new RecipientEmail();
         recipient.setEmail("johndoe@smartsheet.com");
 
-        assertNotNull(recipient.getEmail());
+        assertThat(recipient.getEmail()).isNotNull();
     }
 }

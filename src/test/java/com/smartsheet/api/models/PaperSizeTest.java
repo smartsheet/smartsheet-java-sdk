@@ -23,26 +23,25 @@ package com.smartsheet.api.models;
 import com.smartsheet.api.models.enums.PaperSize;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class PaperSizeTest {
 
     @Test
     void test() {
 
-        assertNotNull(PaperSize.valueOf("LETTER"));
-        assertNotNull(PaperSize.valueOf("LEGAL"));
-        assertNotNull(PaperSize.valueOf("WIDE"));
-        assertNotNull(PaperSize.valueOf("ARCHD"));
-        assertNotNull(PaperSize.valueOf("A4"));
-        assertNotNull(PaperSize.valueOf("A3"));
-        assertNotNull(PaperSize.valueOf("A2"));
-        assertNotNull(PaperSize.valueOf("A1"));
-        assertNotNull(PaperSize.valueOf("A0"));
+        assertThat(PaperSize.valueOf("LETTER")).isNotNull();
+        assertThat(PaperSize.valueOf("LEGAL")).isNotNull();
+        assertThat(PaperSize.valueOf("WIDE")).isNotNull();
+        assertThat(PaperSize.valueOf("ARCHD")).isNotNull();
+        assertThat(PaperSize.valueOf("A4")).isNotNull();
+        assertThat(PaperSize.valueOf("A3")).isNotNull();
+        assertThat(PaperSize.valueOf("A2")).isNotNull();
+        assertThat(PaperSize.valueOf("A1")).isNotNull();
+        assertThat(PaperSize.valueOf("A0")).isNotNull();
 
 
-        assertEquals(9,PaperSize.values().length);
+        assertThat(PaperSize.values()).hasSize(9);
     }
 
 }

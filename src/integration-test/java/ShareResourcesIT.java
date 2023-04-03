@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
+ * 
  *      http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -37,8 +37,7 @@ import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class ShareResourcesIT extends ITResourcesImpl{
     Smartsheet smartsheet;
@@ -75,7 +74,7 @@ public class ShareResourcesIT extends ITResourcesImpl{
 
         if (reportsWrapper != null) {
             Report report = smartsheet.reportResources().getReport(reportsWrapper.getData().get(0).getId(), EnumSet.of(ReportInclusion.ATTACHMENTS, ReportInclusion.DISCUSSIONS), 1, 1);
-            assertNotNull(report, "No reports to share");
+            assertThat(report).isNotNull();
         }
 
         List<Share> reportShares = Arrays.asList(new Share.CreateUserShareBuilder().setEmailAddress("jane.doe@smartsheet.com").setAccessLevel(AccessLevel.EDITOR).build());
@@ -84,7 +83,7 @@ public class ShareResourcesIT extends ITResourcesImpl{
 
         if (reportsWrapper != null) {
             reportShares = smartsheet.reportResources().shareResources().shareTo(8623082916079492L, reportShares, true);
-            assertNotNull(reportShares);
+            assertThat(reportShares).isNotNull();
         }
 
         reportId = reportsWrapper.getData().get(0).getId();
@@ -98,7 +97,7 @@ public class ShareResourcesIT extends ITResourcesImpl{
         sheetShares = Arrays.asList(new Share.CreateUserShareBuilder().setEmailAddress("anioding@smartsheet.com").setAccessLevel(AccessLevel.VIEWER).build(), new Share.CreateUserShareBuilder().setEmailAddress("jane.doe@smartsheet.com").setAccessLevel(AccessLevel.VIEWER).build());
 
         sheetShares = smartsheet.sheetResources().shareResources().shareTo(sheet.getId(), sheetShares, true);
-        assertNotNull(sheetShares);
+        assertThat(sheetShares).isNotNull();
     }
 
     public void testWorkspaceShareTo() throws SmartsheetException, IOException {
@@ -111,25 +110,25 @@ public class ShareResourcesIT extends ITResourcesImpl{
         workspaceShares.add(new Share.CreateUserShareBuilder().setEmailAddress("jane.doe@smartsheet.com").setAccessLevel(AccessLevel.VIEWER).build());
 
         workspaceShares = smartsheet.workspaceResources().shareResources().shareTo(workspace.getId(), workspaceShares, true);
-        assertNotNull(workspaceShares);
+        assertThat(workspaceShares).isNotNull();
     }
 
     public void testGetReportShare() throws SmartsheetException, IOException {
         Share share = smartsheet.reportResources().shareResources().getShare(8623082916079492L, reportShares.get(0).getId());
 
-        assertNotNull(share);
+        assertThat(share).isNotNull();
     }
 
     public void testGetSheetShare() throws SmartsheetException, IOException {
         Share share = smartsheet.sheetResources().shareResources().getShare(sheetId, sheetShares.get(0).getId());
 
-        assertNotNull(share);
+        assertThat(share).isNotNull();
     }
 
     public void testGetWorkspaceShare() throws SmartsheetException, IOException {
         Share share = smartsheet.workspaceResources().shareResources().getShare(workspaceId, workspaceShares.get(0).getId());
 
-        assertNotNull(share);
+        assertThat(share).isNotNull();
     }
 
     public void testListShares() throws SmartsheetException, IOException {
@@ -138,8 +137,8 @@ public class ShareResourcesIT extends ITResourcesImpl{
         //PagedResult<Share> reportShares = smartsheet.reportResources().shareResources().listShares(8623082916079492L, parameters);
         PagedResult<Share> sheetShares = smartsheet.sheetResources().shareResources().listShares(sheetId, parameters);
         PagedResult<Share> workspaceShares = smartsheet.workspaceResources().shareResources().listShares(workspaceId, parameters);
-        assertNotNull(sheetShares);
-        assertNotNull(workspaceShares);
+        assertThat(sheetShares).isNotNull();
+        assertThat(workspaceShares).isNotNull();
     }
 
     public void testUpdateShare() throws SmartsheetException, IOException {
@@ -147,13 +146,13 @@ public class ShareResourcesIT extends ITResourcesImpl{
         Share shareSheet =new Share.UpdateShareBuilder().setAccessLevel(AccessLevel.EDITOR).setShareId(sheetShares.get(1).getId()).build();
 
         Share newShareSheet = smartsheet.sheetResources().shareResources().updateShare(sheetId, shareSheet);
-        assertEquals(shareSheet.getAccessLevel(), newShareSheet.getAccessLevel());
+        assertThat(newShareSheet.getAccessLevel()).isEqualTo(shareSheet.getAccessLevel());
 
         //Share workspace
         Share shareWorkspace =new Share.UpdateShareBuilder().setAccessLevel(AccessLevel.EDITOR).setShareId(workspaceShares.get(1).getId()).build();
         Share newShareWorkspace = smartsheet.workspaceResources().shareResources().updateShare(workspaceId, shareWorkspace);
 
-        assertEquals(shareWorkspace.getAccessLevel(), newShareWorkspace.getAccessLevel());
+        assertThat(newShareWorkspace.getAccessLevel()).isEqualTo(shareWorkspace.getAccessLevel());
     }
 
     public void testDeleteShare() throws SmartsheetException, IOException {

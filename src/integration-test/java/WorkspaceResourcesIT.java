@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
+ * 
  *      http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -36,9 +36,7 @@ import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class WorkspaceResourcesIT extends ITResourcesImpl{
 
@@ -67,8 +65,8 @@ public class WorkspaceResourcesIT extends ITResourcesImpl{
         Workspace newWorkspace = smartsheet.workspaceResources().createWorkspace(workspace);
 
         workspaceId = newWorkspace.getId();
-        assertEquals("New Test Workspace", newWorkspace.getName());
-        assertEquals(AccessLevel.OWNER, newWorkspace.getAccessLevel());
+        assertThat(newWorkspace.getName()).isEqualTo("New Test Workspace");
+        assertThat(newWorkspace.getAccessLevel()).isEqualTo(AccessLevel.OWNER);
     }
 
     public void testCopyWorkspace() throws SmartsheetException, IOException {
@@ -76,7 +74,7 @@ public class WorkspaceResourcesIT extends ITResourcesImpl{
         ContainerDestination destination = new ContainerDestination.AddContainerDestinationBuilder().setNewName("New Copied workspace").build();
 
         Workspace workspace = smartsheet.workspaceResources().copyWorkspace(workspaceId, destination, EnumSet.of(WorkspaceCopyInclusion.ALL), EnumSet.of(WorkspaceRemapExclusion.CELLLINKS));
-        assertEquals(workspace.getName(), "New Copied workspace");
+        assertThat(workspace.getName()).isEqualTo("New Copied workspace");
         deleteWorkspace(workspace.getId());
     }
 
@@ -86,25 +84,25 @@ public class WorkspaceResourcesIT extends ITResourcesImpl{
         shares.add(new Share.CreateUserShareBuilder().setEmailAddress("aditi.test@smartsheet.com").setAccessLevel(AccessLevel.ADMIN).build());
 
         shares = smartsheet.workspaceResources().shareResources().shareTo(workspaceId, shares, true);
-        assertTrue(shares.size() == 2);
-        assertEquals("aditi.test@smartsheet.com", shares.get(0).getEmail());
+        assertThat(shares).hasSize(2);
+        assertThat(shares.get(0).getEmail()).isEqualTo("aditi.test@smartsheet.com");
     }
 
     public void testGetWorkspace() throws IOException, SmartsheetException {
         Workspace workspace = smartsheet.workspaceResources().getWorkspace(workspaceId, null, null);
-        assertNotNull(workspace.getId());
+        assertThat(workspace.getId()).isNotNull();
     }
 
     public void testListWorkspaces() throws SmartsheetException, IOException {
         PaginationParameters parameters = new PaginationParameters(true, 10, 10);
         PagedResult<Workspace> workspace = smartsheet.workspaceResources().listWorkspaces(parameters);
-        assertNotNull(workspace);
+        assertThat(workspace).isNotNull();
     }
 
     public void testUpdateWorkspace() throws IOException, SmartsheetException {
         Workspace workspace = new Workspace.UpdateWorkspaceBuilder().setName("Updated workspace").setId(workspaceId).build();
         Workspace newWorkspace = smartsheet.workspaceResources().updateWorkspace(workspace);
-        assertEquals(workspaceId, newWorkspace.getId().longValue());
+        assertThat(newWorkspace.getId().longValue()).isEqualTo(workspaceId);
     }
 
     public void testDeleteWorkspace() throws IOException, SmartsheetException {

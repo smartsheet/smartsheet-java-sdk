@@ -28,7 +28,7 @@ import org.junit.jupiter.api.Test;
 import java.io.File;
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class CommentResourcesIT extends ITResourcesImpl{
     Smartsheet smartsheet;
@@ -69,14 +69,14 @@ public class CommentResourcesIT extends ITResourcesImpl{
         File file = new File("src/integration-test/resources/small-text.txt");
 
         Comment comment1=  smartsheet.sheetResources().discussionResources().commentResources().addCommentWithAttachment(newSheet.getId(), newDiscussion.getId(), comment, file, "application/pdf");
-        assertNotNull(comment1);
+        assertThat(comment1).isNotNull();
         file = null;
     }
 
     public void testGetComment() throws SmartsheetException, IOException {
         Comment comment = smartsheet.sheetResources().commentResources().getComment(newSheet.getId(), newComment.getId());
 
-        assertNotNull(comment);
+        assertThat(comment).isNotNull();
     }
 
     public void testDeleteComment() throws SmartsheetException, IOException {

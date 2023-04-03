@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
+ * 
  *      http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -41,9 +41,7 @@ import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class ReportResourcesIT extends ITResourcesImpl{
     Smartsheet smartsheet;
@@ -82,27 +80,27 @@ public class ReportResourcesIT extends ITResourcesImpl{
                 .setIncludeAll(true).build();
 
         PagedResult<Report> reports = smartsheet.reportResources().listReports(null, null);
-        assertNotNull(reports);
-        assertTrue(reports.getData().size() > 0);
+        assertThat(reports).isNotNull();
+        assertThat(reports.getData()).isNotEmpty();
     }
 
     public void testGetReport() throws SmartsheetException, IOException {
         EnumSet<ReportInclusion> reportInclusions = EnumSet.of(ReportInclusion.ATTACHMENTS, ReportInclusion.DISCUSSIONS);
         Report report = smartsheet.reportResources().getReport(reportId, reportInclusions, 1, 1);
         smartsheet.reportResources().getReport(reportId, null, null, null);
-        assertNotNull(report);
+        assertThat(report).isNotNull();
     }
 
     public void testGetReportAsExcel() throws SmartsheetException, IOException{
         ByteArrayOutputStream output = new ByteArrayOutputStream();
         smartsheet.reportResources().getReportAsExcel(reportId, output);
-        assertNotNull(output);
+        assertThat(output).isNotNull();
     }
 
     public void testGetReportAsCsv() throws SmartsheetException, IOException{
         ByteArrayOutputStream output = new ByteArrayOutputStream();
         smartsheet.reportResources().getReportAsCsv(reportId, output);
-        assertNotNull(output);
+        assertThat(output).isNotNull();
     }
 
     public void testSendSheet() throws SmartsheetException, IOException {
@@ -138,8 +136,8 @@ public class ReportResourcesIT extends ITResourcesImpl{
         reportPublish.setReadOnlyFullShowToolbar(false);
 
         ReportPublish newReportPublish = smartsheet.reportResources().updatePublishStatus(reportId, reportPublish);
-        assertTrue(newReportPublish.getReadOnlyFullEnabled());
-        assertFalse(newReportPublish.getReadOnlyFullShowToolbar());
+        assertThat(newReportPublish.getReadOnlyFullEnabled()).isTrue();
+        assertThat(newReportPublish.getReadOnlyFullShowToolbar()).isFalse();
     }
 
     public void testUnpublishReport() throws SmartsheetException, IOException {
@@ -148,7 +146,7 @@ public class ReportResourcesIT extends ITResourcesImpl{
         reportPublish.setReadOnlyFullShowToolbar(false);
 
         ReportPublish newReportPublish = smartsheet.reportResources().updatePublishStatus(reportId, reportPublish);
-        assertFalse(newReportPublish.getReadOnlyFullEnabled());
+        assertThat(newReportPublish.getReadOnlyFullEnabled()).isFalse();
     }
 
 

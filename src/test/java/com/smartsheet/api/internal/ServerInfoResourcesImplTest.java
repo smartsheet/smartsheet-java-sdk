@@ -29,8 +29,7 @@ import org.junit.jupiter.api.Test;
 import java.io.File;
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class ServerInfoResourcesImplTest extends ResourcesImplBase {
     private ServerInfoResourcesImpl serverInfoResources;
@@ -47,7 +46,7 @@ class ServerInfoResourcesImplTest extends ResourcesImplBase {
         server.setResponseBody(new File("src/test/resources/getServerInfo.json"));
         ServerInfo serverInfo = serverInfoResources.getServerInfo();
 
-        assertNotNull(serverInfo.getFormats());
-        assertTrue(serverInfo.getFeatureInfo().getSymbolsVersion() == 2);
+        assertThat(serverInfo.getFormats()).isNotNull();
+        assertThat(serverInfo.getFeatureInfo().getSymbolsVersion()).isEqualTo(2);
     }
 }

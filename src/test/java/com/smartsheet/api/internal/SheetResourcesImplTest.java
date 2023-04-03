@@ -9,9 +9,9 @@ package com.smartsheet.api.internal;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
+ * 
  *      http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -63,13 +63,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
-
+import static org.assertj.core.api.Assertions.assertThat;
 
 class SheetResourcesImplTest extends ResourcesImplBase {
     private SheetResourcesImpl sheetResource;
@@ -88,13 +82,13 @@ class SheetResourcesImplTest extends ResourcesImplBase {
         PaginationParameters parameters = new PaginationParameters.PaginationParametersBuilder().setIncludeAll(false).setPageSize(1).setPage(1).build();
         PagedResult<Sheet> sheets = sheetResource.listSheets(EnumSet.of(SourceInclusion.SOURCE), parameters, null);
 
-        assertTrue(sheets.getPageNumber() == 1);
-        assertTrue(sheets.getPageSize() == 100);
-        assertTrue(sheets.getTotalPages() == 1);
-        assertTrue(sheets.getTotalCount() == 2);
-        assertTrue(sheets.getData().size() == 2);
-        assertEquals("sheet 1", sheets.getData().get(0).getName());
-        assertEquals("sheet 2", sheets.getData().get(1).getName());
+        assertThat(sheets.getPageNumber()).isEqualTo(1);
+        assertThat(sheets.getPageSize()).isEqualTo(100);
+        assertThat(sheets.getTotalPages()).isEqualTo(1);
+        assertThat(sheets.getTotalCount()).isEqualTo(2);
+        assertThat(sheets.getData()).hasSize(2);
+        assertThat(sheets.getData().get(0).getName()).isEqualTo("sheet 1");
+        assertThat(sheets.getData().get(1).getName()).isEqualTo("sheet 2");
     }
 
     @Test
@@ -103,7 +97,7 @@ class SheetResourcesImplTest extends ResourcesImplBase {
         server.setResponseBody(new File("src/test/resources/listSheets.json"));
         PaginationParameters parameters = new PaginationParameters.PaginationParametersBuilder().setIncludeAll(true).build();
         PagedResult<Sheet> sheets = sheetResource.listOrganizationSheets(parameters);
-        assertEquals(2, sheets.getData().size());
+        assertThat(sheets.getData()).hasSize(2);
     }
 
     @Test
@@ -111,20 +105,20 @@ class SheetResourcesImplTest extends ResourcesImplBase {
 
         server.setResponseBody(new File("src/test/resources/getSheet.json"));
         Sheet sheet = sheetResource.getSheet(123123L, null, null, null, null, null, null, null);
-        assertEquals(9,sheet.getColumns().size());
-        assertEquals(0,sheet.getRows().size());
+        assertThat(sheet.getColumns()).hasSize(9);
+        assertThat(sheet.getRows()).isEmpty();
 
         Source source = sheet.getSource();
-        assertNotNull(source.getId());
-        assertNotNull(source.getType());
+        assertThat(source.getId()).isNotNull();
+        assertThat(source.getType()).isNotNull();
 
         Set<Long> rowIds = new HashSet<>();
         rowIds.add(123456789L);
         rowIds.add(987654321L);
 
         sheet = sheetResource.getSheet(123123L, EnumSet.allOf(SheetInclusion.class), EnumSet.allOf(ObjectExclusion.class), rowIds, null, null, 1, 1);
-        assertEquals(9, sheet.getColumns().size());
-        assertEquals(0,sheet.getRows().size());
+        assertThat(sheet.getColumns()).hasSize(9);
+        assertThat(sheet.getRows()).isEmpty();
     }
 
     @Test
@@ -133,8 +127,8 @@ class SheetResourcesImplTest extends ResourcesImplBase {
         server.setResponseBody(new File("src/test/resources/getSheetWithFormat.json"));
         Sheet sheet = sheetResource.getSheet(123123L, null, null, null, null, null, null, null);
 
-        assertNotNull(sheet.getColumnByIndex(0).getFormat());
-        assertEquals(VerticalAlignment.TOP, sheet.getColumnByIndex(0).getFormat().getVerticalAlignment());
+        assertThat(sheet.getColumnByIndex(0).getFormat()).isNotNull();
+        assertThat(sheet.getColumnByIndex(0).getFormat().getVerticalAlignment()).isEqualTo(VerticalAlignment.TOP);
     }
 
     @Test
@@ -146,12 +140,12 @@ class SheetResourcesImplTest extends ResourcesImplBase {
         ByteArrayOutputStream output = new ByteArrayOutputStream();
         sheetResource.getSheetAsExcel(1234L, output);
 
-        assertNotNull(output);
-        assertTrue(output.toByteArray().length > 0);
+        assertThat(output).isNotNull();
+        assertThat(output.toByteArray()).isNotEmpty();
 
         //byte[] original = IOUtils.toByteArray(new FileReader(file));
         byte[] data = Files.readAllBytes(Paths.get(file.getPath()));
-        assertEquals(data.length, output.toByteArray().length);
+        assertThat(output.toByteArray()).hasSameSizeAs(data);
     }
 
     @Test
@@ -165,9 +159,9 @@ class SheetResourcesImplTest extends ResourcesImplBase {
 
         sheetResource.getSheetAsPDF(1234L, output, null);
 
-        assertNotNull(output, "Downloaded PDF is null.");
-        assertTrue(output.toByteArray().length > 0, "Downloaded PDF is empty.");
-        assertEquals(107906,output.toByteArray().length, "Downloaded PDF does not match the original size.");
+        assertThat(output).isNotNull();
+        assertThat(output.toByteArray()).isNotEmpty();
+        assertThat(output.toByteArray()).hasSize(107906);
 
         //test a larger PDF
         file = new File("src/test/resources/large_sheet.pdf");
@@ -175,9 +169,9 @@ class SheetResourcesImplTest extends ResourcesImplBase {
         server.setContentType("application/pdf");
         output = new ByteArrayOutputStream();
         sheetResource.getSheetAsPDF(1234L, output, PaperSize.LEGAL);
-        assertNotNull(output, "Downloaded PDF is null.");
-        assertTrue(output.toByteArray().length > 0, "Downloaded PDF is empty.");
-        assertEquals(936995,output.toByteArray().length, "Downloaded PDF does not match the original size.");
+        assertThat(output).isNotNull();
+        assertThat(output.toByteArray()).isNotEmpty();
+        assertThat(output.toByteArray()).hasSize(936995);
     }
 
     @Test
@@ -194,9 +188,7 @@ class SheetResourcesImplTest extends ResourcesImplBase {
         Sheet sheet = new Sheet.CreateSheetBuilder().setName("New Test Sheet").setColumns(list).build();
         Sheet newSheet = sheetResource.createSheet(sheet);
 
-        if (newSheet.getColumns().size() != 2) {
-            fail("Issue creating a sheet");
-        }
+        assertThat(newSheet.getColumns()).hasSize(2);
     }
 
     @Test
@@ -207,9 +199,9 @@ class SheetResourcesImplTest extends ResourcesImplBase {
         Sheet sheet = new Sheet.CreateFromTemplateOrSheetBuilder().setFromId(7960873114331012L).setName("New test sheet from template").build();
         Sheet newSheet = sheetResource.createSheetFromTemplate(sheet, EnumSet.allOf(SheetTemplateInclusion.class));
 
-        assertEquals(7960873114331012L, newSheet.getId().longValue());
-        assertEquals(AccessLevel.OWNER, newSheet.getAccessLevel());
-        assertEquals("https://app.smartsheet.com/b/home?lx=lbKEF1UakfTNJTZ5XkpxWg", newSheet.getPermalink());
+        assertThat(newSheet.getId().longValue()).isEqualTo(7960873114331012L);
+        assertThat(newSheet.getAccessLevel()).isEqualTo(AccessLevel.OWNER);
+        assertThat(newSheet.getPermalink()).isEqualTo("https://app.smartsheet.com/b/home?lx=lbKEF1UakfTNJTZ5XkpxWg");
 
     }
 
@@ -227,13 +219,13 @@ class SheetResourcesImplTest extends ResourcesImplBase {
         Sheet sheet = new Sheet.CreateSheetBuilder().setName("NEW TEST SHEET").setColumns(list).build();
         Sheet newSheet = sheetResource.createSheetInFolder(12345L, sheet);
 
-        assertEquals(2, newSheet.getColumns().size());
-        assertEquals(col,newSheet.getColumnByIndex(1));
-        assertNotEquals(col, newSheet.getColumnByIndex(0));
-        assertNull((new Sheet()).getColumnByIndex(100));
-        assertEquals(col, newSheet.getColumnById(4049365800118148L));
-        assertNotEquals(col,newSheet.getColumnById(4032471613368196L));
-        assertNull((new Sheet()).getColumnById(100));
+        assertThat(newSheet.getColumns()).hasSize(2);
+        assertThat(newSheet.getColumnByIndex(1)).isEqualTo(col);
+        assertThat(newSheet.getColumnByIndex(0)).isNotEqualTo(col);
+        assertThat((new Sheet()).getColumnByIndex(100)).isNull();
+        assertThat(newSheet.getColumnById(4049365800118148L)).isEqualTo(col);
+        assertThat(newSheet.getColumnById(4032471613368196L)).isNotEqualTo(col);
+        assertThat((new Sheet()).getColumnById(100)).isNull();
     }
 
     @Test
@@ -246,10 +238,9 @@ class SheetResourcesImplTest extends ResourcesImplBase {
         Sheet newSheet = sheetResource.createSheetInFolderFromTemplate(1234L, sheet,
                 EnumSet.allOf(SheetTemplateInclusion.class));
 
-        if (newSheet.getId().toString().isEmpty() || newSheet.getAccessLevel() != AccessLevel.OWNER
-                || newSheet.getPermalink().toString().isEmpty()) {
-            fail("Sheet not correctly copied");
-        }
+        assertThat(newSheet.getId().toString()).isNotBlank();
+        assertThat(newSheet.getAccessLevel()).isEqualTo(AccessLevel.OWNER);
+        assertThat(newSheet.getPermalink()).isNotBlank();
 
         newSheet = sheetResource.createSheetInFolderFromTemplate(1234L, sheet, null);
     }
@@ -267,7 +258,7 @@ class SheetResourcesImplTest extends ResourcesImplBase {
 
         Sheet sheet = new Sheet.CreateSheetBuilder().setName("NEW TEST SHEET").setColumns(list).build();
         Sheet newSheet = sheetResource.createSheetInWorkspace(1234L, sheet);
-        assertEquals(2, newSheet.getColumns().size());
+        assertThat(newSheet.getColumns()).hasSize(2);
     }
 
     @Test
@@ -279,9 +270,9 @@ class SheetResourcesImplTest extends ResourcesImplBase {
         Sheet newSheet = sheetResource.createSheetInWorkspaceFromTemplate(1234L, sheet,
                 EnumSet.allOf(SheetTemplateInclusion.class));
 
-        assertEquals(7960873114331012L, newSheet.getId().longValue());
-        assertEquals(AccessLevel.OWNER, newSheet.getAccessLevel());
-        assertEquals("https://app.smartsheet.com/b/home?lx=lbKEF1UakfTNJTZ5XkpxWg", newSheet.getPermalink());
+        assertThat(newSheet.getId().longValue()).isEqualTo(7960873114331012L);
+        assertThat(newSheet.getAccessLevel()).isEqualTo(AccessLevel.OWNER);
+        assertThat(newSheet.getPermalink()).isEqualTo("https://app.smartsheet.com/b/home?lx=lbKEF1UakfTNJTZ5XkpxWg");
 
         newSheet = sheetResource.createSheetInWorkspaceFromTemplate(1234L, sheet, null);
     }
@@ -299,16 +290,14 @@ class SheetResourcesImplTest extends ResourcesImplBase {
         Sheet sheet = new Sheet.UpdateSheetBuilder().setName("new name").build();
         Sheet newSheet = sheetResource.updateSheet(sheet);
 
-        assertEquals(sheet.getName(), newSheet.getName(), "Sheet update (rename) failed.");
+        assertThat(newSheet.getName()).isEqualTo(sheet.getName());
     }
 
     @Test
     void testGetSheetVersion() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/getSheetVersion.json"));
         int version = sheetResource.getSheetVersion(1234L);
-        if (version != 1) {
-            fail("Issue getting sheet version");
-        }
+        assertThat(version).isEqualTo(1);
     }
 
     @Test
@@ -361,11 +350,11 @@ class SheetResourcesImplTest extends ResourcesImplBase {
 
         SheetPublish publishStatus = sheetResource.getPublishStatus(1234L);
 
-        assertTrue(publishStatus.getReadOnlyLiteEnabled());
-        assertTrue(publishStatus.getReadOnlyFullEnabled());
-        assertTrue(publishStatus.getReadWriteEnabled());
-        assertTrue(publishStatus.getIcalEnabled());
-        assertEquals("https://publish.smartsheet.com/6d35fa6c99334d4892f9591cf6065", publishStatus.getReadOnlyLiteUrl());
+        assertThat(publishStatus.getReadOnlyLiteEnabled()).isTrue();
+        assertThat(publishStatus.getReadOnlyFullEnabled()).isTrue();
+        assertThat(publishStatus.getReadWriteEnabled()).isTrue();
+        assertThat(publishStatus.getIcalEnabled()).isTrue();
+        assertThat(publishStatus.getReadOnlyLiteUrl()).isEqualTo("https://publish.smartsheet.com/6d35fa6c99334d4892f9591cf6065");
     }
 
     @Test
@@ -382,11 +371,11 @@ class SheetResourcesImplTest extends ResourcesImplBase {
         publish.setReadOnlyLiteUrl("http://somedomain.com");
         SheetPublish newPublish = sheetResource.updatePublishStatus(1234L, publish);
 
-        assertTrue(newPublish.getIcalEnabled());
-        assertTrue(newPublish.getReadOnlyFullEnabled());
-        assertTrue(newPublish.getReadOnlyLiteEnabled());
-        assertTrue(newPublish.getReadWriteEnabled());
-        assertEquals("http://somedomain.com", newPublish.getReadOnlyLiteUrl());
+        assertThat(newPublish.getIcalEnabled()).isTrue();
+        assertThat(newPublish.getReadOnlyFullEnabled()).isTrue();
+        assertThat(newPublish.getReadOnlyLiteEnabled()).isTrue();
+        assertThat(newPublish.getReadWriteEnabled()).isTrue();
+        assertThat(newPublish.getReadOnlyLiteUrl()).isEqualTo("http://somedomain.com");
 
     }
 
@@ -397,7 +386,7 @@ class SheetResourcesImplTest extends ResourcesImplBase {
         containerDestination.setDestinationType(DestinationType.FOLDER);
 
         Sheet sheet = sheetResource.copySheet(123L, containerDestination, null);
-        assertEquals("newSheetName", sheet.getName());
+        assertThat(sheet.getName()).isEqualTo("newSheetName");
     }
 
     @Test
@@ -418,11 +407,11 @@ class SheetResourcesImplTest extends ResourcesImplBase {
         ByteArrayOutputStream output = new ByteArrayOutputStream();
         sheetResource.getSheetAsExcel(1234L, output);
 
-        assertNotNull(output);
-        assertTrue(output.toByteArray().length > 0);
+        assertThat(output).isNotNull();
+        assertThat(output.toByteArray()).isNotEmpty();
 
         byte[] data = Files.readAllBytes(Paths.get(file.getPath()));
-        assertEquals(data.length, output.toByteArray().length);
+        assertThat(output.toByteArray()).hasSameSizeAs(data);
     }
 
     @Test

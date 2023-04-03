@@ -30,7 +30,7 @@ import org.junit.jupiter.api.Test;
 import java.io.File;
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class DiscussionAttachmentResourcesImplTest extends ResourcesImplBase {
 
@@ -48,7 +48,7 @@ class DiscussionAttachmentResourcesImplTest extends ResourcesImplBase {
         PaginationParameters parameters = new PaginationParameters(false, 1,1);
 
         PagedResult<Attachment> attachments = discussionAttachmentResources.getAttachments(1234L, 456L, parameters);
-        assertTrue(attachments.getTotalCount() == 2);
-        assertTrue(attachments.getData().get(0).getId() == 4583173393803140L);
+        assertThat(attachments.getTotalCount()).isEqualTo(2);
+        assertThat(attachments.getData().get(0).getId()).isEqualTo(4583173393803140L);
     }
 }

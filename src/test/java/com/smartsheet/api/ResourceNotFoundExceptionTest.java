@@ -23,7 +23,7 @@ package com.smartsheet.api;
 import com.smartsheet.api.models.Error;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class ResourceNotFoundExceptionTest {
 
@@ -35,8 +35,8 @@ class ResourceNotFoundExceptionTest {
             error.setMessage("testing testing");
             throw new ResourceNotFoundException(error);
         }catch(ResourceNotFoundException e){
-            assertEquals("testing testing",e.getMessage());
-            assertEquals(1, e.getErrorCode());
+            assertThat(e.getMessage()).isEqualTo("testing testing");
+            assertThat(e.getErrorCode()).isEqualTo(1);
         }
     }
 

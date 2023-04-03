@@ -9,9 +9,9 @@ package com.smartsheet.api.sdk_test;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
+ * 
  *      http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -35,7 +35,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class AutomationRulesTest {
 
@@ -44,7 +44,7 @@ class AutomationRulesTest {
         try {
             Smartsheet ss = HelperFunctions.SetupClient("List Automation Rules");
             PagedResult<AutomationRule> automationRules = ss.sheetResources().automationRuleResources().listAutomationRules(324, null);
-          assertEquals(2, (long)automationRules.getTotalCount());
+          assertThat((long)automationRules.getTotalCount()).isEqualTo(2);
         } catch (Exception ex) {
             HelperFunctions.ExceptionMessage(ex.getMessage(), ex.getCause());
         }
@@ -55,7 +55,7 @@ class AutomationRulesTest {
         Smartsheet ss = HelperFunctions.SetupClient("Get Automation Rule");
         try {
             AutomationRule automationRule = ss.sheetResources().automationRuleResources().getAutomationRule(324, 284);
-          assertEquals(284, (long)automationRule.getId());
+          assertThat((long)automationRule.getId()).isEqualTo(284);
         }
         catch(SmartsheetException ex) {
             HelperFunctions.ExceptionMessage(ex.getMessage(), ex.getCause());

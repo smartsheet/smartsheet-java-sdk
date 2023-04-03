@@ -29,8 +29,7 @@ import org.junit.jupiter.api.Test;
 import java.io.File;
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class DiscussionResourcesImplTest extends ResourcesImplBase {
 
@@ -51,12 +50,12 @@ class DiscussionResourcesImplTest extends ResourcesImplBase {
 
         Comment newComment = discussionResources.addDiscussionComment(1234L, comment);
 
-        assertEquals("This is a new comment.",newComment.getText());
-        assertEquals("John Doe", newComment.getCreatedBy().getName());
+        assertThat(newComment.getText()).isEqualTo("This is a new comment.");
+        assertThat(newComment.getCreatedBy().getName()).isEqualTo("John Doe");
     }
 
     @Test
     void testAttachments() {
-        assertNull(discussionResources.attachments());
+        assertThat(discussionResources.attachments()).isNull();
     }
 }

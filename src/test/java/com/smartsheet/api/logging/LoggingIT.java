@@ -26,15 +26,14 @@ import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.Trace;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
 import com.smartsheet.api.internal.json.JacksonJsonSerializer;
-import com.smartsheet.api.models.Sheet;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 // Note this is an IT test because at least one of the tests requires an internet connection
 class LoggingIT {
@@ -56,20 +55,20 @@ class LoggingIT {
         DefaultHttpClient.setTraceStream(traceStream);
         Smartsheet client = new SmartsheetBuilder().build();
         client.setTraces(Trace.Request, Trace.Response);    // should log entire request and response
-        try {
-            // Note this requires an internet connection
-            Sheet sheet = client.sheetResources().getSheet(42, null, null, null, null, null, 1, 1);
-          fail("expected SmartsheetException");
-        } catch (SmartsheetException expected) {
-            String output = traceStream.toString();
-            // not super-robust but asserts some of the important parts
-          assertTrue(output.contains("\"request\" : {"), "request not found in - " + output);
-          assertTrue(output.contains("\"Authorization\" : \"Bearer ****null"), "Auth header not found in - " + output); // truncated Auth header
-          assertTrue(output.contains("\"response\" : {"), "response not found in - " + output);
-          assertTrue(output.contains("\"body\" : \"{\\n  \\\"errorCode\\\" : 1002,\\n  \\\"message\\\" : " +
-                            "\\\"Your Access Token is invalid.\\\",\\n  \\\"refId\\\" :"), "response-body not found in - " + output);
-          assertTrue(output.contains("\"status\" : \"HTTP/1.1 401 Unauthorized\""), "status not found in - " + output);
-        }
+
+        // Note this requires an internet connection
+        assertThatThrownBy(() ->client.sheetResources().getSheet(42, null, null, null, null, null, 1, 1))
+                .isInstanceOf(SmartsheetException.class);
+
+        String output = traceStream.toString();
+        // not super-robust but asserts some of the important parts
+        assertThat(output)
+                .contains("\"request\" : {")
+                .contains("\"Authorization\" : \"Bearer ****null") // truncated Auth header
+                .contains("\"response\" : {")
+                .contains("\"body\" : \"{\\n  \\\"errorCode\\\" : 1002,\\n  \\\"message\\\" : " +
+                            "\\\"Your Access Token is invalid.\\\",\\n  \\\"refId\\\" :")
+                .contains("\"status\" : \"HTTP/1.1 401 Unauthorized\"");
     }
 
     @Test
@@ -78,18 +77,19 @@ class LoggingIT {
         DefaultHttpClient.setTraceStream(traceStream);
         Smartsheet client = new SmartsheetBuilder().setAccessToken("ll352u9jujauoqz4gstvsae05").build(); // using "null" as token results in NPE
         client.setTraces(Trace.Request, Trace.Response);    // should log entire request and response
-        try {
-            // Note this requires an internet connection
-            Sheet sheet = client.sheetResources().getSheet(42, null, null, null, null, null, 1, 1);
-          fail("expected SmartsheetException");
-        } catch (SmartsheetException expected) {
-            String output = traceStream.toString();
-            // not super-robust but asserts some of the important parts
-          assertTrue(output.contains("request:{"), "request not found in - " + output);
-          assertTrue(output.contains("'Authorization':'Bearer ****ae05"), "Auth header not found in - " + output); // truncated Auth header
-          assertTrue(output.contains("response:{"), "response not found in - " + output);
-          assertTrue(output.contains("body:'{\n  \"errorCode\" : 1002,\n  \"message\" : \"Your Access Token is invalid.\",\n  \"refId\" :"), "response-body not found in - " + output);
-          assertTrue(output.contains("status:'HTTP/1.1 401 Unauthorized'"), "status not found in - " + output);
-        }
+
+
+        // Note this requires an internet connection
+        assertThatThrownBy(() -> client.sheetResources().getSheet(42, null, null, null, null, null, 1, 1))
+                .isInstanceOf(SmartsheetException.class);
+
+        String output = traceStream.toString();
+        // not super-robust but asserts some of the important parts
+        assertThat(output)
+                .contains("request:{")
+                .contains("'Authorization':'Bearer ****ae05")
+                .contains("response:{")
+                .contains("body:'{\n  \"errorCode\" : 1002,\n  \"message\" : \"Your Access Token is invalid.\",\n  \"refId\" :")
+                .contains("status:'HTTP/1.1 401 Unauthorized'");
     }
 }

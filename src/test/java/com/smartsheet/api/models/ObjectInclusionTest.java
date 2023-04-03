@@ -23,24 +23,23 @@ package com.smartsheet.api.models;
 import com.smartsheet.api.models.enums.ObjectInclusion;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class ObjectInclusionTest {
 
     @Test
     void testObjectInclusion() {
-        assertNotNull(ObjectInclusion.valueOf("DISCUSSIONS"));
-        assertNotNull(ObjectInclusion.valueOf("ATTACHMENTS"));
-        assertNotNull(ObjectInclusion.valueOf("DATA"));
-        assertNotNull(ObjectInclusion.valueOf("COLUMNS"));
-        assertNotNull(ObjectInclusion.valueOf("TEMPLATES"));
-        assertNotNull(ObjectInclusion.valueOf("FORMS"));
-        assertNotNull(ObjectInclusion.valueOf("CELL_LINKS"));
-        assertNotNull(ObjectInclusion.valueOf("FORMAT"));
-        assertNotNull(ObjectInclusion.valueOf("SOURCE"));
+        assertThat(ObjectInclusion.valueOf("DISCUSSIONS")).isNotNull();
+        assertThat(ObjectInclusion.valueOf("ATTACHMENTS")).isNotNull();
+        assertThat(ObjectInclusion.valueOf("DATA")).isNotNull();
+        assertThat(ObjectInclusion.valueOf("COLUMNS")).isNotNull();
+        assertThat(ObjectInclusion.valueOf("TEMPLATES")).isNotNull();
+        assertThat(ObjectInclusion.valueOf("FORMS")).isNotNull();
+        assertThat(ObjectInclusion.valueOf("CELL_LINKS")).isNotNull();
+        assertThat(ObjectInclusion.valueOf("FORMAT")).isNotNull();
+        assertThat(ObjectInclusion.valueOf("SOURCE")).isNotNull();
 
-        assertEquals(9,ObjectInclusion.values().length);
+        assertThat(ObjectInclusion.values()).hasSize(9);
     }
 
 }

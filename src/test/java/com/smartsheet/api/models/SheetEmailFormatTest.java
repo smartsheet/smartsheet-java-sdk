@@ -23,16 +23,17 @@ package com.smartsheet.api.models;
 import com.smartsheet.api.models.enums.SheetEmailFormat;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class SheetEmailFormatTest {
 
     @Test
     void test() {
-        assertNotNull(SheetEmailFormat.valueOf("PDF"));
-        assertNotNull(SheetEmailFormat.valueOf("EXCEL"));
-        assertEquals(3,SheetEmailFormat.values().length);
+        assertThat(SheetEmailFormat.valueOf("PDF")).isNotNull();
+        assertThat(SheetEmailFormat.valueOf("EXCEL")).isNotNull();
+        assertThat(SheetEmailFormat.valueOf("PDF_GANTT")).isNotNull();
+
+        assertThat(SheetEmailFormat.values()).hasSize(3);
     }
 
 }

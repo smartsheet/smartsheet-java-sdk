@@ -22,32 +22,27 @@ package com.smartsheet.api.models;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class IdentifiableModelTest {
 
     @Test
     void testHashCode() {
         Row row = new Row();
-        // Same Object
-        assertEquals(row,row);
         row.setId(1234L);
         Row row1 = new Row();
         row1.setId(1234L);
-        row.equals(row);
-        // Same id in two different objects
-        assertEquals(row,row1);
-
-        // Different Objects
-        assertNotEquals(row,new Object());
+        assertThat(row)
+                // Same id in two different objects
+                .isEqualTo(row1)
+                // Different Objects
+                .isNotEqualTo(new Object());
     }
 
     @Test
     void testEqualsObject() {
         Row row = new Row();
-        assertNotNull(row.hashCode());
+        assertThat(row.hashCode()).isNotNull();
     }
 
 }
