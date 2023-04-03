@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
+ * 
  *      http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -57,11 +57,7 @@ import java.util.Date;
 import java.util.EnumSet;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class SheetResourcesIT extends ITResourcesImpl{
     Smartsheet smartsheet;
@@ -110,9 +106,7 @@ public class SheetResourcesIT extends ITResourcesImpl{
 
         //create sheet
         newSheetHome = smartsheet.sheetResources().createSheet(sheetHome);
-        if (newSheetHome.getColumns().size() != sheetHome.getColumns().size()) {
-            fail("Issue creating a sheet");
-        }
+        assertThat(newSheetHome.getColumns()).hasSameSizeAs(sheetHome.getColumns());
     }
 
     public void testCopySheet() throws SmartsheetException, IOException {
@@ -126,7 +120,7 @@ public class SheetResourcesIT extends ITResourcesImpl{
                 .build();
 
         Sheet sheet = smartsheet.sheetResources().copySheet(newSheetHome.getId(), destination, EnumSet.of(SheetCopyInclusion.ALL));
-        assertEquals(sheet.getName(), "New Copied sheet");
+        assertThat(sheet.getName()).isEqualTo("New Copied sheet");
         deleteFolder(folder.getId());
     }
 
@@ -138,7 +132,7 @@ public class SheetResourcesIT extends ITResourcesImpl{
         ContainerDestination destination = new ContainerDestination.AddContainerDestinationBuilder().setDestinationType(DestinationType.FOLDER).setDestinationId(folder.getId()).build();
 
         Sheet movedSheet = smartsheet.sheetResources().moveSheet(sheet.getId(), destination);
-        assertNotNull(movedSheet);
+        assertThat(movedSheet).isNotNull();
         deleteSheet(movedSheet.getId());
         deleteFolder(folder.getId());
     }
@@ -202,7 +196,7 @@ public class SheetResourcesIT extends ITResourcesImpl{
         Sheet sheet = new Sheet.CreateFromTemplateOrSheetBuilder().setFromId(newSheetHome.getId()).setName("New test sheet from template").build();
         newSheetTemplate = smartsheet.sheetResources().createSheetFromTemplate(sheet, EnumSet.of(SheetTemplateInclusion.ATTACHMENTS, SheetTemplateInclusion.DATA, SheetTemplateInclusion.DISCUSSIONS));
 
-        assertEquals(AccessLevel.OWNER, newSheetHome.getAccessLevel());
+        assertThat(newSheetHome.getAccessLevel()).isEqualTo(AccessLevel.OWNER);
     }
 
     public void testCreateSheetInFolder() throws SmartsheetException, IOException {
@@ -211,9 +205,7 @@ public class SheetResourcesIT extends ITResourcesImpl{
 
         Sheet newSheetFolder = smartsheet.sheetResources().createSheetInFolder(folder.getId(), sheetHome);
 
-        if (newSheetFolder.getColumns().size() != sheetHome.getColumns().size()) {
-            fail("Issue creating a sheet");
-        }
+        assertThat(newSheetFolder.getColumns()).hasSameSizeAs(sheetHome.getColumns());
     }
 
     public void testCreateSheetInFolderFromTemplate() throws SmartsheetException, IOException {
@@ -221,10 +213,9 @@ public class SheetResourcesIT extends ITResourcesImpl{
         Sheet sheet = new Sheet.CreateFromTemplateOrSheetBuilder().setFromId(newSheetHome.getId()).setName("New test sheet from template").build();
         Sheet newSheetFromTemplate= smartsheet.sheetResources().createSheetInFolderFromTemplate(folder.getId(), sheet, null);
 
-        if (newSheetFromTemplate.getId().toString().isEmpty() || newSheetFromTemplate.getAccessLevel() != AccessLevel.OWNER
-                || newSheetFromTemplate.getPermalink().toString().isEmpty()) {
-            fail("Sheet not correctly copied");
-        }
+        assertThat(newSheetFromTemplate.getId().toString()).isEmpty();
+        assertThat(newSheetFromTemplate.getAccessLevel()).isEqualTo(AccessLevel.OWNER);
+        assertThat(newSheetFromTemplate.getPermalink()).isEmpty();
     }
 
     public void testCreateSheetInWorkspace() throws SmartsheetException, IOException {
@@ -232,7 +223,7 @@ public class SheetResourcesIT extends ITResourcesImpl{
         workspace = createWorkspace("New Test Workspace");
 
         Sheet newSheet = smartsheet.sheetResources().createSheetInWorkspace(workspace.getId(), sheetHome);
-        assertEquals(sheetHome.getColumns().size(), newSheet.getColumns().size());
+        assertThat(sheetHome.getColumns()).hasSameSizeAs(newSheet.getColumns());
 
         //delete temporary workspace
         //testDeleteWorkspace(workspace.getId());
@@ -242,23 +233,20 @@ public class SheetResourcesIT extends ITResourcesImpl{
         Sheet sheet = new Sheet.CreateFromTemplateOrSheetBuilder().setFromId(newSheetHome.getId()).setName("New test sheet in workspace from template").build();
         Sheet newSheetFromTemplate = smartsheet.sheetResources().createSheetInWorkspaceFromTemplate(workspace.getId(), sheet, EnumSet.allOf(SheetTemplateInclusion.class));
 
-        if (newSheetFromTemplate.getId().toString().isEmpty() || newSheetFromTemplate.getAccessLevel() != AccessLevel.OWNER
-                || newSheetFromTemplate.getPermalink().toString().isEmpty()) {
-            fail("Sheet not correctly copied");
-        }
+        assertThat(newSheetFromTemplate.getId().toString()).isEmpty();
+        assertThat(newSheetFromTemplate.getAccessLevel()).isEqualTo(AccessLevel.OWNER);
+        assertThat(newSheetFromTemplate.getPermalink()).isEmpty();
     }
 
     public void testGetSheet() throws SmartsheetException, IOException {
         Sheet sheet = smartsheet.sheetResources().getSheet(newSheetHome.getId(), null, null, null, null, null, null, null);
 
-        assertEquals(sheet.getPermalink(), newSheetHome.getPermalink());
+        assertThat(newSheetHome.getPermalink()).isEqualTo(sheet.getPermalink());
     }
 
     public void testGetSheetVersion() throws SmartsheetException, IOException {
         int version = smartsheet.sheetResources().getSheetVersion(newSheetHome.getId());
-        if (version != 1) {
-            fail("Issue getting sheet version");
-        }
+        assertThat(version).isEqualTo(1);
     }
 
     public void testGetSheetAsExcel() throws SmartsheetException, IOException {
@@ -266,7 +254,7 @@ public class SheetResourcesIT extends ITResourcesImpl{
         ByteArrayOutputStream output = new ByteArrayOutputStream();
         smartsheet.sheetResources().getSheetAsExcel(newSheetHome.getId(), output);
 
-        assertNotNull(output);
+        assertThat(output).isNotNull();
     }
 
     public void testGetSheetAsPDF() throws SmartsheetException, IOException {
@@ -274,14 +262,14 @@ public class SheetResourcesIT extends ITResourcesImpl{
         smartsheet.sheetResources().getSheetAsPDF(newSheetHome.getId(), output, PaperSize.A1);
         smartsheet.sheetResources().getSheetAsCSV(newSheetHome.getId(), output);
 
-        assertNotNull(output);
+        assertThat(output).isNotNull();
     }
 
     public void testUpdateSheet() throws SmartsheetException, IOException {
         Sheet sheet = new Sheet.UpdateSheetBuilder().setSheetId(newSheetHome.getId()).setName("Updated Name by Aditi").build();
         Sheet newSheet = smartsheet.sheetResources().updateSheet(sheet);
 
-        assertEquals(sheet.getName(), newSheet.getName());
+        assertThat(newSheet.getName()).isEqualTo(sheet.getName());
     }
 
     public void testPublishSheetDefaults() throws SmartsheetException, IOException {
@@ -293,7 +281,7 @@ public class SheetResourcesIT extends ITResourcesImpl{
                 .build();
         SheetPublish newSheetPublish = smartsheet.sheetResources().updatePublishStatus(newSheetHome.getId(), sheetPublish);
 
-        assertTrue(newSheetPublish.getReadWriteShowToolbar(), "read write show toolbar should be enabled");
+        assertThat(newSheetPublish.getReadWriteShowToolbar()).isTrue();
     }
 
     public void testPublishSheet() throws SmartsheetException, IOException {
@@ -307,8 +295,8 @@ public class SheetResourcesIT extends ITResourcesImpl{
                 .build();
         SheetPublish newSheetPublish = smartsheet.sheetResources().updatePublishStatus(newSheetHome.getId(), sheetPublish);
 
-        assertFalse(newSheetPublish.getReadWriteShowToolbar(), "read write show toolbar should not be enabled");
-        assertFalse(newSheetPublish.getReadOnlyFullShowToolbar(), "read only full show toolbar should not be enabled");
+        assertThat(newSheetPublish.getReadWriteShowToolbar()).isFalse();
+        assertThat(newSheetPublish.getReadOnlyFullShowToolbar()).isFalse();
     }
 
     public void testUpdatePublishStatus() throws SmartsheetException, IOException {
@@ -337,12 +325,12 @@ public class SheetResourcesIT extends ITResourcesImpl{
                 .build();
         SheetPublish newSheetPublish = smartsheet.sheetResources().updatePublishStatus(newSheetHome.getId(), sheetPublish);
 
-        assertTrue(newSheetPublish.getReadOnlyFullEnabled());
+        assertThat(newSheetPublish.getReadOnlyFullEnabled()).isTrue();
     }
 
     public void testGetPublishStatus() throws SmartsheetException, IOException {
         SheetPublish publishStatus = smartsheet.sheetResources().getPublishStatus(newSheetHome.getId());
-        assertNotNull(publishStatus);
+        assertThat(publishStatus).isNotNull();
     }
 
     public void testListSheets() throws SmartsheetException, IOException {
@@ -350,14 +338,14 @@ public class SheetResourcesIT extends ITResourcesImpl{
         PagedResult<Sheet> sheets = smartsheet.sheetResources().listSheets(EnumSet.of(SourceInclusion.SOURCE), parameters);
         smartsheet.sheetResources().listSheets(null, null);
 
-        assertTrue(sheets.getPageNumber() == 1);
+        assertThat(sheets.getPageNumber()).isEqualTo(1);
     }
 
     public void testListOrganizationSheets() throws SmartsheetException, IOException {
         //PaginationParameters parameters = new PaginationParameters.PaginationParametersBuilder().setIncludeAll(false).setPageSize(1).setPage(1).build();
         //PagedResult<Sheet> sheets = smartsheet.sheetResources().listOrganizationSheets(parameters);
 
-        //assertTrue(sheets.getPageNumber() == 1);
+        //assertThat(sheets.getPageNumber() == 1).isTrue();
     }
 
     public void testattachFile() throws SmartsheetException, IOException {

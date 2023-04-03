@@ -32,9 +32,7 @@ import org.junit.jupiter.api.Test;
 import java.io.File;
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class AttachmentVersioningResourcesImplTest extends ResourcesImplBase {
 
@@ -60,9 +58,9 @@ class AttachmentVersioningResourcesImplTest extends ResourcesImplBase {
 
         PaginationParameters parameters = new PaginationParameters(false, 1,1);
         PagedResult<Attachment> attachments = attachmentVersioningResources.listAllVersions(1234L, 456L, parameters);
-            assertNotNull(attachments.getData().get(0).getName());
-            assertEquals(4583173393803140L, attachments.getData().get(0).getId().longValue());
-            assertEquals("image/png", attachments.getData().get(1).getMimeType());
+            assertThat(attachments.getData().get(0).getName()).isNotNull();
+            assertThat(attachments.getData().get(0).getId().longValue()).isEqualTo(4583173393803140L);
+            assertThat(attachments.getData().get(1).getMimeType()).isEqualTo("image/png");
     }
 
     @Test
@@ -71,11 +69,11 @@ class AttachmentVersioningResourcesImplTest extends ResourcesImplBase {
         File file = new File("src/test/resources/large_sheet.pdf");
         Attachment attachment = attachmentVersioningResources.attachNewVersion(1234L, 345L,file,
                 "application/pdf");
-        assertTrue(attachment.getId() == 7265404226692996L);
-        assertEquals("Testing.PDF", attachment.getName());
-        assertEquals(AttachmentType.FILE, attachment.getAttachmentType());
-        assertEquals("application/pdf", attachment.getMimeType());
-        assertTrue(1831L == attachment.getSizeInKb());
-        assertEquals(AttachmentParentType.SHEET, attachment.getParentType());
+        assertThat(attachment.getId()).isEqualTo(7265404226692996L);
+        assertThat(attachment.getName()).isEqualTo("Testing.PDF");
+        assertThat(attachment.getAttachmentType()).isEqualTo(AttachmentType.FILE);
+        assertThat(attachment.getMimeType()).isEqualTo("application/pdf");
+        assertThat(attachment.getSizeInKb()).isEqualTo(1831L);
+        assertThat(attachment.getParentType()).isEqualTo(AttachmentParentType.SHEET);
     }
 }

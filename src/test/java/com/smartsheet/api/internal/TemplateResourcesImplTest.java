@@ -32,8 +32,7 @@ import org.junit.jupiter.api.Test;
 import java.io.File;
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class TemplateResourcesImplTest extends ResourcesImplBase {
 
@@ -52,11 +51,11 @@ class TemplateResourcesImplTest extends ResourcesImplBase {
         PaginationParameters parameters = new PaginationParameters(false, 1, 1);
         PagedResult<Template> templates = templateResources.listUserCreatedTemplates(parameters);
 
-        assertNotNull(templates);
-        assertEquals("template 1", templates.getData().get(0).getName());
-        assertEquals(AccessLevel.OWNER, templates.getData().get(0).getAccessLevel());
-        assertEquals(3457273486960516L, templates.getData().get(0).getId().longValue());
-        assertEquals("This is template 1", templates.getData().get(0).getDescription());
+        assertThat(templates).isNotNull();
+        assertThat(templates.getData().get(0).getName()).isEqualTo("template 1");
+        assertThat(templates.getData().get(0).getAccessLevel()).isEqualTo(AccessLevel.OWNER);
+        assertThat(templates.getData().get(0).getId().longValue()).isEqualTo(3457273486960516L);
+        assertThat(templates.getData().get(0).getDescription()).isEqualTo("This is template 1");
     }
 
     @Test
@@ -66,10 +65,10 @@ class TemplateResourcesImplTest extends ResourcesImplBase {
         PaginationParameters parameters = new PaginationParameters(false, 1, 1);
         PagedResult<Template> templates = templateResources.listPublicTemplates(parameters);
 
-        assertNotNull(templates);
-        assertEquals("template 1", templates.getData().get(0).getName());
-        assertEquals(AccessLevel.OWNER, templates.getData().get(0).getAccessLevel());
-        assertEquals(3457273486960516L, templates.getData().get(0).getId().longValue());
-        assertEquals("This is template 1", templates.getData().get(0).getDescription());
+        assertThat(templates).isNotNull();
+        assertThat(templates.getData().get(0).getName()).isEqualTo("template 1");
+        assertThat(templates.getData().get(0).getAccessLevel()).isEqualTo(AccessLevel.OWNER);
+        assertThat(templates.getData().get(0).getId().longValue()).isEqualTo(3457273486960516L);
+        assertThat(templates.getData().get(0).getDescription()).isEqualTo("This is template 1");
     }
 }

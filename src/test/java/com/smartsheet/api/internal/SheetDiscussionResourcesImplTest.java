@@ -19,10 +19,8 @@ import java.util.Date;
 import java.util.EnumSet;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 /*
  * #[license]
@@ -33,9 +31,9 @@ import static org.junit.jupiter.api.Assertions.fail;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
+ * 
  *      http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -72,10 +70,10 @@ class SheetDiscussionResourcesImplTest extends ResourcesImplBase {
         discussion.setCommentAttachments(new ArrayList<>());
         Discussion newDiscussion = sheetDiscussionResources.createDiscussion(1234L, discussion);
 
-        assertNotNull(newDiscussion.getComments());
-        assertTrue(newDiscussion.getComments().size() == 1);
-        assertEquals("Brett Batie", newDiscussion.getComments().get(0).getCreatedBy().getName());
-        assertEquals("email@email.com", newDiscussion.getComments().get(0).getCreatedBy().getEmail());
+        assertThat(newDiscussion.getComments()).isNotNull();
+        assertThat(newDiscussion.getComments()).hasSize(1);
+        assertThat(newDiscussion.getComments().get(0).getCreatedBy().getName()).isEqualTo("Brett Batie");
+        assertThat(newDiscussion.getComments().get(0).getCreatedBy().getEmail()).isEqualTo("email@email.com");
 
 
         // Test failure - CreatedBy not allowed & only one comment can be added when creating a discussion.
@@ -89,12 +87,8 @@ class SheetDiscussionResourcesImplTest extends ResourcesImplBase {
         comment.setText("This is a test.");
         comments.add(comment);
         discussion.setComments(comments);
-        try{
-            sheetDiscussionResources.createDiscussion(1234L, discussion);
-            fail("An exception should have been thrown");
-        }catch(InvalidRequestException ex){
-            // expected
-        }
+        assertThatThrownBy(() -> sheetDiscussionResources.createDiscussion(1234L, discussion))
+                .isInstanceOf(InvalidRequestException.class);
     }
 
     @Test
@@ -115,10 +109,10 @@ class SheetDiscussionResourcesImplTest extends ResourcesImplBase {
         discussion.setCommentAttachments(new ArrayList<>());
         Discussion newDiscussion = sheetDiscussionResources.createDiscussionWithAttachment(1234L, discussion, file, "application/pdf");
 
-        assertNotNull(newDiscussion.getComments());
-        assertTrue(newDiscussion.getComments().size() == 1);
-        assertEquals("Brett Batie", newDiscussion.getComments().get(0).getCreatedBy().getName());
-        assertEquals("email@email.com", newDiscussion.getComments().get(0).getCreatedBy().getEmail());
+        assertThat(newDiscussion.getComments()).isNotNull();
+        assertThat(newDiscussion.getComments()).hasSize(1);
+        assertThat(newDiscussion.getComments().get(0).getCreatedBy().getName()).isEqualTo("Brett Batie");
+        assertThat(newDiscussion.getComments().get(0).getCreatedBy().getEmail()).isEqualTo("email@email.com");
 
 
         // Test failure - CreatedBy not allowed & only one comment can be added when creating a discussion.
@@ -132,12 +126,8 @@ class SheetDiscussionResourcesImplTest extends ResourcesImplBase {
         comment.setText("This is a test.");
         comments.add(comment);
         discussion.setComments(comments);
-        try{
-            sheetDiscussionResources.createDiscussion(1234L, discussion);
-            fail("An exception should have been thrown");
-        }catch(InvalidRequestException ex){
-            // expected
-        }
+        assertThatThrownBy(() -> sheetDiscussionResources.createDiscussion(1234L, discussion))
+                .isInstanceOf(InvalidRequestException.class);
     }
 
     @Test
@@ -146,13 +136,13 @@ class SheetDiscussionResourcesImplTest extends ResourcesImplBase {
 
         Discussion discussion = sheetDiscussionResources.getDiscussion(1234L, 5678L);
 
-        assertEquals("New Discussion", discussion.getTitle());
-        assertNotNull(discussion.getComments());
-        assertTrue(discussion.getComments().size() == 3);
-        assertEquals("This text is the body of the first comment4", discussion.getComments().get(0).getText());
-        assertNotNull(discussion.getComments().get(0).getCreatedBy());
-        assertEquals("Brett Batie", discussion.getComments().get(0).getCreatedBy().getName());
-        assertEquals("email@email.com", discussion.getComments().get(0).getCreatedBy().getEmail());
+        assertThat(discussion.getTitle()).isEqualTo("New Discussion");
+        assertThat(discussion.getComments()).isNotNull();
+        assertThat(discussion.getComments()).hasSize(3);
+        assertThat(discussion.getComments().get(0).getText()).isEqualTo("This text is the body of the first comment4");
+        assertThat(discussion.getComments().get(0).getCreatedBy()).isNotNull();
+        assertThat(discussion.getComments().get(0).getCreatedBy().getName()).isEqualTo("Brett Batie");
+        assertThat(discussion.getComments().get(0).getCreatedBy().getEmail()).isEqualTo("email@email.com");
     }
 
     @Test
@@ -168,9 +158,9 @@ class SheetDiscussionResourcesImplTest extends ResourcesImplBase {
         PaginationParameters parameters = new PaginationParameters(false, 1, 1);
 
         PagedResult<Discussion> newDiscussion = sheetDiscussionResources.listDiscussions(123L, parameters, EnumSet.of(DiscussionInclusion.COMMENTS));
-        assertTrue(newDiscussion.getTotalPages() == 1);
-        assertTrue(newDiscussion.getPageSize() == 100);
-        assertTrue(newDiscussion.getTotalCount() == 1);
-        assertTrue(newDiscussion.getData().size() == 1);
+        assertThat(newDiscussion.getTotalPages()).isEqualTo(1);
+        assertThat(newDiscussion.getPageSize()).isEqualTo(100);
+        assertThat(newDiscussion.getTotalCount()).isEqualTo(1);
+        assertThat(newDiscussion.getData()).hasSize(1);
     }
 }

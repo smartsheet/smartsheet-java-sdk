@@ -33,9 +33,8 @@ import java.text.ParseException;
 import java.util.Date;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.within;
 
 class ObjectValueDeserializerTest {
     private static final double DELTA = 0.000001;
@@ -51,7 +50,7 @@ class ObjectValueDeserializerTest {
 
         ObjectValue objectValue = getObjectValue(json);
 
-        assertNull(objectValue);
+        assertThat(objectValue).isNull();
     }
 
     @Test
@@ -66,7 +65,7 @@ class ObjectValueDeserializerTest {
 
         ObjectValue objectValue = getObjectValue(json);
 
-        assertTrue(objectValue instanceof Duration);
+        assertThat(objectValue).isInstanceOf(Duration.class);
 
         assertSerializedAttributes(objectValue,
                 new ExpectedAttributeValue("objectType", ObjectValueType.DURATION.name()),
@@ -85,12 +84,12 @@ class ObjectValueDeserializerTest {
 
         ObjectValue objectValue = getObjectValue(json);
 
-        assertTrue(objectValue instanceof Duration);
+        assertThat(objectValue).isInstanceOf(Duration.class);
 
         Duration durationObjectValue = (Duration) objectValue;
-        assertEquals(1, durationObjectValue.getDays().intValue());
-        assertEquals(7, durationObjectValue.getHours().intValue());
-        assertEquals(30, durationObjectValue.getMinutes().intValue());
+        assertThat(durationObjectValue.getDays().intValue()).isEqualTo(1);
+        assertThat(durationObjectValue.getHours().intValue()).isEqualTo(7);
+        assertThat(durationObjectValue.getMinutes().intValue()).isEqualTo(30);
 
         assertSerializedAttributes(objectValue,
                 new ExpectedAttributeValue("objectType", ObjectValueType.DURATION.name()),
@@ -115,16 +114,16 @@ class ObjectValueDeserializerTest {
 
         ObjectValue objectValue = getObjectValue(json);
 
-        assertTrue(objectValue instanceof Duration);
+        assertThat(objectValue).isInstanceOf(Duration.class);
         Duration durationObjectValue = (Duration) objectValue;
-        assertEquals(true, durationObjectValue.getNegative());
-        assertEquals(false, durationObjectValue.getElapsed());
-        assertEquals(2, durationObjectValue.getWeeks().intValue());
-        assertEquals(3, durationObjectValue.getDays().intValue());
-        assertEquals(7, durationObjectValue.getHours().intValue());
-        assertEquals(30, durationObjectValue.getMinutes().intValue());
-        assertEquals(45, durationObjectValue.getSeconds().intValue());
-        assertEquals(500, durationObjectValue.getMilliseconds().intValue());
+        assertThat(durationObjectValue.getNegative()).isTrue();
+        assertThat(durationObjectValue.getElapsed()).isFalse();
+        assertThat(durationObjectValue.getWeeks().intValue()).isEqualTo(2);
+        assertThat(durationObjectValue.getDays().intValue()).isEqualTo(3);
+        assertThat(durationObjectValue.getHours().intValue()).isEqualTo(7);
+        assertThat(durationObjectValue.getMinutes().intValue()).isEqualTo(30);
+        assertThat(durationObjectValue.getSeconds().intValue()).isEqualTo(45);
+        assertThat(durationObjectValue.getMilliseconds().intValue()).isEqualTo(500);
 
         assertSerializedAttributes(objectValue,
                 new ExpectedAttributeValue("objectType", ObjectValueType.DURATION.name()),
@@ -154,16 +153,16 @@ class ObjectValueDeserializerTest {
 
         ObjectValue objectValue = getObjectValue(json);
 
-        assertTrue(objectValue instanceof Duration);
+        assertThat(objectValue).isInstanceOf(Duration.class);
         Duration durationObjectValue = (Duration) objectValue;
-        assertEquals(true, durationObjectValue.getNegative());
-        assertEquals(false, durationObjectValue.getElapsed());
-        assertEquals(2.3, durationObjectValue.getWeeks(), DELTA);
-        assertEquals(3.4, durationObjectValue.getDays(), DELTA);
-        assertEquals(7.5, durationObjectValue.getHours(), DELTA);
-        assertEquals(30.6, durationObjectValue.getMinutes(), DELTA);
-        assertEquals(45.7, durationObjectValue.getSeconds(), DELTA);
-        assertEquals(500.8, durationObjectValue.getMilliseconds(), DELTA);
+        assertThat(durationObjectValue.getNegative()).isTrue();
+        assertThat(durationObjectValue.getElapsed()).isFalse();
+        assertThat(durationObjectValue.getWeeks()).isEqualTo(2.3, within(DELTA));
+        assertThat(durationObjectValue.getDays()).isEqualTo(3.4, within(DELTA));
+        assertThat(durationObjectValue.getHours()).isEqualTo(7.5, within(DELTA));
+        assertThat(durationObjectValue.getMinutes()).isEqualTo(30.6, within(DELTA));
+        assertThat(durationObjectValue.getSeconds()).isEqualTo(45.7, within(DELTA));
+        assertThat(durationObjectValue.getMilliseconds()).isEqualTo(500.8, within(DELTA));
 
         assertSerializedAttributes(objectValue,
                 new ExpectedAttributeValue("objectType", ObjectValueType.DURATION.name()),
@@ -186,10 +185,10 @@ class ObjectValueDeserializerTest {
 
         ObjectValue objectValue = getObjectValue(json);
 
-        assertEquals(ObjectValueType.ABSTRACT_DATETIME, objectValue.getObjectType());
+        assertThat(objectValue.getObjectType()).isEqualTo(ObjectValueType.ABSTRACT_DATETIME);
 
         DateObjectValue dateObjectValue = (DateObjectValue) objectValue;
-        assertEquals("2017-07-01T16:30:07", dateObjectValue.getValue());
+        assertThat(dateObjectValue.getValue()).isEqualTo("2017-07-01T16:30:07");
 
         assertSerializedAttributes(objectValue,
                 new ExpectedAttributeValue("objectType", ObjectValueType.ABSTRACT_DATETIME.name()),
@@ -205,10 +204,10 @@ class ObjectValueDeserializerTest {
 
         ObjectValue objectValue = getObjectValue(json);
 
-        assertEquals(ObjectValueType.DATE, objectValue.getObjectType());
+        assertThat(objectValue.getObjectType()).isEqualTo(ObjectValueType.DATE);
 
         DateObjectValue dateObjectValue = (DateObjectValue) objectValue;
-        assertEquals("2017-07-17", dateObjectValue.getValue());
+        assertThat(dateObjectValue.getValue()).isEqualTo("2017-07-17");
 
         assertSerializedAttributes(objectValue,
                 new ExpectedAttributeValue("objectType", ObjectValueType.DATE.name()),
@@ -224,17 +223,17 @@ class ObjectValueDeserializerTest {
 
         ObjectValue objectValue = getObjectValue(json);
 
-        assertEquals(ObjectValueType.DATETIME, objectValue.getObjectType());
+        assertThat(objectValue.getObjectType()).isEqualTo(ObjectValueType.DATETIME);
 
         DateObjectValue dateObjectValue = (DateObjectValue) objectValue;
 
         Date date = dateObjectValue.toDate();
-        assertEquals(2017, date.getYear() + 1900);
-        assertEquals(7, date.getMonth() + 1);
-        assertEquals(17, date.getDate());
-        assertEquals(20, date.getHours());
-        assertEquals(27, date.getMinutes());
-        assertEquals(57, date.getSeconds());
+        assertThat(date.getYear() + 1900).isEqualTo(2017);
+        assertThat(date.getMonth() + 1).isEqualTo(7);
+        assertThat(date.getDate()).isEqualTo(17);
+        assertThat(date.getHours()).isEqualTo(20);
+        assertThat(date.getMinutes()).isEqualTo(27);
+        assertThat(date.getSeconds()).isEqualTo(57);
     }
 
     @Test
@@ -246,19 +245,19 @@ class ObjectValueDeserializerTest {
 
         ObjectValue objectValue = getObjectValue(json);
 
-        assertEquals(ObjectValueType.DATETIME, objectValue.getObjectType());
+        assertThat(objectValue.getObjectType()).isEqualTo(ObjectValueType.DATETIME);
 
         DateObjectValue dateObjectValue = (DateObjectValue) objectValue;
 
-        assertEquals("2017-07-17T20:27:57Z", dateObjectValue.getValue());
+        assertThat(dateObjectValue.getValue()).isEqualTo("2017-07-17T20:27:57Z");
 
         Date date = dateObjectValue.toDate();
-        assertEquals(2017, date.getYear() + 1900);
-        assertEquals(7, date.getMonth() + 1);
-        assertEquals(17, date.getDate());
-        assertEquals(20, date.getHours());
-        assertEquals(27, date.getMinutes());
-        assertEquals(57, date.getSeconds());
+        assertThat(date.getYear() + 1900).isEqualTo(2017);
+        assertThat(date.getMonth() + 1).isEqualTo(7);
+        assertThat(date.getDate()).isEqualTo(17);
+        assertThat(date.getHours()).isEqualTo(20);
+        assertThat(date.getMinutes()).isEqualTo(27);
+        assertThat(date.getSeconds()).isEqualTo(57);
 
         assertSerializedAttributes(objectValue,
                 new ExpectedAttributeValue("objectType", ObjectValueType.DATETIME.name()),
@@ -271,9 +270,9 @@ class ObjectValueDeserializerTest {
         String json = "{\"objectValue\":123456}";
         ObjectValue actual = getObjectValue(json);
         PrimitiveObjectValue<Number> numberPrimitiveObjectValue = (PrimitiveObjectValue<Number>) actual;
-        assertEquals(123456L, numberPrimitiveObjectValue.getValue().longValue());
+        assertThat(numberPrimitiveObjectValue.getValue().longValue()).isEqualTo(123456L);
 
-        assertEquals("123456", jacksonJsonSerializer.serialize(actual));
+        assertThat(jacksonJsonSerializer.serialize(actual)).isEqualTo("123456");
     }
 
     @Test
@@ -281,9 +280,9 @@ class ObjectValueDeserializerTest {
         String json = "{\"objectValue\":123456.789}";
         ObjectValue actual = getObjectValue(json);
         PrimitiveObjectValue<Number> numberPrimitiveObjectValue = (PrimitiveObjectValue<Number>) actual;
-        assertEquals(123456.789f, numberPrimitiveObjectValue.getValue().floatValue(), 0.001);
+        assertThat(numberPrimitiveObjectValue.getValue().floatValue()).isEqualTo(123456.789f);
 
-        assertEquals("123456.789", jacksonJsonSerializer.serialize(actual));
+        assertThat(jacksonJsonSerializer.serialize(actual)).isEqualTo("123456.789");
     }
 
     @Test
@@ -291,9 +290,9 @@ class ObjectValueDeserializerTest {
         String json = "{\"objectValue\":\"foo\"}";
         ObjectValue actual = getObjectValue(json);
         PrimitiveObjectValue<String> primitiveObjectValue = (PrimitiveObjectValue<String>) actual;
-        assertEquals("foo", primitiveObjectValue.getValue());
+        assertThat(primitiveObjectValue.getValue()).isEqualTo("foo");
 
-        assertEquals("\"foo\"", jacksonJsonSerializer.serialize(actual));
+        assertThat(jacksonJsonSerializer.serialize(actual)).isEqualTo("\"foo\"");
     }
 
     @Test
@@ -301,8 +300,8 @@ class ObjectValueDeserializerTest {
         String json = "{\"objectValue\":true}";
         ObjectValue actual = getObjectValue(json);
         PrimitiveObjectValue<Boolean> primitiveObjectValue = (PrimitiveObjectValue<Boolean>) actual;
-        assertEquals(true, primitiveObjectValue.getValue());
-        assertEquals("true", jacksonJsonSerializer.serialize(actual));
+        assertThat(primitiveObjectValue.getValue()).isTrue();
+        assertThat(jacksonJsonSerializer.serialize(actual)).isEqualTo("true");
     }
 
     private static class ExpectedAttributeValue {
@@ -323,11 +322,10 @@ class ObjectValueDeserializerTest {
         Map<String, Object> serializedMap = jacksonJsonSerializer.deserializeMap(new ByteArrayInputStream(json.getBytes()));
 
         for (ExpectedAttributeValue expectedAttribute : expected) {
-            assertTrue(serializedMap.containsKey(expectedAttribute.attributeName), "Expected attribute '" + expectedAttribute.attributeName + "' in serialized object was missing!\n" + json);
-            assertEquals(expectedAttribute.attributeValue, serializedMap.get(expectedAttribute.attributeName), "Expected value for attribute '"+ expectedAttribute.attributeName +"'");
+            assertThat(serializedMap).containsEntry(expectedAttribute.attributeName, expectedAttribute.attributeValue);
         }
 
-        assertEquals(serializedMap.keySet().size(), expected.length, "Number of serialized attributes did not equal the expected value.\n" + json);
+        assertThat(serializedMap).hasSameSizeAs(expected);
     }
 
 

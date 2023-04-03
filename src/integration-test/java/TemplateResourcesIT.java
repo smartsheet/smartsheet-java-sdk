@@ -27,7 +27,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class TemplateResourcesIT extends ITResourcesImpl{
     Smartsheet smartsheet;
@@ -42,7 +42,7 @@ public class TemplateResourcesIT extends ITResourcesImpl{
         PaginationParameters parameters = new PaginationParameters.PaginationParametersBuilder().setIncludeAll(true).build();
         PagedResult<Template> templates = smartsheet.templateResources().listPublicTemplates(null);
 
-        assertNotNull(templates);
+        assertThat(templates).isNotNull();
     }
 
     @Test
@@ -50,6 +50,6 @@ public class TemplateResourcesIT extends ITResourcesImpl{
         PaginationParameters parameters = new PaginationParameters.PaginationParametersBuilder().setIncludeAll(true).build();
         PagedResult<Template> templates = smartsheet.templateResources().listUserCreatedTemplates(parameters);
 
-        assertNotNull(templates);
+        assertThat(templates).isNotNull();
     }
 }

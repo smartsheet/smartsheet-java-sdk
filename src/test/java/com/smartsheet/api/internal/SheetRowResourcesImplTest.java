@@ -9,9 +9,9 @@ package com.smartsheet.api.internal;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
+ * 
  *      http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -44,9 +44,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class SheetRowResourcesImplTest extends ResourcesImplBase {
 
@@ -80,13 +78,13 @@ class SheetRowResourcesImplTest extends ResourcesImplBase {
         Row row1 = newRows.get(0);
         Row row2 = newRows.get(1);
 
-        assertEquals(2, newRows.size());
-        assertEquals(7670198317672324L, row1.getId().longValue());
-        assertEquals(2, row1.getCells().size());
-        assertEquals("CHECKBOX", row1.getCells().get(0).getColumnType().toString());
-        assertEquals(2040698783459204L, row2.getId().longValue());
-        assertEquals(2, row2.getCells().size());
-        assertEquals("New status", row2.getCells().get(1).getValue());
+        assertThat(newRows).hasSize(2);
+        assertThat(row1.getId().longValue()).isEqualTo(7670198317672324L);
+        assertThat(row1.getCells()).hasSize(2);
+        assertThat(row1.getCells().get(0).getColumnType()).hasToString("CHECKBOX");
+        assertThat(row2.getId().longValue()).isEqualTo(2040698783459204L);
+        assertThat(row2.getCells()).hasSize(2);
+        assertThat(row2.getCells().get(1).getValue()).isEqualTo("New status");
     }
 
     @Test
@@ -95,11 +93,11 @@ class SheetRowResourcesImplTest extends ResourcesImplBase {
 
         Row row = sheetRowResource.getRow(1234L, 5678L, EnumSet.of(RowInclusion.COLUMNS, RowInclusion.FORMAT), EnumSet.of(ObjectExclusion.NONEXISTENT_CELLS));
 
-        assertNotNull(row);
-        assertEquals(2361756178769796L, row.getId().longValue());
-        assertEquals(4583173393803140L, row.getSheetId().longValue());
-        assertEquals(2, row.getCells().size());
-        assertEquals("Revision 1", row.getCells().get(0).getValue());
+        assertThat(row).isNotNull();
+        assertThat(row.getId().longValue()).isEqualTo(2361756178769796L);
+        assertThat(row.getSheetId().longValue()).isEqualTo(4583173393803140L);
+        assertThat(row.getCells()).hasSize(2);
+        assertThat(row.getCells().get(0).getValue()).isEqualTo("Revision 1");
     }
 
     @Test
@@ -133,12 +131,12 @@ class SheetRowResourcesImplTest extends ResourcesImplBase {
         List<Row> updatedRows = sheetRowResource.updateRows(1234L, rows);
         Row row1 = updatedRows.get(0);
 
-        assertTrue(row1.getCells().size() == 6);
-        assertEquals(3L, row1.getRowNumber().longValue());
-        assertEquals(1231490655774596L, row1.getId().longValue());
+        assertThat(row1.getCells()).hasSize(6);
+        assertThat(row1.getRowNumber().longValue()).isEqualTo(3L);
+        assertThat(row1.getId().longValue()).isEqualTo(1231490655774596L);
 
         Cell cell = row1.getCells().get(0);
-        assertEquals(7670639323572100L, cell.getColumnId().longValue());
+        assertThat(cell.getColumnId().longValue()).isEqualTo(7670639323572100L);
     }
 
     @Test

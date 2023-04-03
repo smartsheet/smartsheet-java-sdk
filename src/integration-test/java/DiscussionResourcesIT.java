@@ -34,7 +34,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.EnumSet;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class DiscussionResourcesIT extends ITResourcesImpl{
     Smartsheet smartsheet;
@@ -74,7 +74,7 @@ public class DiscussionResourcesIT extends ITResourcesImpl{
 
         //newDiscussionSheet = smartsheet.sheetResources().discussionResources().createDiscussionWithAttachment(sheet.getId(), discussion, file1, "text/plain");
 
-        assertNotNull(newDiscussionSheet);
+        assertThat(newDiscussionSheet).isNotNull();
     }
 
     public void testCreateDiscussionOnRow() throws SmartsheetException, IOException {
@@ -87,7 +87,7 @@ public class DiscussionResourcesIT extends ITResourcesImpl{
         Discussion discussion = new Discussion.CreateDiscussionBuilder().setTitle("New Discussion").setComment(comment).build();
         Discussion newDiscussionWithAttachment = smartsheet.sheetResources().rowResources().discussionResources().createDiscussion(sheet.getId(), row.getId(), discussion);
 
-        assertNotNull(newDiscussionWithAttachment);
+        assertThat(newDiscussionWithAttachment).isNotNull();
     }
 
     public void testCreateDiscussionWithAttachmentOnRow() throws SmartsheetException, IOException {
@@ -105,7 +105,7 @@ public class DiscussionResourcesIT extends ITResourcesImpl{
         File file = new File("src/integration-test/resources/small-text.txt");
         newDiscussionRow = smartsheet.sheetResources().rowResources().discussionResources().createDiscussionWithAttachment(sheet.getId(), row.getId(), discussion, file, "text/plain");
 
-        assertNotNull(newDiscussionRow);
+        assertThat(newDiscussionRow).isNotNull();
     }
 
     public void testGetRowDiscussions() throws SmartsheetException, IOException {
@@ -116,20 +116,20 @@ public class DiscussionResourcesIT extends ITResourcesImpl{
 
         // Get all discussions (specify 'include' parameter with values of 'comments' and 'attachments', and 'includeAll' parameter with value of "true").
         PagedResult<Discussion> newDiscussion = smartsheet.sheetResources().rowResources().discussionResources().listDiscussions(sheet.getId(), row.getId(), parameters, EnumSet.of(DiscussionInclusion.COMMENTS, DiscussionInclusion.ATTACHMENTS));
-        assertNotNull(newDiscussion);
+        assertThat(newDiscussion).isNotNull();
     }
 
     public void testGetAllDiscussions() throws SmartsheetException, IOException {
         PaginationParameters parameters = new PaginationParameters.PaginationParametersBuilder().setIncludeAll(true).build();
         PagedResult<Discussion> newDiscussion = smartsheet.sheetResources().discussionResources().listDiscussions(sheet.getId(), null, null);
         newDiscussion = smartsheet.sheetResources().discussionResources().listDiscussions(sheet.getId(), parameters, EnumSet.of(DiscussionInclusion.COMMENTS, DiscussionInclusion.ATTACHMENTS));
-        assertNotNull(newDiscussion);
+        assertThat(newDiscussion).isNotNull();
     }
 
     public void testGetDiscussion() throws SmartsheetException, IOException {
         Discussion newDiscussion = smartsheet.sheetResources().discussionResources().getDiscussion(sheet.getId(), newDiscussionSheet.getId());
 
-        assertNotNull(newDiscussion);
+        assertThat(newDiscussion).isNotNull();
     }
 
     public void testDeleteDiscussion() throws SmartsheetException, IOException {

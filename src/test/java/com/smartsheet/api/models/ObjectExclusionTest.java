@@ -23,16 +23,15 @@ package com.smartsheet.api.models;
 import com.smartsheet.api.models.enums.ObjectExclusion;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class ObjectExclusionTest {
 
     @Test
     void testObjectInclusion() {
-        assertNotNull(ObjectExclusion.valueOf("NONEXISTENT_CELLS"));
+        assertThat(ObjectExclusion.valueOf("NONEXISTENT_CELLS")).isNotNull();
 
-        assertEquals(1,ObjectExclusion.values().length);
+        assertThat(ObjectExclusion.values()).hasSize(1);
     }
 
 }

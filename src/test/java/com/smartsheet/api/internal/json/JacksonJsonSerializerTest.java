@@ -9,9 +9,9 @@ package com.smartsheet.api.internal.json;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
+ * 
  *      http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -38,120 +38,69 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatNoException;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class JacksonJsonSerializerTest {
     JacksonJsonSerializer jjs  = new JacksonJsonSerializer();
 
     @Test
-    void testSerialize() {
-        try{
-            // Illegal Argument due to null
-            try{
-                jjs.serialize(null, new ByteArrayOutputStream());
-                fail("should throw exception");
-            }catch(IllegalArgumentException ex){
-                //Expected
-            }
+    void testSerialize() throws JSONSerializerException, IOException {
+        // Illegal Argument due to null
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        assertThatThrownBy(() -> jjs.serialize(null, outputStream))
+                .isInstanceOf(IllegalArgumentException.class);
 
-            // Illegal Argument due to null
-            try{
-                jjs.serialize(new Object(), null);
-                fail("should throw exception");
-            }catch(IllegalArgumentException ex){
-                //Expected
-            }
+        // Illegal Argument due to null
+        Object emptyObject = new Object();
+        assertThatThrownBy(() -> jjs.serialize(emptyObject, null))
+                .isInstanceOf(IllegalArgumentException.class);
 
-            // Illegal Argument due to null
-            try{
-                jjs.serialize(null, null);
-                fail("should throw exception");
-            }catch(IllegalArgumentException ex){
-                //Expected
-            }
-
-
-        }catch(JSONSerializerException ex){
-            fail("Shouldn't have thrown this exception: "+ex);
-        }
+        // Illegal Argument due to null
+        assertThatThrownBy(() -> jjs.serialize(null, null))
+                .isInstanceOf(IllegalArgumentException.class);
 
         // Mapping Exception. Can't serialize to an object and can't create an empty bean serializer
-        try{
-            jjs.serialize(new Object(), new ByteArrayOutputStream());
-            fail("Should throw a JSONMappingException");
-        }catch(JSONSerializerException ex){
-            // Expected
-        }
+        assertThatThrownBy(() -> jjs.serialize(emptyObject, outputStream))
+                .isInstanceOf(JSONSerializerException.class);
 
         // Test successful serialization
         User user = new User();
         user.setEmail("test@test.com");
-        try {
-            jjs.serialize(user, new ByteArrayOutputStream());
-        } catch (JSONSerializerException e) {
-            fail("Shouldn't throw an exception");
-        }
+        assertThatNoException().isThrownBy(() -> jjs.serialize(user, outputStream));
 
         // Test id field is ignored.
         User user1 = new User();
         user1.setId(123L);
         user1.setEmail("test@test.com");
-        try{
-            assertFalse(jjs.serialize(user1).contains("id"), "The id field should not be serialized. Instead the id is used in the url and not sent as part of the body.");
-        }catch(JSONSerializerException e){
-            fail("Shouldn't throw an exception");
-        }
+        String serializedString = jjs.serialize(user1);
+        // The id field should not be serialized. Instead the id is used in the url and not sent as part of the body.
+        assertThat(serializedString).doesNotContain("id");
 
         // Test IOException
         File tempFile = null;
-        try {
-            tempFile = File.createTempFile("json_test", ".tmp");
-            FileOutputStream fos = new FileOutputStream(tempFile);
-            fos.close();
-            try {
-                jjs.serialize(user, fos);
-            } catch (JSONSerializerException e) {
-                // Expected
-
-            }
-        } catch (IOException e1) {
-            fail("Trouble creating a temp file");
-        }
+        tempFile = File.createTempFile("json_test", ".tmp");
+        FileOutputStream fos = new FileOutputStream(tempFile);
+        fos.close();
+        assertThatThrownBy(() -> jjs.serialize(user, fos))
+                .isInstanceOf(JSONSerializerException.class);
     }
 
     @Test
     void testDeserialize() throws JSONSerializerException, JsonParseException, JsonMappingException, IOException {
-        try{
-            // Illegal argument due to null
-            try {
-                jjs.deserialize(null, null);
-                fail("Exception should have been thrown.");
-            } catch (IllegalArgumentException e) {
-                // Expected
-            }
+        // Illegal argument due to null
+        assertThatThrownBy(() -> jjs.deserialize(null, null))
+                .isInstanceOf(IllegalArgumentException.class);
 
-            // Illegal argument due to null
-            try {
-                jjs.deserialize(User.class, null);
-                fail("Exception should have been thrown.");
-            } catch (IllegalArgumentException e) {
-                // Expected
-            }
+        // Illegal argument due to null
+        assertThatThrownBy(() -> jjs.deserialize(User.class, null))
+                .isInstanceOf(IllegalArgumentException.class);
 
-            // ILlegal argument due to null
-            try {
-                jjs.deserialize(null, new ByteArrayInputStream(new byte[10]));
-                fail("Exception should have been thrown.");
-            } catch (IllegalArgumentException e) {
-                // Expected
-            }
-        }catch(Exception ex){
-            fail("Exception should not be thrown: "+ex);
-        }
-
+        // Illegal argument due to null
+        ByteArrayInputStream inputStream = new ByteArrayInputStream(new byte[10]);
+        assertThatThrownBy(() -> jjs.deserialize(null, inputStream))
+                .isInstanceOf(IllegalArgumentException.class);
 
         // Test Successful deserialize of a serialized user back to a User Object
 
@@ -165,94 +114,64 @@ class JacksonJsonSerializerTest {
         // Deserialize User from a byte array
         User user = jjs.deserialize(User.class, new ByteArrayInputStream(b.toByteArray()));
 
-        assertEquals(originalUser.getFirstName(), user.getFirstName());
-        assertNotEquals(originalUser.getId(), user.getId(), "The id was not deserialized into the User object.");
+        assertThat(user.getFirstName()).isEqualTo(originalUser.getFirstName());
+        assertThat(user.getId()).isNotEqualTo(originalUser.getId());
     }
 
     @Test
     void testDeserializeMap() throws JSONSerializerException, FileNotFoundException, IOException {
         // Test null pointer exceptions
-        try {
-            jjs.deserializeMap(null);
-            fail("Exception should have been thrown.");
-        } catch (IllegalArgumentException e) {
-            // expected
-        }
+        assertThatThrownBy(() -> jjs.deserializeMap(null))
+                .isInstanceOf(IllegalArgumentException.class);
 
         // Parse Exception / invalid json
-        try {
-            String str = "test";
-            jjs.deserializeMap(new ByteArrayInputStream(str.getBytes()));
-            fail("Exception should have been thrown.");
-        } catch (JSONSerializerException e) {
-            // expected
-        }
+        String str = "test";
+        assertThatThrownBy(() -> jjs.deserializeMap(new ByteArrayInputStream(str.getBytes())))
+                .isInstanceOf(JSONSerializerException.class);
 
         // Mapping Exception. Can't deserialize a JSON array to a Map object as the key would be an int
-        String str = "[\"test\",\"test1\"]";
-        try{
-            jjs.deserializeMap(new ByteArrayInputStream(str.getBytes()));
-            fail("Exception should have been thrown.");
-        }catch(JSONSerializerException ex){
-            //expected
-        }
+        String arrayStr = "[\"test\",\"test1\"]";
+        assertThatThrownBy(() -> jjs.deserializeMap(new ByteArrayInputStream(arrayStr.getBytes())))
+                .isInstanceOf(JSONSerializerException.class);
 
         // IO Exception
-        try {
-            FileInputStream fis = new FileInputStream(File.createTempFile("json_test", ".tmp"));
-            fis.close();
-
-            jjs.deserializeMap(fis);
-            fail("Should have thrown an IOException");
-        } catch(JSONSerializerException ex) {
-            //expected
-        }
+        FileInputStream fis = new FileInputStream(File.createTempFile("json_test", ".tmp"));
+        fis.close();
+        assertThatThrownBy(() -> jjs.deserializeMap(fis))
+                .isInstanceOf(JSONSerializerException.class);
 
         // Valid deserialize
-        str = "{'key':'value'},{'key':'value'}".replace("'", "\"");
-        jjs.deserializeMap(new ByteArrayInputStream(str.getBytes()));
+        String jsonMapString = "{'key':'value'},{'key':'value'}".replace("'", "\"");
+        jjs.deserializeMap(new ByteArrayInputStream(jsonMapString.getBytes()));
     }
 
     @Test
     void testDeserializeList() throws JsonParseException, IOException, JSONSerializerException {
         // Test null pointer exceptions
-        try {
-            jjs.deserializeList(null, null);
-            fail("Exception should have been thrown.");
-        } catch (IllegalArgumentException e) {
-            // expected
-        }
-        try {
-            jjs.deserializeList(ArrayList.class, null);
-            fail("Exception should have been thrown.");
-        } catch (IllegalArgumentException e) {
-            // expected
-        }
-        try {
-            jjs.deserializeList(null, new ByteArrayInputStream(new byte[10]));
-            fail("Exception should have been thrown.");
-        } catch (IllegalArgumentException e) {
-            // expected
-        }
+        assertThatThrownBy(() -> jjs.deserializeList(null, null))
+                .isInstanceOf(IllegalArgumentException.class);
+
+        assertThatThrownBy(() -> jjs.deserializeList(ArrayList.class, null))
+                .isInstanceOf(IllegalArgumentException.class);
+
+        ByteArrayInputStream inputStream = new ByteArrayInputStream(new byte[10]);
+        assertThatThrownBy(() -> jjs.deserializeList(null, inputStream))
+                .isInstanceOf(IllegalArgumentException.class);
+
 
         // Test JsonParseException. Can't convert an invalid json array to a list.
-        try{
-            jjs.deserializeList(List.class, new ByteArrayInputStream("[broken jason".getBytes()));
-            fail("Should have thrown a JsonParseException");
-        }catch(JSONSerializerException e){
-            // Expected
-        }
+        ByteArrayInputStream inputStreamBrokenJson = new ByteArrayInputStream("[broken jason".getBytes());
+        assertThatThrownBy(() -> jjs.deserializeList(List.class, inputStreamBrokenJson))
+                .isInstanceOf(JSONSerializerException.class);
 
         // Serialize a User and fail since it is not an ArrayList
         ByteArrayOutputStream b = new ByteArrayOutputStream();
         User originalUser = new User();
         jjs.serialize(originalUser,b);//b has the user in json format in a byte array
-        try{
-            jjs.deserializeList(ArrayList.class, new ByteArrayInputStream(b.toByteArray()));
-            fail("Exception should have been thrown.");
-        }catch(JSONSerializerException ex){
-            //expected
-        }
+
+        ByteArrayInputStream inputStream1 = new ByteArrayInputStream(b.toByteArray());
+        assertThatThrownBy(() -> jjs.deserializeList(ArrayList.class, inputStream1))
+                .isInstanceOf(JSONSerializerException.class);
 
         // Test serializing/deserializing a simple ArrayList
         jjs = new JacksonJsonSerializer();
@@ -263,175 +182,101 @@ class JacksonJsonSerializerTest {
         jjs.serialize(originalList, b);
         List<String> newList = jjs.deserializeList(String.class, new ByteArrayInputStream(b.toByteArray()));
         // Verify that the serialized/deserialized object is equal to the original object.
-        if(!newList.equals(originalList)){
-            fail("Types should be identical. Serialization/Deserialation might have failed.");
-        }
+        assertThat(newList).isEqualTo(originalList);
 
         // Test JSONSerializerException
 
         // Test IOException
-        try {
-            FileInputStream fis = new FileInputStream(File.createTempFile("json_test", ".tmp"));
-            fis.close();
-
-            jjs.deserializeList(List.class, fis);
-            fail("Should have thrown an IOException");
-        } catch(JSONSerializerException ex) {
-            //expected
-        }
+        FileInputStream fis = new FileInputStream(File.createTempFile("json_test", ".tmp"));
+        fis.close();
+        assertThatThrownBy(() -> jjs.deserializeList(List.class, fis))
+                .isInstanceOf(JSONSerializerException.class);
     }
 
 
 
     @Test
-    void testDeserializeResult() {
-        try{
-            try {
-                jjs.deserializeResult(null, null);
-                fail("Exception should have been thrown.");
-            } catch (IllegalArgumentException e) {
-                // Expected
-            }
+    void testDeserializeResult() throws JSONSerializerException, IOException {
+        assertThatThrownBy(() -> jjs.deserializeResult(null, null))
+                .isInstanceOf(IllegalArgumentException.class);
 
-            try {
-                jjs.deserializeResult(User.class, null);
-                fail("Exception should have been thrown.");
-            } catch (IllegalArgumentException e) {
-                // Expected
-            }
+        assertThatThrownBy(() -> jjs.deserializeResult(User.class, null))
+                .isInstanceOf(IllegalArgumentException.class);
 
-            try {
-                jjs.deserializeResult(null, new ByteArrayInputStream(new byte[10]));
-                fail("Exception should have been thrown.");
-            } catch (IllegalArgumentException e) {
-                // Expected
-            }
-        }catch(Exception ex){
-            fail("Exception should not be thrown: "+ex);
-        }
+        ByteArrayInputStream inputStream = new ByteArrayInputStream(new byte[10]);
+        assertThatThrownBy(() -> jjs.deserializeResult(null, inputStream))
+                .isInstanceOf(IllegalArgumentException.class);
 
         Result<Folder> result = new Result<>();
         result.setMessage("Test Result");
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 
         // Test successful deserialization
-        try {
-            jjs.serialize(result, outputStream);
-            jjs.deserializeResult(Result.class, new ByteArrayInputStream(outputStream.toByteArray()));
-        } catch (JSONSerializerException ex) {
-            fail("Exception should not be thrown: "+ex);
-        }
+        jjs.serialize(result, outputStream);
+        jjs.deserializeResult(Result.class, new ByteArrayInputStream(outputStream.toByteArray()));
 
         // Test JSONMappingException - Test Mapping a list back to one object
-        try{
-            outputStream = new ByteArrayOutputStream();
-            ArrayList<User> users = new ArrayList<>();
-            jjs.serialize(users, outputStream);
-            jjs.deserializeResult(Result.class, new ByteArrayInputStream(outputStream.toByteArray()));
-            fail("Exception should have been thrown");
-        } catch (JSONSerializerException ex) {
-            // Expected
-        }
+        outputStream = new ByteArrayOutputStream();
+        ArrayList<User> users = new ArrayList<>();
+        jjs.serialize(users, outputStream);
+        ByteArrayInputStream inputStream1 = new ByteArrayInputStream(outputStream.toByteArray());
+        assertThatThrownBy(() -> jjs.deserializeResult(Result.class, inputStream1))
+                .isInstanceOf(JSONSerializerException.class);
 
         // Test IOException
-        try {
-            FileInputStream fis = null;
-            try {
-                fis = new FileInputStream(File.createTempFile("json_test", ".tmp"));
-                fis.close();
-            } catch (Exception ex) {
-                fail("Issue running a test where a temp file is being created."+ex);
-            }
-
-            jjs.deserializeResult(Result.class, fis);
-            fail("Should have thrown an IOException");
-        } catch(JSONSerializerException ex) {
-            //expected
-        }
+        FileInputStream fis = null;
+        fis = new FileInputStream(File.createTempFile("json_test", ".tmp"));
+        fis.close();
+        FileInputStream finalFis = fis;
+        assertThatThrownBy(() -> jjs.deserializeResult(Result.class, finalFis))
+                .isInstanceOf(JSONSerializerException.class);
 
         // Test JsonParseException
-        try {
-            jjs.deserializeResult(Result.class, new ByteArrayInputStream("{oops it's broken".getBytes()));
-            fail("Should have thrown a JsonParseException");
-        } catch (JSONSerializerException e) {
-            // Expected
-        }
+        ByteArrayInputStream inputStream2 = new ByteArrayInputStream("{oops it's broken".getBytes());
+        assertThatThrownBy(() -> jjs.deserializeResult(Result.class, inputStream2))
+                .isInstanceOf(JSONSerializerException.class);
     }
 
     @Test
-    void testDeserializeListResult() {
-        try {
-            try {
-                jjs.deserializeListResult(null, null);
-                fail("Exception should have been thrown.");
-            } catch (IllegalArgumentException e) {
-                // Expected
-            }
+    void testDeserializeListResult() throws IOException, JSONSerializerException {
+        assertThatThrownBy(() -> jjs.deserializeListResult(null, null))
+                .isInstanceOf(IllegalArgumentException.class);
 
-            try {
-                jjs.deserializeListResult(User.class, null);
-                fail("Exception should have been thrown.");
-            } catch (IllegalArgumentException e) {
-                // Expected
-            }
+        assertThatThrownBy(() -> jjs.deserializeListResult(User.class, null))
+                .isInstanceOf(IllegalArgumentException.class);
 
-            try {
-                jjs.deserializeListResult(null, new ByteArrayInputStream(new byte[10]));
-                fail("Exception should have been thrown.");
-            } catch (IllegalArgumentException e) {
-                // Expected
-            }
-        }catch(Exception ex){
-            fail("Exception should not be thrown: "+ex);
-        }
+        ByteArrayInputStream inputStream = new ByteArrayInputStream(new byte[10]);
+        assertThatThrownBy(() -> jjs.deserializeListResult(null, inputStream))
+                .isInstanceOf(IllegalArgumentException.class);
 
         Result<ArrayList<Object>> result = new Result<>();
         result.setMessage("Test Message");
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 
         // Test successful deserialization
-        try {
-            jjs.serialize(result, outputStream);
-            jjs.deserializeListResult(Result.class, new ByteArrayInputStream(outputStream.toByteArray()));
-        } catch (JSONSerializerException ex) {
-            fail("Exception should not be thrown: "+ex);
-        }
+        jjs.serialize(result, outputStream);
+        jjs.deserializeListResult(Result.class, new ByteArrayInputStream(outputStream.toByteArray()));
 
         // Test IOException
-        try {
-            FileInputStream fis = null;
-            try {
-                fis = new FileInputStream(File.createTempFile("json_test", ".tmp"));
-                fis.close();
-            } catch (Exception ex) {
-                fail("Issue running a test where a temp file is being created."+ex);
-            }
-
-            jjs.deserializeListResult(Result.class, fis);
-            fail("Should have thrown an IOException");
-        } catch(JSONSerializerException ex) {
-            //expected
-        }
+        FileInputStream fis = null;
+        fis = new FileInputStream(File.createTempFile("json_test", ".tmp"));
+        fis.close();
+        FileInputStream finalFis = fis;
+        assertThatThrownBy(() -> jjs.deserializeListResult(Result.class, finalFis))
+                .isInstanceOf(JSONSerializerException.class);
 
         // Test JSONMappingException - Test Mapping a list back to one object
-        try{
-            outputStream = new ByteArrayOutputStream();
-            ArrayList<User> users = new ArrayList<>();
-            jjs.serialize(users, outputStream);
-            jjs.deserializeListResult(Result.class, new ByteArrayInputStream(outputStream.toByteArray()));
-            fail("Exception should have been thrown");
-        } catch (JSONSerializerException ex) {
-            // Expected
-        }
-
+        ByteArrayOutputStream outputStream1 = new ByteArrayOutputStream();
+        ArrayList<User> users = new ArrayList<>();
+        jjs.serialize(users, outputStream);
+        ByteArrayInputStream inputStream1 = new ByteArrayInputStream(outputStream1.toByteArray());
+        assertThatThrownBy(() -> jjs.deserializeListResult(Result.class, inputStream1))
+                .isInstanceOf(JSONSerializerException.class);
 
         // Test JsonParseException
-        try {
-            jjs.deserializeListResult(Result.class, new ByteArrayInputStream("{bad json".getBytes()));
-            fail("Should have thrown a JsonParseException");
-        } catch (JSONSerializerException e) {
-            // Expected
-        }
+        ByteArrayInputStream inputStreamBadJson = new ByteArrayInputStream("{bad json".getBytes());
+        assertThatThrownBy(() -> jjs.deserializeListResult(Result.class, inputStreamBadJson))
+                .isInstanceOf(JSONSerializerException.class);
     }
 
 }

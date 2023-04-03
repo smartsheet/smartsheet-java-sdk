@@ -9,9 +9,9 @@ package com.smartsheet.api.models;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
+ * 
  *      http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -26,11 +26,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class RowTest {
 
@@ -47,16 +43,16 @@ class RowTest {
         row.setDiscussions(new ArrayList<>());
         row.setAttachments(new ArrayList<>());
 
-        assertEquals(col, row.getColumnById(1234L));
-        assertEquals(col, row.getColumnByIndex(2));
-        assertNull(row.getColumnById(12345L));
-        assertNull(row.getColumnByIndex(22));
-        assertNull(new Row().getColumnById(213L));
-        assertNull(new Row().getColumnByIndex(33));
+        assertThat(row.getColumnById(1234L)).isEqualTo(col);
+        assertThat(row.getColumnByIndex(2)).isEqualTo(col);
+        assertThat(row.getColumnById(12345L)).isNull();
+        assertThat(row.getColumnByIndex(22)).isNull();
+        assertThat(new Row().getColumnById(213L)).isNull();
+        assertThat(new Row().getColumnByIndex(33)).isNull();
         Row row1 = new Row();
         row1.setColumns(new ArrayList<>());
-        assertNull(row1.getColumnById(1L));
-        assertNull(row1.getColumnByIndex(1));
+        assertThat(row1.getColumnById(1L)).isNull();
+        assertThat(row1.getColumnByIndex(1)).isNull();
     }
 
     @Test
@@ -65,14 +61,14 @@ class RowTest {
         List<Cell> cells = new ArrayList<>();
         Row row = new Row.AddRowBuilder().setToTop(true).setExpanded(false).setFormat(format).setCells(cells).build();
 
-        assertTrue(row.getToTop());
-        assertFalse(row.isExpanded());
-        assertNotNull(row.getFormat());
-        assertNotNull(row.getCells());
-        assertNull(row.getToBottom());
-        assertNull(row.getParentId());
-        assertNull(row.getSiblingId());
-        assertNull(row.getAbove());
+        assertThat(row.getToTop()).isTrue();
+        assertThat(row.isExpanded()).isFalse();
+        assertThat(row.getFormat()).isNotNull();
+        assertThat(row.getCells()).isNotNull();
+        assertThat(row.getToBottom()).isNull();
+        assertThat(row.getParentId()).isNull();
+        assertThat(row.getSiblingId()).isNull();
+        assertThat(row.getAbove()).isNull();
     }
 
     @Test
@@ -81,15 +77,15 @@ class RowTest {
         List<Cell> cells = new ArrayList<>();
         Row row = new Row.UpdateRowBuilder().setToTop(true).setExpanded(false).setFormat(format).setCells(cells).setLocked(true).build();
 
-        assertTrue(row.getToTop());
-        assertTrue(row.isLocked());
-        assertFalse(row.isExpanded());
-        assertNotNull(row.getFormat());
-        assertNotNull(row.getCells());
-        assertNull(row.getToBottom());
-        assertNull(row.getParentId());
-        assertNull(row.getSiblingId());
-        assertNull(row.getAbove());
+        assertThat(row.getToTop()).isTrue();
+        assertThat(row.isLocked()).isTrue();
+        assertThat(row.isExpanded()).isFalse();
+        assertThat(row.getFormat()).isNotNull();
+        assertThat(row.getCells()).isNotNull();
+        assertThat(row.getToBottom()).isNull();
+        assertThat(row.getParentId()).isNull();
+        assertThat(row.getSiblingId()).isNull();
+        assertThat(row.getAbove()).isNull();
     }
 
 }

@@ -9,9 +9,9 @@ package com.smartsheet.api.internal.oauth;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
+ * 
  *      http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -47,8 +47,8 @@ import java.net.URISyntaxException;
 import java.security.NoSuchAlgorithmException;
 import java.util.EnumSet;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 // Note this is an IT test because at least one of the tests requires an internet connection
 class OAuthFlowImplIT {
@@ -86,83 +86,50 @@ class OAuthFlowImplIT {
     @Test
     void testOAuthFlowImpl() {
 
-        assertEquals(clientId,oauth.getClientId());
-        assertEquals(clientSecret, oauth.getClientSecret());
-        assertEquals(redirectURL, oauth.getRedirectURL());
-        assertEquals(authorizationURL, oauth.getAuthorizationURL());
-        assertEquals(tokenURL, oauth.getTokenURL());
-        assertEquals(httpClient, oauth.getHttpClient());
-        assertEquals(json, oauth.getJsonSerializer());
+        assertThat(oauth.getClientId()).isEqualTo(clientId);
+        assertThat(oauth.getClientSecret()).isEqualTo(clientSecret);
+        assertThat(oauth.getRedirectURL()).isEqualTo(redirectURL);
+        assertThat(oauth.getAuthorizationURL()).isEqualTo(authorizationURL);
+        assertThat(oauth.getTokenURL()).isEqualTo(tokenURL);
+        assertThat(oauth.getHttpClient()).isEqualTo(httpClient);
+        assertThat(oauth.getJsonSerializer()).isEqualTo(json);
     }
 
     @Test
     void testNewAuthorizationURL() throws UnsupportedEncodingException {
-        try {
-            oauth.newAuthorizationURL(null, null);
-            fail("Should have thrown an exception.");
-        } catch (IllegalArgumentException e) {
-            // Expected
-        }
+        assertThatThrownBy(() -> oauth.newAuthorizationURL(null, null))
+                .isInstanceOf(IllegalArgumentException.class);
 
         oauth.newAuthorizationURL(EnumSet.of(AccessScope.READ_SHEETS), null);
         String authURL = oauth.newAuthorizationURL(EnumSet.of(AccessScope.READ_SHEETS), "state");
 
-        assertEquals("authorizationURL?scope=READ_SHEETS&response_type=code&redirect_uri=redirectURL&state=state&"
-                + "client_id=clientID", authURL);
+        assertThat(authURL).isEqualTo("authorizationURL?scope=READ_SHEETS&response_type=code&redirect_uri=redirectURL&state=state&client_id=clientID");
     }
 
     @Test
     void testExtractAuthorizationResult() throws URISyntaxException, OAuthAuthorizationCodeException {
 
-        try{
-            oauth.extractAuthorizationResult(null);
-            fail("Should have thrown an exception.");
-        }catch(IllegalArgumentException ex){
-            // Expected
-        }
+        assertThatThrownBy(() -> oauth.extractAuthorizationResult(null))
+                .isInstanceOf(IllegalArgumentException.class);
 
-        try{
-            oauth.extractAuthorizationResult("");
-            fail("Should have thrown an exception.");
-        }catch(IllegalArgumentException ex){
-            // Expected
-        }
+        assertThatThrownBy(() -> oauth.extractAuthorizationResult(""))
+                .isInstanceOf(IllegalArgumentException.class);
 
         // Null query
-        try{
-            oauth.extractAuthorizationResult("http://smartsheet.com");
-            fail("Should have thrown an exception");
-        }catch(OAuthAuthorizationCodeException ex){
-            // Expected
-        }
+        assertThatThrownBy(() -> oauth.extractAuthorizationResult("http://smartsheet.com"))
+                .isInstanceOf(OAuthAuthorizationCodeException.class);
 
-        try{
-            oauth.extractAuthorizationResult("http://smartsheet.com?error=access_denied");
-            fail("Should have thrown an exception");
-        }catch(AccessDeniedException ex){
-            // Expected
-        }
+        assertThatThrownBy(() -> oauth.extractAuthorizationResult("http://smartsheet.com?error=access_denied"))
+                .isInstanceOf(AccessDeniedException.class);
 
-        try{
-            oauth.extractAuthorizationResult("http://smartsheet.com?error=unsupported_response_type");
-            fail("Should have thrown an exception");
-        }catch(UnsupportedResponseTypeException ex){
-            // Expected
-        }
+        assertThatThrownBy(() -> oauth.extractAuthorizationResult("http://smartsheet.com?error=unsupported_response_type"))
+                .isInstanceOf(UnsupportedResponseTypeException.class);
 
-        try{
-            oauth.extractAuthorizationResult("http://smartsheet.com?error=invalid_scope");
-            fail("Should have thrown an exception");
-        }catch(InvalidScopeException ex){
-            // Expected
-        }
+        assertThatThrownBy(() -> oauth.extractAuthorizationResult("http://smartsheet.com?error=invalid_scope"))
+                .isInstanceOf(InvalidScopeException.class);
 
-        try{
-            oauth.extractAuthorizationResult("http://smartsheet.com?error=something_undefined");
-            fail("Should have thrown an exception");
-        }catch(OAuthAuthorizationCodeException ex){
-            // Expected
-        }
+        assertThatThrownBy(() -> oauth.extractAuthorizationResult("http://smartsheet.com?error=something_undefined"))
+                .isInstanceOf(OAuthAuthorizationCodeException.class);
 
         // No valid parameters (empty result)
         oauth.extractAuthorizationResult("http://smartsheet.com?a=b");
@@ -185,12 +152,8 @@ class OAuthFlowImplIT {
 
         oauth.setTokenURL("http://localhost:9090/1.1/token");
         // 403 access forbidden
-        try{
-            oauth.obtainNewToken(oauth.extractAuthorizationResult("http://localhost?a=b"));
-            fail("Exception should have been thrown.");
-        }catch(OAuthTokenException ex){
-            // Expected
-        }
+        assertThatThrownBy(() -> oauth.extractAuthorizationResult("http://localhost?a=b"))
+                .isInstanceOf(OAuthTokenException.class);
     }
 
 
@@ -205,17 +168,13 @@ class OAuthFlowImplIT {
         token.setExpiresInSeconds(10L);
         token.setRefreshToken("refreshToken");
         token.setTokenType("tokenType");
-        assertEquals("AccessToken", token.getAccessToken());
-        assertEquals("refreshToken", token.getRefreshToken());
-        assertEquals(10L, token.getExpiresInSeconds());
-        assertEquals("tokenType", token.getTokenType());
+        assertThat(token.getAccessToken()).isEqualTo("AccessToken");
+        assertThat(token.getRefreshToken()).isEqualTo("refreshToken");
+        assertThat(token.getExpiresInSeconds()).isEqualTo(10L);
+        assertThat(token.getTokenType()).isEqualTo("tokenType");
 
-        try{
-            oauth.refreshToken(token);
-            fail("An expection should have been thrown.");
-        }catch(InvalidOAuthClientException ex){
-            // Expected
-        }
+        assertThatThrownBy(() -> oauth.refreshToken(token))
+                .isInstanceOf(InvalidOAuthClientException.class);
     }
 
     @Test
@@ -228,11 +187,8 @@ class OAuthFlowImplIT {
         token.setExpiresInSeconds(10L);
         token.setRefreshToken("refreshToken");
         token.setTokenType("tokenType");
-        try{
-            oauth.revokeAccessToken(token);
-            fail("An expection should have been thrown.");
-        }catch(OAuthTokenException ex){
-            // Expected
-        }
+
+        assertThatThrownBy(() -> oauth.revokeAccessToken(token))
+                .isInstanceOf(OAuthTokenException.class);
     }
 }

@@ -16,9 +16,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 /*
  * #[license]
@@ -59,8 +58,8 @@ class RowAttachmentResourcesImplTest extends ResourcesImplBase {
         attachment.setAttachmentSubType(AttachmentSubType.PDF);
 
         Attachment newAttachment = rowAttachmentResources.attachUrl(1234L, 3456L, attachment);
-        assertEquals("Search Engine", newAttachment.getName());
-        assertEquals(AttachmentType.LINK, newAttachment.getAttachmentType());
+        assertThat(newAttachment.getName()).isEqualTo("Search Engine");
+        assertThat(newAttachment.getAttachmentType()).isEqualTo(AttachmentType.LINK);
     }
 
     @Test
@@ -69,8 +68,8 @@ class RowAttachmentResourcesImplTest extends ResourcesImplBase {
         PaginationParameters parameters = new PaginationParameters(false, 1,1);
 
         PagedResult<Attachment> attachments = rowAttachmentResources.getAttachments(1234L, 456L, parameters);
-        assertTrue(attachments.getTotalCount() == 2);
-        assertTrue(attachments.getData().get(0).getId() == 4583173393803140L);
+        assertThat(attachments.getTotalCount()).isEqualTo(2);
+        assertThat(attachments.getData().get(0).getId()).isEqualTo(4583173393803140L);
     }
 
     @Test
@@ -79,12 +78,12 @@ class RowAttachmentResourcesImplTest extends ResourcesImplBase {
         File file = new File("src/test/resources/large_sheet.pdf");
         Attachment attachment = rowAttachmentResources.attachFile(1234L, 345L, file,
                 "application/pdf");
-        assertTrue(attachment.getId() == 7265404226692996L);
-        assertEquals("Testing.PDF", attachment.getName());
-        assertEquals(AttachmentType.FILE, attachment.getAttachmentType());
-        assertEquals("application/pdf", attachment.getMimeType());
-        assertTrue(1831L == attachment.getSizeInKb());
-        assertEquals(AttachmentParentType.SHEET, attachment.getParentType());
+        assertThat(attachment.getId()).isEqualTo(7265404226692996L);
+        assertThat(attachment.getName()).isEqualTo("Testing.PDF");
+        assertThat(attachment.getAttachmentType()).isEqualTo(AttachmentType.FILE);
+        assertThat(attachment.getMimeType()).isEqualTo("application/pdf");
+        assertThat(attachment.getSizeInKb()).isEqualTo(1831L);
+        assertThat(attachment.getParentType()).isEqualTo(AttachmentParentType.SHEET);
     }
 
     @Test
@@ -93,10 +92,10 @@ class RowAttachmentResourcesImplTest extends ResourcesImplBase {
         File file = new File("src/test/resources/large_sheet.pdf");
         InputStream inputStream = new FileInputStream(file);
         Attachment attachment = rowAttachmentResources.attachFile(1234L, 345L, inputStream, "application/pdf", file.length(), file.getName());
-        assertEquals("application/pdf", attachment.getMimeType());
-        assertEquals("Testing.PDF", attachment.getName());
-        assertEquals(1831L, (long) attachment.getSizeInKb());
-        assertEquals(AttachmentType.FILE, attachment.getAttachmentType());
+        assertThat(attachment.getMimeType()).isEqualTo("application/pdf");
+        assertThat(attachment.getName()).isEqualTo("Testing.PDF");
+        assertThat(attachment.getSizeInKb()).isEqualTo(1831L);
+        assertThat(attachment.getAttachmentType()).isEqualTo(AttachmentType.FILE);
     }
 
     @Test
@@ -104,6 +103,7 @@ class RowAttachmentResourcesImplTest extends ResourcesImplBase {
         server.setResponseBody(new File("src/test/resources/attachFile.json"));
         File file = new File("src/test/resources/large_sheet.pdf");
         InputStream inputStream = new FileInputStream(file);
-        assertThrows(SmartsheetException.class, () -> rowAttachmentResources.attachFile(1234L, 345L, inputStream, "application/pdf", file.length() + 5, file.getName()));
+        assertThatThrownBy(() -> rowAttachmentResources.attachFile(1234L, 345L, inputStream, "application/pdf", file.length() + 5, file.getName()))
+                .isInstanceOf(SmartsheetException.class);
     }
 }

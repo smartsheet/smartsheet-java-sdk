@@ -23,20 +23,19 @@ package com.smartsheet.api.models;
 import com.smartsheet.api.models.enums.AttachmentSubType;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class AttachmentSubTypeTest {
 
     @Test
     void test() {
-        assertNotNull(AttachmentSubType.valueOf("DOCUMENT"));
-        assertNotNull(AttachmentSubType.valueOf("SPREADSHEET"));
-        assertNotNull(AttachmentSubType.valueOf("PRESENTATION"));
-        assertNotNull(AttachmentSubType.valueOf("PDF"));
-        assertNotNull(AttachmentSubType.valueOf("DRAWING"));
-        assertNotNull(AttachmentSubType.valueOf("FOLDER"));
-        assertEquals(6,AttachmentSubType.values().length);
+        assertThat(AttachmentSubType.valueOf("DOCUMENT")).isNotNull();
+        assertThat(AttachmentSubType.valueOf("SPREADSHEET")).isNotNull();
+        assertThat(AttachmentSubType.valueOf("PRESENTATION")).isNotNull();
+        assertThat(AttachmentSubType.valueOf("PDF")).isNotNull();
+        assertThat(AttachmentSubType.valueOf("DRAWING")).isNotNull();
+        assertThat(AttachmentSubType.valueOf("FOLDER")).isNotNull();
+        assertThat(AttachmentSubType.values()).hasSize(6);
     }
 
 }

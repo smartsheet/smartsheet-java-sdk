@@ -30,8 +30,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(MockitoExtension.class)
 class FormatTest {
@@ -66,9 +65,9 @@ class FormatTest {
             Format f = new Format(t.format);
             int i = 0;
             for (; i< t.output.length; i++) {
-                assertEquals(t.output[i], f.formatArray[i], "index " + i +" failed in " + t);
+                assertThat(f.formatArray[i]).isEqualTo(t.output[i]);
             }
-            assertTrue(i >= ParserTests.EXPECTED_COUNT, "Did not parse the correct amount: " + i);
+            assertThat(i).isGreaterThanOrEqualTo(ParserTests.EXPECTED_COUNT);
         }
     }
 
@@ -121,7 +120,7 @@ class FormatTest {
     public void testFormatStringParsing(FormatTestCase<?>[] testCases) throws IOException {
         for (FormatTestCase test : testCases) {
             Format format = new Format(test.getFormat());
-            assertEquals(test.getExpected(), test.getResult(format), "Test case " + test);
+            assertThat(test.getResult(format)).isEqualTo(test.getExpected());
         }
     }
 

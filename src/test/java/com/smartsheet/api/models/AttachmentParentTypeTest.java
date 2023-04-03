@@ -23,17 +23,16 @@ package com.smartsheet.api.models;
 import com.smartsheet.api.models.enums.AttachmentParentType;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class AttachmentParentTypeTest {
 
     @Test
     void test() {
-        assertNotNull(AttachmentParentType.valueOf("SHEET"));
-        assertNotNull(AttachmentParentType.valueOf("ROW"));
-        assertNotNull(AttachmentParentType.valueOf("COMMENT"));
-        assertEquals(3,AttachmentParentType.values().length);
+        assertThat(AttachmentParentType.valueOf("SHEET")).isNotNull();
+        assertThat(AttachmentParentType.valueOf("ROW")).isNotNull();
+        assertThat(AttachmentParentType.valueOf("COMMENT")).isNotNull();
+        assertThat(AttachmentParentType.values()).hasSize(3);
     }
 
 }

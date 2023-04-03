@@ -12,8 +12,7 @@ import org.junit.jupiter.api.Test;
 import java.io.File;
 import java.util.EnumSet;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /*
  * #[license]
@@ -50,8 +49,8 @@ class RowDiscussionResourcesImplTest extends ResourcesImplBase {
         Discussion discussion = new Discussion();
         discussion.setTitle("new discussion");
         Discussion newDiscussion = discussionRowResources.createDiscussion(1234L, 5678L, discussion);
-        assertEquals("This is a new discussion", newDiscussion.getTitle());
-        assertTrue(newDiscussion.getId() == 4583173393803140L);
+        assertThat(newDiscussion.getTitle()).isEqualTo("This is a new discussion");
+        assertThat(newDiscussion.getId()).isEqualTo(4583173393803140L);
     }
 
     @Test
@@ -62,7 +61,7 @@ class RowDiscussionResourcesImplTest extends ResourcesImplBase {
         Discussion discussion = new Discussion.CreateDiscussionBuilder().setComment(comment).setTitle("Some title").build();
 
         Discussion newDiscussion = discussionRowResources.createDiscussionWithAttachment(123L, 456L, discussion, file, "application/pdf");
-        assertEquals("This is a new discussion", newDiscussion.getTitle());
+        assertThat(newDiscussion.getTitle()).isEqualTo("This is a new discussion");
     }
 
     @Test
@@ -73,7 +72,7 @@ class RowDiscussionResourcesImplTest extends ResourcesImplBase {
         discussion.setTitle("new discussion");
         PaginationParameters parameters = new PaginationParameters(false, 1, 1);
         PagedResult<Discussion> newDiscussion = discussionRowResources.listDiscussions(1234L, 5678L, parameters, EnumSet.of(DiscussionInclusion.COMMENTS));
-        assertEquals("Lincoln", newDiscussion.getData().get(0).getTitle());
-        assertTrue(newDiscussion.getData().get(0).getId() == 3138415114905476L);
+        assertThat(newDiscussion.getData().get(0).getTitle()).isEqualTo("Lincoln");
+        assertThat(newDiscussion.getData().get(0).getId()).isEqualTo(3138415114905476L);
     }
 }

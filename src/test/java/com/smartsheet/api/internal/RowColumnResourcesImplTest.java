@@ -11,9 +11,7 @@ import org.junit.jupiter.api.Test;
 import java.io.File;
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
+import static org.assertj.core.api.Assertions.assertThat;
 
 /*
  * #[license]
@@ -49,8 +47,8 @@ class RowColumnResourcesImplTest extends ResourcesImplBase {
         PaginationParameters parameters = new PaginationParameters(false, 1, 1);
         PagedResult<CellHistory> cellHistory= rowColumnResources.getCellHistory(123L, 123L, 123L, parameters);
 
-        assertTrue(cellHistory.getTotalPages() == 1);
-        assertEquals("Joe Smart", cellHistory.getData().get(1).getModifiedBy().getName());
+        assertThat(cellHistory.getTotalPages()).isEqualTo(1);
+        assertThat(cellHistory.getData().get(1).getModifiedBy().getName()).isEqualTo("Joe Smart");
     }
 
 }

@@ -9,9 +9,9 @@ package com.smartsheet.api.internal;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
+ * 
  *      http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -36,11 +36,8 @@ import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class SheetColumnResourcesImplTest extends ResourcesImplBase {
 
@@ -59,12 +56,12 @@ class SheetColumnResourcesImplTest extends ResourcesImplBase {
         PaginationParameters paginationParameters = new PaginationParameters(true, 1, 1);
         PagedResult<Column> wrapper = sheetColumnResourcesImpl.listColumns(1234L, EnumSet.allOf(ColumnInclusion.class), paginationParameters);
         List<Column> columns = wrapper.getData();
-        assertEquals(3, columns.size());
-        assertEquals("CHECKBOX", columns.get(0).getType().toString());
-        assertEquals("STAR", columns.get(0).getSymbol().toString());
-        assertTrue(columns.get(0).isLocked());
-        assertFalse(columns.get(0).isLockedForUser());
-        assertEquals("Status", columns.get(2).getTitle());
+        assertThat(columns).hasSize(3);
+        assertThat(columns.get(0).getType()).hasToString("CHECKBOX");
+        assertThat(columns.get(0).getSymbol()).hasToString("STAR");
+        assertThat(columns.get(0).isLocked()).isTrue();
+        assertThat(columns.get(0).isLockedForUser()).isFalse();
+        assertThat(columns.get(2).getTitle()).isEqualTo("Status");
     }
 
     @Test
@@ -73,10 +70,10 @@ class SheetColumnResourcesImplTest extends ResourcesImplBase {
         List<Column> columnsToCreate = new ArrayList<>();
 
         List<Column> addedColumns = sheetColumnResourcesImpl.addColumns(12345L, columnsToCreate);
-        assertEquals(3, addedColumns.size());
-        assertEquals("PICKLIST", addedColumns.get(0).getType().toString());
-        assertEquals("DATE", addedColumns.get(1).getType().toString());
-        assertEquals("PICKLIST", addedColumns.get(2).getType().toString());
+        assertThat(addedColumns).hasSize(3);
+        assertThat(addedColumns.get(0).getType()).hasToString("PICKLIST");
+        assertThat(addedColumns.get(1).getType()).hasToString("DATE");
+        assertThat(addedColumns.get(2).getType()).hasToString("PICKLIST");
     }
 
     @Test
@@ -89,18 +86,13 @@ class SheetColumnResourcesImplTest extends ResourcesImplBase {
         col.setTitle("First Column");
         col.setType(ColumnType.PICKLIST);
 
-
         Column updatedColumn = sheetColumnResourcesImpl.updateColumn(123456789L, col);
 
-        assertNotNull(updatedColumn);
-        assertEquals("First Column",updatedColumn.getTitle());
+        assertThat(updatedColumn).isNotNull();
+        assertThat(updatedColumn.getTitle()).isEqualTo("First Column");
 
-        try{
-            sheetColumnResourcesImpl.updateColumn(123456789L, null);
-            fail("Exception should have been thrown");
-        }catch(IllegalArgumentException ex){
-            // expected
-        }
+        assertThatThrownBy(() -> sheetColumnResourcesImpl.updateColumn(123456789L, null))
+                .isInstanceOf(IllegalArgumentException.class);
     }
 
     @Test
@@ -118,7 +110,7 @@ class SheetColumnResourcesImplTest extends ResourcesImplBase {
         col.setType(ColumnType.CHECKBOX);
 
         Column newCol = sheetColumnResourcesImpl.getColumn(123L, 456L, EnumSet.of(ColumnInclusion.FILTERS));
-        assertNotNull(newCol);
-        assertEquals(col.getTitle(), newCol.getTitle());
+        assertThat(newCol).isNotNull();
+        assertThat(newCol.getTitle()).isEqualTo(col.getTitle());
     }
 }

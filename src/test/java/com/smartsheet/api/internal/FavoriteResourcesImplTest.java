@@ -9,9 +9,9 @@ package com.smartsheet.api.internal;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
+ * 
  *      http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -33,8 +33,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class FavoriteResourcesImplTest extends ResourcesImplBase {
     private FavoriteResourcesImpl favoriteResources;
@@ -50,7 +49,7 @@ class FavoriteResourcesImplTest extends ResourcesImplBase {
         server.setResponseBody(new File("src/test/resources/addFavorites.json"));
         List<Favorite> favoritesToAdd = new Favorite.AddFavoriteBuilder().addFavorite(8400677765441412L, FavoriteType.SHEET).build();
         List < Favorite > addedfavorites = favoriteResources.addFavorites(favoritesToAdd);
-        assertEquals(1, addedfavorites.size());
+        assertThat(addedfavorites).hasSize(1);
     }
 
     @Test
@@ -58,7 +57,7 @@ class FavoriteResourcesImplTest extends ResourcesImplBase {
         server.setResponseBody(new File("src/test/resources/listFavorites.json"));
         PaginationParameters parameters = new PaginationParameters(false,1,1);
         PagedResult<Favorite> favorites = favoriteResources.listFavorites(parameters);
-        assertNotNull(favorites.getData().get(0).getType());
+        assertThat(favorites.getData().get(0).getType()).isNotNull();
         //assertEquals(favorites.getData().get(1).getColumnType(), "folder");
     }
 

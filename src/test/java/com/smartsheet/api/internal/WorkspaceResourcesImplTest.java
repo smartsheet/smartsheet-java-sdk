@@ -39,8 +39,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.EnumSet;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class WorkspaceResourcesImplTest extends ResourcesImplBase {
 
@@ -57,16 +56,16 @@ class WorkspaceResourcesImplTest extends ResourcesImplBase {
         server.setResponseBody(new File("src/test/resources/listWorkspaces.json"));
         PaginationParameters parameters = new PaginationParameters(false, 1, 1);
         PagedResult<Workspace> workspace = workspaceResources.listWorkspaces(parameters);
-        assertEquals(1, workspace.getPageNumber().longValue());
-        assertEquals(100, workspace.getPageSize().longValue());
-        assertEquals(1, workspace.getTotalPages().longValue());
-        assertEquals(2, workspace.getTotalCount().longValue());
+        assertThat(workspace.getPageNumber().longValue()).isEqualTo(1);
+        assertThat(workspace.getPageSize().longValue()).isEqualTo(100);
+        assertThat(workspace.getTotalPages().longValue()).isEqualTo(1);
+        assertThat(workspace.getTotalCount().longValue()).isEqualTo(2);
 
-        assertEquals(2, workspace.getData().size());
-        assertEquals(AccessLevel.OWNER, workspace.getData().get(0).getAccessLevel());
-        assertEquals(3457273486960516L, workspace.getData().get(0).getId().longValue());
-        assertEquals("workspace 1", workspace.getData().get(0).getName());
-        assertEquals("https://app.smartsheet.com/b/home?lx=JNL0bgXtXc0pzni9tzAc4g", workspace.getData().get(0).getPermalink());
+        assertThat(workspace.getData()).hasSize(2);
+        assertThat(workspace.getData().get(0).getAccessLevel()).isEqualTo(AccessLevel.OWNER);
+        assertThat(workspace.getData().get(0).getId().longValue()).isEqualTo(3457273486960516L);
+        assertThat(workspace.getData().get(0).getName()).isEqualTo("workspace 1");
+        assertThat(workspace.getData().get(0).getPermalink()).isEqualTo("https://app.smartsheet.com/b/home?lx=JNL0bgXtXc0pzni9tzAc4g");
     }
 
     @Test
@@ -74,20 +73,20 @@ class WorkspaceResourcesImplTest extends ResourcesImplBase {
         server.setResponseBody(new File("src/test/resources/getWorkspace.json"));
 
         Workspace workspace = workspaceResources.getWorkspace(1234L, true, EnumSet.allOf(SourceInclusion.class));
-        assertEquals(1, workspace.getSheets().size());
+        assertThat(workspace.getSheets()).hasSize(1);
 
         Sheet sheet = workspace.getSheets().get(0);
-        assertEquals("sheet 1", sheet.getName());
+        assertThat(sheet.getName()).isEqualTo("sheet 1");
 
         Source source = sheet.getSource();
-        assertNotNull(source.getId());
-        assertNotNull(source.getType());
+        assertThat(source.getId()).isNotNull();
+        assertThat(source.getType()).isNotNull();
 
-        assertEquals(7116448184199044L, workspace.getId().longValue());
-        assertEquals("New workspace", workspace.getName());
+        assertThat(workspace.getId().longValue()).isEqualTo(7116448184199044L);
+        assertThat(workspace.getName()).isEqualTo("New workspace");
 
-        assertEquals(AccessLevel.OWNER, workspace.getAccessLevel());
-        assertEquals("https://app.smartsheet.com/b/home?lx=8Z0XuFUEAkxmHCSsMw4Zgg", workspace.getPermalink());
+        assertThat(workspace.getAccessLevel()).isEqualTo(AccessLevel.OWNER);
+        assertThat(workspace.getPermalink()).isEqualTo("https://app.smartsheet.com/b/home?lx=8Z0XuFUEAkxmHCSsMw4Zgg");
     }
 
     @Test
@@ -97,10 +96,10 @@ class WorkspaceResourcesImplTest extends ResourcesImplBase {
         Workspace workspace = new Workspace();
         workspace.setName("New Workspace");
         Workspace newWorkspace = workspaceResources.createWorkspace(workspace);
-        assertEquals(2349499415848836L, newWorkspace.getId().longValue());
-        assertEquals("New Workspace", newWorkspace.getName());
-        assertEquals(AccessLevel.OWNER, newWorkspace.getAccessLevel());
-        assertEquals("https://app.smartsheet.com/b/home?lx=Jasdfa", newWorkspace.getPermalink());
+        assertThat(newWorkspace.getId().longValue()).isEqualTo(2349499415848836L);
+        assertThat(newWorkspace.getName()).isEqualTo("New Workspace");
+        assertThat(newWorkspace.getAccessLevel()).isEqualTo(AccessLevel.OWNER);
+        assertThat(newWorkspace.getPermalink()).isEqualTo("https://app.smartsheet.com/b/home?lx=Jasdfa");
     }
 
     @Test
@@ -110,10 +109,10 @@ class WorkspaceResourcesImplTest extends ResourcesImplBase {
         Workspace workspace = new Workspace();
         workspace.setName("New Workspace");
         Workspace newWorkspace = workspaceResources.updateWorkspace(workspace);
-        assertEquals(2349499415848836L, newWorkspace.getId().longValue());
-        assertEquals("New Workspace1", newWorkspace.getName());
-        assertEquals(AccessLevel.OWNER, newWorkspace.getAccessLevel());
-        assertEquals("https://app.smartsheet.com/b/home?lx=asdf", newWorkspace.getPermalink());
+        assertThat(newWorkspace.getId().longValue()).isEqualTo(2349499415848836L);
+        assertThat(newWorkspace.getName()).isEqualTo("New Workspace1");
+        assertThat(newWorkspace.getAccessLevel()).isEqualTo(AccessLevel.OWNER);
+        assertThat(newWorkspace.getPermalink()).isEqualTo("https://app.smartsheet.com/b/home?lx=asdf");
     }
 
     @Test
@@ -129,6 +128,6 @@ class WorkspaceResourcesImplTest extends ResourcesImplBase {
         containerDestination.setDestinationType(DestinationType.WORKSPACE);
 
         Folder folder = workspaceResources.copyWorkspace(123L, containerDestination, null, null);
-        assertEquals("https://{url}?lx=VL4YlIUnyYgASeX02grbLQ", folder.getPermalink());
+        assertThat(folder.getPermalink()).isEqualTo("https://{url}?lx=VL4YlIUnyYgASeX02grbLQ");
     }
 }

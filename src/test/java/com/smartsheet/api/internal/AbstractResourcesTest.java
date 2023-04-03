@@ -27,8 +27,8 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 /**
  * Created by kskeem on 3/1/16.
@@ -45,8 +45,9 @@ class AbstractResourcesTest {
         AbstractResources resources = new AbstractResources(smartsheet) {};
 
         Map<String, String> headers = resources.createHeaders();
-        assertEquals(headers.get("Authorization"), "Bearer " + tokenValue);
-        assertEquals(headers.get("Smartsheet-Change-Agent"), changeAgent);
+        assertThat(headers)
+                .containsEntry("Authorization", "Bearer " + tokenValue)
+                .containsEntry("Smartsheet-Change-Agent", changeAgent);
     }
 
     @Test
@@ -54,6 +55,7 @@ class AbstractResourcesTest {
         AbstractResources resources = new AbstractResources(new SmartsheetImpl(SmartsheetBuilder.DEFAULT_BASE_URI, tokenValue,  new DefaultHttpClient(), null)) {};
         Home home = new Home();
 
-        assertThrows(IllegalArgumentException.class, () -> resources.createResource("someValidPath", null, home));
+        assertThatThrownBy(() -> resources.createResource("someValidPath", null, home))
+                .isInstanceOf(IllegalArgumentException.class);
     }
 }

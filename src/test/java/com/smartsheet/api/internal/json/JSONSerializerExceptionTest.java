@@ -22,40 +22,38 @@ package com.smartsheet.api.internal.json;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class JSONSerializerExceptionTest {
 
     @Test
     void testJSONSerializerExceptionString() {
-        Throwable throwable = assertThrows(JSONSerializerException.class, () -> {
+        assertThatThrownBy(() -> {
             throw new JSONSerializerException("Test Exception");
-        });
-        assertEquals("Test Exception", throwable.getMessage());
+        })
+                .isInstanceOf(JSONSerializerException.class)
+                        .hasMessage("Test Exception");
     }
-
-
 
     @Test
     void testJSONSerializerExceptionStringThrowable() throws JSONSerializerException {
         NullPointerException cause = new NullPointerException();
-        Throwable throwable = assertThrows(JSONSerializerException.class, () -> {
-            throw new JSONSerializerException("Test Exception1", cause);
-        });
-        assertEquals("Test Exception1", throwable.getMessage());
-        assertEquals(cause, throwable.getCause());
-
-
+        assertThatThrownBy(() -> {
+            throw new JSONSerializerException("Test Exception", cause);
+        })
+                .isInstanceOf(JSONSerializerException.class)
+                .hasMessage("Test Exception")
+                .hasCause(cause);
     }
 
     @Test
     void testJSONSerializerExceptionException() throws JSONSerializerException {
         NullPointerException cause = new NullPointerException();
-        Throwable throwable = assertThrows(JSONSerializerException.class, () -> {
+        assertThatThrownBy(() -> {
             throw new JSONSerializerException(cause);
-        });
-        assertEquals(cause, throwable.getCause());
+        })
+                .isInstanceOf(JSONSerializerException.class)
+                .hasCause(cause);
     }
 
 }

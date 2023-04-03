@@ -24,8 +24,7 @@ import com.smartsheet.api.internal.http.DefaultHttpClient;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class SightResourcesImplTest extends ResourcesImplBase {
     private SightResourcesImpl sightResourcesImpl;
@@ -38,6 +37,7 @@ class SightResourcesImplTest extends ResourcesImplBase {
 
     @Test
     void updateWithNullSight() {
-        assertThrows(IllegalArgumentException.class, () -> sightResourcesImpl.updateSight(null));
+        assertThatThrownBy(() -> sightResourcesImpl.updateSight(null))
+                .isInstanceOf(IllegalArgumentException.class);
     }
 }

@@ -23,23 +23,22 @@ package com.smartsheet.api.models;
 import com.smartsheet.api.models.enums.AttachmentType;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class AttachmentTypeTest {
 
     @Test
     void test() {
-        assertNotNull(AttachmentType.valueOf("FILE"));
-        assertNotNull(AttachmentType.valueOf("GOOGLE_DRIVE"));
-        assertNotNull(AttachmentType.valueOf("LINK"));
-        assertNotNull(AttachmentType.valueOf("BOX_COM"));
-        assertNotNull(AttachmentType.valueOf("DROPBOX"));
-        assertNotNull(AttachmentType.valueOf("EVERNOTE"));
-        assertNotNull(AttachmentType.valueOf("EGNYTE"));
-        assertNotNull(AttachmentType.valueOf("ONEDRIVE"));
-        assertNotNull(AttachmentType.valueOf("SMARTSHEET"));
-        assertEquals(9,AttachmentType.values().length);
+        assertThat(AttachmentType.valueOf("FILE")).isNotNull();
+        assertThat(AttachmentType.valueOf("GOOGLE_DRIVE")).isNotNull();
+        assertThat(AttachmentType.valueOf("LINK")).isNotNull();
+        assertThat(AttachmentType.valueOf("BOX_COM")).isNotNull();
+        assertThat(AttachmentType.valueOf("DROPBOX")).isNotNull();
+        assertThat(AttachmentType.valueOf("EVERNOTE")).isNotNull();
+        assertThat(AttachmentType.valueOf("EGNYTE")).isNotNull();
+        assertThat(AttachmentType.valueOf("ONEDRIVE")).isNotNull();
+        assertThat(AttachmentType.valueOf("SMARTSHEET")).isNotNull();
+        assertThat(AttachmentType.values()).hasSize(9);
     }
 
 }

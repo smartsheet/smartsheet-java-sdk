@@ -34,7 +34,7 @@ import org.junit.jupiter.api.Test;
 import java.io.File;
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class AttachmentResourcesIT extends ITResourcesImpl{
     Smartsheet smartsheet;
@@ -81,7 +81,7 @@ public class AttachmentResourcesIT extends ITResourcesImpl{
 
     public void testGetAttachmentSheet(long attachmentId) throws SmartsheetException, IOException {
         Attachment attachment = smartsheet.sheetResources().attachmentResources().getAttachment(sheetId, attachmentId);
-        assertNotNull(attachment);
+        assertThat(attachment).isNotNull();
         sheetAttachmentId = attachment.getId();
     }
 
@@ -99,7 +99,7 @@ public class AttachmentResourcesIT extends ITResourcesImpl{
     public void testGetAttachmentRow(long attachmentId) throws SmartsheetException, IOException {
         PaginationParameters parameters = new PaginationParameters.PaginationParametersBuilder().setIncludeAll(true).build();
         PagedResult<Attachment> attachments = smartsheet.sheetResources().rowResources().attachmentResources().getAttachments(sheetId, rowId, parameters);
-        assertNotNull(attachments);
+        assertThat(attachments).isNotNull();
     }
 
     //smartsheet.sheetResources().commentResources().attachmentResources().attachFile(sheetId, commentId, file,"text/plain");
@@ -125,7 +125,7 @@ public class AttachmentResourcesIT extends ITResourcesImpl{
     public void testGetAttachmentComment(long attachmentId) throws SmartsheetException, IOException {
         PaginationParameters parameters = new PaginationParameters.PaginationParametersBuilder().setIncludeAll(true).build();
         PagedResult<Attachment> attachments = smartsheet.sheetResources().discussionResources().attachmentResources().getAttachments(sheetId, discussionId, parameters);
-        assertNotNull(attachments);
+        assertThat(attachments).isNotNull();
     }
 
     public void testattachUrl() throws SmartsheetException, IOException {
@@ -134,15 +134,15 @@ public class AttachmentResourcesIT extends ITResourcesImpl{
 
         //attach file to sheet
         Attachment attachedUrl = smartsheet.sheetResources().attachmentResources().attachUrl(sheetId, attachment);
-        assertNotNull(attachedUrl);
+        assertThat(attachedUrl).isNotNull();
 
         //attach file to row
         attachedUrl = smartsheet.sheetResources().rowResources().attachmentResources().attachUrl(sheetId, rowId, attachment);
-        assertNotNull(attachedUrl);
+        assertThat(attachedUrl).isNotNull();
 
         //attach file to comment
         attachedUrl = smartsheet.sheetResources().commentResources().attachmentResources().attachUrl(sheetId, commentId,attachment);
-        assertNotNull(attachedUrl);
+        assertThat(attachedUrl).isNotNull();
 
     }
 
@@ -150,7 +150,7 @@ public class AttachmentResourcesIT extends ITResourcesImpl{
         PaginationParameters parameters = new PaginationParameters.PaginationParametersBuilder().setIncludeAll(true).build();
 
         PagedResult<Attachment> attachments = smartsheet.sheetResources().attachmentResources().listAttachments(sheetId, parameters);
-        assertNotNull(attachments);
+        assertThat(attachments).isNotNull();
     }
 
     public void testDeleteAttachment() throws SmartsheetException, IOException {
@@ -161,7 +161,7 @@ public class AttachmentResourcesIT extends ITResourcesImpl{
     public void testAttachNewVersion() throws IOException, SmartsheetException  {
         Attachment attachment = smartsheet.sheetResources().attachmentResources().versioningResources().attachNewVersion(sheetId, sheetAttachmentId, file,
                 "text/plain");
-        assertNotNull(attachment);
+        assertThat(attachment).isNotNull();
         attachmentWithVersionId = attachment.getId();
     }
 
@@ -169,7 +169,7 @@ public class AttachmentResourcesIT extends ITResourcesImpl{
         PaginationParameters parameters = new PaginationParameters.PaginationParametersBuilder().setIncludeAll(true).build();
         PagedResult<Attachment> attachments = smartsheet.sheetResources().attachmentResources().versioningResources().listAllVersions(sheetId, attachmentWithVersionId, parameters);
         PagedResult<Attachment> attachments1 = smartsheet.sheetResources().attachmentResources().versioningResources().listAllVersions(sheetId, attachmentWithVersionId, null);
-        assertNotNull(attachments);
+        assertThat(attachments).isNotNull();
     }
 
     public void testDeleteAllVersions() throws SmartsheetException, IOException {

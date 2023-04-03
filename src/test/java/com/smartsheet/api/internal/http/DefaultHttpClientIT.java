@@ -9,9 +9,9 @@ package com.smartsheet.api.internal.http;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -29,7 +29,7 @@ import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 // Note this is an IT test because at least one of the tests requires an internet connection
 class DefaultHttpClientIT {
@@ -38,23 +38,14 @@ class DefaultHttpClientIT {
     @Test
     void testRequest() throws HttpClientException, URISyntaxException {
         // Null Argument
-        try {
-            client.request(null);
-            fail("Exception should have been thrown");
-        } catch (IllegalArgumentException e) {
-            // Expected
-        }
+        assertThatThrownBy(() -> client.request(null))
+                .isInstanceOf(IllegalArgumentException.class);
 
         HttpRequest request = new HttpRequest();
 
         // No URL in request
-        try {
-            client.request(request);
-
-            fail("Exception should have been thrown");
-        } catch (IllegalArgumentException e) {
-            // Expected
-        }
+        assertThatThrownBy(() -> client.request(request))
+                .isInstanceOf(IllegalArgumentException.class);
 
         // Test each http method
         // Note this requires an internet connection
@@ -96,28 +87,19 @@ class DefaultHttpClientIT {
         client.releaseConnection();
 
         // Test Client Protocol Exception by passing a second content-length
-        try{
-            headers.put("Content-Length","10");
-            request.setHeaders(headers);
-            client.request(request);
-            client.releaseConnection();
-            fail("Exception should have been thrown");
-        }catch(HttpClientException ex){
-            // Expected
-        }finally{
-            headers.remove("Content-Length");
-            request.setHeaders(headers);
-        }
+        headers.put("Content-Length","10");
+        request.setHeaders(headers);
+        assertThatThrownBy(() -> client.request(request))
+                .isInstanceOf(HttpClientException.class);
+        client.releaseConnection();
+        headers.remove("Content-Length");
+        request.setHeaders(headers);
 
         // Test IOException
-        try{
-            request.setUri(new URI("http://bad.domain"));
-            client.request(request);
-            client.releaseConnection();
-            fail("Exception should have been thrown.");
-        }catch(HttpClientException ex){
-            // Expected
-        }
+        request.setUri(new URI("http://bad.domain"));
+        assertThatThrownBy(() -> client.request(request))
+                .isInstanceOf(HttpClientException.class);
+        client.releaseConnection();
 
 
     }

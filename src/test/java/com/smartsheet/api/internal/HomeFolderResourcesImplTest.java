@@ -31,8 +31,7 @@ import org.junit.jupiter.api.Test;
 import java.io.File;
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class HomeFolderResourcesImplTest extends ResourcesImplBase {
 
@@ -51,10 +50,10 @@ class HomeFolderResourcesImplTest extends ResourcesImplBase {
         PaginationParameters parameters = new PaginationParameters(true, null, null);
         PagedResult<Folder> foldersWrapper = homeFolderResources.listFolders(parameters);
 
-        assertTrue(foldersWrapper.getPageSize() == 100);
-        assertEquals("Folder 1", foldersWrapper.getData().get(0).getName());
-        assertEquals("Folder 2", foldersWrapper.getData().get(1).getName());
-        assertTrue(7116448184199044L == foldersWrapper.getData().get(0).getId());
+        assertThat(foldersWrapper.getPageSize()).isEqualTo(100);
+        assertThat(foldersWrapper.getData().get(0).getName()).isEqualTo("Folder 1");
+        assertThat(foldersWrapper.getData().get(1).getName()).isEqualTo("Folder 2");
+        assertThat(foldersWrapper.getData().get(0).getId()).isEqualTo(7116448184199044L);
     }
 
     @Test
@@ -64,7 +63,7 @@ class HomeFolderResourcesImplTest extends ResourcesImplBase {
         Folder folder = new Folder.CreateFolderBuilder().setName("Hello World").build();
 
         Folder newFolder = homeFolderResources.createFolder(folder);
-        assertTrue(6821399500220292L == newFolder.getId());
-        assertEquals("hello world", newFolder.getName());
+        assertThat(newFolder.getId()).isEqualTo(6821399500220292L);
+        assertThat(newFolder.getName()).isEqualTo("hello world");
     }
 }

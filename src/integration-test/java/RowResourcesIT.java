@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
+ * 
  *      http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -47,9 +47,7 @@ import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class RowResourcesIT extends ITResourcesImpl{
     Smartsheet smartsheet;
@@ -109,7 +107,7 @@ public class RowResourcesIT extends ITResourcesImpl{
     public void testGetRow() throws SmartsheetException, IOException {
         smartsheet.sheetResources().rowResources().getRow(sheet.getId(), newRows.get(0).getId(), null, null);
         row = smartsheet.sheetResources().rowResources().getRow(sheet.getId(), newRows.get(0).getId(), EnumSet.of(RowInclusion.COLUMNS, RowInclusion.COLUMN_TYPE), EnumSet.of(ObjectExclusion.NONEXISTENT_CELLS));
-       assertNotNull(row);
+       assertThat(row).isNotNull();
     }
 
     @Test
@@ -136,7 +134,7 @@ public class RowResourcesIT extends ITResourcesImpl{
 
         List<Row> updatedRows = smartsheet.sheetResources().rowResources().updateRows(sheet.getId(), Arrays.asList(rowB));
 
-        assertNotNull(updatedRows);
+        assertThat(updatedRows).isNotNull();
         deleteSheet(sheet.getId());
     }
 
@@ -206,20 +204,23 @@ public class RowResourcesIT extends ITResourcesImpl{
 
         PartialRowUpdateResult result = smartsheet.sheetResources().rowResources().addRowsAllowPartialSuccess(sheet.getId(), Arrays.asList(row, row2));
 
-        assertEquals(result.getMessage(), "PARTIAL_SUCCESS");
-        assertNotNull(result.getResult());
-        assertEquals(result.getResult().size(), 1);
-        assertNotNull(result.getFailedItems());
-        assertEquals(result.getFailedItems().size(), 1);
+        assertThat(result.getMessage()).isEqualTo("PARTIAL_SUCCESS");
+        assertThat(result.getResult())
+                .isNotNull()
+                .hasSize(1);
+        assertThat(result.getFailedItems())
+                .isNotNull()
+                .hasSize(1);
 
         // both rows should succeed in this test (i.e. failedItems = null)
         row2.setCells(cellsSucceed);
         result = smartsheet.sheetResources().rowResources().addRowsAllowPartialSuccess(sheet.getId(), Arrays.asList(row, row2));
 
-        assertEquals(result.getMessage(), "SUCCESS");
-        assertNotNull(result.getResult());
-        assertEquals(result.getResult().size(), 2);
-        assertNull(result.getFailedItems());
+        assertThat(result.getMessage()).isEqualTo("SUCCESS");
+        assertThat(result.getResult())
+                .isNotNull()
+                .hasSize(2);
+        assertThat(result.getFailedItems()).isNull();
 
         deleteSheet(sheet.getId());
     }
@@ -254,19 +255,22 @@ public class RowResourcesIT extends ITResourcesImpl{
 
         PartialRowUpdateResult result = smartsheet.sheetResources().rowResources().updateRowsAllowPartialSuccess(sheet.getId(), Arrays.asList(rowSucceeds, rowFails));
 
-        assertEquals(result.getMessage(), "PARTIAL_SUCCESS");
-        assertNotNull(result.getResult());
-        assertEquals(result.getResult().size(), 1);
-        assertNotNull(result.getFailedItems());
-        assertEquals(result.getFailedItems().size(), 1);
+        assertThat(result.getMessage()).isEqualTo("PARTIAL_SUCCESS");
+        assertThat(result.getResult())
+                .isNotNull()
+                .hasSize(1);
+        assertThat(result.getFailedItems())
+                .isNotNull()
+                .hasSize(1);
 
         Row rowSucceeds2 = new Row.UpdateRowBuilder().setCells(cellUpdateSucceed).setRowId(newRows.get(1).getId()).build();
         result = smartsheet.sheetResources().rowResources().updateRowsAllowPartialSuccess(sheet.getId(), Arrays.asList(rowSucceeds, rowSucceeds2));
 
-        assertEquals(result.getMessage(), "SUCCESS");
-        assertNotNull(result.getResult());
-        assertEquals(result.getResult().size(), 2);
-        assertNull(result.getFailedItems());
+        assertThat(result.getMessage()).isEqualTo("SUCCESS");
+        assertThat(result.getResult())
+                .isNotNull()
+                .hasSize(2);
+        assertThat(result.getFailedItems()).isNull();
 
         deleteSheet(sheet.getId());
     }

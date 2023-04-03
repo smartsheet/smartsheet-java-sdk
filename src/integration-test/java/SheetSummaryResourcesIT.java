@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
+ * 
  *      http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -44,10 +44,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class SheetSummaryResourcesIT extends ITResourcesImpl {
 
@@ -64,9 +61,7 @@ public class SheetSummaryResourcesIT extends ITResourcesImpl {
 
         //create sheet
         sheet = smartsheet.sheetResources().createSheet(sheetHome);
-        if (sheet.getColumns().size() != sheetHome.getColumns().size()) {
-            fail("Issue creating a sheet");
-        }
+        assertThat(sheet.getColumns()).hasSameSizeAs(sheetHome.getColumns());
     }
 
     @AfterEach
@@ -100,14 +95,14 @@ public class SheetSummaryResourcesIT extends ITResourcesImpl {
         asf = smartsheet.sheetResources().summaryResources().addSheetSummaryFields(
                 sheet.getId(), Arrays.asList(sf, sf1),true);
 
-        assertEquals(asf.size(), 2);
+        assertThat(asf).hasSize(2);
     }
 
     public void testGetSheetSummary() throws SmartsheetException {
         SheetSummary sheetSummary = smartsheet.sheetResources().summaryResources().getSheetSummary(
                 sheet.getId(), EnumSet.of(SummaryFieldInclusion.WRITERINFO, SummaryFieldInclusion.FORMAT),
                 EnumSet.of(SummaryFieldExclusion.DISPLAYVALUE));
-        assertEquals(sheetSummary.getFields().size(), 2);
+        assertThat(sheetSummary.getFields()).hasSize(2);
     }
 
     public void testAddSheetSummaryFieldsWithPartialSuccess() throws SmartsheetException {
@@ -124,18 +119,20 @@ public class SheetSummaryResourcesIT extends ITResourcesImpl {
         BulkItemResult<SummaryField> asf = smartsheet.sheetResources().summaryResources().addSheetSummaryFieldsWithPartialSuccess(
                 sheet.getId(), Arrays.asList(sf, sf1),null);
 
-        assertEquals(asf.getMessage(), "PARTIAL_SUCCESS");
-        assertNotNull(asf.getResult());
-        assertEquals(asf.getResult().size(), 1);
-        assertNotNull(asf.getFailedItems());
-        assertEquals(asf.getFailedItems().size(), 1);
+        assertThat(asf.getMessage()).isEqualTo("PARTIAL_SUCCESS");
+        assertThat(asf.getResult())
+                .isNotNull()
+                .hasSize(1);
+        assertThat(asf.getFailedItems())
+                .isNotNull()
+                .hasSize(1);
     }
 
     public void testGetSheetSummaryFields() throws SmartsheetException {
         PagedResult<SummaryField> fields = smartsheet.sheetResources().summaryResources().getSheetSummaryFields(
                 sheet.getId(), EnumSet.of(SummaryFieldInclusion.WRITERINFO),
                 EnumSet.of(SummaryFieldExclusion.DISPLAYVALUE), null);
-        assertEquals(fields.getData().size(), 3);
+        assertThat(fields.getData()).hasSize(3);
     }
 
     public void testUpdateSheetSummaryFields() throws SmartsheetException {
@@ -163,11 +160,13 @@ public class SheetSummaryResourcesIT extends ITResourcesImpl {
         BulkItemResult<SummaryField> usf = smartsheet.sheetResources().summaryResources().updateSheetSummaryFieldsWithPartialSuccess(
                 sheet.getId(), Arrays.asList(sf, sf1), null);
 
-        assertEquals(usf.getMessage(), "PARTIAL_SUCCESS");
-        assertNotNull(usf.getResult());
-        assertEquals(usf.getResult().size(), 1);
-        assertNotNull(usf.getFailedItems());
-        assertEquals(usf.getFailedItems().size(), 1);
+        assertThat(usf.getMessage()).isEqualTo("PARTIAL_SUCCESS");
+        assertThat(usf.getResult())
+                .isNotNull()
+                .hasSize(1);
+        assertThat(usf.getFailedItems())
+                .isNotNull()
+                .hasSize(1);
     }
 
     public void testAddSheetSummaryFieldImage() throws SmartsheetException {
@@ -187,7 +186,7 @@ public class SheetSummaryResourcesIT extends ITResourcesImpl {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        assertTrue(rsf.getResultCode() == 0);
+        assertThat(rsf.getResultCode()).isZero();
     }
 
     public void testDeleteSheetSummaryFields() throws SmartsheetException {
@@ -196,7 +195,7 @@ public class SheetSummaryResourcesIT extends ITResourcesImpl {
         setOfIds.add(123L);
         List<Long> delIds = smartsheet.sheetResources().summaryResources().deleteSheetSummaryFields(
                 sheet.getId(), setOfIds, true);
-        assertEquals(delIds.size(), 1);
+        assertThat(delIds).hasSize(1);
     }
 }
 

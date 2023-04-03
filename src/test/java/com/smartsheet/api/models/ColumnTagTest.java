@@ -23,26 +23,25 @@ package com.smartsheet.api.models;
 import com.smartsheet.api.models.enums.ColumnTag;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class ColumnTagTest {
 
     @Test
     void test() {
-        assertNotNull(ColumnTag.valueOf("CALENDAR_START_DATE"));
-        assertNotNull(ColumnTag.valueOf("CALENDAR_END_DATE"));
-        assertNotNull(ColumnTag.valueOf("GANTT_START_DATE"));
-        assertNotNull(ColumnTag.valueOf("GANTT_END_DATE"));
-        assertNotNull(ColumnTag.valueOf("GANTT_PERCENT_COMPLETE"));
-        assertNotNull(ColumnTag.valueOf("GANTT_DISPLAY_LABEL"));
-        assertNotNull(ColumnTag.valueOf("GANTT_PREDECESSOR"));
-        assertNotNull(ColumnTag.valueOf("GANTT_DURATION"));
-        assertNotNull(ColumnTag.valueOf("GANTT_ASSIGNED_RESOURCE"));
-        assertNotNull(ColumnTag.valueOf("GANTT_DURATION"));
-        assertNotNull(ColumnTag.valueOf("CARD_DONE"));
+        assertThat(ColumnTag.valueOf("CALENDAR_START_DATE")).isNotNull();
+        assertThat(ColumnTag.valueOf("CALENDAR_END_DATE")).isNotNull();
+        assertThat(ColumnTag.valueOf("GANTT_START_DATE")).isNotNull();
+        assertThat(ColumnTag.valueOf("GANTT_END_DATE")).isNotNull();
+        assertThat(ColumnTag.valueOf("GANTT_PERCENT_COMPLETE")).isNotNull();
+        assertThat(ColumnTag.valueOf("GANTT_DISPLAY_LABEL")).isNotNull();
+        assertThat(ColumnTag.valueOf("GANTT_PREDECESSOR")).isNotNull();
+        assertThat(ColumnTag.valueOf("GANTT_DURATION")).isNotNull();
+        assertThat(ColumnTag.valueOf("GANTT_ASSIGNED_RESOURCE")).isNotNull();
+        assertThat(ColumnTag.valueOf("GANTT_DURATION")).isNotNull();
+        assertThat(ColumnTag.valueOf("CARD_DONE")).isNotNull();
 
-        assertEquals(11,ColumnTag.values().length);
+        assertThat(ColumnTag.values()).hasSize(11);
     }
 
 }

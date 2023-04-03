@@ -31,8 +31,7 @@ import org.junit.jupiter.api.Test;
 import java.io.File;
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class ContactResourcesImplTest extends ResourcesImplBase {
     private ContactResourcesImpl contactResources;
@@ -47,14 +46,14 @@ class ContactResourcesImplTest extends ResourcesImplBase {
     void testGetContact() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/getContact.json"));
         Contact contact = contactResources.getContact("xyz");
-        assertEquals("David Davidson", contact.getName());
+        assertThat(contact.getName()).isEqualTo("David Davidson");
     }
 
     @Test
     void testListContacts() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/listContacts.json"));
         PagedResult<Contact> contacts = contactResources.listContacts(new PaginationParameters.PaginationParametersBuilder().setIncludeAll(true).build());
-        assertEquals("David Davidson", contacts.getData().get(0).getName());
-        assertTrue(contacts.getTotalCount() == 2);
+        assertThat(contacts.getData().get(0).getName()).isEqualTo("David Davidson");
+        assertThat(contacts.getTotalCount()).isEqualTo(2);
     }
 }

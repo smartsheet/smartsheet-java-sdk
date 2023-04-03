@@ -31,7 +31,7 @@ import org.junit.jupiter.api.Test;
 import java.io.File;
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class WorkspaceFolderResourcesImplTest extends ResourcesImplBase {
 
@@ -49,13 +49,13 @@ class WorkspaceFolderResourcesImplTest extends ResourcesImplBase {
 
         PaginationParameters parameters = new PaginationParameters(true,null,null);
         PagedResult<Folder> foldersWrapper = workspaceFolderResources.listFolders(1234L, parameters);
-        assertEquals(2, foldersWrapper.getData().size());
-        assertEquals(7116448184199044L, foldersWrapper.getData().get(0).getId().longValue());
-        assertEquals(7116448184188022L, foldersWrapper.getData().get(1).getId().longValue());
-        assertEquals("Folder 1", foldersWrapper.getData().get(0).getName());
-        assertEquals("Folder 2", foldersWrapper.getData().get(1).getName());
-        assertEquals("https://app.smartsheet.com/b/home?lx=9sljohj8jEXqvJIbTrK2Hb", foldersWrapper.getData().get(0).getPermalink());
-        assertEquals("https://app.smartsheet.com/b/home?lx=xgDVrNNbi-O9XwINEpT5Er", foldersWrapper.getData().get(1).getPermalink());
+        assertThat(foldersWrapper.getData()).hasSize(2);
+        assertThat(foldersWrapper.getData().get(0).getId().longValue()).isEqualTo(7116448184199044L);
+        assertThat(foldersWrapper.getData().get(1).getId().longValue()).isEqualTo(7116448184188022L);
+        assertThat(foldersWrapper.getData().get(0).getName()).isEqualTo("Folder 1");
+        assertThat(foldersWrapper.getData().get(1).getName()).isEqualTo("Folder 2");
+        assertThat(foldersWrapper.getData().get(0).getPermalink()).isEqualTo("https://app.smartsheet.com/b/home?lx=9sljohj8jEXqvJIbTrK2Hb");
+        assertThat(foldersWrapper.getData().get(1).getPermalink()).isEqualTo("https://app.smartsheet.com/b/home?lx=xgDVrNNbi-O9XwINEpT5Er");
     }
 
     @Test
@@ -64,8 +64,8 @@ class WorkspaceFolderResourcesImplTest extends ResourcesImplBase {
 
         Folder folder = new Folder.CreateFolderBuilder().setName("New Folder").build();
         Folder newFolder = workspaceFolderResources.createFolder(1234L, folder);
-        assertEquals(8121709439018884L, newFolder.getId().longValue());
-        assertEquals("New Folder", newFolder.getName());
+        assertThat(newFolder.getId().longValue()).isEqualTo(8121709439018884L);
+        assertThat(newFolder.getName()).isEqualTo("New Folder");
     }
 
 }

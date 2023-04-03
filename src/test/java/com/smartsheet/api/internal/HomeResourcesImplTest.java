@@ -9,9 +9,9 @@ package com.smartsheet.api.internal;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
+ * 
  *      http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -35,9 +35,7 @@ import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class HomeResourcesImplTest extends ResourcesImplBase {
 
@@ -57,13 +55,13 @@ class HomeResourcesImplTest extends ResourcesImplBase {
         homes.add(homeResources.getHome(EnumSet.of(SourceInclusion.SOURCE)));
         homes.add(homeResources.getHome(null));
         for(Home home : homes){
-            assertNotNull(home.getSheets());
-            assertTrue(home.getSheets().size() == 7);
-            assertNotNull(home.getFolders());
-            assertTrue(home.getFolders().size() == 5);
-            assertNotNull(home.getWorkspaces());
-            assertTrue(home.getWorkspaces().size() == 7);
-            assertNull(home.getTemplates());
+            assertThat(home.getSheets()).isNotNull();
+            assertThat(home.getSheets()).hasSize(7);
+            assertThat(home.getFolders()).isNotNull();
+            assertThat(home.getFolders()).hasSize(5);
+            assertThat(home.getWorkspaces()).isNotNull();
+            assertThat(home.getWorkspaces()).hasSize(7);
+            assertThat(home.getTemplates()).isNull();
             home.setTemplates(new ArrayList<>());
         }
     }
@@ -74,8 +72,8 @@ class HomeResourcesImplTest extends ResourcesImplBase {
 
         HomeFolderResources folders = homeResources.folderResources();
         PaginationParameters parameters = new PaginationParameters(true, 1,1);
-        assertNotNull(folders.listFolders(parameters));
-        assertTrue(folders.listFolders(parameters).getTotalPages() == 1);
+        assertThat(folders.listFolders(parameters)).isNotNull();
+        assertThat(folders.listFolders(parameters).getTotalPages()).isEqualTo(1);
     }
 
 }

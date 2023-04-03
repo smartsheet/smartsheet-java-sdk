@@ -35,8 +35,7 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.util.EnumSet;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 
 public class FolderResourcesIT extends ITResourcesImpl {
@@ -71,7 +70,7 @@ public class FolderResourcesIT extends ITResourcesImpl {
         Folder folder = new Folder.CreateFolderBuilder().setName("New Folder in Home By Aditi").build();
 
         newFolderHome = smartsheet.homeResources().folderResources().createFolder(folder);
-        assertEquals("New Folder in Home By Aditi", newFolderHome.getName());
+        assertThat(newFolderHome.getName()).isEqualTo("New Folder in Home By Aditi");
     }
 
     public void testCreateFolderInFolder() throws SmartsheetException, IOException {
@@ -81,7 +80,7 @@ public class FolderResourcesIT extends ITResourcesImpl {
         Folder folder1 = new Folder.CreateFolderBuilder().setName("New Folder 2 in Folder By Aditi").build();
         smartsheet.folderResources().createFolder(newFolder.getId(), folder1);
 
-        assertEquals(folder.getName(), newFolder.getName());
+        assertThat(newFolder.getName()).isEqualTo(folder.getName());
     }
 
     public void testCreateFolderInWorkspace() throws IOException, SmartsheetException {
@@ -90,35 +89,35 @@ public class FolderResourcesIT extends ITResourcesImpl {
 
         Folder folder = new Folder.CreateFolderBuilder().setName("New Folder in Workspace By Aditi").build();
         newFolderWorkspace = smartsheet.workspaceResources().folderResources().createFolder(workspace.getId(), folder);
-        assertEquals("New Folder in Workspace By Aditi", folder.getName());
+        assertThat(folder.getName()).isEqualTo("New Folder in Workspace By Aditi");
     }
 
     public void testUpdateFolder() throws SmartsheetException, IOException {
         Folder folder = new Folder.UpdateFolderBuilder().setName("Updated Name By Aditi").setId(newFolderHome.getId()).build();
         Folder resultFolder = smartsheet.folderResources().updateFolder(folder);
 
-        assertEquals(resultFolder.getName(), folder.getName());
+        assertThat(resultFolder.getName()).isEqualTo(folder.getName());
     }
 
     public void testListFoldersInFolder() throws SmartsheetException, IOException {
         PaginationParameters parameters = new PaginationParameters(true,1,1);
         PagedResult<Folder> foldersWrapper = smartsheet.folderResources().listFolders(newFolder.getId(), parameters);
 
-        assertTrue(foldersWrapper.getTotalCount() == 1);
+        assertThat(foldersWrapper.getTotalCount()).isEqualTo(1);
     }
 
     public void testListFoldersInHome() throws SmartsheetException, IOException {
         PaginationParameters parameters = new PaginationParameters(true,1,1);
         PagedResult<Folder> foldersWrapper = smartsheet.homeResources().folderResources().listFolders(parameters);
 
-        assertTrue(foldersWrapper.getTotalCount() != null);
+        assertThat(foldersWrapper.getTotalCount()).isNotNull();
     }
 
     public void testListFoldersInWorkspace() throws SmartsheetException, IOException {
         PaginationParameters parameters = new PaginationParameters(true,1,1);
         PagedResult<Folder> foldersWrapper = smartsheet.workspaceResources().folderResources().listFolders(workspace.getId(), parameters);
 
-        assertTrue(foldersWrapper.getTotalCount() != null);
+        assertThat(foldersWrapper.getTotalCount()).isNotNull();
     }
 
     public void testGetFolder() throws SmartsheetException, IOException {
@@ -126,7 +125,7 @@ public class FolderResourcesIT extends ITResourcesImpl {
         smartsheet.folderResources().getFolder(newFolder.getId(), null);
 
         // Verify results
-        assertEquals("New Folder in Folder By Aditi", folder.getName());
+        assertThat(folder.getName()).isEqualTo("New Folder in Folder By Aditi");
     }
 
     public void testCopyFolder() throws SmartsheetException, IOException {

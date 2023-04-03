@@ -9,9 +9,9 @@ package com.smartsheet.api.internal;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
+ * 
  *      http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -34,9 +34,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class ShareResourcesImplTest extends ResourcesImplBase {
 
@@ -54,10 +53,10 @@ class ShareResourcesImplTest extends ResourcesImplBase {
         server.setResponseBody(new File("src/test/resources/listShares.json"));
         PaginationParameters parameters = new PaginationParameters(false, 1, 1);
         PagedResult<Share> shares = shareResourcesImpl.listShares(2906571706525572L, parameters, false);
-        assertTrue(shares.getTotalCount() == 2, "The number of shares returned is incorrect.");
+        assertThat(shares.getTotalCount()).isEqualTo(2);
 
-        assertEquals("john.doe@smartsheet.com", shares.getData().get(0).getEmail(), "Email attribute of the share is incorrect.");
-        assertEquals(null, shares.getData().get(1).getEmail(), "Email attribute of the share is incorrect.");
+        assertThat(shares.getData().get(0).getEmail()).isEqualTo("john.doe@smartsheet.com");
+        assertThat(shares.getData().get(1).getEmail()).isNull();
     }
 
     @Test
@@ -66,9 +65,9 @@ class ShareResourcesImplTest extends ResourcesImplBase {
 
         Share share = shareResourcesImpl.getShare(1234L, "fhqwhgads");
 
-        assertEquals("Group 1", share.getName());
-        assertEquals(AccessLevel.ADMIN, share.getAccessLevel());
-        assertEquals("AQAISF82FOeE", share.getId());
+        assertThat(share.getName()).isEqualTo("Group 1");
+        assertThat(share.getAccessLevel()).isEqualTo(AccessLevel.ADMIN);
+        assertThat(share.getId()).isEqualTo("AQAISF82FOeE");
     }
 
     @Test
@@ -77,12 +76,13 @@ class ShareResourcesImplTest extends ResourcesImplBase {
         Share share = new Share();
         share.setAccessLevel(AccessLevel.ADMIN);
         Share newShare = shareResourcesImpl.updateShare(123L, share);
-        assertEquals(share.getAccessLevel(), newShare.getAccessLevel());
+        assertThat(newShare.getAccessLevel()).isEqualTo(share.getAccessLevel());
     }
 
     @Test
     void testUpdateShareWithNullShare() {
-        assertThrows(IllegalArgumentException.class, () -> shareResourcesImpl.updateShare(123L, null));
+        assertThatThrownBy(() -> shareResourcesImpl.updateShare(123L, null))
+                .isInstanceOf(IllegalArgumentException.class);
     }
 
     @Test
@@ -105,8 +105,8 @@ class ShareResourcesImplTest extends ResourcesImplBase {
                 .setAccessLevel(AccessLevel.EDITOR).build());
 
         shares = shareResourcesImpl.shareTo(1234L, shares, true);
-        assertEquals(1, shares.size());
-        assertEquals("jane.doe@smartsheet.com", shares.get(0).getEmail());
-        assertEquals("Jane Doe", shares.get(0).getName());
+        assertThat(shares).hasSize(1);
+        assertThat(shares.get(0).getEmail()).isEqualTo("jane.doe@smartsheet.com");
+        assertThat(shares.get(0).getName()).isEqualTo("Jane Doe");
     }
 }

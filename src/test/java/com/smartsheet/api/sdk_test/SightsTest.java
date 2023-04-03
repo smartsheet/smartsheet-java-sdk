@@ -30,8 +30,7 @@ import com.smartsheet.api.models.enums.DestinationType;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class SightsTest {
 
@@ -40,7 +39,7 @@ class SightsTest {
         try {
             Smartsheet ss = HelperFunctions.SetupClient("List Sights");
             PagedResult<Sight> sights = ss.sightResources().listSights(null, null);
-          assertEquals(6, (long)sights.getTotalCount());
+          assertThat(sights.getTotalCount()).isEqualTo(6L);
         } catch (Exception ex) {
             HelperFunctions.ExceptionMessage(ex.getMessage(), ex.getCause());
         }
@@ -51,7 +50,7 @@ class SightsTest {
         Smartsheet ss = HelperFunctions.SetupClient("Get Sight");
         try {
             Sight sight = ss.sightResources().getSight(52);
-          assertEquals(52, (long)sight.getId());
+          assertThat(sight.getId()).isEqualTo(52L);
         }
         catch(SmartsheetException ex) {
             HelperFunctions.ExceptionMessage(ex.getMessage(), ex.getCause());
@@ -107,7 +106,7 @@ class SightsTest {
         Smartsheet ss = HelperFunctions.SetupClient("Get Sight Publish Status");
         try {
             SightPublish publish = ss.sightResources().getPublishStatus(812L);
-            assertTrue(publish.getReadOnlyFullEnabled());
+            assertThat(publish.getReadOnlyFullEnabled()).isTrue();
         }
         catch(SmartsheetException ex) {
             HelperFunctions.ExceptionMessage(ex.getMessage(), ex.getCause());

@@ -26,7 +26,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class SearchResourcesIT extends ITResourcesImpl{
     Smartsheet smartsheet;
@@ -39,7 +39,7 @@ public class SearchResourcesIT extends ITResourcesImpl{
     @Test
     void testSearch() throws IOException, SmartsheetException {
         SearchResult result = smartsheet.searchResources().search("aditi");
-        assertNotNull(result.getResults());
+        assertThat(result.getResults()).isNotNull();
     }
 
     @Test
@@ -50,7 +50,7 @@ public class SearchResourcesIT extends ITResourcesImpl{
         addRows(sheet.getId());
 
         SearchResult searchSheet = smartsheet.searchResources().searchSheet(sheet.getId(), "test");
-        assertNotNull(searchSheet);
+        assertThat(searchSheet).isNotNull();
 
         //clean up
         deleteSheet(sheet.getId());

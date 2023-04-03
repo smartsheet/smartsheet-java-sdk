@@ -23,20 +23,19 @@ package com.smartsheet.api.models;
 import com.smartsheet.api.models.enums.SystemColumnType;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class SystemColumnTypeTest {
 
     @Test
     void test() {
-        assertNotNull(SystemColumnType.valueOf("AUTO_NUMBER"));
-        assertNotNull(SystemColumnType.valueOf("MODIFIED_DATE"));
-        assertNotNull(SystemColumnType.valueOf("MODIFIED_BY"));
-        assertNotNull(SystemColumnType.valueOf("CREATED_DATE"));
-        assertNotNull(SystemColumnType.valueOf("CREATED_BY"));
+        assertThat(SystemColumnType.valueOf("AUTO_NUMBER")).isNotNull();
+        assertThat(SystemColumnType.valueOf("MODIFIED_DATE")).isNotNull();
+        assertThat(SystemColumnType.valueOf("MODIFIED_BY")).isNotNull();
+        assertThat(SystemColumnType.valueOf("CREATED_DATE")).isNotNull();
+        assertThat(SystemColumnType.valueOf("CREATED_BY")).isNotNull();
 
-        assertEquals(5,SystemColumnType.values().length);
+        assertThat(SystemColumnType.values()).hasSize(5);
     }
 
 }
