@@ -9,9 +9,9 @@ package com.smartsheet.api.internal.util;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -27,6 +27,7 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Collection;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class QueryUtil {
 
@@ -42,13 +43,7 @@ public class QueryUtil {
         if (list == null || list.isEmpty()) {
             return "";
         }
-        StringBuilder result = new StringBuilder();
-        for (Object obj : list) {
-            // is there a better way?
-            result.append(',').append(obj.toString());
-        }
-        // Remove the extra comma at the beginning
-        return result.substring(1);
+        return list.stream().map(Object::toString).collect(Collectors.joining(","));
     }
 
     public static String generateUrl(@Nullable String  baseUrl, @Nullable Map<String, ? extends Object> parameters) {
