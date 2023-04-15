@@ -8,9 +8,9 @@ package com.smartsheet.api.internal;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -152,8 +152,8 @@ public class RowColumnResourcesImpl extends AbstractResources implements RowColu
     public void addImageToCell(long sheetId, long rowId, long columnId, String file, String contentType) throws FileNotFoundException, SmartsheetException {
         Util.throwIfNull(file);
         File f = new File(file);
-        addImage("sheets/" + sheetId + "/rows/" + rowId + "/columns/" + columnId + "/cellimages", new FileInputStream(f),
-                contentType, f.length(), false, null, file);
+        String path = "sheets/" + sheetId + "/rows/" + rowId + "/columns/" + columnId + "/cellimages";
+        addImage(path, new FileInputStream(f), contentType, f.length(), false, null, file);
     }
 
     /**
@@ -183,8 +183,8 @@ public class RowColumnResourcesImpl extends AbstractResources implements RowColu
                                boolean overrideValidation, String altText) throws FileNotFoundException, SmartsheetException {
         Util.throwIfNull(file);
         File f = new File(file);
-        addImage("sheets/" + sheetId + "/rows/" + rowId + "/columns/" + columnId + "/cellimages", new FileInputStream(f),
-                contentType, f.length(), overrideValidation, altText, file);
+        String path = "sheets/" + sheetId + "/rows/" + rowId + "/columns/" + columnId + "/cellimages";
+        addImage(path, new FileInputStream(f), contentType, f.length(), overrideValidation, altText, file);
     }
 
     /**
@@ -213,8 +213,8 @@ public class RowColumnResourcesImpl extends AbstractResources implements RowColu
     public void addImageToCell(long sheetId, long rowId, long columnId, File file, String contentType,
                                boolean overrideValidation, String altText) throws FileNotFoundException, SmartsheetException {
         Util.throwIfNull(file);
-        addImage("sheets/" + sheetId + "/rows/" + rowId + "/columns/" + columnId + "/cellimages", new FileInputStream(file),
-                contentType, file.length(), overrideValidation, altText, file.getName());
+        String path = "sheets/" + sheetId + "/rows/" + rowId + "/columns/" + columnId + "/cellimages";
+        addImage(path, new FileInputStream(file), contentType, file.length(), overrideValidation, altText, file.getName());
     }
 
     /**
@@ -244,8 +244,8 @@ public class RowColumnResourcesImpl extends AbstractResources implements RowColu
     public void addImageToCell(long sheetId, long rowId, long columnId, InputStream inputStream, String contentType,
                                long contentLength, boolean overrideValidation, String altText) throws SmartsheetException {
         Util.throwIfNull(inputStream);
-        addImage("sheets/" + sheetId + "/rows/" + rowId + "/columns/" + columnId + "/cellimages", inputStream,
-                contentType, contentLength, overrideValidation, altText, altText);
+        String path = "sheets/" + sheetId + "/rows/" + rowId + "/columns/" + columnId + "/cellimages";
+        addImage(path, inputStream, contentType, contentLength, overrideValidation, altText, altText);
     }
 
     private void addImage(String path, InputStream inputStream, String contentType, long contentLength,
@@ -267,7 +267,8 @@ public class RowColumnResourcesImpl extends AbstractResources implements RowColu
         path += QueryUtil.generateUrl(null, parameters);
 
         HttpRequest request = createHttpRequest(this.smartsheet.getBaseURI().resolve(path), HttpMethod.POST);
-        request.getHeaders().put("Content-Disposition", "attachment; filename=\"" + URLEncoder.encode(imageName, StandardCharsets.UTF_8) + "\"");
+        String contentDispositionValue = "attachment; filename=\"" + URLEncoder.encode(imageName, StandardCharsets.UTF_8) + "\"";
+        request.getHeaders().put("Content-Disposition", contentDispositionValue);
 
         HttpEntity entity = new HttpEntity();
         entity.setContentType(contentType);

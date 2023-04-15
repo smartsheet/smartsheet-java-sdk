@@ -9,9 +9,9 @@ package com.smartsheet.api.internal.json;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -38,6 +38,7 @@ import static org.assertj.core.api.Assertions.within;
 
 class ObjectValueDeserializerTest {
     private static final double DELTA = 0.000001;
+    private static final float DELTA_FLOAT = 0.000001f;
     private final JacksonJsonSerializer jacksonJsonSerializer = new JacksonJsonSerializer();
 
     @Test
@@ -280,7 +281,7 @@ class ObjectValueDeserializerTest {
         String json = "{\"objectValue\":123456.789}";
         ObjectValue actual = getObjectValue(json);
         PrimitiveObjectValue<Number> numberPrimitiveObjectValue = (PrimitiveObjectValue<Number>) actual;
-        assertThat(numberPrimitiveObjectValue.getValue().floatValue()).isEqualTo(123456.789f);
+        assertThat(numberPrimitiveObjectValue.getValue().floatValue()).isEqualTo(123456.789f, within(DELTA_FLOAT));
 
         assertThat(jacksonJsonSerializer.serialize(actual)).isEqualTo("123456.789");
     }
