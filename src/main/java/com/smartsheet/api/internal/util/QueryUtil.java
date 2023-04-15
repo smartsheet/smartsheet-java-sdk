@@ -46,7 +46,7 @@ public class QueryUtil {
         return list.stream().map(Object::toString).collect(Collectors.joining(","));
     }
 
-    public static String generateUrl(@Nullable String  baseUrl, @Nullable Map<String, ? extends Object> parameters) {
+    public static String generateUrl(@Nullable String baseUrl, @Nullable Map<String, ? extends Object> parameters) {
         if (baseUrl == null) {
             baseUrl = "";
         }
@@ -67,8 +67,13 @@ public class QueryUtil {
         for(Map.Entry<String, ? extends Object> entry : parameters.entrySet()) {
             // Check to see if the key/value isn't null or empty string
             if (entry.getKey() != null && (entry.getValue() != null && !entry.getValue().toString().equals(""))) {
-                result.append('&').append(URLEncoder.encode(entry.getKey(), StandardCharsets.UTF_8)).append("=")
-                        .append(URLEncoder.encode(entry.getValue().toString(), StandardCharsets.UTF_8));
+                String encodedQueryParam = URLEncoder.encode(entry.getKey(), StandardCharsets.UTF_8);
+                String encodedQueryValue = URLEncoder.encode(entry.getValue().toString(), StandardCharsets.UTF_8);
+                result
+                        .append('&')
+                        .append(encodedQueryParam)
+                        .append("=")
+                        .append(encodedQueryValue);
             }
         }
 

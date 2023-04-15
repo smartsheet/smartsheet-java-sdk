@@ -8,9 +8,9 @@ package com.smartsheet.api.internal;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -89,7 +89,8 @@ public class SheetUpdateRequestResourcesImpl extends AbstractResources implement
      * @throws SmartsheetException if there is any other error during the operation
      */
     public UpdateRequest getUpdateRequest(long sheetId, long updateRequestId) throws SmartsheetException {
-        return this.getResource("sheets/" + sheetId + "/updaterequests/" + updateRequestId, UpdateRequest.class);
+        String path = "sheets/" + sheetId + "/updaterequests/" + updateRequestId;
+        return this.getResource(path, UpdateRequest.class);
     }
 
     /**
@@ -109,7 +110,8 @@ public class SheetUpdateRequestResourcesImpl extends AbstractResources implement
      * @throws SmartsheetException if there is any other error during the operation
      */
     public UpdateRequest createUpdateRequest(long sheetId, UpdateRequest updateRequest) throws SmartsheetException {
-        return this.createResource("sheets/" + sheetId + "/updaterequests", UpdateRequest.class, updateRequest);
+        String path = "sheets/" + sheetId + "/updaterequests";
+        return this.createResource(path, UpdateRequest.class, updateRequest);
     }
 
     /**
@@ -127,7 +129,8 @@ public class SheetUpdateRequestResourcesImpl extends AbstractResources implement
      * @throws SmartsheetException if there is any other error during the operation
      */
     public void deleteUpdateRequest(long sheetId, long updateRequestId) throws SmartsheetException {
-        this.deleteResource("sheets/" + sheetId + "/updaterequests/" + updateRequestId, UpdateRequest.class);
+        String path = "sheets/" + sheetId + "/updaterequests/" + updateRequestId;
+        this.deleteResource(path, UpdateRequest.class);
     }
 
     /**
@@ -146,8 +149,8 @@ public class SheetUpdateRequestResourcesImpl extends AbstractResources implement
      * @throws SmartsheetException if there is any other error during the operation
      */
     public UpdateRequest updateUpdateRequest(long sheetId, UpdateRequest updateRequest) throws SmartsheetException {
-        return this.updateResource("sheets/" + sheetId + "/updaterequests/" + updateRequest.getId(),
-                UpdateRequest.class, updateRequest);
+        String path = "sheets/" + sheetId + "/updaterequests/" + updateRequest.getId();
+        return this.updateResource(path, UpdateRequest.class, updateRequest);
     }
 
     /**
@@ -193,8 +196,8 @@ public class SheetUpdateRequestResourcesImpl extends AbstractResources implement
      * @throws SmartsheetException if there is any other error during the operation
      */
     public SentUpdateRequest getSentUpdateRequest(long sheetId, long sentUpdateRequestId) throws SmartsheetException {
-        return this.getResource("sheets/" + sheetId + "/sentupdaterequests/" + sentUpdateRequestId,
-                SentUpdateRequest.class);
+        String path = "sheets/" + sheetId + "/sentupdaterequests/" + sentUpdateRequestId;
+        return this.getResource(path, SentUpdateRequest.class);
     }
 
     /**
@@ -212,6 +215,7 @@ public class SheetUpdateRequestResourcesImpl extends AbstractResources implement
      * @throws SmartsheetException if there is any other error during the operation
      */
     public void deleteSentUpdateRequest(long sheetId, long sentUpdateRequestId) throws SmartsheetException {
-        this.deleteResource("sheets/" + sheetId + "/sentupdaterequests/" + sentUpdateRequestId, SentUpdateRequest.class);
+        String path = "sheets/" + sheetId + "/sentupdaterequests/" + sentUpdateRequestId;
+        this.deleteResource(path, SentUpdateRequest.class);
     }
 }
