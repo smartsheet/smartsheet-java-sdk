@@ -9,9 +9,9 @@ package com.smartsheet.api.internal;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -346,7 +346,8 @@ public class SheetSummaryResourcesImpl extends AbstractResources implements Shee
         path += QueryUtil.generateUrl(null, parameters);
 
         HttpRequest request = createHttpRequest(this.smartsheet.getBaseURI().resolve(path), HttpMethod.POST);
-        request.getHeaders().put("Content-Disposition", "attachment; filename=\"" + URLEncoder.encode(imageName, StandardCharsets.UTF_8) + "\"");
+        String contentDispositionValue = "attachment; filename=\"" + URLEncoder.encode(imageName, StandardCharsets.UTF_8) + "\"";
+        request.getHeaders().put("Content-Disposition", contentDispositionValue);
 
         HttpEntity entity = new HttpEntity();
         entity.setContentType(contentType);
