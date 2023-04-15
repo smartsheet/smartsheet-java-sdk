@@ -9,9 +9,9 @@ package com.smartsheet.api.sdk_test;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -40,31 +40,22 @@ import static org.assertj.core.api.Assertions.assertThat;
 class AutomationRulesTest {
 
     @Test
-    void ListAutomationRules() {
-        try {
-            Smartsheet ss = HelperFunctions.SetupClient("List Automation Rules");
-            PagedResult<AutomationRule> automationRules = ss.sheetResources().automationRuleResources().listAutomationRules(324, null);
-          assertThat((long)automationRules.getTotalCount()).isEqualTo(2);
-        } catch (Exception ex) {
-            HelperFunctions.ExceptionMessage(ex.getMessage(), ex.getCause());
-        }
+    void listAutomationRules() throws SmartsheetException {
+        Smartsheet ss = HelperFunctions.SetupClient("List Automation Rules");
+        PagedResult<AutomationRule> automationRules = ss.sheetResources().automationRuleResources().listAutomationRules(324, null);
+        assertThat((long)automationRules.getTotalCount()).isEqualTo(2);
     }
 
     @Test
-    void GetAutomationRule() {
+    void getAutomationRule() throws SmartsheetException {
         Smartsheet ss = HelperFunctions.SetupClient("Get Automation Rule");
-        try {
-            AutomationRule automationRule = ss.sheetResources().automationRuleResources().getAutomationRule(324, 284);
-          assertThat((long)automationRule.getId()).isEqualTo(284);
-        }
-        catch(SmartsheetException ex) {
-            HelperFunctions.ExceptionMessage(ex.getMessage(), ex.getCause());
-        }
+        AutomationRule automationRule = ss.sheetResources().automationRuleResources().getAutomationRule(324, 284);
+        assertThat((long)automationRule.getId()).isEqualTo(284);
     }
 
     @Disabled("awaiting API update to return Result object")
     @Test
-    void UpdateAutomationRule() {
+    void updateAutomationRule() throws SmartsheetException {
         Smartsheet ss = HelperFunctions.SetupClient("Update Automation Rule");
         AutomationAction autoRuleAction = new AutomationAction();
         RecipientEmail recipient = new RecipientEmail();
@@ -77,20 +68,12 @@ class AutomationRulesTest {
         AutomationRule autoRule = new AutomationRule();
         autoRule.setId(284L);
         autoRule.setAction(autoRuleAction);
-        try {
-            AutomationRule automationRule = ss.sheetResources().automationRuleResources().updateAutomationRule(324, autoRule);
-        } catch (SmartsheetException ex) {
-            HelperFunctions.ExceptionMessage(ex.getMessage(), ex.getCause());
-        }
+        AutomationRule automationRule = ss.sheetResources().automationRuleResources().updateAutomationRule(324, autoRule);
     }
 
     @Test
-    void DeleteAutomationRule() {
+    void deleteAutomationRule() throws SmartsheetException {
         Smartsheet ss = HelperFunctions.SetupClient("Delete Automation Rule");
-        try {
-            ss.sheetResources().automationRuleResources().deleteAutomationRule(324, 284);
-        } catch (SmartsheetException ex) {
-            HelperFunctions.ExceptionMessage(ex.getMessage(), ex.getCause());
-        }
+        ss.sheetResources().automationRuleResources().deleteAutomationRule(324, 284);
     }
 }
