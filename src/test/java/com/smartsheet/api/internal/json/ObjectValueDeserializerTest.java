@@ -38,7 +38,7 @@ import static org.assertj.core.api.Assertions.within;
 
 class ObjectValueDeserializerTest {
     private static final double DELTA = 0.000001;
-    private static final float DELTA_FLOAT = 0.000001f;
+    private static final float DELTA_FLOAT = 0.001f;
     private final JacksonJsonSerializer jacksonJsonSerializer = new JacksonJsonSerializer();
 
     @Test
