@@ -292,7 +292,7 @@ public interface SheetResources {
      * @param file path to the CSV file
      * @param sheetName destination sheet name
      * @param headerRowIndex index (0 based) of row to be used for column names
-     * @param primaryRowIndex index (0 based) of primary column
+     * @param primaryColumnIndex index (0 based) of primary column
      * @return the created sheet
      * @throws IllegalArgumentException if any argument is null or empty string
      * @throws InvalidRequestException if there is any problem with the REST API request
@@ -301,7 +301,7 @@ public interface SheetResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    Sheet importCsv(String file, String sheetName, Integer headerRowIndex, Integer primaryRowIndex) throws SmartsheetException;
+    Sheet importCsv(String file, String sheetName, Integer headerRowIndex, Integer primaryColumnIndex) throws SmartsheetException;
 
     /**
      * <p>Imports a sheet.</p>
@@ -311,7 +311,7 @@ public interface SheetResources {
      * @param file path to the XLSX file
      * @param sheetName destination sheet name
      * @param headerRowIndex index (0 based) of row to be used for column names
-     * @param primaryRowIndex index (0 based) of primary column
+     * @param primaryColumnIndex index (0 based) of primary column
      * @return the created sheet
      * @throws IllegalArgumentException if any argument is null or empty string
      * @throws InvalidRequestException if there is any problem with the REST API request
@@ -320,7 +320,7 @@ public interface SheetResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    Sheet importXlsx(String file, String sheetName, Integer headerRowIndex, Integer primaryRowIndex) throws SmartsheetException;
+    Sheet importXlsx(String file, String sheetName, Integer headerRowIndex, Integer primaryColumnIndex) throws SmartsheetException;
 
     /**
      * <p>Create a sheet in given folder.</p>
@@ -366,7 +366,7 @@ public interface SheetResources {
      * @param file path to the CSV file
      * @param sheetName destination sheet name
      * @param headerRowIndex index (0 based) of row to be used for column names
-     * @param primaryRowIndex index (0 based) of primary column
+     * @param primaryColumnIndex index (0 based) of primary column
      * @return the created sheet
      * @throws IllegalArgumentException if any argument is null or empty string
      * @throws InvalidRequestException if there is any problem with the REST API request
@@ -375,7 +375,7 @@ public interface SheetResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    Sheet importCsvInFolder(long folderID, String file, String sheetName, Integer headerRowIndex, Integer primaryRowIndex) throws SmartsheetException;
+    Sheet importCsvInFolder(long folderID, String file, String sheetName, Integer headerRowIndex, Integer primaryColumnIndex) throws SmartsheetException;
 
     /**
      * <p>Imports a sheet in given folder.</p>
@@ -386,7 +386,7 @@ public interface SheetResources {
      * @param file path to the XLSX file
      * @param sheetName destination sheet name
      * @param headerRowIndex index (0 based) of row to be used for column names
-     * @param primaryRowIndex index (0 based) of primary column
+     * @param primaryColumnIndex index (0 based) of primary column
      * @return the created sheet
      * @throws IllegalArgumentException if any argument is null or empty string
      * @throws InvalidRequestException if there is any problem with the REST API request
@@ -395,7 +395,7 @@ public interface SheetResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    Sheet importXlsxInFolder(long folderID, String file, String sheetName, Integer headerRowIndex, Integer primaryRowIndex) throws SmartsheetException;
+    Sheet importXlsxInFolder(long folderID, String file, String sheetName, Integer headerRowIndex, Integer primaryColumnIndex) throws SmartsheetException;
 
     /**
      * <p>Create a sheet in given workspace.</p>
@@ -441,7 +441,7 @@ public interface SheetResources {
      * @param file path to the CSV file
      * @param sheetName destination sheet name
      * @param headerRowIndex index (0 based) of row to be used for column names
-     * @param primaryRowIndex index (0 based) of primary column
+     * @param primaryColumnIndex index (0 based) of primary column
      * @return the created sheet
      * @throws IllegalArgumentException if any argument is null or empty string
      * @throws InvalidRequestException if there is any problem with the REST API request
@@ -450,7 +450,7 @@ public interface SheetResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    Sheet importCsvInWorkspace(long workspaceId, String file, String sheetName, Integer headerRowIndex, Integer primaryRowIndex) throws SmartsheetException;
+    Sheet importCsvInWorkspace(long workspaceId, String file, String sheetName, Integer headerRowIndex, Integer primaryColumnIndex) throws SmartsheetException;
 
     /**
      * <p>Imports a sheet in given workspace.</p>
@@ -461,7 +461,7 @@ public interface SheetResources {
      * @param file path to the XLSX file
      * @param sheetName destination sheet name
      * @param headerRowIndex index (0 based) of row to be used for column names
-     * @param primaryRowIndex index (0 based) of primary column
+     * @param primaryColumnIndex index (0 based) of primary column
      * @return the created sheet
      * @throws IllegalArgumentException if any argument is null or empty string
      * @throws InvalidRequestException if there is any problem with the REST API request
@@ -470,7 +470,7 @@ public interface SheetResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    Sheet importXlsxInWorkspace(long workspaceId, String file, String sheetName, Integer headerRowIndex, Integer primaryRowIndex) throws SmartsheetException;
+    Sheet importXlsxInWorkspace(long workspaceId, String file, String sheetName, Integer headerRowIndex, Integer primaryColumnIndex) throws SmartsheetException;
 
     /**
      * <p>Delete a sheet.</p>
