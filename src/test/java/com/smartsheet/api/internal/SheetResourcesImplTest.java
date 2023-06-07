@@ -233,8 +233,7 @@ class SheetResourcesImplTest extends ResourcesImplBase {
 
         server.setResponseBody(new File("src/test/resources/createSheetFromExisting.json"));
 
-        Sheet sheet = new Sheet();
-        sheet.setFromId(2906571706525572L);
+        Sheet sheet = new Sheet().setFromId(2906571706525572L);
         Sheet newSheet = sheetResource.createSheetInFolderFromTemplate(1234L, sheet,
                 EnumSet.allOf(SheetTemplateInclusion.class));
 
@@ -265,8 +264,7 @@ class SheetResourcesImplTest extends ResourcesImplBase {
     void testCreateSheetInWorkspaceFromTemplate() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/createSheetFromExisting.json"));
 
-        Sheet sheet = new Sheet();
-        sheet.setFromId(2906571706525572L);
+        Sheet sheet = new Sheet().setFromId(2906571706525572L);
         Sheet newSheet = sheetResource.createSheetInWorkspaceFromTemplate(1234L, sheet,
                 EnumSet.allOf(SheetTemplateInclusion.class));
 
