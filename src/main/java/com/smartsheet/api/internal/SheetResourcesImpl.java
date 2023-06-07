@@ -468,7 +468,7 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
      * @param file path to the CSV file
      * @param sheetName destination sheet name
      * @param headerRowIndex index (0 based) of row to be used for column names
-     * @param primaryRowIndex index (0 based) of primary column
+     * @param primaryColumnIndex index (0 based) of primary column
      * @return the created sheet
      * @throws IllegalArgumentException if any argument is null or empty string
      * @throws InvalidRequestException if there is any problem with the REST API request
@@ -477,8 +477,8 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public Sheet importCsv(String file, String sheetName, Integer headerRowIndex, Integer primaryRowIndex) throws SmartsheetException {
-        return importFile("sheets/import", file,"text/csv", sheetName, headerRowIndex, primaryRowIndex);
+    public Sheet importCsv(String file, String sheetName, Integer headerRowIndex, Integer primaryColumnIndex) throws SmartsheetException {
+        return importFile("sheets/import", file,"text/csv", sheetName, headerRowIndex, primaryColumnIndex);
     }
 
     /**
@@ -489,7 +489,7 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
      * @param file path to the XLSX file
      * @param sheetName destination sheet name
      * @param headerRowIndex index (0 based) of row to be used for column names
-     * @param primaryRowIndex index (0 based) of primary column
+     * @param primaryColumnIndex index (0 based) of primary column
      * @return the created sheet
      * @throws IllegalArgumentException if any argument is null or empty string
      * @throws InvalidRequestException if there is any problem with the REST API request
@@ -498,9 +498,9 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public Sheet importXlsx(String file, String sheetName, Integer headerRowIndex, Integer primaryRowIndex) throws SmartsheetException {
+    public Sheet importXlsx(String file, String sheetName, Integer headerRowIndex, Integer primaryColumnIndex) throws SmartsheetException {
         return importFile("sheets/import", file,"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-                sheetName, headerRowIndex, primaryRowIndex);
+                sheetName, headerRowIndex, primaryColumnIndex);
     }
 
     /**
@@ -566,7 +566,7 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
      * @param file path to the CSV file
      * @param sheetName destination sheet name
      * @param headerRowIndex index (0 based) of row to be used for column names
-     * @param primaryRowIndex index (0 based) of primary column
+     * @param primaryColumnIndex index (0 based) of primary column
      * @return the created sheet
      * @throws IllegalArgumentException if any argument is null or empty string
      * @throws InvalidRequestException if there is any problem with the REST API request
@@ -575,9 +575,9 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public Sheet importCsvInFolder(long folderId, String file, String sheetName, Integer headerRowIndex, Integer primaryRowIndex) throws SmartsheetException {
+    public Sheet importCsvInFolder(long folderId, String file, String sheetName, Integer headerRowIndex, Integer primaryColumnIndex) throws SmartsheetException {
         return importFile("folders/" + folderId + "/sheets/import", file,"text/csv",
-                sheetName, headerRowIndex, primaryRowIndex);
+                sheetName, headerRowIndex, primaryColumnIndex);
     }
 
     /**
@@ -589,7 +589,7 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
      * @param file path to the XLSX file
      * @param sheetName destination sheet name
      * @param headerRowIndex index (0 based) of row to be used for column names
-     * @param primaryRowIndex index (0 based) of primary column
+     * @param primaryColumnIndex index (0 based) of primary column
      * @return the created sheet
      * @throws IllegalArgumentException if any argument is null or empty string
      * @throws InvalidRequestException if there is any problem with the REST API request
@@ -598,10 +598,10 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public Sheet importXlsxInFolder(long folderId, String file, String sheetName, Integer headerRowIndex, Integer primaryRowIndex) throws SmartsheetException {
+    public Sheet importXlsxInFolder(long folderId, String file, String sheetName, Integer headerRowIndex, Integer primaryColumnIndex) throws SmartsheetException {
         return importFile("folders/" + folderId + "/sheets/import", file,
                 "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", sheetName,
-                headerRowIndex, primaryRowIndex);
+                headerRowIndex, primaryColumnIndex);
     }
 
     /**
@@ -667,7 +667,7 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
      * @param file path to the CSV file
      * @param sheetName destination sheet name
      * @param headerRowIndex index (0 based) of row to be used for column names
-     * @param primaryRowIndex index (0 based) of primary column
+     * @param primaryColumnIndex index (0 based) of primary column
      * @return the created sheet
      * @throws IllegalArgumentException if any argument is null or empty string
      * @throws InvalidRequestException if there is any problem with the REST API request
@@ -676,9 +676,9 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public Sheet importCsvInWorkspace(long workspaceId, String file, String sheetName, Integer headerRowIndex, Integer primaryRowIndex) throws SmartsheetException {
+    public Sheet importCsvInWorkspace(long workspaceId, String file, String sheetName, Integer headerRowIndex, Integer primaryColumnIndex) throws SmartsheetException {
         return importFile("workspaces/" + workspaceId + "/sheets/import", file,
-                "text/csv", sheetName, headerRowIndex, primaryRowIndex);
+                "text/csv", sheetName, headerRowIndex, primaryColumnIndex);
     }
 
     /**
@@ -690,7 +690,7 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
      * @param file path to the XLSX file
      * @param sheetName destination sheet name
      * @param headerRowIndex index (0 based) of row to be used for column names
-     * @param primaryRowIndex index (0 based) of primary column
+     * @param primaryColumnIndex index (0 based) of primary column
      * @return the created sheet
      * @throws IllegalArgumentException if any argument is null or empty string
      * @throws InvalidRequestException if there is any problem with the REST API request
@@ -699,10 +699,10 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public Sheet importXlsxInWorkspace(long workspaceId, String file, String sheetName, Integer headerRowIndex, Integer primaryRowIndex) throws SmartsheetException {
+    public Sheet importXlsxInWorkspace(long workspaceId, String file, String sheetName, Integer headerRowIndex, Integer primaryColumnIndex) throws SmartsheetException {
         return importFile("workspaces/" + workspaceId + "/sheets/import", file,
                 "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", sheetName,
-                headerRowIndex, primaryRowIndex);
+                headerRowIndex, primaryColumnIndex);
     }
 
     /**
@@ -1153,12 +1153,12 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
      * @param contentType content type of the file being imported (either CSV or XLSX)
      * @param sheetName sheetName from caller (can be null)
      * @param headerRowIndex headerRowIndex from caller (can be null)
-     * @param primaryRowIndex primaryRowIndex from caller (can be null)
+     * @param primaryColumnIndex primaryColumnIndex from caller (can be null)
      * @return the new imported sheet
      * @throws SmartsheetException
      */
     private Sheet importFile(String path, String file, String contentType, String sheetName, Integer headerRowIndex,
-                             Integer primaryRowIndex) throws SmartsheetException {
+                             Integer primaryColumnIndex) throws SmartsheetException {
         Util.throwIfNull(path, file, contentType);
         Util.throwIfEmpty(path, file, contentType);
 
@@ -1169,7 +1169,7 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
         }
         parameters.put("sheetName", sheetName);
         parameters.put("headerRowIndex", headerRowIndex);
-        parameters.put("primaryRowIndex", primaryRowIndex);
+        parameters.put("primaryColumnIndex", primaryColumnIndex);
         path = QueryUtil.generateUrl(path, parameters);
         HttpRequest request = createHttpRequest(this.smartsheet.getBaseURI().resolve(path), HttpMethod.POST);
         request.getHeaders().put("Content-Disposition", "attachment");
