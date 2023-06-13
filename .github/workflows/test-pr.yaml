@@ -3,7 +3,6 @@ name: Test PR
 on:
   pull_request:
       branches: [ mainline ]
-  workflow_dispatch:
 
 jobs:
   test:
