@@ -63,6 +63,11 @@ public class Sight extends NamedModel<Long> {
     private Date modifiedAt;
 
     /**
+     * Represents the source of the sheet.
+     */
+    private Source source;
+
+    /**
      * A workspace object, limited to only Id and Name
      */
     private Workspace workspace;
@@ -212,6 +217,25 @@ public class Sight extends NamedModel<Long> {
      */
     public Sight setModifiedAt(Date modifiedAt) {
         this.modifiedAt = modifiedAt;
+        return this;
+    }
+
+    /**
+     * Gets the source.
+     *
+     * @return the source
+     */
+    public Source getSource() {
+        return source;
+    }
+
+    /**
+     * Sets the source.
+     *
+     * @param source the source
+     */
+    public Sight setSource(Source source) {
+        this.source = source;
         return this;
     }
 
