@@ -20,16 +20,18 @@ package com.smartsheet.api.models;
  * %[license]
  */
 
-import com.smartsheet.api.models.enums.AccessLevel;
-import com.smartsheet.api.models.enums.AttachmentType;
-import com.smartsheet.api.models.enums.ResourceManagementType;
-
 import java.util.Date;
 import java.util.EnumSet;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.smartsheet.api.models.enums.AccessLevel;
+import com.smartsheet.api.models.enums.AttachmentType;
+import com.smartsheet.api.models.enums.ResourceManagementType;
 
-public class AbstractSheet<TRow extends AbstractRow<TColumn , TCell>, TColumn extends Column, TCell extends Cell> extends NamedModel<Long>{
+
+public abstract class AbstractSheet<TRow extends AbstractRow<TColumn, TCell>, TColumn extends Column, TCell extends Cell>
+        extends NamedModel<Long> {
 
     /**
      * Represents the ID of the sheet/template from which the sheet was created.
@@ -73,6 +75,7 @@ public class AbstractSheet<TRow extends AbstractRow<TColumn , TCell>, TColumn ex
 
     /**
      * Represents the dependencies enabled flag.
+     *
      * @see <a href="http://help.smartsheet.com/customer/portal/articles/765727-using-the-dependencies-functionality">
      * Dependencies Functionality</a>
      */
@@ -202,9 +205,10 @@ public class AbstractSheet<TRow extends AbstractRow<TColumn , TCell>, TColumn ex
      *
      * @param fromId the new from id
      */
-    public AbstractSheet<TRow, TColumn, TCell> setFromId(Long fromId) {
+    @SuppressWarnings("unchecked")
+    public <T extends AbstractSheet<TRow, TColumn, TCell>> T setFromId(Long fromId) {
         this.fromId = fromId;
-        return this;
+        return (T) this;
     }
 
     /**
@@ -221,9 +225,10 @@ public class AbstractSheet<TRow extends AbstractRow<TColumn , TCell>, TColumn ex
      *
      * @param ownerId the owner id
      */
-    public AbstractSheet<TRow, TColumn, TCell> setOwnerId(long ownerId) {
+    @SuppressWarnings("unchecked")
+    public <T extends AbstractSheet<TRow, TColumn, TCell>> T setOwnerId(long ownerId) {
         this.ownerId = ownerId;
-        return this;
+        return (T) this;
     }
 
     /**
@@ -240,9 +245,10 @@ public class AbstractSheet<TRow extends AbstractRow<TColumn , TCell>, TColumn ex
      *
      * @param accessLevel the new access level
      */
-    public AbstractSheet<TRow, TColumn, TCell> setAccessLevel(AccessLevel accessLevel) {
+    @SuppressWarnings("unchecked")
+    public <T extends AbstractSheet<TRow, TColumn, TCell>> T setAccessLevel(AccessLevel accessLevel) {
         this.accessLevel = accessLevel;
-        return this;
+        return (T) this;
     }
 
     /**
@@ -259,9 +265,10 @@ public class AbstractSheet<TRow extends AbstractRow<TColumn , TCell>, TColumn ex
      *
      * @param attachments the new attachments
      */
-    public AbstractSheet<TRow, TColumn, TCell> setAttachments(List<Attachment> attachments) {
+    @SuppressWarnings("unchecked")
+    public <T extends AbstractSheet<TRow, TColumn, TCell>> T setAttachments(List<Attachment> attachments) {
         this.attachments = attachments;
-        return this;
+        return (T) this;
     }
 
     /**
@@ -278,9 +285,10 @@ public class AbstractSheet<TRow extends AbstractRow<TColumn , TCell>, TColumn ex
      *
      * @param columns the new columns
      */
-    public AbstractSheet<TRow, TColumn, TCell> setColumns(List<TColumn> columns) {
+    @SuppressWarnings("unchecked")
+    public <T extends AbstractSheet<TRow, TColumn, TCell>> T setColumns(List<TColumn> columns) {
         this.columns = columns;
-        return this;
+        return (T) this;
     }
 
     /**
@@ -288,16 +296,19 @@ public class AbstractSheet<TRow extends AbstractRow<TColumn , TCell>, TColumn ex
      *
      * @return contact references
      */
-    public List<ContactObjectValue> getContactReferences() { return contactReferences; }
+    public List<ContactObjectValue> getContactReferences() {
+        return contactReferences;
+    }
 
     /**
      * Sets contact references used by MULTI_CONTACT_LIST columns
      *
      * @param contactReferences
      */
-    public AbstractSheet<TRow, TColumn, TCell> setContactReferences(List<ContactObjectValue> contactReferences) {
+    @SuppressWarnings("unchecked")
+    public <T extends AbstractSheet<TRow, TColumn, TCell>> T setContactReferences(List<ContactObjectValue> contactReferences) {
         this.contactReferences = contactReferences;
-        return this;
+        return (T) this;
     }
 
     /**
@@ -314,9 +325,10 @@ public class AbstractSheet<TRow extends AbstractRow<TColumn , TCell>, TColumn ex
      *
      * @param createdAt the new created at
      */
-    public AbstractSheet<TRow, TColumn, TCell> setCreatedAt(Date createdAt) {
+    @SuppressWarnings("unchecked")
+    public <T extends AbstractSheet<TRow, TColumn, TCell>> T setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
-        return this;
+        return (T) this;
     }
 
     /**
@@ -324,16 +336,19 @@ public class AbstractSheet<TRow extends AbstractRow<TColumn , TCell>, TColumn ex
      *
      * @return the cross sheet references
      */
-    public List<CrossSheetReference> getCrossSheetReferences() { return crossSheetReferences; }
+    public List<CrossSheetReference> getCrossSheetReferences() {
+        return crossSheetReferences;
+    }
 
     /**
      * Sets the list of cross sheet references used by this sheet
      *
      * @param crossSheetReferences the cross sheet references
      */
-    public AbstractSheet<TRow, TColumn, TCell> setCrossSheetReferences(List<CrossSheetReference> crossSheetReferences) {
+    @SuppressWarnings("unchecked")
+    public <T extends AbstractSheet<TRow, TColumn, TCell>> T setCrossSheetReferences(List<CrossSheetReference> crossSheetReferences) {
         this.crossSheetReferences = crossSheetReferences;
-        return this;
+        return (T) this;
     }
 
     /**
@@ -350,9 +365,10 @@ public class AbstractSheet<TRow extends AbstractRow<TColumn , TCell>, TColumn ex
      *
      * @param dependenciesEnabled the new dependencies enabled
      */
-    public AbstractSheet<TRow, TColumn, TCell> setDependenciesEnabled(Boolean dependenciesEnabled) {
+    @SuppressWarnings("unchecked")
+    public <T extends AbstractSheet<TRow, TColumn, TCell>> T setDependenciesEnabled(Boolean dependenciesEnabled) {
         this.dependenciesEnabled = dependenciesEnabled;
-        return this;
+        return (T) this;
     }
 
     /**
@@ -369,9 +385,10 @@ public class AbstractSheet<TRow extends AbstractRow<TColumn , TCell>, TColumn ex
      *
      * @param discussions the new discussions
      */
-    public AbstractSheet<TRow, TColumn, TCell> setDiscussions(List<Discussion> discussions) {
+    @SuppressWarnings("unchecked")
+    public <T extends AbstractSheet<TRow, TColumn, TCell>> T setDiscussions(List<Discussion> discussions) {
         this.discussions = discussions;
-        return this;
+        return (T) this;
     }
 
     /**
@@ -388,9 +405,10 @@ public class AbstractSheet<TRow extends AbstractRow<TColumn , TCell>, TColumn ex
      *
      * @param effectiveAttachmentOptions the effective attachment options
      */
-    public AbstractSheet<TRow, TColumn, TCell> setEffectiveAttachmentOptions(EnumSet<AttachmentType> effectiveAttachmentOptions) {
+    @SuppressWarnings("unchecked")
+    public <T extends AbstractSheet<TRow, TColumn, TCell>> T setEffectiveAttachmentOptions(EnumSet<AttachmentType> effectiveAttachmentOptions) {
         this.effectiveAttachmentOptions = effectiveAttachmentOptions;
-        return this;
+        return (T) this;
     }
 
     /**
@@ -407,9 +425,10 @@ public class AbstractSheet<TRow extends AbstractRow<TColumn , TCell>, TColumn ex
      *
      * @param favorite the favorite
      */
-    public AbstractSheet<TRow, TColumn, TCell> setFavorite(Boolean favorite) {
+    @SuppressWarnings("unchecked")
+    public <T extends AbstractSheet<TRow, TColumn, TCell>> T setFavorite(Boolean favorite) {
         this.favorite = favorite;
-        return this;
+        return (T) this;
     }
 
     /**
@@ -417,16 +436,19 @@ public class AbstractSheet<TRow extends AbstractRow<TColumn , TCell>, TColumn ex
      *
      * @return the list of SheetFilters
      */
-    public List<SheetFilter> getFilters() { return filters; }
+    public List<SheetFilter> getFilters() {
+        return filters;
+    }
 
     /**
      * Sets the list of sheet filters for this sheet.
      *
      * @param filters the list of SheetFilters
      */
-    public AbstractSheet<TRow, TColumn, TCell> setFilters(List<SheetFilter> filters) {
+    @SuppressWarnings("unchecked")
+    public <T extends AbstractSheet<TRow, TColumn, TCell>> T setFilters(List<SheetFilter> filters) {
         this.filters = filters;
-        return this;
+        return (T) this;
     }
 
     /**
@@ -443,9 +465,10 @@ public class AbstractSheet<TRow extends AbstractRow<TColumn , TCell>, TColumn ex
      *
      * @param ganttEnabled the new gantt enabled flag
      */
-    public AbstractSheet<TRow, TColumn, TCell> setGanttEnabled(Boolean ganttEnabled) {
+    @SuppressWarnings("unchecked")
+    public <T extends AbstractSheet<TRow, TColumn, TCell>> T setGanttEnabled(Boolean ganttEnabled) {
         this.ganttEnabled = ganttEnabled;
-        return this;
+        return (T) this;
     }
 
     /**
@@ -453,16 +476,19 @@ public class AbstractSheet<TRow extends AbstractRow<TColumn , TCell>, TColumn ex
      *
      * @return hasSheetSummary
      */
-    public Boolean getHasSummaryFields() { return hasSummaryFields; }
+    public Boolean getHasSummaryFields() {
+        return hasSummaryFields;
+    }
 
     /**
      * Sets flag indicating whether a sheet summary is present
      *
      * @param hasSummaryFields
      */
-    public AbstractSheet<TRow, TColumn, TCell>  setHasSummaryFields(Boolean hasSummaryFields) {
+    @SuppressWarnings("unchecked")
+    public <T extends AbstractSheet<TRow, TColumn, TCell>> T setHasSummaryFields(Boolean hasSummaryFields) {
         this.hasSummaryFields = hasSummaryFields;
-        return this;
+        return (T) this;
     }
 
     /**
@@ -479,9 +505,10 @@ public class AbstractSheet<TRow extends AbstractRow<TColumn , TCell>, TColumn ex
      *
      * @param modifiedAt the new modified at
      */
-    public AbstractSheet<TRow, TColumn, TCell> setModifiedAt(Date modifiedAt) {
+    @SuppressWarnings("unchecked")
+    public <T extends AbstractSheet<TRow, TColumn, TCell>> T setModifiedAt(Date modifiedAt) {
         this.modifiedAt = modifiedAt;
-        return this;
+        return (T) this;
     }
 
     /**
@@ -489,9 +516,34 @@ public class AbstractSheet<TRow extends AbstractRow<TColumn , TCell>, TColumn ex
      *
      * @param name the new name
      */
-    public AbstractSheet<TRow, TColumn, TCell> setName(String name){
+    public AbstractSheet<TRow, TColumn, TCell> setName(String name) {
         super.setName(name);
         return this;
+    }
+
+    /**
+     * version of setName that returns this type
+     *
+     * @param name the new name
+     * @return this
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends AbstractSheet<TRow, TColumn, TCell>> T setSheetName(String name) {
+        super.setName(name);
+        return (T) this;
+    }
+
+
+    /**
+     * version of setId that returns this type
+     * @param id the new sheet ID
+     * @return this
+     */
+    @JsonIgnore(false)
+    @SuppressWarnings("unchecked")
+    public <T extends AbstractSheet<TRow, TColumn, TCell>> T setSheetId(Long id) {
+        super.setId(id);
+        return (T) this;
     }
 
     /**
@@ -508,9 +560,10 @@ public class AbstractSheet<TRow extends AbstractRow<TColumn , TCell>, TColumn ex
      *
      * @param owner the owner email
      */
-    public AbstractSheet<TRow, TColumn, TCell> setOwner(String owner) {
+    @SuppressWarnings("unchecked")
+    public <T extends AbstractSheet<TRow, TColumn, TCell>> T setOwner(String owner) {
         this.owner = owner;
-        return this;
+        return (T) this;
     }
 
     /**
@@ -527,9 +580,10 @@ public class AbstractSheet<TRow extends AbstractRow<TColumn , TCell>, TColumn ex
      *
      * @param permalink the new permalink
      */
-    public AbstractSheet<TRow, TColumn, TCell> setPermalink(String permalink) {
+    @SuppressWarnings("unchecked")
+    public <T extends AbstractSheet<TRow, TColumn, TCell>> T setPermalink(String permalink) {
         this.permalink = permalink;
-        return this;
+        return (T) this;
     }
 
     /**
@@ -546,9 +600,10 @@ public class AbstractSheet<TRow extends AbstractRow<TColumn , TCell>, TColumn ex
      *
      * @param projectSettings the project settings
      */
-    public AbstractSheet<TRow, TColumn, TCell> setProjectSettings(ProjectSettings projectSettings) {
+    @SuppressWarnings("unchecked")
+    public <T extends AbstractSheet<TRow, TColumn, TCell>> T setProjectSettings(ProjectSettings projectSettings) {
         this.projectSettings = projectSettings;
-        return this;
+        return (T) this;
     }
 
     /**
@@ -565,9 +620,10 @@ public class AbstractSheet<TRow extends AbstractRow<TColumn , TCell>, TColumn ex
      *
      * @param readOnly the new read only
      */
-    public AbstractSheet<TRow, TColumn, TCell> setReadOnly(Boolean readOnly) {
+    @SuppressWarnings("unchecked")
+    public <T extends AbstractSheet<TRow, TColumn, TCell>> T setReadOnly(Boolean readOnly) {
         this.readOnly = readOnly;
-        return this;
+        return (T) this;
     }
 
     /**
@@ -580,9 +636,10 @@ public class AbstractSheet<TRow extends AbstractRow<TColumn , TCell>, TColumn ex
     /**
      * @param resourceManagementEnabled the resourceManagementEnabled to set
      */
-    public AbstractSheet<TRow, TColumn, TCell> setResourceManagementEnabled(Boolean resourceManagementEnabled) {
+    @SuppressWarnings("unchecked")
+    public <T extends AbstractSheet<TRow, TColumn, TCell>> T setResourceManagementEnabled(Boolean resourceManagementEnabled) {
         this.resourceManagementEnabled = resourceManagementEnabled;
-        return this;
+        return (T) this;
     }
 
     /**
@@ -597,9 +654,10 @@ public class AbstractSheet<TRow extends AbstractRow<TColumn , TCell>, TColumn ex
     /**
      * Sets the access level for the sheet.
      */
-    public AbstractSheet<TRow, TColumn, TCell> setResourceManagementType(ResourceManagementType resourceManagementType) {
+    @SuppressWarnings("unchecked")
+    public <T extends AbstractSheet<TRow, TColumn, TCell>> T setResourceManagementType(ResourceManagementType resourceManagementType) {
         this.resourceManagementType = resourceManagementType;
-        return this;
+        return (T) this;
     }
 
     /**
@@ -616,9 +674,10 @@ public class AbstractSheet<TRow extends AbstractRow<TColumn , TCell>, TColumn ex
      *
      * @param rows the new rows
      */
-    public AbstractSheet<TRow, TColumn, TCell> setRows(List<TRow> rows) {
+    @SuppressWarnings("unchecked")
+    public <T extends AbstractSheet<TRow, TColumn, TCell>> T setRows(List<TRow> rows) {
         this.rows = rows;
-        return this;
+        return (T) this;
     }
 
     /**
@@ -635,9 +694,10 @@ public class AbstractSheet<TRow extends AbstractRow<TColumn , TCell>, TColumn ex
      *
      * @param showParentRowsForFilters the show parent rows for filters
      */
-    public AbstractSheet<TRow, TColumn, TCell> setShowParentRowsForFilters(Boolean showParentRowsForFilters) {
+    @SuppressWarnings("unchecked")
+    public <T extends AbstractSheet<TRow, TColumn, TCell>> T setShowParentRowsForFilters(Boolean showParentRowsForFilters) {
         this.showParentRowsForFilters = showParentRowsForFilters;
-        return this;
+        return (T) this;
     }
 
     /**
@@ -654,9 +714,10 @@ public class AbstractSheet<TRow extends AbstractRow<TColumn , TCell>, TColumn ex
      *
      * @param source the source
      */
-    public AbstractSheet<TRow, TColumn, TCell> setSource(Source source) {
+    @SuppressWarnings("unchecked")
+    public <T extends AbstractSheet<TRow, TColumn, TCell>> T setSource(Source source) {
         this.source = source;
-        return this;
+        return (T) this;
     }
 
     /**
@@ -664,16 +725,19 @@ public class AbstractSheet<TRow extends AbstractRow<TColumn , TCell>, TColumn ex
      *
      * @return sheetSummary
      */
-    public SheetSummary getSummary() { return summary; }
+    public SheetSummary getSummary() {
+        return summary;
+    }
 
     /**
      * Sets the sheet summary if one exists for this sheet
      *
      * @param summary
      */
-    public AbstractSheet<TRow, TColumn, TCell> setSummary(SheetSummary summary) {
+    @SuppressWarnings("unchecked")
+    public <T extends AbstractSheet<TRow, TColumn, TCell>> T setSummary(SheetSummary summary) {
         this.summary = summary;
-        return this;
+        return (T) this;
     }
 
     /**
@@ -690,9 +754,10 @@ public class AbstractSheet<TRow extends AbstractRow<TColumn , TCell>, TColumn ex
      *
      * @param totalRowCount the total row count
      */
-    public AbstractSheet<TRow, TColumn, TCell> setTotalRowCount(Integer totalRowCount) {
+    @SuppressWarnings("unchecked")
+    public <T extends AbstractSheet<TRow, TColumn, TCell>> T setTotalRowCount(Integer totalRowCount) {
         this.totalRowCount = totalRowCount;
-        return this;
+        return (T) this;
     }
 
     /**
@@ -700,16 +765,19 @@ public class AbstractSheet<TRow extends AbstractRow<TColumn , TCell>, TColumn ex
      *
      * @return userPermissions
      */
-    public SheetUserPermissions getUserPermissions() { return userPermissions; }
+    public SheetUserPermissions getUserPermissions() {
+        return userPermissions;
+    }
 
     /**
      * Sets the sheet user permissions
      *
      * @param userPermissions
      */
-    public AbstractSheet<TRow, TColumn, TCell> setUserPermissions(SheetUserPermissions userPermissions) {
+    @SuppressWarnings("unchecked")
+    public <T extends AbstractSheet<TRow, TColumn, TCell>> T setUserPermissions(SheetUserPermissions userPermissions) {
         this.userPermissions = userPermissions;
-        return this;
+        return (T) this;
     }
 
     /**
@@ -726,9 +794,10 @@ public class AbstractSheet<TRow extends AbstractRow<TColumn , TCell>, TColumn ex
      *
      * @param userSettings the user settings
      */
-    public AbstractSheet<TRow, TColumn, TCell> setUserSettings(SheetUserSettings userSettings) {
+    @SuppressWarnings("unchecked")
+    public <T extends AbstractSheet<TRow, TColumn, TCell>> T setUserSettings(SheetUserSettings userSettings) {
         this.userSettings = userSettings;
-        return this;
+        return (T) this;
     }
 
     /**
@@ -745,9 +814,10 @@ public class AbstractSheet<TRow extends AbstractRow<TColumn , TCell>, TColumn ex
      *
      * @param version the new version
      */
-    public AbstractSheet<TRow, TColumn, TCell> setVersion(Integer version) {
+    @SuppressWarnings("unchecked")
+    public <T extends AbstractSheet<TRow, TColumn, TCell>> T setVersion(Integer version) {
         this.version = version;
-        return this;
+        return (T) this;
     }
 
     /**
@@ -755,16 +825,19 @@ public class AbstractSheet<TRow extends AbstractRow<TColumn , TCell>, TColumn ex
      *
      * @return workspace
      */
-    public Workspace getWorkspace() { return workspace; }
+    public Workspace getWorkspace() {
+        return workspace;
+    }
 
     /**
      * Sets a workspace object containing the name and id of the workspace containing this sheet
      *
      * @param workspace
      */
-    public AbstractSheet<TRow, TColumn, TCell> setWorkspace(Workspace workspace) {
+    @SuppressWarnings("unchecked")
+    public <T extends AbstractSheet<TRow, TColumn, TCell>> T setWorkspace(Workspace workspace) {
         this.workspace = workspace;
-        return this;
+        return (T) this;
     }
 
     /**

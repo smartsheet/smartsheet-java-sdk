@@ -8,9 +8,9 @@ package com.smartsheet.api.sdk_test;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
+ * 
  *      http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -55,9 +55,7 @@ class SheetTest {
 	void createSheet__Invalid_NoColumns() {
 		Smartsheet ss = HelperFunctions.SetupClient("Create Sheet - Invalid - No Columns");
 
-		Sheet sheetA = new Sheet();
-		sheetA.setName("New Sheet");
-		sheetA.setColumns(new ArrayList<>());
+		Sheet sheetA = new Sheet().setSheetName("New Sheet").setColumns(new ArrayList<>());
 		assertThatThrownBy(() -> ss.sheetResources().createSheet(sheetA))
 				.isInstanceOf(SmartsheetException.class)
 				.hasMessage("The new sheet requires either a fromId or columns.");
