@@ -32,8 +32,9 @@ class UserStatusTest {
         assertThat(UserStatus.valueOf("ACTIVE")).isNotNull();
         assertThat(UserStatus.valueOf("PENDING")).isNotNull();
         assertThat(UserStatus.valueOf("DECLINED")).isNotNull();
+        assertThat(UserStatus.valueOf("DEACTIVATED")).isNotNull();
 
-        assertThat(UserStatus.values()).hasSize(3);
+        assertThat(UserStatus.values()).hasSize(4);
     }
 
 }
