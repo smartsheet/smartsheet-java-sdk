@@ -1,0 +1,22 @@
+name: Test Current mainline
+
+on:
+  push:
+    branches:
+      - mainline
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up JDK 11
+        uses: actions/setup-java@v3
+        with:
+          java-version: '11'
+          distribution: 'adopt'
+      - name: Run Mock API Tests
+        env:
+          SMARTSHEET_ACCESS_TOKEN: ${{secrets.SMARTSHEET_ACCESS_TOKEN}}
+        run: mvn --batch-mode --update-snapshots test jacoco:report coveralls:report -DrepoToken=${{ secrets.COVERALLS_REPO_TOKEN }}

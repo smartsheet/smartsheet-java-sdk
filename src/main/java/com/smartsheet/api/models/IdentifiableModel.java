@@ -56,7 +56,7 @@ public abstract class IdentifiableModel<T> {
     public boolean equals(Object object) {
         boolean result = false;
 
-        if(object != null && object == this){
+        if(object == this){
             result = true;
         }else if(object != null && object.getClass() == this.getClass() &&
                 // If they are both null

@@ -31,17 +31,10 @@ class SheetTest {
 
     @Test
     void testGetRowByRowNumber() {
-        Sheet sheet = new Sheet();
-        sheet.setReadOnly(false);
-        sheet.setDiscussions(new ArrayList<>());
-        sheet.setAttachments(new ArrayList<>());
+        Sheet sheet = new Sheet().setReadOnly(false).setDiscussions(new ArrayList<>()).setAttachments(new ArrayList<>());
 
-        List<Row> rows = new ArrayList<>();
-        Row row = new Row();
-        row.setRowNumber(5);
-        row.setId(1234L);
-        rows.add(row);
-        sheet.setRows(rows);
+        Row row = new Row().setRowNumber(5).setRowId(1234L);
+        sheet.setRows(List.of(row));
 
         assertThat(sheet.getRowByRowNumber(5)).isEqualTo(row);
         assertThat(sheet.getRowByRowNumber(20)).isNull();

@@ -93,15 +93,11 @@ public class Sheet extends AbstractSheet<Row, Column, Cell> {
          * @return the sheet
          */
         public Sheet build() {
-            Sheet sheet = new Sheet();
-
             if (columns == null || name == null) {
                 throw new InstantiationError();
             }
 
-            sheet.setColumns(columns);
-            sheet.setName(name);
-            return sheet;
+            return new Sheet().setColumns(columns).setSheetName(name);
         }
     }
 
@@ -161,15 +157,10 @@ public class Sheet extends AbstractSheet<Row, Column, Cell> {
          * @return the sheet
          */
         public Sheet build() {
-            Sheet sheet = new Sheet();
-
             if (fromId == null || name == null) {
                 throw new InstantiationError();
             }
-
-            sheet.setFromId(fromId);
-            sheet.setName(name);
-            return sheet;
+            return new Sheet().setFromId(fromId).setSheetName(name);
         }
     }
 
@@ -265,13 +256,11 @@ public class Sheet extends AbstractSheet<Row, Column, Cell> {
             if(sheetName == null){
                 throw new InstantiationError();
             }
-
-            Sheet sheet = new Sheet();
-            sheet.setName(sheetName);
-            sheet.setId(id);
-            sheet.setUserSettings(userSettings);
-            sheet.setProjectSettings(projectSettings);
-            return sheet;
+            return new Sheet()
+                    .setSheetName(sheetName)
+                    .setSheetId(id)
+                    .setUserSettings(userSettings)
+                    .setProjectSettings(projectSettings);
         }
     }
 }

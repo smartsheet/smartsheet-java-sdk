@@ -39,5 +39,10 @@ public enum UserStatus {
     /**
      * Represents DECLINED status.
      */
-    DECLINED
+    DECLINED,
+    
+    /**
+     * Represents DEACTIVATED status.
+     */
+    DEACTIVATED
 }
