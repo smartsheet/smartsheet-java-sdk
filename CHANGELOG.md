@@ -14,7 +14,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Added `source` to `Sight` model
 
 ### Changed
--`AbstractRow` and `AbstractSheet` made `abstract`
+- `AbstractRow` and `AbstractSheet` made `abstract`
 - jacoco library upgraded to version that supports newer JVM byte-codes
 - methods of `AbstractRow` and `AbstractSheet` that return `this` return a type that can be implicitly cast to the child type
 - added streams to cases where they could be used to simplify code
