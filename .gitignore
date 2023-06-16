@@ -9,3 +9,4 @@ bin/
 *.log
 sdk_tests_package/
 smartsheet-sdk-tests/
+*.iml

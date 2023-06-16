@@ -4,17 +4,27 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## Unreleased
+
+## [3.1.0] - 2023-06-16
 ### Added
-* `AbstractRow::setRowId` so it can return a type that matches the child-type
-  * `AbstractRow::getRowId` added for symmetry 
-* `AbstractSheet::setSheetName` and `AbstractSheet:setSheetId` return a type that can be implicitly cast to the child type
+- `AbstractRow::setRowId` so it can return a type that matches the child-type
+  - `AbstractRow::getRowId` added for symmetry 
+- `AbstractSheet::setSheetName` and `AbstractSheet:setSheetId` return a type that can be implicitly cast to the child type
+- Added `source` to `Sight` model
 
 ### Changed
-* `AbstractRow` and `AbstractSheet` made `abstract`
-* jacoco library upgraded to version that supports newer JVM byte-codes
-* methods of `AbstractRow` and `AbstractSheet` that return `this` return a type that can be implicitly cast to the child type
-* added streams to cases where they could be used to simplify code
+- `AbstractRow` and `AbstractSheet` made `abstract`
+- jacoco library upgraded to version that supports newer JVM byte-codes
+- methods of `AbstractRow` and `AbstractSheet` that return `this` return a type that can be implicitly cast to the child type
+- added streams to cases where they could be used to simplify code
+- changed `UserStatus` enum to include `DEACTIVATED`
+- upgraded to JUnit 5
+- quality of life improvements to tests
+
+### Fixed
+- parameter names in `SheetResources`
+- access modifiers
 
 ## [3.0.0] - 2022-12-09
 ### Updated
