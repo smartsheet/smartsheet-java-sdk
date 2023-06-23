@@ -43,7 +43,6 @@ ext {
 }
 
 // Tell Gradle where to pull dependencies from
-// Note: we don't want to add mavenCentral() here so we don't go to the public maven repo
 repositories {
     mavenCentral()
 }
