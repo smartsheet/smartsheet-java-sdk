@@ -27,8 +27,7 @@ import com.smartsheet.api.models.format.Format;
 import java.util.Date;
 import java.util.List;
 
-public class AbstractRow<TColumn extends Column, TCell extends Cell> extends IdentifiableModel<Long>{
-
+public abstract class AbstractRow <TColumn extends Column, TCell extends Cell> extends IdentifiableModel<Long> {
     @Override
     @JsonIgnore(false)
     public Long getId() {
@@ -40,6 +39,18 @@ public class AbstractRow<TColumn extends Column, TCell extends Cell> extends Ide
     public IdentifiableModel<Long> setId(Long id) {
         super.setId(id);
         return this;
+    }
+
+    @JsonIgnore(false)
+    public Long getRowId() {
+        return super.getId();
+    }
+
+    @JsonIgnore(false)
+    @SuppressWarnings("unchecked")
+    public <T extends AbstractRow<TColumn, TCell>> T setRowId(Long id) {
+        super.setId(id);
+        return (T) this;
     }
 
     /** Represents the Sheet ID. */
@@ -140,9 +151,10 @@ public class AbstractRow<TColumn extends Column, TCell extends Cell> extends Ide
      *
      * @param accessLevel the new access level
      */
-    public AbstractRow<TColumn, TCell> setAccessLevel(AccessLevel accessLevel) {
+    @SuppressWarnings("unchecked")
+    public <T extends AbstractRow<TColumn, TCell>> T setAccessLevel(AccessLevel accessLevel) {
         this.accessLevel = accessLevel;
-        return this;
+        return (T)this;
     }
 
     /**
@@ -159,9 +171,10 @@ public class AbstractRow<TColumn extends Column, TCell extends Cell> extends Ide
      *
      * @param version the new version
      */
-    public AbstractRow<TColumn, TCell> setVersion(Integer version) {
+    @SuppressWarnings("unchecked")
+    public <T extends AbstractRow<TColumn, TCell>> T setVersion(Integer version) {
         this.version = version;
-        return this;
+        return (T) this;
     }
 
     /**
@@ -178,9 +191,10 @@ public class AbstractRow<TColumn extends Column, TCell extends Cell> extends Ide
      *
      * @param expanded the new expanded
      */
-    public AbstractRow<TColumn, TCell> setExpanded(Boolean expanded) {
+    @SuppressWarnings("unchecked")
+    public <T extends AbstractRow<TColumn, TCell>> T setExpanded(Boolean expanded) {
         this.expanded = expanded;
-        return this;
+        return (T) this;
     }
 
     /**
@@ -193,16 +207,7 @@ public class AbstractRow<TColumn extends Column, TCell extends Cell> extends Ide
         if (columns == null) {
             return null;
         }
-
-        TColumn result = null;
-        for (TColumn column : columns) {
-            if (column.getIndex() == index) {
-                result = column;
-                break;
-            }
-        }
-
-        return result;
+        return columns.stream().filter(column -> column.getIndex() == index).findFirst().orElse(null);
     }
 
     /**
@@ -215,16 +220,7 @@ public class AbstractRow<TColumn extends Column, TCell extends Cell> extends Ide
         if (columns == null) {
             return null;
         }
-
-        TColumn result = null;
-        for (TColumn column : columns) {
-            if (column.getId() == columnId) {
-                result = column;
-                break;
-            }
-        }
-
-        return result;
+        return columns.stream().filter(column -> column.getId() == columnId).findFirst().orElse(null);
     }
 
     /**
@@ -241,9 +237,10 @@ public class AbstractRow<TColumn extends Column, TCell extends Cell> extends Ide
      *
      * @param sheetId the new sheet id
      */
-    public AbstractRow<TColumn, TCell> setSheetId(Long sheetId) {
+    @SuppressWarnings("unchecked")
+    public <T extends AbstractRow<TColumn, TCell>> T setSheetId(Long sheetId) {
         this.sheetId = sheetId;
-        return this;
+        return (T) this;
     }
 
     /**
@@ -260,9 +257,10 @@ public class AbstractRow<TColumn extends Column, TCell extends Cell> extends Ide
      *
      * @param rowNumber the new row number
      */
-    public AbstractRow<TColumn, TCell> setRowNumber(Integer rowNumber) {
+    @SuppressWarnings("unchecked")
+    public <T extends AbstractRow<TColumn, TCell>> T setRowNumber(Integer rowNumber) {
         this.rowNumber = rowNumber;
-        return this;
+        return (T) this;
     }
 
     /**
@@ -279,9 +277,10 @@ public class AbstractRow<TColumn extends Column, TCell extends Cell> extends Ide
      *
      * @param parentRowNumber the new parent row number
      */
-    public AbstractRow<TColumn, TCell> setParentRowNumber(Integer parentRowNumber) {
+    @SuppressWarnings("unchecked")
+    public <T extends AbstractRow<TColumn, TCell>> T setParentRowNumber(Integer parentRowNumber) {
         this.parentRowNumber = parentRowNumber;
-        return this;
+        return (T) this;
     }
 
     /**
@@ -298,9 +297,10 @@ public class AbstractRow<TColumn extends Column, TCell extends Cell> extends Ide
      *
      * @param cells the new cells
      */
-    public AbstractRow<TColumn, TCell> setCells(List<TCell> cells) {
+    @SuppressWarnings("unchecked")
+    public <T extends AbstractRow<TColumn, TCell>> T setCells(List<TCell> cells) {
         this.cells = cells;
-        return this;
+        return (T)this;
     }
 
     /**
@@ -317,9 +317,10 @@ public class AbstractRow<TColumn extends Column, TCell extends Cell> extends Ide
      *
      * @param discussions the new discussions
      */
-    public AbstractRow<TColumn, TCell> setDiscussions(List<Discussion> discussions) {
+    @SuppressWarnings("unchecked")
+    public <T extends AbstractRow<TColumn, TCell>> T setDiscussions(List<Discussion> discussions) {
         this.discussions = discussions;
-        return this;
+        return (T) this;
     }
 
     /**
@@ -336,9 +337,10 @@ public class AbstractRow<TColumn extends Column, TCell extends Cell> extends Ide
      *
      * @param attachments the new attachments
      */
-    public AbstractRow<TColumn, TCell> setAttachments(List<Attachment> attachments) {
+    @SuppressWarnings("unchecked")
+    public <T extends AbstractRow<TColumn, TCell>> T setAttachments(List<Attachment> attachments) {
         this.attachments = attachments;
-        return this;
+        return (T) this;
     }
 
     /**
@@ -355,9 +357,10 @@ public class AbstractRow<TColumn extends Column, TCell extends Cell> extends Ide
      *
      * @param columns the new columns
      */
-    public AbstractRow<TColumn, TCell> setColumns(List<TColumn> columns) {
+    @SuppressWarnings("unchecked")
+    public <T extends AbstractRow<TColumn, TCell>> T setColumns(List<TColumn> columns) {
         this.columns = columns;
-        return this;
+        return (T) this;
     }
 
     /**
@@ -374,9 +377,10 @@ public class AbstractRow<TColumn extends Column, TCell extends Cell> extends Ide
      *
      * @param createdAt the new created at
      */
-    public AbstractRow<TColumn, TCell> setCreatedAt(Date createdAt) {
+    @SuppressWarnings("unchecked")
+    public <T extends AbstractRow<TColumn, TCell>> T setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
-        return this;
+        return (T) this;
     }
 
     /**
@@ -393,9 +397,10 @@ public class AbstractRow<TColumn extends Column, TCell extends Cell> extends Ide
      *
      * @param modifiedAt the new modified at
      */
-    public AbstractRow<TColumn, TCell> setModifiedAt(Date modifiedAt) {
+    @SuppressWarnings("unchecked")
+    public <T extends AbstractRow<TColumn, TCell>> T setModifiedAt(Date modifiedAt) {
         this.modifiedAt = modifiedAt;
-        return this;
+        return (T) this;
     }
 
     /**
@@ -410,9 +415,10 @@ public class AbstractRow<TColumn extends Column, TCell extends Cell> extends Ide
     /**
      * @param locked the locked status
      */
-    public AbstractRow<TColumn, TCell> setLocked(Boolean locked) {
+    @SuppressWarnings("unchecked")
+    public <T extends AbstractRow<TColumn, TCell>> T setLocked(Boolean locked) {
         this.locked = locked;
-        return this;
+        return (T) this;
     }
 
     /**
@@ -423,9 +429,10 @@ public class AbstractRow<TColumn extends Column, TCell extends Cell> extends Ide
         return lockedForUser;
     }
 
-    public AbstractRow<TColumn, TCell> setLockedForUser(Boolean lockedForUser) {
+    @SuppressWarnings("unchecked")
+    public <T extends AbstractRow<TColumn, TCell>> T setLockedForUser(Boolean lockedForUser) {
         this.lockedForUser = lockedForUser;
-        return this;
+        return (T) this;
     }
 
     /**
@@ -438,9 +445,10 @@ public class AbstractRow<TColumn extends Column, TCell extends Cell> extends Ide
     /**
      * @param format the {@link Format} to set
      */
-    public AbstractRow<TColumn, TCell> setFormat(Format format) {
+    @SuppressWarnings("unchecked")
+    public <T extends AbstractRow<TColumn, TCell>> T setFormat(Format format) {
         this.format = format;
-        return this;
+        return (T) this;
     }
 
     /**
@@ -457,9 +465,10 @@ public class AbstractRow<TColumn extends Column, TCell extends Cell> extends Ide
      *
      * @param parentId the parent row id
      */
-    public AbstractRow<TColumn, TCell> setParentId(Long parentId) {
+    @SuppressWarnings("unchecked")
+    public <T extends AbstractRow<TColumn, TCell>> T setParentId(Long parentId) {
         this.parentId = parentId;
-        return this;
+        return (T) this;
     }
 
     /**
@@ -476,9 +485,10 @@ public class AbstractRow<TColumn extends Column, TCell extends Cell> extends Ide
      *
      * @param siblingId the sibling row id
      */
-    public AbstractRow<TColumn, TCell> setSiblingId(Long siblingId) {
+    @SuppressWarnings("unchecked")
+    public <T extends AbstractRow<TColumn, TCell>> T setSiblingId(Long siblingId) {
         this.siblingId = siblingId;
-        return this;
+        return (T) this;
     }
 
     /**
@@ -495,9 +505,10 @@ public class AbstractRow<TColumn extends Column, TCell extends Cell> extends Ide
      *
      * @param permalink the URL to the row
      */
-    public AbstractRow<TColumn, TCell> setPermalink(String permalink) {
+    @SuppressWarnings("unchecked")
+    public <T extends AbstractRow<TColumn, TCell>> T setPermalink(String permalink) {
         this.permalink = permalink;
-        return this;
+        return (T) this;
     }
 
     /**
@@ -514,9 +525,10 @@ public class AbstractRow<TColumn extends Column, TCell extends Cell> extends Ide
      *
      * @param filteredOut if the row is filtered out
      */
-    public AbstractRow<TColumn, TCell> setFilteredOut(Boolean filteredOut) {
+    @SuppressWarnings("unchecked")
+    public <T extends AbstractRow<TColumn, TCell>> T setFilteredOut(Boolean filteredOut) {
         this.filteredOut = filteredOut;
-        return this;
+        return (T) this;
     }
 
     /**
@@ -533,9 +545,10 @@ public class AbstractRow<TColumn extends Column, TCell extends Cell> extends Ide
      *
      * @param inCriticalPath if the row is in critical path
      */
-    public AbstractRow<TColumn, TCell> setInCriticalPath(Boolean inCriticalPath) {
+    @SuppressWarnings("unchecked")
+    public <T extends AbstractRow<TColumn, TCell>> T setInCriticalPath(Boolean inCriticalPath) {
         this.inCriticalPath = inCriticalPath;
-        return this;
+        return (T) this;
     }
 
     /**
@@ -550,9 +563,10 @@ public class AbstractRow<TColumn extends Column, TCell extends Cell> extends Ide
      *
      * @param conditionalFormat the conditional format
      */
-    public AbstractRow<TColumn, TCell> setConditionalFormat(Format conditionalFormat) {
+    @SuppressWarnings("unchecked")
+    public <T extends AbstractRow<TColumn, TCell>> T setConditionalFormat(Format conditionalFormat) {
         this.conditionalFormat = conditionalFormat;
-        return this;
+        return (T) this;
     }
 
     /**
@@ -569,9 +583,10 @@ public class AbstractRow<TColumn extends Column, TCell extends Cell> extends Ide
      *
      * @param toTop if the row is to the top
      */
-    public AbstractRow<TColumn, TCell> setToTop(Boolean toTop) {
+    @SuppressWarnings("unchecked")
+    public <T extends AbstractRow<TColumn, TCell>> T setToTop(Boolean toTop) {
         this.toTop = toTop;
-        return this;
+        return (T) this;
     }
 
     /**
@@ -588,9 +603,10 @@ public class AbstractRow<TColumn extends Column, TCell extends Cell> extends Ide
      *
      * @param toBottom if the row is to the bottom
      */
-    public AbstractRow<TColumn, TCell> setToBottom(Boolean toBottom) {
+    @SuppressWarnings("unchecked")
+    public <T extends AbstractRow<TColumn, TCell>> T setToBottom(Boolean toBottom) {
         this.toBottom = toBottom;
-        return this;
+        return (T) this;
     }
 
     /**
@@ -607,9 +623,10 @@ public class AbstractRow<TColumn extends Column, TCell extends Cell> extends Ide
      *
      * @param above if the row is above a specified row
      */
-    public AbstractRow<TColumn, TCell> setAbove(Boolean above) {
+    @SuppressWarnings("unchecked")
+    public <T extends AbstractRow<TColumn, TCell>> T setAbove(Boolean above) {
         this.above = above;
-        return this;
+        return (T) this;
     }
 
     /**
@@ -624,9 +641,10 @@ public class AbstractRow<TColumn extends Column, TCell extends Cell> extends Ide
      *
      * @param indent integer value specifying the number of levels to indent
      */
-    public AbstractRow<TColumn, TCell> setIndent(Integer indent) {
+    @SuppressWarnings("unchecked")
+    public <T extends AbstractRow<TColumn, TCell>> T setIndent(Integer indent) {
         this.indent = indent;
-        return this;
+        return (T) this;
     }
 
     /**
@@ -641,9 +659,10 @@ public class AbstractRow<TColumn extends Column, TCell extends Cell> extends Ide
      *
      * @param outdent integer value specifying number of levels to outdent
      */
-    public AbstractRow<TColumn, TCell> setOutdent(Integer outdent) {
+    @SuppressWarnings("unchecked")
+    public <T extends AbstractRow<TColumn, TCell>> T setOutdent(Integer outdent) {
         this.outdent = outdent;
-        return this;
+        return (T) this;
     }
 
     /**
