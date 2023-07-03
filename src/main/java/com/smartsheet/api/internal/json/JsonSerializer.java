@@ -9,9 +9,9 @@ package com.smartsheet.api.internal.json;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -139,13 +139,13 @@ public interface JsonSerializer {
     Map<String, Object> deserializeMap(InputStream inputStream) throws JSONSerializerException;
 
     /**
-     * De-serialize a Result<T> object from JSON.
-     *
+     * De-serialize a Result object from JSON.
+     * <p>
      * Parameters: - objectClass : the class of the object (of the Result) to de-serialize - inputStream : the input
      * stream from which the JSON will be read
-     *
+     * <p>
      * Returns: the de-serialized result
-     *
+     * <p>
      * Exceptions: - IllegalArgumentException : if any argument is null - JSONSerializerException : if there is any
      * other error occurred during the operation
      *
@@ -159,13 +159,13 @@ public interface JsonSerializer {
             throws JSONSerializerException;
 
     /**
-     * De-serialize a Result<List<T>> object from JSON.
-     *
+     * De-serialize a List Result object from JSON.
+     * <p>
      * Parameters: - objectClass : the class of the object (of the Result) to de-serialize - inputStream : the input
      * stream from which the JSON will be read
-     *
+     * <p>
      * Returns: the de-serialized result
-     *
+     * <p>
      * Exceptions: - IllegalArgumentException : if any argument is null - JSONSerializerException : if there is any
      * other error occurred during the operation
      *

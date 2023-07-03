@@ -8,9 +8,9 @@ package com.smartsheet.api.internal;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -52,9 +52,9 @@ public class DiscussionCommentResourcesImpl extends AbstractResources implements
 
     /**
      * Add a comment to a discussion.
-     *
-     * It mirrors to the following Smartsheet REST API method: POST /discussion/{discussionId}/comments</p>
-     *
+     * <p>
+     * It mirrors to the following Smartsheet REST API method: POST /discussion/{discussionId}/comments
+     * <p>
      * @param sheetId the sheet id
      * @param discussionId the discussion id
      * @param comment the comment to add

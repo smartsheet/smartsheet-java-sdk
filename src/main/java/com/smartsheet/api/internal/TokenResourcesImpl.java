@@ -9,9 +9,9 @@ package com.smartsheet.api.internal;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -47,9 +47,8 @@ public class TokenResourcesImpl extends AbstractResources implements TokenResour
 
     /**
      * Revoke access token used to make this request.
-     *
+     * <p>
      * Exceptions:
-     * @throws NoSuchMethodException method implemented in OAuthFlow
      * @throws OAuthTokenException the o auth token exception
      * @throws JSONSerializerException the JSON serializer exception
      * @throws HttpClientException the http client exception
@@ -64,13 +63,8 @@ public class TokenResourcesImpl extends AbstractResources implements TokenResour
     /**
      * Refresh token.
      *
-     * @throws OAuthTokenException the o auth token exception
-     * @throws JSONSerializerException the JSON serializer exception
-     * @throws HttpClientException the http client exception
-     * @throws URISyntaxException the URI syntax exception
-     * @throws InvalidRequestException the invalid request exception
-     * @throws IllegalArgumentException if any other error occurred during the operation
-     */
+     * @throws NoSuchMethodException exception that is always thrown
+    */
     public void refreshAccessToken() throws NoSuchMethodException{
         throw new NoSuchMethodException("Not implemented in TokenResources. Refer OAuthFlow.");
     }
