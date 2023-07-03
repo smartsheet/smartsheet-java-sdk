@@ -19,9 +19,9 @@ import java.util.EnumSet;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -183,7 +183,6 @@ public interface RowColumnResources {
      * @param overrideValidation override column type validation if true
      * @param altText alternate description for the image
      * @throws SmartsheetException the smartsheet exception
-     * @throws FileNotFoundException image file not found
      */
     void addImageToCell(long sheetId, long rowId, long columnId, InputStream inputStream, String contentType,
                                long contentLength, boolean overrideValidation, String altText) throws SmartsheetException;
