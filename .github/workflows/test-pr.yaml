@@ -18,4 +18,4 @@ jobs:
       - name: Run Mock API Tests
         env:
           SMARTSHEET_ACCESS_TOKEN: ${{secrets.SMARTSHEET_ACCESS_TOKEN}}
-        run: mvn --batch-mode --update-snapshots test jacoco:report
+        run: ./gradlew clean test integrationTest sdkTest

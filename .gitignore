@@ -10,3 +10,6 @@ bin/
 sdk_tests_package/
 smartsheet-sdk-tests/
 *.iml
+
+build/**
+.gradle/**
