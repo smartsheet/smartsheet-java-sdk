@@ -21,8 +21,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           javadoc-branch: gh-pages
           java-version: 11
-          target-folder: apidocs # url will be https://<username>.github.io/<repo>/javadoc
-          project: maven
+          target-folder: docs/javadoc # url will be https://<username>.github.io/<repo>/javadoc
+          project: gradle
 
   publish:
     runs-on: ubuntu-latest

@@ -9,7 +9,9 @@ plugins {
     // Allows us to use Sonarqube code quality scans
     id 'org.sonarqube' version '4.0.0.2929'
     // Allows use to Lint our code and specify the code style rules we want to enforce
-//    id 'checkstyle'
+    // id 'checkstyle'
+    // Allows us to publish our code coverage so it can appear in a badge on our Github Repo
+    id 'com.github.kt3k.coveralls' version '2.12.2'
     // Allows us to run `./gradlew dependencyUpdates` to check for dependency updates
     // https://github.com/ben-manes/gradle-versions-plugin
     id 'com.github.ben-manes.versions' version '0.46.0'
@@ -66,6 +68,10 @@ dependencies {
     testImplementation "org.eclipse.jetty:jetty-server:${jettyServerVersion}"
     testImplementation "commons-io:commons-io:${commonsIoVersion}"
     testImplementation "org.assertj:assertj-core:${assertJVersion}"
+}
+
+javadoc {
+    source = sourceSets.main.allJava
 }
 
 task sdkTest(type: Test) {
