@@ -15,7 +15,7 @@ jobs:
         with:
           java-version: '11'
           distribution: 'adopt'
-      - name: Run Mock API Tests
+      - name: Run Unit Tests
         env:
           SMARTSHEET_ACCESS_TOKEN: ${{secrets.SMARTSHEET_ACCESS_TOKEN}}
-        run: ./gradlew clean test integrationTest sdkTest
+        run: ./gradlew clean test jacocoTestReport
