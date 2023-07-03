@@ -9,9 +9,9 @@ package com.smartsheet.api.internal.json;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -155,12 +155,9 @@ public class JacksonJsonSerializer implements JsonSerializer{
      * Exceptions: - IllegalArgumentException : if any argument is null - JSONSerializerException : if there is any
      * other error occurred during the operation
      *
-     * @param outputStream
-     * @param object
-     * @throws JSONSerializerException
-     * @throws IOException
-     * @throws JsonMappingException
-     * @throws JsonGenerationException
+     * @param outputStream the output stream to write the deserialized object to
+     * @param object object to serialize
+     * @throws JSONSerializerException thrown for any serialization exception we catch
      */
     // @Override
     public <T> void serialize(T object, java.io.OutputStream outputStream) throws JSONSerializerException {
@@ -189,11 +186,9 @@ public class JacksonJsonSerializer implements JsonSerializer{
      * Exceptions: - IllegalArgumentException : if any argument is null - JSONSerializerException : if there is any
      * other error occurred during the operation
      *
-     * @param object
-     * @throws JSONSerializerException
-     * @throws IOException
-     * @throws JsonMappingException
-     * @throws JsonGenerationException
+     * @return a string with the deserialized object
+     * @param object the object to serialized
+     * @throws JSONSerializerException thrown for any serialization exception we catch
      */
     public <T> String serialize(T object) throws JSONSerializerException {
         Util.throwIfNull(object);
@@ -327,8 +322,8 @@ public class JacksonJsonSerializer implements JsonSerializer{
     }
 
     /**
-     * De-serialize a Result<T> object from JSON.
-     *
+     * De-serialize a Result object from JSON.
+     * <p>
      * Exceptions:
      *   - IllegalArgumentException : if any argument is null
      *   - JSONSerializerException : if there is any other error occurred during the operation
@@ -360,12 +355,12 @@ public class JacksonJsonSerializer implements JsonSerializer{
     }
 
     /**
-     * De-serialize a Result<List<T>> object from JSON.
-     *
+     * De-serialize a List Result object from JSON.
+     * <p>
      * Parameters: - objectClass :  - inputStream :
-     *
+     * <p>
      * Returns: the de-serialized result
-     *
+     * <p>
      * Exceptions:
      *   - IllegalArgumentException : if any argument is null
      *   - JSONSerializerException : if there is any other error occurred during the operation

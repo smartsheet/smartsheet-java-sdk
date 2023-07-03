@@ -9,9 +9,9 @@ package com.smartsheet.api.internal.oauth;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -46,7 +46,6 @@ import com.smartsheet.api.oauth.UnsupportedOAuthGrantTypeException;
 import com.smartsheet.api.oauth.UnsupportedResponseTypeException;
 
 import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
@@ -148,7 +147,6 @@ public class OAuthFlowImpl implements OAuthFlow {
      * @param state an arbitrary string that will be returned to your app; intended to be used by you to ensure that
      * this redirect is indeed from an OAuth flow that you initiated
      * @return the authorization URL
-     * @throws UnsupportedEncodingException the unsupported encoding exception
      */
     public String newAuthorizationURL(EnumSet<AccessScope> scopes, String state) {
         Util.throwIfNull(scopes);
@@ -249,8 +247,6 @@ public class OAuthFlowImpl implements OAuthFlow {
      *
      * @param authorizationResult the authorization result
      * @return the token
-     * @throws NoSuchAlgorithmException the no such algorithm exception
-     * @throws UnsupportedEncodingException the unsupported encoding exception
      * @throws OAuthTokenException the o auth token exception
      * @throws JSONSerializerException the JSON serializer exception
      * @throws HttpClientException the http client exception
