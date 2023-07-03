@@ -41,12 +41,12 @@ public abstract class AbstractRow <TColumn extends Column, TCell extends Cell> e
         return this;
     }
 
-    @JsonIgnore(false)
+    @JsonIgnore
     public Long getRowId() {
         return super.getId();
     }
 
-    @JsonIgnore(false)
+    @JsonIgnore
     @SuppressWarnings("unchecked")
     public <T extends AbstractRow<TColumn, TCell>> T setRowId(Long id) {
         super.setId(id);
