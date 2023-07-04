@@ -95,8 +95,8 @@ class RowTest {
         Row row = new Row();
         row.setId(1L);
 
-        JsonSerializer jso = new JacksonJsonSerializer();
-        String json = jso.serialize(row);
+        JsonSerializer serializer = new JacksonJsonSerializer();
+        String json = serializer.serialize(row);
 
         assertThat(json.contains("\"rowId\":1")).isFalse();
         assertThat(row.getRowId()).isEqualTo(1);
