@@ -9,9 +9,9 @@ package com.smartsheet.api.internal;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -377,7 +377,6 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
      *
      * @param id the id
      * @param outputStream the OutputStream to which the Excel file will be written
-     * @return the sheet as excel
      * @throws SmartsheetException the smartsheet exception
      */
     public void getSheetAsExcel(long id, OutputStream outputStream) throws SmartsheetException {
@@ -402,7 +401,6 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
      * @param id the id
      * @param outputStream the output stream to which the PDF file will be written.
      * @param paperSize the optional paper size
-     * @return the sheet as pdf
      * @throws SmartsheetException the smartsheet exception
      */
     public void getSheetAsPDF(long id, OutputStream outputStream, PaperSize paperSize) throws SmartsheetException {
