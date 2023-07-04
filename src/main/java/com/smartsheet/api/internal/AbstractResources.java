@@ -9,9 +9,9 @@ package com.smartsheet.api.internal;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -55,7 +55,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URI;
 import java.net.URLEncoder;
@@ -761,7 +760,6 @@ public abstract class AbstractResources {
      * @param uri    the URI
      * @param method the HttpMethod
      * @return the http request
-     * @throws UnsupportedEncodingException the unsupported encoding exception
      */
     protected HttpRequest createHttpRequest(URI uri, HttpMethod method) {
         HttpRequest request = new HttpRequest();
@@ -820,7 +818,7 @@ public abstract class AbstractResources {
      * @param inputstream the file inputstream
      * @param contentType the type of the file to be attached
      * @return the http request
-     * @throws UnsupportedEncodingException the unsupported encoding exception
+     * @throws SmartsheetException may be thrown in the method
      */
     public <T> Attachment attachFile(String url, T t, String partName, InputStream inputstream, String contentType, String attachmentName)
             throws SmartsheetException {
@@ -919,7 +917,6 @@ public abstract class AbstractResources {
      * @param path the path
      * @param fileType the output file type
      * @param outputStream the OutputStream to which the file will be written
-     * @return the report as file
      * @throws SmartsheetException the smartsheet exception
      */
     public void getResourceAsFile(String path, String fileType, OutputStream outputStream)

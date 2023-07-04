@@ -9,9 +9,9 @@ package com.smartsheet.api.internal;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -35,7 +35,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
 /**
  * This is the implementation of the RowAttachmentResources.
  *
@@ -137,9 +136,7 @@ public class RowAttachmentResourcesImpl extends AbstractResources implements Row
      * @param contentLength the content length
      * @param attachmentName the name of the attachment
      * @return the attachment
-     * @throws FileNotFoundException the file not found exception
      * @throws SmartsheetException the smartsheet exception
-     * @throws UnsupportedEncodingException the unsupported encoding exception
      */
     public Attachment attachFile(long sheetId, long rowId, InputStream inputStream, String contentType, long contentLength, String attachmentName)
             throws SmartsheetException {

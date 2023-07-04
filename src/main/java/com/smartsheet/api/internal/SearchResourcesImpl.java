@@ -9,9 +9,9 @@ package com.smartsheet.api.internal;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -33,7 +33,6 @@ import com.smartsheet.api.models.enums.SearchInclusion;
 import com.smartsheet.api.models.enums.SearchLocation;
 import com.smartsheet.api.models.enums.SearchScope;
 
-import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
@@ -76,7 +75,6 @@ public class SearchResourcesImpl extends AbstractResources implements SearchReso
      * @param query the query text
      * @return the search result (note that if there is no such resource, this method will throw
      * ResourceNotFoundException rather than returning null).
-     * @throws UnsupportedEncodingException the unsupported encoding exception
      * @throws SmartsheetException the smartsheet exception
      */
     public SearchResult search(String query) throws SmartsheetException {
