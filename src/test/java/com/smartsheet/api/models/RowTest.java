@@ -21,7 +21,6 @@ package com.smartsheet.api.models;
  */
 
 import com.smartsheet.api.internal.json.JacksonJsonSerializer;
-import com.smartsheet.api.internal.json.JsonSerializer;
 import com.smartsheet.api.models.format.Format;
 import org.junit.jupiter.api.Test;
 
@@ -95,7 +94,6 @@ class RowTest {
         Row row = new Row();
         row.setId(1L);
 
-        JsonSerializer serializer = new JacksonJsonSerializer();
         String json = new JacksonJsonSerializer().serialize(row);
 
         assertThat(json.contains("\"rowId\":1")).isFalse();
