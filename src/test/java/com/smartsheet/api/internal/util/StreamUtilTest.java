@@ -25,6 +25,7 @@ import org.apache.commons.io.input.CharSequenceInputStream;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 
@@ -57,4 +58,40 @@ class StreamUtilTest {
 
       assertThat(copyStream.toByteArray()).containsExactly(testBytes);
     }
+
+    @Test
+    void testReadBytesFromStream_NullInputSource() throws Exception {
+        final ByteArrayOutputStream copyStream = new ByteArrayOutputStream();
+        assertThat(StreamUtil.cloneContent(null, StreamUtil.ONE_MB, copyStream)).isNull();
+    }
+
+    @Test
+    void testToUtf8StringOrHex_MaxLength_EmptyUtf8String() {
+        final ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
+        String result = StreamUtil.toUtf8StringOrHex(byteStream, -1);
+        assertThat(result).isEmpty();
+    }
+
+    @Test
+    void testToUtf8StringOrHex_MaxLength_NonEmptyUtf8String() throws IOException {
+        String data = "This is a line of text. ";
+        final byte[] dataBytes = data.getBytes(StandardCharsets.UTF_8);
+        final ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
+        byteStream.writeBytes(dataBytes);
+        byteStream.close();
+        String result = StreamUtil.toUtf8StringOrHex(byteStream, -1);
+        assertThat(result).isEqualTo(data);
+    }
+
+    @Test
+    void testToUtf8StringOrHex_LengthSpecified_NonEmptyUtf8String() throws IOException {
+        String data = "This is a line of text. ";
+        final byte[] dataBytes = data.getBytes(StandardCharsets.UTF_8);
+        final ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
+        byteStream.writeBytes(dataBytes);
+        byteStream.close();
+        String result = StreamUtil.toUtf8StringOrHex(byteStream, 10);
+        assertThat(result).isEqualTo("This is a ...");
+    }
+
 }

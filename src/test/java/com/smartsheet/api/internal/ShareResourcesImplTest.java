@@ -48,11 +48,47 @@ class ShareResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    void testListShares() throws SmartsheetException, IOException {
+    void testListShares_IncludeWorkspacesFalse() throws SmartsheetException, IOException {
 
         server.setResponseBody(new File("src/test/resources/listShares.json"));
         PaginationParameters parameters = new PaginationParameters(false, 1, 1);
-        PagedResult<Share> shares = shareResourcesImpl.listShares(2906571706525572L, parameters, false);
+        PagedResult<Share> shares = shareResourcesImpl.listShares(2906571706525572L, parameters, Boolean.FALSE);
+        assertThat(shares.getTotalCount()).isEqualTo(2);
+
+        assertThat(shares.getData().get(0).getEmail()).isEqualTo("john.doe@smartsheet.com");
+        assertThat(shares.getData().get(1).getEmail()).isNull();
+    }
+
+    @Test
+    void testListShares_IncludeWorkspacesNull() throws SmartsheetException, IOException {
+
+        server.setResponseBody(new File("src/test/resources/listShares.json"));
+        PaginationParameters parameters = new PaginationParameters(false, 1, 1);
+        PagedResult<Share> shares = shareResourcesImpl.listShares(2906571706525572L, parameters, null);
+        assertThat(shares.getTotalCount()).isEqualTo(2);
+
+        assertThat(shares.getData().get(0).getEmail()).isEqualTo("john.doe@smartsheet.com");
+        assertThat(shares.getData().get(1).getEmail()).isNull();
+    }
+
+    @Test
+    void testListShares_IncludeWorkspacesTrue() throws SmartsheetException, IOException {
+
+        server.setResponseBody(new File("src/test/resources/listShares.json"));
+        PaginationParameters parameters = new PaginationParameters(false, 1, 1);
+        PagedResult<Share> shares = shareResourcesImpl.listShares(2906571706525572L, parameters, Boolean.TRUE);
+        assertThat(shares.getTotalCount()).isEqualTo(2);
+
+        assertThat(shares.getData().get(0).getEmail()).isEqualTo("john.doe@smartsheet.com");
+        assertThat(shares.getData().get(1).getEmail()).isNull();
+    }
+
+    @Test
+    void testListShares_DefaultIncludeWorkspacesFalse() throws SmartsheetException, IOException {
+
+        server.setResponseBody(new File("src/test/resources/listShares.json"));
+        PaginationParameters parameters = new PaginationParameters(false, 1, 1);
+        PagedResult<Share> shares = shareResourcesImpl.listShares(2906571706525572L, parameters);
         assertThat(shares.getTotalCount()).isEqualTo(2);
 
         assertThat(shares.getData().get(0).getEmail()).isEqualTo("john.doe@smartsheet.com");
