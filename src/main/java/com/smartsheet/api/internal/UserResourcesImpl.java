@@ -87,8 +87,15 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public PagedResult<User> listUsers() throws SmartsheetException {
-        return this.listResourcesWithWrapper("users", User.class);
+    public PagedResult<User> listUsers(PaginationParameters pagination) throws SmartsheetException {
+        String path = "users";
+        Map<String, Object> parameters = new HashMap<>();
+
+        if (pagination != null){
+            parameters = pagination.toHashMap();
+        }
+        path += QueryUtil.generateUrl(null, parameters);
+        return this.listResourcesWithWrapper(path, User.class);
     }
 
     /**

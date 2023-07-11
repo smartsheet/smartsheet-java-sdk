@@ -57,7 +57,7 @@ public interface UserResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    PagedResult<User> listUsers() throws SmartsheetException;
+    PagedResult<User> listUsers(PaginationParameters pagination) throws SmartsheetException;
 
     /**
      * <p>List all users.</p>

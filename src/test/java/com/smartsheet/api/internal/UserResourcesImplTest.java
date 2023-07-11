@@ -61,7 +61,7 @@ class UserResourcesImplTest extends ResourcesImplBase {
         pagination.setPageSize(1);
         pagination.setPage(1);
 
-        PagedResult<User> userWrapper1 = userResources.listUsers();
+        PagedResult<User> userWrapper1 = userResources.listUsers(pagination);
         assertThat(userWrapper1.getData()).hasSize(2);
 
         PagedResult<User> userWrapper = userResources.listUsers(email, pagination);
