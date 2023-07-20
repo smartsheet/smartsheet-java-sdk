@@ -22,7 +22,6 @@ package com.smartsheet.api.internal;
 
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
-import com.smartsheet.api.internal.http.HttpMethod;
 import com.smartsheet.api.models.*;
 import com.smartsheet.api.models.enums.*;
 import org.junit.jupiter.api.BeforeEach;
@@ -38,6 +37,7 @@ import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatCode;
 
 class SheetRowResourcesImplTest extends ResourcesImplBase {
 
@@ -94,7 +94,7 @@ class SheetRowResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    void testSendRows() throws SmartsheetException, IOException {
+    void testSendRows_NoExceptionThrown() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/sendRow.json"));
 
         RecipientEmail recipient = new RecipientEmail();
@@ -112,7 +112,7 @@ class SheetRowResourcesImplTest extends ResourcesImplBase {
         email.setIncludeDiscussions(true);
         email.setCcMe(true);
 
-        sheetRowResource.sendRows(1234L, email);
+        assertThatCode(() -> sheetRowResource.sendRows(1234L, email)).doesNotThrowAnyException();
     }
 
     @Test
