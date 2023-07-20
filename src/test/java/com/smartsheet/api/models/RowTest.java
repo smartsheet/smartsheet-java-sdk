@@ -20,6 +20,7 @@ package com.smartsheet.api.models;
  * %[license]
  */
 
+import com.smartsheet.api.internal.json.JacksonJsonSerializer;
 import com.smartsheet.api.models.format.Format;
 import org.junit.jupiter.api.Test;
 
@@ -86,6 +87,18 @@ class RowTest {
         assertThat(row.getParentId()).isNull();
         assertThat(row.getSiblingId()).isNull();
         assertThat(row.getAbove()).isNull();
+    }
+
+    @Test
+    void testJsonObjectExcludesRowIdAfterJsonIgnore() throws Exception {
+        Row row = new Row();
+        row.setId(1L);
+
+        String json = new JacksonJsonSerializer().serialize(row);
+
+        assertThat(json.contains("\"rowId\":1")).isFalse();
+        assertThat(row.getRowId()).isEqualTo(1);
+
     }
 
 }
