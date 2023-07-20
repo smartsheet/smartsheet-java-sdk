@@ -63,21 +63,21 @@ repositories {
 // Libraries we need to import
 dependencies {
     // Compile dependencies (dependencies needed to run the lib)
-    implementation "org.apache.httpcomponents:httpclient:${httpClientVersion}"
-    implementation "org.slf4j:slf4j-api:${slf4jVersion}"
     implementation "com.fasterxml.jackson.core:jackson-core:${jacksonCoreVersion}"
     implementation "com.fasterxml.jackson.core:jackson-databind:${jacksonDatabindVersion}"
-    implementation "org.apache.httpcomponents:httpmime:${httpMimeVersion}"
     implementation "com.squareup.okhttp3:okhttp:${okHttpVersion}"
+    implementation "org.apache.httpcomponents:httpclient:${httpClientVersion}"
+    implementation "org.apache.httpcomponents:httpmime:${httpMimeVersion}"
+    implementation "org.slf4j:slf4j-api:${slf4jVersion}"
 
     // Test Dependencies
-    testImplementation "org.slf4j:slf4j-simple:${slf4jSimpleVersion}"
-    testImplementation "org.mockito:mockito-core:${mockitoCoreVersion}"
-    testImplementation "org.mockito:mockito-junit-jupiter:${mockitoJUnitJupiterVersion}"
-    testImplementation "org.junit.jupiter:junit-jupiter:${jUnitJupiterVersion}"
-    testImplementation "org.eclipse.jetty:jetty-server:${jettyServerVersion}"
     testImplementation "commons-io:commons-io:${commonsIoVersion}"
     testImplementation "org.assertj:assertj-core:${assertJVersion}"
+    testImplementation "org.eclipse.jetty:jetty-server:${jettyServerVersion}"
+    testImplementation "org.junit.jupiter:junit-jupiter:${jUnitJupiterVersion}"
+    testImplementation "org.mockito:mockito-core:${mockitoCoreVersion}"
+    testImplementation "org.mockito:mockito-junit-jupiter:${mockitoJUnitJupiterVersion}"
+    testImplementation "org.slf4j:slf4j-simple:${slf4jSimpleVersion}"
 }
 
 javadoc {
@@ -88,6 +88,7 @@ tasks.register('sdkTest', Test) {
     // Discover and execute JUnit Platform-based tests
     useJUnitPlatform()
 
+    // We only want to run tests in the specified package
     filter {
         includeTestsMatching "com.smartsheet.api.sdk_test.*"
     }
@@ -101,6 +102,7 @@ tasks.register('integrationTest', Test) {
     // Discover and execute JUnit Platform-based tests
     useJUnitPlatform()
 
+    // We only want to run tests in files ending with IT.java
     filter {
         includeTestsMatching "*.*IT"
     }
@@ -109,29 +111,25 @@ tasks.register('integrationTest', Test) {
     classpath = sourceSets.test.runtimeClasspath
 }
 
-// Make sure that all test tasks are ran when we run `./gradlew clean build` (check task runs as part of that)
-//tasks.named('check') {
-//    dependsOn 'integrationTest'
-//    dependsOn 'sdkTest'
-//}
-
 
 // Test Configuration
 test {
     // Discover and execute JUnit Platform-based tests
     useJUnitPlatform()
 
+    // exclude SDK Tests and integration tests
     filter {
-        // exclude SDK Tests and integration tests
         excludeTestsMatching "*.*IT"
         excludeTestsMatching "com.smartsheet.api.sdk_test.*"
     }
 
+    // Code Coverage settings for tests
     jacoco {
         // files to exclude from code coverage
         excludes = []
     }
 
+    // We Junit to produce the following test reports
     reports {
         // test reports to include
         junitXml.required = true
@@ -154,11 +152,13 @@ jacocoTestReport {
     }
 }
 
+// Configuration for the extra Jars we would like to produce
 java {
     withJavadocJar()
     withSourcesJar()
 }
 
+// Configuration for how we want to publish our Jar to Maven Central
 publishing {
     publications {
         mavenJava(MavenPublication) {
@@ -195,6 +195,8 @@ publishing {
             }
         }
     }
+
+    // Maven Repo configuration for publishing our Jars
     repositories {
         maven {
             def releasesRepoUrl = 'https://oss.sonatype.org/nexus/content/repositories/releases'

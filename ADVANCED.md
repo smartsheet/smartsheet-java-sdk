@@ -38,7 +38,7 @@ Using SLF4J, the Smartsheet Java SDK logs all API queries including HTTP method,
 to `INFO`. API calls that fail (HTTP status != 200) are fully logged (request, response and full bodies) to `WARN`. 
 Finally, successful (HTTP status 200) request and response summaries are logged to `DEBUG`.
  
-The POM for the Smartsheet Java SDK also includes a test only dependency on the ```slf4j-simple``` logging framework.
+The build file for the Smartsheet Java SDK also includes a test only dependency on the ```slf4j-simple``` logging framework.
 Details on how to configure logging are framework dependant, however, a usage example for the Simple logger can be 
 found in the *simplelogger.properties* file in the Sample folder. Alternately, a usage example for Log4j can 
 be found in the java-read-write-sheet example [here](https://github.com/smartsheet-samples/java-read-write-sheet).
@@ -82,16 +82,16 @@ String jsonResponse = smartsheet.passthroughResources().postRequest("sheets", pa
 
 ## Testing
 Unit tests:
-1. `mvn test`
+1. `./gradlew test`
 
 Integration tests:
 1. Store an access token in your environment as SMARTSHEET_ACCESS_TOKEN
-2. `mvn integration-test`
+2. `./gradlew integrationTest`
 
 Mock API tests:
 1. Clone the [Smartsheet sdk tests](https://github.com/smartsheet-platform/smartsheet-sdk-tests) repo and follow the 
 instructions from the readme to start the mock server.
-2. `mvn test -Dtest=com.smartsheet.api.sdk_test.*`
+2. `./gradlew sdkTest`
 
 ## Android
 Google doesn’t support the Apache HTTP Client on Android (used as the default HTTP client by the SDK). In order to make it easier to use the Smartsheet Java SDK, the SDK contains a 2nd HTTP client class, AndroidHttpClient. The AndroidHttpClient class is included with version 2.68.4+ of the SDK. To use the Smartsheet Java SDK on Android, follow these steps:
