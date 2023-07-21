@@ -64,6 +64,7 @@ import java.util.List;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatCode;
 
 class SheetResourcesImplTest extends ResourcesImplBase {
     private SheetResourcesImpl sheetResource;
@@ -202,7 +203,6 @@ class SheetResourcesImplTest extends ResourcesImplBase {
         assertThat(newSheet.getId().longValue()).isEqualTo(7960873114331012L);
         assertThat(newSheet.getAccessLevel()).isEqualTo(AccessLevel.OWNER);
         assertThat(newSheet.getPermalink()).isEqualTo("https://app.smartsheet.com/b/home?lx=lbKEF1UakfTNJTZ5XkpxWg");
-
     }
 
     @Test
@@ -238,10 +238,16 @@ class SheetResourcesImplTest extends ResourcesImplBase {
                 EnumSet.allOf(SheetTemplateInclusion.class));
 
         assertThat(newSheet.getId().toString()).isNotBlank();
+        assertThat(newSheet.getId()).isEqualTo(7960873114331012L);
         assertThat(newSheet.getAccessLevel()).isEqualTo(AccessLevel.OWNER);
         assertThat(newSheet.getPermalink()).isNotBlank();
 
-        newSheet = sheetResource.createSheetInFolderFromTemplate(1234L, sheet, null);
+        // really just checking to see if this is null-safe, for now
+        Sheet newSheetWithNoIncludesApplied = sheetResource.createSheetInFolderFromTemplate(1234L, sheet, null);
+        assertThat(newSheetWithNoIncludesApplied.getId().toString()).isNotBlank();
+        assertThat(newSheetWithNoIncludesApplied.getId()).isEqualTo(7960873114331012L);
+        assertThat(newSheetWithNoIncludesApplied.getAccessLevel()).isEqualTo(AccessLevel.OWNER);
+        assertThat(newSheetWithNoIncludesApplied.getPermalink()).isNotBlank();
     }
 
     @Test
@@ -272,13 +278,17 @@ class SheetResourcesImplTest extends ResourcesImplBase {
         assertThat(newSheet.getAccessLevel()).isEqualTo(AccessLevel.OWNER);
         assertThat(newSheet.getPermalink()).isEqualTo("https://app.smartsheet.com/b/home?lx=lbKEF1UakfTNJTZ5XkpxWg");
 
+        // really just checking to see if this is null-safe, for now
         newSheet = sheetResource.createSheetInWorkspaceFromTemplate(1234L, sheet, null);
+        assertThat(newSheet.getId().longValue()).isEqualTo(7960873114331012L);
+        assertThat(newSheet.getAccessLevel()).isEqualTo(AccessLevel.OWNER);
+        assertThat(newSheet.getPermalink()).isEqualTo("https://app.smartsheet.com/b/home?lx=lbKEF1UakfTNJTZ5XkpxWg");
     }
 
     @Test
-    void testDeleteSheet() throws SmartsheetException, IOException {
+    void testDeleteSheet() throws IOException {
         server.setResponseBody(new File("src/test/resources/deleteSheet.json"));
-        sheetResource.deleteSheet(1234L);
+        assertThatCode(() -> sheetResource.deleteSheet(1234L)).doesNotThrowAnyException();
     }
 
     @Test
@@ -299,7 +309,7 @@ class SheetResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    void testSendSheet() throws SmartsheetException, IOException {
+    void testSendSheet() throws IOException {
         server.setResponseBody(new File("src/test/resources/sendEmails.json"));
 
         List<Recipient> recipients = new ArrayList<>();
@@ -319,7 +329,7 @@ class SheetResourcesImplTest extends ResourcesImplBase {
         email.setFormatDetails(format);
         email.setSendTo(recipients);
 
-        sheetResource.sendSheet(1234L, email);
+        assertThatCode(() -> sheetResource.sendSheet(1234L, email)).doesNotThrowAnyException();
     }
 
     @Test
@@ -394,6 +404,9 @@ class SheetResourcesImplTest extends ResourcesImplBase {
         containerDestination.setDestinationType(DestinationType.FOLDER);
 
         Sheet sheet = sheetResource.moveSheet(123L, containerDestination);
+        assertThat(sheet.getId().longValue()).isEqualTo(4583173393803140L);
+        assertThat(sheet.getAccessLevel()).isEqualTo(AccessLevel.OWNER);
+        assertThat(sheet.getPermalink()).isNotBlank();
     }
 
     @Test
@@ -421,6 +434,8 @@ class SheetResourcesImplTest extends ResourcesImplBase {
         multiRowEmail.setSendTo(recipients);
 
         UpdateRequest updateRequest = sheetResource.createUpdateRequest(123L, multiRowEmail);
+
+        assertThat(updateRequest.getId()).isNotNull();
     }
 
     @Test
@@ -434,5 +449,11 @@ class SheetResourcesImplTest extends ResourcesImplBase {
         criteria.add(criterion);
         specifier.setSortCriteria(criteria);
         Sheet sheet = sheetResource.sortSheet(123L, specifier);
+        assertThat(sheet.getColumns()).hasSize(9);
+        assertThat(sheet.getRows()).isEmpty();
+        assertThat(sheet.getId()).isNotNull();
+        assertThat(sheet.getId().longValue()).isEqualTo(295123319904012164L);
+        assertThat(sheet.getAccessLevel()).isEqualTo(AccessLevel.OWNER);
+        assertThat(sheet.getPermalink()).isNotBlank();
     }
 }

@@ -22,17 +22,8 @@ package com.smartsheet.api.internal;
 
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
-import com.smartsheet.api.models.Cell;
-import com.smartsheet.api.models.CopyOrMoveRowDestination;
-import com.smartsheet.api.models.CopyOrMoveRowDirective;
-import com.smartsheet.api.models.MultiRowEmail;
-import com.smartsheet.api.models.Recipient;
-import com.smartsheet.api.models.RecipientEmail;
-import com.smartsheet.api.models.Row;
-import com.smartsheet.api.models.enums.ObjectExclusion;
-import com.smartsheet.api.models.enums.RowCopyInclusion;
-import com.smartsheet.api.models.enums.RowInclusion;
-import com.smartsheet.api.models.enums.RowMoveInclusion;
+import com.smartsheet.api.models.*;
+import com.smartsheet.api.models.enums.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -45,6 +36,8 @@ import java.util.List;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.Assertions.assertThatCode;
 
 class SheetRowResourcesImplTest extends ResourcesImplBase {
 
@@ -101,7 +94,7 @@ class SheetRowResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    void testSendRows() throws SmartsheetException, IOException {
+    void testSendRows_NoExceptionThrown() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/sendRow.json"));
 
         RecipientEmail recipient = new RecipientEmail();
@@ -119,7 +112,7 @@ class SheetRowResourcesImplTest extends ResourcesImplBase {
         email.setIncludeDiscussions(true);
         email.setCcMe(true);
 
-        sheetRowResource.sendRows(1234L, email);
+        assertThatCode(() -> sheetRowResource.sendRows(1234L, email)).doesNotThrowAnyException();
     }
 
     @Test
@@ -150,7 +143,13 @@ class SheetRowResourcesImplTest extends ResourcesImplBase {
         List<Long> rowIds = new ArrayList<>();
         rowIds.add(145417762563972L);
         copyOrMoveRowDirective.setRowIds(rowIds);
-        sheetRowResource.moveRows(2258256056870788L, EnumSet.of(RowMoveInclusion.ATTACHMENTS), false, copyOrMoveRowDirective);
+        CopyOrMoveRowResult copyOrMoveRowResult = sheetRowResource.moveRows(2258256056870788L, EnumSet.of(RowMoveInclusion.ATTACHMENTS), false, copyOrMoveRowDirective);
+
+        assertThat(copyOrMoveRowResult).isNotNull();
+        assertThat(copyOrMoveRowResult.getRowMappings()).isNotEmpty();
+        assertThat(copyOrMoveRowResult.getRowMappings().size()).isEqualTo(2);
+        assertThat(copyOrMoveRowResult.getDestinationSheetId()).isNotBlank();
+        assertThat(copyOrMoveRowResult.getDestinationSheetId()).isEqualTo(String.valueOf( 2258256056870788L));
     }
 
     @Test
@@ -164,7 +163,33 @@ class SheetRowResourcesImplTest extends ResourcesImplBase {
         List<Long> rowIds = new ArrayList<>();
         rowIds.add(145417762563972L);
         copyOrMoveRowDirective.setRowIds(rowIds);
-        sheetRowResource.copyRows(2258256056870788L, EnumSet.of(RowCopyInclusion.ATTACHMENTS), false, copyOrMoveRowDirective);
+        CopyOrMoveRowResult copyOrMoveRowResult = sheetRowResource.copyRows(2258256056870788L, EnumSet.of(RowCopyInclusion.ATTACHMENTS), false, copyOrMoveRowDirective);
+
+        assertThat(copyOrMoveRowResult).isNotNull();
+        assertThat(copyOrMoveRowResult.getRowMappings()).isNotEmpty();
+        assertThat(copyOrMoveRowResult.getRowMappings().size()).isEqualTo(2);
+        assertThat(copyOrMoveRowResult.getDestinationSheetId()).isNotBlank();
+        assertThat(copyOrMoveRowResult.getDestinationSheetId()).isEqualTo(String.valueOf( 2258256056870788L));
+    }
+
+    @Test
+    void testCopyRows_IgnoreRowsNotFoundNull() throws SmartsheetException, IOException {
+        server.setResponseBody(new File("src/test/resources/moveRow.json"));
+        CopyOrMoveRowDirective copyOrMoveRowDirective = new CopyOrMoveRowDirective();
+        CopyOrMoveRowDestination copyOrMoveRowDestination = new CopyOrMoveRowDestination();
+        copyOrMoveRowDestination.setSheetId(2258256056870788L);
+
+        copyOrMoveRowDirective.setTo(copyOrMoveRowDestination);
+        List<Long> rowIds = new ArrayList<>();
+        rowIds.add(145417762563972L);
+        copyOrMoveRowDirective.setRowIds(rowIds);
+        CopyOrMoveRowResult copyOrMoveRowResult = sheetRowResource.copyRows(2258256056870788L, EnumSet.of(RowCopyInclusion.ATTACHMENTS), null, copyOrMoveRowDirective);
+
+        assertThat(copyOrMoveRowResult).isNotNull();
+        assertThat(copyOrMoveRowResult.getRowMappings()).isNotEmpty();
+        assertThat(copyOrMoveRowResult.getRowMappings().size()).isEqualTo(2);
+        assertThat(copyOrMoveRowResult.getDestinationSheetId()).isNotBlank();
+        assertThat(copyOrMoveRowResult.getDestinationSheetId()).isEqualTo(String.valueOf( 2258256056870788L));
     }
 
     @Test
@@ -176,5 +201,96 @@ class SheetRowResourcesImplTest extends ResourcesImplBase {
         rowIds.add(987654321L);
 
         List<Long> ids = sheetRowResource.deleteRows(123L, rowIds, true);
+        assertThat(ids).isNotNull();
+        assertThat(ids.size()).isEqualTo(2);
+        assertThat(ids).contains(123456789L);
+        assertThat(ids).contains(987654321L);
+    }
+
+    @Test
+    void testUpdateRowsAllowPartialSuccess_NullRows() {
+        assertThatThrownBy(() -> sheetRowResource.updateRowsAllowPartialSuccess(123L, null)).isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
+    void testUpdateRowsAllowPartialSuccess() throws SmartsheetException, IOException {
+        server.setResponseBody(new File("src/test/resources/partialRowUpdateRowResult.json"));
+
+        List<Row> rows = new ArrayList<>();
+
+        rows.add(new Row(123456789L));
+        rows.add(new Row(987654321L));
+
+        PartialRowUpdateResult partialRowUpdateResult = sheetRowResource.updateRowsAllowPartialSuccess(123L, rows);
+        assertThat(partialRowUpdateResult).isNotNull();
+        assertThat(partialRowUpdateResult.getResult()).isNotEmpty();
+        assertThat(partialRowUpdateResult.getResult().size()).isEqualTo(1);
+        assertThat(partialRowUpdateResult.getResult().get(0).getRowId()).isEqualTo(123456789L);
+        assertThat(partialRowUpdateResult.getFailedItems()).isNotEmpty();
+        assertThat(partialRowUpdateResult.getFailedItems().size()).isEqualTo(1);
+        assertThat(partialRowUpdateResult.getFailedItems().get(0).getRowId()).isEqualTo(987654321L);
+    }
+
+    @Test
+    void testUpdateRowsAllowPartialSuccess_WithSomeIncludesExcludes() throws SmartsheetException, IOException {
+        server.setResponseBody(new File("src/test/resources/partialRowUpdateRowResult.json"));
+
+        List<Row> rows = new ArrayList<>();
+
+        rows.add(new Row(123456789L));
+        rows.add(new Row(987654321L));
+
+        PartialRowUpdateResult partialRowUpdateResult = sheetRowResource.updateRowsAllowPartialSuccess(123L, rows, EnumSet.of(RowInclusion.DISCUSSIONS),
+                EnumSet.of(ObjectExclusion.NONEXISTENT_CELLS));
+        assertThat(partialRowUpdateResult).isNotNull();
+        assertThat(partialRowUpdateResult.getResult()).isNotEmpty();
+        assertThat(partialRowUpdateResult.getResult().size()).isEqualTo(1);
+        assertThat(partialRowUpdateResult.getResult().get(0).getRowId()).isEqualTo(123456789L);
+        assertThat(partialRowUpdateResult.getFailedItems()).isNotEmpty();
+        assertThat(partialRowUpdateResult.getFailedItems().size()).isEqualTo(1);
+        assertThat(partialRowUpdateResult.getFailedItems().get(0).getRowId()).isEqualTo(987654321L);
+    }
+
+    @Test
+    void testAddRowsAllowPartialSuccess_NullRows() {
+        assertThatThrownBy(() -> sheetRowResource.addRowsAllowPartialSuccess(123L, null)).isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
+    void testAddRowsAllowPartialSuccess_WithSomeIncludesExcludes() throws SmartsheetException, IOException {
+        server.setResponseBody(new File("src/test/resources/partialRowUpdateRowResult.json"));
+
+        List<Row> rows = new ArrayList<>();
+
+        rows.add(new Row(123456789L));
+        rows.add(new Row(987654321L));
+
+        PartialRowUpdateResult partialRowUpdateResult = sheetRowResource.addRowsAllowPartialSuccess(123L, rows, EnumSet.of(RowInclusion.ATTACHMENTS), EnumSet.of(ObjectExclusion.NONEXISTENT_CELLS));
+        assertThat(partialRowUpdateResult).isNotNull();
+        assertThat(partialRowUpdateResult.getResult()).isNotEmpty();
+        assertThat(partialRowUpdateResult.getResult().size()).isEqualTo(1);
+        assertThat(partialRowUpdateResult.getResult().get(0).getRowId()).isEqualTo(123456789L);
+        assertThat(partialRowUpdateResult.getFailedItems()).isNotEmpty();
+        assertThat(partialRowUpdateResult.getFailedItems().size()).isEqualTo(1);
+        assertThat(partialRowUpdateResult.getFailedItems().get(0).getRowId()).isEqualTo(987654321L);
+    }
+
+    @Test
+    void testAddRowsAllowPartialSuccess() throws SmartsheetException, IOException {
+        server.setResponseBody(new File("src/test/resources/partialRowUpdateRowResult.json"));
+
+        List<Row> rows = new ArrayList<>();
+
+        rows.add(new Row(123456789L));
+        rows.add(new Row(987654321L));
+
+        PartialRowUpdateResult partialRowUpdateResult = sheetRowResource.addRowsAllowPartialSuccess(123L, rows);
+        assertThat(partialRowUpdateResult).isNotNull();
+        assertThat(partialRowUpdateResult.getResult()).isNotEmpty();
+        assertThat(partialRowUpdateResult.getResult().size()).isEqualTo(1);
+        assertThat(partialRowUpdateResult.getResult().get(0).getRowId()).isEqualTo(123456789L);
+        assertThat(partialRowUpdateResult.getFailedItems()).isNotEmpty();
+        assertThat(partialRowUpdateResult.getFailedItems().size()).isEqualTo(1);
+        assertThat(partialRowUpdateResult.getFailedItems().get(0).getRowId()).isEqualTo(987654321L);
     }
 }
