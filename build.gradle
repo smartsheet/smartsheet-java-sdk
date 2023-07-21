@@ -1,0 +1,235 @@
+// Gradle plugins - these add extra Gradle tasks and lets us extend Gradle's capabilities
+plugins {
+    // ** COMPILATION PLUGINS **
+    // Allows us to use Java
+    id 'java'
+    // Allows us to use Lombok helper annotations
+    id 'io.freefair.lombok' version '6.6.3'
+
+    // ** CODE QUALITY PLUGINS **
+    // Allows us to do code coverage
+    id 'jacoco'
+    // Allows us to use Sonarqube code quality scans
+    id 'org.sonarqube' version '4.0.0.2929'
+    // Allows use to Lint our code and specify the code style rules we want to enforce
+    // id 'checkstyle'
+    // Allows us to publish our code coverage so it can appear in a badge on our Github Repo
+    id 'com.github.kt3k.coveralls' version '2.12.2'
+
+    // ** PUBLISHING PLUGINS **
+    // Allows us to sign our artifacts so that user's know it's from us
+    id 'signing'
+    // Allows us to publish our artifact
+    id 'maven-publish'
+
+    // ** MAINTENANCE PLUGINS **
+    // Allows us to run `./gradlew dependencyUpdates` to check for dependency updates
+    // https://github.com/ben-manes/gradle-versions-plugin
+    id 'com.github.ben-manes.versions' version '0.46.0'
+    // Uncomment plugin below to check for unused dependencies
+    // Allows us to run `./gradlew buildHealth` to check for unused dependencies
+    // https://github.com/autonomousapps/dependency-analysis-android-gradle-plugin
+//    id 'com.autonomousapps.dependency-analysis' version '1.0.0-rc06'
+}
+
+// Project Settings
+group = 'com.smartsheet'
+version = '3.0.1'
+sourceCompatibility = '11'
+
+// Variables to expose
+ext {
+    assertJVersion = '3.24.2'
+    commonsIoVersion = '2.7'
+    httpClientVersion = '4.5.13'
+    httpMimeVersion = '4.5'
+    jacksonCoreVersion = '2.9.10'
+    jacksonDatabindVersion = '2.9.10.8'
+    jacocoVersion = '0.8.10'
+    jettyServerVersion = '9.4.41.v20210516'
+    jUnitJupiterVersion = '5.5.1'
+    mockitoCoreVersion = '5.1.1'
+    mockitoJUnitJupiterVersion = '5.1.1'
+    okHttpVersion = '4.0.0'
+    slf4jSimpleVersion = '1.7.25'
+    slf4jVersion = '1.7.25'
+}
+
+// Tell Gradle where to pull dependencies from
+repositories {
+    mavenCentral()
+}
+
+// Libraries we need to import
+dependencies {
+    // Compile dependencies (dependencies needed to run the lib)
+    implementation "com.fasterxml.jackson.core:jackson-core:${jacksonCoreVersion}"
+    implementation "com.fasterxml.jackson.core:jackson-databind:${jacksonDatabindVersion}"
+    implementation "com.squareup.okhttp3:okhttp:${okHttpVersion}"
+    implementation "org.apache.httpcomponents:httpclient:${httpClientVersion}"
+    implementation "org.apache.httpcomponents:httpmime:${httpMimeVersion}"
+    implementation "org.slf4j:slf4j-api:${slf4jVersion}"
+
+    // Test Dependencies
+    testImplementation "commons-io:commons-io:${commonsIoVersion}"
+    testImplementation "org.assertj:assertj-core:${assertJVersion}"
+    testImplementation "org.eclipse.jetty:jetty-server:${jettyServerVersion}"
+    testImplementation "org.junit.jupiter:junit-jupiter:${jUnitJupiterVersion}"
+    testImplementation "org.mockito:mockito-core:${mockitoCoreVersion}"
+    testImplementation "org.mockito:mockito-junit-jupiter:${mockitoJUnitJupiterVersion}"
+    testImplementation "org.slf4j:slf4j-simple:${slf4jSimpleVersion}"
+}
+
+javadoc {
+    source = sourceSets.main.allJava
+}
+
+tasks.register('sdkTest', Test) {
+    // Discover and execute JUnit Platform-based tests
+    useJUnitPlatform()
+
+    // We only want to run tests in the specified package
+    filter {
+        includeTestsMatching "com.smartsheet.api.sdk_test.*"
+    }
+
+    testClassesDirs = sourceSets.test.output
+    classpath = sourceSets.test.runtimeClasspath
+}
+
+// Task to run the integration tests
+tasks.register('integrationTest', Test) {
+    // Discover and execute JUnit Platform-based tests
+    useJUnitPlatform()
+
+    // We only want to run tests in files ending with IT.java
+    filter {
+        includeTestsMatching "*.*IT"
+    }
+
+    testClassesDirs = sourceSets.test.output
+    classpath = sourceSets.test.runtimeClasspath
+}
+
+
+// Test Configuration
+test {
+    // Discover and execute JUnit Platform-based tests
+    useJUnitPlatform()
+
+    // exclude SDK Tests and integration tests
+    filter {
+        excludeTestsMatching "*.*IT"
+        excludeTestsMatching "com.smartsheet.api.sdk_test.*"
+    }
+
+    // Code Coverage settings for tests
+    jacoco {
+        // files to exclude from code coverage
+        excludes = []
+    }
+
+    // We Junit to produce the following test reports
+    reports {
+        // test reports to include
+        junitXml.required = true
+        html.required = true
+    }
+}
+
+// Jacoco (Java Code Coverage) Configuration
+jacoco {
+    toolVersion = "${jacocoVersion}"
+}
+
+// Configuration for our code coverage report
+jacocoTestReport {
+    dependsOn test // tests are required to run before generating the report
+    reports {
+        xml.required = true
+        csv.required = false
+        html.required = true
+    }
+}
+
+// Configuration for the extra Jars we would like to produce
+java {
+    withJavadocJar()
+    withSourcesJar()
+}
+
+// Configuration for how we want to publish our Jar to Maven Central
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            pom {
+                name = 'Smartsheet Java SDK'
+                description = 'Library for connecting to Smartsheet Services'
+                url = 'https://github.com/smartsheet/smartsheet-java-sdk'
+                organization {
+                    name = 'Smartsheet'
+                    url = 'https://smartsheet.com'
+                }
+                inceptionYear = '2014'
+                licenses {
+                    license {
+                        name = 'The Apache License, Version 2.0'
+                        url = 'https://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+                developers {
+                    developer {
+                        id = 'support'
+                        name = 'Smartsheet Support'
+                        email = 'api@smartsheet.com'
+                        organization = 'Smartsheet'
+			            organizationUrl = 'https://www.smartsheet.com'
+			            timezone = 'America/Los_Angeles'
+                    }
+                }
+                scm {
+                    connection = 'scm:git:git@github.com:smartsheet/java-sdk.git'
+                    developerConnection = 'scm:git:git@github.com:smartsheet/java-sdk.git'
+                    url = 'git@github.com:smartsheet/java-sdk.git'
+                }
+            }
+        }
+    }
+
+    // Maven Repo configuration for publishing our Jars
+    repositories {
+        maven {
+            def releasesRepoUrl = 'https://oss.sonatype.org/nexus/content/repositories/releases'
+            def snapshotsRepoUrl = 'https://oss.sonatype.org/content/repositories/snapshots'
+            url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
+            credentials {
+                username = System.getenv("MAVEN_USERNAME")
+                password = System.getenv("MAVEN_PASSWORD")
+            }
+        }
+    }
+}
+
+// Configuration for how we want to sign our Jar files
+signing {
+    // Specify that we want to sign our publications
+    sign publishing.publications.mavenJava
+}
+
+
+//// Sonarqube Configuration
+//sonarqube {
+//    // system properties are defined in gradle.properties
+//    properties {
+//        property "sonar.sourceEncoding", "UTF-8"
+//        property "sonar.projectKey", "smartsheet-sdk-java"
+//        property "sonar.exclusions", [] // files to exclude from SonarQube analysis
+//        property "sonar.jacoco.reportPath", "${project.buildDir}/jacoco/test.exec"
+//    }
+//}
+//
+//// Checkstyle Configuration
+//checkstyle {
+//    toolVersion = "${checkstyleVersion}"
+//    configFile = file('config/checkstyle/checkstyle-custom.xml')
+//}

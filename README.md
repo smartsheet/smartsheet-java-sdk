@@ -50,7 +50,7 @@ The source code for the jar can be downloaded from Github and then compiled. Thi
 ```bash
 git clone https://github.com/smartsheet/smartsheet-java-sdk.git
 cd smartsheet-java-sdk
-mvn package
+./gradlew clean build
 ```
 
 ## Example Usage
