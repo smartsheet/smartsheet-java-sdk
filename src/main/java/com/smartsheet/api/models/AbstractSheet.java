@@ -9,9 +9,9 @@ package com.smartsheet.api.models;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -20,15 +20,14 @@ package com.smartsheet.api.models;
  * %[license]
  */
 
-import java.util.Date;
-import java.util.EnumSet;
-import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.smartsheet.api.models.enums.AccessLevel;
 import com.smartsheet.api.models.enums.AttachmentType;
 import com.smartsheet.api.models.enums.ResourceManagementType;
 
+import java.util.Date;
+import java.util.EnumSet;
+import java.util.List;
 
 public abstract class AbstractSheet<TRow extends AbstractRow<TColumn, TCell>, TColumn extends Column, TCell extends Cell>
         extends NamedModel<Long> {
@@ -533,7 +532,6 @@ public abstract class AbstractSheet<TRow extends AbstractRow<TColumn, TCell>, TC
         return (T) this;
     }
 
-
     /**
      * version of setId that returns this type
      * @param id the new sheet ID
@@ -731,8 +729,6 @@ public abstract class AbstractSheet<TRow extends AbstractRow<TColumn, TCell>, TC
 
     /**
      * Sets the sheet summary if one exists for this sheet
-     *
-     * @param summary
      */
     @SuppressWarnings("unchecked")
     public <T extends AbstractSheet<TRow, TColumn, TCell>> T setSummary(SheetSummary summary) {
@@ -771,8 +767,6 @@ public abstract class AbstractSheet<TRow extends AbstractRow<TColumn, TCell>, TC
 
     /**
      * Sets the sheet user permissions
-     *
-     * @param userPermissions
      */
     @SuppressWarnings("unchecked")
     public <T extends AbstractSheet<TRow, TColumn, TCell>> T setUserPermissions(SheetUserPermissions userPermissions) {
@@ -831,8 +825,6 @@ public abstract class AbstractSheet<TRow extends AbstractRow<TColumn, TCell>, TC
 
     /**
      * Sets a workspace object containing the name and id of the workspace containing this sheet
-     *
-     * @param workspace
      */
     @SuppressWarnings("unchecked")
     public <T extends AbstractSheet<TRow, TColumn, TCell>> T setWorkspace(Workspace workspace) {

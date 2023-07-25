@@ -9,9 +9,9 @@ package com.smartsheet.api.internal.http;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -100,12 +100,15 @@ public class DefaultHttpClient implements HttpClient {
     /** default values for trace-logging extracted from system-properties (can still be overwritten at the instance level) */
     private static final boolean TRACE_PRETTY_PRINT_DEFAULT = Boolean.parseBoolean(System.getProperty("Smartsheet.trace.pretty", "true"));
 
-    private static final Set<Trace> TRACE_DEFAULT_TRACE_SET  = Trace.parse(System.getProperty("Smartsheet.trace.parts"));    // empty by default
+    // empty by default
+    private static final Set<Trace> TRACE_DEFAULT_TRACE_SET = Trace.parse(System.getProperty("Smartsheet.trace.parts"));
 
     /** where to send trace logs */
     private static PrintWriter TRACE_WRITER;
+
     static {
-        setTraceStream(System.out); // default trace stream
+        // default trace stream
+        setTraceStream(System.out);
         if (TRACE_DEFAULT_TRACE_SET.size() > 0) {
             TRACE_WRITER.println("default trace logging - pretty:" + TRACE_PRETTY_PRINT_DEFAULT + " parts:" + TRACE_DEFAULT_TRACE_SET);
         }
@@ -147,7 +150,6 @@ public class DefaultHttpClient implements HttpClient {
      * @param response response
      * @param responseEntity response body
      * @param durationMillis response time in ms
-     * @throws IOException
      */
     public void logRequest(HttpRequestBase request, HttpEntitySnapshot requestEntity,
                            HttpResponse response, HttpEntitySnapshot responseEntity, long durationMillis) throws IOException {
@@ -156,13 +158,10 @@ public class DefaultHttpClient implements HttpClient {
                 response.getStatusCode(), durationMillis);
         if (response.getStatusCode() != 200) {
             // log the request and response on error
-            logger.warn("{}", RequestAndResponseData.of(request, requestEntity, response, responseEntity,
-                    REQUEST_RESPONSE));
-        }
-        else {
+            logger.warn("{}", RequestAndResponseData.of(request, requestEntity, response, responseEntity, REQUEST_RESPONSE));
+        } else {
             // log the summary request and response on success
-            logger.debug("{}", RequestAndResponseData.of(request, requestEntity, response, responseEntity,
-                    REQUEST_RESPONSE_SUMMARY));
+            logger.debug("{}", RequestAndResponseData.of(request, requestEntity, response, responseEntity, REQUEST_RESPONSE_SUMMARY));
         }
     }
 
@@ -186,7 +185,7 @@ public class DefaultHttpClient implements HttpClient {
         HttpResponse smartsheetResponse;
 
         InputStream bodyStream = null;
-        if(smartsheetRequest.getEntity() != null && smartsheetRequest.getEntity().getContent() != null) {
+        if (smartsheetRequest.getEntity() != null && smartsheetRequest.getEntity().getContent() != null) {
             bodyStream = smartsheetRequest.getEntity().getContent();
         }
         // the retry logic will consume the body stream so we make sure it supports mark/reset and mark it
@@ -199,13 +198,12 @@ public class DefaultHttpClient implements HttpClient {
                 smartsheetRequest.getEntity().getContent().close();
                 smartsheetRequest.getEntity().setContent(bodyStream);
                 canRetryRequest = true;
-            }
-            catch(IOException ignore) {
+            } catch (IOException ignore) {
             }
         }
 
         // the retry loop
-        while(true) {
+        while (true) {
 
             apacheHttpRequest = createApacheRequest(smartsheetRequest);
 
@@ -229,13 +227,14 @@ public class DefaultHttpClient implements HttpClient {
                 }
 
                 InputStreamEntity streamEntity = new InputStreamEntity(entity.getContent(), entity.getContentLength());
-                streamEntity.setChunked(false);    // why?  not supported by library?
+                // why?  not supported by library?
+                streamEntity.setChunked(false);
                 ((HttpEntityEnclosingRequestBase) apacheHttpRequest).setEntity(streamEntity);
             }
 
             // mark the body so we can reset on retry
-            if(canRetryRequest && bodyStream != null) {
-                bodyStream.mark((int)smartsheetRequest.getEntity().getContentLength());
+            if (canRetryRequest && bodyStream != null) {
+                bodyStream.mark((int) smartsheetRequest.getEntity().getContentLength());
             }
 
             // Make the HTTP request
@@ -250,14 +249,14 @@ public class DefaultHttpClient implements HttpClient {
                 // 'Connection', 'Accept-Encoding', etc. However, if a proxy is used, this may be the proxy's CONNECT
                 // request, hence the test for HTTP method first
                 Object httpRequest = context.getAttribute("http.request");
-                if(httpRequest != null && HttpRequestWrapper.class.isAssignableFrom(httpRequest.getClass())) {
-                    HttpRequestWrapper actualRequest = (HttpRequestWrapper)httpRequest;
-                    switch(HttpMethod.valueOf(actualRequest.getMethod())) {
+                if (httpRequest != null && HttpRequestWrapper.class.isAssignableFrom(httpRequest.getClass())) {
+                    HttpRequestWrapper actualRequest = (HttpRequestWrapper) httpRequest;
+                    switch (HttpMethod.valueOf(actualRequest.getMethod())) {
                         case GET:
                         case POST:
                         case PUT:
                         case DELETE:
-                            apacheHttpRequest.setHeaders(((HttpRequestWrapper)httpRequest).getAllHeaders());
+                            apacheHttpRequest.setHeaders(((HttpRequestWrapper) httpRequest).getAllHeaders());
                             break;
                     }
                 }
@@ -283,7 +282,8 @@ public class DefaultHttpClient implements HttpClient {
                 long responseTime = endTime - startTime;
                 logRequest(apacheHttpRequest, requestEntityCopy, smartsheetResponse, responseEntityCopy, responseTime);
 
-                if (traces.size() > 0) { // trace-logging of request and response (if so configured)
+                // trace-logging of request and response (if so configured)
+                if (traces.size() > 0) {
                     RequestAndResponseData requestAndResponseData = RequestAndResponseData.of(apacheHttpRequest,
                             requestEntityCopy, smartsheetResponse, responseEntityCopy, traces);
                     TRACE_WRITER.println(requestAndResponseData.toString(tracePrettyPrint));
@@ -311,7 +311,7 @@ public class DefaultHttpClient implements HttpClient {
                         break;
                     }
                 } finally {
-                    if(bodyStream != null) {
+                    if (bodyStream != null) {
                         bodyStream.reset();
                     }
                     contentStream.reset();
@@ -390,8 +390,7 @@ public class DefaultHttpClient implements HttpClient {
                 apacheHttpRequest = new HttpDelete(smartsheetRequest.getUri());
                 break;
             default:
-                throw new UnsupportedOperationException("Request method " + smartsheetRequest.getMethod()
-                        + " is not supported!");
+                throw new UnsupportedOperationException("Request method " + smartsheetRequest.getMethod() + " is not supported!");
         }
 
         RequestConfig.Builder builder = RequestConfig.custom();
@@ -406,8 +405,6 @@ public class DefaultHttpClient implements HttpClient {
 
     /**
      * Set the max retry time for API calls which fail and are retry-able.
-     *
-     * @param maxRetryTimeMillis
      */
     public void setMaxRetryTimeMillis(long maxRetryTimeMillis) {
         this.maxRetryTimeMillis = maxRetryTimeMillis;
@@ -416,17 +413,13 @@ public class DefaultHttpClient implements HttpClient {
     /**
      * The backoff calculation routine. Uses exponential backoff. If the maximum elapsed time
      * has expired, this calculation returns -1 causing the caller to fall out of the retry loop.
-     *
-     * @param previousAttempts
-     * @param totalElapsedTimeMillis
-     * @param error
      * @return -1 to fall out of retry loop, positive number indicates backoff time
      */
     public long calcBackoff(int previousAttempts, long totalElapsedTimeMillis, Error error) {
 
-        long backoffMillis = (long)(Math.pow(2, previousAttempts) * 1000) + new Random().nextInt(1000);
+        long backoffMillis = (long) (Math.pow(2, previousAttempts) * 1000) + new Random().nextInt(1000);
 
-        if(totalElapsedTimeMillis + backoffMillis > maxRetryTimeMillis) {
+        if (totalElapsedTimeMillis + backoffMillis > maxRetryTimeMillis) {
             logger.info("Elapsed time " + totalElapsedTimeMillis + " + backoff time " + backoffMillis +
                     " exceeds max retry time " + maxRetryTimeMillis + ", exiting retry loop");
             return -1;
@@ -452,30 +445,33 @@ public class DefaultHttpClient implements HttpClient {
         Error error;
         try {
             error = jsonSerializer.deserialize(Error.class, response.getEntity().getContent());
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             return false;
         }
-        switch(error.getErrorCode()) {
-            case 4001: /** Smartsheet.com is currently offline for system maintenance. Please check back again shortly. */
-            case 4002: /** Server timeout exceeded. Request has failed */
-            case 4003: /** Rate limit exceeded. */
-            case 4004: /** An unexpected error has occurred. Please retry your request.
-             * If you encounter this error repeatedly, please contact api@smartsheet.com for assistance. */
+        switch (error.getErrorCode()) {
+            case 4001:
+                // Smartsheet.com is currently offline for system maintenance. Please check back again shortly.
+            case 4002:
+                // Server timeout exceeded. Request has failed
+            case 4003:
+                // Rate limit exceeded.
+            case 4004:
+                // An unexpected error has occurred. Please retry your request
+                // If you encounter this error repeatedly, please contact api@smartsheet.com for assistance
                 break;
             default:
                 return false;
         }
 
         long backoffMillis = calcBackoff(previousAttempts, totalElapsedTimeMillis, error);
-        if(backoffMillis < 0)
+        if (backoffMillis < 0) {
             return false;
+        }
 
         logger.info("HttpError StatusCode=" + response.getStatusCode() + ": Retrying in " + backoffMillis + " milliseconds");
         try {
             Thread.sleep(backoffMillis);
-        }
-        catch (InterruptedException e) {
+        } catch (InterruptedException e) {
             logger.warn("sleep interrupted", e);
             return false;
         }

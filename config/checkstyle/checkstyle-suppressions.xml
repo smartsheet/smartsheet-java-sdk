@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE suppressions PUBLIC
+        "-//Puppy Crawl//DTD Suppressions 1.1//EN"
+        "http://www.puppycrawl.com/dtds/suppressions_1_1.dtd">
+
+<suppressions>
+    <!--  Allow strings to occur multiple times without making them a variable in tests  -->
+    <suppress checks="MultipleStringLiterals" files="[\\/]src[\\/]test[\\/].*"/>
+    <!--  Allow underscores in test method names  -->
+    <suppress files="[\\/]src[\\/]test[\\/].*" checks="MethodName" />
+    <!-- Don't require Javadocs for tests -->
+    <suppress files="[\\/]src[\\/]test[\\/].*" checks="MissingJavadocMethod" />
+    <!-- Don't check file lengths for tests -->
+    <suppress files="[\\/]src[\\/]test[\\/].*" checks="FileLength" />
+    <!-- Don't check method lengths for tests -->
+    <suppress files="[\\/]src[\\/]test[\\/].*" checks="MethodLength" />
+</suppressions>

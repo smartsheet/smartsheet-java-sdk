@@ -9,9 +9,9 @@ package com.smartsheet.api.internal.http;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -19,7 +19,6 @@ package com.smartsheet.api.internal.http;
  * limitations under the License.
  * %[license]
  */
-
 
 import com.smartsheet.api.Trace;
 import org.apache.http.Header;
@@ -35,7 +34,7 @@ import java.util.TreeMap;
  * a POJO from which is generated JSON from HTTP request/response pairs
  */
 public class RequestAndResponseData {
-    public static abstract class HttpPayloadData {
+    public abstract static class HttpPayloadData {
         Map<String, String> headers;
         String body;
 
@@ -55,7 +54,7 @@ public class RequestAndResponseData {
             return headers;
         }
 
-        static abstract class Builder<Type extends HttpPayloadData> {
+        abstract static class Builder<Type extends HttpPayloadData> {
             public void withHeaders() {
                 // this is seaprate from addHeader in case headers were requested but none found
                 if (getDataObject().headers == null) {
@@ -150,7 +149,8 @@ public class RequestAndResponseData {
 
             public ResponseData build() {
                 try {
-                    return dataObject;  // if nothing was added then nothing was built (i.e., this can be null)
+                    // if nothing was added then nothing was built (i.e., this can be null)
+                    return dataObject;
                 } finally {
                     reset();
                 }

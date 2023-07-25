@@ -12,7 +12,7 @@ plugins {
     // Allows us to use Sonarqube code quality scans
     id 'org.sonarqube' version '4.0.0.2929'
     // Allows use to Lint our code and specify the code style rules we want to enforce
-    // id 'checkstyle'
+    id 'checkstyle'
     // Allows us to publish our code coverage so it can appear in a badge on our Github Repo
     id 'com.github.kt3k.coveralls' version '2.12.2'
 
@@ -40,6 +40,7 @@ sourceCompatibility = '11'
 // Variables to expose
 ext {
     assertJVersion = '3.24.2'
+    checkstyleVersion = '10.12.1'
     commonsIoVersion = '2.7'
     httpClientVersion = '4.5.13'
     httpMimeVersion = '4.5'
@@ -228,9 +229,10 @@ signing {
 //        property "sonar.jacoco.reportPath", "${project.buildDir}/jacoco/test.exec"
 //    }
 //}
-//
-//// Checkstyle Configuration
-//checkstyle {
-//    toolVersion = "${checkstyleVersion}"
-//    configFile = file('config/checkstyle/checkstyle-custom.xml')
-//}
+
+// Checkstyle Configuration
+checkstyle {
+    ignoreFailures = true
+    toolVersion = "${checkstyleVersion}"
+    configFile = file('config/checkstyle/checkstyle-custom.xml')
+}
