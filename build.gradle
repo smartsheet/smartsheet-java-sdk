@@ -162,6 +162,7 @@ java {
 publishing {
     publications {
         mavenJava(MavenPublication) {
+            from components.java
             pom {
                 name = 'Smartsheet Java SDK'
                 description = 'Library for connecting to Smartsheet Services'
