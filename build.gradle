@@ -153,10 +153,10 @@ jacocoTestReport {
 }
 
 // Configuration for the extra Jars we would like to produce
-//java {
-//    withJavadocJar()
-//    withSourcesJar()
-//}
+java {
+    withJavadocJar()
+    withSourcesJar()
+}
 
 // Configuration for how we want to publish our Jar to Maven Central
 publishing {
