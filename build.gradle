@@ -2,7 +2,7 @@
 plugins {
     // ** COMPILATION PLUGINS **
     // Allows us to use Java
-    id 'java-library'
+    id 'java'
     // Allows us to use Lombok helper annotations
     id 'io.freefair.lombok' version '6.6.3'
 
@@ -200,7 +200,7 @@ publishing {
     // Maven Repo configuration for publishing our Jars
     repositories {
         maven {
-            def releasesRepoUrl = 'https://oss.sonatype.org/nexus/content/repositories/releases'
+            def releasesRepoUrl = 'https://oss.sonatype.org/service/local/staging/deploy/maven2'
             def snapshotsRepoUrl = 'https://oss.sonatype.org/content/repositories/snapshots'
             url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
             credentials {

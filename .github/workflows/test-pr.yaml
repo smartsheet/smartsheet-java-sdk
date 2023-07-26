@@ -15,19 +15,7 @@ jobs:
         with:
           java-version: '11'
           distribution: 'adopt'
-      - name: Import GPG Key
-        uses: crazy-max/ghaction-import-gpg@v1
+      - name: Run Unit Tests
         env:
-          GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
-          PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
-      - name: Publish package
-        run: ./gradlew clean publish -i
-        env:
-          MAVEN_USERNAME: ${{ secrets.MAVEN_USERNAME }}
-          MAVEN_PASSWORD: ${{ secrets.MAVEN_PASSWORD }}
-      - name: 'Upload Artifact'
-        uses: actions/upload-artifact@v3
-        with:
-          name: my-artifact
-          path: build/libs/*
-          retention-days: 1
+          SMARTSHEET_ACCESS_TOKEN: ${{secrets.SMARTSHEET_ACCESS_TOKEN}}
+        run: ./gradlew clean test jacocoTestReport
