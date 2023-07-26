@@ -200,7 +200,7 @@ publishing {
     // Maven Repo configuration for publishing our Jars
     repositories {
         maven {
-            def releasesRepoUrl = 'https://oss.sonatype.org/nexus/content/repositories/releases'
+            def releasesRepoUrl = 'https://oss.sonatype.org/service/local/staging/deploy/maven2'
             def snapshotsRepoUrl = 'https://oss.sonatype.org/content/repositories/snapshots'
             url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
             credentials {
