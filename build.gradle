@@ -2,7 +2,7 @@
 plugins {
     // ** COMPILATION PLUGINS **
     // Allows us to use Java
-    id 'java'
+    id 'java-library'
     // Allows us to use Lombok helper annotations
     id 'io.freefair.lombok' version '6.6.3'
 
