@@ -34,7 +34,7 @@ plugins {
 
 // Project Settings
 group = 'com.smartsheet'
-version = '3.1.2'
+version = '3.1.2-SNAPSHOT'
 sourceCompatibility = '11'
 
 // Variables to expose
