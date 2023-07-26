@@ -21,7 +21,7 @@ jobs:
           GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
           PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
       - name: Publish package
-        run: ./gradlew clean build publish
+        run: ./gradlew clean publish -i
         env:
           MAVEN_USERNAME: ${{ secrets.MAVEN_USERNAME }}
           MAVEN_PASSWORD: ${{ secrets.MAVEN_PASSWORD }}
@@ -30,4 +30,4 @@ jobs:
         with:
           name: my-artifact
           path: build/libs/*
-          retention-days: 5
+          retention-days: 1
