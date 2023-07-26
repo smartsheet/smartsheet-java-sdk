@@ -161,7 +161,7 @@ java {
 // Configuration for how we want to publish our Jar to Maven Central
 publishing {
     publications {
-        mavenJava(MavenPublication) {
+        release(MavenPublication) {
             from components.java
             pom {
                 name = 'Smartsheet Java SDK'
