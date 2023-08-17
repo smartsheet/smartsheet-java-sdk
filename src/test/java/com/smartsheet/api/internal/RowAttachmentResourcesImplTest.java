@@ -73,7 +73,7 @@ class RowAttachmentResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    void testAttachFile_InputsNull() {
+    void testAttachFile_InputValidation() {
         assertThatThrownBy(() -> rowAttachmentResources.attachFile(1234L, 345L, null,
                 "application/pdf")).isInstanceOf(IllegalArgumentException.class);
 

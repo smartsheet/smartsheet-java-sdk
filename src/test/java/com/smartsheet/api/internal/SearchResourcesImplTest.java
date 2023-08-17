@@ -90,7 +90,7 @@ class SearchResourcesImplTest  extends ResourcesImplBase  {
     }
 
     @Test
-    void nullQueryOnSeaerch() {
+    void nullQueryOnSearch() {
         assertThatThrownBy(() -> searchResources.search(null))
                 .isInstanceOf(IllegalArgumentException.class);
     }
