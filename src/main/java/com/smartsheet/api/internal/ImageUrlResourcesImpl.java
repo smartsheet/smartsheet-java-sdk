@@ -56,11 +56,11 @@ public class ImageUrlResourcesImpl extends AbstractResources implements ImageUrl
     }
 
     /**
-     * Gets URLS that can be used to retieve the specified cell images.
+     * Gets URLS that can be used to retrieve the specified cell images.
      *
      * It mirrors to the following Smartsheet REST API method: POST /imageurls
      *
-     * @param requestUrls array of requested Images ans sizes.
+     * @param requestUrls array of requested Images and sizes.
      * @return the ImageUrlMap object (note that if there is no such resource, this method will throw
      * ResourceNotFoundException rather than returning null).
      * @throws JSONSerializerException

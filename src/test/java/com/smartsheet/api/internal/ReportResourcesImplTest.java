@@ -46,6 +46,7 @@ import java.util.EnumSet;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatCode;
 
 class ReportResourcesImplTest extends ResourcesImplBase {
 
@@ -86,7 +87,7 @@ class ReportResourcesImplTest extends ResourcesImplBase {
         format.setPaperSize(PaperSize.A0);
         email.setFormatDetails(format);
         email.setSendTo(recipients);
-        reportResources.sendReport(1234L, email);
+        assertThatCode(() -> reportResources.sendReport(1234L, email)).doesNotThrowAnyException();
 
     }
 

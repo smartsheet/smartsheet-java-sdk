@@ -73,6 +73,18 @@ class RowAttachmentResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
+    void testAttachFile_InputsNull() {
+        assertThatThrownBy(() -> rowAttachmentResources.attachFile(1234L, 345L, null,
+                "application/pdf")).isInstanceOf(IllegalArgumentException.class);
+
+        File file = new File("src/test/resources/large_sheet.pdf");
+        assertThatThrownBy(() -> rowAttachmentResources.attachFile(1234L, 345L, file,
+                null)).isInstanceOf(IllegalArgumentException.class);
+        assertThatThrownBy(() -> rowAttachmentResources.attachFile(1234L, 345L, file,
+                "")).isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
     void testAttachFile() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/attachFile.json"));
         File file = new File("src/test/resources/large_sheet.pdf");
