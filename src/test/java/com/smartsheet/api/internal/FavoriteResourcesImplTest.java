@@ -34,6 +34,7 @@ import java.util.List;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatCode;
 
 class FavoriteResourcesImplTest extends ResourcesImplBase {
     private FavoriteResourcesImpl favoriteResources;
@@ -48,8 +49,10 @@ class FavoriteResourcesImplTest extends ResourcesImplBase {
     void testAddFavorites() throws Exception {
         server.setResponseBody(new File("src/test/resources/addFavorites.json"));
         List<Favorite> favoritesToAdd = new Favorite.AddFavoriteBuilder().addFavorite(8400677765441412L, FavoriteType.SHEET).build();
-        List < Favorite > addedfavorites = favoriteResources.addFavorites(favoritesToAdd);
-        assertThat(addedfavorites).hasSize(1);
+        List <Favorite> addedFavorites = favoriteResources.addFavorites(favoritesToAdd);
+        assertThat(addedFavorites).hasSize(1);
+        assertThat(addedFavorites.get(0).getType()).isEqualTo(FavoriteType.SHEET);
+        assertThat(addedFavorites.get(0).getObjectId()).isEqualTo(8400677765441412L);
     }
 
     @Test
@@ -57,8 +60,11 @@ class FavoriteResourcesImplTest extends ResourcesImplBase {
         server.setResponseBody(new File("src/test/resources/listFavorites.json"));
         PaginationParameters parameters = new PaginationParameters(false,1,1);
         PagedResult<Favorite> favorites = favoriteResources.listFavorites(parameters);
+        assertThat(favorites.getData().size()).isEqualTo(2);
         assertThat(favorites.getData().get(0).getType()).isNotNull();
-        //assertEquals(favorites.getData().get(1).getColumnType(), "folder");
+        assertThat(favorites.getData().get(1).getType()).isNotNull();
+        assertThat(favorites.getData().get(0).getObjectId()).isNotNull();
+        assertThat(favorites.getData().get(1).getObjectId()).isNotNull();
     }
 
     @Test
@@ -68,6 +74,6 @@ class FavoriteResourcesImplTest extends ResourcesImplBase {
         folderIds.add(123L);
         folderIds.add(345L);
 
-        favoriteResources.removeFavorites(FavoriteType.FOLDER, folderIds);
+        assertThatCode(() -> favoriteResources.removeFavorites(FavoriteType.FOLDER, folderIds)).doesNotThrowAnyException();
     }
 }

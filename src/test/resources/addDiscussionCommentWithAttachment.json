@@ -1,0 +1,19 @@
+{
+  "message": "SUCCESS",
+  "result": {
+    "createdAt": "2013-02-28T22:58:30Z",
+    "createdBy": {
+      "email": "jane.doe@smartsheet.com",
+      "name": "Jane Doe"
+    },
+    "id": 6834973207488388,
+    "modifiedAt": "2013-02-28T22:58:30Z",
+    "text": "new comment with attachment.",
+    "attachments": [
+      {
+        "description": "this is an attachment description"
+      }
+    ]
+  },
+  "resultCode": 0
+}

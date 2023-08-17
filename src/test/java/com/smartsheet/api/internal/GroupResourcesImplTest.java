@@ -37,6 +37,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatCode;
 
 class GroupResourcesImplTest extends ResourcesImplBase {
 
@@ -62,8 +63,6 @@ class GroupResourcesImplTest extends ResourcesImplBase {
         assertThat(groups.getData().get(0).getCreatedAt()).isNotNull();
         assertThat(groups.getData().get(0).getModifiedAt()).isNotNull();
         assertThat(groups.getData().get(0).getDescription()).isNotNull();
-        //assertThat(groups.getData().get(1).getId()).isNotNull();
-
     }
 
     @Test
@@ -118,7 +117,6 @@ class GroupResourcesImplTest extends ResourcesImplBase {
             assertThat(member.getId()).isNotNull();
             assertThat(member.getEmail()).isNotNull();
         }
-
     }
 
     @Test
@@ -139,13 +137,12 @@ class GroupResourcesImplTest extends ResourcesImplBase {
         assertThat(group.getModifiedAt()).isNotNull();
         assertThat(group.getDescription()).isNotNull();
         assertThat(group.getId()).isNotNull();
-
     }
 
     @Test
-    void testDeleteGroup() throws SmartsheetException, IOException {
+    void testDeleteGroup() throws IOException {
         server.setResponseBody(new File("src/test/resources/deleteGroup.json"));
-        groupResources.deleteGroup(1234L);
+        assertThatCode(() -> groupResources.deleteGroup(1234L)).doesNotThrowAnyException();
     }
 
     @Test
@@ -162,6 +159,7 @@ class GroupResourcesImplTest extends ResourcesImplBase {
             assertThat(member.getId()).isNotNull();
         }
     }
+
     @Test
     void testRemoveMemberFromGroup() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/deleteMemberFromGroup.json"));
