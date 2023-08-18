@@ -24,7 +24,7 @@ jobs:
           GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
           PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
       - name: Publish package
-        run: ./gradlew publishToSonatype closeSonatypeStagingRepository -i
+        run: ./gradlew publishToSonatype closeAndReleaseSonatypeStagingRepository -i
         env:
           MAVEN_USERNAME: ${{ secrets.MAVEN_USERNAME }}
           MAVEN_PASSWORD: ${{ secrets.MAVEN_PASSWORD }}
