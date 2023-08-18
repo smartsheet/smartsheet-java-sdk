@@ -51,15 +51,33 @@ class DiscussionCommentResourcesImplTest extends ResourcesImplBase {
 
         assertThat(newComment.getText()).isEqualTo("This is a new comment.");
         assertThat(newComment.getCreatedBy().getName()).isEqualTo("John Doe");
+        assertThat(newComment.getAttachments()).isNull();
     }
 
     @Test
     void testAddCommentWithAttachment() throws SmartsheetException, IOException {
-        server.setResponseBody(new File("src/test/resources/addDiscussionComment.json"));
+        server.setResponseBody(new File("src/test/resources/addDiscussionCommentWithAttachment.json"));
         File file = new File("src/test/resources/large_sheet.pdf");
-        Comment comment = new Comment.AddCommentBuilder().setText("new comment").build();
+        Comment comment = new Comment.AddCommentBuilder().setText("new comment with attachment.").build();
         comment.setId(345L);
 
         Comment newComment = discussionCommentResources.addCommentWithAttachment(1234L, 456L, comment, file, "application/pdf");
+        assertThat(newComment.getText()).isEqualTo("new comment with attachment.");
+        assertThat(newComment.getCreatedBy().getName()).isEqualTo("Jane Doe");
+        assertThat(newComment.getAttachments().size()).isEqualTo(1);
+        assertThat(newComment.getAttachments().get(0).getDescription()).isEqualTo("this is an attachment description");
+    }
+
+    @Test
+    void testUpdateComment() throws SmartsheetException, IOException {
+        server.setResponseBody(new File("src/test/resources/addDiscussionComment.json"));
+        Comment comment = new Comment();
+        comment.setId(345L);
+        comment.setText("This is a new comment.");
+
+        Comment newComment = discussionCommentResources.updateComment(1234L, comment);
+        assertThat(newComment.getText()).isEqualTo("This is a new comment.");
+        assertThat(newComment.getCreatedBy().getName()).isEqualTo("John Doe");
+        assertThat(newComment.getAttachments()).isNull();
     }
 }

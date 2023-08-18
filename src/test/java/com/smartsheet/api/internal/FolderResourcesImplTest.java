@@ -36,6 +36,7 @@ import java.io.IOException;
 import java.util.EnumSet;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatCode;
 
 class FolderResourcesImplTest extends ResourcesImplBase {
 
@@ -72,9 +73,9 @@ class FolderResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    void testDeleteFolder() throws SmartsheetException, IOException {
+    void testDeleteFolder() throws IOException {
         server.setResponseBody(new File("src/test/resources/deleteFolder.json"));
-        folderResource.deleteFolder(7752230582413188L);
+        assertThatCode(() -> folderResource.deleteFolder(7752230582413188L)).doesNotThrowAnyException();
     }
 
     @Test

@@ -75,7 +75,7 @@ public class FavoriteResourcesImpl extends AbstractResources implements Favorite
     }
 
     /**
-     * Gets a list of all of the user's Favorite items.
+     * Gets a list of all the user's Favorite items.
      *
      * It mirrors to the following Smartsheet REST API method: GET /favorites
      *
@@ -103,7 +103,7 @@ public class FavoriteResourcesImpl extends AbstractResources implements Favorite
     }
 
     /**
-     * Deletes a list of favorites (all of the same type)
+     * Deletes a list of favorites (all the same type)
      *
      * It mirrors to the following Smartsheet REST API method: DELETE /favorites
      *

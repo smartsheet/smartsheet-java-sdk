@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 /*
  * #[license]
@@ -100,6 +101,17 @@ class SheetAttachmentResourcesImplTest extends ResourcesImplBase {
         assertThat(attachment.getMimeType()).isEqualTo("application/pdf");
         assertThat(attachment.getSizeInKb()).isEqualTo(1831L);
         assertThat(attachment.getParentType()).isEqualTo(AttachmentParentType.SHEET);
+    }
+
+    @Test
+    void testAttachFile_InputValidation() {
+        File file = new File("src/test/resources/large_sheet.pdf");
+        assertThatThrownBy(() -> sheetAttachmentResources.attachFile(1234L, null,
+                "application/pdf")).isInstanceOf(IllegalArgumentException.class);
+        assertThatThrownBy(() -> sheetAttachmentResources.attachFile(1234L, file,
+                null)).isInstanceOf(IllegalArgumentException.class);
+        assertThatThrownBy(() -> sheetAttachmentResources.attachFile(1234L, file,
+                "")).isInstanceOf(IllegalArgumentException.class);
     }
 
     @Test
