@@ -21,6 +21,7 @@ plugins {
     id 'signing'
     // Allows us to publish our artifact
     id 'maven-publish'
+    // Allows us to publish to https://oss.sonatype.org/ and release our artifact
     id("io.github.gradle-nexus.publish-plugin") version "1.3.0"
 
     // ** MAINTENANCE PLUGINS **
@@ -164,6 +165,7 @@ publishing {
     publications {
         mavenJava(MavenPublication) {
             from components.java
+            // Details that will be included in our published POM file
             pom {
                 name = 'Smartsheet Java SDK'
                 description = 'Library for connecting to Smartsheet Services'
@@ -200,6 +202,7 @@ publishing {
 
 }
 
+// The credentials for us to publish to https://oss.sonatype.org/ and release our artifact
 nexusPublishing {
     repositories {
         sonatype {
