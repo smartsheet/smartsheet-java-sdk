@@ -12,9 +12,9 @@ import java.util.List;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -63,6 +63,7 @@ public class Group extends NamedModel<Long> {
      * Constructors
      */
     public Group() { }
+
     public Group(Long id) {
         setId(id);
     }
@@ -72,7 +73,7 @@ public class Group extends NamedModel<Long> {
      *
      * @param name the new name
      */
-    public Group setName(String name){
+    public Group setName(String name) {
         super.setName(name);
         return this;
     }
@@ -84,7 +85,6 @@ public class Group extends NamedModel<Long> {
         return description;
     }
 
-
     /**
      * @param description the description to set
      */
@@ -93,14 +93,12 @@ public class Group extends NamedModel<Long> {
         return this;
     }
 
-
     /**
      * @return the email address of the owner
      */
     public String getOwner() {
         return owner;
     }
-
 
     /**
      * @param owner the owner email address to set
@@ -110,14 +108,12 @@ public class Group extends NamedModel<Long> {
         return this;
     }
 
-
     /**
      * @return the id of the owner of the group.
      */
     public Long getOwnerId() {
         return ownerId;
     }
-
 
     /**
      * @param ownerId the owner Id to set
@@ -127,14 +123,12 @@ public class Group extends NamedModel<Long> {
         return this;
     }
 
-
     /**
      * @return the createdAt {@link Date}
      */
     public Date getCreatedAt() {
         return createdAt;
     }
-
 
     /**
      * @param createdAt the createdAt {@link Date} to set
@@ -144,14 +138,12 @@ public class Group extends NamedModel<Long> {
         return this;
     }
 
-
     /**
      * @return the modifiedAt {@link Date}
      */
     public Date getModifiedAt() {
         return modifiedAt;
     }
-
 
     /**
      * @param modifiedAt the modifiedAt {@link Date} to set
@@ -161,14 +153,12 @@ public class Group extends NamedModel<Long> {
         return this;
     }
 
-
     /**
      * @return the {@link List} of {@link Group}s
      */
     public List<GroupMember> getMembers() {
         return members;
     }
-
 
     /**
      * @param members the {@link List} of {@link User}s to set
@@ -193,7 +183,7 @@ public class Group extends NamedModel<Long> {
          * @param members The {@link List} of {@link Group}s to add as members of this group.
          * @return the creates the builder
          */
-        public CreateGroupBuilder setMembers (List<GroupMember> members) {
+        public CreateGroupBuilder setMembers(List<GroupMember> members) {
             this.members = members;
             return this;
         }
@@ -235,7 +225,7 @@ public class Group extends NamedModel<Long> {
         public Group build() {
             Group group = new Group();
 
-            if ( name == null ) {
+            if (name == null) {
                 throw new InstantiationError();
             }
             group.setName(name);
@@ -260,7 +250,6 @@ public class Group extends NamedModel<Long> {
             return this;
         }
     }
-
 
     /**
      * A convenience class to update a {@link Group} object with the necessary fields to create the group by putting it

@@ -115,7 +115,7 @@ public class AndroidHttpClient implements HttpClient {
         long start = System.currentTimeMillis();
 
         InputStream bodyStream = null;
-        if(smartsheetRequest.getEntity() != null && smartsheetRequest.getEntity().getContent() != null) {
+        if (smartsheetRequest.getEntity() != null && smartsheetRequest.getEntity().getContent() != null) {
             bodyStream = smartsheetRequest.getEntity().getContent();
         }
         // the retry logic will consume the body stream so we make sure it supports mark/reset and mark it
@@ -128,13 +128,12 @@ public class AndroidHttpClient implements HttpClient {
                 smartsheetRequest.getEntity().getContent().close();
                 smartsheetRequest.getEntity().setContent(bodyStream);
                 canRetryRequest = true;
-            }
-            catch(IOException ignore) {
+            } catch (IOException ignore) {
             }
         }
 
         HttpResponse smartsheetResponse;
-        while(true) {
+        while (true) {
 
             // Create our new request
             Request.Builder builder = new Request.Builder();
@@ -155,7 +154,7 @@ public class AndroidHttpClient implements HttpClient {
                         builder.get();
                         break;
                     case POST:
-                            builder.post(getRequestBody(smartsheetRequest));
+                        builder.post(getRequestBody(smartsheetRequest));
                         break;
                     case PUT:
                         builder.put(getRequestBody(smartsheetRequest));
@@ -169,8 +168,8 @@ public class AndroidHttpClient implements HttpClient {
             }
 
             // mark the body so we can reset on retry
-            if(canRetryRequest && bodyStream != null) {
-                bodyStream.mark((int)smartsheetRequest.getEntity().getContentLength());
+            if (canRetryRequest && bodyStream != null) {
+                bodyStream.mark((int) smartsheetRequest.getEntity().getContentLength());
             }
 
             try {
@@ -216,7 +215,7 @@ public class AndroidHttpClient implements HttpClient {
                         break;
                     }
                 } finally {
-                    if(bodyStream != null) {
+                    if (bodyStream != null) {
                         bodyStream.reset();
                     }
                     contentStream.reset();
@@ -242,8 +241,6 @@ public class AndroidHttpClient implements HttpClient {
 
     /**
      * Set the max retry time for API calls which fail and are retry-able.
-     *
-     * @param maxRetryTimeMillis
      */
     public void setMaxRetryTimeMillis(long maxRetryTimeMillis) {
         this.maxRetryTimeMillis = maxRetryTimeMillis;
@@ -252,17 +249,13 @@ public class AndroidHttpClient implements HttpClient {
     /**
      * The backoff calculation routine. Uses exponential backoff. If the maximum elapsed time
      * has expired, this calculation returns -1 causing the caller to fall out of the retry loop.
-     *
-     * @param previousAttempts
-     * @param totalElapsedTimeMillis
-     * @param error
      * @return -1 to fall out of retry loop, positive number indicates backoff time
      */
     public long calcBackoff(int previousAttempts, long totalElapsedTimeMillis, Error error) {
 
-        long backoffMillis = (long)(Math.pow(2, previousAttempts) * 1000) + new Random().nextInt(1000);
+        long backoffMillis = (long) (Math.pow(2, previousAttempts) * 1000) + new Random().nextInt(1000);
 
-        if(totalElapsedTimeMillis + backoffMillis > maxRetryTimeMillis) {
+        if (totalElapsedTimeMillis + backoffMillis > maxRetryTimeMillis) {
             logger.info("Elapsed time " + totalElapsedTimeMillis + " + backoff time " + backoffMillis +
                     " exceeds max retry time " + maxRetryTimeMillis + ", exiting retry loop");
             return -1;
@@ -288,30 +281,33 @@ public class AndroidHttpClient implements HttpClient {
         Error error;
         try {
             error = jsonSerializer.deserialize(Error.class, response.getEntity().getContent());
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             return false;
         }
-        switch(error.getErrorCode()) {
-            case 4001: /** Smartsheet.com is currently offline for system maintenance. Please check back again shortly. */
-            case 4002: /** Server timeout exceeded. Request has failed */
-            case 4003: /** Rate limit exceeded. */
-            case 4004: /** An unexpected error has occurred. Please retry your request.
-             * If you encounter this error repeatedly, please contact api@smartsheet.com for assistance. */
+        switch (error.getErrorCode()) {
+            // Smartsheet.com is currently offline for system maintenance. Please check back again shortly.
+            case 4001:
+            // Server timeout exceeded. Request has failed
+            case 4002:
+            // Rate limit exceeded.
+            case 4003:
+            // An unexpected error has occurred. Please retry your request.
+            // If you encounter this error repeatedly, please contact api@smartsheet.com for assistance.
+            case 4004:
                 break;
             default:
                 return false;
         }
 
         long backoffMillis = calcBackoff(previousAttempts, totalElapsedTimeMillis, error);
-        if(backoffMillis < 0)
+        if (backoffMillis < 0) {
             return false;
+        }
 
         logger.info("HttpError StatusCode=" + response.getStatusCode() + ": Retrying in " + backoffMillis + " milliseconds");
         try {
             Thread.sleep(backoffMillis);
-        }
-        catch (InterruptedException e) {
+        } catch (InterruptedException e) {
             logger.warn("sleep interrupted", e);
             return false;
         }
