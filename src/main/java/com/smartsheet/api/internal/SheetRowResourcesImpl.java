@@ -118,8 +118,12 @@ public class SheetRowResourcesImpl extends AbstractResources implements SheetRow
      * @throws SmartsheetRestException : if there is any other REST API related error occurred during the operation
      * @throws SmartsheetException : if there is any other error occurred during the operation
      */
-    public List<Row> addRows(long sheetId, List<Row> rows, EnumSet<RowInclusion> includes, EnumSet<ObjectExclusion> excludes)
-            throws SmartsheetException {
+    public List<Row> addRows(
+            long sheetId,
+            List<Row> rows,
+            EnumSet<RowInclusion> includes,
+            EnumSet<ObjectExclusion> excludes
+    ) throws SmartsheetException {
         String path = "sheets/" + sheetId + "/rows";
 
         Map<String, Object> parameters = new HashMap<>();
