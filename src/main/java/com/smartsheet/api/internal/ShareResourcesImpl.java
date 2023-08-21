@@ -88,7 +88,7 @@ public class ShareResourcesImpl extends AbstractAssociatedResources implements S
         if (pagination != null) {
             parameters = pagination.toHashMap();
         }
-        if (includeWorkspaceShares != null && includeWorkspaceShares == true) {
+        if (includeWorkspaceShares != null && includeWorkspaceShares) {
             parameters.put("include", "workspaceShares");
         }
         path += QueryUtil.generateUrl(null, parameters);

@@ -58,9 +58,9 @@ class AttachmentVersioningResourcesImplTest extends ResourcesImplBase {
 
         PaginationParameters parameters = new PaginationParameters(false, 1,1);
         PagedResult<Attachment> attachments = attachmentVersioningResources.listAllVersions(1234L, 456L, parameters);
-            assertThat(attachments.getData().get(0).getName()).isNotNull();
-            assertThat(attachments.getData().get(0).getId().longValue()).isEqualTo(4583173393803140L);
-            assertThat(attachments.getData().get(1).getMimeType()).isEqualTo("image/png");
+        assertThat(attachments.getData().get(0).getName()).isNotNull();
+        assertThat(attachments.getData().get(0).getId().longValue()).isEqualTo(4583173393803140L);
+        assertThat(attachments.getData().get(1).getMimeType()).isEqualTo("image/png");
     }
 
     @Test

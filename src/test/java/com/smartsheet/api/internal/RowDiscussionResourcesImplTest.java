@@ -13,6 +13,7 @@ import java.io.File;
 import java.util.EnumSet;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 /*
  * #[license]
@@ -62,6 +63,20 @@ class RowDiscussionResourcesImplTest extends ResourcesImplBase {
 
         Discussion newDiscussion = discussionRowResources.createDiscussionWithAttachment(123L, 456L, discussion, file, "application/pdf");
         assertThat(newDiscussion.getTitle()).isEqualTo("This is a new discussion");
+    }
+
+    @Test
+    void testCreateDiscussionWithAttachment_InputValidation() {
+        File file = new File("src/test/resources/large_sheet.pdf");
+        Comment comment = new Comment.AddCommentBuilder().setText("New comment").build();
+        Discussion discussion = new Discussion.CreateDiscussionBuilder().setComment(comment).setTitle("Some title").build();
+
+        assertThatThrownBy(() -> discussionRowResources.createDiscussionWithAttachment(123L, 456L, null, file, "application/pdf"))
+                .isInstanceOf(IllegalArgumentException.class);
+        assertThatThrownBy(() -> discussionRowResources.createDiscussionWithAttachment(123L, 456L, discussion, null, "application/pdf"))
+                .isInstanceOf(IllegalArgumentException.class);
+        assertThatThrownBy(() -> discussionRowResources.createDiscussionWithAttachment(123L, 456L, discussion, file, null))
+                .isInstanceOf(IllegalArgumentException.class);
     }
 
     @Test
