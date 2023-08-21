@@ -1,0 +1,13 @@
+{
+  "urlExpiresInMillis": 29837329487297392,
+  "imageUrls": [
+    {
+      "imageId": "imageId1",
+      "url": "https://foo.com/imageId1-url.png"
+    },
+    {
+      "imageId": "imageId2",
+      "url": "https://foo.com/imageId2-url.png"
+    }
+  ]
+}
