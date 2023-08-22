@@ -20,7 +20,6 @@ package com.smartsheet.api.internal;
  * %[license]
  */
 
-
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.smartsheet.api.AuthorizationException;
@@ -75,8 +74,7 @@ public abstract class AbstractResources {
     private static final Logger log = LoggerFactory.getLogger(AbstractResources.class);
 
     /** The Constant BUFFER_SIZE. */
-    private final static int BUFFER_SIZE = 4098;
-
+    private static final int BUFFER_SIZE = 4098;
 
     /**
      * The Enum ErrorCode.
@@ -88,7 +86,7 @@ public abstract class AbstractResources {
         NOT_FOUND(404, ResourceNotFoundException.class),
         METHOD_NOT_SUPPORTED(405, InvalidRequestException.class),
         INTERNAL_SERVER_ERROR(500, InvalidRequestException.class),
-        SERVICE_UNAVAILABLE(503,ServiceUnavailableException.class);
+        SERVICE_UNAVAILABLE(503, ServiceUnavailableException.class);
 
         /** The error code. */
         int errorCode;
@@ -201,16 +199,16 @@ public abstract class AbstractResources {
      * @return the resource
      * @throws SmartsheetException the smartsheet exception
      */
-    protected <T> T getResource(String path, Class<T> objectClass) throws SmartsheetException  {
+    protected <T> T getResource(String path, Class<T> objectClass) throws SmartsheetException {
         Util.throwIfNull(path, objectClass);
 
-        if(path.isEmpty()) {
+        if (path.isEmpty()) {
             com.smartsheet.api.models.Error error = new com.smartsheet.api.models.Error();
             error.setMessage("An empty path was provided.");
             throw new ResourceNotFoundException(error);
         }
 
-        HttpRequest  request = createHttpRequest(smartsheet.getBaseURI().resolve(path), HttpMethod.GET);
+        HttpRequest request = createHttpRequest(smartsheet.getBaseURI().resolve(path), HttpMethod.GET);
 
         T obj = null;
         String content = null;
@@ -333,12 +331,20 @@ public abstract class AbstractResources {
      * @return the created resource
      * @throws SmartsheetException the smartsheet exception
      */
-    protected <T> T createResourceWithAttachment(String path, Class<T> objectClass, T object, String partName,InputStream inputStream, String contentType, String attachmentName) throws SmartsheetException {
+    protected <T> T createResourceWithAttachment(
+            String path,
+            Class<T> objectClass,
+            T object,
+            String partName,
+            InputStream inputStream,
+            String contentType,
+            String attachmentName
+    ) throws SmartsheetException {
         Util.throwIfNull(path, object);
         Util.throwIfEmpty(path);
 
         HttpRequest request;
-        final String boundary = "----" + System.currentTimeMillis() ;
+        final String boundary = "----" + System.currentTimeMillis();
         CloseableHttpClient httpClient = HttpClients.createDefault();
         HttpPost uploadFile = createHttpPost(this.getSmartsheet().getBaseURI().resolve(path));
 
@@ -363,9 +369,8 @@ public abstract class AbstractResources {
             org.apache.http.HttpEntity responseEntity = response.getEntity();
             obj = this.getSmartsheet().getJsonSerializer().deserializeResult(objectClass,
                     responseEntity.getContent()).getResult();
-        }
-        catch (Exception e) {
-            throw  new RuntimeException(e);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
         return obj;
     }
@@ -403,7 +408,6 @@ public abstract class AbstractResources {
         entity.setContent(new ByteArrayInputStream(objectBytesStream.toByteArray()));
         entity.setContentLength(objectBytesStream.size());
         request.setEntity(entity);
-
 
         T obj = null;
         try {
@@ -447,7 +451,6 @@ public abstract class AbstractResources {
         HttpRequest request;
         request = createHttpRequest(smartsheet.getBaseURI().resolve(path), HttpMethod.GET);
 
-
         List<T> obj = null;
         try {
             HttpResponse response = this.smartsheet.getHttpClient().request(request);
@@ -468,19 +471,12 @@ public abstract class AbstractResources {
 
     /**
      * List resources Wrapper (supports paging info) using Smartsheet REST API.
-     *
-     * Exceptions:
-     *   IllegalArgumentException : if any argument is null, or path is empty string
-     *   InvalidRequestException : if there is any problem with the REST API request
-     *   AuthorizationException : if there is any problem with the REST API authorization(access token)
-     *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-     *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
-     *   SmartsheetException : if there is any other error occurred during the operation
-     * @param path
-     * @param objectClass
-     * @param <T>
-     * @return
-     * @throws SmartsheetException
+     * @throws IllegalArgumentException : if any argument is null, or path is empty string
+     * @throws InvalidRequestException : if there is any problem with the REST API request
+     * @throws AuthorizationException : if there is any problem with the REST API authorization(access token)
+     * @throws ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     * @throws SmartsheetException : if there is any other error occurred during the operation
      */
     protected <T> PagedResult<T> listResourcesWithWrapper(String path, Class<T> objectClass) throws SmartsheetException {
         Util.throwIfNull(path, objectClass);
@@ -488,7 +484,6 @@ public abstract class AbstractResources {
 
         HttpRequest request;
         request = createHttpRequest(smartsheet.getBaseURI().resolve(path), HttpMethod.GET);
-
 
         PagedResult<T> obj = null;
         try {
@@ -626,7 +621,6 @@ public abstract class AbstractResources {
         entity.setContentLength(objectBytesStream.size());
         request.setEntity(entity);
 
-
         List<S> obj = null;
         try {
             HttpResponse response = this.smartsheet.getHttpClient().request(request);
@@ -679,7 +673,6 @@ public abstract class AbstractResources {
         entity.setContentLength(objectBytesStream.size());
         request.setEntity(entity);
 
-
         CopyOrMoveRowResult obj = null;
         try {
             HttpResponse response = this.smartsheet.getHttpClient().request(request);
@@ -700,22 +693,18 @@ public abstract class AbstractResources {
 
     /**
      * Put an object to Smartsheet REST API and receive a list of objects from response.
-     *
-     * Exceptions:
-     *   IllegalArgumentException : if any argument is null, or path is empty string
-     *   InvalidRequestException : if there is any problem with the REST API request
-     *   AuthorizationException : if there is any problem with the REST API authorization(access token)
-     *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-     *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
-     *   SmartsheetException : if there is any other error occurred during the operation
-     *
      * @param <T> the generic type
      * @param <S> the generic type
      * @param path the relative path of the resource collections
      * @param objectToPut the object to put
      * @param objectClassToReceive the resource object class to receive
      * @return the object list
-     * @throws SmartsheetException the smartsheet exception
+     * @throws IllegalArgumentException : if any argument is null, or path is empty string
+     * @throws InvalidRequestException : if there is any problem with the REST API request
+     * @throws AuthorizationException : if there is any problem with the REST API authorization(access token)
+     * @throws ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     * @throws SmartsheetException : if there is any other error occurred during the operation
      */
     protected <T, S> List<S> putAndReceiveList(String path, T objectToPut, Class<S> objectClassToReceive)
             throws SmartsheetException {
@@ -731,7 +720,6 @@ public abstract class AbstractResources {
         entity.setContent(new ByteArrayInputStream(objectBytesStream.toByteArray()));
         entity.setContentLength(objectBytesStream.size());
         request.setEntity(entity);
-
 
         List<S> obj = null;
         try {
@@ -751,12 +739,8 @@ public abstract class AbstractResources {
         return obj;
     }
 
-
     /**
      * Create an HttpRequest.
-     * <p>
-     * Exceptions: Any exception shall be propagated since it's a private method.
-     *
      * @param uri    the URI
      * @param method the HttpMethod
      * @return the http request
@@ -780,11 +764,15 @@ public abstract class AbstractResources {
         }
         return httpPost;
     }
+
     public Attachment attachFile(String url, InputStream inputStream, String contentType, long contentLength, String attachmentName)
             throws SmartsheetException {
         Util.throwIfNull(inputStream, contentType);
         HttpRequest request = createHttpRequest(this.getSmartsheet().getBaseURI().resolve(url), HttpMethod.POST);
-        request.getHeaders().put("Content-Disposition", "attachment; filename=\"" + URLEncoder.encode(attachmentName, StandardCharsets.UTF_8) + "\"");
+        request.getHeaders().put(
+                "Content-Disposition",
+                "attachment; filename=\"" + URLEncoder.encode(attachmentName, StandardCharsets.UTF_8) + "\""
+        );
         HttpEntity entity = new HttpEntity();
         entity.setContentType(contentType);
         entity.setContent(new LengthEnforcingInputStream(inputStream, contentLength));
@@ -824,7 +812,7 @@ public abstract class AbstractResources {
             throws SmartsheetException {
         Util.throwIfNull(inputstream, contentType);
         Attachment attachment = null;
-        final String boundary = "----" + System.currentTimeMillis() ;
+        final String boundary = "----" + System.currentTimeMillis();
 
         CloseableHttpClient httpClient = HttpClients.createDefault();
         HttpPost uploadFile = createHttpPost(this.getSmartsheet().getBaseURI().resolve(url));
@@ -848,22 +836,17 @@ public abstract class AbstractResources {
             org.apache.http.HttpEntity responseEntity = response.getEntity();
             attachment = this.getSmartsheet().getJsonSerializer().deserializeResult(Attachment.class,
                     responseEntity.getContent()).getResult();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
         return attachment;
     }
 
-
     /**
      * Handles an error HttpResponse (non-200) returned by Smartsheet REST API.
-     *
-     * Exceptions:
-     *   SmartsheetRestException : the exception corresponding to the error
-     *
      * @param response the HttpResponse
      * @throws SmartsheetException the smartsheet exception
+     * @throws SmartsheetRestException : the exception corresponding to the error
      */
     protected void handleError(HttpResponse response) throws SmartsheetException {
 
@@ -905,19 +888,15 @@ public abstract class AbstractResources {
 
     /**
      * Get a sheet as a file.
-     *
-     * Exceptions:
-     *   - InvalidRequestException : if there is any problem with the REST API request
-     *   - AuthorizationException : if there is any problem with the REST API authorization(access token)
-     *   - ResourceNotFoundException : if the resource can not be found
-     *   - ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-     *   - SmartsheetRestException : if there is any other REST API related error occurred during the operation
-     *   - SmartsheetException : if there is any other error occurred during the operation
-     *
      * @param path the path
      * @param fileType the output file type
      * @param outputStream the OutputStream to which the file will be written
-     * @throws SmartsheetException the smartsheet exception
+     * @throws InvalidRequestException : if there is any problem with the REST API request
+     * @throws AuthorizationException : if there is any problem with the REST API authorization(access token)
+     * @throws ResourceNotFoundException : if the resource can not be found
+     * @throws ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     * @throws SmartsheetException : if there is any other error occurred during the operation
      */
     public void getResourceAsFile(String path, String fileType, OutputStream outputStream)
             throws SmartsheetException {
@@ -961,8 +940,9 @@ public abstract class AbstractResources {
      * @param input the input
      * @param output the output
      * @throws IOException Signals that an I/O exception has occurred.
+     * @deprecated replace with StreamUtil.copyContentIntoOutputStream()
      */
-    @Deprecated // replace with StreamUtil.copyContentIntoOutputStream()
+    @Deprecated
     private static void copyStream(InputStream input, OutputStream output) throws IOException {
         byte[] buffer = new byte[BUFFER_SIZE];
         int len;
@@ -971,11 +951,10 @@ public abstract class AbstractResources {
         }
     }
 
-
     /**
      * @return a map of headers to be used when making requests.
      */
-     Map<String,String> createHeaders() {
+    Map<String, String> createHeaders() {
         Map<String, String> headers = new HashMap<>();
         headers.put("Authorization", "Bearer " + smartsheet.getAccessToken());
         headers.put("Content-Type", "application/json");
@@ -984,17 +963,17 @@ public abstract class AbstractResources {
         if (smartsheet.getAssumedUser() != null) {
             headers.put("Assume-User", URLEncoder.encode(smartsheet.getAssumedUser(), StandardCharsets.UTF_8));
         }
-         if (smartsheet.getChangeAgent() != null) {
-             headers.put("Smartsheet-Change-Agent", URLEncoder.encode(smartsheet.getChangeAgent(), StandardCharsets.UTF_8));
-         }
-         if (smartsheet.getUserAgent() != null) {
-             headers.put("User-Agent", smartsheet.getUserAgent());
-         }
+        if (smartsheet.getChangeAgent() != null) {
+            headers.put("Smartsheet-Change-Agent", URLEncoder.encode(smartsheet.getChangeAgent(), StandardCharsets.UTF_8));
+        }
+        if (smartsheet.getUserAgent() != null) {
+            headers.put("User-Agent", smartsheet.getUserAgent());
+        }
         return headers;
     }
 
     int getResponseLogLength() {
-         // not cached to allow for it to be changed dynamically by client code
-         return Integer.getInteger(PROPERTY_RESPONSE_LOG_CHARS, 1024);
+        // not cached to allow for it to be changed dynamically by client code
+        return Integer.getInteger(PROPERTY_RESPONSE_LOG_CHARS, 1024);
     }
 }

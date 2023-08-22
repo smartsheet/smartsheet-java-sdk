@@ -20,7 +20,6 @@ package com.smartsheet.api.internal.oauth;
  * %[license]
  */
 
-
 import com.smartsheet.api.InvalidRequestException;
 import com.smartsheet.api.internal.http.HttpClient;
 import com.smartsheet.api.internal.http.HttpClientException;
@@ -140,30 +139,32 @@ public class OAuthFlowImpl implements OAuthFlow {
 
     /**
      * Generate a new authorization URL.
-     *
+     * <p>
      * Exceptions: - IllegalArgumentException : if scopes is null/empty
      *
      * @param scopes the scopes
      * @param state an arbitrary string that will be returned to your app; intended to be used by you to ensure that
-     * this redirect is indeed from an OAuth flow that you initiated
+     *              this redirect is indeed from an OAuth flow that you initiated
      * @return the authorization URL
      */
     public String newAuthorizationURL(EnumSet<AccessScope> scopes, String state) {
         Util.throwIfNull(scopes);
-        if(state == null){state = "";}
+        if (state == null) {
+            state = "";
+        }
 
         // Build a map of parameters for the URL
-        Map<String,Object> params = new HashMap<>();
+        Map<String, Object> params = new HashMap<>();
         params.put("response_type", "code");
         params.put("client_id", clientId);
         params.put("redirect_uri", redirectURL);
         params.put("state", state);
 
         StringBuilder scopeBuffer = new StringBuilder();
-        for(AccessScope scope : scopes) {
-            scopeBuffer.append(scope.name()+",");
+        for (AccessScope scope : scopes) {
+            scopeBuffer.append(scope.name() + ",");
         }
-        params.put("scope",scopeBuffer.substring(0,scopeBuffer.length()-1));
+        params.put("scope", scopeBuffer.substring(0, scopeBuffer.length() - 1));
 
         // Generate the URL with the parameters
         return QueryUtil.generateUrl(authorizationURL, params);
@@ -172,12 +173,18 @@ public class OAuthFlowImpl implements OAuthFlow {
     /**
      * Extract AuthorizationResult from the authorization response URL (i.e. the redirectURL with the response
      * parameters from Smartsheet OAuth server).
-     *
+     * <p>
      * Exceptions:
+     * <p>
      *   - IllegalArgumentException : if authorizationResponseURL is null/empty, or a malformed URL
+     * <p>
      *   - AccessDeniedException : if the user has denied the authorization request
-     *   - UnsupportedResponseTypeException : if the response type isn't supported (note that this won't really happen in current implementation)
+     * <p>
+     *   - UnsupportedResponseTypeException : if the response type isn't supported
+     *   (note that this won't really happen in current implementation)
+     * <p>
      *   - InvalidScopeException : if some of the specified scopes are invalid
+     * <p>
      *   - OAuthAuthorizationCodeException : if any other error occurred during the operation
      *
      * @param authorizationResponseURL the authorization response URL
@@ -185,15 +192,15 @@ public class OAuthFlowImpl implements OAuthFlow {
      * @throws URISyntaxException the URI syntax exception
      * @throws OAuthAuthorizationCodeException the o auth authorization code exception
      */
-    public AuthorizationResult extractAuthorizationResult(String authorizationResponseURL) throws
-            URISyntaxException, OAuthAuthorizationCodeException {
+    public AuthorizationResult extractAuthorizationResult(String authorizationResponseURL)
+            throws URISyntaxException, OAuthAuthorizationCodeException {
         Util.throwIfNull(authorizationResponseURL);
         Util.throwIfEmpty(authorizationResponseURL);
 
         // Get all of the parms from the URL
         URI uri = new URI(authorizationResponseURL);
         String query = uri.getQuery();
-        if(query == null){
+        if (query == null) {
             throw new OAuthAuthorizationCodeException("There must be a query string in the response URL");
         }
 
@@ -211,10 +218,10 @@ public class OAuthFlowImpl implements OAuthFlow {
             } else if ("unsupported_response_type".equals(error)) {
                 throw new UnsupportedResponseTypeException("response_type must be set to \"code\".");
             } else if ("invalid_scope".equals(error)) {
-                throw new InvalidScopeException("One or more of the requested access scopes are invalid. "
-                        + "Please check the list of access scopes");
-            }else{
-                throw new OAuthAuthorizationCodeException("An undefined error was returned of type: "+error);
+                throw new InvalidScopeException("One or more of the requested access scopes are invalid. " +
+                        "Please check the list of access scopes");
+            } else {
+                throw new OAuthAuthorizationCodeException("An undefined error was returned of type: " + error);
             }
         }
 
@@ -222,9 +229,9 @@ public class OAuthFlowImpl implements OAuthFlow {
         authorizationResult.setCode(map.get("code"));
         authorizationResult.setState(map.get("state"));
         Long expiresIn;
-        try{
+        try {
             expiresIn = Long.parseLong(map.get("expires_in"));
-        }catch(NumberFormatException ex){
+        } catch (NumberFormatException ex) {
             expiresIn = 0L;
         }
         authorizationResult.setExpiresInSeconds(expiresIn);
@@ -253,9 +260,9 @@ public class OAuthFlowImpl implements OAuthFlow {
      * @throws URISyntaxException the URI syntax exception
      * @throws InvalidRequestException the invalid request exception
      */
-    public Token obtainNewToken(AuthorizationResult authorizationResult) throws  OAuthTokenException, JSONSerializerException, HttpClientException,
-            URISyntaxException, InvalidRequestException {
-        if(authorizationResult == null){
+    public Token obtainNewToken(AuthorizationResult authorizationResult)
+            throws OAuthTokenException, JSONSerializerException, HttpClientException, URISyntaxException, InvalidRequestException {
+        if (authorizationResult == null) {
             throw new IllegalArgumentException();
         }
 
@@ -280,7 +287,7 @@ public class OAuthFlowImpl implements OAuthFlow {
         params.put("grant_type", "authorization_code");
         params.put("client_id", clientId);
         params.put("code", authorizationResult.getCode());
-        params.put("redirect_uri",redirectURL);
+        params.put("redirect_uri", redirectURL);
         params.put("hash", hash);
 
         // Generate the URL and then get the token
@@ -307,7 +314,8 @@ public class OAuthFlowImpl implements OAuthFlow {
      * @throws URISyntaxException the URI syntax exception
      * @throws InvalidRequestException the invalid request exception
      */
-    public Token refreshToken(Token token) throws OAuthTokenException, JSONSerializerException, HttpClientException, URISyntaxException, InvalidRequestException {
+    public Token refreshToken(Token token)
+            throws OAuthTokenException, JSONSerializerException, HttpClientException, URISyntaxException, InvalidRequestException {
         // Prepare the hash
         String doHash = clientSecret + "|" + token.getRefreshToken();
         MessageDigest md;
@@ -321,14 +329,13 @@ public class OAuthFlowImpl implements OAuthFlow {
         //String hash = javax.xml.bind.DatatypeConverter.printHexBinary(digest);
         String hash = org.apache.commons.codec.binary.Hex.encodeHexString(digest);
 
-
         // Create a map of the parameters
-        Map<String,Object> params = new HashMap<>();
+        Map<String, Object> params = new HashMap<>();
         params.put("grant_type", "refresh_token");
-        params.put("client_id",clientId);
-        params.put("refresh_token",token.getRefreshToken());
+        params.put("client_id", clientId);
+        params.put("refresh_token", token.getRefreshToken());
         params.put("redirect_uri", redirectURL);
-        params.put("hash",hash);
+        params.put("hash", hash);
 
         // Generate the URL and get the token
         return requestToken(QueryUtil.generateUrl(tokenURL, params));
@@ -373,7 +380,7 @@ public class OAuthFlowImpl implements OAuthFlow {
         // Check for a error response and throw it.
         if (response.getStatusCode() != 200 && map.get("error") != null) {
             String errorType = map.get("error").toString();
-            String errorDescription = map.get("message")==null?"":(String)map.get("message");
+            String errorDescription = map.get("message") == null ? "" : (String) map.get("message");
             if ("invalid_request".equals(errorType)) {
                 throw new InvalidTokenRequestException(errorDescription);
             } else if ("invalid_client".equals(errorType)) {
@@ -385,11 +392,9 @@ public class OAuthFlowImpl implements OAuthFlow {
             } else {
                 throw new OAuthTokenException(errorDescription);
             }
-        }
-
-        // Another error by not getting a 200 result
-        else if(response.getStatusCode() != 200){
-            throw new OAuthTokenException("Token request failed with http error code: "+response.getStatusCode());
+        } else if (response.getStatusCode() != 200) {
+            // Another error by not getting a 200 result
+            throw new OAuthTokenException("Token request failed with http error code: " + response.getStatusCode());
         }
 
         // Create a token based on the response
@@ -397,14 +402,14 @@ public class OAuthFlowImpl implements OAuthFlow {
         Object tempObj = map.get("access_token");
         token.setAccessToken(tempObj == null ? "" : (String) tempObj);
         tempObj = map.get("token_type");
-        token.setTokenType(tempObj==null?"":(String)tempObj);
+        token.setTokenType(tempObj == null ? "" : (String) tempObj);
         tempObj = map.get("refresh_token");
-        token.setRefreshToken(tempObj==null?"":(String)tempObj);
+        token.setRefreshToken(tempObj == null ? "" : (String) tempObj);
 
         Long expiresIn;
-        try{
+        try {
             expiresIn = Long.parseLong(String.valueOf(map.get("expires_in")));
-        }catch(NumberFormatException nfe){
+        } catch (NumberFormatException nfe) {
             expiresIn = 0L;
         }
         token.setExpiresInSeconds(expiresIn);
@@ -432,7 +437,7 @@ public class OAuthFlowImpl implements OAuthFlow {
      * @throws InvalidRequestException the invalid request exception
      */
     public void revokeAccessToken(Token token) throws OAuthTokenException, JSONSerializerException, HttpClientException,
-            URISyntaxException, InvalidRequestException{
+            URISyntaxException, InvalidRequestException {
         HttpRequest request = new HttpRequest();
         request.setUri(new URI(tokenURL));
         request.setMethod(HttpMethod.DELETE);
@@ -441,13 +446,12 @@ public class OAuthFlowImpl implements OAuthFlow {
         request.getHeaders().put("Authorization", "Bearer " + token.getAccessToken());
         HttpResponse response = httpClient.request(request);
 
-        if(response.getStatusCode() != 200){
-            throw new OAuthTokenException("Token request failed with http error code: "+response.getStatusCode());
+        if (response.getStatusCode() != 200) {
+            throw new OAuthTokenException("Token request failed with http error code: " + response.getStatusCode());
         }
 
         httpClient.releaseConnection();
     }
-
 
     /**
      * Gets the http client.
@@ -574,8 +578,4 @@ public class OAuthFlowImpl implements OAuthFlow {
     public void setTokenURL(String tokenURL) {
         this.tokenURL = tokenURL;
     }
-
-
-
-
 }

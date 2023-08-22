@@ -9,9 +9,9 @@ package com.smartsheet.api.models.format;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -19,7 +19,6 @@ package com.smartsheet.api.models.format;
  * limitations under the License.
  * %[license]
  */
-
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
@@ -29,25 +28,23 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import java.io.IOException;
 import java.util.Arrays;
 
-
-
 /**
  * This class represents the format as applied to a cell, row or column.
  *
  * @author kskeem
  *
  */
-@JsonSerialize(using=Format.FormatSerializer.class)
+@JsonSerialize(using = Format.FormatSerializer.class)
 public class Format {
 
     //The default format.
-    private static final int[] DEFAULT_FORMAT = new int[]{0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+    private static final int[] DEFAULT_FORMAT = new int[]{0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
     static final int UNSET = Integer.MIN_VALUE;
     int[] formatArray;
 
     /**
      * Constructs a {@link Format} object using the format string provided by the Smartsheet API.
-     *
+     * <p>
      *  The format of the string is a comma separated list. See
      *  <a href="http://www.smartsheet.com/developers/api-documentation#h.mf6r2e3k3ftb">http://www.smartsheet.com/developers/api-documentation#h.mf6r2e3k3ftb</a>
      *  for details
@@ -76,7 +73,7 @@ public class Format {
         if (formatArray[attribute.ordinal()] >= values.length) {
             return values[DEFAULT_FORMAT[attribute.ordinal()]];
         } else if (formatArray[attribute.ordinal()] == UNSET) {
-             return null;
+            return null;
         } else {
             return values[formatArray[attribute.ordinal()]];
         }
@@ -85,14 +82,14 @@ public class Format {
     /**
      * @return the {@link FontFamily}.
      */
-    public FontFamily getFontFamily () {
+    public FontFamily getFontFamily() {
         return getFormatValue(FormatAttribute.FONT_FAMILY, FontFamily.values());
     }
 
     /**
      * @return the {@link FontSize}
      */
-    public FontSize getFontSize () {
+    public FontSize getFontSize() {
         return getFormatValue(FormatAttribute.FONT_SIZE, FontSize.values());
     }
 
@@ -113,14 +110,14 @@ public class Format {
     /**
      * @return the {@link Underline} status
      */
-    public Underline getUnderline () {
+    public Underline getUnderline() {
         return getFormatValue(FormatAttribute.UNDERLINE, Underline.values());
     }
 
     /**
      * @return the {@link Strikethrough} status
      */
-    public Strikethrough getStrikethrough () {
+    public Strikethrough getStrikethrough() {
         return getFormatValue(FormatAttribute.STRIKETHROUGH, Strikethrough.values());
     }
 
@@ -134,7 +131,7 @@ public class Format {
     /**
      * @return the {@link VerticalAlignment}
      */
-    public VerticalAlignment getVerticalAlignment () {
+    public VerticalAlignment getVerticalAlignment() {
         return getFormatValue(FormatAttribute.V_ALIGN, VerticalAlignment.values());
     }
 
@@ -148,28 +145,28 @@ public class Format {
     /**
      * @return the {@link Color} of the background
      */
-    public Color getBackgroundColor () {
+    public Color getBackgroundColor() {
         return getFormatValue(FormatAttribute.BACKGROUND_COLOR, Color.values());
     }
 
     /**
      * @return the {@link Color} of the task bar (gantt view)
      */
-    public Color getTaskbarColor () {
+    public Color getTaskbarColor() {
         return getFormatValue(FormatAttribute.TASKBAR_COLOR, Color.values());
     }
 
     /**
      * @return the {@link Currency} format
      */
-    public Currency getCurrency () {
+    public Currency getCurrency() {
         return getFormatValue(FormatAttribute.CURRENCY, Currency.values());
     }
 
     /**
      * @return the {@link DecimalCount}
      */
-    public DecimalCount getDecimalCount () {
+    public DecimalCount getDecimalCount() {
         return getFormatValue(FormatAttribute.DECIMAL_COUNT, DecimalCount.values());
     }
 
@@ -190,20 +187,22 @@ public class Format {
     /**
      * @return the {@link TextWrap} status
      */
-    public TextWrap getTextWrap () {
+    public TextWrap getTextWrap() {
         return getFormatValue(FormatAttribute.TEXT_WRAP, TextWrap.values());
     }
 
     /**
      * @return the {@link DateFormat} status
      */
-    public DateFormat getDateFormat() { return getFormatValue(FormatAttribute.DATE_FORMAT, DateFormat.values()); }
+    public DateFormat getDateFormat() {
+        return getFormatValue(FormatAttribute.DATE_FORMAT, DateFormat.values());
+    }
 
-     /**
-     *  @author kskeem
-     * An enum whose "ordinal" property is used to identify the index into the format array.
-     * Note that this means you !MUST NOT! change the order of these - even if you can't stand that they are not alphabetic
-     */
+    /**
+    * An enum whose "ordinal" property is used to identify the index into the format array.
+    * Note that this means you !MUST NOT! change the order of these - even if you can't stand that they are not alphabetic
+    * @author kskeem
+    */
     private enum FormatAttribute {
         FONT_FAMILY,
         FONT_SIZE,
@@ -224,7 +223,6 @@ public class Format {
         DATE_FORMAT
     }
 
-
     /**
      * A utility class to help us parse the format string. Format strings are a comma separated list of integers.
      * Each position in the comma separated list maps to a specific format attribute. An attribute may not be set,
@@ -243,29 +241,27 @@ public class Format {
     class FormatTokenizer {
         char[] chars;
         int pos;
-        final static char SEPARATOR = ',';
+        static final char SEPARATOR = ',';
 
         /**
          * Construct the {@link FormatTokenizer}.
-         * @param str
          */
-        public FormatTokenizer (String str) {
+        public FormatTokenizer(String str) {
             chars = str.toCharArray();
             pos = -1;
         }
 
         /**
          * Call this to check to see if there are any more ints available for consumption. This will avoid index out of bounds issues.
-         * @return
          */
         public boolean next() {
             pos++;
-            return pos < chars.length || (pos == chars.length && chars[pos -1] == SEPARATOR);
+            return pos < chars.length || (pos == chars.length && chars[pos - 1] == SEPARATOR);
         }
 
         /**
-         * Since we want to know the difference between set to "0" and unset, this  tells us if the next position is set or not. Accounts for
-         * being at the end of the char array, where there is potentially one more position that needs to be accounted for.
+         * Since we want to know the difference between set to "0" and unset, this  tells us if the next position is set or not.
+         * Accounts for being at the end of the char array, where there is potentially one more position that needs to be accounted for.
          * @return whether the next position is set or not.
          */
         public boolean isNextUnset() {
@@ -277,14 +273,15 @@ public class Format {
         }
 
         /**
-         * Retrieves the next int. If an int is unset, 0 is returned. You cannot distinguish between unset and 0 using this method. see isNextUnset() instead.
+         * Retrieves the next int. If an int is unset, 0 is returned.
+         * You cannot distinguish between unset and 0 using this method. see isNextUnset() instead.
          * @return the next integer value.
          */
         public int nextInt() {
             int value = 0;
             char currentChar;
             //Advance through the characters until you hit the separator
-            while (pos < chars.length && (currentChar = chars[pos ++]) != SEPARATOR) {
+            while (pos < chars.length && (currentChar = chars[pos++]) != SEPARATOR) {
                 //Multiply the value by 10 to enable parsing multi-digit ints.
                 //Use char math (subtracting '0' from the integer value) to cheaply convert the characters to ints.
                 value = value * 10 + (currentChar - '0');
@@ -293,7 +290,6 @@ public class Format {
             return value;
         }
     }
-
 
     /**
      * Builder class for a Format object
@@ -304,7 +300,7 @@ public class Format {
             UNSET, UNSET, UNSET, UNSET,
             UNSET, UNSET, UNSET, UNSET,
             UNSET, UNSET, UNSET, UNSET,
-            UNSET
+            UNSET,
         };
 
         public Format build() {

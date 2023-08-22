@@ -9,9 +9,9 @@ package com.smartsheet.api.models;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -116,7 +116,7 @@ public class SummaryField extends IdentifiableModel<Long> {
     private User modifiedBy;
 
     /**
-     * 	Required for date and contact fields
+     * Required for date and contact fields
      */
     private ObjectValue objectValue;
 
@@ -150,12 +150,12 @@ public class SummaryField extends IdentifiableModel<Long> {
      *
      * @return contactOptions
      */
-    public List<Contact> getContactOptions() { return contactOptions; }
+    public List<Contact> getContactOptions() {
+        return contactOptions;
+    }
 
     /**
      * Set contact options
-     *
-     * @param contactOptions
      */
     public SummaryField setContactOptions(List<Contact> contactOptions) {
         this.contactOptions = contactOptions;
@@ -167,12 +167,12 @@ public class SummaryField extends IdentifiableModel<Long> {
      *
      * @return createdAt
      */
-    public Date getCreatedAt() { return createdAt; }
+    public Date getCreatedAt() {
+        return createdAt;
+    }
 
     /**
      * Set summary field time of creation
-     *
-     * @param createdAt
      */
     public SummaryField setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
@@ -184,12 +184,12 @@ public class SummaryField extends IdentifiableModel<Long> {
      *
      * @return createdBy
      */
-    public User getCreatedBy() { return createdBy; }
+    public User getCreatedBy() {
+        return createdBy;
+    }
 
     /**
      * Set User object of summary field creator
-     *
-     * @param createdBy
      */
     public SummaryField setCreatedBy(User createdBy) {
         this.createdBy = createdBy;
@@ -201,12 +201,12 @@ public class SummaryField extends IdentifiableModel<Long> {
      *
      * @return displayValue
      */
-    public String getDisplayValue() { return displayValue; }
+    public String getDisplayValue() {
+        return displayValue;
+    }
 
     /**
      * Sets the display value of the summary field
-     *
-     * @param displayValue
      */
     public SummaryField setDisplayValue(String displayValue) {
         this.displayValue = displayValue;
@@ -218,12 +218,12 @@ public class SummaryField extends IdentifiableModel<Long> {
      *
      * @return format
      */
-    public Format getFormat() { return format; }
+    public Format getFormat() {
+        return format;
+    }
 
     /**
      * Sets the format descriptor
-     *
-     * @param format
      */
     public SummaryField setFormat(Format format) {
         this.format = format;
@@ -235,12 +235,12 @@ public class SummaryField extends IdentifiableModel<Long> {
      *
      * @return formula
      */
-    public String getFormula() { return formula; }
+    public String getFormula() {
+        return formula;
+    }
 
     /**
      * Sets the formula for the summary field
-     *
-     * @param formula
      */
     public SummaryField setFormula(String formula) {
         this.formula = formula;
@@ -252,12 +252,12 @@ public class SummaryField extends IdentifiableModel<Long> {
      *
      * @return hyperlink
      */
-    public Hyperlink getHyperlink() { return hyperlink; }
+    public Hyperlink getHyperlink() {
+        return hyperlink;
+    }
 
     /**
      * Sets the hyperlink associated with the field
-     *
-     * @param hyperlink
      */
     public SummaryField setHyperlink(Hyperlink hyperlink) {
         this.hyperlink = hyperlink;
@@ -269,12 +269,12 @@ public class SummaryField extends IdentifiableModel<Long> {
      *
      * @return image
      */
-    public Image getImage() { return image; }
+    public Image getImage() {
+        return image;
+    }
 
     /**
      * Sets the image associated with the field
-     *
-     * @param image
      */
     public SummaryField setImage(Image image) {
         this.image = image;
@@ -286,12 +286,12 @@ public class SummaryField extends IdentifiableModel<Long> {
      *
      * @return index
      */
-    public Integer getIndex() { return index; }
+    public Integer getIndex() {
+        return index;
+    }
 
     /**
      * Sets the field index or position
-     *
-     * @param index
      */
     public SummaryField setIndex(Integer index) {
         this.index = index;
@@ -303,12 +303,12 @@ public class SummaryField extends IdentifiableModel<Long> {
      *
      * @return locked
      */
-    public Boolean getLocked() { return locked; }
+    public Boolean getLocked() {
+        return locked;
+    }
 
     /**
      * Sets flag indicating if field is locked
-     *
-     * @param locked
      */
     public SummaryField setLocked(Boolean locked) {
         this.locked = locked;
@@ -320,12 +320,12 @@ public class SummaryField extends IdentifiableModel<Long> {
      *
      * @return lockedForUser
      */
-    public Boolean getLockedForUser() { return lockedForUser; }
+    public Boolean getLockedForUser() {
+        return lockedForUser;
+    }
 
     /**
      * Sets flag indicating whether field is locked for the requesting user
-     *
-     * @param lockedForUser
      */
     public SummaryField setLockedForUser(Boolean lockedForUser) {
         this.lockedForUser = lockedForUser;
@@ -337,12 +337,12 @@ public class SummaryField extends IdentifiableModel<Long> {
      *
      * @return modifiedAt
      */
-    public Date getModifiedAt() { return modifiedAt; }
+    public Date getModifiedAt() {
+        return modifiedAt;
+    }
 
     /**
      * Sets the last modification date and time
-     *
-     * @param modifiedAt
      */
     public SummaryField setModifiedAt(Date modifiedAt) {
         this.modifiedAt = modifiedAt;
@@ -354,12 +354,12 @@ public class SummaryField extends IdentifiableModel<Long> {
      *
      * @return modifiedBy
      */
-    public User getModifiedBy() { return modifiedBy; }
+    public User getModifiedBy() {
+        return modifiedBy;
+    }
 
     /**
      * Sets the User who last modified the field
-     *
-     * @param modifiedBy
      */
     public SummaryField setModifiedBy(User modifiedBy) {
         this.modifiedBy = modifiedBy;
@@ -371,12 +371,12 @@ public class SummaryField extends IdentifiableModel<Long> {
      *
      * @return objectValue
      */
-    public ObjectValue getObjectValue() { return objectValue; }
+    public ObjectValue getObjectValue() {
+        return objectValue;
+    }
 
     /**
      * Sets the field's objectValue
-     *
-     * @param objectValue
      */
     public SummaryField setObjectValue(ObjectValue objectValue) {
         this.objectValue = objectValue;
@@ -388,12 +388,12 @@ public class SummaryField extends IdentifiableModel<Long> {
      *
      * @return options
      */
-    public List<String> getOptions() { return options; }
+    public List<String> getOptions() {
+        return options;
+    }
 
     /**
      * Sets PICKLIST options
-     *
-     * @param options
      */
     public SummaryField setOptions(List<String> options) {
         this.options = options;
@@ -405,12 +405,12 @@ public class SummaryField extends IdentifiableModel<Long> {
      *
      * @return symbol
      */
-    public String getSymbol() { return symbol; }
+    public String getSymbol() {
+        return symbol;
+    }
 
     /**
      * Sets applicable symbo for PICKLIST type
-     *
-     * @param symbol
      */
     public SummaryField setSymbol(String symbol) {
         this.symbol = symbol;
@@ -422,12 +422,12 @@ public class SummaryField extends IdentifiableModel<Long> {
      *
      * @return title
      */
-    public String getTitle() { return title; }
+    public String getTitle() {
+        return title;
+    }
 
     /**
      * Sets the field's title
-     *
-     * @param title
      */
     public SummaryField setTitle(String title) {
         this.title = title;
@@ -439,16 +439,16 @@ public class SummaryField extends IdentifiableModel<Long> {
      *
      * @return type
      */
-    public ColumnType getType() { return type; }
+    public ColumnType getType() {
+        return type;
+    }
 
     /**
      * Sets the field's type - see Column Type
-     *
-     * @param type
      */
     public SummaryField setType(ColumnType type) {
         this.type = type;
-        return  this;
+        return this;
     }
 
     /**
@@ -456,12 +456,12 @@ public class SummaryField extends IdentifiableModel<Long> {
      *
      * @return validation
      */
-    public Boolean getValidation() { return validation; }
+    public Boolean getValidation() {
+        return validation;
+    }
 
     /**
      * Sets flag indicating whether summary field values are restricted to type
-     *
-     * @param validation
      */
     public SummaryField setValidation(Boolean validation) {
         this.validation = validation;

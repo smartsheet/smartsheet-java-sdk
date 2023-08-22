@@ -9,9 +9,9 @@ package com.smartsheet.api.models;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -27,7 +27,7 @@ import com.smartsheet.api.models.format.Format;
 import java.util.Date;
 import java.util.List;
 
-public abstract class AbstractRow <TColumn extends Column, TCell extends Cell> extends IdentifiableModel<Long> {
+public abstract class AbstractRow<TColumn extends Column, TCell extends Cell> extends IdentifiableModel<Long> {
     @Override
     @JsonIgnore(false)
     public Long getId() {
@@ -130,10 +130,10 @@ public abstract class AbstractRow <TColumn extends Column, TCell extends Cell> e
 
     /** Outdent a row (applicable for update only)*/
     private Integer outdent;
-    
+
     /** User object containing name and email of the creator of this row */
     private User createdBy;
-    
+
     /** User object containing name and email of the last person to modify this row */
     private User modifiedBy;
 
@@ -669,16 +669,16 @@ public abstract class AbstractRow <TColumn extends Column, TCell extends Cell> e
      * Gets the User object containing name and email of the creator of this row.
      *
      * @return User object
-     */    
+     */
     public User getCreatedBy() {
         return createdBy;
     }
-    
+
     /**
      * Gets the User object containing name and email of the last person to modify this row.
      *
      * @return User object
-     */     
+     */
     public User getModifiedBy() {
         return modifiedBy;
     }
