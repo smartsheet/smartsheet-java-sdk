@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -68,7 +68,7 @@ public class CommentResourcesIT extends ITResourcesImpl{
         Comment comment = new Comment.AddCommentBuilder().setText("This is a test comment").build();
         File file = new File("src/integration-test/resources/small-text.txt");
 
-        Comment comment1= smartsheet.sheetResources().discussionResources().commentResources().addCommentWithAttachment(newSheet.getId(), newDiscussion.getId(), comment, file, "application/pdf");
+        Comment comment1 = smartsheet.sheetResources().discussionResources().commentResources().addCommentWithAttachment(newSheet.getId(), newDiscussion.getId(), comment, file, "application/pdf");
         assertThat(comment1).isNotNull();
         file = null;
     }

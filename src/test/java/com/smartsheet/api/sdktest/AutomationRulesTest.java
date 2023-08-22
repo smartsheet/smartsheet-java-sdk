@@ -43,14 +43,14 @@ class AutomationRulesTest {
     void listAutomationRules() throws SmartsheetException {
         Smartsheet ss = HelperFunctions.SetupClient("List Automation Rules");
         PagedResult<AutomationRule> automationRules = ss.sheetResources().automationRuleResources().listAutomationRules(324, null);
-        assertThat((long) automationRules.getTotalCount()).isEqualTo(2);
+        assertThat(automationRules.getTotalCount()).isEqualTo(2);
     }
 
     @Test
     void getAutomationRule() throws SmartsheetException {
         Smartsheet ss = HelperFunctions.SetupClient("Get Automation Rule");
         AutomationRule automationRule = ss.sheetResources().automationRuleResources().getAutomationRule(324, 284);
-        assertThat((long) automationRule.getId()).isEqualTo(284);
+        assertThat(automationRule.getId()).isEqualTo(284);
     }
 
     @Disabled("awaiting API update to return Result object")

@@ -167,10 +167,12 @@ class SheetRowResourcesImplTest extends ResourcesImplBase {
         );
 
         assertThat(copyOrMoveRowResult).isNotNull();
-        assertThat(copyOrMoveRowResult.getRowMappings()).isNotEmpty();
-        assertThat(copyOrMoveRowResult.getRowMappings().size()).isEqualTo(2);
-        assertThat(copyOrMoveRowResult.getDestinationSheetId()).isNotBlank();
-        assertThat(copyOrMoveRowResult.getDestinationSheetId()).isEqualTo(String.valueOf(2258256056870788L));
+        assertThat(copyOrMoveRowResult.getRowMappings())
+                .isNotEmpty()
+                .hasSize(2);
+        assertThat(copyOrMoveRowResult.getDestinationSheetId())
+                .isNotBlank()
+                .isEqualTo(225825605680788L);
     }
 
     @Test
@@ -192,10 +194,12 @@ class SheetRowResourcesImplTest extends ResourcesImplBase {
         );
 
         assertThat(copyOrMoveRowResult).isNotNull();
-        assertThat(copyOrMoveRowResult.getRowMappings()).isNotEmpty();
-        assertThat(copyOrMoveRowResult.getRowMappings().size()).isEqualTo(2);
-        assertThat(copyOrMoveRowResult.getDestinationSheetId()).isNotBlank();
-        assertThat(copyOrMoveRowResult.getDestinationSheetId()).isEqualTo(String.valueOf(2258256056870788L));
+        assertThat(copyOrMoveRowResult.getRowMappings())
+                .isNotEmpty()
+                .hasSize(2);
+        assertThat(copyOrMoveRowResult.getDestinationSheetId())
+                .isNotBlank()
+                .isEqualTo(2258256056870788L);
     }
 
     @Test
@@ -217,10 +221,12 @@ class SheetRowResourcesImplTest extends ResourcesImplBase {
         );
 
         assertThat(copyOrMoveRowResult).isNotNull();
-        assertThat(copyOrMoveRowResult.getRowMappings()).isNotEmpty();
-        assertThat(copyOrMoveRowResult.getRowMappings().size()).isEqualTo(2);
-        assertThat(copyOrMoveRowResult.getDestinationSheetId()).isNotBlank();
-        assertThat(copyOrMoveRowResult.getDestinationSheetId()).isEqualTo(String.valueOf(2258256056870788L));
+        assertThat(copyOrMoveRowResult.getRowMappings())
+                .isNotEmpty()
+                .hasSize(2);
+        assertThat(copyOrMoveRowResult.getDestinationSheetId())
+                .isNotBlank()
+                .isEqualTo(2258256056870788L);
     }
 
     @Test

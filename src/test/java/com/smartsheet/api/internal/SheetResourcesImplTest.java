@@ -204,7 +204,6 @@ class SheetResourcesImplTest extends ResourcesImplBase {
                 .setType(ColumnType.TEXT_NUMBER)
                 .setPrimary(false)
                 .build();
-        col2.setPrimary(false);
         list.add(col2);
 
         Sheet sheet = new Sheet.CreateSheetBuilder().setName("New Test Sheet").setColumns(list).build();
