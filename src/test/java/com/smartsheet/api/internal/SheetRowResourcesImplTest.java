@@ -172,7 +172,7 @@ class SheetRowResourcesImplTest extends ResourcesImplBase {
                 .hasSize(2);
         assertThat(copyOrMoveRowResult.getDestinationSheetId())
                 .isNotBlank()
-                .isEqualTo(225825605680788L);
+                .isEqualTo("2258256056870788");
     }
 
     @Test
@@ -199,7 +199,7 @@ class SheetRowResourcesImplTest extends ResourcesImplBase {
                 .hasSize(2);
         assertThat(copyOrMoveRowResult.getDestinationSheetId())
                 .isNotBlank()
-                .isEqualTo(2258256056870788L);
+                .isEqualTo("2258256056870788");
     }
 
     @Test
@@ -226,7 +226,7 @@ class SheetRowResourcesImplTest extends ResourcesImplBase {
                 .hasSize(2);
         assertThat(copyOrMoveRowResult.getDestinationSheetId())
                 .isNotBlank()
-                .isEqualTo(2258256056870788L);
+                .isEqualTo("2258256056870788");
     }
 
     @Test
