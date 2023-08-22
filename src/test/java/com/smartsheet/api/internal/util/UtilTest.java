@@ -9,9 +9,9 @@ package com.smartsheet.api.internal.util;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -104,7 +104,7 @@ class UtilTest {
                 Object obj = new Object();
 
                 // Act & Assert
-                assertThatThrownBy(() -> Util.throwIfNull( null, null, obj))
+                assertThatThrownBy(() -> Util.throwIfNull(null, null, obj))
                         .isInstanceOf(IllegalArgumentException.class);
             }
 
@@ -125,7 +125,7 @@ class UtilTest {
                 Object[] objArray = new Object[] {
                         new Object(),
                         new Object(),
-                        new Object()
+                        new Object(),
                 };
 
                 // Act & Assert
@@ -138,7 +138,7 @@ class UtilTest {
                 Object[] objArray = new Object[] {
                         new Object(),
                         new Object(),
-                        null
+                        null,
                 };
 
                 // Act & Assert
@@ -147,7 +147,6 @@ class UtilTest {
             }
         }
     }
-
 
     @Nested
     class ThrowIfEmptyTests {
@@ -158,6 +157,7 @@ class UtilTest {
                 // Act & Assert
                 assertThatNoException().isThrownBy(() -> Util.throwIfEmpty("Not Empty"));
             }
+
             @Test
             void throwIfEmptyOneArg_null() {
                 // Act & Assert
@@ -171,6 +171,7 @@ class UtilTest {
                         .isInstanceOf(IllegalArgumentException.class);
             }
         }
+
         @Nested
         class ThrowIfEmptyVarArgsTests {
 
@@ -179,11 +180,13 @@ class UtilTest {
                 // Act & Assert
                 assertThatNoException().isThrownBy(() -> Util.throwIfEmpty("Not Empty", "Also Not"));
             }
+
             @Test
             void throwIfEmptyVarArgs_null_null() {
                 // Act & Assert
                 assertThatNoException().isThrownBy(() -> Util.throwIfEmpty(null, null));
             }
+
             @Test
             void throwIfEmptyVarArgs_notEmpty_null() {
                 // Act & Assert

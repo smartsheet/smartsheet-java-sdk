@@ -224,7 +224,7 @@ public class RetryHttpClient extends DefaultHttpClient {
 
         // The default calcBackoff uses exponential backoff, add custom behavior by overriding calcBackoff
         long backoffMillis = calcBackoff(previousAttempts, totalElapsedTimeMillis, error);
-        if(backoffMillis < 0)
+        if (backoffMillis < 0)
             return false;
 
         logger.info("HttpError StatusCode=" + response.getStatusCode() + ": Retrying in " + backoffMillis + " milliseconds");
@@ -273,9 +273,9 @@ public class Sample {
     private static void printNewSheetEventsInList(List<Event> events)
     {
         //  enumerate all events in the list of returned events
-        for(Event event: events) {
+        for (Event event: events) {
             // find all created sheets
-            if(event.getObjectType() == EventObjectType.SHEET && event.getAction() == EventAction.CREATE) {
+            if (event.getObjectType() == EventObjectType.SHEET && event.getAction() == EventAction.CREATE) {
                 // additional details are available for some events, they can be accessed as a HashMap
                 // in the additionalDetails property
                 System.out.println(event.getAdditionalDetails().get("sheetName"));
@@ -344,7 +344,7 @@ public class Sample {
             PagedResult<Sheet> sheets = smartsheet.sheetResources().listSheets(null, null, null );
             System.out.println("\nFound " + sheets.getTotalCount() + " sheets\n");
 
-            Long sheetId =  sheets.getData().get(0).getId();            // Default to first sheet
+            Long sheetId = sheets.getData().get(0).getId();            // Default to first sheet
 
             // TODO: Uncomment if you wish to read a specific sheet
             // sheetId = 239236234L;

@@ -1,4 +1,4 @@
-package com.smartsheet.api.sdk_test;
+package com.smartsheet.api.sdktest;
 
 /*
  * #[license]
@@ -9,9 +9,9 @@ package com.smartsheet.api.sdk_test;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -20,19 +20,18 @@ package com.smartsheet.api.sdk_test;
  * %[license]
  */
 
-
 import com.smartsheet.api.Smartsheet;
 import com.smartsheet.api.SmartsheetBuilder;
 
 class HelperFunctions {
-	public static Smartsheet SetupClient(String apiScenario){
-		TestHttpClient testHttpClient = new TestHttpClient(apiScenario);
-		Smartsheet ss = new SmartsheetBuilder()
-			.setBaseURI("http://localhost:8082/")
-			.setAccessToken("aaaaaaaaaaaaaaaaaaaaaaaaaa")
-			.setHttpClient(testHttpClient)
-			.build();
+    public static Smartsheet SetupClient(String apiScenario) {
+        TestHttpClient testHttpClient = new TestHttpClient(apiScenario);
+        Smartsheet ss = new SmartsheetBuilder()
+                .setBaseURI("http://localhost:8082/")
+                .setAccessToken("aaaaaaaaaaaaaaaaaaaaaaaaaa")
+                .setHttpClient(testHttpClient)
+                .build();
 
-		return ss;
-	}
+        return ss;
+    }
 }

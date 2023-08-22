@@ -68,7 +68,7 @@ public class CommentResourcesIT extends ITResourcesImpl{
         Comment comment = new Comment.AddCommentBuilder().setText("This is a test comment").build();
         File file = new File("src/integration-test/resources/small-text.txt");
 
-        Comment comment1=  smartsheet.sheetResources().discussionResources().commentResources().addCommentWithAttachment(newSheet.getId(), newDiscussion.getId(), comment, file, "application/pdf");
+        Comment comment1= smartsheet.sheetResources().discussionResources().commentResources().addCommentWithAttachment(newSheet.getId(), newDiscussion.getId(), comment, file, "application/pdf");
         assertThat(comment1).isNotNull();
         file = null;
     }

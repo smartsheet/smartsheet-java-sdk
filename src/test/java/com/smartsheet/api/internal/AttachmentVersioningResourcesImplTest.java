@@ -1,4 +1,5 @@
 package com.smartsheet.api.internal;
+
 /*
  * #[license]
  * Smartsheet SDK for Java
@@ -8,9 +9,9 @@ package com.smartsheet.api.internal;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -40,8 +41,13 @@ class AttachmentVersioningResourcesImplTest extends ResourcesImplBase {
 
     @BeforeEach
     public void setUp() throws Exception {
-        attachmentVersioningResources = new AttachmentVersioningResourcesImpl(new SmartsheetImpl("http://localhost:9090/1.1/", "accessToken",
-                new DefaultHttpClient(), serializer));
+        SmartsheetImpl smartsheetImpl = new SmartsheetImpl(
+                "http://localhost:9090/1.1/",
+                "accessToken",
+                new DefaultHttpClient(),
+                serializer
+        );
+        attachmentVersioningResources = new AttachmentVersioningResourcesImpl(smartsheetImpl);
 
     }
 
@@ -56,7 +62,7 @@ class AttachmentVersioningResourcesImplTest extends ResourcesImplBase {
     void testListAllVersions() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/listAttachmentVersions.json"));
 
-        PaginationParameters parameters = new PaginationParameters(false, 1,1);
+        PaginationParameters parameters = new PaginationParameters(false, 1, 1);
         PagedResult<Attachment> attachments = attachmentVersioningResources.listAllVersions(1234L, 456L, parameters);
         assertThat(attachments.getData().get(0).getName()).isNotNull();
         assertThat(attachments.getData().get(0).getId().longValue()).isEqualTo(4583173393803140L);
@@ -64,10 +70,10 @@ class AttachmentVersioningResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    void testAttachNewVersion() throws IOException, SmartsheetException  {
+    void testAttachNewVersion() throws IOException, SmartsheetException {
         server.setResponseBody(new File("src/test/resources/attachFile.json"));
         File file = new File("src/test/resources/large_sheet.pdf");
-        Attachment attachment = attachmentVersioningResources.attachNewVersion(1234L, 345L,file,
+        Attachment attachment = attachmentVersioningResources.attachNewVersion(1234L, 345L, file,
                 "application/pdf");
         assertThat(attachment.getId()).isEqualTo(7265404226692996L);
         assertThat(attachment.getName()).isEqualTo("Testing.PDF");

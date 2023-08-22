@@ -9,9 +9,9 @@ package com.smartsheet.api.internal.oauth;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -21,11 +21,8 @@ package com.smartsheet.api.internal.oauth;
  */
 
 import com.smartsheet.api.HttpTestServer;
-import com.smartsheet.api.InvalidRequestException;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
 import com.smartsheet.api.internal.http.HttpClient;
-import com.smartsheet.api.internal.http.HttpClientException;
-import com.smartsheet.api.internal.json.JSONSerializerException;
 import com.smartsheet.api.internal.json.JacksonJsonSerializer;
 import com.smartsheet.api.internal.json.JsonSerializer;
 import com.smartsheet.api.oauth.AccessDeniedException;
@@ -44,7 +41,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
-import java.security.NoSuchAlgorithmException;
 import java.util.EnumSet;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -71,7 +67,7 @@ class OAuthFlowImplIT {
 
     @BeforeEach
     public void setUp() throws Exception {
-        oauth = new OAuthFlowImpl(clientId,clientSecret,redirectURL,authorizationURL,tokenURL, httpClient, json);
+        oauth = new OAuthFlowImpl(clientId, clientSecret, redirectURL, authorizationURL, tokenURL, httpClient, json);
 
         // Setup test server
         server = new HttpTestServer();
@@ -103,7 +99,9 @@ class OAuthFlowImplIT {
         oauth.newAuthorizationURL(EnumSet.of(AccessScope.READ_SHEETS), null);
         String authURL = oauth.newAuthorizationURL(EnumSet.of(AccessScope.READ_SHEETS), "state");
 
-        assertThat(authURL).isEqualTo("authorizationURL?scope=READ_SHEETS&response_type=code&redirect_uri=redirectURL&state=state&client_id=clientID");
+        assertThat(authURL).isEqualTo(
+                "authorizationURL?scope=READ_SHEETS&response_type=code&redirect_uri=redirectURL&state=state&client_id=clientID"
+        );
     }
 
     @Test
@@ -142,21 +140,17 @@ class OAuthFlowImplIT {
     }
 
     @Test
-    void testObtainNewToken() throws NoSuchAlgorithmException, OAuthTokenException,
-        JSONSerializerException, HttpClientException, OAuthAuthorizationCodeException, URISyntaxException, InvalidRequestException, IOException {
+    void testObtainNewToken() throws IOException {
         server.setStatus(403);
         server.setContentType("application/x-www-form-urlencoded");
         server.setResponseBody(new File("src/test/resources/OAuthException.json"));
-        server.setResponseBody("{\"errorCode\": \"1004\", "
-                + "\"message\": \"You are not authorized to perform this action.\"}");
+        server.setResponseBody("{\"errorCode\": \"1004\", \"message\": \"You are not authorized to perform this action.\"}");
 
         oauth.setTokenURL("http://localhost:9090/1.1/token");
         // 403 access forbidden
         assertThatThrownBy(() -> oauth.extractAuthorizationResult("http://localhost?a=b"))
                 .isInstanceOf(OAuthTokenException.class);
     }
-
-
 
     @Test
     void testRefreshToken() throws Exception {

@@ -9,9 +9,9 @@ package com.smartsheet.api.internal;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -80,7 +80,11 @@ class SheetResourcesImplTest extends ResourcesImplBase {
     void testListSheets() throws SmartsheetException, IOException {
 
         server.setResponseBody(new File("src/test/resources/listSheets.json"));
-        PaginationParameters parameters = new PaginationParameters.PaginationParametersBuilder().setIncludeAll(false).setPageSize(1).setPage(1).build();
+        PaginationParameters parameters = new PaginationParameters.PaginationParametersBuilder()
+                .setIncludeAll(false)
+                .setPageSize(1)
+                .setPage(1)
+                .build();
         PagedResult<Sheet> sheets = sheetResource.listSheets(EnumSet.of(SourceInclusion.SOURCE), parameters, null);
 
         assertThat(sheets.getPageNumber()).isEqualTo(1);
@@ -117,7 +121,16 @@ class SheetResourcesImplTest extends ResourcesImplBase {
         rowIds.add(123456789L);
         rowIds.add(987654321L);
 
-        sheet = sheetResource.getSheet(123123L, EnumSet.allOf(SheetInclusion.class), EnumSet.allOf(ObjectExclusion.class), rowIds, null, null, 1, 1);
+        sheet = sheetResource.getSheet(
+                123123L,
+                EnumSet.allOf(SheetInclusion.class),
+                EnumSet.allOf(ObjectExclusion.class),
+                rowIds,
+                null,
+                null,
+                1,
+                1
+        );
         assertThat(sheet.getColumns()).hasSize(9);
         assertThat(sheet.getRows()).isEmpty();
     }
@@ -180,9 +193,17 @@ class SheetResourcesImplTest extends ResourcesImplBase {
         server.setResponseBody(new File("src/test/resources/createSheet.json"));
 
         ArrayList<Column> list = new ArrayList<>();
-        Column col1 = new Column.AddColumnToSheetBuilder().setTitle("Test Column 1").setType(ColumnType.TEXT_NUMBER).setPrimary(true).build();
+        Column col1 = new Column.AddColumnToSheetBuilder()
+                .setTitle("Test Column 1")
+                .setType(ColumnType.TEXT_NUMBER)
+                .setPrimary(true)
+                .build();
         list.add(col1);
-        Column col2 = new Column.AddColumnToSheetBuilder().setTitle("Test Column 2").setType(ColumnType.TEXT_NUMBER).setPrimary(false).build();
+        Column col2 = new Column.AddColumnToSheetBuilder()
+                .setTitle("Test Column 2")
+                .setType(ColumnType.TEXT_NUMBER)
+                .setPrimary(false)
+                .build();
         col2.setPrimary(false);
         list.add(col2);
 
@@ -197,7 +218,10 @@ class SheetResourcesImplTest extends ResourcesImplBase {
 
         server.setResponseBody(new File("src/test/resources/createSheetFromExisting.json"));
 
-        Sheet sheet = new Sheet.CreateFromTemplateOrSheetBuilder().setFromId(7960873114331012L).setName("New test sheet from template").build();
+        Sheet sheet = new Sheet.CreateFromTemplateOrSheetBuilder()
+                .setFromId(7960873114331012L)
+                .setName("New test sheet from template")
+                .build();
         Sheet newSheet = sheetResource.createSheetFromTemplate(sheet, EnumSet.allOf(SheetTemplateInclusion.class));
 
         assertThat(newSheet.getId().longValue()).isEqualTo(7960873114331012L);

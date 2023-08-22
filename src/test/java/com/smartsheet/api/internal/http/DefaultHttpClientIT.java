@@ -9,9 +9,9 @@ package com.smartsheet.api.internal.http;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -19,7 +19,6 @@ package com.smartsheet.api.internal.http;
  * limitations under the License.
  * %[license]
  */
-
 
 import org.junit.jupiter.api.Test;
 
@@ -54,7 +53,6 @@ class DefaultHttpClientIT {
         client.request(request);
         client.releaseConnection();
 
-
         request.setMethod(HttpMethod.POST);
         client.request(request);
         client.releaseConnection();
@@ -67,11 +65,9 @@ class DefaultHttpClientIT {
         client.request(request);
         client.releaseConnection();
 
-
-
         // Test request with set headers and http entity but a null content
         Map<String, String> headers = new HashMap<>();
-        headers.put("name","value");
+        headers.put("name", "value");
         HttpEntity entity = new HttpEntity();
         entity.setContentType("text/html; charset=ISO-8859-4");
         request.setEntity(entity);
@@ -87,7 +83,7 @@ class DefaultHttpClientIT {
         client.releaseConnection();
 
         // Test Client Protocol Exception by passing a second content-length
-        headers.put("Content-Length","10");
+        headers.put("Content-Length", "10");
         request.setHeaders(headers);
         assertThatThrownBy(() -> client.request(request))
                 .isInstanceOf(HttpClientException.class);
@@ -100,8 +96,5 @@ class DefaultHttpClientIT {
         assertThatThrownBy(() -> client.request(request))
                 .isInstanceOf(HttpClientException.class);
         client.releaseConnection();
-
-
     }
-
 }

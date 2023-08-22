@@ -31,9 +31,9 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -42,8 +42,6 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
  * %[license]
  */
 class SheetDiscussionResourcesImplTest extends ResourcesImplBase {
-
-
     private SheetDiscussionResourcesImpl sheetDiscussionResources;
 
     @BeforeEach
@@ -74,7 +72,6 @@ class SheetDiscussionResourcesImplTest extends ResourcesImplBase {
         assertThat(newDiscussion.getComments()).hasSize(1);
         assertThat(newDiscussion.getComments().get(0).getCreatedBy().getName()).isEqualTo("Brett Batie");
         assertThat(newDiscussion.getComments().get(0).getCreatedBy().getEmail()).isEqualTo("email@email.com");
-
 
         // Test failure - CreatedBy not allowed & only one comment can be added when creating a discussion.
         server.setStatus(400);
@@ -113,7 +110,6 @@ class SheetDiscussionResourcesImplTest extends ResourcesImplBase {
         assertThat(newDiscussion.getComments()).hasSize(1);
         assertThat(newDiscussion.getComments().get(0).getCreatedBy().getName()).isEqualTo("Brett Batie");
         assertThat(newDiscussion.getComments().get(0).getCreatedBy().getEmail()).isEqualTo("email@email.com");
-
 
         // Test failure - CreatedBy not allowed & only one comment can be added when creating a discussion.
         server.setStatus(400);
@@ -157,7 +153,11 @@ class SheetDiscussionResourcesImplTest extends ResourcesImplBase {
         server.setResponseBody(new File("src/test/resources/getAllDiscussions.json"));
         PaginationParameters parameters = new PaginationParameters(false, 1, 1);
 
-        PagedResult<Discussion> newDiscussion = sheetDiscussionResources.listDiscussions(123L, parameters, EnumSet.of(DiscussionInclusion.COMMENTS));
+        PagedResult<Discussion> newDiscussion = sheetDiscussionResources.listDiscussions(
+                123L,
+                parameters,
+                EnumSet.of(DiscussionInclusion.COMMENTS)
+        );
         assertThat(newDiscussion.getTotalPages()).isEqualTo(1);
         assertThat(newDiscussion.getPageSize()).isEqualTo(100);
         assertThat(newDiscussion.getTotalCount()).isEqualTo(1);

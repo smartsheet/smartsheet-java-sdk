@@ -45,7 +45,7 @@ public class HomeResourcesIT extends ITResourcesImpl{
         homes.add(smartsheet.homeResources().getHome(EnumSet.of(SourceInclusion.SOURCE)));
         homes.add(smartsheet.homeResources().getHome(null));
 
-        for(Home home : homes){
+        for (Home home : homes) {
             assertThat(home.getSheets()).isNotNull();
         }
     }

@@ -9,9 +9,9 @@ package com.smartsheet.api.logging;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -40,13 +40,15 @@ class LoggingIT {
     @BeforeAll
     public static void dontFailOnUnrecongnizedFields() {
         // Setup the serializer
-        JacksonJsonSerializer.setFailOnUnknownProperties(false);    // no idea why we enable this in ResourcesImplBase.baseSetup
+        // no idea why we enable this in ResourcesImplBase.baseSetup
+        JacksonJsonSerializer.setFailOnUnknownProperties(false);
     }
 
     @AfterAll
     public static void failOnUnrecognizedFields() {
         // Setup the serializer
-        JacksonJsonSerializer.setFailOnUnknownProperties(true);    // put it back the way we found it
+        // put it back the way we found it
+        JacksonJsonSerializer.setFailOnUnknownProperties(true);
     }
 
     @Test
@@ -54,7 +56,8 @@ class LoggingIT {
         ByteArrayOutputStream traceStream = new ByteArrayOutputStream();
         DefaultHttpClient.setTraceStream(traceStream);
         Smartsheet client = new SmartsheetBuilder().build();
-        client.setTraces(Trace.Request, Trace.Response);    // should log entire request and response
+        // should log entire request and response
+        client.setTraces(Trace.Request, Trace.Response);
 
         // Note this requires an internet connection
         assertThatThrownBy(() -> client.sheetResources().getSheet(42, null, null, null, null, null, 1, 1))
@@ -64,7 +67,8 @@ class LoggingIT {
         // not super-robust but asserts some of the important parts
         assertThat(output)
                 .contains("\"request\" : {")
-                .contains("\"Authorization\" : \"Bearer ****null") // truncated Auth header
+                // truncated Auth header
+                .contains("\"Authorization\" : \"Bearer ****null")
                 .contains("\"response\" : {")
                 .contains("\"body\" : \"{\\n  \\\"errorCode\\\" : 1002,\\n  \\\"message\\\" : " +
                             "\\\"Your Access Token is invalid.\\\",\\n  \\\"refId\\\" :")
@@ -75,9 +79,10 @@ class LoggingIT {
     void testCustomLogging() {
         ByteArrayOutputStream traceStream = new ByteArrayOutputStream();
         DefaultHttpClient.setTraceStream(traceStream);
-        Smartsheet client = new SmartsheetBuilder().setAccessToken("just_a_random_dummy_token").build(); // using "null" as token results in NPE
-        client.setTraces(Trace.Request, Trace.Response);    // should log entire request and response
-
+        // using "null" as token results in NPE
+        Smartsheet client = new SmartsheetBuilder().setAccessToken("just_a_random_dummy_token").build();
+        // should log entire request and response
+        client.setTraces(Trace.Request, Trace.Response);
 
         // Note this requires an internet connection
         assertThatThrownBy(() -> client.sheetResources().getSheet(42, null, null, null, null, null, 1, 1))

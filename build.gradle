@@ -93,7 +93,7 @@ tasks.register('sdkTest', Test) {
 
     // We only want to run tests in the specified package
     filter {
-        includeTestsMatching "com.smartsheet.api.sdk_test.*"
+        includeTestsMatching "com.smartsheet.api.sdktest.*"
     }
 
     testClassesDirs = sourceSets.test.output
@@ -237,7 +237,15 @@ signing {
 
 // Checkstyle Configuration
 checkstyle {
-    ignoreFailures = true
     toolVersion = "${checkstyleVersion}"
     configFile = file('config/checkstyle/checkstyle-custom.xml')
+}
+
+checkstyleMain {
+    ignoreFailures = true
+}
+
+
+checkstyleTest {
+    ignoreFailures = false
 }

@@ -56,7 +56,7 @@ public class ITResourcesImpl {
         return newWorkspace;
     }
 
-    public Sheet createSheetObject(){
+    public Sheet createSheetObject() {
         //set the sheet parameters
         Column columnA = new Column.AddColumnToSheetBuilder().setTitle("Favorite").setType(ColumnType.CHECKBOX).setSymbol(Symbol.STAR).build();
         Column columnB = new Column.AddColumnToSheetBuilder().setTitle("Primary Column").setType(ColumnType.TEXT_NUMBER).setPrimary(true).build();
@@ -66,7 +66,7 @@ public class ITResourcesImpl {
         Sheet sheet = new Sheet.CreateSheetBuilder().setName("New Test Sheet").setColumns(Arrays.asList(columnA, columnB, columnC, columnD)).build();
         return sheet;
     }
-    public Sheet createSheetObjectWithAutoNumberColumn(){
+    public Sheet createSheetObjectWithAutoNumberColumn() {
         //set the sheet parameters
         Column columnA = new Column.AddColumnToSheetBuilder().setTitle("Favorite").setType(ColumnType.CHECKBOX).setSymbol(Symbol.STAR).build();
         Column columnB = new Column.AddColumnToSheetBuilder().setTitle("Primary Column").setType(ColumnType.TEXT_NUMBER).setPrimary(true).build();

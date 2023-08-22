@@ -9,9 +9,9 @@ package com.smartsheet.api.internal.json;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -329,16 +329,21 @@ class ObjectValueDeserializerTest {
         assertThat(serializedMap).hasSameSizeAs(expected);
     }
 
-
     /**
      * Serializes in an ObjectValue using the jacksonJsonSerializer as configured by the rest of the SDK.
      */
     private ObjectValue getObjectValue(String json) throws IOException, JSONSerializerException {
-        ContainingClass deserializedResult = jacksonJsonSerializer.deserialize(ContainingClass.class, new ByteArrayInputStream(json.getBytes()));
+        ContainingClass deserializedResult = jacksonJsonSerializer.deserialize(
+                ContainingClass.class,
+                new ByteArrayInputStream(json.getBytes())
+        );
 
         // Since we are here, serialize it back out again to automatically test that it can be serialized out.
         String json2 = jacksonJsonSerializer.serialize(deserializedResult);
-        ContainingClass deserializedResult2 = jacksonJsonSerializer.deserialize(ContainingClass.class, new ByteArrayInputStream(json2.getBytes()));
+        ContainingClass deserializedResult2 = jacksonJsonSerializer.deserialize(
+                ContainingClass.class,
+                new ByteArrayInputStream(json2.getBytes())
+        );
 
         return deserializedResult.getObjectValue();
     }

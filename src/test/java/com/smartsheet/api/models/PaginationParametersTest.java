@@ -9,9 +9,9 @@ package com.smartsheet.api.models;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -47,8 +47,7 @@ class PaginationParametersTest {
 
         PaginationParameters parameters3 = new PaginationParameters(false, 1, 1);
         String[] matches1 = new String[] {"pageSize=1", "includeAll=false", "page=1"};
-        for (String s : matches1)
-        {
+        for (String s : matches1) {
             assertThat(parameters3.toQueryString()).contains(s);
         }
     }
@@ -79,7 +78,11 @@ class PaginationParametersTest {
 
     @Test
     void testBuilder() {
-        PaginationParameters pagination = new PaginationParameters.PaginationParametersBuilder().setIncludeAll(true).setPageSize(2).setPage(1).build();
+        PaginationParameters pagination = new PaginationParameters.PaginationParametersBuilder()
+                .setIncludeAll(true)
+                .setPageSize(2)
+                .setPage(1)
+                .build();
         assertThat(pagination.isIncludeAll()).isTrue();
         assertThat(pagination.getPageSize().longValue()).isEqualTo(2);
         assertThat(pagination.getPage().longValue()).isEqualTo(1);

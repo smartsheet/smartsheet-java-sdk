@@ -9,9 +9,9 @@ package com.smartsheet.api;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -34,7 +34,7 @@ class SmartsheetBuilderTest {
         Smartsheet smartsheet = new SmartsheetBuilder().build();
         assertThat(smartsheet).isInstanceOf(SmartsheetImpl.class);
 
-        Smartsheet ss = (SmartsheetImpl)new SmartsheetBuilder().setBaseURI("a").setAccessToken("b").setHttpClient(
+        Smartsheet ss = new SmartsheetBuilder().setBaseURI("a").setAccessToken("b").setHttpClient(
                 new DefaultHttpClient()).setJsonSerializer(new JacksonJsonSerializer()).setAssumedUser("user").build();
         ss.getClass();
     }
