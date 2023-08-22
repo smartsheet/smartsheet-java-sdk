@@ -21,6 +21,8 @@ plugins {
     id 'signing'
     // Allows us to publish our artifact
     id 'maven-publish'
+    // Allows us to publish to https://oss.sonatype.org/ and release our artifact
+    id("io.github.gradle-nexus.publish-plugin") version "1.3.0"
 
     // ** MAINTENANCE PLUGINS **
     // Allows us to run `./gradlew dependencyUpdates` to check for dependency updates
@@ -164,6 +166,7 @@ publishing {
     publications {
         mavenJava(MavenPublication) {
             from components.java
+            // Details that will be included in our published POM file
             pom {
                 name = 'Smartsheet Java SDK'
                 description = 'Library for connecting to Smartsheet Services'
@@ -198,19 +201,18 @@ publishing {
         }
     }
 
-    // Maven Repo configuration for publishing our Jars
+}
+
+// The credentials for us to publish to https://oss.sonatype.org/ and release our artifact
+nexusPublishing {
     repositories {
-        maven {
-            def releasesRepoUrl = 'https://oss.sonatype.org/service/local/staging/deploy/maven2'
-            def snapshotsRepoUrl = 'https://oss.sonatype.org/content/repositories/snapshots'
-            url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
-            credentials {
-                username = System.getenv("MAVEN_USERNAME")
-                password = System.getenv("MAVEN_PASSWORD")
-            }
+        sonatype {
+            username = System.getenv("MAVEN_USERNAME")
+            password = System.getenv("MAVEN_PASSWORD")
         }
     }
 }
+
 
 // Configuration for how we want to sign our Jar files
 signing {
