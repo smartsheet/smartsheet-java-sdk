@@ -9,9 +9,9 @@ package com.smartsheet.api.internal.json;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -19,7 +19,6 @@ package com.smartsheet.api.internal.json;
  * limitations under the License.
  * %[license]
  */
-
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -43,7 +42,7 @@ import static org.assertj.core.api.Assertions.assertThatNoException;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class JacksonJsonSerializerTest {
-    JacksonJsonSerializer jjs  = new JacksonJsonSerializer();
+    JacksonJsonSerializer jjs = new JacksonJsonSerializer();
 
     @Test
     void testSerialize() throws JSONSerializerException, IOException {
@@ -109,7 +108,7 @@ class JacksonJsonSerializerTest {
         User originalUser = new User();
         originalUser.setFirstName("Test");
         originalUser.setId(123L);
-        jjs.serialize(originalUser,b);
+        jjs.serialize(originalUser, b);
 
         // Deserialize User from a byte array
         User user = jjs.deserialize(User.class, new ByteArrayInputStream(b.toByteArray()));
@@ -158,7 +157,6 @@ class JacksonJsonSerializerTest {
         assertThatThrownBy(() -> jjs.deserializeList(null, inputStream))
                 .isInstanceOf(IllegalArgumentException.class);
 
-
         // Test JsonParseException. Can't convert an invalid json array to a list.
         ByteArrayInputStream inputStreamBrokenJson = new ByteArrayInputStream("[broken jason".getBytes());
         assertThatThrownBy(() -> jjs.deserializeList(List.class, inputStreamBrokenJson))
@@ -167,7 +165,8 @@ class JacksonJsonSerializerTest {
         // Serialize a User and fail since it is not an ArrayList
         ByteArrayOutputStream b = new ByteArrayOutputStream();
         User originalUser = new User();
-        jjs.serialize(originalUser,b);//b has the user in json format in a byte array
+        // b has the user in json format in a byte array
+        jjs.serialize(originalUser, b);
 
         ByteArrayInputStream inputStream1 = new ByteArrayInputStream(b.toByteArray());
         assertThatThrownBy(() -> jjs.deserializeList(ArrayList.class, inputStream1))
@@ -192,8 +191,6 @@ class JacksonJsonSerializerTest {
         assertThatThrownBy(() -> jjs.deserializeList(List.class, fis))
                 .isInstanceOf(JSONSerializerException.class);
     }
-
-
 
     @Test
     void testDeserializeResult() throws JSONSerializerException, IOException {

@@ -9,9 +9,9 @@ package com.smartsheet.api.internal;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -54,7 +54,7 @@ class HomeResourcesImplTest extends ResourcesImplBase {
         List<Home> homes = new ArrayList<>();
         homes.add(homeResources.getHome(EnumSet.of(SourceInclusion.SOURCE)));
         homes.add(homeResources.getHome(null));
-        for(Home home : homes){
+        for (Home home : homes) {
             assertThat(home.getSheets()).isNotNull();
             assertThat(home.getSheets()).hasSize(7);
             assertThat(home.getFolders()).isNotNull();
@@ -71,7 +71,7 @@ class HomeResourcesImplTest extends ResourcesImplBase {
         server.setResponseBody(new File("src/test/resources/getHomeFolders.json"));
 
         HomeFolderResources folders = homeResources.folderResources();
-        PaginationParameters parameters = new PaginationParameters(true, 1,1);
+        PaginationParameters parameters = new PaginationParameters(true, 1, 1);
         assertThat(folders.listFolders(parameters)).isNotNull();
         assertThat(folders.listFolders(parameters).getTotalPages()).isEqualTo(1);
     }

@@ -9,9 +9,9 @@ package com.smartsheet.api.internal;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -53,8 +53,8 @@ class GroupResourcesImplTest extends ResourcesImplBase {
     void testGetGroups() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/listGroups.json"));
 
-        PaginationParameters parameters = new PaginationParameters(false,1,1);
-        PagedResult<Group> groups =  groupResources.listGroups(parameters);
+        PaginationParameters parameters = new PaginationParameters(false, 1, 1);
+        PagedResult<Group> groups = groupResources.listGroups(parameters);
 
         assertThat(groups.getData().get(0).getId()).isNotNull();
         assertThat(groups.getData().get(0).getName()).isNotNull();
@@ -69,7 +69,7 @@ class GroupResourcesImplTest extends ResourcesImplBase {
     void testGetGroupById() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/getGroup.json"));
 
-        Group group =  groupResources.getGroup(123L);
+        Group group = groupResources.getGroup(123L);
         assertThat(group.getId()).isNotNull();
         assertThat(group.getName()).isNotNull();
         assertThat(group.getOwner()).isNotNull();
@@ -93,15 +93,14 @@ class GroupResourcesImplTest extends ResourcesImplBase {
 
         CreateGroupBuilder builder = new CreateGroupBuilder();
         builder.setName("My Test Group")
-            .setDescription("My awesome group")
-            .setMembers(new ArrayList<>());
+                .setDescription("My awesome group")
+                .setMembers(new ArrayList<>());
 
         builder.getMembers().add(new GroupMember.AddGroupMemberBuilder().setEmail("test@test.com").build());
         builder.getMembers().add(new GroupMember.AddGroupMemberBuilder().setEmail("test2@test.com").build());
         builder.getMembers().add(new GroupMember.AddGroupMemberBuilder().setEmail("test3@test.com").build());
 
-
-        Group group =  groupResources.createGroup(builder.build());
+        Group group = groupResources.createGroup(builder.build());
         assertThat(group.getId()).isNotNull();
         assertThat(group.getName()).isNotNull();
         assertThat(group.getOwner()).isNotNull();
@@ -125,10 +124,10 @@ class GroupResourcesImplTest extends ResourcesImplBase {
 
         UpdateGroupBuilder builder = new UpdateGroupBuilder();
         builder.setName("My Test Group - renamed ")
-            .setDescription("My awesome group- redecribed")
-            .setId(123L);
+                .setDescription("My awesome group- redecribed")
+                .setId(123L);
 
-        Group group =  groupResources.updateGroup(builder.build());
+        Group group = groupResources.updateGroup(builder.build());
         assertThat(group.getId()).isNotNull();
         assertThat(group.getName()).isNotNull();
         assertThat(group.getOwner()).isNotNull();
@@ -154,7 +153,7 @@ class GroupResourcesImplTest extends ResourcesImplBase {
         List<GroupMember> addedMembers = groupResources.memberResources().addGroupMembers(1234L, newMembers);
         assertThat(addedMembers).isNotEmpty();
 
-        for(GroupMember member : addedMembers) {
+        for (GroupMember member : addedMembers) {
             assertThat(member.getEmail()).isNotNull();
             assertThat(member.getId()).isNotNull();
         }

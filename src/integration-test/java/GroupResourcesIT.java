@@ -67,7 +67,7 @@ public class GroupResourcesIT extends ITResourcesImpl{
 
             Group group = new Group.CreateGroupBuilder().setName(GROUP_NAME).setDescription("Test group").setMembers(Arrays.asList(member)).build();
 
-            group =  smartsheet.groupResources().createGroup(group);
+            group = smartsheet.groupResources().createGroup(group);
             assertThat(group.getId()).isNotNull();
         }
     }
@@ -75,7 +75,7 @@ public class GroupResourcesIT extends ITResourcesImpl{
     private void removeExistingGroup() throws SmartsheetException, IOException {
         // Make sure group doesn't exist before trying to create it
         PaginationParameters parameters = new PaginationParameters.PaginationParametersBuilder().setIncludeAll(true).build();
-        groups =  smartsheet.groupResources().listGroups(parameters);
+        groups = smartsheet.groupResources().listGroups(parameters);
 
         for (Group group : groups.getData()) {
             if (group.getName().equals(GROUP_NAME)) {
@@ -93,7 +93,7 @@ public class GroupResourcesIT extends ITResourcesImpl{
     public void testListGroups() throws SmartsheetException, IOException {
 
         PaginationParameters parameters = new PaginationParameters.PaginationParametersBuilder().setIncludeAll(true).build();
-        groups =  smartsheet.groupResources().listGroups(parameters);
+        groups = smartsheet.groupResources().listGroups(parameters);
 
         assertThat(groups).isNotNull();
 
@@ -107,7 +107,7 @@ public class GroupResourcesIT extends ITResourcesImpl{
 
     public void testGetGroupById() throws SmartsheetException, IOException {
 
-        Group group =  smartsheet.groupResources().getGroup(groupId);
+        Group group = smartsheet.groupResources().getGroup(groupId);
         assertThat(group).isNotNull();
     }
 

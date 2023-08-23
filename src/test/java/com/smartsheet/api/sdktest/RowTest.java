@@ -1,4 +1,5 @@
-package com.smartsheet.api.sdk_test;
+package com.smartsheet.api.sdktest;
+
 /*
  * #[license]
  * Smartsheet SDK for Java
@@ -8,9 +9,9 @@ package com.smartsheet.api.sdk_test;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -18,15 +19,6 @@ package com.smartsheet.api.sdk_test;
  * limitations under the License.
  * %[license]
  */
-
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
-
-import java.util.Arrays;
-import java.util.List;
-
-import org.junit.jupiter.api.Test;
 
 import com.smartsheet.api.Smartsheet;
 import com.smartsheet.api.SmartsheetException;
@@ -39,6 +31,13 @@ import com.smartsheet.api.models.Predecessor;
 import com.smartsheet.api.models.PredecessorList;
 import com.smartsheet.api.models.Row;
 import com.smartsheet.api.models.Sheet;
+import org.junit.jupiter.api.Test;
+
+import java.util.Arrays;
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class RowTest {
     @Test
@@ -204,7 +203,10 @@ class RowTest {
     void addRows_Invalid_AssignHyperlinkUrlAndSheetId() {
         Smartsheet ss = HelperFunctions.SetupClient("Add Rows - Invalid - Assign Hyperlink URL and SheetId");
 
-        Cell cell1 = new Cell().setColumnId(101L).setValue("Google").setHyperlink(new Hyperlink().setUrl("https://google.com").setSheetId(2L));
+        Cell cell1 = new Cell()
+                .setColumnId(101L)
+                .setValue("Google")
+                .setHyperlink(new Hyperlink().setUrl("https://google.com").setSheetId(2L));
         Cell cell2 = new Cell().setColumnId(102L).setValue("Bing").setHyperlink(new Hyperlink().setUrl("https://bing.com"));
         Row rowA = new Row().setCells(Arrays.asList(cell1, cell2));
 
@@ -225,7 +227,9 @@ class RowTest {
         // Update rows in sheet
         assertThatThrownBy(() -> ss.sheetResources().rowResources().addRows(1, List.of(rowA)))
                 .isInstanceOf(SmartsheetException.class)
-                .hasMessage("If cell.formula is specified, then value, objectValue, image, hyperlink, and linkInFromCell must not be specified.");
+                .hasMessage(
+                        "If cell.formula is specified, then value, objectValue, image, hyperlink, and linkInFromCell must not be specified."
+                );
     }
 
     @Test
@@ -397,7 +401,9 @@ class RowTest {
         // Update rows in sheet
         assertThatThrownBy(() -> ss.sheetResources().rowResources().updateRows(1, List.of(rowA)))
                 .isInstanceOf(SmartsheetException.class)
-                .hasMessage("If cell.formula is specified, then value, objectValue, image, hyperlink, and linkInFromCell must not be specified.");
+                .hasMessage(
+                        "If cell.formula is specified, then value, objectValue, image, hyperlink, and linkInFromCell must not be specified."
+                );
     }
 
     @Test

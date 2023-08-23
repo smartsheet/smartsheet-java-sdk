@@ -9,9 +9,9 @@ package com.smartsheet.api.internal;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -54,7 +54,11 @@ class SheetColumnResourcesImplTest extends ResourcesImplBase {
 
         server.setResponseBody(new File("src/test/resources/listColumns.json"));
         PaginationParameters paginationParameters = new PaginationParameters(true, 1, 1);
-        PagedResult<Column> wrapper = sheetColumnResourcesImpl.listColumns(1234L, EnumSet.allOf(ColumnInclusion.class), paginationParameters);
+        PagedResult<Column> wrapper = sheetColumnResourcesImpl.listColumns(
+                1234L,
+                EnumSet.allOf(ColumnInclusion.class),
+                paginationParameters
+        );
         List<Column> columns = wrapper.getData();
         assertThat(columns).hasSize(3);
         assertThat(columns.get(0).getType()).hasToString("CHECKBOX");

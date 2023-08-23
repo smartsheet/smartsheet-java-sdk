@@ -93,7 +93,7 @@ tasks.register('sdkTest', Test) {
 
     // We only want to run tests in the specified package
     filter {
-        includeTestsMatching "com.smartsheet.api.sdk_test.*"
+        includeTestsMatching "com.smartsheet.api.sdktest.*"
     }
 
     testClassesDirs = sourceSets.test.output
@@ -123,7 +123,7 @@ test {
     // exclude SDK Tests and integration tests
     filter {
         excludeTestsMatching "*.*IT"
-        excludeTestsMatching "com.smartsheet.api.sdk_test.*"
+        excludeTestsMatching "com.smartsheet.api.sdktest.*"
     }
 
     // Code Coverage settings for tests
@@ -237,7 +237,13 @@ signing {
 
 // Checkstyle Configuration
 checkstyle {
-    ignoreFailures = true
     toolVersion = "${checkstyleVersion}"
     configFile = file('config/checkstyle/checkstyle-custom.xml')
+    // If there is a checkstyle violation in our main code, then do not fail the build because we haven't fixed them all yet
+    ignoreFailures = true
+}
+
+// If there is a checkstyle violation in our tests, then fail the build
+checkstyleTest {
+    ignoreFailures = false
 }

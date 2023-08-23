@@ -9,9 +9,9 @@ package com.smartsheet.api;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -25,7 +25,6 @@ import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Request;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.AbstractHandler;
-import org.junit.jupiter.api.Disabled;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -38,14 +37,12 @@ import java.io.InputStream;
 /**
  * A server for answering HTTP requests with test response data.
  */
-@Disabled
 public class HttpTestServer {
-    private Server _server;
-    //private String _responseBody;
-    private String _requestBody;
+    private Server server;
+    private String requestBody;
     private int port;
     private String contentType;
-    private byte[] _responseBody;
+    private byte[] responseBody;
     private int status;
 
     public HttpTestServer() {
@@ -59,9 +56,9 @@ public class HttpTestServer {
     }
 
     public void start() throws Exception {
-        _server = new Server(port);
-        _server.setHandler(getMockHandler());
-        _server.start();
+        server = new Server(port);
+        server.setHandler(getMockHandler());
+        server.start();
         status = HttpServletResponse.SC_OK;
     }
 
@@ -93,20 +90,20 @@ public class HttpTestServer {
         return handler;
     }
 
-    public void setStatus(int status){
+    public void setStatus(int status) {
         this.status = status;
     }
 
-    public int getStatus(){
+    public int getStatus() {
         return this.status;
     }
 
     public void stop() throws Exception {
-        _server.stop();
+        server.stop();
     }
 
     public void setResponseBody(byte[] responseBody) {
-        _responseBody = responseBody;
+        this.responseBody = responseBody;
     }
 
     public void setResponseBody(String responseBody) {
@@ -120,39 +117,26 @@ public class HttpTestServer {
     }
 
     public byte[] getResponseBody() {
-        return _responseBody;
+        return responseBody;
     }
 
     public void setRequestBody(String requestBody) {
-        _requestBody = requestBody;
+        this.requestBody = requestBody;
     }
 
     public String getRequestBody() {
-        return _requestBody;
+        return requestBody;
     }
-
-//    public void setMockResponseData(String mockResponseData) {
-//        _mockResponseData = mockResponseData;
-//    }
-//
-//    public void setMockResponseData(File file) throws IOException{
-//        InputStream is = new FileInputStream(file);
-//        _mockResponseData = IOUtils.toString(is);
-//    }
-
-//    public String getMockResponseData() {
-//        return _mockResponseData;
-//    }
 
     protected Server getServer() {
-        return _server;
+        return server;
     }
 
-    public int getPort(){
+    public int getPort() {
         return port;
     }
 
-    public void setPort(int port){
+    public void setPort(int port) {
         this.port = port;
     }
 

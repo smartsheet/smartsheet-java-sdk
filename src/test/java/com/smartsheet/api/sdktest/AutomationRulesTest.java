@@ -1,4 +1,4 @@
-package com.smartsheet.api.sdk_test;
+package com.smartsheet.api.sdktest;
 
 /*
  * #[license]
@@ -9,9 +9,9 @@ package com.smartsheet.api.sdk_test;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -43,14 +43,14 @@ class AutomationRulesTest {
     void listAutomationRules() throws SmartsheetException {
         Smartsheet ss = HelperFunctions.SetupClient("List Automation Rules");
         PagedResult<AutomationRule> automationRules = ss.sheetResources().automationRuleResources().listAutomationRules(324, null);
-        assertThat((long)automationRules.getTotalCount()).isEqualTo(2);
+        assertThat(automationRules.getTotalCount()).isEqualTo(2);
     }
 
     @Test
     void getAutomationRule() throws SmartsheetException {
         Smartsheet ss = HelperFunctions.SetupClient("Get Automation Rule");
         AutomationRule automationRule = ss.sheetResources().automationRuleResources().getAutomationRule(324, 284);
-        assertThat((long)automationRule.getId()).isEqualTo(284);
+        assertThat(automationRule.getId()).isEqualTo(284);
     }
 
     @Disabled("awaiting API update to return Result object")

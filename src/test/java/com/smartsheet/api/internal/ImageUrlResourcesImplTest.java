@@ -52,5 +52,4 @@ class ImageUrlResourcesImplTest extends ResourcesImplBase {
         assertThat(imageUrls.getImageUrls().get(1).getImageId()).isNotBlank();
         assertThat(imageUrls.getUrlExpiresInMillis()).isEqualTo(29837329487297392L);
     }
-
 }

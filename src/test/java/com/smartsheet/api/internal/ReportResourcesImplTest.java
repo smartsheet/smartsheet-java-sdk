@@ -9,9 +9,9 @@ package com.smartsheet.api.internal;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -62,7 +62,8 @@ class ReportResourcesImplTest extends ResourcesImplBase {
     @Test
     void testGetReport() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/getReport.json"));
-        Report report = reportResources.getReport(4583173393803140L, EnumSet.of(ReportInclusion.ATTACHMENTS, ReportInclusion.DISCUSSIONS), 1,1);
+        EnumSet<ReportInclusion> reportInclusions = EnumSet.of(ReportInclusion.ATTACHMENTS, ReportInclusion.DISCUSSIONS);
+        Report report = reportResources.getReport(4583173393803140L, reportInclusions, 1, 1);
         assertThat(report.getPermalink()).isEqualTo("https://app.smartsheet.com/b/home?lx=pWNSDH9itjBXxBzFmyf-5w");
         assertThat(report.getColumns().get(0).getVirtualId()).isEqualTo(4583173393803140L);
     }
@@ -92,7 +93,7 @@ class ReportResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    void testListReports() throws  SmartsheetException, IOException {
+    void testListReports() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/listReports.json"));
         PaginationParameters pagination = new PaginationParameters(true, null, null);
         PagedResult<Report> reportsWrapper = reportResources.listReports(pagination, null);
@@ -104,7 +105,7 @@ class ReportResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    void testGetReportAsExcel() throws SmartsheetException, IOException{
+    void testGetReportAsExcel() throws SmartsheetException, IOException {
         File file = new File("src/test/resources/getExcel.xls");
         server.setResponseBody(file);
         server.setContentType("application/vnd.ms-excel");
@@ -120,7 +121,7 @@ class ReportResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    void testGetReportAsCsv() throws SmartsheetException, IOException{
+    void testGetReportAsCsv() throws SmartsheetException, IOException {
         File file = new File("src/test/resources/getExcel.xls");
         server.setResponseBody(file);
         server.setContentType("text/csv");

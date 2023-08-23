@@ -9,9 +9,9 @@ package com.smartsheet.api.internal.util;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -48,15 +48,13 @@ class DeleteUserParametersTest {
     void testToQueryString() {
         DeleteUserParameters parameters = new DeleteUserParameters(12345L, true, true);
         String[] matches1 = new String[] {"transferSheets=true", "removeFromSharing=true", "transferTo=12345"};
-        for (String s : matches1)
-        {
+        for (String s : matches1) {
             assertThat(parameters.toQueryString()).contains(s);
         }
 
         DeleteUserParameters parameters2 = new DeleteUserParameters(null, true, true);
         String[] matches2 = new String[] {"transferSheets=true", "removeFromSharing=true"};
-        for (String s : matches2)
-        {
+        for (String s : matches2) {
             assertThat(parameters2.toQueryString()).contains(s);
         }
 

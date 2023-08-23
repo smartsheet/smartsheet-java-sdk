@@ -50,7 +50,7 @@ public class Sample {
             PagedResult<Sheet> sheets = smartsheet.sheetResources().listSheets(null, null, null );
             System.out.println("\nFound " + sheets.getTotalCount() + " sheets\n");
 
-            Long sheetId =  sheets.getData().get(0).getId();            // Default to first sheet
+            Long sheetId = sheets.getData().get(0).getId();            // Default to first sheet
 
             // TODO: Uncomment if you wish to read a specific sheet
             // sheetId = 239236234L;

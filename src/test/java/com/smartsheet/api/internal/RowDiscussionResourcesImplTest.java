@@ -24,9 +24,9 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -37,6 +37,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 class RowDiscussionResourcesImplTest extends ResourcesImplBase {
 
     private RowDiscussionResourcesImpl discussionRowResources;
+
     @BeforeEach
     public void setUp() throws Exception {
         discussionRowResources = new RowDiscussionResourcesImpl(new SmartsheetImpl("http://localhost:9090/1.1/",
@@ -86,7 +87,12 @@ class RowDiscussionResourcesImplTest extends ResourcesImplBase {
         Discussion discussion = new Discussion();
         discussion.setTitle("new discussion");
         PaginationParameters parameters = new PaginationParameters(false, 1, 1);
-        PagedResult<Discussion> newDiscussion = discussionRowResources.listDiscussions(1234L, 5678L, parameters, EnumSet.of(DiscussionInclusion.COMMENTS));
+        PagedResult<Discussion> newDiscussion = discussionRowResources.listDiscussions(
+                1234L,
+                5678L,
+                parameters,
+                EnumSet.of(DiscussionInclusion.COMMENTS)
+        );
         assertThat(newDiscussion.getData().get(0).getTitle()).isEqualTo("Lincoln");
         assertThat(newDiscussion.getData().get(0).getId()).isEqualTo(3138415114905476L);
     }
