@@ -239,13 +239,11 @@ signing {
 checkstyle {
     toolVersion = "${checkstyleVersion}"
     configFile = file('config/checkstyle/checkstyle-custom.xml')
-}
-
-checkstyleMain {
+    // If there is a checkstyle violation in our main code, then do not fail the build because we haven't fixed them all yet
     ignoreFailures = true
 }
 
-
+// If there is a checkstyle violation in our tests, then fail the build
 checkstyleTest {
     ignoreFailures = false
 }
