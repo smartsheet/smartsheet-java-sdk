@@ -1,4 +1,5 @@
 package com.smartsheet.api.internal;
+
 /*
  * #[license]
  * Smartsheet SDK for Java
@@ -32,16 +33,18 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+
 /**
  * This is the implementation of the DiscussionCommentResources.
- *
+ * <p>
  * Thread Safety: This class is thread safe because it is immutable and its base class is thread safe.
  */
-public class DiscussionCommentResourcesImpl extends AbstractResources implements DiscussionCommentResources{
+public class DiscussionCommentResourcesImpl extends AbstractResources implements DiscussionCommentResources {
+    private static final String SHEETS_PATH = "sheets/";
 
     /**
      * Constructor.
-     *
+     * <p>
      * Exceptions: - IllegalArgumentException : if any argument is null
      *
      * @param smartsheet the smartsheet
@@ -66,8 +69,8 @@ public class DiscussionCommentResourcesImpl extends AbstractResources implements
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public Comment addComment(long sheetId, long discussionId, Comment comment) throws SmartsheetException{
-        return this.createResource("sheets/" + sheetId + "/discussions/" + discussionId + "/comments", Comment.class, comment);
+    public Comment addComment(long sheetId, long discussionId, Comment comment) throws SmartsheetException {
+        return this.createResource(SHEETS_PATH + sheetId + "/discussions/" + discussionId + "/comments", Comment.class, comment);
     }
 
     /**
@@ -89,15 +92,27 @@ public class DiscussionCommentResourcesImpl extends AbstractResources implements
      * @throws SmartsheetException if there is any other error during the operation
      * @throws IOException is there is any error with file
      */
-    public Comment addCommentWithAttachment(long sheetId, long discussionId, Comment comment, File file, String contentType) throws SmartsheetException, IOException{
-        String path = "sheets/" + sheetId + "/discussions/" + discussionId + "/comments";
+    public Comment addCommentWithAttachment(
+            long sheetId,
+            long discussionId,
+            Comment comment,
+            File file,
+            String contentType
+    ) throws SmartsheetException, IOException {
+        String path = SHEETS_PATH + sheetId + "/discussions/" + discussionId + "/comments";
         Util.throwIfNull(sheetId, comment, file, contentType);
 
         return this.addCommentWithAttachment(path, comment, new FileInputStream(file), contentType, file.getName());
     }
 
-    private Comment addCommentWithAttachment(String path, Comment comment, InputStream inputStream, String contentType, String attachmentName) throws SmartsheetException{
-        return this.createResourceWithAttachment(path, Comment.class, comment, "comment", inputStream , contentType, attachmentName);
+    private Comment addCommentWithAttachment(
+            String path,
+            Comment comment,
+            InputStream inputStream,
+            String contentType,
+            String attachmentName
+    ) throws SmartsheetException {
+        return this.createResourceWithAttachment(path, Comment.class, comment, "comment", inputStream, contentType, attachmentName);
     }
 
     /**
@@ -116,6 +131,6 @@ public class DiscussionCommentResourcesImpl extends AbstractResources implements
      * @throws SmartsheetException if there is any other error during the operation
      */
     public Comment updateComment(long sheetId, Comment comment) throws SmartsheetException {
-        return this.updateResource("sheets/" + sheetId + "/comments/" + comment.getId(), Comment.class, comment);
+        return this.updateResource(SHEETS_PATH + sheetId + "/comments/" + comment.getId(), Comment.class, comment);
     }
 }

@@ -9,9 +9,9 @@ package com.smartsheet.api.internal;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -19,7 +19,6 @@ package com.smartsheet.api.internal;
  * limitations under the License.
  * %[license]
  */
-
 
 import com.smartsheet.api.ContactResources;
 import com.smartsheet.api.EventResources;
@@ -57,7 +56,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * This is the implementation of Smartsheet interface.
- *
+ * <p>
  * Thread Safety: This class is thread safe because all its mutable fields are safe-guarded using AtomicReference to
  * ensure atomic modifications, and also the underlying HttpClient and JsonSerializer interfaces are thread safe.
  */
@@ -65,14 +64,14 @@ public class SmartsheetImpl implements Smartsheet {
 
     /**
      * Represents the base URI of the Smartsheet REST API.
-     *
+     * <p>
      * It will be initialized in constructor and will not change afterwards.
      */
     private URI baseURI;
 
     /**
      * Represents the AtomicReference for access token.
-     *
+     * <p>
      * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
      * as null, and can be set via corresponding setter, therefore effectively the access token can be updated in the
      * SmartsheetImpl in thread safe manner.
@@ -81,21 +80,21 @@ public class SmartsheetImpl implements Smartsheet {
 
     /**
      * Represents the HttpClient.
-     *
+     * <p>
      * It will be initialized in constructor and will not change afterwards.
      */
     private final HttpClient httpClient;
 
     /**
      * Represents the JsonSerializer.
-     *
+     * <p>
      * It will be initialized in constructor and will not change afterwards.
      */
     private JsonSerializer jsonSerializer;
 
     /**
      * Represents the AtomicReference for assumed user email.
-     *
+     * <p>
      * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
      * as null, and can be set via corresponding setter, therefore effectively the assumed user can be updated in the
      * SmartsheetImpl in thread safe manner.
@@ -104,7 +103,7 @@ public class SmartsheetImpl implements Smartsheet {
 
     /**
      * Represents the AtomicReference for change agent
-     *
+     * <p>
      * It will be initialized in constructor and will not change afterwards.
      *
      */
@@ -117,7 +116,7 @@ public class SmartsheetImpl implements Smartsheet {
 
     /**
      * Represents the AtomicReference to HomeResources.
-     *
+     * <p>
      * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
      * as null, and will be initialized to non-null at the first time it is accessed via corresponding getter, therefore
      * effectively the underlying value is lazily created in a thread safe manner.
@@ -126,7 +125,7 @@ public class SmartsheetImpl implements Smartsheet {
 
     /**
      * Represents the AtomicReference to WorkspaceResources.
-     *
+     * <p>
      * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
      * as null, and will be initialized to non-null at the first time it is accessed via corresponding getter, therefore
      * effectively the underlying value is lazily created in a thread safe manner.
@@ -135,7 +134,7 @@ public class SmartsheetImpl implements Smartsheet {
 
     /**
      * Represents the AtomicReference to FolderResources.
-     *
+     * <p>
      * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
      * as null, and will be initialized to non-null at the first time it is accessed via corresponding getter, therefore
      * effectively the underlying value is lazily created in a thread safe manner.
@@ -144,7 +143,7 @@ public class SmartsheetImpl implements Smartsheet {
 
     /**
      * Represents the AtomicReference to TemplateResources.
-     *
+     * <p>
      * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
      * as null, and will be initialized to non-null at the first time it is accessed via corresponding getter, therefore
      * effectively the underlying value is lazily created in a thread safe manner.
@@ -153,7 +152,7 @@ public class SmartsheetImpl implements Smartsheet {
 
     /**
      * Represents the AtomicReference to SheetResources.
-     *
+     * <p>
      * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
      * as null, and will be initialized to non-null at the first time it is accessed via corresponding getter, therefore
      * effectively the underlying value is lazily created in a thread safe manner.
@@ -162,7 +161,7 @@ public class SmartsheetImpl implements Smartsheet {
 
     /**
      * Represents the AtomicReference to SightResources
-     *
+     * <p>
      * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
      * as null, and will be initialized to non-null at the first time it is accessed via corresponding getter, therefore
      * effectively the underlying value is lazily created in a thread safe manner.
@@ -171,7 +170,7 @@ public class SmartsheetImpl implements Smartsheet {
 
     /**
      * Represents the AtomicReference to UserResources.
-     *
+     * <p>
      * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
      * as null, and will be initialized to non-null at the first time it is accessed via corresponding getter, therefore
      * effectively the underlying value is lazily created in a thread safe manner.
@@ -180,7 +179,7 @@ public class SmartsheetImpl implements Smartsheet {
 
     /**
      * Represents the AtomicReference to {@link GroupResources}.
-     *
+     * <p>
      * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
      * as null, and will be initialized to non-null at the first time it is accessed via corresponding getter, therefore
      * effectively the underlying value is lazily created in a thread safe manner.
@@ -189,7 +188,7 @@ public class SmartsheetImpl implements Smartsheet {
 
     /**
      * Represents the AtomicReference to SearchResources.
-     *
+     * <p>
      * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
      * as null, and will be initialized to non-null at the first time it is accessed via corresponding getter, therefore
      * effectively the underlying value is lazily created in a thread safe manner.
@@ -198,7 +197,7 @@ public class SmartsheetImpl implements Smartsheet {
 
     /**
      * Represents the AtomicReference to ReportResources.
-     *
+     * <p>
      * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
      * as null, and will be initialized to non-null at the first time it is accessed via corresponding getter, therefore
      * effectively the underlying value is lazily created in a thread safe manner.
@@ -207,7 +206,7 @@ public class SmartsheetImpl implements Smartsheet {
 
     /**
      * Represents the AtomicReference for ServerInfoResources.
-     *
+     * <p>
      * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
      * as null, and will be initialized to non-null at the first time it is accessed via corresponding getter, therefore
      * effectively the underlying value is lazily created in a thread safe manner.
@@ -216,7 +215,7 @@ public class SmartsheetImpl implements Smartsheet {
 
     /**
      * Represents the AtomicReference for FavoriteResources.
-     *
+     * <p>
      * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
      * as null, and will be initialized to non-null at the first time it is accessed via corresponding getter, therefore
      * effectively the underlying value is lazily created in a thread safe manner.
@@ -225,7 +224,7 @@ public class SmartsheetImpl implements Smartsheet {
 
     /**
      * Represents the AtomicReference for TokenResources.
-     *
+     * <p>
      * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
      * as null, and will be initialized to non-null at the first time it is accessed via corresponding getter, therefore
      * effectively the underlying value is lazily created in a thread safe manner.
@@ -234,7 +233,7 @@ public class SmartsheetImpl implements Smartsheet {
 
     /**
      * Represents the AtomicReference for ContactResources.
-     *
+     * <p>
      * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
      * as null, and will be initialized to non-null at the first time it is accessed via corresponding getter, therefore
      * effectively the underlying value is lazily created in a thread safe manner.
@@ -243,7 +242,7 @@ public class SmartsheetImpl implements Smartsheet {
 
     /**
      * Represents the AtomicReference for ImageUrlResources.
-     *
+     * <p>
      * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
      * as null, and will be initialized to non-null at the first time it is accessed via corresponding getter, therefore
      * effectively the underlying value is lazily created in a thread safe manner.
@@ -252,7 +251,7 @@ public class SmartsheetImpl implements Smartsheet {
 
     /**
      * Represents the AtomicReference for WebhookResources.
-     *
+     * <p>
      * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
      * as null, and will be initialized to non-null at the first time it is accessed via corresponding getter, therefore
      * effectively the underlying value is lazily created in a thread safe manner.
@@ -261,7 +260,7 @@ public class SmartsheetImpl implements Smartsheet {
 
     /**
      * Represents the AtomicReference for PassthroughResources.
-     *
+     * <p>
      * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
      * as null, and will be initialized to non-null at the first time it is accessed via corresponding getter, therefore
      * effectively the underlying value is lazily created in a thread safe manner.
@@ -270,16 +269,18 @@ public class SmartsheetImpl implements Smartsheet {
 
     /**
      * Represents the AtomicReference for EventResources.
-     *
+     * <p>
      * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
      * as null, and will be initialized to non-null at the first time it is accessed via corresponding getter, therefore
      * effectively the underlying value is lazily created in a thread safe manner.
      */
     private final AtomicReference<EventResources> events;
 
+    private static final String INVALID_OPERATION_FOR_CLASS = "Invalid operation for class ";
+
     /**
      * Create an instance with given server URI, HttpClient (optional) and JsonSerializer (optional)
-     *
+     * <p>
      * Exceptions: - IllegalArgumentException : if serverURI/version/accessToken is null/empty
      *
      * @param baseURI the server uri
@@ -291,7 +292,7 @@ public class SmartsheetImpl implements Smartsheet {
 
     /**
      * Create an instance with given server URI, HttpClient (optional) and JsonSerializer (optional)
-     *
+     * <p>
      * Exceptions: - IllegalArgumentException : if serverURI/version/accessToken is null/empty
      *
      * @param baseURI the server uri
@@ -305,9 +306,9 @@ public class SmartsheetImpl implements Smartsheet {
 
         this.baseURI = URI.create(baseURI);
         this.accessToken = new AtomicReference<>(accessToken);
-        this.jsonSerializer = ((jsonSerializer == null) ? new JacksonJsonSerializer() : jsonSerializer);
-        this.httpClient = ((httpClient == null) ?
-                new DefaultHttpClient(HttpClients.createDefault(), this.jsonSerializer) :  httpClient);
+        this.jsonSerializer = (jsonSerializer == null) ? new JacksonJsonSerializer() : jsonSerializer;
+        this.httpClient = (httpClient == null)
+                ? new DefaultHttpClient(HttpClients.createDefault(), this.jsonSerializer) : httpClient;
         this.assumedUser = new AtomicReference<>(null);
         this.changeAgent = new AtomicReference<>(null);
         this.userAgent = new AtomicReference<>(generateUserAgent(null));
@@ -344,7 +345,7 @@ public class SmartsheetImpl implements Smartsheet {
 
     /**
      * Getter of corresponding field.
-     *
+     * <p>
      * Returns: corresponding field.
      *
      * @return the base uri
@@ -364,11 +365,11 @@ public class SmartsheetImpl implements Smartsheet {
 
     /**
      * Set the access token to use.
-     *
+     * <p>
      * Parameters: - accessToken : the access token
-     *
+     * <p>
      * Returns: None
-     *
+     * <p>
      *
      * @param accessToken the new access token
      */
@@ -424,7 +425,6 @@ public class SmartsheetImpl implements Smartsheet {
     /**
      * Sets the change agent identifier
      *
-     * @param changeAgent
      */
     public void setChangeAgent(String changeAgent) {
         this.changeAgent.set(changeAgent);
@@ -456,30 +456,29 @@ public class SmartsheetImpl implements Smartsheet {
     public void setMaxRetryTimeMillis(long maxRetryTimeMillis) {
         if (this.httpClient instanceof DefaultHttpClient) {
             ((DefaultHttpClient) this.httpClient).setMaxRetryTimeMillis(maxRetryTimeMillis);
-        }
-        else if (this.httpClient instanceof AndroidHttpClient) {
+        } else if (this.httpClient instanceof AndroidHttpClient) {
             ((AndroidHttpClient) this.httpClient).setMaxRetryTimeMillis(maxRetryTimeMillis);
+        } else {
+            throw new UnsupportedOperationException(INVALID_OPERATION_FOR_CLASS + this.httpClient.getClass());
         }
-        else
-            throw new UnsupportedOperationException("Invalid operation for class " + this.httpClient.getClass());
     }
 
     /** set what request/response fields to log in trace-logging */
     public void setTraces(Trace... traces) {
         if (this.httpClient instanceof DefaultHttpClient) {
-            ((DefaultHttpClient)this.httpClient).setTraces(traces);
+            ((DefaultHttpClient) this.httpClient).setTraces(traces);
+        } else {
+            throw new UnsupportedOperationException(INVALID_OPERATION_FOR_CLASS + this.httpClient.getClass());
         }
-        else
-            throw new UnsupportedOperationException("Invalid operation for class " + this.httpClient.getClass());
     }
 
     /** set whether or not to generate "pretty formatted" JSON in trace-logging */
     public void setTracePrettyPrint(boolean pretty) {
         if (this.httpClient instanceof DefaultHttpClient) {
-            ((DefaultHttpClient)this.httpClient).setTracePrettyPrint(pretty);
+            ((DefaultHttpClient) this.httpClient).setTracePrettyPrint(pretty);
+        } else {
+            throw new UnsupportedOperationException(INVALID_OPERATION_FOR_CLASS + this.httpClient.getClass());
         }
-        else
-            throw new UnsupportedOperationException("Invalid operation for class " + this.httpClient.getClass());
     }
 
     /**
@@ -553,6 +552,7 @@ public class SmartsheetImpl implements Smartsheet {
         }
         return sights.get();
     }
+
     /**
      * Returns the FavoriteResources instance that provides access to Favorite resources.
      *
@@ -706,12 +706,12 @@ public class SmartsheetImpl implements Smartsheet {
         String title = null;
         String thisVersion = null;
 
-        if(userAgent == null) {
+        if (userAgent == null) {
             StackTraceElement[] callers = Thread.currentThread().getStackTrace();
             String module = null;
             String callerClass = null;
             int stackIdx;
-            for(stackIdx = callers.length - 1; stackIdx >= 0; stackIdx--) {
+            for (stackIdx = callers.length - 1; stackIdx >= 0; stackIdx--) {
                 callerClass = callers[stackIdx].getClassName();
                 try {
                     Class<?> clazz = Class.forName(callerClass);
@@ -732,7 +732,9 @@ public class SmartsheetImpl implements Smartsheet {
                             break;
                         }
                     }
-                } catch (Exception ex) { }
+                } catch (Exception ex) {
+                    // Empty Catch Block
+                }
             }
             userAgent = module + "!" + callerClass;
         }
@@ -741,9 +743,11 @@ public class SmartsheetImpl implements Smartsheet {
             properties.load(this.getClass().getClassLoader().getResourceAsStream("sdk.properties"));
             thisVersion = properties.getProperty("sdk.version");
             title = properties.getProperty("sdk.name");
-        } catch (IOException e) { }
-        return title + "/" + thisVersion + "/" + userAgent + "/" + System.getProperty("os.name") + " "
-                + System.getProperty("java.vm.name") + " " + System.getProperty("java.vendor") + " "
-                + System.getProperty("java.version");
+        } catch (IOException e) {
+            // Empty Catch Block
+        }
+        return title + "/" + thisVersion + "/" + userAgent + "/" + System.getProperty("os.name") + " " +
+                System.getProperty("java.vm.name") + " " + System.getProperty("java.vendor") + " " +
+                System.getProperty("java.version");
     }
 }

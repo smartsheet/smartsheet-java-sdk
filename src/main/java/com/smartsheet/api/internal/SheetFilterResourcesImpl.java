@@ -9,9 +9,9 @@ package com.smartsheet.api.internal;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -30,11 +30,12 @@ import com.smartsheet.api.models.SheetFilter;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SheetFilterResourcesImpl extends  AbstractResources implements SheetFilterResources {
+public class SheetFilterResourcesImpl extends AbstractResources implements SheetFilterResources {
+    private static final String SHEETS_PATH = "sheets/";
 
     /**
      * Constructor.
-     *
+     * <p>
      * Exceptions:
      *   IllegalArgumentException : if any argument is null or empty string
      *
@@ -46,14 +47,14 @@ public class SheetFilterResourcesImpl extends  AbstractResources implements Shee
 
     /**
      * Get a filter.
-     *
+     * <p>
      * It mirrors to the following Smartsheet REST API method: GET /sheets/{sheetId}/filters/{filterId}
-     *
+     * <p>
      * Parameters: - filterId : the ID
-     *
+     * <p>
      * Returns: the resource (note that if there is no such resource, this method will throw ResourceNotFoundException
      * rather than returning null).
-     *
+     * <p>
      * Exceptions:
      *   InvalidRequestException : if there is any problem with the REST API request
      *   AuthorizationException : if there is any problem with the REST API authorization(access token)
@@ -68,14 +69,14 @@ public class SheetFilterResourcesImpl extends  AbstractResources implements Shee
      * @throws SmartsheetException the smartsheet exception
      */
     public SheetFilter getFilter(long sheetId, long filterId) throws SmartsheetException {
-        return this.getResource("sheets/" + sheetId + "/filters/" + filterId, SheetFilter.class);
+        return this.getResource(SHEETS_PATH + sheetId + "/filters/" + filterId, SheetFilter.class);
     }
 
     /**
      * Delete filter.
-     *
+     * <p>
      * It mirrors to the following Smartsheet REST API method: DELETE /sheets/{sheetId}/filters/{filterId}
-     *
+     * <p>
      * Exceptions:
      *   IllegalArgumentException : if any argument is null
      *   InvalidRequestException : if there is any problem with the REST API request
@@ -89,14 +90,14 @@ public class SheetFilterResourcesImpl extends  AbstractResources implements Shee
      * @throws SmartsheetException the smartsheet exception
      */
     public void deleteFilter(long sheetId, long filterId) throws SmartsheetException {
-        this.deleteResource("sheets/" + sheetId + "/filters/" + filterId, SheetFilter.class);
+        this.deleteResource(SHEETS_PATH + sheetId + "/filters/" + filterId, SheetFilter.class);
     }
 
     /**
      * Get all filters.
-     *
+     * <p>
      * It mirrors to the following Smartsheet REST API method: GET /sheets/{sheetId}/filters
-     *
+     * <p>
      * Exceptions:
      *   IllegalArgumentException : if any argument is null
      *   InvalidRequestException : if there is any problem with the REST API request
@@ -111,7 +112,7 @@ public class SheetFilterResourcesImpl extends  AbstractResources implements Shee
      * @throws SmartsheetException the smartsheet exception
      */
     public PagedResult<SheetFilter> listFilters(long sheetId, PaginationParameters pagination) throws SmartsheetException {
-        String path = "sheets/" + sheetId + "/filters";
+        String path = SHEETS_PATH + sheetId + "/filters";
         Map<String, Object> parameters = new HashMap<>();
 
         if (pagination != null) {

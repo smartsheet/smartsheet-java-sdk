@@ -62,13 +62,19 @@ import java.util.Set;
 
 /**
  * This is the implementation of the SheetRowResources.
- *
+ * <p>
  * Thread Safety: This class is thread safe because it is immutable and its base class is thread safe.
  */
 public class SheetRowResourcesImpl extends AbstractResources implements SheetRowResources {
     RowAttachmentResources attachments;
     RowDiscussionResources discussions;
     RowColumnResources columns;
+
+    private static final String IGNORE_ROWS_NOT_FOUND = "ignoreRowsNotFound";
+    private static final String SHEETS_PATH = "sheets/";
+    private static final String ROWS = "rows";
+    private static final String INCLUDE = "include";
+    private static final String EXCLUDE = "exclude";
 
     /**
      * Constructor.
@@ -124,12 +130,12 @@ public class SheetRowResourcesImpl extends AbstractResources implements SheetRow
             EnumSet<RowInclusion> includes,
             EnumSet<ObjectExclusion> excludes
     ) throws SmartsheetException {
-        String path = "sheets/" + sheetId + "/rows";
+        String path = SHEETS_PATH + sheetId + "/" + ROWS;
 
         Map<String, Object> parameters = new HashMap<>();
 
-        parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
-        parameters.put("exclude", QueryUtil.generateCommaSeparatedList(excludes));
+        parameters.put(INCLUDE, QueryUtil.generateCommaSeparatedList(includes));
+        parameters.put(EXCLUDE, QueryUtil.generateCommaSeparatedList(excludes));
 
         path += QueryUtil.generateUrl(null, parameters);
         return this.postAndReceiveList(path, rows, Row.class);
@@ -203,12 +209,12 @@ public class SheetRowResourcesImpl extends AbstractResources implements SheetRow
             EnumSet<RowInclusion> includes,
             EnumSet<ObjectExclusion> excludes
     ) throws SmartsheetException {
-        String path = "sheets/" + sheetId + "/rows/" + rowId;
+        String path = SHEETS_PATH + sheetId + "/" + ROWS + "/" + rowId;
 
         Map<String, Object> parameters = new HashMap<>();
 
-        parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
-        parameters.put("exclude", QueryUtil.generateCommaSeparatedList(excludes));
+        parameters.put(INCLUDE, QueryUtil.generateCommaSeparatedList(includes));
+        parameters.put(EXCLUDE, QueryUtil.generateCommaSeparatedList(excludes));
 
         path += QueryUtil.generateUrl(null, parameters);
         return this.getResource(path, Row.class);
@@ -230,7 +236,7 @@ public class SheetRowResourcesImpl extends AbstractResources implements SheetRow
      */
     @Deprecated
     public void deleteRow(long sheetId, long rowId) throws SmartsheetException {
-        this.deleteResource("sheets/" + sheetId + "/rows/" + rowId, Row.class);
+        this.deleteResource(SHEETS_PATH + sheetId + "/" + ROWS + "/" + rowId, Row.class);
     }
 
     /**
@@ -251,9 +257,9 @@ public class SheetRowResourcesImpl extends AbstractResources implements SheetRow
     public List<Long> deleteRows(long sheetId, Set<Long> rowIds, boolean ignoreRowsNotFound) throws SmartsheetException {
         Util.throwIfNull(rowIds);
         Map<String, Object> parameters = new HashMap<>();
-        String path = "sheets/" + sheetId + "/rows/";
+        String path = SHEETS_PATH + sheetId + "/" + ROWS + "/";
         parameters.put("ids", QueryUtil.generateCommaSeparatedList(rowIds));
-        parameters.put("ignoreRowsNotFound", ignoreRowsNotFound);
+        parameters.put(IGNORE_ROWS_NOT_FOUND, ignoreRowsNotFound);
 
         path += QueryUtil.generateUrl(null, parameters);
 
@@ -277,7 +283,7 @@ public class SheetRowResourcesImpl extends AbstractResources implements SheetRow
      */
     @Deprecated
     public void sendRow(long sheetId, long rowId, RowEmail email) throws SmartsheetException {
-        this.createResource("sheets/" + sheetId + "/rows/" + rowId + "/emails", RowEmail.class, email);
+        this.createResource(SHEETS_PATH + sheetId + "/" + ROWS + "/" + rowId + "/emails", RowEmail.class, email);
     }
 
     /**
@@ -294,7 +300,7 @@ public class SheetRowResourcesImpl extends AbstractResources implements SheetRow
      * @throws SmartsheetException : if there is any other error occurred during the operation
      */
     public void sendRows(long sheetId, MultiRowEmail email) throws SmartsheetException {
-        this.createResource("sheets/" + sheetId + "/rows/emails", MultiRowEmail.class, email);
+        this.createResource(SHEETS_PATH + sheetId + "/rows/emails", MultiRowEmail.class, email);
     }
 
     /**
@@ -337,12 +343,12 @@ public class SheetRowResourcesImpl extends AbstractResources implements SheetRow
             EnumSet<RowInclusion> includes,
             EnumSet<ObjectExclusion> excludes
     ) throws SmartsheetException {
-        String path = "sheets/" + sheetId + "/rows";
+        String path = SHEETS_PATH + sheetId + "/" + ROWS;
 
         Map<String, Object> parameters = new HashMap<>();
 
-        parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
-        parameters.put("exclude", QueryUtil.generateCommaSeparatedList(excludes));
+        parameters.put(INCLUDE, QueryUtil.generateCommaSeparatedList(includes));
+        parameters.put(EXCLUDE, QueryUtil.generateCommaSeparatedList(excludes));
 
         path += QueryUtil.generateUrl(null, parameters);
         return this.putAndReceiveList(path, rows, Row.class);
@@ -407,11 +413,11 @@ public class SheetRowResourcesImpl extends AbstractResources implements SheetRow
             throw new IllegalArgumentException();
         }
 
-        String path = "sheets/" + sheetId + "/rows";
+        String path = SHEETS_PATH + sheetId + "/" + ROWS;
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("allowPartialSuccess", "true");
-        parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
-        parameters.put("exclude", QueryUtil.generateCommaSeparatedList(excludes));
+        parameters.put(INCLUDE, QueryUtil.generateCommaSeparatedList(includes));
+        parameters.put(EXCLUDE, QueryUtil.generateCommaSeparatedList(excludes));
 
         path = QueryUtil.generateUrl(path, parameters);
 
@@ -484,12 +490,12 @@ public class SheetRowResourcesImpl extends AbstractResources implements SheetRow
             Boolean ignoreRowsNotFound,
             CopyOrMoveRowDirective moveParameters
     ) throws SmartsheetException {
-        String path = "sheets/" + sheetId + "/rows/move";
+        String path = SHEETS_PATH + sheetId + "/rows/move";
         Map<String, Object> parameters = new HashMap<>();
-        parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
+        parameters.put(INCLUDE, QueryUtil.generateCommaSeparatedList(includes));
 
         if (ignoreRowsNotFound != null) {
-            parameters.put("ignoreRowsNotFound", ignoreRowsNotFound.toString());
+            parameters.put(IGNORE_ROWS_NOT_FOUND, ignoreRowsNotFound.toString());
         }
 
         path += QueryUtil.generateUrl(null, parameters);
@@ -518,12 +524,12 @@ public class SheetRowResourcesImpl extends AbstractResources implements SheetRow
             Boolean ignoreRowsNotFound,
             CopyOrMoveRowDirective copyParameters
     ) throws SmartsheetException {
-        String path = "sheets/" + sheetId + "/rows/copy";
+        String path = SHEETS_PATH + sheetId + "/rows/copy";
         Map<String, Object> parameters = new HashMap<>();
-        parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
+        parameters.put(INCLUDE, QueryUtil.generateCommaSeparatedList(includes));
 
         if (ignoreRowsNotFound != null) {
-            parameters.put("ignoreRowsNotFound", ignoreRowsNotFound.toString());
+            parameters.put(IGNORE_ROWS_NOT_FOUND, ignoreRowsNotFound.toString());
         }
 
         path += QueryUtil.generateUrl(null, parameters);

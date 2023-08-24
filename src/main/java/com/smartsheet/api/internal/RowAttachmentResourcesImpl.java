@@ -35,12 +35,13 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+
 /**
  * This is the implementation of the RowAttachmentResources.
- *
+ * <p>
  * Thread Safety: This class is thread safe because it is immutable and its base class is thread safe.
  */
-public class RowAttachmentResourcesImpl extends AbstractResources implements RowAttachmentResources{
+public class RowAttachmentResourcesImpl extends AbstractResources implements RowAttachmentResources {
 
     public RowAttachmentResourcesImpl(SmartsheetImpl smartsheet) {
         super(smartsheet);
@@ -48,10 +49,10 @@ public class RowAttachmentResourcesImpl extends AbstractResources implements Row
 
     /**
      * Attach a URL to a comment.
-     *
+     * <p>
      * The URL can be a normal URL (attachmentType "URL"), a Google Drive URL (attachmentType "GOOGLE_DRIVE") or a
      * Box.com URL (attachmentType "BOX_COM").
-     *
+     * <p>
      * It mirrors to the following Smartsheet REST API method: POST /sheets/{sheetId}/rows/{rowId}/attachments
      *
      * @param sheetId the sheet id
@@ -65,19 +66,18 @@ public class RowAttachmentResourcesImpl extends AbstractResources implements Row
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public Attachment attachUrl(long sheetId, long rowId, Attachment attachment) throws SmartsheetException
-    {
-        return this.createResource("sheets/" + sheetId + "/rows/" + rowId + "/attachments", Attachment.class, attachment);
+    public Attachment attachUrl(long sheetId, long rowId, Attachment attachment) throws SmartsheetException {
+        return this.createResource(createPath(sheetId, rowId), Attachment.class, attachment);
     }
 
     /**
      * Get row attachment.
-     *
+     * <p>
      * It mirrors to the following Smartsheet REST API method: GET /sheets/{sheetId}/rows/{rowId}/attachments
-     *
+     * <p>
      * Returns: the resource (note that if there is no such resource, this method will throw ResourceNotFoundException
      * rather than returning null).
-     *
+     * <p>
      * Exceptions:
      *   InvalidRequestException : if there is any problem with the REST API request
      *   AuthorizationException : if there is any problem with the REST API authorization(access token)
@@ -90,11 +90,11 @@ public class RowAttachmentResourcesImpl extends AbstractResources implements Row
      * @param rowId the row id
      * @param parameters the pagination parameters
      * @return the resource (note that if there is no such resource, this method will throw ResourceNotFoundException
-     * rather than returning null).
+     *     rather than returning null).
      * @throws SmartsheetException the smartsheet exception
      */
     public PagedResult<Attachment> getAttachments(long sheetId, long rowId, PaginationParameters parameters) throws SmartsheetException {
-        String path= "sheets/" + sheetId + "/rows/" + rowId + "/attachments";
+        String path = createPath(sheetId, rowId);
         if (parameters != null) {
             path += parameters.toQueryString();
         }
@@ -103,7 +103,7 @@ public class RowAttachmentResourcesImpl extends AbstractResources implements Row
 
     /**
      * Attach a file to a row with simple upload.
-     *
+     * <p>
      * It mirrors to the following Smartsheet REST API method: POST /sheets/{sheetId}/rows/{rowId}/attachments
      *
      * @param sheetId the id of the sheet
@@ -138,9 +138,19 @@ public class RowAttachmentResourcesImpl extends AbstractResources implements Row
      * @return the attachment
      * @throws SmartsheetException the smartsheet exception
      */
-    public Attachment attachFile(long sheetId, long rowId, InputStream inputStream, String contentType, long contentLength, String attachmentName)
-            throws SmartsheetException {
+    public Attachment attachFile(
+            long sheetId,
+            long rowId,
+            InputStream inputStream,
+            String contentType,
+            long contentLength,
+            String attachmentName
+    ) throws SmartsheetException {
         Util.throwIfNull(inputStream, contentType);
-        return super.attachFile("sheets/" + sheetId + "/rows/" + rowId + "/attachments", inputStream, contentType, contentLength, attachmentName);
+        return super.attachFile(createPath(sheetId, rowId), inputStream, contentType, contentLength, attachmentName);
+    }
+
+    private String createPath(long sheetId, long rowId) {
+        return "sheets/" + sheetId + "/rows/" + rowId + "/attachments";
     }
 }
