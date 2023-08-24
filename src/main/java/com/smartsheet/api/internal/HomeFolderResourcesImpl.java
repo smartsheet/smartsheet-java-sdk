@@ -9,9 +9,9 @@ package com.smartsheet.api.internal;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -19,8 +19,6 @@ package com.smartsheet.api.internal;
  * limitations under the License.
  * %[license]
  */
-
-
 
 import com.smartsheet.api.HomeFolderResources;
 import com.smartsheet.api.SmartsheetException;
@@ -30,14 +28,14 @@ import com.smartsheet.api.models.PaginationParameters;
 
 /**
  * This is the implementation of the HomeFolderResources.
- *
+ * <p>
  * Thread Safety: This class is thread safe because it is immutable and its base class is thread safe.
  */
 public class HomeFolderResourcesImpl extends AbstractResources implements HomeFolderResources {
 
     /**
      * Constructor.
-     *
+     * <p>
      * Exceptions: - IllegalArgumentException : if any argument is null
      *
      * @param smartsheet the smartsheet
@@ -48,9 +46,9 @@ public class HomeFolderResourcesImpl extends AbstractResources implements HomeFo
 
     /**
      * List folders under home.
-     *
+     * <p>
      * It mirrors to the following Smartsheet REST API method: GET /home/folders
-     *
+     * <p>
      * Exceptions:
      *   InvalidRequestException : if there is any problem with the REST API request
      *   AuthorizationException : if there is any problem with the REST API authorization(access token)
@@ -75,9 +73,9 @@ public class HomeFolderResourcesImpl extends AbstractResources implements HomeFo
 
     /**
      * Create a folder in home.
-     *
+     * <p>
      * It mirrors to the following Smartsheet REST API method: POST /home/folders
-     *
+     * <p>
      * Exceptions:
      *   IllegalArgumentException : if folder is null
      *   InvalidRequestException : if there is any problem with the REST API request

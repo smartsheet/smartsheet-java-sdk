@@ -1,4 +1,5 @@
 package com.smartsheet.api.internal;
+
 /*
  * #[license]
  * Smartsheet SDK for Java
@@ -8,9 +9,9 @@ package com.smartsheet.api.internal;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -35,13 +36,22 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+
 /**
  * This is the implementation of the SheetAttachmentResources.
- *
+ * <p>
  * Thread Safety: This class is thread safe because it is immutable and its base class is thread safe.
  */
-public class SheetAttachmentResourcesImpl extends AbstractResources implements SheetAttachmentResources{
+public class SheetAttachmentResourcesImpl extends AbstractResources implements SheetAttachmentResources {
     private AttachmentVersioningResources versioning;
+
+    private static final String SHEETS_PATH = "sheets/";
+
+    private static final String ATTACHMENTS_PATH = "/attachments";
+
+    /**
+     * Constructor
+     */
     public SheetAttachmentResourcesImpl(SmartsheetImpl smartsheet) {
         super(smartsheet);
         this.versioning = new AttachmentVersioningResourcesImpl(smartsheet);
@@ -49,10 +59,10 @@ public class SheetAttachmentResourcesImpl extends AbstractResources implements S
 
     /**
      * Attach a URL to a sheet.
-     *
+     * <p>
      * The URL can be a normal URL (attachmentType "URL"), a Google Drive URL (attachmentType "GOOGLE_DRIVE") or a
      * Box.com URL (attachmentType "BOX_COM").
-     *
+     * <p>
      * It mirrors to the following Smartsheet REST API method: POST /sheets/{sheetId}/attachments
      *
      * @param sheetId the sheet id
@@ -65,16 +75,15 @@ public class SheetAttachmentResourcesImpl extends AbstractResources implements S
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public Attachment attachUrl(long sheetId, Attachment attachment) throws SmartsheetException
-    {
-        return this.createResource("sheets/" + sheetId + "/attachments", Attachment.class, attachment);
+    public Attachment attachUrl(long sheetId, Attachment attachment) throws SmartsheetException {
+        return this.createResource(SHEETS_PATH + sheetId + ATTACHMENTS_PATH, Attachment.class, attachment);
     }
 
     /**
      * Delete an attachment.
-     *
+     * <p>
      * It mirrors to the following Smartsheet REST API method: DELETE /sheets/{sheetId}/attachments/{attachmentId}
-     *
+     * <p>
      * Exceptions:
      *   InvalidRequestException : if there is any problem with the REST API request
      *   AuthorizationException : if there is any problem with the REST API authorization(access token)
@@ -88,17 +97,17 @@ public class SheetAttachmentResourcesImpl extends AbstractResources implements S
      * @throws SmartsheetException the smartsheet exception
      */
     public void deleteAttachment(long sheetId, long attachmentId) throws SmartsheetException {
-        this.deleteResource("sheets/" + sheetId + "/attachments/" + attachmentId, Attachment.class);
+        this.deleteResource(SHEETS_PATH + sheetId + "/attachments/" + attachmentId, Attachment.class);
     }
 
     /**
      * Get an attachment.
-     *
+     * <p>
      * It mirrors to the following Smartsheet REST API method: GET /attachment/{id}
-     *
+     * <p>
      * Returns: the resource (note that if there is no such resource, this method will throw ResourceNotFoundException
      * rather than returning null).
-     *
+     * <p>
      * Exceptions:
      *   InvalidRequestException : if there is any problem with the REST API request
      *   AuthorizationException : if there is any problem with the REST API authorization(access token)
@@ -110,18 +119,18 @@ public class SheetAttachmentResourcesImpl extends AbstractResources implements S
      * @param sheetId the sheet id
      * @param attachmentId the attachment id
      * @return the resource (note that if there is no such resource, this method will throw ResourceNotFoundException
-     * rather than returning null).
+     *     rather than returning null).
      * @throws SmartsheetException the smartsheet exception
      */
     public Attachment getAttachment(long sheetId, long attachmentId) throws SmartsheetException {
-        return this.getResource("sheets/" + sheetId + "/attachments/" + attachmentId, Attachment.class);
+        return this.getResource(SHEETS_PATH + sheetId + "/attachments/" + attachmentId, Attachment.class);
     }
 
     /**
      * Gets a list of all Attachments that are on the Sheet, including Sheet, Row, and Discussion level Attachments.
-     *
+     * <p>
      * It mirrors to the following Smartsheet REST API method: GET /sheets/{sheetId}/attachments
-     *
+     * <p>
      * Exceptions:
      *   InvalidRequestException : if there is any problem with the REST API request
      *   AuthorizationException : if there is any problem with the REST API authorization(access token)
@@ -136,7 +145,7 @@ public class SheetAttachmentResourcesImpl extends AbstractResources implements S
      * @throws SmartsheetException the smartsheet exception
      */
     public PagedResult<Attachment> listAttachments(long sheetId, PaginationParameters parameters) throws SmartsheetException {
-        String path = "sheets/" + sheetId + "/attachments";
+        String path = SHEETS_PATH + sheetId + ATTACHMENTS_PATH;
 
         if (parameters != null) {
             path += parameters.toQueryString();
@@ -146,7 +155,7 @@ public class SheetAttachmentResourcesImpl extends AbstractResources implements S
 
     /**
      * Attach a file to a sheet with simple upload.
-     *
+     * <p>
      * It mirrors to the following Smartsheet REST API method: POST /sheets/{sheetId}/attachments
      *
      * @param sheetId the id of the sheet
@@ -183,7 +192,7 @@ public class SheetAttachmentResourcesImpl extends AbstractResources implements S
     public Attachment attachFile(long sheetId, InputStream inputStream, String contentType, long contentLength, String attachmentName)
             throws SmartsheetException {
         Util.throwIfNull(inputStream, contentType);
-        return super.attachFile("sheets/" + sheetId + "/attachments", inputStream, contentType, contentLength, attachmentName);
+        return super.attachFile(SHEETS_PATH + sheetId + ATTACHMENTS_PATH, inputStream, contentType, contentLength, attachmentName);
     }
 
     /**
@@ -192,7 +201,7 @@ public class SheetAttachmentResourcesImpl extends AbstractResources implements S
      * @return the created attachment
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public AttachmentVersioningResources versioningResources() throws SmartsheetException{
+    public AttachmentVersioningResources versioningResources() throws SmartsheetException {
         return versioning;
     }
 }

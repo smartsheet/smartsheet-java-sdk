@@ -76,6 +76,9 @@ public abstract class AbstractResources {
     /** The Constant BUFFER_SIZE. */
     private static final int BUFFER_SIZE = 4098;
 
+    private static final String JSON_CONTENT_TYPE = "application/json";
+    private static final String HEADER_CONTENT_TYPE = "Content-Type";
+
     /**
      * The Enum ErrorCode.
      */
@@ -275,7 +278,7 @@ public abstract class AbstractResources {
         ByteArrayOutputStream objectBytesStream = new ByteArrayOutputStream();
         this.smartsheet.getJsonSerializer().serialize(object, objectBytesStream);
         HttpEntity entity = new HttpEntity();
-        entity.setContentType("application/json");
+        entity.setContentType(JSON_CONTENT_TYPE);
         entity.setContent(new ByteArrayInputStream(objectBytesStream.toByteArray()));
         entity.setContentLength(objectBytesStream.size());
         request.setEntity(entity);
@@ -349,7 +352,7 @@ public abstract class AbstractResources {
         HttpPost uploadFile = createHttpPost(this.getSmartsheet().getBaseURI().resolve(path));
 
         try {
-            uploadFile.setHeader("Content-Type", "multipart/form-data; boundary=" + boundary);
+            uploadFile.setHeader(HEADER_CONTENT_TYPE, "multipart/form-data; boundary=" + boundary);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -404,7 +407,7 @@ public abstract class AbstractResources {
         ByteArrayOutputStream objectBytesStream = new ByteArrayOutputStream();
         this.smartsheet.getJsonSerializer().serialize(object, objectBytesStream);
         HttpEntity entity = new HttpEntity();
-        entity.setContentType("application/json");
+        entity.setContentType(JSON_CONTENT_TYPE);
         entity.setContent(new ByteArrayInputStream(objectBytesStream.toByteArray()));
         entity.setContentLength(objectBytesStream.size());
         request.setEntity(entity);
@@ -616,7 +619,7 @@ public abstract class AbstractResources {
         ByteArrayOutputStream objectBytesStream = new ByteArrayOutputStream();
         this.smartsheet.getJsonSerializer().serialize(objectToPost, objectBytesStream);
         HttpEntity entity = new HttpEntity();
-        entity.setContentType("application/json");
+        entity.setContentType(JSON_CONTENT_TYPE);
         entity.setContent(new ByteArrayInputStream(objectBytesStream.toByteArray()));
         entity.setContentLength(objectBytesStream.size());
         request.setEntity(entity);
@@ -668,7 +671,7 @@ public abstract class AbstractResources {
         ByteArrayOutputStream objectBytesStream = new ByteArrayOutputStream();
         this.smartsheet.getJsonSerializer().serialize(objectToPost, objectBytesStream);
         HttpEntity entity = new HttpEntity();
-        entity.setContentType("application/json");
+        entity.setContentType(JSON_CONTENT_TYPE);
         entity.setContent(new ByteArrayInputStream(objectBytesStream.toByteArray()));
         entity.setContentLength(objectBytesStream.size());
         request.setEntity(entity);
@@ -716,7 +719,7 @@ public abstract class AbstractResources {
         ByteArrayOutputStream objectBytesStream = new ByteArrayOutputStream();
         this.smartsheet.getJsonSerializer().serialize(objectToPut, objectBytesStream);
         HttpEntity entity = new HttpEntity();
-        entity.setContentType("application/json");
+        entity.setContentType(JSON_CONTENT_TYPE);
         entity.setContent(new ByteArrayInputStream(objectBytesStream.toByteArray()));
         entity.setContentLength(objectBytesStream.size());
         request.setEntity(entity);
@@ -765,6 +768,9 @@ public abstract class AbstractResources {
         return httpPost;
     }
 
+    /**
+     * Attach a file
+     */
     public Attachment attachFile(String url, InputStream inputStream, String contentType, long contentLength, String attachmentName)
             throws SmartsheetException {
         Util.throwIfNull(inputStream, contentType);
@@ -818,7 +824,7 @@ public abstract class AbstractResources {
         HttpPost uploadFile = createHttpPost(this.getSmartsheet().getBaseURI().resolve(url));
 
         try {
-            uploadFile.setHeader("Content-Type", "multipart/form-data; boundary=" + boundary);
+            uploadFile.setHeader(HEADER_CONTENT_TYPE, "multipart/form-data; boundary=" + boundary);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -957,7 +963,7 @@ public abstract class AbstractResources {
     Map<String, String> createHeaders() {
         Map<String, String> headers = new HashMap<>();
         headers.put("Authorization", "Bearer " + smartsheet.getAccessToken());
-        headers.put("Content-Type", "application/json");
+        headers.put(HEADER_CONTENT_TYPE, JSON_CONTENT_TYPE);
 
         // Set assumed user
         if (smartsheet.getAssumedUser() != null) {

@@ -9,9 +9,9 @@ package com.smartsheet.api.internal;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -35,14 +35,14 @@ import java.util.Set;
 
 /**
  * This is the implementation of the FavoriteResources.
- *
+ * <p>
  * Thread Safety: This class is thread safe because it is immutable and its base class is thread safe.
  */
-public class FavoriteResourcesImpl extends AbstractResources implements FavoriteResources{
+public class FavoriteResourcesImpl extends AbstractResources implements FavoriteResources {
 
     /**
      * Constructor.
-     *
+     * <p>
      * Exceptions: - IllegalArgumentException : if any argument is null
      *
      * @param smartsheet the smartsheet
@@ -53,9 +53,9 @@ public class FavoriteResourcesImpl extends AbstractResources implements Favorite
 
     /**
      * Adds one or more items to the user's list of Favorite items.
-     *
+     * <p>
      * It mirrors to the following Smartsheet REST API method: POST /favorites
-     *
+     * <p>
      * Exceptions:
      *   IllegalArgumentException : if any argument is null
      *   InvalidRequestException : if there is any problem with the REST API request
@@ -66,19 +66,19 @@ public class FavoriteResourcesImpl extends AbstractResources implements Favorite
      *   SmartsheetException : if there is any other error occurred during the operation
      *
      * @param favorites the list of favorites object limited to the following attributes: *
-     * objectId * type
+     *     objectId * type
      * @return a single Favorite object or an array of Favorite objects
      * @throws SmartsheetException the smartsheet exception
      */
-    public List<Favorite> addFavorites(List<Favorite> favorites) throws SmartsheetException{
+    public List<Favorite> addFavorites(List<Favorite> favorites) throws SmartsheetException {
         return this.postAndReceiveList("favorites/", favorites, Favorite.class);
     }
 
     /**
      * Gets a list of all the user's Favorite items.
-     *
+     * <p>
      * It mirrors to the following Smartsheet REST API method: GET /favorites
-     *
+     * <p>
      * Exceptions:
      *   IllegalArgumentException : if any argument is null
      *   InvalidRequestException : if there is any problem with the REST API request
@@ -92,7 +92,7 @@ public class FavoriteResourcesImpl extends AbstractResources implements Favorite
      * @return a single Favorite object or an array of Favorite objects
      * @throws SmartsheetException the smartsheet exception
      */
-    public PagedResult<Favorite> listFavorites(PaginationParameters parameters) throws SmartsheetException{
+    public PagedResult<Favorite> listFavorites(PaginationParameters parameters) throws SmartsheetException {
         String path = "favorites";
 
         if (parameters != null) {
@@ -104,9 +104,9 @@ public class FavoriteResourcesImpl extends AbstractResources implements Favorite
 
     /**
      * Deletes a list of favorites (all the same type)
-     *
+     * <p>
      * It mirrors to the following Smartsheet REST API method: DELETE /favorites
-     *
+     * <p>
      * Exceptions:
      *   IllegalArgumentException : if any argument is null
      *   InvalidRequestException : if there is any problem with the REST API request
@@ -120,7 +120,7 @@ public class FavoriteResourcesImpl extends AbstractResources implements Favorite
      * @param objectIds a single Favorite object or an array of Favorite objects
      * @throws SmartsheetException the smartsheet exception
      */
-    public void removeFavorites(FavoriteType favoriteType, Set<Long> objectIds) throws SmartsheetException{
+    public void removeFavorites(FavoriteType favoriteType, Set<Long> objectIds) throws SmartsheetException {
         String path = "favorites/" + favoriteType.toString();
         Map<String, Object> parameters = new HashMap<>();
 
