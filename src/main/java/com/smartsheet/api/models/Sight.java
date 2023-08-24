@@ -14,9 +14,9 @@ import java.util.List;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -82,7 +82,7 @@ public class Sight extends NamedModel<Long> {
      *
      * @param name the new name
      */
-    public Sight setName(String name){
+    public Sight setName(String name) {
         super.setName(name);
         return this;
     }
@@ -98,8 +98,6 @@ public class Sight extends NamedModel<Long> {
 
     /**
      * Set the number of columns that the Sight contains
-     *
-     * @param columnCount
      */
     public Sight setColumnCount(Integer columnCount) {
         this.columnCount = columnCount;
@@ -117,8 +115,6 @@ public class Sight extends NamedModel<Long> {
 
     /**
      * Set the array of Sight widgets
-     *
-     * @param widgets
      */
     public Sight setWidgets(List<Widget> widgets) {
         this.widgets = widgets;
@@ -136,8 +132,6 @@ public class Sight extends NamedModel<Long> {
 
     /**
      * Set flag indicating whether the user has marked the Sight as a favorite
-     *
-     * @param favorite
      */
     public Sight setFavorite(Boolean favorite) {
         this.favorite = favorite;
@@ -155,8 +149,6 @@ public class Sight extends NamedModel<Long> {
 
     /**
      * Set User's permissions on the Sight
-     *
-     * @param accessLevel
      */
     public Sight setAccessLevel(AccessLevel accessLevel) {
         this.accessLevel = accessLevel;
@@ -174,8 +166,6 @@ public class Sight extends NamedModel<Long> {
 
     /**
      * Set URL pointing to a direct link to the Sight
-     *
-     * @param permalink
      */
     public Sight setPermalink(String permalink) {
         this.permalink = permalink;
@@ -193,8 +183,6 @@ public class Sight extends NamedModel<Long> {
 
     /**
      * Set time of Sight creation
-     *
-     * @param createdAt
      */
     public Sight setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
@@ -212,8 +200,6 @@ public class Sight extends NamedModel<Long> {
 
     /**
      * Set time of last modification
-     *
-     * @param modifiedAt
      */
     public Sight setModifiedAt(Date modifiedAt) {
         this.modifiedAt = modifiedAt;
@@ -250,8 +236,6 @@ public class Sight extends NamedModel<Long> {
 
     /**
      * Set workspace object for this Sight (limited to only id and name)
-     *
-     * @param workspace
      */
     public Sight setWorkspace(Workspace workspace) {
         this.workspace = workspace;
@@ -263,7 +247,9 @@ public class Sight extends NamedModel<Long> {
      *
      * @return the background color
      */
-    public String getBackgroundColor() { return backgroundColor; }
+    public String getBackgroundColor() {
+        return backgroundColor;
+    }
 
     /**
      * Set the background color of the Sight

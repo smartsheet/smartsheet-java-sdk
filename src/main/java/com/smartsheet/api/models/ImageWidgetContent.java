@@ -1,4 +1,5 @@
 package com.smartsheet.api.models;
+
 /*
  * #[license]
  * Smartsheet SDK for Java
@@ -8,9 +9,9 @@ package com.smartsheet.api.models;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -35,7 +36,8 @@ public class ImageWidgetContent implements WidgetContent {
     private String fileName;
 
     /**
-     * Format Descriptor <seealso "href="https://smartsheet-platform.github.io/api-docs/?ruby#formatting">FormatDescriptor</seealso>
+     * Format Descriptor
+     * @see <a href="https://smartsheet-platform.github.io/api-docs/?ruby#formatting">FormatDescriptor</a>
      */
     private Format format;
 
@@ -75,8 +77,6 @@ public class ImageWidgetContent implements WidgetContent {
 
     /**
      * Sets the image private ID
-     *
-     * @param privateId
      */
     public ImageWidgetContent setPrivateId(String privateId) {
         this.privateId = privateId;
@@ -94,8 +94,6 @@ public class ImageWidgetContent implements WidgetContent {
 
     /**
      * Sets the name of the image file
-     *
-     * @param fileName
      */
     public ImageWidgetContent setFileName(String fileName) {
         this.fileName = fileName;
@@ -113,8 +111,6 @@ public class ImageWidgetContent implements WidgetContent {
 
     /**
      * Sets the formatDescriptor for the image file
-     *
-     * @param format
      */
     public ImageWidgetContent setFormat(Format format) {
         this.format = format;
@@ -132,8 +128,6 @@ public class ImageWidgetContent implements WidgetContent {
 
     /**
      * Sets the original height of the image in pixels
-     *
-     * @param height
      */
     public ImageWidgetContent setHeight(Integer height) {
         this.height = height;
@@ -151,8 +145,6 @@ public class ImageWidgetContent implements WidgetContent {
 
     /**
      * Sets the hyperlink associated with this Widget
-     *
-     * @param hyperlink
      */
     public ImageWidgetContent setHyperlink(WidgetHyperlink hyperlink) {
         this.hyperlink = hyperlink;
@@ -170,8 +162,6 @@ public class ImageWidgetContent implements WidgetContent {
 
     /**
      * Sets the original width of the image in pixels
-     *
-     * @param width
      */
     public ImageWidgetContent setWidth(Integer width) {
         this.width = width;

@@ -1,4 +1,5 @@
 package com.smartsheet.api.models;
+
 /*
  * #[license]
  * Smartsheet SDK for Java
@@ -8,9 +9,9 @@ package com.smartsheet.api.models;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -62,8 +63,6 @@ public class Predecessor {
 
     /**
      * Set the Id of the predecessor row
-     *
-     * @param rowId
      */
     public Predecessor setRowId(Long rowId) {
         this.rowId = rowId;
@@ -81,8 +80,6 @@ public class Predecessor {
 
     /**
      * Set the number of the predecessor row
-     *
-     * @param rowNumber
      */
     public Predecessor setRowNumber(Integer rowNumber) {
         this.rowNumber = rowNumber;
@@ -100,8 +97,6 @@ public class Predecessor {
 
     /**
      * Set the type of the predecessor
-     *
-     * @param type
      */
     public Predecessor setType(String type) {
         this.type = type;
@@ -119,8 +114,6 @@ public class Predecessor {
 
     /**
      * Set the lag value of this predecessor
-     *
-     * @param lag
      */
     public Predecessor setLag(Duration lag) {
         this.lag = lag;
@@ -140,8 +133,6 @@ public class Predecessor {
     /**
      * Set flag indicating if the row referenced by rowId is not a valid row in this sheet,
      * or if there is a circular reference
-     *
-     * @param invalid
      */
     public Predecessor setInvalid(Boolean invalid) {
         this.invalid = invalid;
@@ -159,8 +150,6 @@ public class Predecessor {
 
     /**
      * Set flag indicating if this predecessor is in the critical path
-     *
-     * @param inCriticalPath
      */
     public Predecessor setInCriticalPath(Boolean inCriticalPath) {
         this.inCriticalPath = inCriticalPath;

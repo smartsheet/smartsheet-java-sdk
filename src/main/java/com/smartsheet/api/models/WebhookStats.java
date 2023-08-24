@@ -11,9 +11,9 @@ import java.util.Date;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -49,8 +49,6 @@ public class WebhookStats {
 
     /**
      * Set the number of retries the webhook had performed as of the last callback attempt.
-     *
-     * @param lastCallbackAttemptRetryCount
      */
     public WebhookStats setLastCallbackAttemptRetryCount(Integer lastCallbackAttemptRetryCount) {
         this.lastCallbackAttemptRetryCount = lastCallbackAttemptRetryCount;
@@ -68,8 +66,6 @@ public class WebhookStats {
 
     /**
      * Set the timestamp from the last callback attempt.
-     *
-     * @param lastCallbackAttempt
      */
     public WebhookStats setLastCallbackAttempt(Date lastCallbackAttempt) {
         this.lastCallbackAttempt = lastCallbackAttempt;
@@ -87,8 +83,6 @@ public class WebhookStats {
 
     /**
      * Set the timestamp from the last successful callback.
-     *
-     * @param lastSuccessfulCallback
      */
     public WebhookStats setLastSuccessfulCallback(Date lastSuccessfulCallback) {
         this.lastSuccessfulCallback = lastSuccessfulCallback;

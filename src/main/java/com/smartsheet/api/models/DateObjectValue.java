@@ -9,9 +9,9 @@ package com.smartsheet.api.models;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -34,6 +34,9 @@ public class DateObjectValue implements ObjectValue {
     private String value;
     private Date date;
 
+    /**
+     * Get DateObjectValue from date
+     */
     public static DateObjectValue fromDate(ObjectValueType objectValueType, Date date) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(getFormatPattern(objectValueType));
         String value = simpleDateFormat.format(date);
@@ -41,6 +44,9 @@ public class DateObjectValue implements ObjectValue {
         return new DateObjectValue(objectValueType, value);
     }
 
+    /**
+     * Constructor
+     */
     public DateObjectValue(ObjectValueType objectType, String value) {
         this.objectType = objectType;
         this.value = value;
@@ -51,6 +57,9 @@ public class DateObjectValue implements ObjectValue {
         return objectType;
     }
 
+    /**
+     * Set the Object Type
+     */
     public DateObjectValue setObjectType(ObjectValueType objectType) {
         this.objectType = objectType;
         return this;
@@ -60,11 +69,17 @@ public class DateObjectValue implements ObjectValue {
         return value;
     }
 
+    /**
+     * Set the value
+     */
     public DateObjectValue setValue(String value) {
         this.value = value;
         return this;
     }
 
+    /**
+     * Convert to a Date
+     */
     public Date toDate() throws ParseException {
         if (date == null && value != null) {
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat(getFormatPattern(objectType));

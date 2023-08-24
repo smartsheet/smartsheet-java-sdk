@@ -9,9 +9,9 @@ package com.smartsheet.api.models;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -196,8 +196,6 @@ public class Cell {
 
     /**
      * Set object representation of the cell's value
-     *
-     * @param objectValue
      */
     public Cell setObjectValue(ObjectValue objectValue) {
         this.objectValue = objectValue;
@@ -284,8 +282,8 @@ public class Cell {
     /**
      * Gets the strict value for this cell.
      *
-     * @see <a href="http://www.smartsheet.com/developers/api-documentation#h.lay2yj3x1pp8">Column Types</a>
      * @return the strict
+     * @see <a href="http://www.smartsheet.com/developers/api-documentation#h.lay2yj3x1pp8">Column Types</a>
      */
     public Boolean getStrict() {
         return strict;
@@ -294,8 +292,8 @@ public class Cell {
     /**
      * Sets the strict formatting rule for this cell.
      *
-     * @see <a href="http://www.smartsheet.com/developers/api-documentation#h.lay2yj3x1pp8">Column Types</a>
      * @param strict the new strict
+     * @see <a href="http://www.smartsheet.com/developers/api-documentation#h.lay2yj3x1pp8">Column Types</a>
      */
     public Cell setStrict(Boolean strict) {
         this.strict = strict;
@@ -388,8 +386,6 @@ public class Cell {
 
     /**
      * Sets the image for this cell.
-     *
-     * @param image
      */
     public Cell setImage(Image image) {
         this.image = image;
@@ -401,7 +397,9 @@ public class Cell {
      *
      * @return the overrideValidation flag
      */
-    public Boolean getOverrideValidation() {return overrideValidation; }
+    public Boolean getOverrideValidation() {
+        return overrideValidation;
+    }
 
     /**
      * Sets the value of the overrideValidation flag.
@@ -432,13 +430,19 @@ public class Cell {
          * @param linkInFromCell the link
          * @return the add row cells builder
          */
-        public AddRowCellsBuilder addCell(Long columnId, Object value, Boolean strict, Hyperlink hyperlink,  CellLink linkInFromCell) {
+        public AddRowCellsBuilder addCell(
+                Long columnId,
+                Object value,
+                Boolean strict,
+                Hyperlink hyperlink,
+                CellLink linkInFromCell
+        ) {
             Cell cell = new Cell()
-                .setColumnId(columnId)
-                .setValue(value)
-                .setStrict(strict)
-                .setHyperlink(hyperlink)
-                .setLinkInFromCell(linkInFromCell);
+                    .setColumnId(columnId)
+                    .setValue(value)
+                    .setStrict(strict)
+                    .setHyperlink(hyperlink)
+                    .setLinkInFromCell(linkInFromCell);
             cells.add(cell);
             return this;
         }
@@ -454,7 +458,14 @@ public class Cell {
          * @param overrideValidation the overrideValidation flag
          * @return the add row cells builder
          */
-        public AddRowCellsBuilder addCell(Long columnId, Object value, Boolean strict, Hyperlink hyperlink, CellLink linkInFromCell, Boolean overrideValidation) {
+        public AddRowCellsBuilder addCell(
+                Long columnId,
+                Object value,
+                Boolean strict,
+                Hyperlink hyperlink,
+                CellLink linkInFromCell,
+                Boolean overrideValidation
+        ) {
             Cell cell = new Cell()
                     .setColumnId(columnId)
                     .setValue(value)
@@ -464,10 +475,6 @@ public class Cell {
                     .setOverrideValidation(overrideValidation);
             cells.add(cell);
             return this;
-        }
-
-        public List<Cell> getCells(){
-            return cells;
         }
 
         /**
@@ -480,6 +487,10 @@ public class Cell {
         public AddRowCellsBuilder addCell(Long columnId, Object value) {
             addCell(columnId, value, true, null, null);
             return this;
+        }
+
+        public List<Cell> getCells() {
+            return cells;
         }
 
         /**
@@ -510,7 +521,7 @@ public class Cell {
          * @param linkInFromCell the link
          * @return the update row cells builder
          */
-        public UpdateRowCellsBuilder addCell(Long columnId, Object value, Boolean strict, Hyperlink hyperlink,  CellLink linkInFromCell) {
+        public UpdateRowCellsBuilder addCell(Long columnId, Object value, Boolean strict, Hyperlink hyperlink, CellLink linkInFromCell) {
             Cell cell = new Cell()
                     .setColumnId(columnId)
                     .setValue(value)
@@ -532,7 +543,14 @@ public class Cell {
          * @param overrideValidation the overrideValidation flag
          * @return the update row cells builder
          */
-        public UpdateRowCellsBuilder addCell(Long columnId, Object value, Boolean strict, Hyperlink hyperlink, CellLink linkInFromCell, Boolean overrideValidation) {
+        public UpdateRowCellsBuilder addCell(
+                Long columnId,
+                Object value,
+                Boolean strict,
+                Hyperlink hyperlink,
+                CellLink linkInFromCell,
+                Boolean overrideValidation
+        ) {
             Cell cell = new Cell()
                     .setColumnId(columnId)
                     .setValue(value)
@@ -542,10 +560,6 @@ public class Cell {
                     .setOverrideValidation(overrideValidation);
             cells.add(cell);
             return this;
-        }
-
-        public List<Cell> getCells(){
-            return cells;
         }
 
         /**
@@ -558,6 +572,10 @@ public class Cell {
         public UpdateRowCellsBuilder addCell(Long columnId, Object value) {
             addCell(columnId, value, true, null, null);
             return this;
+        }
+
+        public List<Cell> getCells() {
+            return cells;
         }
 
         /**

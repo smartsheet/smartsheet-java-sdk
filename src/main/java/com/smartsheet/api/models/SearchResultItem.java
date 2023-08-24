@@ -9,9 +9,9 @@ package com.smartsheet.api.models;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -214,7 +214,9 @@ public class SearchResultItem {
      *
      * @return the attachment type
      */
-    public AttachmentType getAttachmentType() { return attachmentType; }
+    public AttachmentType getAttachmentType() {
+        return attachmentType;
+    }
 
     /**
      * Set the attachment type if the search result item is an attachment
@@ -248,7 +250,9 @@ public class SearchResultItem {
      *
      * @return the favorite flag
      */
-    public Boolean getFavorite() { return favorite; }
+    public Boolean getFavorite() {
+        return favorite;
+    }
 
     /**
      * Set a flag indicating if the search result item is a favorite
@@ -264,7 +268,9 @@ public class SearchResultItem {
      *
      * @return the favorite flag
      */
-    public Boolean getParentObjectFavorite() { return parentObjectFavorite; }
+    public Boolean getParentObjectFavorite() {
+        return parentObjectFavorite;
+    }
 
     /**
      * Set a flag indicating if the search result item parent is a favorite

@@ -9,9 +9,9 @@ package com.smartsheet.api.models;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -154,6 +154,7 @@ public class User extends UserModelWithName {
             this.resourceViewer = resourceViewer;
             return this;
         }
+
         /**
          * Builds the {@link User} object using the required fields.
          *
@@ -318,7 +319,7 @@ public class User extends UserModelWithName {
          * @return the user
          */
         public User build() {
-            if(admin == null || licensedSheetCreator == null || id == null){
+            if (admin == null || licensedSheetCreator == null || id == null) {
                 throw new InstantiationError("An admin, licensed sheet creator and user Id must be set");
             }
 
@@ -333,6 +334,7 @@ public class User extends UserModelWithName {
             return user;
         }
     }
+
     /**
      * A convenience class for making a GroupMember object with the appropriate fields for adding to a {@link Group}.
      */
@@ -357,8 +359,11 @@ public class User extends UserModelWithName {
             return this;
         }
 
+        /**
+         * Build a User
+         */
         public User build() {
-            if(email == null){
+            if (email == null) {
                 throw new InstantiationError("An email address must be set.");
             }
 

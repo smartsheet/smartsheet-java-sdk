@@ -101,7 +101,6 @@ public class Sheet extends AbstractSheet<Row, Column, Cell> {
         }
     }
 
-
     /**
      * A class to simplify the creation of a sheet from another sheet or another template.
      *
@@ -163,7 +162,6 @@ public class Sheet extends AbstractSheet<Row, Column, Cell> {
         }
     }
 
-
     /**
      * The Class UpdateSheetBuilder.
      */
@@ -195,7 +193,9 @@ public class Sheet extends AbstractSheet<Row, Column, Cell> {
          * Get the project settings
          * @return the project settings
          */
-        public ProjectSettings getProjectSettings() { return projectSettings; }
+        public ProjectSettings getProjectSettings() {
+            return projectSettings;
+        }
 
         /**
          * Set the project settings
@@ -245,14 +245,13 @@ public class Sheet extends AbstractSheet<Row, Column, Cell> {
             return sheetName;
         }
 
-
         /**
          * Builds the.
          *
          * @return the sheet
          */
         public Sheet build() {
-            if(sheetName == null){
+            if (sheetName == null) {
                 throw new InstantiationError();
             }
             return new Sheet()

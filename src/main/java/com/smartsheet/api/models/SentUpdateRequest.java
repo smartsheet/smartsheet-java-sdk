@@ -1,3 +1,5 @@
+package com.smartsheet.api.models;
+
 /*
  * #[license]
  * Smartsheet SDK for Java
@@ -7,9 +9,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -17,7 +19,6 @@
  * limitations under the License.
  * %[license]
  */
-package com.smartsheet.api.models;
 
 import com.smartsheet.api.models.enums.UpdateRequestStatus;
 
@@ -92,8 +93,6 @@ public class SentUpdateRequest extends IdentifiableModel<Long> {
 
     /**
      * Set the Id of the originating update request.
-     *
-     * @param updateRequestId
      */
     public SentUpdateRequest setUpdateRequestId(Long updateRequestId) {
         this.updateRequestId = updateRequestId;
@@ -111,7 +110,6 @@ public class SentUpdateRequest extends IdentifiableModel<Long> {
 
     /**
      * Set the date and time for when the update request was sent
-     * @param sentAt
      */
     public SentUpdateRequest setSentAt(Date sentAt) {
         this.sentAt = sentAt;
@@ -129,8 +127,6 @@ public class SentUpdateRequest extends IdentifiableModel<Long> {
 
     /**
      * Set the User object containing the name and email of the sender.
-     *
-     * @param sentBy
      */
     public SentUpdateRequest setSentBy(User sentBy) {
         this.sentBy = sentBy;
@@ -148,8 +144,6 @@ public class SentUpdateRequest extends IdentifiableModel<Long> {
 
     /**
      * Set the status of the sent update request.
-     *
-     * @param status
      */
     public SentUpdateRequest setStatus(UpdateRequestStatus status) {
         this.status = status;
@@ -167,8 +161,6 @@ public class SentUpdateRequest extends IdentifiableModel<Long> {
 
     /**
      * Set the Ids of the rows for which the update is request.
-     *
-     * @param rowIds
      */
     public SentUpdateRequest setRowIds(List<Long> rowIds) {
         this.rowIds = rowIds;
@@ -186,8 +178,6 @@ public class SentUpdateRequest extends IdentifiableModel<Long> {
 
     /**
      * Set the Ids of the columns included in the request.
-     *
-     * @param columnIds
      */
     public SentUpdateRequest setColumnIds(List<Long> columnIds) {
         this.columnIds = columnIds;
@@ -205,8 +195,6 @@ public class SentUpdateRequest extends IdentifiableModel<Long> {
 
     /**
      * Sets the flag that indicates if attachments should be included in the email.
-     *
-     * @param includeAttachments
      */
     public SentUpdateRequest setIncludeAttachments(Boolean includeAttachments) {
         this.includeAttachments = includeAttachments;
@@ -224,8 +212,6 @@ public class SentUpdateRequest extends IdentifiableModel<Long> {
 
     /**
      * Sets the flag that indicates if discussions should be included in the email.
-     *
-     * @param includeDiscussions
      */
     public SentUpdateRequest setIncludeDiscussions(Boolean includeDiscussions) {
         this.includeDiscussions = includeDiscussions;
@@ -243,8 +229,6 @@ public class SentUpdateRequest extends IdentifiableModel<Long> {
 
     /**
      * Sets the recipient
-     *
-     * @param sentTo
      */
     public SentUpdateRequest setSentTo(Recipient sentTo) {
         this.sentTo = sentTo;
@@ -262,8 +246,6 @@ public class SentUpdateRequest extends IdentifiableModel<Long> {
 
     /**
      * Sets the subject
-     *
-     * @param subject
      */
     public SentUpdateRequest setSubject(String subject) {
         this.subject = subject;
@@ -281,8 +263,6 @@ public class SentUpdateRequest extends IdentifiableModel<Long> {
 
     /**
      * Sets the email message.
-     *
-     * @param message
      */
     public SentUpdateRequest setMessage(String message) {
         this.message = message;

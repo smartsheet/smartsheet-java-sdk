@@ -9,9 +9,9 @@ package com.smartsheet.api.models;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -76,7 +76,9 @@ public class AutomationRule extends NamedModel<Long> {
      *
      * @return the automation action
      */
-    public AutomationAction getAction() { return action; }
+    public AutomationAction getAction() {
+        return action;
+    }
 
     /**
      * Sets the automation action for this rule.
@@ -93,7 +95,9 @@ public class AutomationRule extends NamedModel<Long> {
      *
      * @return the timestamp
      */
-    public Date getCreatedAt() { return createdAt; }
+    public Date getCreatedAt() {
+        return createdAt;
+    }
 
     /**
      * Sets a timestamp for when the rule was created.
@@ -110,7 +114,9 @@ public class AutomationRule extends NamedModel<Long> {
      *
      * @return the User object
      */
-    public User getCreatedBy() { return createdBy; }
+    public User getCreatedBy() {
+        return createdBy;
+    }
 
     /**
      * Sets the User object for the author of this rule.
@@ -127,7 +133,9 @@ public class AutomationRule extends NamedModel<Long> {
      *
      * @return the reason
      */
-    public AutomationRuleDisabledReason getDisabledReason() { return disabledReason; }
+    public AutomationRuleDisabledReason getDisabledReason() {
+        return disabledReason;
+    }
 
     /**
      * Sets a machine-readable reason a rule is disabled.
@@ -144,7 +152,9 @@ public class AutomationRule extends NamedModel<Long> {
      *
      * @return the reason
      */
-    public String getDisabledReasonText() { return disabledReasonText; }
+    public String getDisabledReasonText() {
+        return disabledReasonText;
+    }
 
     /**
      * Sets descriptive text for why this rule is disabled.
@@ -161,7 +171,9 @@ public class AutomationRule extends NamedModel<Long> {
      *
      * @return the flag
      */
-    public Boolean getEnabled() { return enabled; }
+    public Boolean getEnabled() {
+        return enabled;
+    }
 
     /**
      * Sets flag indicating if rule is active
@@ -178,7 +190,9 @@ public class AutomationRule extends NamedModel<Long> {
      *
      * @return the timestamp
      */
-    public Date getModifiedAt() { return  modifiedAt; }
+    public Date getModifiedAt() {
+        return modifiedAt;
+    }
 
     /**
      * Sets a timestamp for the last modification to this rule
@@ -195,12 +209,12 @@ public class AutomationRule extends NamedModel<Long> {
      *
      * @return the User
      */
-    public User getModifiedBy() { return modifiedBy; }
+    public User getModifiedBy() {
+        return modifiedBy;
+    }
 
     /**
      * Sets the User who last modified this rule.
-     *
-     * @param modifiedBy
      */
     public AutomationRule setModifiedBy(User modifiedBy) {
         this.modifiedBy = modifiedBy;
@@ -212,7 +226,9 @@ public class AutomationRule extends NamedModel<Long> {
      *
      * @return the flag
      */
-    public Boolean getUserCanModify() { return userCanModify; }
+    public Boolean getUserCanModify() {
+        return userCanModify;
+    }
 
     /**
      * Sets a flag indicating if the current user can modify this rule.

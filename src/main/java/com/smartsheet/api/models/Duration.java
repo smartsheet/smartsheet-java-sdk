@@ -1,4 +1,5 @@
 package com.smartsheet.api.models;
+
 /*
  * #[license]
  * Smartsheet SDK for Java
@@ -8,9 +9,9 @@ package com.smartsheet.api.models;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -72,16 +73,17 @@ public class Duration implements ObjectValue {
 
     /**
      * Constructor with all possible attributes specified.
-     * @param negative
-     * @param elapsed
-     * @param weeks
-     * @param days
-     * @param hours
-     * @param minutes
-     * @param seconds
-     * @param milliseconds
      */
-    public Duration(Boolean negative, Boolean elapsed, Double weeks, Double days, Double hours, Double minutes, Double seconds, Double milliseconds) {
+    public Duration(
+            Boolean negative,
+            Boolean elapsed,
+            Double weeks,
+            Double days,
+            Double hours,
+            Double minutes,
+            Double seconds,
+            Double milliseconds
+    ) {
         this.negative = negative;
         this.elapsed = elapsed;
         this.weeks = weeks;
@@ -113,8 +115,6 @@ public class Duration implements ObjectValue {
 
     /**
      * Set flag indicating whether the lag is negative(true) or positive(false)
-     *
-     * @param negative
      */
     public Duration setNegative(Boolean negative) {
         this.negative = negative;
@@ -123,8 +123,6 @@ public class Duration implements ObjectValue {
 
     /**
      * Indicates this duration represents elapsed time, which ignores non-working time
-     *
-     * @return elapsed
      */
     public Boolean getElapsed() {
         return elapsed;
@@ -132,8 +130,6 @@ public class Duration implements ObjectValue {
 
     /**
      * Set flag indicating this duration represents elapsed time.
-     *
-     * @param elapsed
      */
     public Duration setElapsed(Boolean elapsed) {
         this.elapsed = elapsed;
@@ -142,8 +138,6 @@ public class Duration implements ObjectValue {
 
     /**
      * Get the number of weeks in duration.
-     *
-     * @return weeks
      */
     public Double getWeeks() {
         return weeks;
@@ -151,8 +145,6 @@ public class Duration implements ObjectValue {
 
     /**
      * Set the number of weeks in duration.
-     *
-     * @param weeks
      */
     public Duration setWeeks(Double weeks) {
         this.weeks = weeks;
@@ -170,8 +162,6 @@ public class Duration implements ObjectValue {
 
     /**
      * Set the number of days for this duration.
-     *
-     * @param days
      */
     public Duration setDays(Double days) {
         this.days = days;
@@ -189,8 +179,6 @@ public class Duration implements ObjectValue {
 
     /**
      * Set the number of hours for this duration.
-     *
-     * @param hours
      */
     public Duration setHours(Double hours) {
         this.hours = hours;
@@ -208,8 +196,6 @@ public class Duration implements ObjectValue {
 
     /**
      * Set the number of minutes for this duration.
-     *
-     * @param minutes
      */
     public Duration setMinutes(Double minutes) {
         this.minutes = minutes;
@@ -227,8 +213,6 @@ public class Duration implements ObjectValue {
 
     /**
      * Set the number of seconds for this duration.
-     *
-     * @param seconds
      */
     public Duration setSeconds(Double seconds) {
         this.seconds = seconds;
@@ -246,8 +230,6 @@ public class Duration implements ObjectValue {
 
     /**
      * Set the number of milliseconds for this duration.
-     *
-     * @param milliseconds
      */
     public Duration setMilliseconds(Double milliseconds) {
         this.milliseconds = milliseconds;

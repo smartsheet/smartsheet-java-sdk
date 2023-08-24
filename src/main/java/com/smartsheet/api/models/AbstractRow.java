@@ -46,6 +46,9 @@ public abstract class AbstractRow<TColumn extends Column, TCell extends Cell> ex
         return super.getId();
     }
 
+    /**
+     * Set the Row ID
+     */
     @JsonIgnore
     @SuppressWarnings("unchecked")
     public <T extends AbstractRow<TColumn, TCell>> T setRowId(Long id) {
@@ -154,7 +157,7 @@ public abstract class AbstractRow<TColumn extends Column, TCell extends Cell> ex
     @SuppressWarnings("unchecked")
     public <T extends AbstractRow<TColumn, TCell>> T setAccessLevel(AccessLevel accessLevel) {
         this.accessLevel = accessLevel;
-        return (T)this;
+        return (T) this;
     }
 
     /**
@@ -300,7 +303,7 @@ public abstract class AbstractRow<TColumn extends Column, TCell extends Cell> ex
     @SuppressWarnings("unchecked")
     public <T extends AbstractRow<TColumn, TCell>> T setCells(List<TCell> cells) {
         this.cells = cells;
-        return (T)this;
+        return (T) this;
     }
 
     /**
@@ -429,6 +432,9 @@ public abstract class AbstractRow<TColumn extends Column, TCell extends Cell> ex
         return lockedForUser;
     }
 
+    /**
+     * Set locked For User
+     */
     @SuppressWarnings("unchecked")
     public <T extends AbstractRow<TColumn, TCell>> T setLockedForUser(Boolean lockedForUser) {
         this.lockedForUser = lockedForUser;
@@ -634,7 +640,9 @@ public abstract class AbstractRow<TColumn extends Column, TCell extends Cell> ex
      *
      * @return value specifying the number of levels to indent this row
      */
-    public Integer getIndent() { return indent; }
+    public Integer getIndent() {
+        return indent;
+    }
 
     /**
      * Sets integer value specifying the number of levels to indent this row (update only).
@@ -652,7 +660,9 @@ public abstract class AbstractRow<TColumn extends Column, TCell extends Cell> ex
      *
      * @return value specifying the number of levels to outdent this row
      */
-    public Integer getOutdent() { return outdent; }
+    public Integer getOutdent() {
+        return outdent;
+    }
 
     /**
      * Sets integer value specifying the number of levels to outdent this row (update only).
