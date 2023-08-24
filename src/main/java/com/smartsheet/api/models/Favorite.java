@@ -9,9 +9,9 @@ package com.smartsheet.api.models;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -25,7 +25,7 @@ import com.smartsheet.api.models.enums.FavoriteType;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Favorite{
+public class Favorite {
 
     /**
      * Represents type of favorite (workspace, folder, sheet, report, template, sight).
@@ -82,6 +82,9 @@ public class Favorite{
 
         List<Favorite> favorites = new ArrayList<>();
 
+        /**
+         * Add a favorite
+         */
         public AddFavoriteBuilder addFavorite(long objectId, FavoriteType type) {
             Favorite favorite = new Favorite();
             favorite.setObjectId(objectId);
@@ -90,7 +93,9 @@ public class Favorite{
             return this;
         }
 
-        public List<Favorite> build() { return favorites; }
+        public List<Favorite> build() {
+            return favorites;
+        }
     }
 }
 

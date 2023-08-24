@@ -12,9 +12,9 @@ import java.util.List;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -39,7 +39,6 @@ public class ProjectSettings {
      * Length of a workday in hours for a project sheet. Valid value must be above or equal to 1 hour, and less than or equal to 24 hours.
      */
     private Float lengthOfDay;
-
 
     /**
      * Get working days of a week for a project sheet.
@@ -79,7 +78,7 @@ public class ProjectSettings {
         return this;
     }
 
-     /**
+    /**
      * Get length of workday for a project sheet, in hours.
      *
      * @return length of day
@@ -89,9 +88,8 @@ public class ProjectSettings {
     }
 
     /**
-     * Set length of a workday for a project sheet in hours. Valid value must be above or equal to 1 hour, and less than or equal to 24 hours.
-     *
-     * @param lengthOfDay
+     * Set length of a workday for a project sheet in hours.
+     * Valid value must be above or equal to 1 hour, and less than or equal to 24 hours.
      */
     public ProjectSettings setLengthOfDay(Float lengthOfDay) {
         this.lengthOfDay = lengthOfDay;

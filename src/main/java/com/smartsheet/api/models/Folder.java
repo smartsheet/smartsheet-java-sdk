@@ -9,9 +9,9 @@ package com.smartsheet.api.models;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -19,8 +19,6 @@ package com.smartsheet.api.models;
  * limitations under the License.
  * %[license]
  */
-
-
 
 import java.util.List;
 
@@ -42,7 +40,7 @@ public class Folder extends NamedModel<Long> {
     /**
      * Represents the reports.
      */
-     private List<Report> reports;
+    private List<Report> reports;
 
     /**
      * Represents the templates contained in the folder.
@@ -84,7 +82,7 @@ public class Folder extends NamedModel<Long> {
      *
      * @param name the new name
      */
-    public Folder setName(String name){
+    public Folder setName(String name) {
         super.setName(name);
         return this;
     }
@@ -214,8 +212,6 @@ public class Folder extends NamedModel<Long> {
 
     /**
      * Sets the sights contained in this folder.
-     *
-     * @param sights
      */
     public Folder setSights(List<Sight> sights) {
         this.sights = sights;
@@ -245,7 +241,7 @@ public class Folder extends NamedModel<Long> {
          *
          * @return the name
          */
-        public String getName(){
+        public String getName() {
             return folderName;
         }
 
@@ -275,7 +271,7 @@ public class Folder extends NamedModel<Long> {
          * @return the folder
          */
         public Folder build() {
-            if(folderName == null){
+            if (folderName == null) {
                 throw new IllegalStateException("A folder name is required.");
             }
 
@@ -308,7 +304,7 @@ public class Folder extends NamedModel<Long> {
          *
          * @return the name
          */
-        public String getName(){
+        public String getName() {
             return folderName;
         }
 
@@ -318,7 +314,7 @@ public class Folder extends NamedModel<Long> {
          * @return the folder
          */
         public Folder build() {
-            if(folderName == null){
+            if (folderName == null) {
                 throw new IllegalStateException("A folder name is required.");
             }
 

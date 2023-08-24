@@ -9,9 +9,9 @@ package com.smartsheet.api.models;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -98,8 +98,6 @@ public class Widget extends IdentifiableModel<Long> {
 
     /**
      * Set the type of the widget
-     *
-     * @param type
      */
     public Widget setType(WidgetType type) {
         this.type = type;
@@ -117,8 +115,6 @@ public class Widget extends IdentifiableModel<Long> {
 
     /**
      * Set the title of the widget.
-     *
-     * @param title
      */
     public Widget setTitle(String title) {
         this.title = title;
@@ -136,8 +132,6 @@ public class Widget extends IdentifiableModel<Long> {
 
     /**
      * Set flag indicating if the client should display the widget title.
-     *
-     * @param showTitle
      */
     public Widget setShowTitle(Boolean showTitle) {
         this.showTitle = showTitle;
@@ -155,8 +149,6 @@ public class Widget extends IdentifiableModel<Long> {
 
     /**
      * Set flag indicating if the client should display the sheet icon.
-     *
-     * @param showTitleIcon
      */
     public Widget setShowTitleIcon(Boolean showTitleIcon) {
         this.showTitleIcon = showTitleIcon;
@@ -174,8 +166,6 @@ public class Widget extends IdentifiableModel<Long> {
 
     /**
      * Set the title format descriptor string
-     *
-     * @param titleFormat
      */
     public Widget setTitleFormat(Format titleFormat) {
         this.titleFormat = titleFormat;
@@ -193,8 +183,6 @@ public class Widget extends IdentifiableModel<Long> {
 
     /**
      * Set the x-coordinate of widget's position on the sight.
-     *
-     * @param xPosition
      */
     @JsonSetter("xPosition")
     public Widget setXPosition(Integer xPosition) {
@@ -213,8 +201,6 @@ public class Widget extends IdentifiableModel<Long> {
 
     /**
      * Set the y-coordinate of widget's position on the sight.
-     *
-     * @param yPosition
      */
     @JsonSetter("yPosition")
     public Widget setYPosition(Integer yPosition) {
@@ -233,8 +219,6 @@ public class Widget extends IdentifiableModel<Long> {
 
     /**
      * Set the number of rows that the widget occupies
-     *
-     * @param height
      */
     public Widget setHeight(Integer height) {
         this.height = height;
@@ -252,8 +236,6 @@ public class Widget extends IdentifiableModel<Long> {
 
     /**
      * Set the number of columns that the widget occupies
-     *
-     * @param width
      */
     public Widget setWidth(Integer width) {
         this.width = width;
@@ -271,8 +253,6 @@ public class Widget extends IdentifiableModel<Long> {
 
     /**
      * Set the widget version number
-     *
-     * @param version
      */
     public Widget setVersion(Integer version) {
         this.version = version;
@@ -292,8 +272,6 @@ public class Widget extends IdentifiableModel<Long> {
     /**
      * Set the data that specifies the contents of the widget.
      * See description of contents variable for valid objects
-     *
-     * @param contents
      */
     public Widget setContents(WidgetContent contents) {
         this.contents = contents;
@@ -311,8 +289,6 @@ public class Widget extends IdentifiableModel<Long> {
 
     /**
      * Sets an Error object when the widget is in an error state
-     *
-     * @param error
      */
     public Widget setError(Error error) {
         this.error = error;

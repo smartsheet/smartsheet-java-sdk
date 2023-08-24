@@ -9,9 +9,9 @@ package com.smartsheet.api.models;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -272,7 +272,9 @@ public abstract class UserModel extends IdentifiableModel<Long> {
      *
      * @return the list of alternateEmails
      */
-    public List<AlternateEmail> getAlternateEmails() { return alternateEmails; }
+    public List<AlternateEmail> getAlternateEmails() {
+        return alternateEmails;
+    }
 
     /**
      * Sets the list of alternateEmails
@@ -290,7 +292,9 @@ public abstract class UserModel extends IdentifiableModel<Long> {
      *
      * @return sheetCount
      */
-    public Integer getSheetCount() { return sheetCount; }
+    public Integer getSheetCount() {
+        return sheetCount;
+    }
 
     /**
      * Sets the sheetCount
@@ -308,7 +312,9 @@ public abstract class UserModel extends IdentifiableModel<Long> {
      *
      * @return the lastLogin date
      */
-    public Date getLastLogin() { return lastLogin; }
+    public Date getLastLogin() {
+        return lastLogin;
+    }
 
     /** Sets the lastLogin date
      *
@@ -325,7 +331,9 @@ public abstract class UserModel extends IdentifiableModel<Long> {
      *
      * @return the customerWelcomeScreenViewed date
      */
-    public Date getCustomWelcomeScreenViewed() { return customWelcomeScreenViewed; }
+    public Date getCustomWelcomeScreenViewed() {
+        return customWelcomeScreenViewed;
+    }
 
     /**
      * Sets the customWelcomeScreenViewed date
@@ -343,7 +351,9 @@ public abstract class UserModel extends IdentifiableModel<Long> {
      *
      * @return the company name
      */
-    public String getCompany() { return company; }
+    public String getCompany() {
+        return company;
+    }
 
     /**
      * Sets the user's company name
@@ -360,7 +370,9 @@ public abstract class UserModel extends IdentifiableModel<Long> {
      *
      * @return the department
      */
-    public String getDepartment() { return department; }
+    public String getDepartment() {
+        return department;
+    }
 
     /**
      * Sets the user's department
@@ -377,7 +389,9 @@ public abstract class UserModel extends IdentifiableModel<Long> {
      *
      * @return the phone number
      */
-    public String getMobilePhone() { return mobilePhone; }
+    public String getMobilePhone() {
+        return mobilePhone;
+    }
 
     /**
      * Sets the user's mobile phone number
@@ -394,7 +408,9 @@ public abstract class UserModel extends IdentifiableModel<Long> {
      *
      * @return the ProfileImage
      */
-    public ProfileImage getProfileImage() { return profileImage; }
+    public ProfileImage getProfileImage() {
+        return profileImage;
+    }
 
     /**
      * Sets the user's profile image
@@ -411,7 +427,9 @@ public abstract class UserModel extends IdentifiableModel<Long> {
      *
      * @return the role
      */
-    public String getRole() { return role; }
+    public String getRole() {
+        return role;
+    }
 
     /**
      * Sets the user's role
@@ -428,7 +446,9 @@ public abstract class UserModel extends IdentifiableModel<Long> {
      *
      * @return the title
      */
-    public String getTitle() { return title; }
+    public String getTitle() {
+        return title;
+    }
 
     /**
      * Sets the user's title
@@ -445,7 +465,9 @@ public abstract class UserModel extends IdentifiableModel<Long> {
      *
      * @return the phone number
      */
-    public String getWorkPhone() { return workPhone; }
+    public String getWorkPhone() {
+        return workPhone;
+    }
 
     /**
      * Sets the user's work phone number

@@ -9,9 +9,9 @@ package com.smartsheet.api.models;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -44,13 +44,12 @@ public class SightPublish {
      *
      * @return readOnlyFullEnabled
      */
-    public Boolean getReadOnlyFullEnabled() {return readOnlyFullEnabled; }
+    public Boolean getReadOnlyFullEnabled() {
+        return readOnlyFullEnabled;
+    }
 
     /**
      * Set the value of the readOnlyFullEnabled flag.
-     *
-     * @param readOnlyFullEnabled
-     * @return
      */
     public SightPublish setReadOnlyFullEnabled(Boolean readOnlyFullEnabled) {
         this.readOnlyFullEnabled = readOnlyFullEnabled;
@@ -62,13 +61,12 @@ public class SightPublish {
      *
      * @return readOnlyFullUrl
      */
-    public String getReadOnlyFullUrl() {return readOnlyFullUrl; }
+    public String getReadOnlyFullUrl() {
+        return readOnlyFullUrl;
+    }
 
     /**
      * Sets the value of the readOnlyFullUrL string.
-     *
-     * @param readOnlyFullUrl
-     * @return
      */
     public SightPublish setReadOnlyFullUrl(String readOnlyFullUrl) {
         this.readOnlyFullUrl = readOnlyFullUrl;
@@ -80,13 +78,12 @@ public class SightPublish {
      *
      * @return readOnlyFullAccessibleBy
      */
-    public String getReadOnlyFullAccessibleBy() {return readOnlyFullAccessibleBy; }
+    public String getReadOnlyFullAccessibleBy() {
+        return readOnlyFullAccessibleBy;
+    }
 
     /**
      * Sets the value of the readOnlyFullAccessibleBy string
-     *
-     * @param readOnlyFullAccessibleBy
-     * @return
      */
     public SightPublish setReadOnlyFullAccessibleBy(String readOnlyFullAccessibleBy) {
         this.readOnlyFullAccessibleBy = readOnlyFullAccessibleBy;

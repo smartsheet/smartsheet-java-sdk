@@ -9,9 +9,9 @@ package com.smartsheet.api.models;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -19,7 +19,6 @@ package com.smartsheet.api.models;
  * limitations under the License.
  * %[license]
  */
-
 
 import com.smartsheet.api.models.enums.EventAction;
 import com.smartsheet.api.models.enums.EventObjectType;
@@ -111,8 +110,6 @@ public class Event {
 
     /**
      * Sets the action associated with the event (EventAction enumeration)
-     *
-     * @param action
      */
     public Event setAction(EventAction action) {
         this.action = action;
@@ -177,10 +174,10 @@ public class Event {
             sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
             try {
                 this.eventTimestamp = sdf.parse(eventTimestamp.toString());
+            } catch (Exception e) {
+                // Empty Catch Block
             }
-            catch(Exception e) { }
-        }
-        else {
+        } else {
             this.eventTimestamp = eventTimestamp;
         }
         return this;

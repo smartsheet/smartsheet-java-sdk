@@ -1,4 +1,5 @@
 package com.smartsheet.api.models;
+
 /*
  * #[license]
  * Smartsheet SDK for Java
@@ -8,9 +9,9 @@ package com.smartsheet.api.models;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -48,12 +49,12 @@ public class TitleRichTextWidgetContent implements WidgetContent {
      *
      * @return the hex color
      */
-    public String getBackgroundColor() { return backgroundColor; }
+    public String getBackgroundColor() {
+        return backgroundColor;
+    }
 
     /**
      * Sets the hex color for the background
-     *
-     * @param backgroundColor
      */
     public TitleRichTextWidgetContent setBackgroundColor(String backgroundColor) {
         this.backgroundColor = backgroundColor;
@@ -65,12 +66,12 @@ public class TitleRichTextWidgetContent implements WidgetContent {
      *
      * @return the HTML snippet
      */
-    public String getHtmlContent() { return htmlContent; }
+    public String getHtmlContent() {
+        return htmlContent;
+    }
 
     /**
      * Sets the HTML snippet to render title or rich text
-     *
-     * @param htmlContent
      */
     public TitleRichTextWidgetContent setHtmlContent(String htmlContent) {
         this.htmlContent = htmlContent;

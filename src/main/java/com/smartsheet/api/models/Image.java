@@ -1,3 +1,5 @@
+package com.smartsheet.api.models;
+
 /*
  * #[license]
  * Smartsheet SDK for Java
@@ -7,9 +9,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -17,7 +19,6 @@
  * limitations under the License.
  * %[license]
  */
-package com.smartsheet.api.models;
 
 public class Image {
 
@@ -52,8 +53,6 @@ public class Image {
 
     /**
      * Sets the image id
-     *
-     * @param id
      */
     public Image setId(String id) {
         this.id = id;
@@ -65,7 +64,9 @@ public class Image {
      *
      * @return the id
      */
-    public String getImageId() { return id; }
+    public String getImageId() {
+        return id;
+    }
 
     /**
      * sets the image ID
@@ -86,8 +87,6 @@ public class Image {
 
     /**
      * sets the width (in pixels)
-     *
-     * @param width
      */
     public Image setWidth(Long width) {
         this.width = width;
@@ -105,8 +104,6 @@ public class Image {
 
     /**
      * sets the width (in pixels) of the uploaded image
-     *
-     * @param height
      */
     public Image setHeight(Long height) {
         this.height = height;
@@ -124,8 +121,6 @@ public class Image {
 
     /**
      * set the alternate text (altText) for the image.
-     *
-     * @param altText
      */
     public Image setAltText(String altText) {
         this.altText = altText;

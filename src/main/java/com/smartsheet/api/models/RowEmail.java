@@ -9,9 +9,9 @@ package com.smartsheet.api.models;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -154,13 +154,13 @@ public class RowEmail extends Email {
      *
      * @return layout
      */
-    public String getLayout() { return layout; }
+    public String getLayout() {
+        return layout;
+    }
 
     /**
      * Sets the layout string
      * @param layout string containing HORIZONTAL or VERTICAL strings
-     *
-     * @return
      */
     public RowEmail setLayout(String layout) {
         this.layout = layout;
@@ -232,7 +232,9 @@ public class RowEmail extends Email {
          *
          * @return layout
          */
-        public String getLayout() { return layout; }
+        public String getLayout() {
+            return layout;
+        }
 
         /**
          * Sets the layout string
@@ -269,15 +271,19 @@ public class RowEmail extends Email {
          * Gets the list of recipients to send to
          * @return the list of recipients
          */
-        public List<Recipient> getSendTo() { return sendTo; }
+        public List<Recipient> getSendTo() {
+            return sendTo;
+        }
 
         /**
          * Sets the list of recipients to send to
          * @param sendTo list of recipients
          * @return the builder
          */
-        public AddRowEmailBuilder setSendTo(List<Recipient> sendTo) { this.sendTo = sendTo;
-            return  this;}
+        public AddRowEmailBuilder setSendTo(List<Recipient> sendTo) {
+            this.sendTo = sendTo;
+            return this;
+        }
 
         /**
          * Gets the subject.
@@ -338,7 +344,6 @@ public class RowEmail extends Email {
             this.ccMe = ccMe;
             return this;
         }
-
 
         /**
          * Builds the row email.

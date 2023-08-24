@@ -11,9 +11,9 @@ import java.util.List;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -24,7 +24,7 @@ import java.util.List;
 public class CopyOrMoveRowDirective {
 
     /** Represents the IDs of the rows to move or copy from the source sheet. */
-    private List<Long> RowIds;
+    private List<Long> rowIds;
 
     /** Represents the CopyOrMoveRowDestination object that identifies the destination sheet */
     private CopyOrMoveRowDestination to;
@@ -33,6 +33,7 @@ public class CopyOrMoveRowDirective {
      * Constructors
      */
     public CopyOrMoveRowDirective() { }
+
     public CopyOrMoveRowDirective(Long destinationSheetId) {
         to.setSheetId(destinationSheetId);
     }
@@ -43,7 +44,7 @@ public class CopyOrMoveRowDirective {
      * @return the IDs of the rows to move or copy from the source sheet.
      */
     public List<Long> getRowIds() {
-        return RowIds;
+        return rowIds;
     }
 
     /**
@@ -52,7 +53,7 @@ public class CopyOrMoveRowDirective {
      * @param rowIds ID of the destination sheet
      */
     public CopyOrMoveRowDirective setRowIds(List<Long> rowIds) {
-        RowIds = rowIds;
+        this.rowIds = rowIds;
         return this;
     }
 
@@ -132,7 +133,7 @@ public class CopyOrMoveRowDirective {
          */
         public CopyOrMoveRowDirective build() {
             CopyOrMoveRowDirective copyOrMoveRowDirective = new CopyOrMoveRowDirective();
-            copyOrMoveRowDirective.RowIds = rowIds;
+            copyOrMoveRowDirective.rowIds = rowIds;
             copyOrMoveRowDirective.to = to;
             return copyOrMoveRowDirective;
         }

@@ -1,4 +1,5 @@
 package com.smartsheet.api.models;
+
 /*
  * #[license]
  * Smartsheet SDK for Java
@@ -8,9 +9,9 @@ package com.smartsheet.api.models;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -41,12 +42,12 @@ public class WidgetHyperlink extends Hyperlink {
      *
      * @return the interaction type
      */
-    public String getInteractionType() { return interactionType; }
+    public String getInteractionType() {
+        return interactionType;
+    }
 
     /**
      * Sets the interaction type
-     *
-     * @param interactionType
      */
     public WidgetHyperlink setInteractionType(String interactionType) {
         this.interactionType = interactionType;
@@ -58,12 +59,12 @@ public class WidgetHyperlink extends Hyperlink {
      *
      * @return the folder ID
      */
-    public Long getFolderId() { return folderId; }
+    public Long getFolderId() {
+        return folderId;
+    }
 
     /**
      * Sets the folder ID - valid when interactionType == SMARTSHEET_ITEM
-     *
-     * @param folderId
      */
     public WidgetHyperlink setFolderId(Long folderId) {
         this.folderId = folderId;
@@ -75,12 +76,11 @@ public class WidgetHyperlink extends Hyperlink {
      *
      * @return the workspace ID
      */
-    public Long getWorkspaceId() { return workspaceId; }
+    public Long getWorkspaceId() {
+        return workspaceId; }
 
     /**
      * Sets the workspace ID - valid when interactionType == SMARTSHEET_ITEM
-     *
-     * @param workspaceId
      */
     public WidgetHyperlink setWorkspaceId(Long workspaceId) {
         this.workspaceId = workspaceId;

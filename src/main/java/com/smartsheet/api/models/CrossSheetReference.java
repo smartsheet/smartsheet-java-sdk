@@ -9,9 +9,9 @@ package com.smartsheet.api.models;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -59,7 +59,7 @@ public class CrossSheetReference extends NamedModel<Long> {
      *
      * @param name the new name
      */
-    public CrossSheetReference setName(String name){
+    public CrossSheetReference setName(String name) {
         super.setName(name);
         return this;
     }
@@ -69,7 +69,9 @@ public class CrossSheetReference extends NamedModel<Long> {
      *
      * @return the last column ID
      */
-    public Long getEndColumnId() { return endColumnId; }
+    public Long getEndColumnId() {
+        return endColumnId;
+    }
 
     /**
      * Set the last column ID in the cross sheet reference block
@@ -86,7 +88,9 @@ public class CrossSheetReference extends NamedModel<Long> {
      *
      * @return the last row ID
      */
-    public Long getEndRowId() { return endRowId; }
+    public Long getEndRowId() {
+        return endRowId;
+    }
 
     /**
      * Set the last row ID in the cross sheet reference block
@@ -103,7 +107,9 @@ public class CrossSheetReference extends NamedModel<Long> {
      *
      * @return the source sheet ID
      */
-    public Long getSourceSheetId() { return sourceSheetId; }
+    public Long getSourceSheetId() {
+        return sourceSheetId;
+    }
 
     /**
      * Set the source sheet ID for the cross sheet reference
@@ -120,7 +126,9 @@ public class CrossSheetReference extends NamedModel<Long> {
      *
      * @return the start column ID
      */
-    public Long getStartColumnId() { return startColumnId; }
+    public Long getStartColumnId() {
+        return startColumnId;
+    }
 
     /**
      * Set the start column ID for the cross sheet reference block
@@ -137,7 +145,9 @@ public class CrossSheetReference extends NamedModel<Long> {
      *
      * @return the start row ID
      */
-    public Long getStartRowId() { return startRowId; }
+    public Long getStartRowId() {
+        return startRowId;
+    }
 
     /**
      * Set the start row ID for the cross sheet reference block
@@ -154,7 +164,9 @@ public class CrossSheetReference extends NamedModel<Long> {
      *
      * @return CrossSheetReferenceStatus enum
      */
-    public CrossSheetReferenceStatus getStatus() { return status; }
+    public CrossSheetReferenceStatus getStatus() {
+        return status;
+    }
 
     /**
      * Set the status of the cross sheet reference

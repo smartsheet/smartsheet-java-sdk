@@ -9,9 +9,9 @@ package com.smartsheet.api.models;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -87,7 +87,9 @@ public class AutomationAction {
      *
      * @return the automation action frequency
      */
-    public AutomationActionFrequency getFrequency() { return frequency; }
+    public AutomationActionFrequency getFrequency() {
+        return frequency;
+    }
 
     /**
      * Sets the automation action frequency
@@ -104,7 +106,9 @@ public class AutomationAction {
      *
      * @return includeAllColumns flag
      */
-    public Boolean getIncludeAllColumns() { return includeAllColumns; }
+    public Boolean getIncludeAllColumns() {
+        return includeAllColumns;
+    }
 
     /**
      * Sets the flag indicating if all columns in the sheet should be included with the email
@@ -121,7 +125,9 @@ public class AutomationAction {
      *
      * @return the includeAttachments flag
      */
-    public Boolean getIncludeAttachments() { return includeAttachments; }
+    public Boolean getIncludeAttachments() {
+        return includeAttachments;
+    }
 
     /**
      * Sets the flag indicating if attachments should be included with the email
@@ -138,7 +144,9 @@ public class AutomationAction {
      *
      * @return the includeDiscussions flag
      */
-    public Boolean getIncludeDiscussions() { return includeDiscussions; }
+    public Boolean getIncludeDiscussions() {
+        return includeDiscussions;
+    }
 
     /**
      * Sets the flag indicating if discussions should be included with the email
@@ -155,7 +163,9 @@ public class AutomationAction {
      *
      * @return the list of included columns
      */
-    public List<Long> getIncludedColumnIds() { return includedColumnIds; }
+    public List<Long> getIncludedColumnIds() {
+        return includedColumnIds;
+    }
 
     /**
      * Sets the list of included columns
@@ -172,7 +182,9 @@ public class AutomationAction {
      *
      * @return the email body
      */
-    public String getMessage() { return message; }
+    public String getMessage() {
+        return message;
+    }
 
     /**
      * Sets the email body
@@ -189,7 +201,9 @@ public class AutomationAction {
      *
      * @return the notifyAllSharedUsers flag
      */
-    public Boolean getNotifyAllSharedUsers() { return notifyAllSharedUsers; }
+    public Boolean getNotifyAllSharedUsers() {
+        return notifyAllSharedUsers;
+    }
 
     /**
      * Sets the flag indicating if notification should be sent to all shared users
@@ -206,7 +220,9 @@ public class AutomationAction {
      *
      * @return the list of column IDs
      */
-    public List<Long> getRecipientColumnIds() { return recipientColumnIds; }
+    public List<Long> getRecipientColumnIds() {
+        return recipientColumnIds;
+    }
 
     /**
      * Sets a list of columns from which to collect email recipients
@@ -223,7 +239,9 @@ public class AutomationAction {
      *
      * @return the list of Recipients
      */
-    public List<Recipient> getRecipients() { return recipients; }
+    public List<Recipient> getRecipients() {
+        return recipients;
+    }
 
     /**
      * Sets the list of Recipients
@@ -240,7 +258,9 @@ public class AutomationAction {
      *
      * @return the email subject line
      */
-    public String getSubject() { return subject; }
+    public String getSubject() {
+        return subject;
+    }
 
     /**
      * Sets the email subject line
@@ -257,7 +277,9 @@ public class AutomationAction {
      *
      * @return the action type
      */
-    public AutomationActionType getType() { return type;}
+    public AutomationActionType getType() {
+        return type;
+    }
 
     /**
      * Sets the automation action type

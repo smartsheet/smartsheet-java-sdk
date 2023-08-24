@@ -9,9 +9,9 @@ package com.smartsheet.api.models;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -200,12 +200,15 @@ public class Column extends IdentifiableModel<Long> {
         this.autoNumberFormat = autoNumberFormat;
         return this;
     }
+
     /**
      * Gets a list of contact options
      *
      * @return list of contact options
      */
-    public List<Contact> getContactOptions() { return contactOptions; }
+    public List<Contact> getContactOptions() {
+        return contactOptions;
+    }
 
     /**
      * Sets the list of contact options
@@ -223,12 +226,12 @@ public class Column extends IdentifiableModel<Long> {
      *
      * @return the column description
      */
-    public String getDescription() { return description; }
+    public String getDescription() {
+        return description;
+    }
 
     /**
      * Sets the column description
-     *
-     * @param description
      */
     public Column setDescription(String description) {
         this.description = description;
@@ -437,11 +440,12 @@ public class Column extends IdentifiableModel<Long> {
      * Gets the value of the validation flag
      * @return the validation flag
      */
-    public Boolean getValidation() { return validation; }
+    public Boolean getValidation() {
+        return validation;
+    }
 
     /**
      * Sets the value of the validation flag
-     * @param validation
      * @return the Column
      */
     public Column setValidation(Boolean validation) {
@@ -453,7 +457,9 @@ public class Column extends IdentifiableModel<Long> {
      * Gets the column compatibility version
      * @return version 0 for existing types, 1 for multi-assign, greater than 1 for future types.
      */
-    public Integer getVersion() { return version; }
+    public Integer getVersion() {
+        return version;
+    }
 
     /**
      * Sets the column compatibility version
@@ -574,7 +580,7 @@ public class Column extends IdentifiableModel<Long> {
          * Gets the title.
          * @return the title
          */
-        public String getTitle(){
+        public String getTitle() {
             return title;
         }
 
@@ -593,7 +599,7 @@ public class Column extends IdentifiableModel<Long> {
          * Gets the type for the column.
          * @return the type
          */
-        public ColumnType getType(){
+        public ColumnType getType() {
             return type;
         }
 
@@ -612,7 +618,7 @@ public class Column extends IdentifiableModel<Long> {
          * Gets the option for the column.
          * @return the option
          */
-        public List<String> getOptions(){
+        public List<String> getOptions() {
             return options;
         }
 
@@ -631,7 +637,7 @@ public class Column extends IdentifiableModel<Long> {
          * Gets the symbol for the column.
          * @return the symbol
          */
-        public Symbol getSymbol(){
+        public Symbol getSymbol() {
             return symbol;
         }
 
@@ -650,7 +656,7 @@ public class Column extends IdentifiableModel<Long> {
          * Gets the system column type.
          * @return the system column type
          */
-        public SystemColumnType getSystemColumnType(){
+        public SystemColumnType getSystemColumnType() {
             return systemColumnType;
         }
 
@@ -669,10 +675,9 @@ public class Column extends IdentifiableModel<Long> {
          * Gets the format for an auto number column.
          * @return the format for an auto number column
          */
-        public AutoNumberFormat getAutoNumberFormat(){
+        public AutoNumberFormat getAutoNumberFormat() {
             return autoNumberFormat;
         }
-
 
         /**
          * Gets the index specified for the new column.
@@ -703,8 +708,8 @@ public class Column extends IdentifiableModel<Long> {
         }
 
         /**
-         * @param format the format.
          * Sets the format for a column.
+         * @param format the format.
          * @return the AddColumnToSheetBuilder.
          */
         public AddColumnToSheetBuilder setFormat(Format format) {
@@ -714,13 +719,13 @@ public class Column extends IdentifiableModel<Long> {
 
         /**
          * Gets the value of the validation flag
-         * @return
          */
-        public Boolean getValidation() { return validation; }
+        public Boolean getValidation() {
+            return validation;
+        }
 
         /**
          * Sets the value of the validation flag
-         * @param validation
          * @return the AddColumn builder
          */
         public AddColumnToSheetBuilder setValidation(Boolean validation) {
@@ -925,7 +930,6 @@ public class Column extends IdentifiableModel<Long> {
 
         /**
          * Sets the value of the validation flag
-         * @param validation
          * @return the modify column builder
          */
         public UpdateColumnBuilder setValidation(Boolean validation) {
@@ -1025,7 +1029,9 @@ public class Column extends IdentifiableModel<Long> {
          * Gets the value of the validation flag
          * @return the validation flag
          */
-        public Boolean getValidation() { return validation; }
+        public Boolean getValidation() {
+            return validation;
+        }
 
         /**
          * Builds the column.
@@ -1033,7 +1039,7 @@ public class Column extends IdentifiableModel<Long> {
          * @return the column
          */
         public Column build() {
-            if(title == null || id == null) {
+            if (title == null || id == null) {
                 throw new InstantiationError("A title and a column id are required");
             }
 
