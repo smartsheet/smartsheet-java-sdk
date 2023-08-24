@@ -9,9 +9,9 @@ package com.smartsheet.api.models;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -22,7 +22,7 @@ package com.smartsheet.api.models;
 
 /**
  * Represents the publish status of a sheet.
- * @see <a href="http://help.smartsheet.com/customer/portal/articles/522078-publishing-sheets">Help Publishing 
+ * @see <a href="http://help.smartsheet.com/customer/portal/articles/522078-publishing-sheets">Help Publishing
  * Sheets</a>
  */
 public class SheetPublish {
@@ -192,8 +192,6 @@ public class SheetPublish {
 
     /**
      * Set string indicating who can access the "Read-Only Full" view of the published sheet.
-     *
-     * @param readOnlyFullAccessibleBy
      */
     public SheetPublish setReadOnlyFullAccessibleBy(String readOnlyFullAccessibleBy) {
         this.readOnlyFullAccessibleBy = readOnlyFullAccessibleBy;
@@ -211,8 +209,6 @@ public class SheetPublish {
 
     /**
      * Set string indicating who can access the "Edit by Anyone" view of the published sheet.
-     *
-     * @param readWriteAccessibleBy
      */
     public SheetPublish setReadWriteAccessibleBy(String readWriteAccessibleBy) {
         this.readWriteAccessibleBy = readWriteAccessibleBy;
@@ -249,8 +245,6 @@ public class SheetPublish {
 
     /**
      * Sets the read only lite ssl url
-     *
-     * @param readOnlyLiteSslUrl
      */
     public SheetPublish setReadOnlyLiteSslUrl(String readOnlyLiteSslUrl) {
         this.readOnlyLiteSslUrl = readOnlyLiteSslUrl;
@@ -325,9 +319,6 @@ public class SheetPublish {
 
     /**
      * Set the read only full show toolbar flag
-     *
-     * @param readOnlyFullShowToolbar
-     * @return
      */
     public SheetPublish setReadOnlyFullShowToolbar(Boolean readOnlyFullShowToolbar) {
         this.readOnlyFullShowToolbar = readOnlyFullShowToolbar;
@@ -345,8 +336,6 @@ public class SheetPublish {
 
     /**
      * Set the read/write show toolbar flag
-     *
-     * @param readWriteShowToolbar
      */
     public SheetPublish setReadWriteShowToolbar(Boolean readWriteShowToolbar) {
         this.readWriteShowToolbar = readWriteShowToolbar;
@@ -358,7 +347,9 @@ public class SheetPublish {
      *
      * @return readOnlyFullDefaultView. Valid options are "GRID", "CARDS", "CALENDAR"
      */
-    public String getReadOnlyFullDefaultView() { return readOnlyFullDefaultView; }
+    public String getReadOnlyFullDefaultView() {
+        return readOnlyFullDefaultView;
+    }
 
     /**
      * Set the read only full default view
@@ -376,7 +367,9 @@ public class SheetPublish {
      *
      * @return readWriteDefaultView. Valid options are "GRID", "CARDS", "CALENDAR"
      */
-    public String getReadWriteDefaultView() { return readWriteDefaultView; }
+    public String getReadWriteDefaultView() {
+        return readWriteDefaultView;
+    }
 
     /**
      * Set the read write default view
@@ -403,18 +396,16 @@ public class SheetPublish {
         /**
          * Show or hide toolbar on a read/write sheet
          *
-         * @param readWriteShowToolbarEnabled
          * @return the publish status builder
          */
         public PublishStatusBuilder setReadWriteShowToolbarEnabled(Boolean readWriteShowToolbarEnabled) {
-           this.readWriteShowToolbarEnabled = readWriteShowToolbarEnabled;
-           return this;
+            this.readWriteShowToolbarEnabled = readWriteShowToolbarEnabled;
+            return this;
         }
 
         /**
          * Show or hide toolbar on a read only full sheet
          *
-         * @param readOnlyFullShowToolbarEnabled
          * @return the publish status builder
          */
         public PublishStatusBuilder setReadOnlyFullShowToolbarEnabled(Boolean readOnlyFullShowToolbarEnabled) {
@@ -509,9 +500,11 @@ public class SheetPublish {
          */
         public SheetPublish build() {
 
-            if(readOnlyLiteEnabled == null || readOnlyFullEnabled == null || readWriteEnabled == null){
-                throw new InstantiationError("'Read only lite', 'read only full' and 'read write' must be set to "
-                        + "update the publishing status.");
+            if (readOnlyLiteEnabled == null || readOnlyFullEnabled == null || readWriteEnabled == null) {
+                throw new InstantiationError(
+                        "'Read only lite', 'read only full' and 'read write' must be set to " +
+                                "update the publishing status."
+                );
             }
 
             SheetPublish sheetPublish = new SheetPublish();

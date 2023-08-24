@@ -9,9 +9,9 @@ package com.smartsheet.api.models;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -142,7 +142,9 @@ public class Row extends AbstractRow<Column, Cell> {
          * Gets the above flag
          * @return the above flag
          */
-        public Boolean getAbove() { return above; }
+        public Boolean getAbove() {
+            return above;
+        }
 
         /**
          * Sets the above flag
@@ -158,7 +160,9 @@ public class Row extends AbstractRow<Column, Cell> {
          * Gets the format
          * @return the format
          */
-        public Format getFormat() { return format; }
+        public Format getFormat() {
+            return format;
+        }
 
         /**
          * Sets the format
@@ -174,7 +178,9 @@ public class Row extends AbstractRow<Column, Cell> {
          * Gets the expanded flag
          * @return the expanded flag
          */
-        public Boolean getExpanded() { return expanded; }
+        public Boolean getExpanded() {
+            return expanded;
+        }
 
         /**
          * Sets the expanded flag
@@ -190,7 +196,9 @@ public class Row extends AbstractRow<Column, Cell> {
          * Gets the list of cells
          * @return the list of cells
          */
-        public List<Cell> getCells() { return cells; }
+        public List<Cell> getCells() {
+            return cells;
+        }
 
         /**
          * Sets the list of cells
@@ -238,6 +246,9 @@ public class Row extends AbstractRow<Column, Cell> {
             return id;
         }
 
+        /**
+         * Set the Row ID
+         */
         public UpdateRowBuilder setRowId(Long rowId) {
             this.id = rowId;
             return this;
@@ -327,7 +338,9 @@ public class Row extends AbstractRow<Column, Cell> {
          * Gets the above flag
          * @return the above flag
          */
-        public Boolean getAbove() { return above; }
+        public Boolean getAbove() {
+            return above;
+        }
 
         /**
          * Sets the above flag
@@ -343,7 +356,9 @@ public class Row extends AbstractRow<Column, Cell> {
          * Gets the number of levels of indent
          * @return the number of levels of indent
          */
-        public Integer getIndent() { return indent; }
+        public Integer getIndent() {
+            return indent;
+        }
 
         /**
          * Sets the number of levels of indent
@@ -359,7 +374,9 @@ public class Row extends AbstractRow<Column, Cell> {
          * Gets the number of levels of outdent
          * @return the number of levels of outdent
          */
-        public Integer getOutdent() { return outdent; }
+        public Integer getOutdent() {
+            return outdent;
+        }
 
         /**
          * Sets the number of levels of outdent
@@ -375,7 +392,9 @@ public class Row extends AbstractRow<Column, Cell> {
          * Gets the format
          * @return the format
          */
-        public Format getFormat() { return format; }
+        public Format getFormat() {
+            return format;
+        }
 
         /**
          * Sets the format
@@ -391,7 +410,9 @@ public class Row extends AbstractRow<Column, Cell> {
          * Gets the expanded flag
          * @return the expanded flag
          */
-        public Boolean getExpanded() { return expanded; }
+        public Boolean getExpanded() {
+            return expanded;
+        }
 
         /**
          * Sets the expanded flag
@@ -407,7 +428,9 @@ public class Row extends AbstractRow<Column, Cell> {
          * Gets the list of cells
          * @return the list of cells
          */
-        public List<Cell> getCells() { return cells; }
+        public List<Cell> getCells() {
+            return cells;
+        }
 
         /**
          * Sets the list of cells
@@ -423,7 +446,9 @@ public class Row extends AbstractRow<Column, Cell> {
          * Gets the locked flag
          * @return the locked flag
          */
-        public Boolean getLocked() {return locked; }
+        public Boolean getLocked() {
+            return locked;
+        }
 
         /**
          * Sets the locked flag

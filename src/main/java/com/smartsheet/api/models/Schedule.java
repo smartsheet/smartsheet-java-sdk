@@ -1,4 +1,5 @@
 package com.smartsheet.api.models;
+
 /*
  * #[license]
  * Smartsheet SDK for Java
@@ -8,9 +9,9 @@ package com.smartsheet.api.models;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -84,8 +85,6 @@ public class Schedule {
 
     /**
      * Set the schedule type
-     *
-     * @param type
      */
     public Schedule setType(ScheduleType type) {
         this.type = type;
@@ -103,8 +102,6 @@ public class Schedule {
 
     /**
      * Set the date, time and time zone at which the first delivery will start
-     *
-     * @param startAt
      */
     public Schedule setStartAt(Date startAt) {
         this.startAt = startAt;
@@ -122,7 +119,6 @@ public class Schedule {
 
     /**
      * Set the date, time and time zone at which the delivery schedule will end
-     * @param endAt
      */
     public Schedule setEndAt(Date endAt) {
         this.endAt = endAt;
@@ -140,8 +136,6 @@ public class Schedule {
 
     /**
      * Set the day within the month
-     *
-     * @param dayOfMonth
      */
     public Schedule setDayOfMonth(Integer dayOfMonth) {
         this.dayOfMonth = dayOfMonth;
@@ -159,8 +153,6 @@ public class Schedule {
 
     /**
      * Set the day ordinal
-     *
-     * @param dayOrdinal
      */
     public Schedule setDayOrdinal(DayOrdinal dayOrdinal) {
         this.dayOrdinal = dayOrdinal;
@@ -178,8 +170,6 @@ public class Schedule {
 
     /**
      * Set the array of day descriptors
-     *
-     * @param dayDescriptors
      */
     public Schedule setDayDescriptors(List<DayDescriptor> dayDescriptors) {
         this.dayDescriptors = dayDescriptors;
@@ -197,8 +187,6 @@ public class Schedule {
 
     /**
      * Set the frequency on which the request will be delivered.
-     *
-     * @param repeatEvery
      */
     public Schedule setRepeatEvery(Integer repeatEvery) {
         this.repeatEvery = repeatEvery;
@@ -216,8 +204,6 @@ public class Schedule {
 
     /**
      * Set the date and time for when the last request was sent.
-     *
-     * @param lastSentAt
      */
     public Schedule setLastSentAt(Date lastSentAt) {
         this.lastSentAt = lastSentAt;
@@ -235,8 +221,6 @@ public class Schedule {
 
     /**
      * Set the date and time for when the next request is schedule to send.
-     *
-     * @param nextSendAt
      */
     public Schedule sentNextSendAt(Date nextSendAt) {
         this.nextSendAt = nextSendAt;

@@ -9,9 +9,9 @@ package com.smartsheet.api.models;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -66,8 +66,6 @@ public class ShortcutDataItem {
 
     /**
      * Set the label for the data point.
-     *
-     * @param label
      */
     public ShortcutDataItem setLabel(String label) {
         this.label = label;
@@ -85,8 +83,6 @@ public class ShortcutDataItem {
 
     /**
      * Set the label format string
-     *
-     * @param labelFormat
      */
     public ShortcutDataItem setLabelFormat(Format labelFormat) {
         this.labelFormat = labelFormat;
@@ -106,8 +102,6 @@ public class ShortcutDataItem {
     /**
      * Set the attachment type
      * (one of FILE, GOOGLE_DRIVE, LINK, BOX_COM, DROPBOX, EVERNOTE, or EGNYTE).
-     *
-     * @param attachmentType
      */
     public ShortcutDataItem setAttachmentType(AttachmentType attachmentType) {
         this.attachmentType = attachmentType;
@@ -125,8 +119,6 @@ public class ShortcutDataItem {
 
     /**
      * Set the hyperlink object
-     *
-     * @param hyperlink
      */
     public ShortcutDataItem setHyperlink(Hyperlink hyperlink) {
         this.hyperlink = hyperlink;
@@ -144,8 +136,6 @@ public class ShortcutDataItem {
 
     /**
      * Set the display order for this shortcut data item
-     *
-     * @param order
      */
     public ShortcutDataItem setOrder(Integer order) {
         this.order = order;
@@ -163,8 +153,6 @@ public class ShortcutDataItem {
 
     /**
      * Set the MIME Type
-     *
-     * @param mimeType
      */
     public ShortcutDataItem setMimeType(String mimeType) {
         this.mimeType = mimeType;

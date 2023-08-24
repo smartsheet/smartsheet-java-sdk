@@ -14,9 +14,9 @@ import java.util.List;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -129,8 +129,6 @@ public class Template extends NamedModel<Long> {
 
     /**
      * Sets the URL to the small preview image for this template.
-     *
-     * @param image
      */
     public Template setImage(String image) {
         this.image = image;
@@ -148,8 +146,6 @@ public class Template extends NamedModel<Long> {
 
     /**
      * Sets the URL to the large preview image for this template.
-     *
-     * @param largeImage
      */
     public Template setLargeImage(String largeImage) {
         this.largeImage = largeImage;
@@ -167,8 +163,6 @@ public class Template extends NamedModel<Long> {
 
     /**
      * Sets the locate of the template.
-     *
-     * @param locale
      */
     public Template setLocale(String locale) {
         this.locale = locale;
@@ -186,8 +180,6 @@ public class Template extends NamedModel<Long> {
 
     /**
      * Sets the type of the template. One of "sheet" or "report"
-     *
-     * @param type
      */
     public Template setType(String type) {
         this.type = type;
@@ -196,8 +188,6 @@ public class Template extends NamedModel<Long> {
 
     /**
      * Gets the list of search tags for this template.
-     *
-     * @return array of search tags
      */
     public List<String> getTags() {
         return tags;
@@ -205,8 +195,6 @@ public class Template extends NamedModel<Long> {
 
     /**
      * Sets the array of search tags for this template.
-     *
-     * @param tags
      */
     public Template setTags(List<String> tags) {
         this.tags = tags;
@@ -224,8 +212,6 @@ public class Template extends NamedModel<Long> {
 
     /**
      * Sets the array of categories this template belongs to
-     *
-     * @param categories
      */
     public Template setCategories(List<String> categories) {
         this.categories = categories;
@@ -243,8 +229,6 @@ public class Template extends NamedModel<Long> {
 
     /**
      * Sets the flag indicating whether this template is blank.
-     *
-     * @param blank
      */
     public Template setBlank(Boolean blank) {
         this.blank = blank;
@@ -262,8 +246,6 @@ public class Template extends NamedModel<Long> {
 
     /**
      * Sets the type of global template
-     *
-     * @param globalTemplate
      */
     public Template setGlobalTemplate(GlobalTemplate globalTemplate) {
         this.globalTemplate = globalTemplate;

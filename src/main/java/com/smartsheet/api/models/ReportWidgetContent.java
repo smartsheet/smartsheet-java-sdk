@@ -1,4 +1,5 @@
 package com.smartsheet.api.models;
+
 /*
  * #[license]
  * Smartsheet SDK for Java
@@ -8,9 +9,9 @@ package com.smartsheet.api.models;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -54,12 +55,12 @@ public class ReportWidgetContent implements WidgetContent {
      *
      * @return report ID
      */
-    public Long getReportId() { return reportId; }
+    public Long getReportId() {
+        return reportId;
+    }
 
     /**
      * Sets the report ID denoting container source
-     *
-     * @param reportId
      */
     public ReportWidgetContent setReportId(Long reportId) {
         this.reportId = reportId;
@@ -71,12 +72,12 @@ public class ReportWidgetContent implements WidgetContent {
      *
      * @return HTML content
      */
-    public String getHtmlContent() { return htmlContent; }
+    public String getHtmlContent() {
+        return htmlContent;
+    }
 
     /**
      * Sets the HTML snippet used to render report
-     *
-     * @param htmlContent
      */
     public ReportWidgetContent setHtmlContent(String htmlContent) {
         this.htmlContent = htmlContent;
@@ -88,12 +89,12 @@ public class ReportWidgetContent implements WidgetContent {
      *
      * @return the hyperlink
      */
-    public WidgetHyperlink getHyperlink() { return hyperlink; }
+    public WidgetHyperlink getHyperlink() {
+        return hyperlink;
+    }
 
     /**
      * Sets the hyperlink associated with this Widget
-     *
-     * @param hyperlink
      */
     public ReportWidgetContent setHyperlink(WidgetHyperlink hyperlink) {
         this.hyperlink = hyperlink;

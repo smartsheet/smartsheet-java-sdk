@@ -1,4 +1,5 @@
 package com.smartsheet.api.models;
+
 /*
  * #[license]
  * Smartsheet SDK for Java
@@ -8,9 +9,9 @@ package com.smartsheet.api.models;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -80,12 +81,12 @@ public class ChartWidgetContent implements WidgetContent {
      *
      * @return the report ID
      */
-    public Long getReportId() { return reportId; }
+    public Long getReportId() {
+        return reportId;
+    }
 
     /**
      * Sets the report ID denoting container source, if applicable
-     *
-     * @param reportId
      */
     public ChartWidgetContent setReportId(Long reportId) {
         this.reportId = reportId;
@@ -97,12 +98,12 @@ public class ChartWidgetContent implements WidgetContent {
      *
      * @return the sheet ID
      */
-    public Long getSheetId() { return sheetId; }
+    public Long getSheetId() {
+        return sheetId;
+    }
 
     /**
      * Sets the sheet ID denoting container source, if applicable
-     *
-     * @param sheetId
      */
     public ChartWidgetContent setSheetId(Long sheetId) {
         this.sheetId = sheetId;
@@ -114,12 +115,12 @@ public class ChartWidgetContent implements WidgetContent {
      *
      * @return the axes
      */
-    public List<Object> getAxes() { return axes; }
+    public List<Object> getAxes() {
+        return axes;
+    }
 
     /**
      * Sets the array of axes
-     *
-     * @param axes
      */
     public ChartWidgetContent setAxes(List<Object> axes) {
         this.axes = axes;
@@ -131,12 +132,12 @@ public class ChartWidgetContent implements WidgetContent {
      *
      * @return the hyperlink
      */
-    public WidgetHyperlink getHyperlink() { return hyperlink; }
+    public WidgetHyperlink getHyperlink() {
+        return hyperlink;
+    }
 
     /**
      * Sets the hyperlink associated with this Widget
-     *
-     * @param hyperlink
      */
     public ChartWidgetContent setHyperlink(WidgetHyperlink hyperlink) {
         this.hyperlink = hyperlink;
@@ -148,12 +149,12 @@ public class ChartWidgetContent implements WidgetContent {
      *
      * @return the array of column IDs
      */
-    public List<Long> getIncludedColumnIds() { return includedColumnIds; }
+    public List<Long> getIncludedColumnIds() {
+        return includedColumnIds;
+    }
 
     /**
      * Sets the array of column IDs if the range was selected through the UI
-     *
-     * @param includedColumnIds
      */
     public ChartWidgetContent setIncludedColumnIds(List<Long> includedColumnIds) {
         this.includedColumnIds = includedColumnIds;
@@ -165,12 +166,12 @@ public class ChartWidgetContent implements WidgetContent {
      *
      * @return the legend
      */
-    public Object getLegend() { return legend; }
+    public Object getLegend() {
+        return legend;
+    }
 
     /**
      * Sets the location in the widget where Smartsheet renders the legend
-     *
-     * @param legend
      */
     public ChartWidgetContent setLegend(Object legend) {
         this.legend = legend;
@@ -182,12 +183,12 @@ public class ChartWidgetContent implements WidgetContent {
      *
      * @return the selection range
      */
-    public List<SelectionRange> getSelectionRanges() { return selectionRanges; }
+    public List<SelectionRange> getSelectionRanges() {
+        return selectionRanges;
+    }
 
     /**
      * Sets the selection range if the source is a sheet
-     *
-     * @param selectionRanges
      */
     public ChartWidgetContent setSelectionRanges(List<SelectionRange> selectionRanges) {
         this.selectionRanges = selectionRanges;
@@ -199,12 +200,12 @@ public class ChartWidgetContent implements WidgetContent {
      *
      * @return the array of series objects
      */
-    public List<Object> getSeries() { return series; }
+    public List<Object> getSeries() {
+        return series;
+    }
 
     /**
      * Sets the array of series objects
-     *
-     * @param series
      */
     public ChartWidgetContent setSeries(List<Object> series) {
         this.series = series;

@@ -9,9 +9,9 @@ package com.smartsheet.api.models;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -19,7 +19,6 @@ package com.smartsheet.api.models;
  * limitations under the License.
  * %[license]
  */
-
 
 import com.smartsheet.api.models.enums.SheetEmailFormat;
 
@@ -155,15 +154,19 @@ public class SheetEmail extends Email {
          * Gets the list of recipients to send to
          * @return the list of recipients
          */
-        public List<Recipient> getSendTo() { return sendTo; }
+        public List<Recipient> getSendTo() {
+            return sendTo;
+        }
 
         /**
          * Sets the list of recipients to send to
          * @param sendTo list of recipients
          * @return the associated builder
          */
-        public AddSheetEmailBuilder setSendTo(List<Recipient> sendTo) { this.sendTo = sendTo;
-        return  this;}
+        public AddSheetEmailBuilder setSendTo(List<Recipient> sendTo) {
+            this.sendTo = sendTo;
+            return this;
+        }
 
         /**
          * Gets the subject.
@@ -241,8 +244,5 @@ public class SheetEmail extends Email {
 
             return sheetEmail;
         }
-
     }
-
-
 }

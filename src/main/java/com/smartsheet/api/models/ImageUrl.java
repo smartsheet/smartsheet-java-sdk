@@ -1,3 +1,5 @@
+package com.smartsheet.api.models;
+
 /*
  * #[license]
  * Smartsheet SDK for Java
@@ -7,9 +9,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -17,7 +19,6 @@
  * limitations under the License.
  * %[license]
  */
-package com.smartsheet.api.models;
 
 public class ImageUrl {
 
@@ -51,6 +52,7 @@ public class ImageUrl {
      * Constructor(s)
      */
     public ImageUrl() { }
+
     public ImageUrl(String imageId) {
         setImageId(imageId);
     }
@@ -66,8 +68,6 @@ public class ImageUrl {
 
     /**
      * Set the image id
-     *
-     * @param imageId
      */
     public ImageUrl setImageId(String imageId) {
         this.imageId = imageId;
@@ -76,8 +76,6 @@ public class ImageUrl {
 
     /**
      * Get the image width
-     *
-     * @return width
      */
     public Long getWidth() {
         return width;
@@ -85,8 +83,6 @@ public class ImageUrl {
 
     /**
      * Set the image width
-     *
-     * @param width
      */
     public ImageUrl setWidth(Long width) {
         this.width = width;
@@ -95,8 +91,6 @@ public class ImageUrl {
 
     /**
      * Get the image height
-     *
-     * @return height
      */
     public Long getHeight() {
         return height;
@@ -104,8 +98,6 @@ public class ImageUrl {
 
     /**
      * Set the image height
-     *
-     * @param height
      */
     public ImageUrl setHeight(Long height) {
         this.height = height;
@@ -123,8 +115,6 @@ public class ImageUrl {
 
     /**
      * Set the temporary URL that can be used to retrieve the image.
-     *
-     * @param url
      */
     public ImageUrl setUrl(String url) {
         this.url = url;
@@ -142,8 +132,6 @@ public class ImageUrl {
 
     /**
      * Set the error object.
-     *
-     * @param error
      */
     public ImageUrl setError(Error error) {
         this.error = error;

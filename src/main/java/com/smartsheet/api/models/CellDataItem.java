@@ -9,9 +9,9 @@ package com.smartsheet.api.models;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -90,8 +90,6 @@ public class CellDataItem {
 
     /**
      * Set the column Id for the cell.
-     *
-     * @param columnId
      */
     public CellDataItem setColumnId(Long columnId) {
         this.columnId = columnId;
@@ -103,12 +101,12 @@ public class CellDataItem {
      *
      * @return rowId
      */
-    public Long getRowId() { return rowId; }
+    public Long getRowId() {
+        return rowId;
+    }
 
     /**
      * Set the row Id for the item
-     *
-     * @param rowId
      */
     public CellDataItem setRowId(Long rowId) {
         this.rowId = rowId;
@@ -117,15 +115,13 @@ public class CellDataItem {
 
     /**
      * Get the sheet Id for the item
-     *
-     * @return sheetId
      */
-    public Long getSheetId() { return sheetId; }
+    public Long getSheetId() {
+        return sheetId;
+    }
 
     /**
      * Set the sheet Id for the item
-     *
-     * @param sheetId
      */
     public CellDataItem setSheetId(Long sheetId) {
         this.sheetId = sheetId;
@@ -145,8 +141,6 @@ public class CellDataItem {
     /**
      * Set the object for this CellDataItem. The type of the data returned will depend on
      * the cell type and the data in the cell.
-     *
-     * @param objectValue
      */
     public CellDataItem setObjectValue(Object objectValue) {
         this.objectValue = objectValue;
@@ -164,8 +158,6 @@ public class CellDataItem {
 
     /**
      * Set the cell object
-     *
-     * @param cell
      */
     public CellDataItem setCell(Cell cell) {
         this.cell = cell;
@@ -177,12 +169,12 @@ public class CellDataItem {
      *
      * @return CELL
      */
-    public String getDataSource() { return dataSource; }
+    public String getDataSource() {
+        return dataSource;
+    }
 
     /**
      * Sets the data source
-     *
-     * @param dataSource
      */
     public CellDataItem setDataSource(String dataSource) {
         this.dataSource = dataSource;
@@ -200,8 +192,6 @@ public class CellDataItem {
 
     /**
      * Set the label for the data point.
-     *
-     * @param label
      */
     public CellDataItem setLabel(String label) {
         this.label = label;
@@ -219,8 +209,6 @@ public class CellDataItem {
 
     /**
      * Set the format descriptor for the label
-     *
-     * @param labelFormat
      */
     public CellDataItem setLabelFormat(Format labelFormat) {
         this.labelFormat = labelFormat;
@@ -238,8 +226,6 @@ public class CellDataItem {
 
     /**
      * Set the display order for the CellDataItem
-     *
-     * @param order
      */
     public CellDataItem setOrder(Integer order) {
         this.order = order;
@@ -257,8 +243,6 @@ public class CellDataItem {
 
     /**
      * Set the format descriptor for the cell value
-     *
-     * @param valueFormat
      */
     public CellDataItem setValueFormat(Format valueFormat) {
         this.valueFormat = valueFormat;
@@ -276,8 +260,6 @@ public class CellDataItem {
 
     /**
      * Sets the SummaryField if dataSource is SUMMARY_FIELD
-     *
-     * @param profileField
      */
     public CellDataItem setProfileField(SummaryField profileField) {
         this.profileField = profileField;

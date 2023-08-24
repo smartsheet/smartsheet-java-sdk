@@ -9,9 +9,9 @@ package com.smartsheet.api.models;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -25,7 +25,6 @@ import com.smartsheet.api.models.enums.ShareScope;
 import com.smartsheet.api.models.enums.ShareType;
 
 import java.util.Date;
-
 
 /**
  * Represents a Share Object.
@@ -60,7 +59,8 @@ public class Share extends NamedModel<String> {
     /**
      * The scope of this share. One of the following values:
      *    ITEM: an item-level share (i.e., the specific object to which the Share applies is shared with the user or group)
-     *     WORKSPACE: a workspace-level share (i.e., the workspace that contains the object to which the Share applies is shared with the user or group)
+     *    WORKSPACE: a workspace-level share (i.e., the workspace that contains the object to which the Share
+     *    applies is shared with the user or group)
      */
     private ShareScope scope;
 
@@ -94,7 +94,7 @@ public class Share extends NamedModel<String> {
      *
      * @param name the new name
      */
-    public Share setName(String name){
+    public Share setName(String name) {
         super.setName(name);
         return this;
     }
@@ -205,8 +205,6 @@ public class Share extends NamedModel<String> {
 
     /**
      * Set the scope of this share. One of ITEM or WORKSPACE
-     *
-     * @param scope
      */
     public Share setScope(ShareScope scope) {
         this.scope = scope;
@@ -224,8 +222,6 @@ public class Share extends NamedModel<String> {
 
     /**
      * Sets the time that the share was created
-     *
-     * @param createdAt
      */
     public Share setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
@@ -243,8 +239,6 @@ public class Share extends NamedModel<String> {
 
     /**
      * Sets the time that the share was last modified
-     *
-     * @param modifiedAt
      */
     public Share setModifiedAt(Date modifiedAt) {
         this.modifiedAt = modifiedAt;
@@ -349,7 +343,7 @@ public class Share extends NamedModel<String> {
          * @return the share
          */
         public Share build() {
-            if(accessLevel == null || email == null){
+            if (accessLevel == null || email == null) {
                 throw new InstantiationError("emailAddress and accessLevel are required");
             }
 
@@ -413,7 +407,7 @@ public class Share extends NamedModel<String> {
          * @return the share
          */
         public Share build() {
-            if(accessLevel == null || groupId == null){
+            if (accessLevel == null || groupId == null) {
                 throw new InstantiationError("You must provide a groupId and accessLevel");
             }
 
@@ -440,6 +434,9 @@ public class Share extends NamedModel<String> {
             return id;
         }
 
+        /**
+         * Set the Share ID
+         */
         public UpdateShareBuilder setShareId(String shareId) {
             this.id = shareId;
             return this;
@@ -471,7 +468,7 @@ public class Share extends NamedModel<String> {
          * @return the share
          */
         public Share build() {
-            if(accessLevel == null || id == null){
+            if (accessLevel == null || id == null) {
                 throw new InstantiationError("The access level and share id must be specified.");
             }
 
@@ -535,7 +532,7 @@ public class Share extends NamedModel<String> {
          * @return the share
          */
         public Share build() {
-            if(accessLevel == null || email == null){
+            if (accessLevel == null || email == null) {
                 throw new InstantiationError("emailAddress and accessLevel are required");
             }
 
@@ -600,7 +597,7 @@ public class Share extends NamedModel<String> {
          * @return the share
          */
         public Share build() {
-            if(accessLevel == null || groupId == null){
+            if (accessLevel == null || groupId == null) {
                 throw new InstantiationError("You must provide a groupId and accessLevel");
             }
 

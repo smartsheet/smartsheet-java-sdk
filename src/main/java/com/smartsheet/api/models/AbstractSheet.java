@@ -301,8 +301,6 @@ public abstract class AbstractSheet<TRow extends AbstractRow<TColumn, TCell>, TC
 
     /**
      * Sets contact references used by MULTI_CONTACT_LIST columns
-     *
-     * @param contactReferences
      */
     @SuppressWarnings("unchecked")
     public <T extends AbstractSheet<TRow, TColumn, TCell>> T setContactReferences(List<ContactObjectValue> contactReferences) {
@@ -405,7 +403,9 @@ public abstract class AbstractSheet<TRow extends AbstractRow<TColumn, TCell>, TC
      * @param effectiveAttachmentOptions the effective attachment options
      */
     @SuppressWarnings("unchecked")
-    public <T extends AbstractSheet<TRow, TColumn, TCell>> T setEffectiveAttachmentOptions(EnumSet<AttachmentType> effectiveAttachmentOptions) {
+    public <T extends AbstractSheet<TRow, TColumn, TCell>> T setEffectiveAttachmentOptions(
+            EnumSet<AttachmentType> effectiveAttachmentOptions
+    ) {
         this.effectiveAttachmentOptions = effectiveAttachmentOptions;
         return (T) this;
     }
@@ -481,8 +481,6 @@ public abstract class AbstractSheet<TRow extends AbstractRow<TColumn, TCell>, TC
 
     /**
      * Sets flag indicating whether a sheet summary is present
-     *
-     * @param hasSummaryFields
      */
     @SuppressWarnings("unchecked")
     public <T extends AbstractSheet<TRow, TColumn, TCell>> T setHasSummaryFields(Boolean hasSummaryFields) {

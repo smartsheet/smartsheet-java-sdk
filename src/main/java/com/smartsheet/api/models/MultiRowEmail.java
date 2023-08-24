@@ -9,9 +9,9 @@ package com.smartsheet.api.models;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -21,6 +21,7 @@ package com.smartsheet.api.models;
  */
 
 import java.util.List;
+
 /**
  * Represents the multi row email object.
  */
@@ -67,8 +68,9 @@ public class MultiRowEmail extends RowEmail {
          * @param sendTo list of recipients
          * @return the builder
          */
-        public AddMultiRowEmailBuilder setSendTo(List<Recipient> sendTo) { this.sendTo = sendTo;
-        return this;
+        public AddMultiRowEmailBuilder setSendTo(List<Recipient> sendTo) {
+            this.sendTo = sendTo;
+            return this;
         }
 
         /**
@@ -100,7 +102,8 @@ public class MultiRowEmail extends RowEmail {
          * @return the builder
          */
         public AddMultiRowEmailBuilder setCcMe(Boolean ccMe) {
-            this.ccMe = ccMe;             return this;
+            this.ccMe = ccMe;
+            return this;
         }
 
         /**
@@ -109,7 +112,8 @@ public class MultiRowEmail extends RowEmail {
          * @return the builder
          */
         public AddMultiRowEmailBuilder setRowIds(List<Long> rowIds) {
-            this.rowIds = rowIds;             return this;
+            this.rowIds = rowIds;
+            return this;
         }
 
         /**
@@ -119,7 +123,8 @@ public class MultiRowEmail extends RowEmail {
          * @return the builder
          */
         public AddMultiRowEmailBuilder setColumnIds(List<Long> columnIds) {
-            this.columnIds = columnIds;             return this;
+            this.columnIds = columnIds;
+            return this;
         }
 
         /**
@@ -129,7 +134,8 @@ public class MultiRowEmail extends RowEmail {
          * @return the builder
          */
         public AddMultiRowEmailBuilder setIncludeAttachments(Boolean includeAttachments) {
-            this.includeAttachments = includeAttachments;             return this;
+            this.includeAttachments = includeAttachments;
+            return this;
         }
 
         /**
@@ -139,7 +145,8 @@ public class MultiRowEmail extends RowEmail {
          * @return the builder
          */
         public AddMultiRowEmailBuilder setIncludeDiscussions(Boolean includeDiscussions) {
-            this.includeDiscussions = includeDiscussions;             return this;
+            this.includeDiscussions = includeDiscussions;
+            return this;
         }
 
         /**
@@ -160,6 +167,4 @@ public class MultiRowEmail extends RowEmail {
         }
 
     }
-
-
 }

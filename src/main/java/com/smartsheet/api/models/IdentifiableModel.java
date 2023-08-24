@@ -1,4 +1,5 @@
 package com.smartsheet.api.models;
+
 /*
  * #[license]
  * Smartsheet SDK for Java
@@ -8,9 +9,9 @@ package com.smartsheet.api.models;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -18,7 +19,6 @@ package com.smartsheet.api.models;
  * limitations under the License.
  * %[license]
  */
-
 
 /**
  * Represents an object with an ID.
@@ -56,14 +56,14 @@ public abstract class IdentifiableModel<T> {
     public boolean equals(Object object) {
         boolean result = false;
 
-        if(object == this){
+        if (object == this) {
             result = true;
-        }else if(object != null && object.getClass() == this.getClass() &&
+        } else if (object != null && object.getClass() == this.getClass() &&
                 // If they are both null
-                (((IdentifiableModel<?>)object).getId() == this.getId()
+                (((IdentifiableModel<?>) object).getId() == this.getId() ||
                 // If they are not null but are equal objects.
-                || ((IdentifiableModel<?>)object).getId() != null && this.getId() != null &&
-                ((IdentifiableModel<?>)object).getId().equals(this.getId()))) {
+                ((IdentifiableModel<?>) object).getId() != null && this.getId() != null &&
+                ((IdentifiableModel<?>) object).getId().equals(this.getId()))) {
             result = true;
         }
 
@@ -78,9 +78,9 @@ public abstract class IdentifiableModel<T> {
     @Override
     public int hashCode() {
         int result = 17;
-        if(this.id == null){
+        if (this.id == null) {
             result = super.hashCode();
-        }else{
+        } else {
             result = id.toString().hashCode();
         }
         return result;

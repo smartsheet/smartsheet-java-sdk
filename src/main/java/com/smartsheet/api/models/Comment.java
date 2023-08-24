@@ -9,9 +9,9 @@ package com.smartsheet.api.models;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -53,6 +53,7 @@ public class Comment extends IdentifiableModel<Long> {
      * Constructors
      */
     public Comment() { }
+
     public Comment(String text) {
         setText(text);
     }
@@ -213,7 +214,7 @@ public class Comment extends IdentifiableModel<Long> {
          * Gets the text for the comment.
          * @return the text
          */
-        public String getText(){
+        public String getText() {
             return text;
         }
 
@@ -223,7 +224,7 @@ public class Comment extends IdentifiableModel<Long> {
          * @return the comment
          */
         public Comment build() {
-            if(text == null){
+            if (text == null) {
                 throw new InstantiationError("The comment text is required.");
             }
 
