@@ -9,9 +9,9 @@ package com.smartsheet.api.internal;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -38,14 +38,15 @@ import java.util.Map;
 
 /**
  * This is the implementation of the ShareResources.
- *
+ * <p>
  * Thread Safety: This class is thread safe because it is immutable and its base class is thread safe.
  */
 public class ShareResourcesImpl extends AbstractAssociatedResources implements ShareResources {
+    private static final String SHARES_PATH = "/shares/";
 
     /**
      * Constructor.
-     *
+     * <p>
      * Exceptions: - IllegalArgumentException : if any argument is null or empty string
      *
      * @param smartsheet the smartsheet
@@ -57,13 +58,13 @@ public class ShareResourcesImpl extends AbstractAssociatedResources implements S
 
     /**
      * List shares of a given object.
-     *
+     * <p>
      * It mirrors to the following Smartsheet REST API method:
      *     GET /workspace/{id}/shares
      *     GET /sheet/{id}/shares
      *     GET /sights/{id}/shares
      *     GET /reports/{id}/shares
-     *
+     * <p>
      * Exceptions:
      *   InvalidRequestException : if there is any problem with the REST API request
      *   AuthorizationException : if there is any problem with the REST API authorization(access token)
@@ -81,7 +82,14 @@ public class ShareResourcesImpl extends AbstractAssociatedResources implements S
         return this.listShares(objectId, pagination, false);
     }
 
-    public PagedResult<Share> listShares(long objectId, PaginationParameters pagination, Boolean includeWorkspaceShares) throws SmartsheetException {
+    /**
+     * List shares of a given object.
+     */
+    public PagedResult<Share> listShares(
+            long objectId,
+            PaginationParameters pagination,
+            Boolean includeWorkspaceShares
+    ) throws SmartsheetException {
         String path = getMasterResourceType() + "/" + objectId + "/shares";
 
         Map<String, Object> parameters = new HashMap<>();
@@ -98,13 +106,13 @@ public class ShareResourcesImpl extends AbstractAssociatedResources implements S
 
     /**
      * Get a Share.
-     *
+     * <p>
      * It mirrors to the following Smartsheet REST API method:
      *     GET /workspaces/{workspaceId}/shares/{shareId}
      *     GET /sheets/{sheetId}/shares/{shareId}
      *     GET /sights/{sightId}/shares
      *     GET /reports/{reportId}/shares
-     *
+     * <p>
      * Exceptions:
      *   InvalidRequestException : if there is any problem with the REST API request
      *   AuthorizationException : if there is any problem with the REST API authorization(access token)
@@ -116,22 +124,22 @@ public class ShareResourcesImpl extends AbstractAssociatedResources implements S
      * @param objectId the ID of the object to share
      * @param shareId the ID of the share
      * @return the share (note that if there is no such resource, this method will throw ResourceNotFoundException
-     * rather than returning null).
+     *     rather than returning null).
      * @throws SmartsheetException the smartsheet exception
      */
-    public Share getShare(long objectId, String shareId) throws SmartsheetException{
-        return this.getResource(getMasterResourceType() + "/" + objectId + "/shares/" + shareId, Share.class);
+    public Share getShare(long objectId, String shareId) throws SmartsheetException {
+        return this.getResource(getMasterResourceType() + "/" + objectId + SHARES_PATH + shareId, Share.class);
     }
 
     /**
      * Shares the object with the specified Users and Groups.
-     *
+     * <p>
      * It mirrors to the following Smartsheet REST API method:
      *     POST /workspaces/{id}/shares
      *     POST /sheets/{id}/shares
      *     POST /sights/{id}/shares
      *     POST /reports/{reportId}/shares
-     *
+     * <p>
      * Exceptions:
      *   IllegalArgumentException : if multiShare is null
      *   InvalidRequestException : if there is any problem with the REST API request
@@ -149,7 +157,7 @@ public class ShareResourcesImpl extends AbstractAssociatedResources implements S
      */
     public List<Share> shareTo(long objectId, List<Share> shares, Boolean sendEmail) throws SmartsheetException {
         String path = getMasterResourceType() + "/" + objectId + "/shares";
-        if (sendEmail != null){
+        if (sendEmail != null) {
             path += "?sendEmail=" + sendEmail;
         }
         return this.postAndReceiveList(path, shares, Share.class);
@@ -167,7 +175,7 @@ public class ShareResourcesImpl extends AbstractAssociatedResources implements S
      * @param objectId the ID of the object to share
      * @param share the share
      * @return the updated share (note that if there is no such resource, this method will throw
-     *  ResourceNotFoundException rather than returning null).
+     *     ResourceNotFoundException rather than returning null).
      * @throws IllegalArgumentException if any argument is null or empty string
      * @throws InvalidRequestException if there is any problem with the REST API request
      * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
@@ -177,18 +185,18 @@ public class ShareResourcesImpl extends AbstractAssociatedResources implements S
      */
     public Share updateShare(long objectId, Share share) throws SmartsheetException {
         Util.throwIfNull(share);
-        return this.updateResource(getMasterResourceType() + "/" + objectId + "/shares/" + share.getId(), Share.class, share);
+        return this.updateResource(getMasterResourceType() + "/" + objectId + SHARES_PATH + share.getId(), Share.class, share);
     }
 
     /**
      * Delete a share.
-     *
+     * <p>
      * It mirrors to the following Smartsheet REST API method:
      *     DELETE /workspaces/{workspaceId}/shares/{shareId}
      *     DELETE /sheets/{sheetId}/shares/{shareId}
      *     DELETE /sights/{sheetId}/shares/{shareId}
      *     DELETE /reports/{reportId}/shares/{shareId}
-     *
+     * <p>
      * Exceptions:
      *   InvalidRequestException : if there is any problem with the REST API request
      *   AuthorizationException : if there is any problem with the REST API authorization(access token)
@@ -202,6 +210,6 @@ public class ShareResourcesImpl extends AbstractAssociatedResources implements S
      * @throws SmartsheetException the smartsheet exception
      */
     public void deleteShare(long objectId, String shareId) throws SmartsheetException {
-        this.deleteResource(getMasterResourceType() + "/" + objectId + "/shares/" + shareId, Share.class);
+        this.deleteResource(getMasterResourceType() + "/" + objectId + SHARES_PATH + shareId, Share.class);
     }
 }

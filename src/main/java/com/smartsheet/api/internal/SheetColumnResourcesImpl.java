@@ -9,9 +9,9 @@ package com.smartsheet.api.internal;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -40,14 +40,17 @@ import java.util.Map;
 
 /**
  * This is the implementation of the SheetColumnResources.
- *
+ * <p>
  * Thread Safety: This class is thread safe because it is immutable and its base class is thread safe.
  */
 public class SheetColumnResourcesImpl extends AbstractResources implements SheetColumnResources {
 
+    private static final String SHEETS_PATH = "sheets/";
+    private static final String COLUMNS = "columns";
+
     /**
      * Constructor.
-     *
+     * <p>
      * Exceptions: - IllegalArgumentException : if any argument is null
      *
      * @param smartsheet the smartsheet
@@ -58,9 +61,9 @@ public class SheetColumnResourcesImpl extends AbstractResources implements Sheet
 
     /**
      * List columns of a given sheet.
-     *
+     * <p>
      * It mirrors to the following Smartsheet REST API method: GET /sheets/{sheetId}/columns
-     *
+     * <p>
      * Exceptions:
      *   InvalidRequestException : if there is any problem with the REST API request
      *   AuthorizationException : if there is any problem with the REST API authorization(access token)
@@ -75,15 +78,19 @@ public class SheetColumnResourcesImpl extends AbstractResources implements Sheet
      * @return the columns (note that empty list will be returned if there is none)
      * @throws SmartsheetException the smartsheet exception
      */
-    public PagedResult<Column> listColumns(long sheetId, EnumSet<ColumnInclusion> includes, PaginationParameters pagination) throws SmartsheetException  {
+    public PagedResult<Column> listColumns(
+            long sheetId,
+            EnumSet<ColumnInclusion> includes,
+            PaginationParameters pagination
+    ) throws SmartsheetException {
         return this.listColumns(sheetId, includes, pagination, null);
     }
 
     /**
      * List columns of a given sheet.
-     *
+     * <p>
      * It mirrors to the following Smartsheet REST API method: GET /sheets/{sheetId}/columns
-     *
+     * <p>
      * Exceptions:
      *   InvalidRequestException : if there is any problem with the REST API request
      *   AuthorizationException : if there is any problem with the REST API authorization(access token)
@@ -99,8 +106,13 @@ public class SheetColumnResourcesImpl extends AbstractResources implements Sheet
      * @return the columns (note that empty list will be returned if there is none)
      * @throws SmartsheetException the smartsheet exception
      */
-    public PagedResult<Column> listColumns(long sheetId, EnumSet<ColumnInclusion> includes, PaginationParameters pagination, Integer level) throws SmartsheetException  {
-        String path = "sheets/" + sheetId + "/columns";
+    public PagedResult<Column> listColumns(
+            long sheetId,
+            EnumSet<ColumnInclusion> includes,
+            PaginationParameters pagination,
+            Integer level
+    ) throws SmartsheetException {
+        String path = SHEETS_PATH + sheetId + "/" + COLUMNS;
 
         Map<String, Object> parameters = new HashMap<>();
         if (pagination != null) {
@@ -116,9 +128,9 @@ public class SheetColumnResourcesImpl extends AbstractResources implements Sheet
 
     /**
      * Add column to a sheet.
-     *
+     * <p>
      * It mirrors to the following Smartsheet REST API method: POST /sheets/{sheetId}/columns
-     *
+     * <p>
      * Exceptions:
      *   IllegalArgumentException : if any argument is null
      *   InvalidRequestException : if there is any problem with the REST API request
@@ -130,18 +142,18 @@ public class SheetColumnResourcesImpl extends AbstractResources implements Sheet
      *
      * @param sheetId the sheet id
      * @param columns the list of columns object limited to the following attributes: *
-     * title * type * symbol (optional) * options (optional) - array of options * index (zero-based) * systemColumnType
-     * (optional) * autoNumberFormat (optional)
+     *     title * type * symbol (optional) * options (optional) - array of options * index (zero-based) * systemColumnType
+     *     (optional) * autoNumberFormat (optional)
      * @return the list of created columns
      * @throws SmartsheetException the smartsheet exception
      */
     public List<Column> addColumns(long sheetId, List<Column> columns) throws SmartsheetException {
-        return this.postAndReceiveList("sheets/" + sheetId + "/columns", columns, Column.class);
+        return this.postAndReceiveList(SHEETS_PATH + sheetId + "/" + COLUMNS, columns, Column.class);
     }
 
     /**
      * Delete column.
-     *
+     * <p>
      * It mirrors to the following Smartsheet REST API method: DELETE /sheets/{sheetId}/columns/{columnId}
      *
      * @param sheetId the sheet id
@@ -155,14 +167,14 @@ public class SheetColumnResourcesImpl extends AbstractResources implements Sheet
      * @throws SmartsheetException if there is any other error during the operation
      */
     public void deleteColumn(long sheetId, long columnId) throws SmartsheetException {
-        this.deleteResource("sheets/" + sheetId + "/columns/" + columnId, Column.class);
+        this.deleteResource(SHEETS_PATH + sheetId + "/" + COLUMNS + "/" + columnId, Column.class);
     }
 
     /**
      * Update a column.
-     *
+     * <p>
      * It mirrors to the following Smartsheet REST API method: PUT /sheets/{sheetId}/columns/{columnId}
-     *
+     * <p>
      * Exceptions:
      *   IllegalArgumentException : if any argument is null
      *   InvalidRequestException : if there is any problem with the REST API request
@@ -174,22 +186,22 @@ public class SheetColumnResourcesImpl extends AbstractResources implements Sheet
      *
      * @param sheetId the sheetId
      * @param column the column to update limited to the following attributes: index (column's new index in the sheet),
-     * title, sheetId, type, options (optional), symbol (optional), systemColumnType (optional),
-     * autoNumberFormat (optional)
+     *     title, sheetId, type, options (optional), symbol (optional), systemColumnType (optional),
+     *     autoNumberFormat (optional)
      * @return the updated sheet (note that if there is no such resource, this method will throw
-     * ResourceNotFoundException rather than returning null).
+     *     ResourceNotFoundException rather than returning null).
      * @throws SmartsheetException the smartsheet exception
      */
     public Column updateColumn(long sheetId, Column column) throws SmartsheetException {
         Util.throwIfNull(column);
-        return this.updateResource("sheets/" + sheetId + "/columns/" + column.getId(), Column.class, column);
+        return this.updateResource(SHEETS_PATH + sheetId + "/" + COLUMNS + "/" + column.getId(), Column.class, column);
     }
 
     /**
      * Gets the Column specified in the URL.
-     *
+     * <p>
      * It mirrors to the following Smartsheet REST API method: GET /sheets/{sheetId}/columns/{columnId}
-     *
+     * <p>
      * Exceptions:
      *   InvalidRequestException : if there is any problem with the REST API request
      *   AuthorizationException : if there is any problem with the REST API authorization(access token)
@@ -204,8 +216,8 @@ public class SheetColumnResourcesImpl extends AbstractResources implements Sheet
      * @return the column (note that empty list will be returned if there is none)
      * @throws SmartsheetException the smartsheet exception
      */
-    public Column getColumn(long sheetId, long columnId, EnumSet<ColumnInclusion> includes) throws SmartsheetException  {
-        String path = "sheets/" + sheetId + "/columns/" + columnId;
+    public Column getColumn(long sheetId, long columnId, EnumSet<ColumnInclusion> includes) throws SmartsheetException {
+        String path = SHEETS_PATH + sheetId + "/" + COLUMNS + "/" + columnId;
 
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));

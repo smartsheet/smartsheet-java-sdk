@@ -1,4 +1,5 @@
 package com.smartsheet.api.internal;
+
 /*
  * #[license]
  * Smartsheet SDK for Java
@@ -44,16 +45,20 @@ import java.util.Map;
 
 /**
  * This is the implementation of the RowColumnResources.
- *
+ * <p>
  * Thread Safety: This class is thread safe because it is immutable and its base class is thread safe.
  */
-public class RowColumnResourcesImpl extends AbstractResources implements RowColumnResources{
+public class RowColumnResourcesImpl extends AbstractResources implements RowColumnResources {
+    private static final String SHEETS_PATH = "sheets/";
+    private static final String ROWS_PATH = "/rows/";
+    private static final String COLUMNS_PATH = "/columns/";
+    private static final String CELL_IMAGES_PATH = "/cellimages";
 
     /**
      * Constructor.
-     *
+     * <p>
      * Parameters: - smartsheet : the SmartsheetImpl
-     *
+     * <p>
      * Exceptions: - IllegalArgumentException : if any argument is null
      *
      * @param smartsheet the smartsheet
@@ -64,9 +69,9 @@ public class RowColumnResourcesImpl extends AbstractResources implements RowColu
 
     /**
      * Get the cell modification history.
-     *
+     * <p>
      * It mirrors to the following Smartsheet REST API method: GET /sheets/{sheetId}/rows/{rowId}/columns/{columnId}/history
-     *
+     * <p>
      * Exceptions:
      *   InvalidRequestException : if there is any problem with the REST API request
      *   AuthorizationException : if there is any problem with the REST API authorization(access token)
@@ -80,18 +85,23 @@ public class RowColumnResourcesImpl extends AbstractResources implements RowColu
      * @param sheetId the sheet Id
      * @param parameters the pagination parameters
      * @return the modification history (note that if there is no such resource, this method will throw
-     * ResourceNotFoundException rather than returning null).
+     *     ResourceNotFoundException rather than returning null).
      * @throws SmartsheetException the smartsheet exception
      */
-    public PagedResult<CellHistory> getCellHistory(long sheetId, long rowId, long columnId, PaginationParameters parameters) throws SmartsheetException {
-        return this.getCellHistory(sheetId, rowId, columnId, parameters, null,null);
+    public PagedResult<CellHistory> getCellHistory(
+            long sheetId,
+            long rowId,
+            long columnId,
+            PaginationParameters parameters
+    ) throws SmartsheetException {
+        return this.getCellHistory(sheetId, rowId, columnId, parameters, null, null);
     }
 
     /**
      * Get the cell modification history.
-     *
+     * <p>
      * It mirrors to the following Smartsheet REST API method: GET /sheets/{sheetId}/rows/{rowId}/columns/{columnId}/history
-     *
+     * <p>
      * Exceptions:
      *   InvalidRequestException : if there is any problem with the REST API request
      *   AuthorizationException : if there is any problem with the REST API authorization(access token)
@@ -107,12 +117,12 @@ public class RowColumnResourcesImpl extends AbstractResources implements RowColu
      * @param includes cell history inclusion
      * @param level compatibility level
      * @return the modification history (note that if there is no such resource, this method will throw
-     * ResourceNotFoundException rather than returning null).
+     *      ResourceNotFoundException rather than returning null).
      * @throws SmartsheetException the smartsheet exception
      */
     public PagedResult<CellHistory> getCellHistory(long sheetId, long rowId, long columnId, PaginationParameters pagination,
                                                    EnumSet<CellHistoryInclusion> includes, Integer level) throws SmartsheetException {
-        String path = "sheets/" + sheetId + "/rows/" + rowId + "/columns/"+columnId + "/history";
+        String path = SHEETS_PATH + sheetId + ROWS_PATH + rowId + COLUMNS_PATH + columnId + "/history";
 
         Map<String, Object> parameters = new HashMap<>();
         if (pagination != null) {
@@ -130,9 +140,9 @@ public class RowColumnResourcesImpl extends AbstractResources implements RowColu
 
     /**
      * Add an image to a cell.
-     *
+     * <p>
      * It mirrors the following Smartsheet REST API method: POST /sheets/{sheetId}/rows/{rowId}/columns/{columnId}/cellimages
-     *
+     * <p>
      * Exceptions:
      *   InvalidRequestException : if there is any problem with the REST API request
      *   AuthorizationException : if there is any problem with the REST API authorization(access token)
@@ -149,18 +159,24 @@ public class RowColumnResourcesImpl extends AbstractResources implements RowColu
      * @throws SmartsheetException the smartsheet exception
      * @throws FileNotFoundException image file not found
      */
-    public void addImageToCell(long sheetId, long rowId, long columnId, String file, String contentType) throws FileNotFoundException, SmartsheetException {
+    public void addImageToCell(
+            long sheetId,
+            long rowId,
+            long columnId,
+            String file,
+            String contentType
+    ) throws FileNotFoundException, SmartsheetException {
         Util.throwIfNull(file);
         File f = new File(file);
-        String path = "sheets/" + sheetId + "/rows/" + rowId + "/columns/" + columnId + "/cellimages";
+        String path = SHEETS_PATH + sheetId + ROWS_PATH + rowId + COLUMNS_PATH + columnId + CELL_IMAGES_PATH;
         addImage(path, new FileInputStream(f), contentType, f.length(), false, null, file);
     }
 
     /**
      * Add an image to a cell.
-     *
+     * <p>
      * It mirrors the following Smartsheet REST API method: POST /sheets/{sheetId}/rows/{rowId}/columns/{columnId}/cellimages
-     *
+     * <p>
      * Exceptions:
      *   InvalidRequestException : if there is any problem with the REST API request
      *   AuthorizationException : if there is any problem with the REST API authorization(access token)
@@ -179,19 +195,26 @@ public class RowColumnResourcesImpl extends AbstractResources implements RowColu
      * @throws SmartsheetException the smartsheet exception
      * @throws FileNotFoundException image file not found
      */
-    public void addImageToCell(long sheetId, long rowId, long columnId, String file, String contentType,
-                               boolean overrideValidation, String altText) throws FileNotFoundException, SmartsheetException {
+    public void addImageToCell(
+            long sheetId,
+            long rowId,
+            long columnId,
+            String file,
+            String contentType,
+            boolean overrideValidation,
+            String altText
+    ) throws FileNotFoundException, SmartsheetException {
         Util.throwIfNull(file);
         File f = new File(file);
-        String path = "sheets/" + sheetId + "/rows/" + rowId + "/columns/" + columnId + "/cellimages";
+        String path = SHEETS_PATH + sheetId + ROWS_PATH + rowId + COLUMNS_PATH + columnId + CELL_IMAGES_PATH;
         addImage(path, new FileInputStream(f), contentType, f.length(), overrideValidation, altText, file);
     }
 
     /**
      * Add an image to a cell.
-     *
+     * <p>
      * It mirrors the following Smartsheet REST API method: POST /sheets/{sheetId}/rows/{rowId}/columns/{columnId}/cellimages
-     *
+     * <p>
      * Exceptions:
      *   InvalidRequestException : if there is any problem with the REST API request
      *   AuthorizationException : if there is any problem with the REST API authorization(access token)
@@ -213,15 +236,15 @@ public class RowColumnResourcesImpl extends AbstractResources implements RowColu
     public void addImageToCell(long sheetId, long rowId, long columnId, File file, String contentType,
                                boolean overrideValidation, String altText) throws FileNotFoundException, SmartsheetException {
         Util.throwIfNull(file);
-        String path = "sheets/" + sheetId + "/rows/" + rowId + "/columns/" + columnId + "/cellimages";
+        String path = SHEETS_PATH + sheetId + ROWS_PATH + rowId + COLUMNS_PATH + columnId + CELL_IMAGES_PATH;
         addImage(path, new FileInputStream(file), contentType, file.length(), overrideValidation, altText, file.getName());
     }
 
     /**
      * Add an image to a cell.
-     *
+     * <p>
      * It mirrors the following Smartsheet REST API method: POST /sheets/{sheetId}/rows/{rowId}/columns/{columnId}/cellimages
-     *
+     * <p>
      * Exceptions:
      *   InvalidRequestException : if there is any problem with the REST API request
      *   AuthorizationException : if there is any problem with the REST API authorization(access token)
@@ -243,24 +266,24 @@ public class RowColumnResourcesImpl extends AbstractResources implements RowColu
     public void addImageToCell(long sheetId, long rowId, long columnId, InputStream inputStream, String contentType,
                                long contentLength, boolean overrideValidation, String altText) throws SmartsheetException {
         Util.throwIfNull(inputStream);
-        String path = "sheets/" + sheetId + "/rows/" + rowId + "/columns/" + columnId + "/cellimages";
+        String path = SHEETS_PATH + sheetId + ROWS_PATH + rowId + COLUMNS_PATH + columnId + CELL_IMAGES_PATH;
         addImage(path, inputStream, contentType, contentLength, overrideValidation, altText, altText);
     }
 
     private void addImage(String path, InputStream inputStream, String contentType, long contentLength,
                           boolean overrideValidation, String altText, String imageName) throws SmartsheetException {
-        if(imageName == null) {
+        if (imageName == null) {
             inputStream.toString();
         }
-        if(contentType == null) {
+        if (contentType == null) {
             contentType = "application/octet-stream";
         }
 
         Map<String, Object> parameters = new HashMap<>();
-        if(altText != null) {
+        if (altText != null) {
             parameters.put("altText", altText);
         }
-        if(overrideValidation) {
+        if (overrideValidation) {
             parameters.put("overrideValidation", "true");
         }
         path += QueryUtil.generateUrl(null, parameters);

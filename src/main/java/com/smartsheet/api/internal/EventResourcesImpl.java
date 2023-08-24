@@ -9,9 +9,9 @@ package com.smartsheet.api.internal;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -19,7 +19,6 @@ package com.smartsheet.api.internal;
  * limitations under the License.
  * %[license]
  */
-
 
 import com.smartsheet.api.AuthorizationException;
 import com.smartsheet.api.EventResources;
@@ -40,7 +39,7 @@ import java.util.Map;
 
 /**
  * This is the implementation of the SheetResources.
- *
+ * <p>
  * Thread Safety: This class is thread safe because it is immutable and its base class is thread safe.
  */
 public class EventResourcesImpl extends AbstractResources implements EventResources {
@@ -83,11 +82,10 @@ public class EventResourcesImpl extends AbstractResources implements EventResour
         String path = "events";
 
         Map<String, Object> parameters = new HashMap<>();
-        if(since instanceof Date) {
+        if (since instanceof Date) {
             String isoDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").format(since);
             parameters.put("since", isoDate);
-        }
-        else {
+        } else {
             parameters.put("since", since);
         }
         parameters.put("streamPosition", streamPosition);

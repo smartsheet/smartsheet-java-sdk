@@ -17,9 +17,9 @@ import com.smartsheet.api.models.ServerInfo;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -27,11 +27,11 @@ import com.smartsheet.api.models.ServerInfo;
  * limitations under the License.
  * %[license]
  */
-public class ServerInfoResourcesImpl extends AbstractResources implements ServerInfoResources{
+public class ServerInfoResourcesImpl extends AbstractResources implements ServerInfoResources {
 
     /**
      * Constructor.
-     *
+     * <p>
      * Exceptions: - IllegalArgumentException : if any argument is null
      *
      * @param smartsheet the smartsheet
@@ -42,7 +42,7 @@ public class ServerInfoResourcesImpl extends AbstractResources implements Server
 
     /**
      * Gets application constants.
-     *
+     * <p>
      * It mirrors to the following Smartsheet REST API method: GET /serverinfo
      *
      * @return the server information
@@ -53,7 +53,7 @@ public class ServerInfoResourcesImpl extends AbstractResources implements Server
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public ServerInfo getServerInfo() throws SmartsheetException{
+    public ServerInfo getServerInfo() throws SmartsheetException {
         return this.getResource("serverinfo", ServerInfo.class);
     }
 }

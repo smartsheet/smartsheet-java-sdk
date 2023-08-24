@@ -9,9 +9,9 @@ package com.smartsheet.api.internal;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -29,6 +29,8 @@ import com.smartsheet.api.models.Comment;
  */
 @Deprecated
 public class CommentResourcesImpl extends AbstractResources implements CommentResources {
+    private static final String METHOD_MOVED_MESSAGE = "Method moved to SheetCommentResources.";
+
     /**
      * @deprecated As of release 2.0
      */
@@ -42,7 +44,7 @@ public class CommentResourcesImpl extends AbstractResources implements CommentRe
      */
     @Deprecated
     public AssociatedAttachmentResources attachments() {
-        throw new UnsupportedOperationException("Method moved to SheetCommentResources.");
+        throw new UnsupportedOperationException(METHOD_MOVED_MESSAGE);
     }
 
     /**
@@ -50,7 +52,7 @@ public class CommentResourcesImpl extends AbstractResources implements CommentRe
      */
     @Deprecated
     public Comment getComment(long sheetId, long commentId) {
-        throw new UnsupportedOperationException("Method moved to SheetCommentResources.");
+        throw new UnsupportedOperationException(METHOD_MOVED_MESSAGE);
     }
 
     /**
@@ -58,6 +60,6 @@ public class CommentResourcesImpl extends AbstractResources implements CommentRe
      */
     @Deprecated
     public void deleteComment(long sheetId, long commentId) {
-        throw new UnsupportedOperationException("Method moved to SheetCommentResources.");
+        throw new UnsupportedOperationException(METHOD_MOVED_MESSAGE);
     }
 }
