@@ -103,7 +103,6 @@ public class Sheet extends AbstractSheet<Row, Column, Cell> {
 
     /**
      * A class to simplify the creation of a sheet from another sheet or another template.
-     * @author brett
      *
      */
     public static class CreateFromTemplateOrSheetBuilder {
