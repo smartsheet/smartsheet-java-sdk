@@ -31,8 +31,6 @@ import java.util.Arrays;
 /**
  * This class represents the format as applied to a cell, row or column.
  *
- * @author kskeem
- *
  */
 @JsonSerialize(using = Format.FormatSerializer.class)
 public class Format {
@@ -201,7 +199,6 @@ public class Format {
     /**
     * An enum whose "ordinal" property is used to identify the index into the format array.
     * Note that this means you !MUST NOT! change the order of these - even if you can't stand that they are not alphabetic
-    * @author kskeem
     */
     private enum FormatAttribute {
         FONT_FAMILY,
@@ -234,8 +231,6 @@ public class Format {
      * ",,3,,,4,,1,,0"
      * "
      * This assumes positive integers only.
-     *
-     * @author kskeem
      *
      */
     class FormatTokenizer {
@@ -303,6 +298,9 @@ public class Format {
             UNSET,
         };
 
+        /**
+         * Build
+         */
         public Format build() {
             String delimiter = "";
             StringBuilder formatStringBuilder = new StringBuilder(30);
