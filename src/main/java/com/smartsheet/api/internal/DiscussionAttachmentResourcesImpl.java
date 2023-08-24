@@ -1,4 +1,5 @@
 package com.smartsheet.api.internal;
+
 /*
  * #[license]
  * Smartsheet SDK for Java
@@ -8,9 +9,9 @@ package com.smartsheet.api.internal;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -24,16 +25,17 @@ import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.models.Attachment;
 import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.PaginationParameters;
+
 /**
  * This is the implementation of the DiscussionAttachmentResources.
- *
+ * <p>
  * Thread Safety: This class is thread safe because it is immutable and its base class is thread safe.
  */
-public class DiscussionAttachmentResourcesImpl extends AbstractResources implements DiscussionAttachmentResources{
+public class DiscussionAttachmentResourcesImpl extends AbstractResources implements DiscussionAttachmentResources {
 
     /**
      * Constructor.
-     *
+     * <p>
      * Exceptions: - IllegalArgumentException : if any argument is null
      *
      * @param smartsheet the smartsheet
@@ -44,9 +46,9 @@ public class DiscussionAttachmentResourcesImpl extends AbstractResources impleme
 
     /**
      * Get discussion attachment.
-     *
+     * <p>
      * It mirrors to the following Smartsheet REST API method: GET /sheets/{sheetId}/discussions/{discussionId}/attachments
-     *
+     * <p>
      * Exceptions:
      *   InvalidRequestException : if there is any problem with the REST API request
      *   AuthorizationException : if there is any problem with the REST API authorization(access token)
@@ -59,11 +61,15 @@ public class DiscussionAttachmentResourcesImpl extends AbstractResources impleme
      * @param discussionId the discussion id
      * @param parameters the pagination parameters
      * @return the resource (note that if there is no such resource, this method will throw ResourceNotFoundException
-     * rather than returning null).
+     *     rather than returning null).
      * @throws SmartsheetException the smartsheet exception
      */
-    public PagedResult<Attachment> getAttachments(long sheetId, long discussionId, PaginationParameters parameters) throws SmartsheetException {
-        String path= "sheets/" + sheetId + "/discussions/" + discussionId + "/attachments";
+    public PagedResult<Attachment> getAttachments(
+            long sheetId,
+            long discussionId,
+            PaginationParameters parameters
+    ) throws SmartsheetException {
+        String path = "sheets/" + sheetId + "/discussions/" + discussionId + "/attachments";
         if (parameters != null) {
             path += parameters.toQueryString();
         }

@@ -9,9 +9,9 @@ package com.smartsheet.api.internal;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -43,7 +43,7 @@ public class PassthroughResourcesImpl extends AbstractResources implements Passt
 
     /**
      * Constructor.
-     *
+     * <p>
      * Exceptions: - IllegalArgumentException : if any argument is null
      *
      * @param smartsheet the smartsheet
@@ -102,7 +102,7 @@ public class PassthroughResourcesImpl extends AbstractResources implements Passt
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public String putRequest(String endpoint, String payload,  Map<String, Object> parameters) throws SmartsheetException {
+    public String putRequest(String endpoint, String payload, Map<String, Object> parameters) throws SmartsheetException {
         Util.throwIfNull(payload);
         return passthroughRequest(HttpMethod.PUT, endpoint, payload, parameters);
     }
@@ -131,19 +131,23 @@ public class PassthroughResourcesImpl extends AbstractResources implements Passt
      * @param payload optional JSON payload
      * @param parameters optional list of resource parameters
      * @return the result string
-     * @throws SmartsheetException
      */
-    private String passthroughRequest(HttpMethod method, String endpoint, String payload,
-                                      Map<String, Object> parameters) throws SmartsheetException {
+    private String passthroughRequest(
+            HttpMethod method,
+            String endpoint,
+            String payload,
+            Map<String, Object> parameters
+    ) throws SmartsheetException {
         Util.throwIfNull(endpoint);
         Util.throwIfEmpty(endpoint);
 
-        if(parameters != null)
+        if (parameters != null) {
             endpoint += QueryUtil.generateUrl(null, parameters);
+        }
 
         HttpRequest request = createHttpRequest(smartsheet.getBaseURI().resolve(endpoint), method);
 
-        if(payload != null) {
+        if (payload != null) {
             HttpEntity entity = new HttpEntity();
             entity.setContentType("application/json");
             entity.setContent(new ByteArrayInputStream(payload.getBytes()));
@@ -166,8 +170,7 @@ public class PassthroughResourcesImpl extends AbstractResources implements Passt
                         }
                         br.close();
                         res = sb.toString();
-                    }
-                    catch (IOException e) {
+                    } catch (IOException e) {
                         res = null;
                     }
                     break;

@@ -1,4 +1,5 @@
 package com.smartsheet.api.internal;
+
 /*
  * #[license]
  * Smartsheet SDK for Java
@@ -8,9 +9,9 @@ package com.smartsheet.api.internal;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -35,10 +36,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class SheetUpdateRequestResourcesImpl extends AbstractResources implements SheetUpdateRequestResources {
+    private static final String SHEETS_PATH = "sheets/";
+    private static final String UPDATE_REQUESTS = "updaterequests";
 
     /**
      * Constructor.
-     *
+     * <p>
      * Exceptions: - IllegalArgumentException : if any argument is null
      *
      * @param smartsheet the smartsheet
@@ -49,7 +52,7 @@ public class SheetUpdateRequestResourcesImpl extends AbstractResources implement
 
     /**
      * Gets a list of all Update Requests that have future schedules associated with the specified Sheet.
-     *
+     * <p>
      * It mirrors to the following Smartsheet REST API method: GET /sheets/{sheetId}/updaterequests
      *
      * @param paging the object containing the pagination parameters
@@ -62,7 +65,7 @@ public class SheetUpdateRequestResourcesImpl extends AbstractResources implement
      * @throws SmartsheetException if there is any other error during the operation
      */
     public PagedResult<UpdateRequest> listUpdateRequests(long sheetId, PaginationParameters paging) throws SmartsheetException {
-        String path = "sheets/" + sheetId + "/updaterequests";
+        String path = SHEETS_PATH + sheetId + "/" + UPDATE_REQUESTS;
 
         Map<String, Object> parameters = new HashMap<>();
         if (paging != null) {
@@ -75,12 +78,13 @@ public class SheetUpdateRequestResourcesImpl extends AbstractResources implement
 
     /**
      * Gets the specified Update Request for the Sheet that has a future schedule.
-     *
+     * <p>
      * It mirrors to the following Smartsheet REST API method: GET /sheets/{sheetId}/updaterequests/{updateRequestId}
      *
      * @param sheetId the Id of the sheet
      * @param updateRequestId the update request Id
-     * @return the update request resource (note that if there is no such resource, this method will throw ResourceNotFoundException rather than returning null).
+     * @return the update request resource (note that if there is no such resource, this method will throw
+     *     ResourceNotFoundException rather than returning null).
      * @throws IllegalArgumentException if any argument is null or empty string
      * @throws InvalidRequestException if there is any problem with the REST API request
      * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
@@ -89,14 +93,14 @@ public class SheetUpdateRequestResourcesImpl extends AbstractResources implement
      * @throws SmartsheetException if there is any other error during the operation
      */
     public UpdateRequest getUpdateRequest(long sheetId, long updateRequestId) throws SmartsheetException {
-        String path = "sheets/" + sheetId + "/updaterequests/" + updateRequestId;
+        String path = SHEETS_PATH + sheetId + "/" + UPDATE_REQUESTS + "/" + updateRequestId;
         return this.getResource(path, UpdateRequest.class);
     }
 
     /**
      * Creates an Update Request for the specified Row(s) within the Sheet. An email notification
      * (containing a link to the update request) will be asynchronously sent to the specified recipient(s).
-     *
+     * <p>
      * It mirrors to the following Smartsheet REST API method: POST /sheets/{sheetId}/updaterequests
      *
      * @param sheetId the Id of the sheet
@@ -110,13 +114,13 @@ public class SheetUpdateRequestResourcesImpl extends AbstractResources implement
      * @throws SmartsheetException if there is any other error during the operation
      */
     public UpdateRequest createUpdateRequest(long sheetId, UpdateRequest updateRequest) throws SmartsheetException {
-        String path = "sheets/" + sheetId + "/updaterequests";
+        String path = SHEETS_PATH + sheetId + "/" + UPDATE_REQUESTS;
         return this.createResource(path, UpdateRequest.class, updateRequest);
     }
 
     /**
      * Terminates the future scheduled delivery of the Update Request specified in the URL.
-     *
+     * <p>
      * It mirrors to the following Smartsheet REST API method: DELETE /sheets/{sheetId}/updaterequests/{updateRequestId}
      *
      * @param sheetId the Id of the sheet
@@ -129,13 +133,13 @@ public class SheetUpdateRequestResourcesImpl extends AbstractResources implement
      * @throws SmartsheetException if there is any other error during the operation
      */
     public void deleteUpdateRequest(long sheetId, long updateRequestId) throws SmartsheetException {
-        String path = "sheets/" + sheetId + "/updaterequests/" + updateRequestId;
+        String path = SHEETS_PATH + sheetId + "/" + UPDATE_REQUESTS + "/" + updateRequestId;
         this.deleteResource(path, UpdateRequest.class);
     }
 
     /**
      * Changes the specified Update Request for the Sheet.
-     *
+     * <p>
      * It mirrors to the following Smartsheet REST API method: PUT /sheets/{sheetId}/updaterequests/{updateRequestId}
      *
      * @param sheetId the Id of the sheet
@@ -149,13 +153,13 @@ public class SheetUpdateRequestResourcesImpl extends AbstractResources implement
      * @throws SmartsheetException if there is any other error during the operation
      */
     public UpdateRequest updateUpdateRequest(long sheetId, UpdateRequest updateRequest) throws SmartsheetException {
-        String path = "sheets/" + sheetId + "/updaterequests/" + updateRequest.getId();
+        String path = SHEETS_PATH + sheetId + "/" + UPDATE_REQUESTS + "/" + updateRequest.getId();
         return this.updateResource(path, UpdateRequest.class, updateRequest);
     }
 
     /**
      * Gets a list of all Sent Update Requests that have future schedules associated with the specified Sheet.
-     *
+     * <p>
      * It mirrors To the following Smartsheet REST API method: GET /sheets/{sheetId}/sentupdaterequests
      *
      * @param sheetId the Id of the sheet
@@ -169,7 +173,7 @@ public class SheetUpdateRequestResourcesImpl extends AbstractResources implement
      * @throws SmartsheetException if there is any other error during the operation
      */
     public PagedResult<SentUpdateRequest> listSentUpdateRequests(long sheetId, PaginationParameters paging) throws SmartsheetException {
-        String path = "sheets/" + sheetId + "/sentupdaterequests";
+        String path = SHEETS_PATH + sheetId + "/sentupdaterequests";
 
         Map<String, Object> parameters = new HashMap<>();
         if (paging != null) {
@@ -182,12 +186,13 @@ public class SheetUpdateRequestResourcesImpl extends AbstractResources implement
 
     /**
      * Gets the specified sent update request on the Sheet.
-     *
+     * <p>
      * It mirrors To the following Smartsheet REST API method: GET /sheets/{sheetId}/sentupdaterequests/{updateRequestId}
      *
      * @param sheetId the Id of the sheet
      * @param sentUpdateRequestId the sent update request Id
-     * @return the sent update request resource (note that if there is no such resource, this method will throw ResourceNotFoundException rather than returning null).
+     * @return the sent update request resource (note that if there is no such resource, this method will throw
+     *     ResourceNotFoundException rather than returning null).
      * @throws IllegalArgumentException if any argument is null or empty string
      * @throws InvalidRequestException if there is any problem with the REST API request
      * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
@@ -196,13 +201,13 @@ public class SheetUpdateRequestResourcesImpl extends AbstractResources implement
      * @throws SmartsheetException if there is any other error during the operation
      */
     public SentUpdateRequest getSentUpdateRequest(long sheetId, long sentUpdateRequestId) throws SmartsheetException {
-        String path = "sheets/" + sheetId + "/sentupdaterequests/" + sentUpdateRequestId;
+        String path = SHEETS_PATH + sheetId + "/sentupdaterequests/" + sentUpdateRequestId;
         return this.getResource(path, SentUpdateRequest.class);
     }
 
     /**
      * Deletes the specified sent update request.
-     *
+     * <p>
      * It mirrors To the following Smartsheet REST API method: DELETE /sheets/{sheetId}/sentupdaterequests/{sentUpdateRequestId}
      *
      * @param sheetId the Id of the sheet
@@ -215,7 +220,7 @@ public class SheetUpdateRequestResourcesImpl extends AbstractResources implement
      * @throws SmartsheetException if there is any other error during the operation
      */
     public void deleteSentUpdateRequest(long sheetId, long sentUpdateRequestId) throws SmartsheetException {
-        String path = "sheets/" + sheetId + "/sentupdaterequests/" + sentUpdateRequestId;
+        String path = SHEETS_PATH + sheetId + "/sentupdaterequests/" + sentUpdateRequestId;
         this.deleteResource(path, SentUpdateRequest.class);
     }
 }

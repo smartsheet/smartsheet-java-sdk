@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -46,23 +46,25 @@ public class SightResourcesImpl extends AbstractResources implements SightResour
 
     private ShareResources shares;
 
+    private static final String SIGHTS = "sights";
+
     /**
      * Constructor.
-     *
+     * <p>
      * Exceptions: - IllegalArgumentException : if any argument is null
      *
      * @param smartsheet the smartsheet
      */
     public SightResourcesImpl(SmartsheetImpl smartsheet) {
         super(smartsheet);
-        this.shares = new ShareResourcesImpl(smartsheet, "sights");
+        this.shares = new ShareResourcesImpl(smartsheet, SIGHTS);
     }
+
     /**
      * Gets the list of all Sights where the User has access.
-     *
+     * <p>
      * It mirrors to the following Smartsheet REST API method: GET /sights
      *
-     * @param modifiedSince
      * @return IndexResult object containing an array of Sight objects limited to the following attributes:
      *     id, name, accessLevel, permalink, createdAt, modifiedAt.
      * @throws IllegalArgumentException if any argument is null or empty string
@@ -73,7 +75,7 @@ public class SightResourcesImpl extends AbstractResources implements SightResour
      * @throws SmartsheetException if there is any other error during the operation
      */
     public PagedResult<Sight> listSights(PaginationParameters paging, Date modifiedSince) throws SmartsheetException {
-        String path = "sights";
+        String path = SIGHTS;
 
         Map<String, Object> parameters = new HashMap<>();
         if (paging != null) {
@@ -89,7 +91,7 @@ public class SightResourcesImpl extends AbstractResources implements SightResour
 
     /**
      * Get a specified Sight.
-     *
+     * <p>
      * It mirrors to the following Smartsheet REST API method: GET /sights/{sightId}
      *
      * @param sightId the Id of the Sight
@@ -107,7 +109,7 @@ public class SightResourcesImpl extends AbstractResources implements SightResour
 
     /**
      * Get a specified Sight.
-     *
+     * <p>
      * It mirrors to the following Smartsheet REST API method: GET /sights/{sightId}
      *
      * @param sightId the Id of the Sight
@@ -126,7 +128,7 @@ public class SightResourcesImpl extends AbstractResources implements SightResour
 
     /**
      * Get a specified Sight.
-     *
+     * <p>
      * It mirrors to the following Smartsheet REST API method: GET /sights/{sightId}
      *
      * @param sightId the Id of the Sight
@@ -141,7 +143,7 @@ public class SightResourcesImpl extends AbstractResources implements SightResour
      * @throws SmartsheetException if there is any other error during the operation
      */
     public Sight getSight(long sightId, EnumSet<SightInclusion> includes, Integer level) throws SmartsheetException {
-        String path = "sights/" + sightId;
+        String path = SIGHTS + "/" + sightId;
 
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("level", level);
@@ -153,7 +155,7 @@ public class SightResourcesImpl extends AbstractResources implements SightResour
 
     /**
      * Update a specified Sight.
-     *
+     * <p>
      * It mirrors to the following Smartsheet REST API method: PUT /sights/{sightId}
      *
      * @param sight - the Sight to update
@@ -167,12 +169,12 @@ public class SightResourcesImpl extends AbstractResources implements SightResour
      */
     public Sight updateSight(Sight sight) throws SmartsheetException {
         Util.throwIfNull(sight);
-        return this.updateResource("sights/" + sight.getId(), Sight.class, sight);
+        return this.updateResource(SIGHTS + "/" + sight.getId(), Sight.class, sight);
     }
 
     /**
      * Delete a specified Sight.
-     *
+     * <p>
      * It mirrors to the following Smartsheet REST API method: DELETE /sights/{sightId}
      *
      * @param sightId the Id of the Sight
@@ -185,12 +187,12 @@ public class SightResourcesImpl extends AbstractResources implements SightResour
      * @throws SmartsheetException if there is any other error during the operation
      */
     public void deleteSight(long sightId) throws SmartsheetException {
-        this.deleteResource("sights/" + sightId, Sight.class);
+        this.deleteResource(SIGHTS + "/" + sightId, Sight.class);
     }
 
     /**
      * Creates s copy of the specified Sight.
-     *
+     * <p>
      * It mirrors to the following Smartsheet REST API method: POST /sights/{sightId}/copy
      *
      * @param sightId the Id of the Sight
@@ -204,12 +206,12 @@ public class SightResourcesImpl extends AbstractResources implements SightResour
      * @throws SmartsheetException if there is any other error during the operation
      */
     public Sight copySight(long sightId, ContainerDestination destination) throws SmartsheetException {
-        return this.createResource("sights/" + sightId + "/copy", Sight.class, destination);
+        return this.createResource(SIGHTS + "/" + sightId + "/copy", Sight.class, destination);
     }
 
     /**
      * Creates s copy of the specified Sight.
-     *
+     * <p>
      * It mirrors to the following Smartsheet REST API method: POST /sights/{sightId}/move
      *
      * @param sightId the Id of the Sight
@@ -223,12 +225,12 @@ public class SightResourcesImpl extends AbstractResources implements SightResour
      * @throws SmartsheetException if there is any other error during the operation
      */
     public Sight moveSight(long sightId, ContainerDestination destination) throws SmartsheetException {
-        return this.createResource("sights/" + sightId + "/move", Sight.class, destination);
+        return this.createResource(SIGHTS + "/" + sightId + "/move", Sight.class, destination);
     }
 
     /**
      * Get the publish status of a Sight.
-     *
+     * <p>
      * It mirrors to the following Smartsheet REST API method: POST /sights/{sightId}/publish
      *
      * @param sightId the Id of the Sight
@@ -241,12 +243,12 @@ public class SightResourcesImpl extends AbstractResources implements SightResour
      * @throws SmartsheetException if there is any other error during the operation
      */
     public SightPublish getPublishStatus(long sightId) throws SmartsheetException {
-        return this.getResource("sights/" + sightId + "/publish", SightPublish.class);
+        return this.getResource(SIGHTS + "/" + sightId + "/publish", SightPublish.class);
     }
 
     /**
      * Sets the publish status of a Sight and returns the new status, including the URLs of any enabled publishing.
-     *
+     * <p>
      * It mirrors to the following Smartsheet REST API method: POST /sights/{sightId}/publish
      *
      * @param sightId the Id of the Sight
@@ -261,7 +263,7 @@ public class SightResourcesImpl extends AbstractResources implements SightResour
      */
     public SightPublish setPublishStatus(long sightId, SightPublish sightPublish) throws SmartsheetException {
         Util.throwIfNull(sightPublish);
-        return this.updateResource("sights/" + sightId + "/publish", SightPublish.class, sightPublish);
+        return this.updateResource(SIGHTS + "/" + sightId + "/publish", SightPublish.class, sightPublish);
     }
 
     /**

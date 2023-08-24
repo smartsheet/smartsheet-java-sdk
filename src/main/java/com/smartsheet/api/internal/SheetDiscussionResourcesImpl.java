@@ -32,9 +32,9 @@ import java.util.Map;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -42,13 +42,17 @@ import java.util.Map;
  * limitations under the License.
  * %[license]
  */
-public class SheetDiscussionResourcesImpl extends  AbstractResources implements SheetDiscussionResources {
+
+public class SheetDiscussionResourcesImpl extends AbstractResources implements SheetDiscussionResources {
     DiscussionAttachmentResources attachments;
     DiscussionCommentResources comments;
 
+    private static final String SHEETS_PATH = "sheets/";
+    private static final String DISCUSSIONS = "discussions";
+
     /**
      * Constructor.
-     *
+     * <p>
      * Exceptions:
      *   IllegalArgumentException : if any argument is null or empty string
      *
@@ -62,7 +66,7 @@ public class SheetDiscussionResourcesImpl extends  AbstractResources implements 
 
     /**
      * Create a discussion on a sheet.
-     *
+     * <p>
      * It mirrors to the following Smartsheet REST API method: POST /sheets/{sheetId}/discussions
      *
      * @param sheetId the sheet id
@@ -75,15 +79,15 @@ public class SheetDiscussionResourcesImpl extends  AbstractResources implements 
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public Discussion createDiscussion(long sheetId, Discussion discussion) throws SmartsheetException{
+    public Discussion createDiscussion(long sheetId, Discussion discussion) throws SmartsheetException {
         Util.throwIfNull(sheetId, discussion);
-        return this.createResource("sheets/" + sheetId + "/discussions",
+        return this.createResource(SHEETS_PATH + sheetId + "/" + DISCUSSIONS,
                 Discussion.class, discussion);
     }
 
     /**
      * Create a discussion with attachments on a sheet.
-     *
+     * <p>
      * It mirrors to the following Smartsheet REST API method: POST /sheets/{sheetId}/discussions
      *
      * @param sheetId the sheet id
@@ -99,27 +103,45 @@ public class SheetDiscussionResourcesImpl extends  AbstractResources implements 
      * @throws SmartsheetException if there is any other error during the operation
      * @throws IOException is there is with file
      */
-    public Discussion createDiscussionWithAttachment(long sheetId, Discussion discussion, File file, String contentType) throws SmartsheetException, IOException{
+    public Discussion createDiscussionWithAttachment(
+            long sheetId,
+            Discussion discussion,
+            File file,
+            String contentType
+    ) throws SmartsheetException, IOException {
         Util.throwIfNull(discussion, file, contentType);
-        String path = "sheets/" + sheetId + "/discussions";
+        String path = SHEETS_PATH + sheetId + "/" + DISCUSSIONS;
 
         return this.createDiscussionWithAttachment(path, discussion, new FileInputStream(file), contentType, file.getName());
     }
 
-    private Discussion createDiscussionWithAttachment(String path, Discussion discussion, InputStream inputStream, String contentType, String attachmentName) throws SmartsheetException{
-        return this.createResourceWithAttachment(path, Discussion.class, discussion, "discussion", inputStream, contentType, attachmentName);
+    private Discussion createDiscussionWithAttachment(
+            String path, Discussion discussion,
+            InputStream inputStream,
+            String contentType,
+            String attachmentName
+    ) throws SmartsheetException {
+        return this.createResourceWithAttachment(
+                path,
+                Discussion.class,
+                discussion,
+                "discussion",
+                inputStream,
+                contentType,
+                attachmentName
+        );
     }
 
     /**
      * Get a discussion.
-     *
+     * <p>
      * It mirrors to the following Smartsheet REST API method: GET /sheets/{sheetId}/discussions/{discussionId}
-     *
+     * <p>
      * Parameters: - discussionId : the ID
-     *
+     * <p>
      * Returns: the resource (note that if there is no such resource, this method will throw ResourceNotFoundException
      * rather than returning null).
-     *
+     * <p>
      * Exceptions:
      *   InvalidRequestException : if there is any problem with the REST API request
      *   AuthorizationException : if there is any problem with the REST API authorization(access token)
@@ -134,14 +156,14 @@ public class SheetDiscussionResourcesImpl extends  AbstractResources implements 
      * @throws SmartsheetException the smartsheet exception
      */
     public Discussion getDiscussion(long sheetId, long discussionId) throws SmartsheetException {
-        return this.getResource("sheets/" + sheetId + "/discussions/" + discussionId, Discussion.class);
+        return this.getResource(SHEETS_PATH + sheetId + "/" + DISCUSSIONS + "/" + discussionId, Discussion.class);
     }
 
     /**
      * Delete discussion.
-     *
+     * <p>
      * It mirrors to the following Smartsheet REST API method: DELETE /sheets/{sheetId}/discussions/{discussionId}
-     *
+     * <p>
      * Exceptions:
      *   IllegalArgumentException : if any argument is null
      *   InvalidRequestException : if there is any problem with the REST API request
@@ -154,15 +176,15 @@ public class SheetDiscussionResourcesImpl extends  AbstractResources implements 
      * @param discussionId the discussion ID
      * @throws SmartsheetException the smartsheet exception
      */
-    public void deleteDiscussion(long sheetId, long discussionId) throws SmartsheetException{
-        this.deleteResource("sheets/" + sheetId + "/discussions/" + discussionId, Discussion.class);
+    public void deleteDiscussion(long sheetId, long discussionId) throws SmartsheetException {
+        this.deleteResource(SHEETS_PATH + sheetId + "/" + DISCUSSIONS + "/" + discussionId, Discussion.class);
     }
 
     /**
      * Get all discussions.
-     *
+     * <p>
      * It mirrors to the following Smartsheet REST API method: GET /sheets/{sheetId}/discussions
-     *
+     * <p>
      * Exceptions:
      *   IllegalArgumentException : if any argument is null
      *   InvalidRequestException : if there is any problem with the REST API request
@@ -177,8 +199,12 @@ public class SheetDiscussionResourcesImpl extends  AbstractResources implements 
      * @return all the discussions
      * @throws SmartsheetException the smartsheet exception
      */
-    public PagedResult<Discussion> listDiscussions(long sheetId, PaginationParameters pagination, EnumSet<DiscussionInclusion> includes) throws SmartsheetException{
-        String path = "sheets/" + sheetId + "/discussions";
+    public PagedResult<Discussion> listDiscussions(
+            long sheetId,
+            PaginationParameters pagination,
+            EnumSet<DiscussionInclusion> includes
+    ) throws SmartsheetException {
+        String path = SHEETS_PATH + sheetId + "/" + DISCUSSIONS;
         Map<String, Object> parameters = new HashMap<>();
 
         if (pagination != null) {
@@ -196,7 +222,7 @@ public class SheetDiscussionResourcesImpl extends  AbstractResources implements 
      * @return the created DiscussionCommentResources object
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public DiscussionCommentResources commentResources() throws SmartsheetException{
+    public DiscussionCommentResources commentResources() throws SmartsheetException {
         return this.comments;
     }
 
@@ -206,7 +232,7 @@ public class SheetDiscussionResourcesImpl extends  AbstractResources implements 
      * @return the created DiscussionAttachmentResources object
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public DiscussionAttachmentResources attachmentResources() throws SmartsheetException{
+    public DiscussionAttachmentResources attachmentResources() throws SmartsheetException {
         return this.attachments;
     }
 }

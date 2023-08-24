@@ -9,9 +9,9 @@ package com.smartsheet.api.internal;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -38,16 +38,17 @@ import java.util.Map;
 
 /**
  * This is the implementation of the FolderResources.
- *
+ * <p>
  * Thread Safety: This class is thread safe because it is immutable and its base class is thread safe.
  */
 public class FolderResourcesImpl extends AbstractResources implements FolderResources {
+    private static final String FOLDERS_PATH = "folders/";
 
     /**
      * Constructor.
-     *
+     * <p>
      * Parameters: - smartsheet : the SmartsheetImpl
-     *
+     * <p>
      * Exceptions: - IllegalArgumentException : if any argument is null
      *
      * @param smartsheet the smartsheet
@@ -58,9 +59,9 @@ public class FolderResourcesImpl extends AbstractResources implements FolderReso
 
     /**
      * Get a folder.
-     *
+     * <p>
      * It mirrors to the following Smartsheet REST API method: GET /folder/{id}
-     *
+     * <p>
      * Exceptions:
      *   InvalidRequestException : if there is any problem with the REST API request
      *   AuthorizationException : if there is any problem with the REST API authorization(access token)
@@ -72,11 +73,11 @@ public class FolderResourcesImpl extends AbstractResources implements FolderReso
      * @param folderId the folder id
      * @param includes the include parameters
      * @return the folder (note that if there is no such resource, this method will throw ResourceNotFoundException
-     * rather than returning null)
+     *     rather than returning null)
      * @throws SmartsheetException the smartsheet exception
      */
     public Folder getFolder(long folderId, EnumSet<SourceInclusion> includes) throws SmartsheetException {
-        String path = "folders/" + folderId;
+        String path = FOLDERS_PATH + folderId;
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
         path += QueryUtil.generateUrl(null, parameters);
@@ -86,9 +87,9 @@ public class FolderResourcesImpl extends AbstractResources implements FolderReso
 
     /**
      * Update a folder.
-     *
+     * <p>
      * It mirrors to the following Smartsheet REST API method: PUT /folder/{id}
-     *
+     * <p>
      * Exceptions:
      *   IllegalArgumentException : if folder is null
      *   InvalidRequestException : if there is any problem with the REST API request
@@ -100,19 +101,19 @@ public class FolderResourcesImpl extends AbstractResources implements FolderReso
      *
      * @param folder the folder to update
      * @return the updated folder (note that if there is no such folder, this method will throw
-     * ResourceNotFoundException rather than returning null).
+     *      ResourceNotFoundException rather than returning null).
      * @throws SmartsheetException the smartsheet exception
      */
     public Folder updateFolder(Folder folder) throws SmartsheetException {
 
-        return this.updateResource("folders/" + folder.getId(), Folder.class, folder);
+        return this.updateResource(FOLDERS_PATH + folder.getId(), Folder.class, folder);
     }
 
     /**
      * Delete a folder.
-     *
+     * <p>
      * It mirrors to the following Smartsheet REST API method: DELETE /folder{id}
-     *
+     * <p>
      * Exceptions:
      *   InvalidRequestException : if there is any problem with the REST API request
      *   AuthorizationException : if there is any problem with the REST API authorization(access token)
@@ -126,16 +127,16 @@ public class FolderResourcesImpl extends AbstractResources implements FolderReso
      */
     public void deleteFolder(long folderId) throws SmartsheetException {
 
-        this.deleteResource("folders/" + folderId, Folder.class);
+        this.deleteResource(FOLDERS_PATH + folderId, Folder.class);
     }
 
     /**
      * List child folders of a given folder.
-     *
+     * <p>
      * It mirrors to the following Smartsheet REST API method: GET /folder/{id}/folders
-     *
+     * <p>
      * Parameters: - parentFolderId : the parent folder ID
-     *
+     * <p>
      * Exceptions:
      *   InvalidRequestException : if there is any problem with the REST API request
      *   AuthorizationException : if there is any problem with the REST API authorization(access token)
@@ -150,7 +151,7 @@ public class FolderResourcesImpl extends AbstractResources implements FolderReso
      * @throws SmartsheetException the smartsheet exception
      */
     public PagedResult<Folder> listFolders(long parentFolderId, PaginationParameters parameters) throws SmartsheetException {
-        String path = "folders/" + parentFolderId + "/folders";
+        String path = FOLDERS_PATH + parentFolderId + "/folders";
 
         if (parameters != null) {
             path += parameters.toQueryString();
@@ -161,9 +162,9 @@ public class FolderResourcesImpl extends AbstractResources implements FolderReso
 
     /**
      * Create a folder.
-     *
+     * <p>
      * It mirrors to the following Smartsheet REST API method: POST /folder/{id}/folders
-     *
+     * <p>
      * Exceptions:
      *   IllegalArgumentException : if folder is null
      *   InvalidRequestException : if there is any problem with the REST API request
@@ -179,14 +180,14 @@ public class FolderResourcesImpl extends AbstractResources implements FolderReso
      */
     public Folder createFolder(long parentFolderId, Folder folder) throws SmartsheetException {
 
-        return this.createResource("folders/" + parentFolderId + "/folders", Folder.class, folder);
+        return this.createResource(FOLDERS_PATH + parentFolderId + "/folders", Folder.class, folder);
     }
 
     /**
      * Creates a copy of the specified Folder.
-     *
+     * <p>
      * It mirrors to the following Smartsheet REST API method: POST /folders/{folderId}/copy
-     *
+     * <p>
      * Exceptions:
      *   IllegalArgumentException : if folder is null
      *   InvalidRequestException : if there is any problem with the REST API request
@@ -202,15 +203,20 @@ public class FolderResourcesImpl extends AbstractResources implements FolderReso
      * @return the folder
      * @throws SmartsheetException the smartsheet exception
      */
-    public Folder copyFolder(long folderId, ContainerDestination containerDestination, EnumSet<FolderCopyInclusion> includes, EnumSet<FolderRemapExclusion> skipRemap) throws SmartsheetException {
+    public Folder copyFolder(
+            long folderId,
+            ContainerDestination containerDestination,
+            EnumSet<FolderCopyInclusion> includes,
+            EnumSet<FolderRemapExclusion> skipRemap
+    ) throws SmartsheetException {
         return copyFolder(folderId, containerDestination, includes, skipRemap, null);
     }
 
     /**
      * Creates a copy of the specified Folder.
-     *
+     * <p>
      * It mirrors to the following Smartsheet REST API method: POST /folders/{folderId}/copy
-     *
+     * <p>
      * Exceptions:
      *   IllegalArgumentException : if folder is null
      *   InvalidRequestException : if there is any problem with the REST API request
@@ -230,7 +236,7 @@ public class FolderResourcesImpl extends AbstractResources implements FolderReso
     public Folder copyFolder(long folderId, ContainerDestination containerDestination, EnumSet<FolderCopyInclusion> includes,
                              EnumSet<FolderRemapExclusion> skipRemap, EnumSet<CopyExclusion> excludes) throws SmartsheetException {
 
-        String path = "folders/" + folderId + "/copy";
+        String path = FOLDERS_PATH + folderId + "/copy";
         Map<String, Object> parameters = new HashMap<>();
 
         parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
@@ -244,9 +250,9 @@ public class FolderResourcesImpl extends AbstractResources implements FolderReso
 
     /**
      * Moves the specified Folder to another location.
-     *
+     * <p>
      * It mirrors to the following Smartsheet REST API method: POST /folders/{folderId}/move
-     *
+     * <p>
      * Exceptions:
      *   IllegalArgumentException : if folder is null
      *   InvalidRequestException : if there is any problem with the REST API request
@@ -262,7 +268,7 @@ public class FolderResourcesImpl extends AbstractResources implements FolderReso
      */
     public Folder moveFolder(long folderId, ContainerDestination containerDestination) throws SmartsheetException {
 
-        String path = "folders/" + folderId + "/move";
+        String path = FOLDERS_PATH + folderId + "/move";
         return this.createResource(path, Folder.class, containerDestination);
     }
 }

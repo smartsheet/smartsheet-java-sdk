@@ -58,14 +58,17 @@ import java.util.Set;
 
 /**
  * This is the implementation of the UserResources.
- *
+ * <p>
  * Thread Safety: This class is thread safe because it is immutable and its base class is thread safe.
  */
 public class UserResourcesImpl extends AbstractResources implements UserResources {
 
+    private static final String USERS = "users";
+    private static final String ALTERNATE_EMAILS = "alternateemails";
+
     /**
      * Constructor.
-     *
+     * <p>
      * Exceptions: - IllegalArgumentException : if any argument is null
      *
      * @param smartsheet the smartsheet
@@ -76,7 +79,7 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
 
     /**
      * List all users.
-     *
+     * <p>
      * It mirrors to the following Smartsheet REST API method: GET /users
      *
      * @return the list of all users
@@ -88,14 +91,14 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
      * @throws SmartsheetException if there is any other error during the operation
      */
     public PagedResult<User> listUsers() throws SmartsheetException {
-        return this.listResourcesWithWrapper("users", User.class);
+        return this.listResourcesWithWrapper(USERS, User.class);
     }
 
     /**
      * List all users.
-     *
+     * <p>
      * It mirrors to the following Smartsheet REST API method: GET /users
-     *
+     * <p>
      * Exceptions:
      *   - InvalidRequestException : if there is any problem with the REST API request
      *   - AuthorizationException : if there is any problem with the REST API authorization(access token)
@@ -114,9 +117,9 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
 
     /**
      * List all users.
-     *
+     * <p>
      * It mirrors to the following Smartsheet REST API method: GET /users
-     *
+     * <p>
      * Exceptions:
      *   - InvalidRequestException : if there is any problem with the REST API request
      *   - AuthorizationException : if there is any problem with the REST API authorization(access token)
@@ -132,10 +135,10 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
      */
     public PagedResult<User> listUsers(Set<String> email, EnumSet<ListUserInclusion> includes,
                                        PaginationParameters pagination) throws SmartsheetException {
-        String path = "users";
+        String path = USERS;
         Map<String, Object> parameters = new HashMap<>();
 
-        if (pagination != null){
+        if (pagination != null) {
             parameters = pagination.toHashMap();
         }
         parameters.put("email", QueryUtil.generateCommaSeparatedList(email));
@@ -147,9 +150,9 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
 
     /**
      * Add a user to the organization, without sending email.
-     *
+     * <p>
      * It mirrors to the following Smartsheet REST API method: POST /users
-     *
+     * <p>
      * Exceptions:
      *   - IllegalArgumentException : if any argument is null
      *   - InvalidRequestException : if there is any problem with the REST API request
@@ -164,14 +167,14 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
      * @throws SmartsheetException the smartsheet exception
      */
     public User addUser(User user) throws SmartsheetException {
-        return this.createResource("users", User.class, user);
+        return this.createResource(USERS, User.class, user);
     }
 
     /**
      * Add a user to the organization, without sending email.
-     *
+     * <p>
      * It mirrors to the following Smartsheet REST API method: POST /users
-     *
+     * <p>
      * Exceptions:
      *   - IllegalArgumentException : if any argument is null
      *   - InvalidRequestException : if there is any problem with the REST API request
@@ -192,7 +195,7 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
 
     /**
      * Get the current user.
-     *
+     * <p>
      * It mirrors to the following Smartsheet REST API method: GET /users/{userId}
      *
      * @param userId the user id
@@ -205,14 +208,14 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
      * @throws SmartsheetException if there is any other error during the operation
      */
     public UserProfile getUser(long userId) throws SmartsheetException {
-        return this.getResource("users/" + userId, UserProfile.class);
+        return this.getResource(USERS + "/" + userId, UserProfile.class);
     }
 
     /**
      * Get the current user.
-     *
+     * <p>
      * It mirrors to the following Smartsheet REST API method: GET /users/me
-     *
+     * <p>
      * Exceptions:
      *   - InvalidRequestException : if there is any problem with the REST API request
      *   - AuthorizationException : if there is any problem with the REST API authorization(access token)
@@ -222,7 +225,7 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
      *   - SmartsheetException : if there is any other error occurred during the operation
      *
      * @return the resource (note that if there is no such resource, this method will throw ResourceNotFoundException
-     * rather than returning null).
+     *     rather than returning null).
      * @throws SmartsheetException the smartsheet exception
      */
     public UserProfile getCurrentUser() throws SmartsheetException {
@@ -255,11 +258,10 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
 
     /**
      * List all organisation sheets.
-     *
+     * <p>
      * It mirrors to the following Smartsheet REST API method: GET /users/sheets
      *
      * @param pagination the object containing the pagination query parameters
-     * @param modifiedSince
      * @return the list of all organisation sheets
      * @throws IllegalArgumentException if any argument is null or empty string
      * @throws InvalidRequestException if there is any problem with the REST API request
@@ -282,13 +284,14 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
         path += QueryUtil.generateUrl(null, parameters);
         return this.listResourcesWithWrapper(path, Sheet.class);
     }
+
     public PagedResult<Sheet> listOrgSheets(PaginationParameters pagination) throws SmartsheetException {
         return this.listOrgSheets(pagination, null);
     }
 
     /**
      * List all user alternate emails.
-     *
+     * <p>
      * It mirrors to the following Smartsheet REST API method: GET /users/{userId}/alternateemails
      *
      * @param userId the id of the user
@@ -301,8 +304,8 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public PagedResult<AlternateEmail> listAlternateEmails(long userId, PaginationParameters pagination) throws SmartsheetException    {
-        String path = "users/" + userId + "/alternateemails";
+    public PagedResult<AlternateEmail> listAlternateEmails(long userId, PaginationParameters pagination) throws SmartsheetException {
+        String path = USERS + "/" + userId + "/" + ALTERNATE_EMAILS;
 
         if (pagination != null) {
             path += pagination.toQueryString();
@@ -312,7 +315,7 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
 
     /**
      * Get alternate email.
-     *
+     * <p>
      * It mirrors to the following Smartsheet REST API method: GET /users/{userId}/alternateemails/{alternateEmailId}
      *
      * @param userId the id of the user
@@ -327,12 +330,12 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
      * @throws SmartsheetException if there is any other error during the operation
      */
     public AlternateEmail getAlternateEmail(long userId, long altEmailId) throws SmartsheetException {
-        return this.getResource("users/" + userId + "/alternateemails/" + altEmailId, AlternateEmail.class);
+        return this.getResource(USERS + "/" + userId + "/" + ALTERNATE_EMAILS + "/" + altEmailId, AlternateEmail.class);
     }
 
     /**
      * Add an alternate email.
-     *
+     * <p>
      * It mirrors to the following Smartsheet REST API method: POST /users/{userId}/alternateemails
      *
      * @param userId the id of the user
@@ -351,12 +354,12 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
         if (altEmails.size() == 0) {
             return altEmails;
         }
-        return this.postAndReceiveList("users/" + userId + "/alternateemails", altEmails, AlternateEmail.class);
+        return this.postAndReceiveList(USERS + "/" + userId + "/" + ALTERNATE_EMAILS, altEmails, AlternateEmail.class);
     }
 
     /**
      * Delete an alternate email.
-     *
+     * <p>
      * It mirrors to the following Smartsheet REST API method: DELETE /users/{userId}/alternateemails/{alternateEmailId}
      *
      * @param userId the id of the user
@@ -369,7 +372,7 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
      * @throws SmartsheetException if there is any other error during the operation
      */
     public void deleteAlternateEmail(long userId, long altEmailId) throws SmartsheetException {
-        this.deleteResource("users/" + userId + "/alternateemails/" + altEmailId, AlternateEmail.class);
+        this.deleteResource(USERS + "/" + userId + "/" + ALTERNATE_EMAILS + "/" + altEmailId, AlternateEmail.class);
     }
 
     /**
@@ -388,7 +391,7 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
     public AlternateEmail promoteAlternateEmail(long userId, long altEmailId) throws SmartsheetException {
 
         HttpRequest request = createHttpRequest(smartsheet.getBaseURI().resolve(
-                "users/" + userId + "/alternateemails/" + altEmailId + "/makeprimary"), HttpMethod.POST);
+                USERS + "/" + userId + "/" + ALTERNATE_EMAILS + "/" + altEmailId + "/makeprimary"), HttpMethod.POST);
 
         Object obj = null;
         try {
@@ -405,7 +408,7 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
             smartsheet.getHttpClient().releaseConnection();
         }
 
-        return (AlternateEmail)obj;
+        return (AlternateEmail) obj;
     }
 
     /**
@@ -423,13 +426,13 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
      * @throws SmartsheetException f there is any other error during the operation
      */
     public User addProfileImage(long userId, String file, String fileType) throws SmartsheetException, FileNotFoundException {
-        return attachProfileImage("users/" + userId + "/profileimage", file, fileType);
+        return attachProfileImage(USERS + "/" + userId + "/profileimage", file, fileType);
     }
 
     private User attachProfileImage(String path, String file, String contentType) throws SmartsheetException, FileNotFoundException {
         Util.throwIfNull(file);
 
-        if(contentType == null) {
+        if (contentType == null) {
             contentType = "application/octet-stream";
         }
 
@@ -469,12 +472,12 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
 
     @Override
     public User updateUser(User user) throws SmartsheetException {
-        return this.updateResource("users/" + user.getId(), User.class, user);
+        return this.updateResource(USERS + "/" + user.getId(), User.class, user);
     }
 
     @Override
     public void deleteUser(long userId, DeleteUserParameters parameters) throws SmartsheetException {
-        String path = "users/" + userId;
+        String path = USERS + "/" + userId;
 
         if (parameters != null) {
             path += parameters.toQueryString();

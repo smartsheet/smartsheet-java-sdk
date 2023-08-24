@@ -41,7 +41,7 @@ public class TokenResourcesImpl extends AbstractResources implements TokenResour
      *
      * @throws NoSuchMethodException method implemented in OAuthFlow
      */
-    public void getAccessToken() throws NoSuchMethodException{
+    public void getAccessToken() throws NoSuchMethodException {
         throw new NoSuchMethodException("Not implemented in TokenResources. Refer OAuthFlow.");
     }
 
@@ -56,8 +56,8 @@ public class TokenResourcesImpl extends AbstractResources implements TokenResour
      * @throws InvalidRequestException the invalid request exception
      */
     public void revokeAccessToken() throws OAuthTokenException, JSONSerializerException, HttpClientException,
-            URISyntaxException, InvalidRequestException, SmartsheetException{
-     this.deleteResource("token", Token.class);
+            URISyntaxException, InvalidRequestException, SmartsheetException {
+        this.deleteResource("token", Token.class);
     }
 
     /**
@@ -65,7 +65,7 @@ public class TokenResourcesImpl extends AbstractResources implements TokenResour
      *
      * @throws NoSuchMethodException exception that is always thrown
     */
-    public void refreshAccessToken() throws NoSuchMethodException{
+    public void refreshAccessToken() throws NoSuchMethodException {
         throw new NoSuchMethodException("Not implemented in TokenResources. Refer OAuthFlow.");
     }
 }

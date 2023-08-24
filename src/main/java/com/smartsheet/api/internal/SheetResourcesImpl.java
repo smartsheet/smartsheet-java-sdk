@@ -78,7 +78,7 @@ import java.util.Set;
 
 /**
  * This is the implementation of the SheetResources.
- *
+ * <p>
  * Thread Safety: This class is thread safe because it is immutable and its base class is thread safe.
  */
 public class SheetResourcesImpl extends AbstractResources implements SheetResources {
@@ -86,76 +86,84 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
     /** The Constant BUFFER_SIZE. */
     private static final int BUFFER_SIZE = 4098;
 
+    private static final String SHEETS = "sheets";
+    private static final String TEXT_CSV = "text/csv";
+    private static final String FOLDERS = "folders";
+    private static final String INCLUDE = "include";
+    private static final String IMPORT = "import";
+    private static final String WORKSPACES = "WORKSPACES";
+    private static final String XLSX_CONTENT_TYPE = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+
     /**
      * Represents the ShareResources.
-     *
-     * It will be initialized in constructor and will not change afterwards.
+     * <p>
+     * It will be initialized in constructor and will not change afterward.
      */
     private ShareResources shares;
     /**
      * Represents the SheetRowResources.
-     *
-     * It will be initialized in constructor and will not change afterwards.
+     * <p>
+     * It will be initialized in constructor and will not change afterward.
      */
     private SheetRowResources rows;
     /**
      * Represents the SheetColumnResources.
-     *
-     * It will be initialized in constructor and will not change afterwards.
+     * <p>
+     * It will be initialized in constructor and will not change afterward.
      */
     private SheetColumnResources columns;
     /**
      * Represents the AssociatedAttachmentResources.
-     *
-     * It will be initialized in constructor and will not change afterwards.
+     * <p>
+     * It will be initialized in constructor and will not change afterward.
      */
     private SheetAttachmentResources attachments;
     /**
      * Represents the AssociatedDiscussionResources.
-     *
-     * It will be initialized in constructor and will not change afterwards.
+     * <p>
+     * It will be initialized in constructor and will not change afterward.
      */
     private SheetDiscussionResources discussions;
 
     /**
      * Represents the SheetCommentResources.
-     *
-     * It will be initialized in constructor and will not change afterwards
+     * <p>
+     * It will be initialized in constructor and will not change afterward
      */
     private SheetCommentResources comments;
 
     /**
      * Represents the SheetUpdateRequestResources.
-     *
-     * It will be initialized in constructor and will not change afterwards
+     * <p>
+     * It will be initialized in constructor and will not change afterward
      */
     private SheetUpdateRequestResources updateRequests;
 
     /**
      * Represents the SheetFilterResources.
-     *
-     * It will be initialized in constructor and will not change afterwards
+     * <p>
+     * It will be initialized in constructor and will not change afterward
      */
     private SheetFilterResources filters;
 
     /**
      * Represents the AutomationRules.
-     *
-     * It will be initialized in the constructor and will not change afterwards
+     * <p>
+     * It will be initialized in the constructor and will not change afterward
      */
     private SheetAutomationRuleResources automationRules;
 
     /**
      * Represents the CrossSheetReferences
-     *
-     * It will be initialized in the constructor and will not change afterwards
+     * <p>
+     * It will be initialized in the constructor and will not change afterward
      */
     private SheetCrossSheetReferenceResources crossSheetReferences;
 
     /**
      * Represents the sheetSummary
-     *
-     * It will be initialized in the constructor and will not change afterwards
+     * <p>
+     * It will be initialized in the constructor and will not change afterward
      */
     private SheetSummaryResources sheetSummary;
 
@@ -166,7 +174,7 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
      */
     public SheetResourcesImpl(SmartsheetImpl smartsheet) {
         super(smartsheet);
-        this.shares = new ShareResourcesImpl(smartsheet, "sheets");
+        this.shares = new ShareResourcesImpl(smartsheet, SHEETS);
         this.rows = new SheetRowResourcesImpl(smartsheet);
         this.columns = new SheetColumnResourcesImpl(smartsheet);
         this.attachments = new SheetAttachmentResourcesImpl(smartsheet);
@@ -197,12 +205,15 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
         return this.listSheets(includes, pagination, null);
     }
 
+    /**
+     * List Sheets
+     */
     public PagedResult<Sheet> listSheets(
             EnumSet<SourceInclusion> includes,
             PaginationParameters pagination,
             Date modifiedSince
     ) throws SmartsheetException {
-        String path = "sheets";
+        String path = SHEETS;
 
         Map<String, Object> parameters = new HashMap<>();
         if (pagination != null) {
@@ -212,7 +223,7 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
             String isoDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").format(modifiedSince);
             parameters.put("modifiedSince", isoDate);
         }
-        parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
+        parameters.put(INCLUDE, QueryUtil.generateCommaSeparatedList(includes));
 
         path += QueryUtil.generateUrl(null, parameters);
         return this.listResourcesWithWrapper(path, Sheet.class);
@@ -346,12 +357,12 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
             Integer level
     ) throws SmartsheetException {
 
-        String path = "sheets/" + id;
+        String path = SHEETS + "/" + id;
 
         // Add the parameters to a map and build the query string at the end
         Map<String, Object> parameters = new HashMap<>();
 
-        parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
+        parameters.put(INCLUDE, QueryUtil.generateCommaSeparatedList(includes));
         parameters.put("exclude", QueryUtil.generateCommaSeparatedList(excludes));
         parameters.put("rowIds", QueryUtil.generateCommaSeparatedList(rowIds));
         parameters.put("rowNumbers", QueryUtil.generateCommaSeparatedList(rowNumbers));
@@ -422,7 +433,7 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
      * @throws SmartsheetException : if there is any other error occurred during the operation
      */
     public Sheet createSheet(Sheet sheet) throws SmartsheetException {
-        return this.createResource("sheets", Sheet.class, sheet);
+        return this.createResource(SHEETS, Sheet.class, sheet);
     }
 
     /**
@@ -442,8 +453,8 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
      */
     public Sheet createSheetFromTemplate(Sheet sheet, EnumSet<SheetTemplateInclusion> includes) throws SmartsheetException {
         Map<String, Object> parameters = new HashMap<>();
-        parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
-        String path = QueryUtil.generateUrl("sheets", parameters);
+        parameters.put(INCLUDE, QueryUtil.generateCommaSeparatedList(includes));
+        String path = QueryUtil.generateUrl(SHEETS, parameters);
 
         return this.createResource(path, Sheet.class, sheet);
     }
@@ -465,7 +476,7 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
      * @throws SmartsheetException if there is any other error during the operation
      */
     public Sheet importCsv(String file, String sheetName, Integer headerRowIndex, Integer primaryColumnIndex) throws SmartsheetException {
-        return importFile("sheets/import", file, "text/csv", sheetName, headerRowIndex, primaryColumnIndex);
+        return importFile("sheets/import", file, TEXT_CSV, sheetName, headerRowIndex, primaryColumnIndex);
     }
 
     /**
@@ -485,7 +496,7 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
      * @throws SmartsheetException if there is any other error during the operation
      */
     public Sheet importXlsx(String file, String sheetName, Integer headerRowIndex, Integer primaryColumnIndex) throws SmartsheetException {
-        return importFile("sheets/import", file, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        return importFile("sheets/import", file, XLSX_CONTENT_TYPE,
                 sheetName, headerRowIndex, primaryColumnIndex);
     }
 
@@ -507,7 +518,7 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
      */
     public Sheet createSheetInFolder(long folderId, Sheet sheet) throws SmartsheetException {
 
-        return this.createResource("folders/" + folderId + "/sheets", Sheet.class, sheet);
+        return this.createResource(FOLDERS + "/" + folderId + "/" + SHEETS, Sheet.class, sheet);
     }
 
     /**
@@ -533,8 +544,8 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
             EnumSet<SheetTemplateInclusion> includes
     ) throws SmartsheetException {
         Map<String, Object> parameters = new HashMap<>();
-        parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
-        String path = QueryUtil.generateUrl("folders/" + folderId + "/sheets", parameters);
+        parameters.put(INCLUDE, QueryUtil.generateCommaSeparatedList(includes));
+        String path = QueryUtil.generateUrl(FOLDERS + "/" + folderId + "/" + SHEETS, parameters);
 
         return this.createResource(path, Sheet.class, sheet);
     }
@@ -563,8 +574,14 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
             Integer headerRowIndex,
             Integer primaryColumnIndex
     ) throws SmartsheetException {
-        return importFile("folders/" + folderId + "/sheets/import", file, "text/csv",
-                sheetName, headerRowIndex, primaryColumnIndex);
+        return importFile(
+                FOLDERS + "/" + folderId + "/" + SHEETS + "/" + IMPORT,
+                file,
+                TEXT_CSV,
+                sheetName,
+                headerRowIndex,
+                primaryColumnIndex
+        );
     }
 
     /**
@@ -591,9 +608,14 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
             Integer headerRowIndex,
             Integer primaryColumnIndex
     ) throws SmartsheetException {
-        return importFile("folders/" + folderId + "/sheets/import", file,
-                "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", sheetName,
-                headerRowIndex, primaryColumnIndex);
+        return importFile(
+                FOLDERS + "/" + folderId + "/" + SHEETS + "/" + IMPORT,
+                file,
+                XLSX_CONTENT_TYPE,
+                sheetName,
+                headerRowIndex,
+                primaryColumnIndex
+        );
     }
 
     /**
@@ -612,7 +634,7 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
      * @throws SmartsheetException : if there is any other error occurred during the operation
      */
     public Sheet createSheetInWorkspace(long workspaceId, Sheet sheet) throws SmartsheetException {
-        return this.createResource("workspaces/" + workspaceId + "/sheets", Sheet.class, sheet);
+        return this.createResource(WORKSPACES + "/" + workspaceId + "/" + SHEETS, Sheet.class, sheet);
     }
 
     /**
@@ -635,8 +657,8 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
     public Sheet createSheetInWorkspaceFromTemplate(long workspaceId, Sheet sheet, EnumSet<SheetTemplateInclusion> includes)
             throws SmartsheetException {
         Map<String, Object> parameters = new HashMap<>();
-        parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
-        String path = QueryUtil.generateUrl("workspaces/" + workspaceId + "/sheets", parameters);
+        parameters.put(INCLUDE, QueryUtil.generateCommaSeparatedList(includes));
+        String path = QueryUtil.generateUrl(WORKSPACES + "/" + workspaceId + "/" + SHEETS, parameters);
 
         return this.createResource(path, Sheet.class, sheet);
     }
@@ -665,8 +687,14 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
             Integer headerRowIndex,
             Integer primaryColumnIndex
     ) throws SmartsheetException {
-        return importFile("workspaces/" + workspaceId + "/sheets/import", file,
-                "text/csv", sheetName, headerRowIndex, primaryColumnIndex);
+        return importFile(
+                WORKSPACES + "/" + workspaceId + "/" + SHEETS + "/" + IMPORT,
+                file,
+                TEXT_CSV,
+                sheetName,
+                headerRowIndex,
+                primaryColumnIndex
+        );
     }
 
     /**
@@ -693,9 +721,14 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
             Integer headerRowIndex,
             Integer primaryColumnIndex
     ) throws SmartsheetException {
-        return importFile("workspaces/" + workspaceId + "/sheets/import", file,
-                "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", sheetName,
-                headerRowIndex, primaryColumnIndex);
+        return importFile(
+                WORKSPACES + "/" + workspaceId + "/" + SHEETS + "/" + IMPORT,
+                file,
+                XLSX_CONTENT_TYPE,
+                sheetName,
+                headerRowIndex,
+                primaryColumnIndex
+        );
     }
 
     /**
@@ -711,7 +744,7 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
      * @throws SmartsheetException : if there is any other error occurred during the operation
      */
     public void deleteSheet(long id) throws SmartsheetException {
-        this.deleteResource("sheets/" + id, Sheet.class);
+        this.deleteResource(SHEETS + "/" + id, Sheet.class);
     }
 
     /**
@@ -728,7 +761,7 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
      * @throws SmartsheetException if there is any other error during the operation
      */
     public Sheet updateSheet(Sheet sheet) throws SmartsheetException {
-        return this.updateResource("sheets/" + sheet.getId(), Sheet.class, sheet);
+        return this.updateResource(SHEETS + "/" + sheet.getId(), Sheet.class, sheet);
     }
 
     /**
@@ -746,7 +779,7 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
      * @throws SmartsheetException : if there is any other error occurred during the operation
      */
     public int getSheetVersion(long id) throws SmartsheetException {
-        return this.getResource("sheets/" + id + "/version", Sheet.class).getVersion();
+        return this.getResource(SHEETS + "/" + id + "/version", Sheet.class).getVersion();
     }
 
     /**
@@ -763,7 +796,7 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
      * @throws SmartsheetException : if there is any other error occurred during the operation
      */
     public void sendSheet(long id, SheetEmail email) throws SmartsheetException {
-        this.createResource("sheets/" + id + "/emails", SheetEmail.class, email);
+        this.createResource(SHEETS + "/" + id + "/emails", SheetEmail.class, email);
     }
 
     /**
@@ -780,7 +813,7 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
      * @throws SmartsheetException if there is any other error during the operation
      */
     public void getSheetAsCSV(long id, OutputStream outputStream) throws SmartsheetException {
-        getSheetAsFile(id, null, outputStream, "text/csv");
+        getSheetAsFile(id, null, outputStream, TEXT_CSV);
     }
 
     /**
@@ -798,7 +831,7 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
      * @throws SmartsheetException : if there is any other error occurred during the operation
      */
     public SheetPublish getPublishStatus(long id) throws SmartsheetException {
-        return this.getResource("sheets/" + id + "/publish", SheetPublish.class);
+        return this.getResource(SHEETS + "/" + id + "/publish", SheetPublish.class);
     }
 
     /**
@@ -819,7 +852,7 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
      * @throws SmartsheetException : if there is any other error occurred during the operation
      */
     public SheetPublish updatePublishStatus(long id, SheetPublish publish) throws SmartsheetException {
-        return this.updateResource("sheets/" + id + "/publish", SheetPublish.class, publish);
+        return this.updateResource(SHEETS + "/" + id + "/publish", SheetPublish.class, publish);
     }
 
     /**
@@ -868,10 +901,10 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
             EnumSet<CopyExclusion> excludes
     ) throws SmartsheetException {
 
-        String path = "sheets/" + sheetId + "/copy";
+        String path = SHEETS + "/" + sheetId + "/copy";
         Map<String, Object> parameters = new HashMap<>();
 
-        parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
+        parameters.put(INCLUDE, QueryUtil.generateCommaSeparatedList(includes));
         parameters.put("exclude", QueryUtil.generateCommaSeparatedList(excludes));
 
         path += QueryUtil.generateUrl(null, parameters);
@@ -895,7 +928,7 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
      */
     public Sheet moveSheet(long sheetId, ContainerDestination containerDestination) throws SmartsheetException {
 
-        String path = "sheets/" + sheetId + "/move";
+        String path = SHEETS + "/" + sheetId + "/move";
         return this.createResource(path, Sheet.class, containerDestination);
     }
 
@@ -914,7 +947,7 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
      * @throws SmartsheetException : if there is any other error occurred during the operation
      */
     public UpdateRequest createUpdateRequest(long sheetId, MultiRowEmail email) throws SmartsheetException {
-        return this.createResource("sheets/" + sheetId + "/updaterequests", UpdateRequest.class, email);
+        return this.createResource(SHEETS + "/" + sheetId + "/updaterequests", UpdateRequest.class, email);
     }
 
     /**
@@ -954,7 +987,7 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
     public Sheet sortSheet(long sheetId, SortSpecifier sortSpecifier, Integer level) throws SmartsheetException {
         Util.throwIfNull(sortSpecifier);
 
-        String path = "sheets/" + sheetId + "/sort";
+        String path = SHEETS + "/" + sheetId + "/sort";
         if (level != null) {
             path += "?level=" + level;
         }
@@ -1182,7 +1215,7 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
             throws SmartsheetException {
         Util.throwIfNull(outputStream, contentType);
 
-        String path = "sheets/" + id;
+        String path = SHEETS + "/" + id;
         if (paperSize != null) {
             path += "?paperSize=" + paperSize;
         }
