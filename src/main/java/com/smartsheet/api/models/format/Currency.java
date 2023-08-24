@@ -22,33 +22,32 @@ package com.smartsheet.api.models.format;
 
 /**
  * An enum representing the available currency formats available in Smartsheet.
- * @author kskeem
  */
 public enum Currency {
     NONE(null, ""),
-    ARGENTINE_PESO("ARS", "\u0024"),
+    ARGENTINE_PESO("ARS", "$"),
     AUSTRALIAN_DOLLAR("AUD", "$"),
-    BRAZIL_REAIS("BRL", "\u0052$"),
+    BRAZIL_REAIS("BRL", "R$"),
     CANADIAN_DOLLAR("CAD", "$"),
     CHILEAN_PESOS("CLP", "$"),
-    EURO("EUR", "\u20AC"),
-    BRITISH_POUND("GBP", "\u00A3"),
-    ISRAEL_SHEKEL("ILS", "\u20AA"),
-    INDIA_RUPEES("INR", "\u20A8"),
-    JAPAN_YEN("JPY", "\u00A5"),
+    EURO("EUR", "€"),
+    BRITISH_POUND("GBP", "£"),
+    ISRAEL_SHEKEL("ILS", "₪"),
+    INDIA_RUPEES("INR", "₨"),
+    JAPAN_YEN("JPY", "¥"),
     MEXICAN_PESOS("MXN", "$"),
-    RUSSIAN_RUBLES("RUB", "\u0440\u0443\u0431"),
+    RUSSIAN_RUBLES("RUB", "руб"),
     USD("USD", "$"),
     SOUTHAFRICA_RAND("ZAR", "R"),
     SWISS_FRANC("CHF", "CHF"),
-    CHINA_YUAN("CNY", "\u5143"),
+    CHINA_YUAN("CNY", "元"),
     DENMARK_KRONER("DKK", "kr"),
-    HONKKONG_DOLLAR("HKD", "\u0048\u004B$"),
-    SOUTHKOREAN_WON("KRW", "\u20A9"),
+    HONKKONG_DOLLAR("HKD", "HK$"),
+    SOUTHKOREAN_WON("KRW", "₩"),
     NORWAY_KRONER("NOK", "kr"),
     NEWZEALAND_DOLLAR("NZD", "$"),
     SWEDEN_KRONOR("SEK", "kr"),
-    SINGAPORE_DOLLAR("SGD", "$"),
+    SINGAPORE_DOLLAR("SGD", "$")
     ;
 
     /**

@@ -22,7 +22,6 @@ package com.smartsheet.api.models.format;
 
 /**
  * An enumeration representing all the colors available for formatting within Smartsheet.
- * @author kskeem
  */
 public enum Color {
     NONE(null),

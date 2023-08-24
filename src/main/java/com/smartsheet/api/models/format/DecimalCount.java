@@ -1,4 +1,5 @@
 package com.smartsheet.api.models.format;
+
 /*
  * #[license]
  * Smartsheet SDK for Java
@@ -8,9 +9,9 @@ package com.smartsheet.api.models.format;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -19,18 +20,16 @@ package com.smartsheet.api.models.format;
  * %[license]
  */
 
-
 /**
- * @author kskeem
  * An enumeration representing the Decimal count formats available in Smartsheet.
  */
 public enum DecimalCount {
-    COUNT_0 (0),
-    COUNT_1 (1),
-    COUNT_2 (2),
-    COUNT_3 (3),
-    COUNT_4 (4),
-    COUNT_5 (5),
+    COUNT_0(0),
+    COUNT_1(1),
+    COUNT_2(2),
+    COUNT_3(3),
+    COUNT_4(4),
+    COUNT_5(5),
     ;
 
     private final int decimalCount;
@@ -40,7 +39,7 @@ public enum DecimalCount {
      */
     public static final DecimalCount DEFAULT = COUNT_0;
 
-    DecimalCount (int count) {
+    DecimalCount(int count) {
         this.decimalCount = count;
     }
 
