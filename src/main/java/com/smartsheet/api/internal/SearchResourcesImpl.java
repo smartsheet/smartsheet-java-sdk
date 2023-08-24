@@ -43,14 +43,14 @@ import java.util.Map;
 
 /**
  * This is the implementation of the SearchResources.
- *
+ * <p>
  * Thread Safety: This class is thread safe because it is immutable and its base class is thread safe.
  */
 public class SearchResourcesImpl extends AbstractResources implements SearchResources {
 
     /**
      * Constructor.
-     *
+     * <p>
      * Exceptions: - IllegalArgumentException : if any argument is null
      *
      * @param smartsheet the smartsheet
@@ -61,9 +61,9 @@ public class SearchResourcesImpl extends AbstractResources implements SearchReso
 
     /**
      * Performs a search across all Sheets to which user has access.
-     *
+     * <p>
      * It mirrors to the following Smartsheet REST API method: GET /search
-     *
+     * <p>
      * Exceptions:
      *   IllegalArgumentException : if query is null/empty string
      *   InvalidRequestException : if there is any problem with the REST API request
@@ -74,15 +74,16 @@ public class SearchResourcesImpl extends AbstractResources implements SearchReso
      *
      * @param query the query text
      * @return the search result (note that if there is no such resource, this method will throw
-     * ResourceNotFoundException rather than returning null).
+     *     ResourceNotFoundException rather than returning null).
      * @throws SmartsheetException the smartsheet exception
      */
     public SearchResult search(String query) throws SmartsheetException {
         return search(query, null, null, null, null);
     }
+
     /**
      * Performs a search across all Sheets to which user has access.
-     *
+     * <p>
      * It mirrors to the following Smartsheet REST API method: GET /search
      *
      * @param query the query text
@@ -92,7 +93,7 @@ public class SearchResourcesImpl extends AbstractResources implements SearchReso
      * @param modifiedSince only return items modified since this date
      * @param scopes enum set of search filters
      * @return the search result (note that if there is no such resource, this method will throw
-     * ResourceNotFoundException rather than returning null).
+     *     ResourceNotFoundException rather than returning null).
      * @throws IllegalArgumentException if any argument is null or empty string
      * @throws InvalidRequestException if there is any problem with the REST API request
      * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
@@ -125,9 +126,9 @@ public class SearchResourcesImpl extends AbstractResources implements SearchReso
 
     /**
      * Performs a search within a sheet.
-     *
+     * <p>
      * It mirrors to the following Smartsheet REST API method: GET /search/sheet/{sheetId}
-     *
+     * <p>
      * Exceptions:
      *   IllegalArgumentException : if query is null/empty string
      *   InvalidRequestException : if there is any problem with the REST API request
@@ -140,7 +141,7 @@ public class SearchResourcesImpl extends AbstractResources implements SearchReso
      * @param sheetId the sheet id
      * @param query the query
      * @return the search result (note that if there is no such resource, this method will throw
-     * ResourceNotFoundException rather than returning null).
+     *     ResourceNotFoundException rather than returning null).
      * @throws SmartsheetException the smartsheet exception
      */
     public SearchResult searchSheet(long sheetId, String query) throws SmartsheetException {

@@ -9,9 +9,9 @@ package com.smartsheet.api.internal;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -19,7 +19,6 @@ package com.smartsheet.api.internal;
  * limitations under the License.
  * %[license]
  */
-
 
 import com.smartsheet.api.HomeFolderResources;
 import com.smartsheet.api.HomeResources;
@@ -35,20 +34,20 @@ import java.util.Map;
 
 /**
  * This is the implementation of the HomeResources.
- *
+ * <p>
  * Thread Safety: This class is thread safe because it is immutable and its base class is thread safe.
  */
 public class HomeResourcesImpl extends AbstractResources implements HomeResources {
     /**
      * Represents the HomeFolderResources.
-     *
-     * It will be initialized in constructor and will not change afterwards.
+     * <p>
+     * It will be initialized in constructor and will not change afterward.
      */
     private HomeFolderResources folders;
 
     /**
      * Constructor.
-     *
+     * <p>
      * Exceptions: - IllegalArgumentException : if any argument is null
      *
      * @param smartsheet the smartsheet
@@ -61,9 +60,9 @@ public class HomeResourcesImpl extends AbstractResources implements HomeResource
     /**
      * Get a nested list of all Home objects, including sheets, workspaces and folders, and optionally reports and/or
      * templates, as shown on the Home tab..
-     *
+     * <p>
      * It mirrors to the following Smartsheet REST API method: GET /home
-     *
+     * <p>
      * Exceptions:
      *   InvalidRequestException : if there is any problem with the REST API request
      *   AuthorizationException : if there is any problem with the REST API authorization(access token)
@@ -74,7 +73,7 @@ public class HomeResourcesImpl extends AbstractResources implements HomeResource
      *
      * @param includes used to specify the optional objects to include, currently TEMPLATES is supported.
      * @return the resource (note that if there is no such resource, this method will throw ResourceNotFoundException
-     * rather than returning null).
+     *     rather than returning null).
      * @throws SmartsheetException the smartsheet exception
      */
     public Home getHome(EnumSet<SourceInclusion> includes) throws SmartsheetException {
@@ -84,9 +83,9 @@ public class HomeResourcesImpl extends AbstractResources implements HomeResource
     /**
      * Get a nested list of all Home objects, including sheets, workspaces and folders, and optionally reports and/or
      * templates, as shown on the Home tab..
-     *
+     * <p>
      * It mirrors to the following Smartsheet REST API method: GET /home
-     *
+     * <p>
      * Exceptions:
      *   InvalidRequestException : if there is any problem with the REST API request
      *   AuthorizationException : if there is any problem with the REST API authorization(access token)
@@ -97,7 +96,7 @@ public class HomeResourcesImpl extends AbstractResources implements HomeResource
      *
      * @param includes used to specify the optional objects to include, currently TEMPLATES is supported.
      * @return the resource (note that if there is no such resource, this method will throw ResourceNotFoundException
-     * rather than returning null).
+     *     rather than returning null).
      * @throws SmartsheetException the smartsheet exception
      */
     public Home getHome(EnumSet<SourceInclusion> includes, EnumSet<SourceExclusion> excludes) throws SmartsheetException {

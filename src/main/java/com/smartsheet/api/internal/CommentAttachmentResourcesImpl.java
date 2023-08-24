@@ -9,9 +9,9 @@ package com.smartsheet.api.internal;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -38,7 +38,7 @@ import java.io.InputStream;
  *
  * Thread Safety: This class is thread safe because it is immutable and its base class is thread safe.
  */
-public class CommentAttachmentResourcesImpl extends AbstractResources implements com.smartsheet.api.CommentAttachmentResources{
+public class CommentAttachmentResourcesImpl extends AbstractResources implements com.smartsheet.api.CommentAttachmentResources {
 
     public CommentAttachmentResourcesImpl(SmartsheetImpl smartsheet) {
         super(smartsheet);
@@ -63,8 +63,7 @@ public class CommentAttachmentResourcesImpl extends AbstractResources implements
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public Attachment attachUrl(long sheetId, long commentId, Attachment attachment) throws SmartsheetException
-    {
+    public Attachment attachUrl(long sheetId, long commentId, Attachment attachment) throws SmartsheetException {
         return this.createResource("sheets/" + sheetId + "/comments/" + commentId + "/attachments", Attachment.class, attachment);
     }
 
@@ -106,9 +105,22 @@ public class CommentAttachmentResourcesImpl extends AbstractResources implements
      * @return the attachment
      * @throws SmartsheetException the smartsheet exception
      */
-    public Attachment attachFile(long sheetId, long commentId, InputStream inputStream, String contentType, long contentLength, String attachmentName)
-            throws SmartsheetException {
+    public Attachment attachFile(
+            long sheetId,
+            long commentId,
+            InputStream inputStream,
+            String contentType,
+            long contentLength,
+            String attachmentName
+    ) throws SmartsheetException {
         Util.throwIfNull(inputStream, contentType);
-        return super.attachFile("sheets/" + sheetId + "/comments/" + commentId + "/attachments", inputStream, contentType, contentLength, attachmentName);
+
+        return super.attachFile(
+                "sheets/" + sheetId + "/comments/" + commentId + "/attachments",
+                inputStream,
+                contentType,
+                contentLength,
+                attachmentName
+        );
     }
 }

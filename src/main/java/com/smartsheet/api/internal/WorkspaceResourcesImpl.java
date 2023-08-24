@@ -9,9 +9,9 @@ package com.smartsheet.api.internal;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -19,7 +19,6 @@ package com.smartsheet.api.internal;
  * limitations under the License.
  * %[license]
  */
-
 
 import com.smartsheet.api.ShareResources;
 import com.smartsheet.api.SmartsheetException;
@@ -41,27 +40,29 @@ import java.util.Map;
 
 /**
  * This is the implementation of the WorkspaceResources.
- *
+ * <p>
  * Thread Safety: This class is thread safe because it is immutable and its base class is thread safe.
  */
 public class WorkspaceResourcesImpl extends AbstractResources implements WorkspaceResources {
+    private static final String WORKSPACES = "workspaces";
+
     /**
      * Represents the WorkspaceFolderResources.
-     *
+     * <p>
      * It will be initialized in constructor and will not change afterwards.
      */
     private WorkspaceFolderResources folders;
 
     /**
      * Represents the ShareResources.
-     *
+     * <p>
      * It will be initialized in constructor and will not change afterwards.
      */
     private ShareResources shares;
 
     /**
      * Constructor.
-     *
+     * <p>
      * Exceptions:
      *   - IllegalArgumentException : if any argument is
      *
@@ -69,25 +70,20 @@ public class WorkspaceResourcesImpl extends AbstractResources implements Workspa
      */
     public WorkspaceResourcesImpl(SmartsheetImpl smartsheet) {
         super(smartsheet);
-        this.shares = new ShareResourcesImpl(smartsheet, "workspaces");
+        this.shares = new ShareResourcesImpl(smartsheet, WORKSPACES);
         this.folders = new WorkspaceFolderResourcesImpl(smartsheet);
     }
 
     /**
      * List all workspaces.
-     *
+     * <p>
      * It mirrors to the following Smartsheet REST API method: GET /workspaces
-     *
+     * <p>
      * Exceptions:
-     *
      *   - InvalidRequestException : if there is any problem with the REST API request
-     *
      *   - AuthorizationException : if there is any problem with the REST API authorization(access token)
-     *
      *   - ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-     *
      *   - SmartsheetRestException : if there is any other REST API related error occurred during the operation
-     *
      *   - SmartsheetException : if there is any other error occurred during the operation
      *
      * @param parameters the object containing the pagination parameters
@@ -95,7 +91,7 @@ public class WorkspaceResourcesImpl extends AbstractResources implements Workspa
      * @throws SmartsheetException the smartsheet exception
      */
     public PagedResult<Workspace> listWorkspaces(PaginationParameters parameters) throws SmartsheetException {
-        String path = "workspaces";
+        String path = WORKSPACES;
 
         if (parameters != null) {
             path += parameters.toQueryString();
@@ -105,32 +101,26 @@ public class WorkspaceResourcesImpl extends AbstractResources implements Workspa
 
     /**
      * Get a workspace.
-     *
+     * <p>
      * It mirrors to the following Smartsheet REST API method: GET /workspace/{id}
-     *
+     * <p>
      * Exceptions:
-     *
      *   - InvalidRequestException : if there is any problem with the REST API request
-     *
      *   - AuthorizationException : if there is any problem with the REST API authorization(access token)
-     *
      *   - ResourceNotFoundException : if the resource can not be found
-     *
      *   - ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-     *
      *   - SmartsheetRestException : if there is any other REST API related error occurred during the operation
-     *
      *   - SmartsheetException : if there is any other error occurred during the operation
      *
      * @param id the id
      * @param loadAll load all contents in a workspace
      * @param includes used to specify the optional objects to include
      * @return the resource (note that if there is no such resource, this method will throw ResourceNotFoundException
-     * rather than returning null).
+     *     rather than returning null).
      * @throws SmartsheetException the smartsheet exception
      */
     public Workspace getWorkspace(long id, Boolean loadAll, EnumSet<SourceInclusion> includes) throws SmartsheetException {
-        String path = "workspaces/" + id;
+        String path = WORKSPACES + "/" + id;
 
         // Add the parameters to a map and build the query string at the end
         Map<String, Object> parameters = new HashMap<>();
@@ -147,21 +137,15 @@ public class WorkspaceResourcesImpl extends AbstractResources implements Workspa
 
     /**
      * Create a workspace.
-     *
+     * <p>
      * It mirrors to the following Smartsheet REST API method: POST /workspaces
-     *
+     * <p>
      * Exceptions:
-     *
      *   - IllegalArgumentException : if any argument is null
-     *
      *   - InvalidRequestException : if there is any problem with the REST API request
-     *
      *   - AuthorizationException : if there is any problem with the REST API authorization(access token)
-     *
      *   - ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-     *
      *   - SmartsheetRestException : if there is any other REST API related error occurred during the operation
-     *
      *   - SmartsheetException : if there is any other error occurred during the operation
      *
      * @param workspace the workspace to create, limited to the following required attributes: * name (string)
@@ -169,44 +153,37 @@ public class WorkspaceResourcesImpl extends AbstractResources implements Workspa
      * @throws SmartsheetException the smartsheet exception
      */
     public Workspace createWorkspace(Workspace workspace) throws SmartsheetException {
-        return this.createResource("workspaces", Workspace.class, workspace);
+        return this.createResource(WORKSPACES, Workspace.class, workspace);
     }
 
     /**
      * Update a workspace.
-     *
+     * <p>
      * It mirrors to the following Smartsheet REST API method: PUT /workspace/{id}
-     *
+     * <p>
      * Exceptions:
-     *
      *   - IllegalArgumentException : if any argument is null
-     *
      *   - InvalidRequestException : if there is any problem with the REST API request
-     *
      *   - AuthorizationException : if there is any problem with the REST API authorization(access token)
-     *
      *   - ResourceNotFoundException : if the resource can not be found
-     *
      *   - ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-     *
      *   - SmartsheetRestException : if there is any other REST API related error occurred during the operation
-     *
      *   - SmartsheetException : if there is any other error occurred during the operation
      *
      * @param workspace the workspace to update limited to the following attribute: * name (string)
      * @return the updated workspace (note that if there is no such resource, this method will throw
-     * ResourceNotFoundException rather than returning null).
+     *     ResourceNotFoundException rather than returning null).
      * @throws SmartsheetException the smartsheet exception
      */
     public Workspace updateWorkspace(Workspace workspace) throws SmartsheetException {
-        return this.updateResource("workspaces/" + workspace.getId(), Workspace.class, workspace);
+        return this.updateResource(WORKSPACES + "/" + workspace.getId(), Workspace.class, workspace);
     }
 
     /**
      * Delete a workspace.
-     *
+     * <p>
      * It mirrors to the following Smartsheet REST API method: DELETE /workspace{id}
-     *
+     * <p>
      * Exceptions:
      *   - InvalidRequestException : if there is any problem with the REST API request
      *   - AuthorizationException : if there is any problem with the REST API authorization(access token)
@@ -219,14 +196,14 @@ public class WorkspaceResourcesImpl extends AbstractResources implements Workspa
      * @throws SmartsheetException the smartsheet exception
      */
     public void deleteWorkspace(long id) throws SmartsheetException {
-        this.deleteResource("workspaces/" + id, Workspace.class);
+        this.deleteResource(WORKSPACES + "/" + id, Workspace.class);
     }
 
     /**
      * Creates a copy of the specified workspace.
-     *
+     * <p>
      * It mirrors to the following Smartsheet REST API method: POST /workspaces/{workspaceId}/copy
-     *
+     * <p>
      * Exceptions:
      *   IllegalArgumentException : if folder is null
      *   InvalidRequestException : if there is any problem with the REST API request
@@ -242,15 +219,20 @@ public class WorkspaceResourcesImpl extends AbstractResources implements Workspa
      * @return the folder
      * @throws SmartsheetException the smartsheet exception
      */
-    public Workspace copyWorkspace(long workspaceId, ContainerDestination containerDestination, EnumSet<WorkspaceCopyInclusion> includes, EnumSet<WorkspaceRemapExclusion> skipRemap) throws SmartsheetException {
+    public Workspace copyWorkspace(
+            long workspaceId,
+            ContainerDestination containerDestination,
+            EnumSet<WorkspaceCopyInclusion> includes,
+            EnumSet<WorkspaceRemapExclusion> skipRemap
+    ) throws SmartsheetException {
         return copyWorkspace(workspaceId, containerDestination, includes, skipRemap, null);
     }
 
     /**
      * Creates a copy of the specified workspace.
-     *
+     * <p>
      * It mirrors to the following Smartsheet REST API method: POST /workspaces/{workspaceId}/copy
-     *
+     * <p>
      * Exceptions:
      *   IllegalArgumentException : if folder is null
      *   InvalidRequestException : if there is any problem with the REST API request
@@ -270,7 +252,7 @@ public class WorkspaceResourcesImpl extends AbstractResources implements Workspa
     public Workspace copyWorkspace(long workspaceId, ContainerDestination containerDestination, EnumSet<WorkspaceCopyInclusion> includes,
                                    EnumSet<WorkspaceRemapExclusion> skipRemap, EnumSet<CopyExclusion> excludes) throws SmartsheetException {
 
-        String path = "workspaces/" + workspaceId + "/copy";
+        String path = WORKSPACES + "/" + workspaceId + "/copy";
         Map<String, Object> parameters = new HashMap<>();
 
         parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));

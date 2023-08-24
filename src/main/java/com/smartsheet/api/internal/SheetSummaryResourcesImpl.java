@@ -9,9 +9,9 @@ package com.smartsheet.api.internal;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -19,7 +19,6 @@ package com.smartsheet.api.internal;
  * limitations under the License.
  * %[license]
  */
-
 
 import com.smartsheet.api.AuthorizationException;
 import com.smartsheet.api.InvalidRequestException;
@@ -57,10 +56,16 @@ import java.util.Map;
 import java.util.Set;
 
 public class SheetSummaryResourcesImpl extends AbstractResources implements SheetSummaryResources {
+    private static final String SHEETS_PATH = "sheets/";
+
+    private static final String SUMMARY = "summary";
+    private static final String FIELDS = "fields";
+    private static final String IMAGES = "images";
+    private static final String RENAME_IF_CONFLICT = "renameIfConflict";
 
     /**
      * Constructor.
-     *
+     * <p>
      * Exceptions: - IllegalArgumentException : if any argument is null
      *
      * @param smartsheet the smartsheet
@@ -71,7 +76,7 @@ public class SheetSummaryResourcesImpl extends AbstractResources implements Shee
 
     /**
      * Gets the sheet summary
-     *
+     * <p>
      * It mirrors to the following Smartsheet REST API method: GET /sheets/{id}/summary
      *
      * @param sheetId the sheet id
@@ -86,8 +91,12 @@ public class SheetSummaryResourcesImpl extends AbstractResources implements Shee
      * @throws SmartsheetException if there is any other error during the operation
      **/
     @Override
-    public SheetSummary getSheetSummary(long sheetId, EnumSet<SummaryFieldInclusion> includes, EnumSet<SummaryFieldExclusion> excludes) throws SmartsheetException {
-        String path = "sheets/" + sheetId + "/summary";
+    public SheetSummary getSheetSummary(
+            long sheetId,
+            EnumSet<SummaryFieldInclusion> includes,
+            EnumSet<SummaryFieldExclusion> excludes
+    ) throws SmartsheetException {
+        String path = SHEETS_PATH + sheetId + "/summary";
 
         // Add the parameters to a map and build the query string at the end
         Map<String, Object> parameters = new HashMap<>();
@@ -103,7 +112,7 @@ public class SheetSummaryResourcesImpl extends AbstractResources implements Shee
 
     /**
      * Gets the sheet summary fields
-     *
+     * <p>
      * It mirrors to the following Smartsheet REST API method: GET /sheets/{id}/summary/fields
      *
      * @param sheetId the sheet id
@@ -121,7 +130,7 @@ public class SheetSummaryResourcesImpl extends AbstractResources implements Shee
     public PagedResult<SummaryField> getSheetSummaryFields(long sheetId, EnumSet<SummaryFieldInclusion> includes,
                                                            EnumSet<SummaryFieldExclusion> excludes,
                                                            PaginationParameters pagination) throws SmartsheetException {
-        String path = "sheets/" + sheetId + "/summary/fields";
+        String path = SHEETS_PATH + sheetId + "/" + SUMMARY + "/" + FIELDS;
 
         Map<String, Object> parameters = new HashMap<>();
         if (pagination != null) {
@@ -136,7 +145,7 @@ public class SheetSummaryResourcesImpl extends AbstractResources implements Shee
 
     /**
      * Insert fields into a sheet summary.
-     *
+     * <p>
      * It mirrors to the following Smartsheet REST API method: POST /sheets/{sheetId}/summary/fields
      *
      * @param sheetId the sheet id
@@ -150,11 +159,15 @@ public class SheetSummaryResourcesImpl extends AbstractResources implements Shee
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public List<SummaryField> addSheetSummaryFields(long sheetId, List<SummaryField> fields, Boolean renameIfConflict) throws SmartsheetException {
-        String path = "sheets/" + sheetId + "/summary/fields";
+    public List<SummaryField> addSheetSummaryFields(
+            long sheetId,
+            List<SummaryField> fields,
+            Boolean renameIfConflict
+    ) throws SmartsheetException {
+        String path = SHEETS_PATH + sheetId + "/" + SUMMARY + "/" + FIELDS;
 
         Map<String, Object> parameters = new HashMap<>();
-        parameters.put("renameIfConflict", renameIfConflict);
+        parameters.put(RENAME_IF_CONFLICT, renameIfConflict);
 
         path += QueryUtil.generateUrl(null, parameters);
         return this.postAndReceiveList(path, fields, SummaryField.class);
@@ -162,7 +175,7 @@ public class SheetSummaryResourcesImpl extends AbstractResources implements Shee
 
     /**
      * Insert fields into a sheet summary.
-     *
+     * <p>
      * It mirrors to the following Smartsheet REST API method: POST /sheets/{sheetId}/summary/fields
      *
      * @param sheetId the sheet id
@@ -183,7 +196,7 @@ public class SheetSummaryResourcesImpl extends AbstractResources implements Shee
 
     /**
      * Update fields in a sheet summary.
-     *
+     * <p>
      * It mirrors to the following Smartsheet REST API method: PUT /sheets/{sheetId}/summary/fields
      *
      * @param sheetId the sheet id
@@ -197,11 +210,15 @@ public class SheetSummaryResourcesImpl extends AbstractResources implements Shee
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public List<SummaryField> updateSheetSummaryFields(long sheetId, List<SummaryField> fields, Boolean renameIfConflict) throws SmartsheetException {
-        String path = "sheets/" + sheetId + "/summary/fields";
+    public List<SummaryField> updateSheetSummaryFields(
+            long sheetId,
+            List<SummaryField> fields,
+            Boolean renameIfConflict
+    ) throws SmartsheetException {
+        String path = SHEETS_PATH + sheetId + "/" + SUMMARY + "/" + FIELDS;
 
         Map<String, Object> parameters = new HashMap<>();
-        parameters.put("renameIfConflict", renameIfConflict);
+        parameters.put(RENAME_IF_CONFLICT, renameIfConflict);
 
         path += QueryUtil.generateUrl(null, parameters);
         return this.putAndReceiveList(path, fields, SummaryField.class);
@@ -209,7 +226,7 @@ public class SheetSummaryResourcesImpl extends AbstractResources implements Shee
 
     /**
      * Update fields in a sheet summary.
-     *
+     * <p>
      * It mirrors to the following Smartsheet REST API method: PUT /sheets/{sheetId}/summary/fields
      *
      * @param sheetId the sheet id
@@ -230,7 +247,7 @@ public class SheetSummaryResourcesImpl extends AbstractResources implements Shee
 
     /**
      * Delete fields in a sheet summary.
-     *
+     * <p>
      * It mirrors to the following Smartsheet REST API method: DELETE /sheets/{sheetId}/summary/fields
      *
      * @param sheetId the sheet id
@@ -244,9 +261,13 @@ public class SheetSummaryResourcesImpl extends AbstractResources implements Shee
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public List<Long> deleteSheetSummaryFields(long sheetId, Set<Long> fieldIds, Boolean ignoreSummaryFieldsNotFound) throws SmartsheetException {
+    public List<Long> deleteSheetSummaryFields(
+            long sheetId,
+            Set<Long> fieldIds,
+            Boolean ignoreSummaryFieldsNotFound
+    ) throws SmartsheetException {
         Map<String, Object> parameters = new HashMap<>();
-        String path = "sheets/" + sheetId + "/summary/fields";
+        String path = SHEETS_PATH + sheetId + "/" + SUMMARY + "/" + FIELDS;
         parameters.put("ids", QueryUtil.generateCommaSeparatedList(fieldIds));
         parameters.put("ignoreSummaryFieldsNotFound", ignoreSummaryFieldsNotFound);
 
@@ -257,7 +278,7 @@ public class SheetSummaryResourcesImpl extends AbstractResources implements Shee
 
     /**
      * Adds an image to the sheet summary field.
-     *
+     * <p>
      * It mirrors to the following Smartsheet REST API method: POST /sheets/{sheetId}/summary/fields/{fieldId}/images
      *
      * @param sheetId the sheet id
@@ -273,16 +294,28 @@ public class SheetSummaryResourcesImpl extends AbstractResources implements Shee
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public Result<SummaryField> addSheetSummaryFieldImage(long sheetId, long fieldId, String file, String contentType, String altText) throws SmartsheetException, FileNotFoundException {
+    public Result<SummaryField> addSheetSummaryFieldImage(
+            long sheetId,
+            long fieldId,
+            String file,
+            String contentType,
+            String altText
+    ) throws SmartsheetException, FileNotFoundException {
         Util.throwIfNull(file);
         File f = new File(file);
-        return addSheetSummaryFieldImage("sheets/" + sheetId + "/summary/fields/" + fieldId + "/images", new FileInputStream(f),
-            contentType, f.length(), altText, file);
+        return addSheetSummaryFieldImage(
+                SHEETS_PATH + sheetId + "/" + SUMMARY + "/" + FIELDS + "/" + fieldId + "/" + IMAGES,
+                new FileInputStream(f),
+                contentType,
+                f.length(),
+                altText,
+                file
+        );
     }
 
     /**
      * Adds an image to the sheet summary field.
-     *
+     * <p>
      * It mirrors to the following Smartsheet REST API method: POST /sheets/{sheetId}/summary/fields/{fieldId}/images
      *
      * @param sheetId the sheet id
@@ -298,15 +331,27 @@ public class SheetSummaryResourcesImpl extends AbstractResources implements Shee
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public Result<SummaryField> addSheetSummaryFieldImage(long sheetId, long fieldId, File file, String contentType, String altText) throws SmartsheetException, FileNotFoundException {
+    public Result<SummaryField> addSheetSummaryFieldImage(
+            long sheetId,
+            long fieldId,
+            File file,
+            String contentType,
+            String altText
+    ) throws SmartsheetException, FileNotFoundException {
         Util.throwIfNull(file);
-        return addSheetSummaryFieldImage("sheets/" + sheetId + "/summary/fields/" + fieldId + "/images", new FileInputStream(file),
-                contentType, file.length(), altText, file.getName());
+        return addSheetSummaryFieldImage(
+                SHEETS_PATH + sheetId + "/" + SUMMARY + "/" + FIELDS + "/" + fieldId + "/" + IMAGES,
+                new FileInputStream(file),
+                contentType,
+                file.length(),
+                altText,
+                file.getName()
+        );
     }
 
     /**
      * Adds an image to the sheet summary field.
-     *
+     * <p>
      * It mirrors to the following Smartsheet REST API method: POST /sheets/{sheetId}/summary/fields/{fieldId}/images
      *
      * @param sheetId the sheet id
@@ -323,16 +368,28 @@ public class SheetSummaryResourcesImpl extends AbstractResources implements Shee
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public Result<SummaryField> addSheetSummaryFieldImage(long sheetId, long fieldId, InputStream inputStream, String contentType,
-                                                          long contentLength, String altText) throws SmartsheetException, FileNotFoundException {
+    public Result<SummaryField> addSheetSummaryFieldImage(
+            long sheetId,
+            long fieldId,
+            InputStream inputStream,
+            String contentType,
+            long contentLength,
+            String altText
+    ) throws SmartsheetException, FileNotFoundException {
         Util.throwIfNull(inputStream);
-        return addSheetSummaryFieldImage("sheets/" + sheetId + "/summary/fields/" + fieldId + "/images", inputStream,
+        return addSheetSummaryFieldImage(SHEETS_PATH + sheetId + "/" + SUMMARY + "/" + FIELDS + "/" + fieldId + "/" + IMAGES, inputStream,
                 contentType, contentLength, altText, altText);
     }
 
-    private Result<SummaryField> addSheetSummaryFieldImage(String path, InputStream inputStream, String contentType, long contentLength,
-                                                           String altText, String imageName) throws SmartsheetException, FileNotFoundException {
-        if(imageName == null) {
+    private Result<SummaryField> addSheetSummaryFieldImage(
+            String path,
+            InputStream inputStream,
+            String contentType,
+            long contentLength,
+            String altText,
+            String imageName
+    ) throws SmartsheetException, FileNotFoundException {
+        if (imageName == null) {
             inputStream.toString();
         }
         if (contentType == null) {
@@ -369,12 +426,16 @@ public class SheetSummaryResourcesImpl extends AbstractResources implements Shee
         return obj;
     }
 
-    private BulkItemResult<SummaryField> doBulkOperation (long sheetId, List<SummaryField> fields,
-                                                          Boolean renameIfConflict, HttpMethod method) throws SmartsheetException {
-        String path = "sheets/" + sheetId + "/summary/fields";
+    private BulkItemResult<SummaryField> doBulkOperation(
+            long sheetId,
+            List<SummaryField> fields,
+            Boolean renameIfConflict,
+            HttpMethod method
+    ) throws SmartsheetException {
+        String path = SHEETS_PATH + sheetId + "/" + SUMMARY + "/" + FIELDS;
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("allowPartialSuccess", "true");
-        parameters.put("renameIfConflict", renameIfConflict);
+        parameters.put(RENAME_IF_CONFLICT, renameIfConflict);
 
         path = QueryUtil.generateUrl(path, parameters);
 

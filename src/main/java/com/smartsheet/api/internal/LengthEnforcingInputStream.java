@@ -9,9 +9,9 @@ package com.smartsheet.api.internal;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -36,6 +36,9 @@ public class LengthEnforcingInputStream extends FilterInputStream {
     private long expectedLength;
     private long totalBytesRead = 0L;
 
+    /**
+     * Constructor
+     */
     public LengthEnforcingInputStream(InputStream inputStream, long expectedLength) {
         super(inputStream);
         this.expectedLength = expectedLength;
@@ -54,7 +57,7 @@ public class LengthEnforcingInputStream extends FilterInputStream {
     }
 
     @Override
-    public synchronized int read (byte[] b, int off, int len) throws java.io.IOException {
+    public synchronized int read(byte[] b, int off, int len) throws java.io.IOException {
         int bytesRead = in.read(b, off, len);
         if (bytesRead == -1) {
             checkLength();
@@ -79,7 +82,6 @@ public class LengthEnforcingInputStream extends FilterInputStream {
 
     /**
      * When reset is called the total bytes read counter is set back to 0.
-     * @throws IOException
      */
     @Override
     public synchronized void reset() throws IOException {
