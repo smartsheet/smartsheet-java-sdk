@@ -9,9 +9,9 @@ package com.smartsheet.api;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -19,7 +19,6 @@ package com.smartsheet.api;
  * limitations under the License.
  * %[license]
  */
-
 
 import com.smartsheet.api.models.Column;
 import com.smartsheet.api.models.PagedResult;
@@ -52,7 +51,11 @@ public interface SheetColumnResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    PagedResult<Column> listColumns(long sheetId, EnumSet<ColumnInclusion> includes, PaginationParameters pagination) throws SmartsheetException;
+    PagedResult<Column> listColumns(
+            long sheetId,
+            EnumSet<ColumnInclusion> includes,
+            PaginationParameters pagination
+    ) throws SmartsheetException;
 
     /**
      * <p>List columns of a given sheet.</p>
@@ -71,7 +74,12 @@ public interface SheetColumnResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    PagedResult<Column> listColumns(long sheetId, EnumSet<ColumnInclusion> includes, PaginationParameters pagination, Integer level) throws SmartsheetException;
+    PagedResult<Column> listColumns(
+            long sheetId,
+            EnumSet<ColumnInclusion> includes,
+            PaginationParameters pagination,
+            Integer level
+    ) throws SmartsheetException;
 
     /**
      * <p>Add column to a sheet.</p>
@@ -122,10 +130,10 @@ public interface SheetColumnResources {
      *
      * @param sheetId the sheetId
      * @param column the column to update limited to the following attributes: index (column's new index in the sheet),
-     * title, sheetId, type, options (optional), symbol (optional), systemColumnType (optional),
-     * autoNumberFormat (optional)
+     *     title, sheetId, type, options (optional), symbol (optional), systemColumnType (optional),
+     *     autoNumberFormat (optional)
      * @return the updated sheet (note that if there is no such resource, this method will throw
-     * ResourceNotFoundException rather than returning null).
+     *     ResourceNotFoundException rather than returning null).
      * @throws SmartsheetException the smartsheet exception
      */
     Column updateColumn(long sheetId, Column column) throws SmartsheetException;

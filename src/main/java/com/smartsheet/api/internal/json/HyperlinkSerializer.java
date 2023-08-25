@@ -1,4 +1,5 @@
 package com.smartsheet.api.internal.json;
+
 /*
  * #[license]
  * Smartsheet SDK for Java
@@ -8,9 +9,9 @@ package com.smartsheet.api.internal.json;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -26,24 +27,27 @@ import com.smartsheet.api.models.Hyperlink;
 
 import java.io.IOException;
 
-public class HyperlinkSerializer extends JsonSerializer<Hyperlink>{
+public class HyperlinkSerializer extends JsonSerializer<Hyperlink> {
 
     @Override
     public void serialize(Hyperlink value, JsonGenerator gen, SerializerProvider serializers)
             throws IOException {
-        if(value.isNull()) {
+        if (value.isNull()) {
             gen.writeNull();
-        }
-        else {
+        } else {
             gen.writeStartObject();
-            if(value.getUrl() != null)
+            if (value.getUrl() != null) {
                 gen.writeStringField("url", value.getUrl());
-            if(value.getReportId() != null)
+            }
+            if (value.getReportId() != null) {
                 gen.writeNumberField("reportId", value.getReportId());
-            if(value.getSheetId() != null)
+            }
+            if (value.getSheetId() != null) {
                 gen.writeNumberField("sheetId", value.getSheetId());
-            if(value.getSightId() != null)
+            }
+            if (value.getSightId() != null) {
                 gen.writeNumberField("sightId", value.getSightId());
+            }
             gen.writeEndObject();
         }
     }

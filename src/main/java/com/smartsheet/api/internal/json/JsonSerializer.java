@@ -20,7 +20,6 @@ package com.smartsheet.api.internal.json;
  * %[license]
  */
 
-
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.smartsheet.api.models.BulkItemResult;
@@ -36,19 +35,19 @@ import java.util.Map;
 
 /**
  * This interface defines methods to handle JSON serialization/de-serialization.
- *
+ * <p>
  * Thread Safety: Implementation of this interface must be thread safe.
  */
 public interface JsonSerializer {
 
     /**
      * Serialize an object to JSON.
-     *
+     * <p>
      * Parameters: - object : the object to serialize - outputStream : the output stream to which the JSON will be
      * written
-     *
+     * <p>
      * Returns: None
-     *
+     * <p>
      * Exceptions: - IllegalArgumentException : if any argument is null - JSONSerializerException : if there is any
      * other error occurred during the operation
      *
@@ -61,12 +60,12 @@ public interface JsonSerializer {
 
     /**
      * Serialize an object to JSON.
-     *
+     * <p>
      * Parameters: - object : the object to serialize - outputStream : the output stream to which the JSON will be
      * written
-     *
+     * <p>
      * Returns: None
-     *
+     * <p>
      * Exceptions: - IllegalArgumentException : if any argument is null - JSONSerializerException : if there is any
      * other error occurred during the operation
      *
@@ -82,18 +81,17 @@ public interface JsonSerializer {
      * @param inputStream the input stream
      * @param <T> the generic type
      * @return the PagedResult containing a list of type T
-     * @throws JSONSerializerException
      */
     <T> PagedResult<T> deserializeDataWrapper(Class<T> objectClass, java.io.InputStream inputStream) throws JSONSerializerException;
 
     /**
      * De-serialize an object from JSON.
-     *
+     * <p>
      * Parameters: - objectClass : the class of the object to de-serialize - inputStream : the input stream from which
      * the JSON will be read
-     *
+     * <p>
      * Returns: the de-serialized object
-     *
+     * <p>
      * Exceptions: - IllegalArgumentException : if any argument is null - JSONSerializerException : if there is any
      * other error occurred during the operation
      *
@@ -110,12 +108,12 @@ public interface JsonSerializer {
 
     /**
      * De-serialize an object list from JSON.
-     *
+     * <p>
      * Parameters: - objectClass : the class of the object (of the list) to de-serialize - inputStream : the input
      * stream from which the JSON will be read
-     *
+     * <p>
      * Returns: the de-serialized list
-     *
+     * <p>
      * Exceptions: - IllegalArgumentException : if any argument is null - JSONSerializerException : if there is any
      * other error occurred during the operation
      *
@@ -125,9 +123,7 @@ public interface JsonSerializer {
      * @return the list
      * @throws JSONSerializerException the JSON serializer exception
      */
-    <T> List<T> deserializeList(Class<T> objectClass, java.io.InputStream inputStream)
-            throws JSONSerializerException;
-
+    <T> List<T> deserializeList(Class<T> objectClass, java.io.InputStream inputStream) throws JSONSerializerException;
 
     /**
      * De-serialize an object list from JSON to a Map.
@@ -177,14 +173,15 @@ public interface JsonSerializer {
      */
     <T> Result<List<T>> deserializeListResult(Class<T> objectClass, java.io.InputStream inputStream)
             throws JSONSerializerException;
+
     /**
      * De-serialize a BulkItemResult object from JSON.
-     *
+     * <p>
      * Parameters:
      * - inputStream : the input stream from which the JSON will be read
-     *
+     * <p>
      * Returns: the de-serialized result
-     *
+     * <p>
      * Exceptions: - IllegalArgumentException : if any argument is null - JSONSerializerException : if there is any
      * other error occurred during the operation
      *
@@ -199,12 +196,12 @@ public interface JsonSerializer {
 
     /**
      * De-serialize a Result object from JSON.
-     *
+     * <p>
      * Parameters: - objectClass : the class of the object (of the Result) to de-serialize - inputStream : the input
      * stream from which the JSON will be read
-     *
+     * <p>
      * Returns: the de-serialized result
-     *
+     * <p>
      * Exceptions: - IllegalArgumentException : if any argument is null - JSONSerializerException : if there is any
      * other error occurred during the operation
      *
@@ -219,7 +216,6 @@ public interface JsonSerializer {
      * De-serialize json to EventResult.
      * @param inputStream the input stream
      * @return the EventResult containing a list of Event
-     * @throws JSONSerializerException
      */
     EventResult deserializeEventResult(java.io.InputStream inputStream)
             throws JSONSerializerException;

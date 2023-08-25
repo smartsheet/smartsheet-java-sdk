@@ -28,9 +28,6 @@ import com.smartsheet.api.SmartsheetException;
  * <p>Thread safety: Exceptions are not thread safe.</p>
  */
 public class OAuthAuthorizationCodeException extends SmartsheetException {
-    /**
-     *
-     */
     private static final long serialVersionUID = 1L;
 
     /**

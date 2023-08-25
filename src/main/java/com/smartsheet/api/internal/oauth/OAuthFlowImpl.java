@@ -56,64 +56,68 @@ import java.util.Map;
 
 /**
  * Default implementation of OAuthFlow.
- *
+ * <p>
  * Thread Safety: Implementation of this interface must be thread safe.
  */
 public class OAuthFlowImpl implements OAuthFlow {
     /**
      * Represents the HttpClient.
-     *
+     * <p>
      * It will be initialized in constructor and will not change afterwards.
      */
     private HttpClient httpClient;
 
     /**
      * Represents the JsonSerializer.
-     *
+     * <p>
      * It will be initialized in constructor and will not change afterwards.
      */
     private JsonSerializer jsonSerializer;
 
     /**
      * Represents the Client ID.
-     *
+     * <p>
      * It will be initialized in constructor and will not change afterwards.
      */
     private String clientId;
 
     /**
      * Represents the Client Secret.
-     *
+     * <p>
      * It will be initialized in constructor and will not change afterwards.
      */
     private String clientSecret;
 
     /**
      * Represents the redirect URL.
-     *
+     * <p>
      * It will be initialized in constructor and will not change afterwards.
      */
     private String redirectURL;
 
     /**
      * Represents the authorization URL.
-     *
+     * <p>
      * It will be initialized in constructor and will not change afterwards.
      */
     private String authorizationURL;
 
     /**
      * Represents the token URL.
-     *
+     * <p>
      * It will be initialized in constructor and will not change afterwards.
      */
     private String tokenURL;
 
+    private static final String CODE = "code";
+    private static final String CLIENT_ID = "client_id";
+    private static final String REDIRECT_URI = "redirect_uri";
+    private static final String ERROR = "error";
+    private static final String REFRESH_TOKEN = "refresh_token";
+
     /**
      * Constructor.
-     *
-     * Exceptions: -
-     *
+     * <p>
      * @param clientId the client id
      * @param clientSecret the client secret
      * @param redirectURL the redirect url
@@ -155,9 +159,9 @@ public class OAuthFlowImpl implements OAuthFlow {
 
         // Build a map of parameters for the URL
         Map<String, Object> params = new HashMap<>();
-        params.put("response_type", "code");
-        params.put("client_id", clientId);
-        params.put("redirect_uri", redirectURL);
+        params.put("response_type", CODE);
+        params.put(CLIENT_ID, clientId);
+        params.put(REDIRECT_URI, redirectURL);
         params.put("state", state);
 
         StringBuilder scopeBuffer = new StringBuilder();
@@ -211,7 +215,7 @@ public class OAuthFlowImpl implements OAuthFlow {
         }
 
         // Check for an error response in the URL and throw it.
-        String error = map.get("error");
+        String error = map.get(ERROR);
         if (error != null && !error.isEmpty()) {
             if ("access_denied".equals(error)) {
                 throw new AccessDeniedException("Access denied.");
@@ -226,7 +230,7 @@ public class OAuthFlowImpl implements OAuthFlow {
         }
 
         AuthorizationResult authorizationResult = new AuthorizationResult();
-        authorizationResult.setCode(map.get("code"));
+        authorizationResult.setCode(map.get(CODE));
         authorizationResult.setState(map.get("state"));
         Long expiresIn;
         try {
@@ -241,7 +245,7 @@ public class OAuthFlowImpl implements OAuthFlow {
 
     /**
      * Obtain a new token using AuthorizationResult.
-     *
+     * <p>
      * Exceptions:
      *   - IllegalArgumentException : if authorizationResult is null
      *   - InvalidTokenRequestException : if the token request is invalid (note that this won't really happen in current implementation)
@@ -285,9 +289,9 @@ public class OAuthFlowImpl implements OAuthFlow {
         // create a Map of the parameters
         Map<String, Object> params = new HashMap<>();
         params.put("grant_type", "authorization_code");
-        params.put("client_id", clientId);
-        params.put("code", authorizationResult.getCode());
-        params.put("redirect_uri", redirectURL);
+        params.put(CLIENT_ID, clientId);
+        params.put(CODE, authorizationResult.getCode());
+        params.put(REDIRECT_URI, redirectURL);
         params.put("hash", hash);
 
         // Generate the URL and then get the token
@@ -296,7 +300,7 @@ public class OAuthFlowImpl implements OAuthFlow {
 
     /**
      * Refresh token.
-     *
+     * <p>
      * Exceptions:
      *   - IllegalArgumentException : if token is null.
      *   - InvalidTokenRequestException : if the token request is invalid
@@ -331,10 +335,10 @@ public class OAuthFlowImpl implements OAuthFlow {
 
         // Create a map of the parameters
         Map<String, Object> params = new HashMap<>();
-        params.put("grant_type", "refresh_token");
-        params.put("client_id", clientId);
-        params.put("refresh_token", token.getRefreshToken());
-        params.put("redirect_uri", redirectURL);
+        params.put("grant_type", REFRESH_TOKEN);
+        params.put(CLIENT_ID, clientId);
+        params.put(REFRESH_TOKEN, token.getRefreshToken());
+        params.put(REDIRECT_URI, redirectURL);
         params.put("hash", hash);
 
         // Generate the URL and get the token
@@ -343,7 +347,7 @@ public class OAuthFlowImpl implements OAuthFlow {
 
     /**
      * Request a token.
-     *
+     * <p>
      * Exceptions:
      *   - IllegalArgumentException : if url is null or empty
      *   - InvalidTokenRequestException : if the token request is invalid
@@ -378,8 +382,8 @@ public class OAuthFlowImpl implements OAuthFlow {
         httpClient.releaseConnection();
 
         // Check for a error response and throw it.
-        if (response.getStatusCode() != 200 && map.get("error") != null) {
-            String errorType = map.get("error").toString();
+        if (response.getStatusCode() != 200 && map.get(ERROR) != null) {
+            String errorType = map.get(ERROR).toString();
             String errorDescription = map.get("message") == null ? "" : (String) map.get("message");
             if ("invalid_request".equals(errorType)) {
                 throw new InvalidTokenRequestException(errorDescription);
@@ -403,7 +407,7 @@ public class OAuthFlowImpl implements OAuthFlow {
         token.setAccessToken(tempObj == null ? "" : (String) tempObj);
         tempObj = map.get("token_type");
         token.setTokenType(tempObj == null ? "" : (String) tempObj);
-        tempObj = map.get("refresh_token");
+        tempObj = map.get(REFRESH_TOKEN);
         token.setRefreshToken(tempObj == null ? "" : (String) tempObj);
 
         Long expiresIn;
@@ -419,7 +423,7 @@ public class OAuthFlowImpl implements OAuthFlow {
 
     /**
      * Revoke access token.
-     *
+     * <p>
      * Exceptions:
      *   - IllegalArgumentException : if url is null or empty
      *   - InvalidTokenRequestException : if the token request is invalid

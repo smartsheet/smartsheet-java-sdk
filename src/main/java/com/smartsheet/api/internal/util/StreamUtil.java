@@ -9,9 +9,9 @@ package com.smartsheet.api.internal.util;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -19,7 +19,6 @@ package com.smartsheet.api.internal.util;
  * limitations under the License.
  * %[license]
  */
-
 
 import org.apache.commons.codec.binary.Hex;
 
@@ -68,9 +67,14 @@ public class StreamUtil {
      * @param bufferSize the size of the transfer buffer to use
      * @param readToEOF  if we should read to end-of-file of the source (true) or just 1 buffer's worth (false)
      */
-    public static long copyContentIntoOutputStream(InputStream source, OutputStream target, int bufferSize,
-                                                   boolean readToEOF) throws IOException {
-        byte[] tempBuf = new byte[Math.max(ONE_KB, bufferSize)];  // at least a 1k buffer
+    public static long copyContentIntoOutputStream(
+            InputStream source,
+            OutputStream target,
+            int bufferSize,
+            boolean readToEOF
+    ) throws IOException {
+        // at least a 1k buffer
+        byte[] tempBuf = new byte[Math.max(ONE_KB, bufferSize)];
         long bytesWritten = 0;
         while (true) {
             int bytesRead = source.read(tempBuf);
@@ -102,7 +106,8 @@ public class StreamUtil {
         }
         // if the source supports mark/reset then we read and then reset up to the read-back size
         if (source.markSupported()) {
-            readbackSize = Math.max(TEN_KB, readbackSize);  // at least 10 KB (minimal waste, handles those -1 ContentLength cases)
+            // at least 10 KB (minimal waste, handles those -1 ContentLength cases)
+            readbackSize = Math.max(TEN_KB, readbackSize);
             source.mark(readbackSize);
             copyContentIntoOutputStream(source, target, readbackSize, false);
             source.reset();
@@ -117,7 +122,7 @@ public class StreamUtil {
 
     /** a convenience method to reduce all the casting of HttpEntity.getContentLength() to int */
     public static InputStream cloneContent(InputStream source, long readbackSize, ByteArrayOutputStream target) throws IOException {
-        return cloneContent(source, (int)Math.min((long)Integer.MAX_VALUE, readbackSize), target);
+        return cloneContent(source, (int) Math.min((long) Integer.MAX_VALUE, readbackSize), target);
     }
 
     /**

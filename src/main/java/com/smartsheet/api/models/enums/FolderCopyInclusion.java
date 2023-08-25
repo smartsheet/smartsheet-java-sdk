@@ -38,7 +38,9 @@ public enum FolderCopyInclusion {
 
     String inclusion;
 
-    FolderCopyInclusion(String inclusion) { this.inclusion = inclusion;}
+    FolderCopyInclusion(String inclusion) {
+        this.inclusion = inclusion;
+    }
 
     @Override
     public String toString() {

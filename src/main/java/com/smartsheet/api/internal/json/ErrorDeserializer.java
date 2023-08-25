@@ -1,4 +1,5 @@
 package com.smartsheet.api.internal.json;
+
 /*
  * #[license]
  * Smartsheet SDK for Java
@@ -8,9 +9,9 @@ package com.smartsheet.api.internal.json;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -41,24 +42,26 @@ public class ErrorDeserializer extends JsonDeserializer<com.smartsheet.api.model
 
         final com.smartsheet.api.models.Error error = new com.smartsheet.api.models.Error();
 
-        if(jp.getCurrentToken() == JsonToken.START_OBJECT) {
+        if (jp.getCurrentToken() == JsonToken.START_OBJECT) {
             JsonNode node = jp.getCodec().readTree(jp);
-            if(node.get("errorCode") != null)
+            if (node.get("errorCode") != null) {
                 error.setErrorCode(node.get("errorCode").asInt());
-            if(node.get("message") != null)
+            }
+            if (node.get("message") != null) {
                 error.setMessage(node.get("message").asText());
-            if(node.get("refId") != null)
+            }
+            if (node.get("refId") != null) {
                 error.setRefId(node.get("refId").asText());
+            }
             JsonNode detail = node.get("detail");
-            if(detail != null) {
-                if(detail.isArray()) {
-                    String _as_text = detail.toString();
-                    List<ErrorDetail> details = mapper.readValue(_as_text,
-                            new TypeReference<List<ErrorDetail>>(){});
+            if (detail != null) {
+                if (detail.isArray()) {
+                    String asText = detail.toString();
+                    List<ErrorDetail> details = mapper.readValue(asText, new TypeReference<List<ErrorDetail>>(){});
                     error.setDetail(details);
-                }
-                else
+                } else {
                     error.setDetail(mapper.treeToValue(detail, ErrorDetail.class));
+                }
             }
             return error;
         }

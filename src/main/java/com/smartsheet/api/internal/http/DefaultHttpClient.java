@@ -62,11 +62,11 @@ import java.util.Random;
 import java.util.Set;
 
 /**
- * This is the Apache HttpClient (http://hc.apache.org/httpcomponents-client-ga/index.html) based HttpClient
- * implementation.
- *
+ * This is the Apache HttpClient based HttpClient implementation.
+ * <p>
  * Thread Safety: This class is thread safe because it is immutable and the underlying Apache CloseableHttpClient is
  * thread safe.
+ * @see <a href="http://hc.apache.org/httpcomponents-client-ga/index.html">Apache HttpClient</a>
  */
 public class DefaultHttpClient implements HttpClient {
 
@@ -120,6 +120,9 @@ public class DefaultHttpClient implements HttpClient {
     /** whether to log pretty or compact */
     private boolean tracePrettyPrint = TRACE_PRETTY_PRINT_DEFAULT;
 
+    private static final String LOG_ARG = "{}";
+    private static final String ERROR_OCCURRED = "Error occurred.";
+
     /**
      * Constructor.
      */
@@ -158,10 +161,10 @@ public class DefaultHttpClient implements HttpClient {
                 response.getStatusCode(), durationMillis);
         if (response.getStatusCode() != 200) {
             // log the request and response on error
-            logger.warn("{}", RequestAndResponseData.of(request, requestEntity, response, responseEntity, REQUEST_RESPONSE));
+            logger.warn(LOG_ARG, RequestAndResponseData.of(request, requestEntity, response, responseEntity, REQUEST_RESPONSE));
         } else {
             // log the summary request and response on success
-            logger.debug("{}", RequestAndResponseData.of(request, requestEntity, response, responseEntity, REQUEST_RESPONSE_SUMMARY));
+            logger.debug(LOG_ARG, RequestAndResponseData.of(request, requestEntity, response, responseEntity, REQUEST_RESPONSE_SUMMARY));
         }
     }
 
@@ -322,7 +325,7 @@ public class DefaultHttpClient implements HttpClient {
             } catch (ClientProtocolException e) {
                 try {
                     logger.warn("ClientProtocolException " + e.getMessage());
-                    logger.warn("{}", RequestAndResponseData.of(apacheHttpRequest, requestEntityCopy, smartsheetResponse,
+                    logger.warn(LOG_ARG, RequestAndResponseData.of(apacheHttpRequest, requestEntityCopy, smartsheetResponse,
                             responseEntityCopy, REQUEST_RESPONSE_SUMMARY));
                     // if this is a PUT and was retried by the http client, the body content stream is at the
                     // end and is a NonRepeatableRequest. If we marked the body content stream prior to execute,
@@ -335,11 +338,11 @@ public class DefaultHttpClient implements HttpClient {
                     }
                 } catch (IOException ignore) {
                 }
-                throw new HttpClientException("Error occurred.", e);
+                throw new HttpClientException(ERROR_OCCURRED, e);
             } catch (NoHttpResponseException e) {
                 try {
                     logger.warn("NoHttpResponseException " + e.getMessage());
-                    logger.warn("{}", RequestAndResponseData.of(apacheHttpRequest, requestEntityCopy, smartsheetResponse,
+                    logger.warn(LOG_ARG, RequestAndResponseData.of(apacheHttpRequest, requestEntityCopy, smartsheetResponse,
                             responseEntityCopy, REQUEST_RESPONSE_SUMMARY));
                     // check to see if the response was empty and this was a POST. All other HTTP methods
                     // will be automatically retried by the http client.
@@ -352,14 +355,14 @@ public class DefaultHttpClient implements HttpClient {
                     }
                 } catch (IOException ignore) {
                 }
-                throw new HttpClientException("Error occurred.", e);
+                throw new HttpClientException(ERROR_OCCURRED, e);
             } catch (IOException e) {
                 try {
-                    logger.warn("{}", RequestAndResponseData.of(apacheHttpRequest, requestEntityCopy, smartsheetResponse,
+                    logger.warn(LOG_ARG, RequestAndResponseData.of(apacheHttpRequest, requestEntityCopy, smartsheetResponse,
                             responseEntityCopy, REQUEST_RESPONSE_SUMMARY));
                 } catch (IOException ignore) {
                 }
-                throw new HttpClientException("Error occurred.", e);
+                throw new HttpClientException(ERROR_OCCURRED, e);
             }
         }
         return smartsheetResponse;

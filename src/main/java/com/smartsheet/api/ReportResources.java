@@ -1,6 +1,5 @@
 package com.smartsheet.api;
 
-
 /*
  * #[license]
  * Smartsheet SDK for Java
@@ -10,9 +9,9 @@ package com.smartsheet.api;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -49,7 +48,7 @@ public interface ReportResources {
      * @param pageSize page size parameter for pagination
      * @param page page parameter for pagination
      * @return  the report (note that if there is no such resource, this method will throw ResourceNotFoundException
-     * rather than returning null)
+     *     rather than returning null)
      * @throws IllegalArgumentException if any argument is null or empty string
      * @throws InvalidRequestException if there is any problem with the REST API request
      * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
@@ -57,7 +56,7 @@ public interface ReportResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-     Report getReport(long reportId, EnumSet<ReportInclusion> includes, Integer pageSize, Integer page) throws SmartsheetException;
+    Report getReport(long reportId, EnumSet<ReportInclusion> includes, Integer pageSize, Integer page) throws SmartsheetException;
 
     /**
      * <p>Get a report.</p>
@@ -70,7 +69,7 @@ public interface ReportResources {
      * @param page page parameter for pagination
      * @param level compatibility level
      * @return  the report (note that if there is no such resource, this method will throw ResourceNotFoundException
-     * rather than returning null)
+     *     rather than returning null)
      * @throws IllegalArgumentException if any argument is null or empty string
      * @throws InvalidRequestException if there is any problem with the REST API request
      * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
@@ -78,7 +77,13 @@ public interface ReportResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    Report getReport(long reportId, EnumSet<ReportInclusion> includes, Integer pageSize, Integer page, Integer level) throws SmartsheetException;
+    Report getReport(
+            long reportId,
+            EnumSet<ReportInclusion> includes,
+            Integer pageSize,
+            Integer page,
+            Integer level
+    ) throws SmartsheetException;
 
     /**
      * <p>Send a sheet as a PDF attachment via Email To the designated recipients.</p>
@@ -94,7 +99,7 @@ public interface ReportResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-     void sendReport(long reportId, SheetEmail email) throws SmartsheetException;
+    void sendReport(long reportId, SheetEmail email) throws SmartsheetException;
 
     /**
      * <p>List all reports.</p>
@@ -113,7 +118,7 @@ public interface ReportResources {
      * @return all sheets (note that empty list will be returned if there is none)
      * @throws SmartsheetException the smartsheet exception
      */
-     PagedResult<Report> listReports(PaginationParameters parameters, Date modifiedSince) throws SmartsheetException;
+    PagedResult<Report> listReports(PaginationParameters parameters, Date modifiedSince) throws SmartsheetException;
 
     /**
      * <p>List all reports.</p>
@@ -131,8 +136,8 @@ public interface ReportResources {
      * @return all sheets (note that empty list will be returned if there is none)
      * @throws SmartsheetException the smartsheet exception
      */
-     @Deprecated
-     PagedResult<Report> listReports(PaginationParameters parameters) throws SmartsheetException;
+    @Deprecated
+    PagedResult<Report> listReports(PaginationParameters parameters) throws SmartsheetException;
 
     /**
      * <p>Get a Report as an excel file.</p>

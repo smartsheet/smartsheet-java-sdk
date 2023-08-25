@@ -9,9 +9,9 @@ package com.smartsheet.api.oauth;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -19,8 +19,6 @@ package com.smartsheet.api.oauth;
  * limitations under the License.
  * %[license]
  */
-
-
 
 import com.smartsheet.api.internal.http.DefaultHttpClient;
 import com.smartsheet.api.internal.http.HttpClient;
@@ -290,23 +288,23 @@ public class OAuthFlowBuilder {
      * @throws IllegalArgumentException if clientId, clientSecret or redirectURL isn't set yet.
      */
     public OAuthFlow build() {
-        if(httpClient == null){
+        if (httpClient == null) {
             httpClient = new DefaultHttpClient();
         }
 
-        if(tokenURL == null){
+        if (tokenURL == null) {
             tokenURL = DEFAULT_TOKEN_URL;
         }
 
-        if(authorizationURL == null){
+        if (authorizationURL == null) {
             authorizationURL = DEFAULT_AUTHORIZATION_URL;
         }
 
-        if(jsonSerializer == null){
+        if (jsonSerializer == null) {
             jsonSerializer = new JacksonJsonSerializer();
         }
 
-        if(clientId == null || clientSecret == null || redirectURL == null){
+        if (clientId == null || clientSecret == null || redirectURL == null) {
             throw new IllegalStateException();
         }
 

@@ -9,9 +9,9 @@ package com.smartsheet.api.internal.json;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -19,7 +19,6 @@ package com.smartsheet.api.internal.json;
  * limitations under the License.
  * %[license]
  */
-
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
@@ -33,6 +32,9 @@ public class CellLinkSerializer extends JsonSerializer<CellLink> {
 
     private final com.fasterxml.jackson.databind.JsonSerializer<Object> defaultSerializer;
 
+    /**
+     * Constructor
+     */
     public CellLinkSerializer(JsonSerializer<Object> defaultSerializer) {
         Util.throwIfNull(defaultSerializer);
         this.defaultSerializer = defaultSerializer;
@@ -42,10 +44,9 @@ public class CellLinkSerializer extends JsonSerializer<CellLink> {
     public void serialize(CellLink cellLink, JsonGenerator gen, SerializerProvider serializers)
             throws IOException {
 
-        if(cellLink.isNull()) {
+        if (cellLink.isNull()) {
             gen.writeNull();
-        }
-        else {
+        } else {
             defaultSerializer.serialize(cellLink, gen, serializers);
         }
     }

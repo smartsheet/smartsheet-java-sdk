@@ -9,9 +9,9 @@ package com.smartsheet.api;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -29,7 +29,6 @@ import java.util.List;
 import java.util.Set;
 
 public interface FavoriteResources {
-
     /**
      * <p>Adds one or more items to the user’s list of Favorite items.</p>
      *
@@ -44,12 +43,11 @@ public interface FavoriteResources {
      *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
      *   SmartsheetException : if there is any other error occurred during the operation
      *
-     * @param favorites the list of favorites object limited to the following attributes: *
-     * objectId * type
+     * @param favorites the list of favorites object limited to the following attributes: * objectId * type
      * @return a single Favorite object or an array of Favorite objects
      * @throws SmartsheetException the smartsheet exception
      */
-     List<Favorite> addFavorites(List<Favorite> favorites) throws SmartsheetException;
+    List<Favorite> addFavorites(List<Favorite> favorites) throws SmartsheetException;
 
     /**
      * <p>Gets a list of all of the user’s Favorite items.</p>

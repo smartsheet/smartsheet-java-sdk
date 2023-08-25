@@ -1,4 +1,5 @@
 package com.smartsheet.api.internal.json;
+
 /*
  * #[license]
  * Smartsheet SDK for Java
@@ -8,9 +9,9 @@ package com.smartsheet.api.internal.json;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -74,10 +75,9 @@ public class WidgetContentDeserializer extends JsonDeserializer<WidgetContent> {
         try {
             parsedType = WidgetType.valueOf(superset.type);
         } catch (IllegalArgumentException e) {
-            if(superset.type.equals("WidgetWebContent")) {
+            if (superset.type.equals("WidgetWebContent")) {
                 parsedType = WidgetType.WEBCONTENT;
-            }
-            else {
+            } else {
                 // If a new object type is introduced to the Smartsheet API that this version of the SDK
                 // doesn't support, return null instead of throwing an exception.
                 return null;
@@ -126,7 +126,8 @@ public class WidgetContentDeserializer extends JsonDeserializer<WidgetContent> {
                 widgetContent = reportWidgetContent;
                 break;
 
-            case RICHTEXT:            // Intentional fallthrough
+            case RICHTEXT:
+                // Intentional fallthrough
             case TITLE:
                 TitleRichTextWidgetContent titleRichTextWidgetContent = new TitleRichTextWidgetContent();
                 titleRichTextWidgetContent.setBackgroundColor(superset.backgroundColor);

@@ -7,8 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## Unreleased - 
 ### Added
 - Added latest Checkstyle version, 
-  - for violations in `src/main/` the build WILL NOT fail since we haven't fixed all the existing violations  
-  - for violations in `src/test/` the build WILL fail since we fixed all the existing violations  
+  - for violations in `src/main/` the build WILL fail if we exceed 20 violations since we haven't fixed all existing ones yet  
+  - for violations in `src/test/` the build WILL fail if there is a single violation  
 
 ## [3.1.2] - 2023-07-25
 ### Changed

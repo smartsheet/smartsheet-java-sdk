@@ -9,9 +9,9 @@ package com.smartsheet.api.internal.util;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -19,7 +19,6 @@ package com.smartsheet.api.internal.util;
  * limitations under the License.
  * %[license]
  */
-
 
 import org.jetbrains.annotations.Nullable;
 
@@ -46,6 +45,9 @@ public class QueryUtil {
         return list.stream().map(Object::toString).collect(Collectors.joining(","));
     }
 
+    /**
+     * Generate a URL
+     */
     public static String generateUrl(@Nullable String baseUrl, @Nullable Map<String, ? extends Object> parameters) {
         if (baseUrl == null) {
             baseUrl = "";
@@ -64,7 +66,7 @@ public class QueryUtil {
             return "";
         }
         StringBuilder result = new StringBuilder();
-        for(Map.Entry<String, ? extends Object> entry : parameters.entrySet()) {
+        for (Map.Entry<String, ? extends Object> entry : parameters.entrySet()) {
             // Check to see if the key/value isn't null or empty string
             if (entry.getKey() != null && (entry.getValue() != null && !entry.getValue().toString().equals(""))) {
                 String encodedQueryParam = URLEncoder.encode(entry.getKey(), StandardCharsets.UTF_8);

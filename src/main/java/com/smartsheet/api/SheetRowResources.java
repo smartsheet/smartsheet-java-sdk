@@ -9,9 +9,9 @@ package com.smartsheet.api;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -19,7 +19,6 @@ package com.smartsheet.api;
  * limitations under the License.
  * %[license]
  */
-
 
 import com.smartsheet.api.models.CopyOrMoveRowDirective;
 import com.smartsheet.api.models.CopyOrMoveRowResult;
@@ -77,7 +76,12 @@ public interface SheetRowResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    List<Row> addRows(long sheetId, List<Row> rows, EnumSet<RowInclusion> includes, EnumSet<ObjectExclusion> excludes ) throws SmartsheetException;
+    List<Row> addRows(
+            long sheetId,
+            List<Row> rows,
+            EnumSet<RowInclusion> includes,
+            EnumSet<ObjectExclusion> excludes
+    ) throws SmartsheetException;
 
     /**
      * <p>Insert rows to a sheet, allowing partial success. If a row cannot be inserted, it will fail, while the others may succeed..</p>
@@ -113,8 +117,12 @@ public interface SheetRowResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    PartialRowUpdateResult addRowsAllowPartialSuccess(long sheetId, List<Row> rows,
-                                                             EnumSet<RowInclusion> includes, EnumSet<ObjectExclusion> excludes) throws SmartsheetException;
+    PartialRowUpdateResult addRowsAllowPartialSuccess(
+            long sheetId,
+            List<Row> rows,
+            EnumSet<RowInclusion> includes,
+            EnumSet<ObjectExclusion> excludes
+    ) throws SmartsheetException;
 
     /**
      * <p>Get a row.</p>
@@ -126,7 +134,7 @@ public interface SheetRowResources {
      * @param includes optional objects to include
      * @param excludes optional objects to exclude
      * @return the created row (note that if there is no such resource, this method will throw ResourceNotFoundException rather
-     * than returning null).
+     *     than returning null).
      * @throws IllegalArgumentException if any argument is null or empty string
      * @throws InvalidRequestException if there is any problem with the REST API request
      * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
@@ -261,7 +269,12 @@ public interface SheetRowResources {
      * @return a list of rows
      * @throws SmartsheetException the smartsheet exception
      */
-    List<Row> updateRows(long sheetId, List<Row> rows, EnumSet<RowInclusion> includes, EnumSet<ObjectExclusion> excludes) throws SmartsheetException;
+    List<Row> updateRows(
+            long sheetId,
+            List<Row> rows,
+            EnumSet<RowInclusion> includes,
+            EnumSet<ObjectExclusion> excludes
+    ) throws SmartsheetException;
 
     /**
      * <p>Update rows, but allow partial success. The PartialRowUpdateResult will contain the successful
@@ -305,8 +318,12 @@ public interface SheetRowResources {
      * @return a list of rows
      * @throws SmartsheetException the smartsheet exception
      */
-    PartialRowUpdateResult updateRowsAllowPartialSuccess(long sheetId, List<Row> rows,
-                                                                EnumSet<RowInclusion> includes, EnumSet<ObjectExclusion> excludes) throws SmartsheetException;
+    PartialRowUpdateResult updateRowsAllowPartialSuccess(
+            long sheetId,
+            List<Row> rows,
+            EnumSet<RowInclusion> includes,
+            EnumSet<ObjectExclusion> excludes
+    ) throws SmartsheetException;
 
     /**
      * <p>Moves Row(s) from the Sheet specified in the URL to (the bottom of) another sheet.</p>
@@ -328,7 +345,12 @@ public interface SheetRowResources {
      * @return the result object
      * @throws SmartsheetException the smartsheet exception
      */
-    CopyOrMoveRowResult moveRows(Long sheetId, EnumSet<RowMoveInclusion> includes, Boolean ignoreRowsNotFound, CopyOrMoveRowDirective moveParameters) throws SmartsheetException;
+    CopyOrMoveRowResult moveRows(
+            Long sheetId,
+            EnumSet<RowMoveInclusion> includes,
+            Boolean ignoreRowsNotFound,
+            CopyOrMoveRowDirective moveParameters
+    ) throws SmartsheetException;
 
     /**
      * <p>Copies Row(s) from the Sheet specified in the URL to (the bottom of) another sheet.</p>
@@ -350,7 +372,12 @@ public interface SheetRowResources {
      * @return the result object
      * @throws SmartsheetException the smartsheet exception
      */
-    CopyOrMoveRowResult copyRows(Long sheetId, EnumSet<RowCopyInclusion> includes, Boolean ignoreRowsNotFound, CopyOrMoveRowDirective copyParameters) throws SmartsheetException;
+    CopyOrMoveRowResult copyRows(
+            Long sheetId,
+            EnumSet<RowCopyInclusion> includes,
+            Boolean ignoreRowsNotFound,
+            CopyOrMoveRowDirective copyParameters
+    ) throws SmartsheetException;
 
     /**
      * <p>Creates an object of RowAttachmentResources.</p>

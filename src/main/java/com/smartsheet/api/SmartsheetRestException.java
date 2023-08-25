@@ -9,9 +9,9 @@ package com.smartsheet.api;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -20,13 +20,11 @@ package com.smartsheet.api;
  * %[license]
  */
 
-
-
 import com.smartsheet.api.models.Error;
 
 /**
  * <p>This is the exception to indicate errors (Error objects of Smartsheet REST API) returned from Smartsheet REST API.</p>
- * 
+ *
  * <p>Thread safety: Exceptions are not thread safe.</p>
  */
 public class SmartsheetRestException extends SmartsheetException {
@@ -66,8 +64,6 @@ public class SmartsheetRestException extends SmartsheetException {
         detail = error.getDetail();
     }
 
-
-
     /**
      * <p>Returns the error code.</p>
      *
@@ -82,12 +78,16 @@ public class SmartsheetRestException extends SmartsheetException {
      *
      * @return the refId
      */
-    public String getRefId() { return this.refId; }
+    public String getRefId() {
+        return this.refId;
+    }
 
     /**
      * <p>Returns the error detail</p>
      *
      * @return the error detail
      */
-    public Object getDetail() { return this.detail; }
+    public Object getDetail() {
+        return this.detail;
+    }
 }

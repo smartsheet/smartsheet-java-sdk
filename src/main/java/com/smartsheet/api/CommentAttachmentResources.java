@@ -1,4 +1,5 @@
 package com.smartsheet.api;
+
 /*
  * #[license]
  * Smartsheet SDK for Java
@@ -8,9 +9,9 @@ package com.smartsheet.api;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -84,26 +85,13 @@ public interface CommentAttachmentResources {
      * @return the attachment
      * @throws SmartsheetException the smartsheet exception
      */
-    Attachment attachFile(long sheetId, long commentId, InputStream inputStream, String contentType, long contentLength, String attachmentName) throws SmartsheetException;
+    Attachment attachFile(
+            long sheetId,
+            long commentId,
+            InputStream inputStream,
+            String contentType,
+            long contentLength,
+            String attachmentName
+    ) throws SmartsheetException;
 
-//    /**
-//     * <p>Attach a file to a comment with multipart upload.</p>
-//     *
-//     * <p>It mirrors to the following Smartsheet REST API method:</p>
-//     *<p>POST /sheets/{sheetId}/comments/{commentId}/attachments</p>
-//     *
-//     * @param sheetId the id of the sheet
-//     * @param comment the comment object to be added
-//     * @param file the file to attach
-//     * @param contentType the content type of the file
-//     * @return the created attachment
-//     * @throws FileNotFoundException the file not found exception
-//     * @throws IllegalArgumentException if any argument is null or empty string
-//     * @throws InvalidRequestException if there is any problem with the REST API request
-//     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-//     * @throws ResourceNotFoundException if the resource cannot be found
-//     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-//     * @throws SmartsheetException if there is any other error during the operation
-//     */
-//    Attachment attachFileWithMultipartUpload(long sheetId, Comment comment, File file, String contentType) throws FileNotFoundException, SmartsheetException;
-    }
+}

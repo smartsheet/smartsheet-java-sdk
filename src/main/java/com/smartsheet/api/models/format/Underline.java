@@ -29,7 +29,7 @@ public enum Underline {
     ;
     private final boolean underlined;
 
-    Underline (boolean underlined) {
+    Underline(boolean underlined) {
         this.underlined = underlined;
     }
 

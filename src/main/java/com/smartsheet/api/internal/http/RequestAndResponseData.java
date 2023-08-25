@@ -104,14 +104,21 @@ public class RequestAndResponseData {
                 return dataObject;
             }
 
+            /**
+             * Add a command
+             */
             public HttpPayloadData.Builder withCommand(String command) {
                 getDataObject().command = command;
                 return this;
             }
 
+            /**
+             * Build the RequestData
+             */
             public RequestData build() {
                 try {
-                    return dataObject;  // if nothing was added then nothing was built (i.e., this can be null)
+                    // if nothing was added then nothing was built (i.e., this can be null)
+                    return dataObject;
                 } finally {
                     reset();
                 }
@@ -142,11 +149,17 @@ public class RequestAndResponseData {
                 return dataObject;
             }
 
+            /**
+             * Add a status
+             */
             public HttpPayloadData.Builder withStatus(String status) {
                 getDataObject().status = status;
                 return this;
             }
 
+            /**
+             * Build the ResponseData
+             */
             public ResponseData build() {
                 try {
                     // if nothing was added then nothing was built (i.e., this can be null)
@@ -159,6 +172,7 @@ public class RequestAndResponseData {
     }
 
     private static int TRUNCATE_LENGTH = Integer.getInteger("Smartsheet.trace.truncateLen", 1024);
+    private static final String NULL_STRING = "null";
 
     public final RequestData request;
     public final ResponseData response;
@@ -173,71 +187,94 @@ public class RequestAndResponseData {
         return toString(false);
     }
 
+    /**
+     * Convert to a String
+     */
     public String toString(boolean pretty) {
-        final String EOL = pretty ? "\n" : "";
-        final String INDENT  = pretty ? "  " : "";
-        final String INDENT2 = INDENT + INDENT;
-        final String INDENT3 = INDENT2 + INDENT;
+        final String eol = pretty ? "\n" : "";
+        final String indent = pretty ? "  " : "";
+        final String doubleIndent = indent + indent;
+        final String tripleIndent = doubleIndent + indent;
 
         StringBuilder buf = new StringBuilder();
-        buf.append("{").append(EOL);
-        buf.append(INDENT).append("request:");
+        buf.append("{").append(eol);
+        buf.append(indent).append("request:");
         if (request == null) {
-            buf.append("null,").append(EOL);
+            buf.append("null,").append(eol);
         } else {
-            buf.append("{").append(EOL);
-            buf.append(INDENT2).append("command:'").append(request.getCommand()).append("',").append(EOL);
+            buf.append("{").append(eol);
+            buf
+                    .append(doubleIndent)
+                    .append("command:'")
+                    .append(request.getCommand())
+                    .append("'")
+                    .append(",")
+                    .append(eol);
             if (request.hasHeaders()) {
-                buf.append(INDENT2).append("headers:");
+                buf.append(doubleIndent).append("headers:");
                 if (request.getHeaders() == null) {
-                    buf.append("null");
+                    buf.append(NULL_STRING);
                 } else {
-                    buf.append("{").append(EOL);
+                    buf.append("{").append(eol);
                     for (Map.Entry<String, String> header : request.headers.entrySet()) {
-                        buf.append(INDENT3).append("'").append(header.getKey()).append("':'").append(header.getValue()).append("',").append(EOL);
+                        buf
+                                .append(tripleIndent)
+                                .append("'")
+                                .append(header.getKey())
+                                .append("':'")
+                                .append(header.getValue())
+                                .append("'")
+                                .append(",")
+                                .append(eol);
                     }
-                    buf.append(INDENT2).append("},").append(EOL);
+                    buf.append(doubleIndent).append("}").append(",").append(eol);
                 }
             }
             if (request.hasBody()) {
-                buf.append(INDENT2).append("body:");
+                buf.append(doubleIndent).append("body:");
                 if (request.body == null) {
-                    buf.append("null");
+                    buf.append(NULL_STRING);
                 } else {
                     buf.append("'").append(request.body).append("'");
                 }
-                buf.append(EOL);
+                buf.append(eol);
             }
-            buf.append(INDENT).append("},").append(EOL);
+            buf.append(indent).append("},").append(eol);
         }
-        buf.append(INDENT).append("response:");
+        buf.append(indent).append("response:");
         if (response == null) {
-            buf.append("null").append(EOL);
+            buf.append(NULL_STRING).append(eol);
         } else {
-            buf.append("{").append(EOL);
-            buf.append(INDENT2).append("status:'").append(response.getStatus()).append("',").append(EOL);
+            buf.append("{").append(eol);
+            buf.append(doubleIndent).append("status:'").append(response.getStatus()).append("',").append(eol);
             if (response.hasHeaders()) {
-                buf.append(INDENT2).append("headers:");
+                buf.append(doubleIndent).append("headers:");
                 if (response.getHeaders() == null) {
-                    buf.append("null");
+                    buf.append(NULL_STRING);
                 } else {
-                    buf.append("{").append(EOL);
+                    buf.append("{").append(eol);
                     for (Map.Entry<String, String> header : response.headers.entrySet()) {
-                        buf.append(INDENT3).append("'").append(header.getKey()).append("':'").append(header.getValue()).append("',").append(EOL);
+                        buf
+                                .append(tripleIndent)
+                                .append("'")
+                                .append(header.getKey())
+                                .append("':'")
+                                .append(header.getValue())
+                                .append("',").append(eol);
                     }
-                    buf.append(INDENT2).append("},").append(EOL);
+                    buf.append(doubleIndent).append("},").append(eol);
                 }
             }
             if (response.hasBody()) {
-                buf.append(INDENT2).append("body:");
+                buf.append(doubleIndent).append("body:");
                 if (response.body == null) {
-                    buf.append("null");
+                    buf.append(NULL_STRING);
                 } else {
                     buf.append("'").append(response.body).append("'");
                 }
-                buf.append(EOL);
+                buf.append(eol);
             }
-            buf.append(INDENT).append("}").append(EOL);
+            buf.append(indent).append("}").append(eol);
         }
         buf.append("}");
         return buf.toString();
@@ -273,7 +310,9 @@ public class RequestAndResponseData {
                 if (traces.contains(Trace.RequestBody)) {
                     requestBuilder.setBody(binaryBody ? binaryBody(requestEntity) : getContentAsText(requestEntity));
                 } else if (traces.contains(Trace.RequestBodySummary)) {
-                    requestBuilder.setBody(binaryBody ? binaryBody(requestEntity) : truncateAsNeeded(getContentAsText(requestEntity), TRUNCATE_LENGTH));
+                    requestBuilder.setBody(binaryBody
+                            ? binaryBody(requestEntity)
+                            : truncateAsNeeded(getContentAsText(requestEntity), TRUNCATE_LENGTH));
                 }
             }
         }
@@ -295,7 +334,9 @@ public class RequestAndResponseData {
                 if (traces.contains(Trace.ResponseBody)) {
                     responseBuilder.setBody(binaryBody ? binaryBody(responseEntity) : getContentAsText(responseEntity));
                 } else if (traces.contains(Trace.ResponseBodySummary)) {
-                    responseBuilder.setBody(binaryBody ? binaryBody(responseEntity) : truncateAsNeeded(getContentAsText(responseEntity), TRUNCATE_LENGTH));
+                    responseBuilder.setBody(binaryBody
+                            ? binaryBody(responseEntity)
+                            : truncateAsNeeded(getContentAsText(responseEntity), TRUNCATE_LENGTH));
                 }
             }
         }
@@ -306,6 +347,9 @@ public class RequestAndResponseData {
         return "**possibly-binary(type:" + entity.getContentType() + ", len:" + entity.getContentLength() + ")**";
     }
 
+    /**
+     * Get the Content as a String
+     */
     public static String getContentAsText(HttpEntitySnapshot entity) {
         if (entity == null) {
             return "";
@@ -316,6 +360,9 @@ public class RequestAndResponseData {
         return contentAsText;
     }
 
+    /**
+     * Truncate the string to the desired length if needed
+     */
     public static String truncateAsNeeded(String string, int truncateLen) {
         if (truncateLen == -1) {
             return string;

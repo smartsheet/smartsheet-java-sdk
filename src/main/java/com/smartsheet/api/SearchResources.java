@@ -9,9 +9,9 @@ package com.smartsheet.api;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -19,7 +19,6 @@ package com.smartsheet.api;
  * limitations under the License.
  * %[license]
  */
-
 
 import com.smartsheet.api.models.SearchResult;
 import com.smartsheet.api.models.enums.SearchInclusion;
@@ -31,7 +30,7 @@ import java.util.EnumSet;
 
 /**
  * This interface provides methods to access search resources.
- *
+ * <p>
  * Thread Safety: Implementation of this interface must be thread safe.
  */
 public interface SearchResources {
@@ -43,7 +42,7 @@ public interface SearchResources {
      *
      * @param query the query text
      * @return the search result (note that if there is no such resource, this method will throw
-     * ResourceNotFoundException rather than returning null).
+     *     ResourceNotFoundException rather than returning null).
      * @throws IllegalArgumentException if any argument is null or empty string
      * @throws InvalidRequestException if there is any problem with the REST API request
      * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
@@ -65,7 +64,7 @@ public interface SearchResources {
      * @param modifiedSince only return items modified since this date
      * @param scopes enum set of search filters
      * @return the search result (note that if there is no such resource, this method will throw
-     * ResourceNotFoundException rather than returning null).
+     *     ResourceNotFoundException rather than returning null).
      * @throws IllegalArgumentException if any argument is null or empty string
      * @throws InvalidRequestException if there is any problem with the REST API request
      * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
@@ -73,7 +72,13 @@ public interface SearchResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    SearchResult search(String query, EnumSet<SearchInclusion> includes, SearchLocation location, Date modifiedSince, EnumSet<SearchScope> scopes) throws SmartsheetException;
+    SearchResult search(
+            String query,
+            EnumSet<SearchInclusion> includes,
+            SearchLocation location,
+            Date modifiedSince,
+            EnumSet<SearchScope> scopes
+    ) throws SmartsheetException;
 
     /**
      * <p>Performs a search within a sheet.</p>
@@ -83,7 +88,7 @@ public interface SearchResources {
      * @param sheetId the sheet id
      * @param query the query text
      * @return the search result (note that if there is no such resource, this method will throw
-     * ResourceNotFoundException rather than returning null).
+     *     ResourceNotFoundException rather than returning null).
      * @throws IllegalArgumentException if any argument is null or empty string
      * @throws InvalidRequestException if there is any problem with the REST API request
      * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)

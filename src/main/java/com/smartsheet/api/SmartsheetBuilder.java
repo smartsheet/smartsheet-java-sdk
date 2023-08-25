@@ -9,9 +9,9 @@ package com.smartsheet.api;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -19,8 +19,6 @@ package com.smartsheet.api;
  * limitations under the License.
  * %[license]
  */
-
-
 
 import com.smartsheet.api.internal.SmartsheetImpl;
 import com.smartsheet.api.internal.http.HttpClient;
@@ -151,7 +149,6 @@ public class SmartsheetBuilder {
      *
      * <p>This interface is only valid when the DefaultHttpClient is used.</p>
      *
-     * @param maxRetryTimeMillis
      * @return the smartsheet builder
      */
     public SmartsheetBuilder setMaxRetryTimeMillis(long maxRetryTimeMillis) {
@@ -182,7 +179,6 @@ public class SmartsheetBuilder {
         this.changeAgent = changeAgent;
         return this;
     }
-
 
     /**
      * <p>Gets the http client.</p>
@@ -254,19 +250,25 @@ public class SmartsheetBuilder {
      * @throws IllegalStateException if accessToken isn't set yet.
      */
     public Smartsheet build() {
-        if(baseURI == null){
+        if (baseURI == null) {
             baseURI = DEFAULT_BASE_URI;
         }
 
-        if(accessToken == null){
+        if (accessToken == null) {
             accessToken = System.getenv("SMARTSHEET_ACCESS_TOKEN");
         }
 
         SmartsheetImpl smartsheet = new SmartsheetImpl(baseURI, accessToken, httpClient, jsonSerializer);
 
-        if (changeAgent != null) { smartsheet.setChangeAgent(changeAgent); }
-        if (assumedUser != null) { smartsheet.setAssumedUser(assumedUser); }
-        if (maxRetryTimeMillis != null) { smartsheet.setMaxRetryTimeMillis(maxRetryTimeMillis); }
+        if (changeAgent != null) {
+            smartsheet.setChangeAgent(changeAgent);
+        }
+        if (assumedUser != null) {
+            smartsheet.setAssumedUser(assumedUser);
+        }
+        if (maxRetryTimeMillis != null) {
+            smartsheet.setMaxRetryTimeMillis(maxRetryTimeMillis);
+        }
 
         return smartsheet;
     }
