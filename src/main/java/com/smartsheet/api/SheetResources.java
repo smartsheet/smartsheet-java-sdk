@@ -391,7 +391,7 @@ public interface SheetResources {
      *
      * <p>It mirrors to the following Smartsheet REST API method: POST /folders/{folderId}/sheets/import</p>
      *
-     * @param folderID the folder id
+     * @param folderId the folder id
      * @param file path to the XLSX file
      * @param sheetName destination sheet name
      * @param headerRowIndex index (0 based) of row to be used for column names
@@ -405,7 +405,7 @@ public interface SheetResources {
      * @throws SmartsheetException if there is any other error during the operation
      */
     Sheet importXlsxInFolder(
-            long folderID,
+            long folderId,
             String file,
             String sheetName,
             Integer headerRowIndex,
