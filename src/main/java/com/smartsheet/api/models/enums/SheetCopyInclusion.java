@@ -33,11 +33,14 @@ public enum SheetCopyInclusion {
     RULERECIPIENTS("ruleRecipients"),
     RULES("rules"),
     SHARES("shares"),
-    ALL("all");    // deprecated
+    // All is deprecated
+    ALL("all");
 
     String inclusion;
 
-    SheetCopyInclusion(String inclusion) { this.inclusion = inclusion;}
+    SheetCopyInclusion(String inclusion) {
+        this.inclusion = inclusion;
+    }
 
     @Override
     public String toString() {

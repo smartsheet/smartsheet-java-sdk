@@ -9,9 +9,9 @@ package com.smartsheet.api;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -19,7 +19,6 @@ package com.smartsheet.api;
  * limitations under the License.
  * %[license]
  */
-
 
 import org.slf4j.LoggerFactory;
 
@@ -55,14 +54,20 @@ public enum Trace {
     },
     ;
     // this makes it possible to add other (or additional) Traces for specific types
-    public boolean addReplacements(Set<Trace> traces) { return false; }
+    public boolean addReplacements(Set<Trace> traces) {
+        return false;
+    }
 
+    /**
+     * Parse the string into a Set of Traces
+     */
     public static Set<Trace> parse(String traces) {
         if (traces == null || traces.trim().isEmpty()) {
             return Collections.emptySet();
         }
         String[] parts = traces.split("[, ]+");
-        Set<Trace> results = new HashSet<>(parts.length + parts.length / 2); // pad for load-factor
+        // pad for load-factor
+        Set<Trace> results = new HashSet<>(parts.length + parts.length / 2);
         for (String part : parts) {
             try {
                 Trace trace = valueOf(part);

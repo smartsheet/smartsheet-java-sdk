@@ -49,6 +49,8 @@ public class AndroidHttpClient implements HttpClient {
 
     private static final MediaType MEDIA_TYPE_JSON = MediaType.parse("application/json");
 
+    private static final String ERROR_OCCURRED = "Error occurred.";
+
     /**
      * Represents the underlying OkHttpClient.
      * <p>
@@ -140,7 +142,7 @@ public class AndroidHttpClient implements HttpClient {
             try {
                 builder.url(smartsheetRequest.getUri().toURL());
             } catch (MalformedURLException e) {
-                throw new HttpClientException("Error occurred.", e);
+                throw new HttpClientException(ERROR_OCCURRED, e);
             }
 
             // Clone our headers to request
@@ -164,7 +166,7 @@ public class AndroidHttpClient implements HttpClient {
                         break;
                 }
             } catch (IOException e) {
-                throw new HttpClientException("Error occurred.", e);
+                throw new HttpClientException(ERROR_OCCURRED, e);
             }
 
             // mark the body so we can reset on retry
@@ -223,7 +225,7 @@ public class AndroidHttpClient implements HttpClient {
                 this.releaseConnection();
 
             } catch (IOException ex) {
-                throw new HttpClientException("Error occurred.", ex);
+                throw new HttpClientException(ERROR_OCCURRED, ex);
             }
         }
         return smartsheetResponse;

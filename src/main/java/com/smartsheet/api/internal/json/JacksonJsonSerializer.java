@@ -54,16 +54,16 @@ import java.util.TimeZone;
 
 /**
  * This is the Jackson based JsonSerializer implementation.
- *
+ * <p>
  * Thread Safety: This class is thread safe because it is immutable and the underlying Jackson ObjectMapper is thread
  * safe as long as it is not re-configured.
  */
-public class JacksonJsonSerializer implements JsonSerializer{
+public class JacksonJsonSerializer implements JsonSerializer {
     /**
      * Represents the ObjectMapper used to serialize/de-serialize JSON.
-     *
+     * <p>
      * It will be initialized in a static initializer and will not change afterwards.
-     *
+     * <p>
      * Because ObjectMapper is thread-safe as long as it's not reconfigured, a static final class-level ObjectMapper is
      * used to achieve best performance.
      */
@@ -135,9 +135,9 @@ public class JacksonJsonSerializer implements JsonSerializer{
 
     /**
      * Constructor.
-     *
+     * <p>
      * Parameters: None
-     *
+     * <p>
      * Exceptions: None
      */
     public JacksonJsonSerializer() {
@@ -145,13 +145,13 @@ public class JacksonJsonSerializer implements JsonSerializer{
 
     /**
      * Serialize an object to JSON.
-     *
+     * <p>
      * Parameters:
      *   object : the object to serialize
      *   outputStream : the output stream to which the JSON will be written
-     *
+     * <p>
      * Returns: None
-     *
+     * <p>
      * Exceptions: - IllegalArgumentException : if any argument is null - JSONSerializerException : if there is any
      * other error occurred during the operation
      *
@@ -176,18 +176,18 @@ public class JacksonJsonSerializer implements JsonSerializer{
 
     /**
      * Serialize an object to JSON.
-     *
+     * <p>
      * Parameters:
      *   object : the object to serialize
      *   outputStream : the output stream to which the JSON will be written
-     *
+     * <p>
      * Returns: None
-     *
+     * <p>
      * Exceptions: - IllegalArgumentException : if any argument is null - JSONSerializerException : if there is any
      * other error occurred during the operation
      *
-     * @return a string with the deserialized object
      * @param object the object to serialized
+     * @return a string with the deserialized object
      * @throws JSONSerializerException thrown for any serialization exception we catch
      */
     public <T> String serialize(T object) throws JSONSerializerException {
@@ -195,7 +195,7 @@ public class JacksonJsonSerializer implements JsonSerializer{
         String value;
 
         try {
-            value= OBJECT_MAPPER.writeValueAsString(object);
+            value = OBJECT_MAPPER.writeValueAsString(object);
         } catch (JsonGenerationException e) {
             throw new JSONSerializerException(e);
         } catch (JsonMappingException e) {
@@ -208,19 +208,15 @@ public class JacksonJsonSerializer implements JsonSerializer{
 
     /**
      * De-serialize an object from JSON.
-     *
+     * <p>
      * Returns: the de-serialized object
-     *
+     * <p>
      * Exceptions:
      *   - IllegalArgumentException : if any argument is null
      *   - JSONSerializerException : if there is any other error occurred during the operation
      *
      * @param inputStream the input stream from which the JSON will be read
      * @param objectClass the class of the object to de-serialize
-     * @return
-     * @throws IOException
-     * @throws JsonMappingException
-     * @throws JsonParseException
      */
     // @Override
     public <T> T deserialize(Class<T> objectClass, java.io.InputStream inputStream) throws IOException {
@@ -231,17 +227,15 @@ public class JacksonJsonSerializer implements JsonSerializer{
 
     /**
      * De-serialize an object list from JSON.
-     *
+     * <p>
      * Returns: the de-serialized list
-     *
+     * <p>
      * Exceptions:
      *   - IllegalArgumentException : if any argument is null
      *   - JSONSerializerException : if there is any other error occurred during the operation
      *
      * @param inputStream the input stream from which the JSON will be read
      * @param objectClass the class of the object (of the list) to de-serialize
-     * @return
-     * @throws JSONSerializerException
      */
     // @Override
     public <T> List<T> deserializeList(Class<T> objectClass, java.io.InputStream inputStream)
@@ -267,22 +261,24 @@ public class JacksonJsonSerializer implements JsonSerializer{
 
     /**
      * De-serialize to a PagedResult (holds pagination info) from JSON
-     * @param objectClass
-     * @param inputStream
-     * @param <T>
-     * @return
-     * @throws JSONSerializerException
      */
     @Override
-    public <T> PagedResult<T> deserializeDataWrapper(Class<T> objectClass, java.io.InputStream inputStream) throws JSONSerializerException{
+    public <T> PagedResult<T> deserializeDataWrapper(
+            Class<T> objectClass,
+            java.io.InputStream inputStream
+    ) throws JSONSerializerException {
         Util.throwIfNull(objectClass, inputStream);
 
         PagedResult<T> rw = null;
 
         try {
             // Read the json input stream into a List.
-            rw = OBJECT_MAPPER.readValue(inputStream,
-                    OBJECT_MAPPER.getTypeFactory().constructParametrizedType(PagedResult.class, PagedResult.class, objectClass));
+            rw = OBJECT_MAPPER.readValue(
+                    inputStream,
+                    OBJECT_MAPPER
+                            .getTypeFactory()
+                            .constructParametrizedType(PagedResult.class, PagedResult.class, objectClass)
+            );
         } catch (JsonParseException e) {
             throw new JSONSerializerException(e);
         } catch (JsonMappingException e) {
@@ -296,10 +292,6 @@ public class JacksonJsonSerializer implements JsonSerializer{
 
     /**
      * De-serialize to a map from JSON.
-     *
-     * @param inputStream
-     * @return
-     * @throws JSONSerializerException
      */
     // @Override
     public Map<String, Object> deserializeMap(InputStream inputStream) throws JSONSerializerException {
@@ -331,7 +323,6 @@ public class JacksonJsonSerializer implements JsonSerializer{
      * @param inputStream the input stream from which the JSON will be read
      * @param objectClass the class of the object (of the Result) to de-serialize
      * @return the de-serialized result
-     * @throws JSONSerializerException
      */
     // @Override
     public <T> Result<T> deserializeResult(Class<T> objectClass, java.io.InputStream inputStream)
@@ -367,8 +358,6 @@ public class JacksonJsonSerializer implements JsonSerializer{
      *
      * @param inputStream the input stream from which the JSON will be read
      * @param objectClass the class of the object (of the Result) to de-serialize
-     * @return
-     * @throws JSONSerializerException
      */
     // @Override
     public <T> Result<List<T>> deserializeListResult(Class<T> objectClass, java.io.InputStream inputStream)
@@ -411,12 +400,11 @@ public class JacksonJsonSerializer implements JsonSerializer{
 
     /**
      * De-serialize to a CopyOrMoveRowResult object from JSON
-     * @param inputStream
-     * @return
-     * @throws JSONSerializerException
      */
     @Override
-    public CopyOrMoveRowResult deserializeCopyOrMoveRow(java.io.InputStream inputStream) throws JSONSerializerException{
+    public CopyOrMoveRowResult deserializeCopyOrMoveRow(
+            java.io.InputStream inputStream
+    ) throws JSONSerializerException {
         Util.throwIfNull(inputStream);
 
         CopyOrMoveRowResult rw = null;
@@ -437,12 +425,9 @@ public class JacksonJsonSerializer implements JsonSerializer{
 
     /**
      * De-serialize to a EventResult (holds pagination info) from JSON
-     * @param inputStream
-     * @return
-     * @throws JSONSerializerException
      */
     @Override
-    public EventResult deserializeEventResult(java.io.InputStream inputStream) throws JSONSerializerException{
+    public EventResult deserializeEventResult(java.io.InputStream inputStream) throws JSONSerializerException {
         Util.throwIfNull(inputStream);
 
         EventResult rw = null;

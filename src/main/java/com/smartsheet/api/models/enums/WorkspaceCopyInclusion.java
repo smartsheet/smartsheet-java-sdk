@@ -39,7 +39,9 @@ public enum WorkspaceCopyInclusion {
 
     String inclusion;
 
-    WorkspaceCopyInclusion(String inclusion) { this.inclusion = inclusion;}
+    WorkspaceCopyInclusion(String inclusion) {
+        this.inclusion = inclusion;
+    }
 
     @Override
     public String toString() {

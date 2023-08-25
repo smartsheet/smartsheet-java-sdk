@@ -32,7 +32,7 @@ import java.util.EnumSet;
 
 /**
  * This interface provides methods to access row column resources that are associated to a sheet object.
- *
+ * <p>
  * Thread Safety: Implementation of this interface must be thread safe.
  */
 public interface RowColumnResources {
@@ -54,10 +54,15 @@ public interface RowColumnResources {
      * @param columnId the column id
      * @param pagination the pagination parameters
      * @return the modification history (note that if there is no such resource, this method will throw
-     * ResourceNotFoundException rather than returning null).
+     *     ResourceNotFoundException rather than returning null).
      * @throws SmartsheetException the smartsheet exception
      */
-    PagedResult<CellHistory> getCellHistory(long sheetId, long rowId, long columnId, PaginationParameters pagination) throws SmartsheetException;
+    PagedResult<CellHistory> getCellHistory(
+            long sheetId,
+            long rowId,
+            long columnId,
+            PaginationParameters pagination
+    ) throws SmartsheetException;
 
     /**
      * <p>Get the cell modification history.</p>
@@ -79,7 +84,7 @@ public interface RowColumnResources {
      * @param includes cell history inclusion
      * @param level compatbility level
      * @return the modification history (note that if there is no such resource, this method will throw
-     * ResourceNotFoundException rather than returning null).
+     *     ResourceNotFoundException rather than returning null).
      * @throws SmartsheetException the smartsheet exception
      */
     PagedResult<CellHistory> getCellHistory(long sheetId, long rowId, long columnId, PaginationParameters pagination,
@@ -103,11 +108,16 @@ public interface RowColumnResources {
      * @param columnId the column id
      * @param file the file path
      * @param contentType MIME type
-     * ResourceNotFoundException rather than returning null).
      * @throws SmartsheetException the smartsheet exception
      * @throws FileNotFoundException image file not found
      */
-    void addImageToCell(long sheetId, long rowId, long columnId, String file, String contentType) throws FileNotFoundException, SmartsheetException;
+    void addImageToCell(
+            long sheetId,
+            long rowId,
+            long columnId,
+            String file,
+            String contentType
+    ) throws FileNotFoundException, SmartsheetException;
 
     /**
      * <p>Uploads an image to the specified cell within a sheet.</p>
@@ -129,17 +139,24 @@ public interface RowColumnResources {
      * @param contentType MIME type
      * @param overrideValidation override column type validation
      * @param altText alternate description for the image
-     * ResourceNotFoundException rather than returning null).
      * @throws SmartsheetException the smartsheet exception
      * @throws FileNotFoundException image file not found
      */
-    void addImageToCell(long sheetId, long rowId, long columnId, String file, String contentType, boolean overrideValidation, String altText) throws FileNotFoundException, SmartsheetException;
+    void addImageToCell(
+            long sheetId,
+            long rowId,
+            long columnId,
+            String file,
+            String contentType,
+            boolean overrideValidation,
+            String altText
+    ) throws FileNotFoundException, SmartsheetException;
 
     /**
      * Add an image to a cell.
-     *
+     * <p>
      * It mirrors the following Smartsheet REST API method: POST /sheets/{sheetId}/rows/{rowId}/columns/{columnId}/cellimages
-     *
+     * <p>
      * Exceptions:
      *   InvalidRequestException : if there is any problem with the REST API request
      *   AuthorizationException : if there is any problem with the REST API authorization(access token)
@@ -163,9 +180,9 @@ public interface RowColumnResources {
 
     /**
      * Add an image to a cell.
-     *
+     * <p>
      * It mirrors the following Smartsheet REST API method: POST /sheets/{sheetId}/rows/{rowId}/columns/{columnId}/cellimages
-     *
+     * <p>
      * Exceptions:
      *   InvalidRequestException : if there is any problem with the REST API request
      *   AuthorizationException : if there is any problem with the REST API authorization(access token)
@@ -184,6 +201,14 @@ public interface RowColumnResources {
      * @param altText alternate description for the image
      * @throws SmartsheetException the smartsheet exception
      */
-    void addImageToCell(long sheetId, long rowId, long columnId, InputStream inputStream, String contentType,
-                               long contentLength, boolean overrideValidation, String altText) throws SmartsheetException;
+    void addImageToCell(
+            long sheetId,
+            long rowId,
+            long columnId,
+            InputStream inputStream,
+            String contentType,
+            long contentLength,
+            boolean overrideValidation,
+            String altText
+    ) throws SmartsheetException;
 }

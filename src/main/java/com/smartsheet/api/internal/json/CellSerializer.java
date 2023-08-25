@@ -1,4 +1,5 @@
 package com.smartsheet.api.internal.json;
+
 /*
  * #[license]
  * Smartsheet SDK for Java
@@ -8,9 +9,9 @@ package com.smartsheet.api.internal.json;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -38,16 +39,17 @@ public class CellSerializer extends JsonSerializer<Cell> {
 
     private final JsonSerializer<Object> defaultSerializer;
 
+    /**
+     * Constructor
+     */
     public CellSerializer(JsonSerializer<Object> defaultSerializer) {
         Util.throwIfNull(defaultSerializer);
         this.defaultSerializer = defaultSerializer;
     }
 
     @Override
-    public void serialize(Cell cell, JsonGenerator gen, SerializerProvider serializers)
-            throws IOException  {
-
-        if(cell.getLinkInFromCell() != null && cell.getValue() == null) {
+    public void serialize(Cell cell, JsonGenerator gen, SerializerProvider serializers) throws IOException {
+        if (cell.getLinkInFromCell() != null && cell.getValue() == null) {
             // setting value to ExplicitNull here will force serialization of a null
             cell.setValue(new ExplicitNull());
         }

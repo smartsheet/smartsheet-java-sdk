@@ -9,9 +9,9 @@ package com.smartsheet.api;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -20,32 +20,30 @@ package com.smartsheet.api;
  * %[license]
  */
 
-
-
 import com.smartsheet.api.models.Column;
 
 /**
- * @deprecated As of release 2.0
  * <p>This interface provides methods to access Column resources.</p>
  *
  * <p>Thread Safety: Implementation of this interface must be thread safe.</p>
+ * @deprecated As of release 2.0
  */
 @Deprecated
 public interface ColumnResources {
 
     /**
-     * @deprecated As of release 2.0
      * @param column the column to update
      * @return the updated Column (note that if there is no such resource, this method will throw
-     * ResourceNotFoundException rather than returning null).
+     *     ResourceNotFoundException rather than returning null).
+     * @deprecated As of release 2.0
      */
     @Deprecated
-    Column updateColumn(Column column) ;
+    Column updateColumn(Column column);
 
     /**
-     * @deprecated As of release 2.0
      * @param id id of the column
      * @param sheetId the sheet id
+     * @deprecated As of release 2.0
      */
     @Deprecated
     void deleteColumn(long id, long sheetId);

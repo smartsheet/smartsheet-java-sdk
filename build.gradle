@@ -35,11 +35,15 @@ plugins {
 }
 
 // Project Settings
+// =============================================
+// The group name. This dictates the prefix our dependency will have once it's published.
 group = 'com.smartsheet'
+// The version. This will be added to the end of the Jar and all other resources that are created during the build.
 version = '3.1.2'
+// The Java version:
 sourceCompatibility = '11'
 
-// Variables to expose
+// Variables to expose. This is mainly for having a convenient place to store/view dependency versions.
 ext {
     assertJVersion = '3.24.2'
     checkstyleVersion = '10.12.1'
@@ -58,12 +62,12 @@ ext {
     slf4jVersion = '1.7.25'
 }
 
-// Tell Gradle where to pull dependencies from
+// Tell Gradle where to download dependencies from
 repositories {
     mavenCentral()
 }
 
-// Libraries we need to import
+// Libraries we need to import to build/test our code
 dependencies {
     // Compile dependencies (dependencies needed to run the lib)
     implementation "com.fasterxml.jackson.core:jackson-core:${jacksonCoreVersion}"
@@ -83,10 +87,12 @@ dependencies {
     testImplementation "org.slf4j:slf4j-simple:${slf4jSimpleVersion}"
 }
 
+// Configuration for our Javadocs
 javadoc {
     source = sourceSets.main.allJava
 }
 
+// Task to run the SDK tests
 tasks.register('sdkTest', Test) {
     // Discover and execute JUnit Platform-based tests
     useJUnitPlatform()
@@ -157,7 +163,9 @@ jacocoTestReport {
 
 // Configuration for the extra Jars we would like to produce
 java {
+    // Produce a Javadoc Jar so people can understand what our code does
     withJavadocJar()
+    // Produce a Sources Jar so people that use our library can analyze our code
     withSourcesJar()
 }
 
@@ -213,8 +221,7 @@ nexusPublishing {
     }
 }
 
-
-// Configuration for how we want to sign our Jar files
+// Configuration for how we want to sign our Jar files. This is how Maven Central will know we are who we say we are when publishing.
 signing {
     // We will have the gpg-agent on the GitHub runner, so we want to use that key to sign
     // Link: https://docs.gradle.org/current/userguide/signing_plugin.html#sec:using_gpg_agent
@@ -239,11 +246,11 @@ signing {
 checkstyle {
     toolVersion = "${checkstyleVersion}"
     configFile = file('config/checkstyle/checkstyle-custom.xml')
-    // If there is a checkstyle violation in our main code, then do not fail the build because we haven't fixed them all yet
-    ignoreFailures = true
 }
 
-// If there is a checkstyle violation in our tests, then fail the build
-checkstyleTest {
-    ignoreFailures = false
+// Override configuration for Checkstyle that runs on our 'src/main' package
+checkstyleMain {
+    // Since our main classes still have some outstanding checkstyle violations, we can allow up to 20 errors so we don't fail on the
+    // existing violations, but will fail if we add any new ones. We do not allow _any_ violations in test files.
+    maxErrors = 20
 }

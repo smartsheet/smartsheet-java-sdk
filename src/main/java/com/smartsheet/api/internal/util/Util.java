@@ -9,9 +9,9 @@ package com.smartsheet.api.internal.util;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -26,7 +26,7 @@ public class Util {
 
     /** faster util method that avoids creation of array for single-arg cases */
     public static <T> T throwIfNull(T obj) {
-        if(obj == null){
+        if (obj == null) {
             throw new IllegalArgumentException();
         }
         return obj;
@@ -34,10 +34,10 @@ public class Util {
 
     /** faster util method that avoids creation of array for two-arg cases */
     public static void throwIfNull(Object obj1, Object obj2) {
-        if(obj1 == null){
+        if (obj1 == null) {
             throw new IllegalArgumentException();
         }
-        if(obj2 == null){
+        if (obj2 == null) {
             throw new IllegalArgumentException();
         }
     }
@@ -52,14 +52,17 @@ public class Util {
         }
     }
 
-
     /** faster util method that avoids creation of array for single-arg cases */
     public static void throwIfEmpty(String string) {
-        if(string != null && string.isEmpty()){ // FIXME - so... null isn't empty?
+        // FIXME - so... null isn't empty?
+        if (string != null && string.isEmpty()) {
             throw new IllegalArgumentException();
         }
     }
 
+    /**
+     * Throw an exception if any of the strings are empty
+     */
     public static void throwIfEmpty(String... strings) {
         for (String string : strings) {
             throwIfEmpty(string);

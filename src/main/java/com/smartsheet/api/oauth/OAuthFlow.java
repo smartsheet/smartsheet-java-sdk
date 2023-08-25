@@ -9,9 +9,9 @@ package com.smartsheet.api.oauth;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -19,7 +19,6 @@ package com.smartsheet.api.oauth;
  * limitations under the License.
  * %[license]
  */
-
 
 import com.smartsheet.api.InvalidRequestException;
 import com.smartsheet.api.internal.http.HttpClientException;
@@ -40,7 +39,7 @@ public interface OAuthFlow {
      *
      * @param scopes the requested scopes
      * @param state an arbitrary string that will be returned to your app; intended to be used by you to ensure that
-     * this redirect is indeed from an OAuth flow that you initiated.
+     *     this redirect is indeed from an OAuth flow that you initiated.
      * @return the authorization URL
      * @throws IllegalArgumentException if scopes is null or empty
      */
@@ -60,8 +59,11 @@ public interface OAuthFlow {
      * @throws IllegalArgumentException if any other error occurred during the operation
      */
     AuthorizationResult extractAuthorizationResult(String authorizationResponseURL) throws
-        URISyntaxException, AccessDeniedException, UnsupportedResponseTypeException, InvalidScopeException,
-        OAuthAuthorizationCodeException;
+            URISyntaxException,
+            AccessDeniedException,
+            UnsupportedResponseTypeException,
+            InvalidScopeException,
+            OAuthAuthorizationCodeException;
 
     /**
      * Obtain a new token using AuthorizationResult.
@@ -75,7 +77,12 @@ public interface OAuthFlow {
      * @throws InvalidRequestException the invalid request exception
      * @throws IllegalArgumentException if any other error occurred during the operation
      */
-    Token obtainNewToken(AuthorizationResult authorizationResult) throws OAuthTokenException, JSONSerializerException, HttpClientException, URISyntaxException, InvalidRequestException;
+    Token obtainNewToken(AuthorizationResult authorizationResult) throws
+            OAuthTokenException,
+            JSONSerializerException,
+            HttpClientException,
+            URISyntaxException,
+            InvalidRequestException;
 
     /**
      * Refresh token.
@@ -89,11 +96,16 @@ public interface OAuthFlow {
      * @throws InvalidRequestException the invalid request exception
      * @throws IllegalArgumentException if any other error occurred during the operation
      */
-    Token refreshToken(Token token) throws OAuthTokenException, JSONSerializerException, HttpClientException, URISyntaxException, InvalidRequestException;
+    Token refreshToken(Token token) throws
+            OAuthTokenException,
+            JSONSerializerException,
+            HttpClientException,
+            URISyntaxException,
+            InvalidRequestException;
 
     /**
      * Revoke access token.
-     *
+     * <p>
      * Exceptions:
      *   - IllegalArgumentException : if url is null or empty
      *   - InvalidTokenRequestException : if the token request is invalid

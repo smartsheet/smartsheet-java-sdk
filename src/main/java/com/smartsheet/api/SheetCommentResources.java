@@ -1,6 +1,5 @@
 package com.smartsheet.api;
 
-
 /*
  * #[license]
  * Smartsheet SDK for Java
@@ -10,9 +9,9 @@ package com.smartsheet.api;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -22,6 +21,7 @@ package com.smartsheet.api;
  */
 
 import com.smartsheet.api.models.Comment;
+
 /**
  * <p>This interface provides methods to access Sheet Comment resources.</p>
  *
@@ -36,7 +36,7 @@ public interface SheetCommentResources {
      * @param sheetId the ID of the sheet
      * @param commentId the ID of the comment
      * @return the comment (note that if there is no such resource, this method will throw ResourceNotFoundException
-     * rather than returning null).
+     *     rather than returning null).
      * @throws SmartsheetException if there is any other error during the operation
      */
     Comment getComment(long sheetId, long commentId) throws SmartsheetException;

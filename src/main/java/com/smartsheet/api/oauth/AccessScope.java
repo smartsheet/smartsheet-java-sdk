@@ -60,6 +60,7 @@ public enum AccessScope {
     WRITE_SHEETS("WRITE_SHEETS");
 
     String scope;
+
     AccessScope(String scope) {
         this.scope = scope;
     }

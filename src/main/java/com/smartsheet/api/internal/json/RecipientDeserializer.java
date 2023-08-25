@@ -1,4 +1,5 @@
 package com.smartsheet.api.internal.json;
+
 /*
  * #[license]
  * Smartsheet SDK for Java
@@ -8,9 +9,9 @@ package com.smartsheet.api.internal.json;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -37,14 +38,13 @@ public class RecipientDeserializer extends JsonDeserializer<Recipient> {
     public Recipient deserialize(JsonParser jp, DeserializationContext ctxt)
             throws IOException, JsonProcessingException {
 
-        if(jp.getCurrentToken() == JsonToken.START_OBJECT) {
+        if (jp.getCurrentToken() == JsonToken.START_OBJECT) {
             JsonNode node = jp.getCodec().readTree(jp);
-            if(node.get("email") != null) {
+            if (node.get("email") != null) {
                 RecipientEmail email = new
                         RecipientEmail.AddRecipientEmailBuilder().setEmail(node.get("email").asText()).build();
                 return email;
-            }
-            else if(node.get("groupId") != null) {
+            } else if (node.get("groupId") != null) {
                 RecipientGroup group = new
                         RecipientGroup.AddRecipientGroupBuilder().setGroupId(node.get("groupId").asLong()).build();
                 return group;

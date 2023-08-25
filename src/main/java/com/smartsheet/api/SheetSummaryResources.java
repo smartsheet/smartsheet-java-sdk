@@ -9,9 +9,9 @@ package com.smartsheet.api;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -19,7 +19,6 @@ package com.smartsheet.api;
  * limitations under the License.
  * %[license]
  */
-
 
 import com.smartsheet.api.models.BulkItemResult;
 import com.smartsheet.api.models.PagedResult;
@@ -132,7 +131,11 @@ public interface SheetSummaryResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    List<SummaryField> updateSheetSummaryFields(long sheetId, List<SummaryField> fields, Boolean renameIfConflict) throws SmartsheetException;
+    List<SummaryField> updateSheetSummaryFields(
+            long sheetId,
+            List<SummaryField> fields,
+            Boolean renameIfConflict
+    ) throws SmartsheetException;
 
     /**
      * <p>Update fields in a sheet summary.</p>
@@ -210,11 +213,17 @@ public interface SheetSummaryResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    Result<SummaryField> addSheetSummaryFieldImage(long sheetId, long fieldId, File file, String contentType, String altText) throws SmartsheetException, FileNotFoundException;
+    Result<SummaryField> addSheetSummaryFieldImage(
+            long sheetId,
+            long fieldId,
+            File file,
+            String contentType,
+            String altText
+    ) throws SmartsheetException, FileNotFoundException;
 
     /**
      * Adds an image to the sheet summary field.
-     *
+     * <p>
      * It mirrors to the following Smartsheet REST API method: POST /sheets/{sheetId}/summary/fields/{fieldId}/images
      *
      * @param sheetId the sheet id
@@ -231,6 +240,12 @@ public interface SheetSummaryResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    Result<SummaryField> addSheetSummaryFieldImage(long sheetId, long fieldId, InputStream inputStream, String contentType,
-                                                          long contentLength, String altText) throws SmartsheetException, FileNotFoundException;
+    Result<SummaryField> addSheetSummaryFieldImage(
+            long sheetId,
+            long fieldId,
+            InputStream inputStream,
+            String contentType,
+            long contentLength,
+            String altText
+    ) throws SmartsheetException, FileNotFoundException;
 }

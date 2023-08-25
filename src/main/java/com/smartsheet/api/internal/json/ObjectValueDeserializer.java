@@ -1,4 +1,5 @@
 package com.smartsheet.api.internal.json;
+
 /*
  * #[license]
  * Smartsheet SDK for Java
@@ -8,9 +9,9 @@ package com.smartsheet.api.internal.json;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -92,15 +93,17 @@ public class ObjectValueDeserializer extends JsonDeserializer<ObjectValue> {
                     objectValue = contactObjectValue;
                     break;
 
-                case DATE:                // Intentional fallthrough
-                case DATETIME:            // Intentional fallthrough
+                case DATE:
+                    // Intentional fallthrough
+                case DATETIME:
+                    // Intentional fallthrough
                 case ABSTRACT_DATETIME:
                     objectValue = new DateObjectValue(parsedObjectType, superset.value);
                     break;
 
                 case MULTI_CONTACT:
                     List<ContactObjectValue> contactObjectValues = new ArrayList<>();
-                    for(Object contact: superset.values) {
+                    for (Object contact: superset.values) {
                         contactObjectValue = mapper.convertValue(contact, ContactObjectValue.class);
                         contactObjectValues.add(contactObjectValue);
                     }
@@ -108,7 +111,7 @@ public class ObjectValueDeserializer extends JsonDeserializer<ObjectValue> {
                     break;
 
                 case MULTI_PICKLIST:
-                    objectValue = new MultiPicklistObjectValue((List<String>)superset.values);
+                    objectValue = new MultiPicklistObjectValue((List<String>) superset.values);
                     break;
 
                 default:
@@ -128,7 +131,8 @@ public class ObjectValueDeserializer extends JsonDeserializer<ObjectValue> {
     }
 
     private static class ObjectValueAttributeSuperset {
-        public String objectType; // This needs to be represented as a string so that any new object types added won't completely break the API
+        // This needs to be represented as a string so that any new object types added won't completely break the API
+        public String objectType;
 
         // PREDECESSOR_LIST specific attributes
         public List<Predecessor> predecessors;
