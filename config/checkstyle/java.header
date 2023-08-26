@@ -1,5 +1,5 @@
-package com.smartsheet.api.models;
-
+The package will go here, so this line is ignored.
+This line should be blank, so it is also ignored.
 /*
  * Smartsheet SDK for Java
  * Copyright (C) 2023 Smartsheet
@@ -16,22 +16,3 @@ package com.smartsheet.api.models;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-import com.smartsheet.api.models.enums.UserStatus;
-import org.junit.jupiter.api.Test;
-
-import static org.assertj.core.api.Assertions.assertThat;
-
-class UserStatusTest {
-
-    @Test
-    void test() {
-        assertThat(UserStatus.valueOf("ACTIVE")).isNotNull();
-        assertThat(UserStatus.valueOf("PENDING")).isNotNull();
-        assertThat(UserStatus.valueOf("DECLINED")).isNotNull();
-        assertThat(UserStatus.valueOf("DEACTIVATED")).isNotNull();
-
-        assertThat(UserStatus.values()).hasSize(4);
-    }
-
-}

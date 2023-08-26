@@ -72,6 +72,12 @@
         <property name="file" value="${config_loc}/checkstyle-suppressions.xml" />
     </module>
 
+    <!-- File Header -->
+    <module name="Header">
+        <property name="headerFile" value="${config_loc}/java.header"/>
+        <property name="ignoreLines" value="1, 2"/>
+    </module>
+
     <module name="TreeWalker">
 
         <property name="tabWidth" value="4"/>
