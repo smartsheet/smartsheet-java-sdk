@@ -1,5 +1,4 @@
 /*
- * Smartsheet SDK for Java
  * Copyright (C) 2023 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
