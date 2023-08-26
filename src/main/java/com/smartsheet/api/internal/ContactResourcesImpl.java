@@ -1,5 +1,3 @@
-package com.smartsheet.api.internal;
-
 /*
  * Smartsheet SDK for Java
  * Copyright (C) 2023 Smartsheet
@@ -16,6 +14,8 @@ package com.smartsheet.api.internal;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+package com.smartsheet.api.internal;
 
 import com.smartsheet.api.ContactResources;
 import com.smartsheet.api.SmartsheetException;

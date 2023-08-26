@@ -1,5 +1,3 @@
-package com.smartsheet.api.oauth;
-
 /*
  * Smartsheet SDK for Java
  * Copyright (C) 2023 Smartsheet
@@ -16,6 +14,8 @@ package com.smartsheet.api.oauth;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+package com.smartsheet.api.oauth;
 
 /**
  * <p>This is the exception thrown by {@link OAuthFlow} to indicate an "invalid_client" error occurred when obtaining

@@ -1,5 +1,3 @@
-package com.smartsheet.api.internal.util;
-
 /*
  * Smartsheet SDK for Java
  * Copyright (C) 2023 Smartsheet
@@ -16,6 +14,8 @@ package com.smartsheet.api.internal.util;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+package com.smartsheet.api.internal.util;
 
 import com.smartsheet.api.models.DeleteUserParameters;
 import org.junit.jupiter.api.Test;

@@ -1,5 +1,3 @@
-package com.smartsheet.api.models;
-
 /*
  * Smartsheet SDK for Java
  * Copyright (C) 2023 Smartsheet
@@ -16,6 +14,8 @@ package com.smartsheet.api.models;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+package com.smartsheet.api.models;
 
 import com.smartsheet.api.models.enums.CrossSheetReferenceStatus;
 

@@ -1,5 +1,3 @@
-package com.smartsheet.api.oauth;
-
 /*
  * Smartsheet SDK for Java
  * Copyright (C) 2023 Smartsheet
@@ -16,6 +14,8 @@ package com.smartsheet.api.oauth;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+package com.smartsheet.api.oauth;
 
 /**
  * Represents the access scope. These are the scopes that are required to access an end user's smartsheet data and
