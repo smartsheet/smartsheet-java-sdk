@@ -14,9 +14,8 @@
  * limitations under the License.
  */
 
-package com.smartsheet.api.models;
+package com.smartsheet.api.models.enums;
 
-import com.smartsheet.api.models.enums.ObjectInclusion;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -27,36 +26,34 @@ import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class ObjectInclusionTest {
-
+class WebhookStatusTest {
     @Nested
     @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-    class ToStringTests {
+    class ValueOfTests {
         @ParameterizedTest
-        @MethodSource("toStringArguments")
-        void toString(ObjectInclusion objectInclusion, String expectedString) {
+        @MethodSource("valuesArguments")
+        void valueOf(WebhookStatus expectedWebhookStatus, String value) {
             // Act
-            String result = objectInclusion.toString();
+            WebhookStatus result = WebhookStatus.valueOf(value);
 
             // Assert
-            assertThat(result).isEqualTo(expectedString);
+            assertThat(result).isEqualTo(expectedWebhookStatus);
 
             // This will cause the test to fail if we ever add a new value.
             // Please remember to add the new value in the method below
-            assertThat(ObjectInclusion.values()).hasSize(9);
+            assertThat(WebhookStatus.values()).hasSize(8);
         }
 
-        private Stream<Arguments> toStringArguments() {
+        private Stream<Arguments> valuesArguments() {
             return Stream.of(
-                    Arguments.of(ObjectInclusion.DISCUSSIONS, "discussions"),
-                    Arguments.of(ObjectInclusion.ATTACHMENTS, "attachments"),
-                    Arguments.of(ObjectInclusion.DATA, "data"),
-                    Arguments.of(ObjectInclusion.COLUMNS, "columns"),
-                    Arguments.of(ObjectInclusion.TEMPLATES, "templates"),
-                    Arguments.of(ObjectInclusion.FORMS, "forms"),
-                    Arguments.of(ObjectInclusion.CELL_LINKS, "cellLinks"),
-                    Arguments.of(ObjectInclusion.FORMAT, "format"),
-                    Arguments.of(ObjectInclusion.SOURCE, "source")
+                    Arguments.of(WebhookStatus.ENABLED, "ENABLED"),
+                    Arguments.of(WebhookStatus.NEW_NOT_VERIFIED, "NEW_NOT_VERIFIED"),
+                    Arguments.of(WebhookStatus.DISABLED_BY_OWNER, "DISABLED_BY_OWNER"),
+                    Arguments.of(WebhookStatus.DISABLED_VERIFICATION_FAILED, "DISABLED_VERIFICATION_FAILED"),
+                    Arguments.of(WebhookStatus.DISABLED_CALLBACK_FAILED, "DISABLED_CALLBACK_FAILED"),
+                    Arguments.of(WebhookStatus.DISABLED_APP_REVOKED, "DISABLED_APP_REVOKED"),
+                    Arguments.of(WebhookStatus.DISABLED_SCOPE_INACCESSIBLE, "DISABLED_SCOPE_INACCESSIBLE"),
+                    Arguments.of(WebhookStatus.DISABLED_ADMINISTRATIVE, "DISABLED_ADMINISTRATIVE")
             );
         }
     }

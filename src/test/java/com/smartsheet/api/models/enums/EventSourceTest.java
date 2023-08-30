@@ -14,9 +14,8 @@
  * limitations under the License.
  */
 
-package com.smartsheet.api.models;
+package com.smartsheet.api.models.enums;
 
-import com.smartsheet.api.models.enums.ObjectInclusion;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -27,36 +26,32 @@ import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class ObjectInclusionTest {
-
+class EventSourceTest {
     @Nested
     @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-    class ToStringTests {
+    class ValueOfTests {
         @ParameterizedTest
-        @MethodSource("toStringArguments")
-        void toString(ObjectInclusion objectInclusion, String expectedString) {
+        @MethodSource("valuesArguments")
+        void valueOf(EventSource expectedEventSource, String value) {
             // Act
-            String result = objectInclusion.toString();
+            EventSource result = EventSource.valueOf(value);
 
             // Assert
-            assertThat(result).isEqualTo(expectedString);
+            assertThat(result).isEqualTo(expectedEventSource);
 
             // This will cause the test to fail if we ever add a new value.
             // Please remember to add the new value in the method below
-            assertThat(ObjectInclusion.values()).hasSize(9);
+            assertThat(EventSource.values()).hasSize(6);
         }
 
-        private Stream<Arguments> toStringArguments() {
+        private Stream<Arguments> valuesArguments() {
             return Stream.of(
-                    Arguments.of(ObjectInclusion.DISCUSSIONS, "discussions"),
-                    Arguments.of(ObjectInclusion.ATTACHMENTS, "attachments"),
-                    Arguments.of(ObjectInclusion.DATA, "data"),
-                    Arguments.of(ObjectInclusion.COLUMNS, "columns"),
-                    Arguments.of(ObjectInclusion.TEMPLATES, "templates"),
-                    Arguments.of(ObjectInclusion.FORMS, "forms"),
-                    Arguments.of(ObjectInclusion.CELL_LINKS, "cellLinks"),
-                    Arguments.of(ObjectInclusion.FORMAT, "format"),
-                    Arguments.of(ObjectInclusion.SOURCE, "source")
+                    Arguments.of(EventSource.WEB_APP, "WEB_APP"),
+                    Arguments.of(EventSource.MOBILE_IOS, "MOBILE_IOS"),
+                    Arguments.of(EventSource.MOBILE_ANDROID, "MOBILE_ANDROID"),
+                    Arguments.of(EventSource.API_INTEGRATED_APP, "API_INTEGRATED_APP"),
+                    Arguments.of(EventSource.API_UNDEFINED_APP, "API_UNDEFINED_APP"),
+                    Arguments.of(EventSource.UNKNOWN, "UNKNOWN")
             );
         }
     }

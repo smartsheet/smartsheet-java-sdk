@@ -14,9 +14,8 @@
  * limitations under the License.
  */
 
-package com.smartsheet.api.models;
+package com.smartsheet.api.models.enums;
 
-import com.smartsheet.api.models.enums.ObjectInclusion;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -27,36 +26,38 @@ import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class ObjectInclusionTest {
+class WorkspaceCopyInclusionTest {
 
     @Nested
     @TestInstance(TestInstance.Lifecycle.PER_CLASS)
     class ToStringTests {
         @ParameterizedTest
         @MethodSource("toStringArguments")
-        void toString(ObjectInclusion objectInclusion, String expectedString) {
+        void toString(WorkspaceCopyInclusion workspaceCopyInclusion, String expectedString) {
             // Act
-            String result = objectInclusion.toString();
+            String result = workspaceCopyInclusion.toString();
 
             // Assert
             assertThat(result).isEqualTo(expectedString);
 
             // This will cause the test to fail if we ever add a new value.
             // Please remember to add the new value in the method below
-            assertThat(ObjectInclusion.values()).hasSize(9);
+            assertThat(WorkspaceCopyInclusion.values()).hasSize(11);
         }
 
         private Stream<Arguments> toStringArguments() {
             return Stream.of(
-                    Arguments.of(ObjectInclusion.DISCUSSIONS, "discussions"),
-                    Arguments.of(ObjectInclusion.ATTACHMENTS, "attachments"),
-                    Arguments.of(ObjectInclusion.DATA, "data"),
-                    Arguments.of(ObjectInclusion.COLUMNS, "columns"),
-                    Arguments.of(ObjectInclusion.TEMPLATES, "templates"),
-                    Arguments.of(ObjectInclusion.FORMS, "forms"),
-                    Arguments.of(ObjectInclusion.CELL_LINKS, "cellLinks"),
-                    Arguments.of(ObjectInclusion.FORMAT, "format"),
-                    Arguments.of(ObjectInclusion.SOURCE, "source")
+                    Arguments.of(WorkspaceCopyInclusion.ATTACHMENTS, "attachments"),
+                    Arguments.of(WorkspaceCopyInclusion.BRAND, "brand"),
+                    Arguments.of(WorkspaceCopyInclusion.CELLLINKS, "cellLinks"),
+                    Arguments.of(WorkspaceCopyInclusion.DATA, "data"),
+                    Arguments.of(WorkspaceCopyInclusion.DISCUSSIONS, "discussions"),
+                    Arguments.of(WorkspaceCopyInclusion.FILTERS, "filters"),
+                    Arguments.of(WorkspaceCopyInclusion.FORMS, "forms"),
+                    Arguments.of(WorkspaceCopyInclusion.RULERECIPIENTS, "ruleRecipients"),
+                    Arguments.of(WorkspaceCopyInclusion.RULES, "rules"),
+                    Arguments.of(WorkspaceCopyInclusion.SHARES, "shares"),
+                    Arguments.of(WorkspaceCopyInclusion.ALL, "all")
             );
         }
     }
