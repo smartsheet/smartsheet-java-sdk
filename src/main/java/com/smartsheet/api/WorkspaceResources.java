@@ -165,7 +165,8 @@ public interface WorkspaceResources {
      * @return the folder
      * @throws SmartsheetException the smartsheet exception
      */
-    @Deprecated
+    @Deprecated(since = "2.0.0", forRemoval = true)
+    // todo why is this deprecated?
     Workspace copyWorkspace(long workspaceId, ContainerDestination containerDestination, EnumSet<WorkspaceCopyInclusion> includes,
                                    EnumSet<WorkspaceRemapExclusion> skipRemap, EnumSet<CopyExclusion> excludes) throws SmartsheetException;
 

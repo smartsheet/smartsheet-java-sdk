@@ -46,7 +46,8 @@ public interface DiscussionResources {
      * @return associated resources
      * @deprecated As of release 2.0
      */
-    @Deprecated
+    @Deprecated(since = "2.0.0", forRemoval = true)
+    // todo why is this deprecated??
     AssociatedAttachmentResources attachments();
 
     /**

@@ -159,7 +159,8 @@ public interface SheetRowResources {
      * @param rowId the row id
      * @throws SmartsheetException the smartsheet exception
      */
-    @Deprecated
+    @Deprecated(since = "2.0.0", forRemoval = true)
+    // todo why is this deprecated?
     void deleteRow(long sheetId, long rowId) throws SmartsheetException;
 
     /**
@@ -182,7 +183,8 @@ public interface SheetRowResources {
      * @param email the row email
      * @throws SmartsheetException the smartsheet exception
      */
-    @Deprecated
+    @Deprecated(since = "2.0.0", forRemoval = true)
+    // todo why is this deprecated?
     void sendRow(long sheetId, long rowId, RowEmail email) throws SmartsheetException;
 
     /**

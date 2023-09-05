@@ -17,28 +17,30 @@
 package com.smartsheet.api.internal;
 
 import com.smartsheet.api.AssociatedDiscussionResources;
+import com.smartsheet.api.RowDiscussionResources;
+import com.smartsheet.api.SheetDiscussionResources;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.util.Util;
 import com.smartsheet.api.models.Discussion;
 
 /**
- * @deprecated As of release 2.0
+ * @deprecated As of release 2.0. Please use {@link RowDiscussionResources} or {@link SheetDiscussionResources}
  */
-@Deprecated
+@Deprecated(since = "2.0.0", forRemoval = true)
 public class AssociatedDiscussionResourcesImpl extends AbstractAssociatedResources implements AssociatedDiscussionResources {
 
     /**
-     * @deprecated As of release 2.0
+     * @deprecated As of release 2.0. Please use {@link RowDiscussionResources} or {@link SheetDiscussionResources}
      */
-    @Deprecated
+    @Deprecated(since = "2.0.0", forRemoval = true)
     public AssociatedDiscussionResourcesImpl(SmartsheetImpl smartsheet, String masterResourceType) {
         super(smartsheet, masterResourceType);
     }
 
     /**
-     * @deprecated As of release 2.0
+     * @deprecated As of release 2.0. Please use {@link RowDiscussionResources} or {@link SheetDiscussionResources}
      */
-    @Deprecated
+    @Deprecated(since = "2.0.0", forRemoval = true)
     public Discussion createDiscussion(long objectId, Discussion discussion) throws SmartsheetException {
         Util.throwIfNull(objectId, discussion);
         return this.createResource(getMasterResourceType() + "/" + objectId + "/discussions",

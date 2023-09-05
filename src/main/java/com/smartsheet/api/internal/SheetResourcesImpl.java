@@ -237,7 +237,8 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
      * @throws SmartsheetRestException : if there is any other REST API related error occurred during the operation
      * @throws SmartsheetException : if there is any other error occurred during the operation
      */
-    @Deprecated
+    @Deprecated(since = "2.0.0", forRemoval = true)
+    // todo why is this deprecated?
     public PagedResult<Sheet> listOrganizationSheets(PaginationParameters parameters) throws SmartsheetException {
         String path = "users/sheets";
 
@@ -1243,7 +1244,9 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
      * @param input the input
      * @param output the output
      * @throws IOException Signals that an I/O exception has occurred.
+     * @deprecated replace with StreamUtil.copyContentIntoOutputStream()
      */
+    @Deprecated(since = "2.0.0", forRemoval = true)
     private static void copyStream(InputStream input, OutputStream output) throws IOException {
         byte[] buffer = new byte[BUFFER_SIZE];
         int len;

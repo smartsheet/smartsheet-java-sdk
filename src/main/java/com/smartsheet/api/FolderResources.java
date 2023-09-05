@@ -164,9 +164,15 @@ public interface FolderResources {
      * @return the folder
      * @throws SmartsheetException the smartsheet exception
      */
-    @Deprecated
-    Folder copyFolder(long folderId, ContainerDestination containerDestination, EnumSet<FolderCopyInclusion> includes,
-                             EnumSet<FolderRemapExclusion> skipRemap, EnumSet<CopyExclusion> excludes) throws SmartsheetException;
+    @Deprecated(since = "2.0.0", forRemoval = true)
+    // todo why is this deprecated?
+    Folder copyFolder(
+            long folderId,
+            ContainerDestination containerDestination,
+            EnumSet<FolderCopyInclusion> includes,
+            EnumSet<FolderRemapExclusion> skipRemap,
+            EnumSet<CopyExclusion> excludes
+    ) throws SmartsheetException;
 
     /**
      * <p>Moves the specified Folder to another location.</p>

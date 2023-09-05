@@ -32,6 +32,7 @@ import java.util.List;
  * <p>Thread Safety: Implementation of this interface must be thread safe.</p>
  */
 public interface RowResources {
+    // todo is this interface used?
 
     /**
      * <p>Get a row.</p>

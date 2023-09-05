@@ -24,47 +24,47 @@ import java.io.InputStream;
 import java.util.List;
 
 /**
- * @deprecated As of release 2.0
+ * @deprecated As of release 2.0. Please use the corresponding method in the [Row/Sheet/etc]AttachmentResources classes
  */
-@Deprecated
+@Deprecated(since = "2.0.0", forRemoval = true)
 public class AssociatedAttachmentResourcesImpl extends AbstractAssociatedResources implements AssociatedAttachmentResources {
 
     /**
-     * @deprecated As of release 2.0
+     * @deprecated As of release 2.0. Please use the corresponding method in the [Row/Sheet/etc]AttachmentResources classes
      */
-    @Deprecated
+    @Deprecated(since = "2.0.0", forRemoval = true)
     public AssociatedAttachmentResourcesImpl(SmartsheetImpl smartsheet, String masterResourceType) {
         super(smartsheet, masterResourceType);
     }
 
     /**
-     * @deprecated As of release 2.0
+     * @deprecated As of release 2.0. Please use the corresponding method in the [Row/Sheet/etc]AttachmentResources classes
      */
-    @Deprecated
+    @Deprecated(since = "2.0.0", forRemoval = true)
     public List<Attachment> listAttachments(long objectId) {
         throw new UnsupportedOperationException();
     }
 
     /**
-     * @deprecated As of release 2.0
+     * @deprecated As of release 2.0. Please use the corresponding method in the [Row/Sheet/etc]AttachmentResources classes
      */
-    @Deprecated
+    @Deprecated(since = "2.0.0", forRemoval = true)
     public Attachment attachFile(long objectId, File file, String contentType) {
         throw new UnsupportedOperationException();
     }
 
     /**
-     * @deprecated As of release 2.0
+     * @deprecated As of release 2.0. Please use the corresponding method in the [Row/Sheet/etc]AttachmentResources classes
      */
-    @Deprecated
+    @Deprecated(since = "2.0.0", forRemoval = true)
     public Attachment attachFile(long objectId, InputStream inputStream, String contentType, long contentLength, String attachmentName) {
         throw new UnsupportedOperationException();
     }
 
     /**
-     * @deprecated As of release 2.0
+     * @deprecated As of release 2.0. Please use the corresponding method in the [Row/Sheet/etc]AttachmentResources classes
      */
-    @Deprecated
+    @Deprecated(since = "2.0.0", forRemoval = true)
     public Attachment attachURL(long objectId, Attachment attachment) {
         throw new UnsupportedOperationException();
     }
