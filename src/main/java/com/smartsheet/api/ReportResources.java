@@ -133,7 +133,7 @@ public interface ReportResources {
      * @throws SmartsheetException the smartsheet exception
      */
     @Deprecated(since = "2.0.0", forRemoval = true)
-    // Todo why?
+    // todo why is this deprecated? -- recommendation added
     PagedResult<Report> listReports(PaginationParameters parameters) throws SmartsheetException;
 
     /**

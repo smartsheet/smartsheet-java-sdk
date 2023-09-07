@@ -165,7 +165,7 @@ public interface FolderResources {
      * @throws SmartsheetException the smartsheet exception
      */
     @Deprecated(since = "2.0.0", forRemoval = true)
-    // todo why is this deprecated?
+    // todo why is this deprecated? -- recommendation added
     Folder copyFolder(
             long folderId,
             ContainerDestination containerDestination,

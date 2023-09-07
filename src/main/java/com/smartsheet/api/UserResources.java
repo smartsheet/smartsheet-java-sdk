@@ -234,7 +234,7 @@ public interface UserResources {
      * @throws SmartsheetException if there is any other error during the operation
      */
     @Deprecated(since = "2.0.0", forRemoval = true)
-    // todo why is this deprecated?
+    // todo why is this deprecated? -- recommendation added
     PagedResult<Sheet> listOrgSheets(PaginationParameters pagination) throws SmartsheetException;
 
     /**
