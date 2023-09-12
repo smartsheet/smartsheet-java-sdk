@@ -1,0 +1,28 @@
+{
+  "data": [
+    {
+      "accessTokenName": "token name 1",
+      "action": "CREATE",
+      "eventId": "12345",
+      "eventTimestamp": "2023-01-30T11:42:30Z",
+      "objectId": "23o42843u2kwkhrejwrhkehrw",
+      "objectType": "ACCESS_TOKEN",
+      "requestUserId": 548798,
+      "source": "WEB_APP",
+      "userId": 548798
+    },
+    {
+      "accessTokenName": "token name 2",
+      "action": "UPDATE",
+      "eventId": "12345",
+      "eventTimestamp": "2023-8-28T11:42:30Z",
+      "objectId": "90348029kwwrkwri2094892",
+      "objectType": "ACCESS_TOKEN",
+      "requestUserId": 123456,
+      "source": "WEB_APP",
+      "userId": 123456
+    }
+  ],
+  "moreAvailable": false,
+  "nextStreamPosition": "0"
+}
