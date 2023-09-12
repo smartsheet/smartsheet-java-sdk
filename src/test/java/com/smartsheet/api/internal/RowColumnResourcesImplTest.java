@@ -16,6 +16,7 @@
 
 package com.smartsheet.api.internal;
 
+import com.smartsheet.api.InvalidRequestException;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
 import com.smartsheet.api.models.CellHistory;
@@ -28,6 +29,7 @@ import java.io.File;
 import java.io.IOException;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class RowColumnResourcesImplTest extends ResourcesImplBase {
     private RowColumnResourcesImpl rowColumnResources;
@@ -39,13 +41,25 @@ class RowColumnResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    void testGetCellHistory() throws SmartsheetException, IOException {
+    void testGetCellHistory_happyPath() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/getCellHistory.json"));
         PaginationParameters parameters = new PaginationParameters(false, 1, 1);
         PagedResult<CellHistory> cellHistory = rowColumnResources.getCellHistory(123L, 123L, 123L, parameters);
 
         assertThat(cellHistory.getTotalPages()).isEqualTo(1);
         assertThat(cellHistory.getData().get(1).getModifiedBy().getName()).isEqualTo("Joe Smart");
+    }
+
+    @Test
+    void testGetCellHistory_exception() {
+        PaginationParameters parameters = new PaginationParameters(false, 1, 1);
+        server.setStatus(400);
+        server.setResponseBody("{\"errorCode\":1032,\"message\":\"Something went wrong\"}");
+        assertThatThrownBy(() -> {
+            rowColumnResources.getCellHistory(123L, 123L, 123L, parameters);
+        })
+                .isInstanceOf(InvalidRequestException.class)
+                .hasMessage("Something went wrong");
     }
 
 }
