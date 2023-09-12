@@ -78,7 +78,7 @@ public class RowColumnResourcesImpl extends AbstractResources implements RowColu
      *
      * @param rowId the row id
      * @param columnId the column id
-     * @param sheetId the sheet Id
+     * @param sheetId the sheet ID
      * @param parameters the pagination parameters
      * @return the modification history (note that if there is no such resource, this method will throw
      *     ResourceNotFoundException rather than returning null).
@@ -108,7 +108,7 @@ public class RowColumnResourcesImpl extends AbstractResources implements RowColu
      *
      * @param rowId the row id
      * @param columnId the column id
-     * @param sheetId the sheet Id
+     * @param sheetId the sheet ID
      * @param pagination the pagination parameters
      * @param includes cell history inclusion
      * @param level compatibility level
@@ -147,7 +147,7 @@ public class RowColumnResourcesImpl extends AbstractResources implements RowColu
      *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
      *   SmartsheetException : if there is any other error occurred during the operation
      *
-     * @param sheetId the sheet Id
+     * @param sheetId the sheet ID
      * @param rowId the row id
      * @param columnId the column id
      * @param file the file path
@@ -181,7 +181,7 @@ public class RowColumnResourcesImpl extends AbstractResources implements RowColu
      *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
      *   SmartsheetException : if there is any other error occurred during the operation
      *
-     * @param sheetId the sheet Id
+     * @param sheetId the sheet ID
      * @param rowId the row id
      * @param columnId the column id
      * @param file the file path
@@ -219,7 +219,7 @@ public class RowColumnResourcesImpl extends AbstractResources implements RowColu
      *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
      *   SmartsheetException : if there is any other error occurred during the operation
      *
-     * @param sheetId the sheet Id
+     * @param sheetId the sheet ID
      * @param rowId the row id
      * @param columnId the column id
      * @param file the File object
@@ -249,7 +249,7 @@ public class RowColumnResourcesImpl extends AbstractResources implements RowColu
      *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
      *   SmartsheetException : if there is any other error occurred during the operation
      *
-     * @param sheetId the sheet Id
+     * @param sheetId the sheet ID
      * @param rowId the row id
      * @param columnId the column id
      * @param inputStream the input stream of the contents

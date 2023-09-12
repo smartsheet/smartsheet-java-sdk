@@ -24,12 +24,12 @@ import java.util.List;
 public class Webhook extends NamedModel<Long> {
 
     /**
-     * API Client Id corresponding to third-party app that created the Webhook.
+     * API Client ID corresponding to third-party app that created the Webhook.
      */
     private String apiClientId;
 
     /**
-     * Id of the object that is subscripted to.
+     * ID of the object that is subscribed to.
      */
     private Long scopeObjectId;
 
@@ -100,7 +100,7 @@ public class Webhook extends NamedModel<Long> {
     private Integer version;
 
     /**
-     * Get the API client Id corresponding to third-party app that created the webhook.
+     * Get the API client ID corresponding to third-party app that created the webhook.
      *
      * @return apiClientId
      */
@@ -109,7 +109,7 @@ public class Webhook extends NamedModel<Long> {
     }
 
     /**
-     * Set the API client Id corresponding to third-party app that created the webhook.
+     * Set the API client ID corresponding to third-party app that created the webhook.
      */
     public Webhook setApiClientId(String apiClientId) {
         this.apiClientId = apiClientId;
@@ -117,7 +117,7 @@ public class Webhook extends NamedModel<Long> {
     }
 
     /**
-     * Get the Id of the object that is subscripted to
+     * Get the ID of the object that is subscripted to
      *
      * @return scopeObjectId
      */
@@ -126,7 +126,7 @@ public class Webhook extends NamedModel<Long> {
     }
 
     /**
-     * Set the Id of the object that is subscribed to
+     * Set the ID of the object that is subscribed to
      */
     public Webhook setScopeObjectId(Long scopeObjectId) {
         this.scopeObjectId = scopeObjectId;
