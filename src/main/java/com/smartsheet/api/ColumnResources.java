@@ -22,25 +22,25 @@ import com.smartsheet.api.models.Column;
  * <p>This interface provides methods to access Column resources.</p>
  *
  * <p>Thread Safety: Implementation of this interface must be thread safe.</p>
- * @deprecated As of release 2.0
+ * @deprecated As of release 2.0. Please use {@link SheetCommentResources} instead
  */
-@Deprecated
+@Deprecated(since = "2.0.0", forRemoval = true)
 public interface ColumnResources {
 
     /**
      * @param column the column to update
      * @return the updated Column (note that if there is no such resource, this method will throw
      *     ResourceNotFoundException rather than returning null).
-     * @deprecated As of release 2.0
+     * @deprecated As of release 2.0. Please use {@link SheetCommentResources} instead
      */
-    @Deprecated
+    @Deprecated(since = "2.0.0", forRemoval = true)
     Column updateColumn(Column column);
 
     /**
      * @param id id of the column
      * @param sheetId the sheet id
-     * @deprecated As of release 2.0
+     * @deprecated As of release 2.0. Please use {@link SheetCommentResources} instead
      */
-    @Deprecated
+    @Deprecated(since = "2.0.0", forRemoval = true)
     void deleteColumn(long id, long sheetId);
 }

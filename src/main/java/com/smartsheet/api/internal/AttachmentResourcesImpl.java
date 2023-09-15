@@ -17,6 +17,7 @@
 package com.smartsheet.api.internal;
 
 import com.smartsheet.api.AttachmentResources;
+import com.smartsheet.api.AttachmentVersioningResources;
 import com.smartsheet.api.models.Attachment;
 
 import java.io.File;
@@ -26,9 +27,9 @@ import java.io.InputStream;
  * This is the implementation of the AttachmentResources.
  * <p>
  * Thread Safety: This class is thread safe because it is immutable and its base class is thread safe.
- * @deprecated As of release 2.0
+ * @deprecated As of release 2.0. Please use {@link AttachmentVersioningResources} instead
  */
-@Deprecated
+@Deprecated(since = "2.0.0", forRemoval = true)
 public class AttachmentResourcesImpl extends AbstractResources implements AttachmentResources {
 
     /**
@@ -44,18 +45,18 @@ public class AttachmentResourcesImpl extends AbstractResources implements Attach
 
     /**
      * @return the attachment
-     * @deprecated As of release 2.0
+     * @deprecated As of release 2.0. Please use {@link AttachmentVersioningResources} instead
      */
-    @Deprecated
+    @Deprecated(since = "2.0.0", forRemoval = true)
     public Attachment attachNewVersion(long attachmentId, File file, String contentType) {
         throw new UnsupportedOperationException();
     }
 
     /**
      * @return the attachment
-     * @deprecated As of release 2.0
+     * @deprecated As of release 2.0. Please use {@link AttachmentVersioningResources} instead
      */
-    @Deprecated
+    @Deprecated(since = "2.0.0", forRemoval = true)
     public Attachment attachNewVersion(
             long attachmentId,
             InputStream inputStream,

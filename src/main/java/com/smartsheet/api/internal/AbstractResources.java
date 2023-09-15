@@ -944,7 +944,7 @@ public abstract class AbstractResources {
      * @throws IOException Signals that an I/O exception has occurred.
      * @deprecated replace with StreamUtil.copyContentIntoOutputStream()
      */
-    @Deprecated
+    @Deprecated(since = "2.0.0", forRemoval = true)
     private static void copyStream(InputStream input, OutputStream output) throws IOException {
         byte[] buffer = new byte[BUFFER_SIZE];
         int len;
