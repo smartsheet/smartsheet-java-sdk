@@ -1,0 +1,15 @@
+{
+  "apiClientId": "2382749284kjdskfhjsfhkjds",
+  "scopeObjectId": 827634728462,
+  "apiClientName": "testClientName1",
+  "callbackUrl": "https://foo-callback.smar.com/webhook",
+  "createdAt": "2023-01-30T11:42:30Z",
+  "modifiedAt": "2023-05-30T11:42:30Z",
+  "disabledDetails": "disabled by owner for additional testing",
+  "enabled": false,
+  "events": ["delete", "add"],
+  "scope": "some-scope-string",
+  "sharedSecret": "sdklfldsjwe9oak232m4n22424kh2390283923",
+  "status": "DISABLED_BY_OWNER",
+  "version": 1.0
+}
