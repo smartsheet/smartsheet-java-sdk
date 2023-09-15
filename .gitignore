@@ -13,3 +13,4 @@ smartsheet-sdk-tests/
 
 build/**
 .gradle/**
+.project/

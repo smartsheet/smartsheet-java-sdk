@@ -39,7 +39,7 @@ plugins {
 // The group name. This dictates the prefix our dependency will have once it's published.
 group = 'com.smartsheet'
 // The version. This will be added to the end of the Jar and all other resources that are created during the build.
-version = '3.1.2'
+version = '3.1.2.1'
 // The Java version:
 sourceCompatibility = '11'
 
@@ -52,6 +52,7 @@ ext {
     httpMimeVersion = '4.5'
     jacksonCoreVersion = '2.9.10'
     jacksonDatabindVersion = '2.9.10.8'
+    jacksonDatabindJSR310Version = '2.15.2'
     jacocoVersion = '0.8.10'
     jettyServerVersion = '9.4.41.v20210516'
     jUnitJupiterVersion = '5.5.1'
@@ -72,6 +73,7 @@ dependencies {
     // Compile dependencies (dependencies needed to run the lib)
     implementation "com.fasterxml.jackson.core:jackson-core:${jacksonCoreVersion}"
     implementation "com.fasterxml.jackson.core:jackson-databind:${jacksonDatabindVersion}"
+    implementation "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:${jacksonDatabindJSR310Version}"
     implementation "com.squareup.okhttp3:okhttp:${okHttpVersion}"
     implementation "org.apache.httpcomponents:httpclient:${httpClientVersion}"
     implementation "org.apache.httpcomponents:httpmime:${httpMimeVersion}"
