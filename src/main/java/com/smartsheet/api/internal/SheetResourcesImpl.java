@@ -34,6 +34,7 @@ import com.smartsheet.api.SheetSummaryResources;
 import com.smartsheet.api.SheetUpdateRequestResources;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.SmartsheetRestException;
+import com.smartsheet.api.UserResources;
 import com.smartsheet.api.internal.http.HttpEntity;
 import com.smartsheet.api.internal.http.HttpMethod;
 import com.smartsheet.api.internal.http.HttpRequest;
@@ -236,9 +237,9 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
      * @throws ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetRestException : if there is any other REST API related error occurred during the operation
      * @throws SmartsheetException : if there is any other error occurred during the operation
+     * @deprecated As of release 2.0. Please use {@link UserResources} instead
      */
     @Deprecated(since = "2.0.0", forRemoval = true)
-    // todo why is this deprecated?
     public PagedResult<Sheet> listOrganizationSheets(PaginationParameters parameters) throws SmartsheetException {
         String path = "users/sheets";
 

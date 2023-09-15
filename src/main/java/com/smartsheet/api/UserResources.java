@@ -233,8 +233,6 @@ public interface UserResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    @Deprecated(since = "2.0.0", forRemoval = true)
-    // todo why is this deprecated? -- recommendation added
     PagedResult<Sheet> listOrgSheets(PaginationParameters pagination) throws SmartsheetException;
 
     /**
