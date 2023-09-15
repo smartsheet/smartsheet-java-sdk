@@ -158,7 +158,7 @@ public interface SheetRowResources {
      * @throws SmartsheetException the smartsheet exception
      * @deprecated as of API 2.0.2 release, replaced by {@link #deleteRows(long, Set, boolean)}
      */
-    @Deprecated(since = "2.0.0", forRemoval = true)
+    @Deprecated(since = "2.0.2", forRemoval = true)
     void deleteRow(long sheetId, long rowId) throws SmartsheetException;
 
     /**
@@ -180,7 +180,7 @@ public interface SheetRowResources {
      * @throws SmartsheetException the smartsheet exception
      * @deprecated as of API V2.0.2, replaced by {@link #sendRows(long, MultiRowEmail)}
      */
-    @Deprecated(since = "2.0.0", forRemoval = true)
+    @Deprecated(since = "2.0.2", forRemoval = true)
     void sendRow(long sheetId, long rowId, RowEmail email) throws SmartsheetException;
 
     /**

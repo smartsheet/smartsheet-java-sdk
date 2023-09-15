@@ -230,7 +230,7 @@ public class SheetRowResourcesImpl extends AbstractResources implements SheetRow
      * @throws SmartsheetException : if there is any other error occurred during the operation
      * @deprecated as of API 2.0.2 release, replaced by {@link #deleteRows(long, Set, boolean)}
      */
-    @Deprecated(since = "2.0.0", forRemoval = true)
+    @Deprecated(since = "2.0.2", forRemoval = true)
     public void deleteRow(long sheetId, long rowId) throws SmartsheetException {
         this.deleteResource(SHEETS_PATH + sheetId + "/" + ROWS + "/" + rowId, Row.class);
     }
@@ -277,7 +277,7 @@ public class SheetRowResourcesImpl extends AbstractResources implements SheetRow
      * @throws SmartsheetException : if there is any other error occurred during the operation
      * @deprecated as of API V2.0.2, replaced by {@link #sendRows(long, MultiRowEmail)}
      */
-    @Deprecated(since = "2.0.0", forRemoval = true)
+    @Deprecated(since = "2.0.2", forRemoval = true)
     public void sendRow(long sheetId, long rowId, RowEmail email) throws SmartsheetException {
         this.createResource(SHEETS_PATH + sheetId + "/" + ROWS + "/" + rowId + "/emails", RowEmail.class, email);
     }
