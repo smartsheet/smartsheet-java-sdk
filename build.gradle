@@ -242,5 +242,5 @@ checkstyle {
 checkstyleMain {
     // Since our main classes still have some outstanding checkstyle violations, we can allow up to 20 errors so we don't fail on the
     // existing violations, but will fail if we add any new ones. We do not allow _any_ violations in test files.
-    maxErrors = 20
+    maxErrors = 5
 }
