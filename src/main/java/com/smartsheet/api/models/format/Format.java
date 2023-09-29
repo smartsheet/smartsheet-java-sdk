@@ -247,7 +247,7 @@ public class Format {
          */
         public boolean next() {
             pos++;
-            return pos < chars.length || (pos == chars.length && chars[pos - 1] == SEPARATOR);
+            return pos < chars.length || pos == chars.length && chars[pos - 1] == SEPARATOR;
         }
 
         /**

@@ -20,7 +20,6 @@ import com.smartsheet.api.Trace;
 import org.apache.http.Header;
 import org.apache.http.client.methods.HttpRequestBase;
 
-import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
 import java.util.Set;
@@ -50,7 +49,7 @@ public class RequestAndResponseData {
             return headers;
         }
 
-        abstract static class Builder<Type extends HttpPayloadData> {
+        abstract static class Builder<T extends HttpPayloadData> {
             public void withHeaders() {
                 // this is seaprate from addHeader in case headers were requested but none found
                 if (getDataObject().headers == null) {
@@ -69,11 +68,11 @@ public class RequestAndResponseData {
                 return this;
             }
 
-            public abstract Type build();
+            public abstract T build();
 
             public abstract void reset();
 
-            protected abstract Type getDataObject();
+            protected abstract T getDataObject();
         }
     }
 
@@ -281,8 +280,7 @@ public class RequestAndResponseData {
      */
     public static RequestAndResponseData of(HttpRequestBase request, HttpEntitySnapshot requestEntity,
                                             HttpResponse response, HttpEntitySnapshot responseEntity,
-                                            Set<Trace> traces)
-            throws IOException {
+                                            Set<Trace> traces) {
         RequestData.Builder requestBuilder = new RequestData.Builder();
         ResponseData.Builder responseBuilder = new ResponseData.Builder();
 

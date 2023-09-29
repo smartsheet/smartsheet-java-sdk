@@ -223,10 +223,12 @@
             <property name="skipEnhancedForLoopVariable" value="true"/>
         </module>
         <!-- Make sure there is only one occurrence of each string per file -->
-        <module name="MultipleStringLiterals">
-            <property name="ignoreStringsRegexp" value='^("")|(",\s*)|(".")'/>
-            <property name="allowedDuplicates" value="2"/>
-        </module>
+<!--        This check was disabled as it flagged strings in the constructors of Enums.
+            Using constants for these literals seemed unnecessary -->
+<!--        <module name="MultipleStringLiterals" >-->
+<!--            <property name="ignoreStringsRegexp" value='^("")|(",\s*)|(".")'/>-->
+<!--            <property name="allowedDuplicates" value="2"/>-->
+<!--        </module>-->
         <!-- Only one variable declaration per line -->
         <module name="MultipleVariableDeclarations"/>
         <!-- Max number of nested for loops -->
@@ -343,11 +345,11 @@
             <!-- Ignore final variables but don't ignore static, that way constants get ignored -->
             <property name="ignoreFinal" value="false"/>
             <!-- Ban all abbreviations except those enumerated below -->
-            <property name="allowedAbbreviationLength" value="2"/>
+            <property name="allowedAbbreviationLength" value="4"/>
         </module>
         <!-- Generic parameter names for classes MyClass<T> -->
         <module name="ClassTypeParameterName">
-            <property name="format" value="^[A-Za-z]$"/>
+            <property name="format" value="^[A-Z][A-Za-z]{0,6}$"/>
         </module>
         <module name="ConstantName">
             <!-- Allow log or logger or CONSTANTS_LIKE_THIS -->

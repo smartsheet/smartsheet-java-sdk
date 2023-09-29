@@ -44,7 +44,7 @@ public class QueryUtil {
     /**
      * Generate a URL
      */
-    public static String generateUrl(@Nullable String baseUrl, @Nullable Map<String, ? extends Object> parameters) {
+    public static String generateUrl(@Nullable String baseUrl, @Nullable Map<String, ?> parameters) {
         if (baseUrl == null) {
             baseUrl = "";
         }
@@ -57,14 +57,14 @@ public class QueryUtil {
      * @param parameters the map of query string keys and values
      * @return the query string
      */
-    private static String generateQueryString(@Nullable Map<String, ? extends Object> parameters) {
+    private static String generateQueryString(@Nullable Map<String, ?> parameters) {
         if (parameters == null || parameters.isEmpty()) {
             return "";
         }
         StringBuilder result = new StringBuilder();
-        for (Map.Entry<String, ? extends Object> entry : parameters.entrySet()) {
+        for (Map.Entry<String, ?> entry : parameters.entrySet()) {
             // Check to see if the key/value isn't null or empty string
-            if (entry.getKey() != null && (entry.getValue() != null && !entry.getValue().toString().equals(""))) {
+            if (entry.getKey() != null && entry.getValue() != null && !entry.getValue().toString().isEmpty()) {
                 String encodedQueryParam = URLEncoder.encode(entry.getKey(), StandardCharsets.UTF_8);
                 String encodedQueryValue = URLEncoder.encode(entry.getValue().toString(), StandardCharsets.UTF_8);
                 result

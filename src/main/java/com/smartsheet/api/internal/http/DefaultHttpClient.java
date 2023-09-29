@@ -41,6 +41,7 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.protocol.BasicHttpContext;
 import org.apache.http.protocol.HttpContext;
+import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -177,7 +178,6 @@ public class DefaultHttpClient implements HttpClient {
             throw new IllegalArgumentException("A Request URI is required.");
         }
 
-        int attempt = 0;
         long start = System.currentTimeMillis();
 
         HttpRequestBase apacheHttpRequest;
@@ -203,7 +203,7 @@ public class DefaultHttpClient implements HttpClient {
 
         // the retry loop
         while (true) {
-
+            int attempt = 0;
             apacheHttpRequest = createApacheRequest(smartsheetRequest);
 
             // Set HTTP headers
@@ -213,23 +213,9 @@ public class DefaultHttpClient implements HttpClient {
                 }
             }
 
-            HttpEntitySnapshot requestEntityCopy = null;
             HttpEntitySnapshot responseEntityCopy = null;
             // Set HTTP entity
-            final HttpEntity entity = smartsheetRequest.getEntity();
-            if (apacheHttpRequest instanceof HttpEntityEnclosingRequestBase && entity != null && entity.getContent() != null) {
-                try {
-                    // we need access to the original request stream so we can log it (in the event of errors and/or tracing)
-                    requestEntityCopy = new HttpEntitySnapshot(entity);
-                } catch (IOException iox) {
-                    logger.error("failed to make copy of original request entity", iox);
-                }
-
-                InputStreamEntity streamEntity = new InputStreamEntity(entity.getContent(), entity.getContentLength());
-                // why?  not supported by library?
-                streamEntity.setChunked(false);
-                ((HttpEntityEnclosingRequestBase) apacheHttpRequest).setEntity(streamEntity);
-            }
+            HttpEntitySnapshot requestEntityCopy = copyRequestEntity(smartsheetRequest, apacheHttpRequest);
 
             // mark the body so we can reset on retry
             if (canRetryRequest && bodyStream != null) {
@@ -244,38 +230,9 @@ public class DefaultHttpClient implements HttpClient {
                 apacheHttpResponse = this.httpClient.execute(apacheHttpRequest, context);
                 long endTime = System.currentTimeMillis();
 
-                // Set request headers to values ACTUALLY SENT (not just created by us), this would include:
-                // 'Connection', 'Accept-Encoding', etc. However, if a proxy is used, this may be the proxy's CONNECT
-                // request, hence the test for HTTP method first
-                Object httpRequest = context.getAttribute("http.request");
-                if (httpRequest != null && HttpRequestWrapper.class.isAssignableFrom(httpRequest.getClass())) {
-                    HttpRequestWrapper actualRequest = (HttpRequestWrapper) httpRequest;
-                    switch (HttpMethod.valueOf(actualRequest.getMethod())) {
-                        case GET:
-                        case POST:
-                        case PUT:
-                        case DELETE:
-                            apacheHttpRequest.setHeaders(((HttpRequestWrapper) httpRequest).getAllHeaders());
-                            break;
-                    }
-                }
-
-                // Set returned headers
-                smartsheetResponse.setHeaders(new HashMap<>());
-                for (Header header : apacheHttpResponse.getAllHeaders()) {
-                    smartsheetResponse.getHeaders().put(header.getName(), header.getValue());
-                }
-                smartsheetResponse.setStatus(apacheHttpResponse.getStatusLine().getStatusCode(),
-                        apacheHttpResponse.getStatusLine().toString());
-
-                // Set returned entities
-                if (apacheHttpResponse.getEntity() != null) {
-                    HttpEntity httpEntity = new HttpEntity();
-                    httpEntity.setContentType(apacheHttpResponse.getEntity().getContentType().getValue());
-                    httpEntity.setContentLength(apacheHttpResponse.getEntity().getContentLength());
-                    httpEntity.setContent(apacheHttpResponse.getEntity().getContent());
-                    smartsheetResponse.setEntity(httpEntity);
-                    responseEntityCopy = new HttpEntitySnapshot(httpEntity);
+                HttpEntitySnapshot newResponseCopy = updateWithResponse(apacheHttpRequest, context, smartsheetResponse);
+                if (newResponseCopy != null) {
+                    responseEntityCopy = newResponseCopy;
                 }
 
                 long responseTime = endTime - startTime;
@@ -319,10 +276,10 @@ public class DefaultHttpClient implements HttpClient {
                 this.releaseConnection();
 
             } catch (ClientProtocolException e) {
+                logger.warn("ClientProtocolException " + e.getMessage());
+                logger.warn(LOG_ARG, RequestAndResponseData.of(apacheHttpRequest, requestEntityCopy, smartsheetResponse,
+                        responseEntityCopy, REQUEST_RESPONSE_SUMMARY));
                 try {
-                    logger.warn("ClientProtocolException " + e.getMessage());
-                    logger.warn(LOG_ARG, RequestAndResponseData.of(apacheHttpRequest, requestEntityCopy, smartsheetResponse,
-                            responseEntityCopy, REQUEST_RESPONSE_SUMMARY));
                     // if this is a PUT and was retried by the http client, the body content stream is at the
                     // end and is a NonRepeatableRequest. If we marked the body content stream prior to execute,
                     // reset and retry
@@ -336,10 +293,10 @@ public class DefaultHttpClient implements HttpClient {
                 }
                 throw new HttpClientException(ERROR_OCCURRED, e);
             } catch (NoHttpResponseException e) {
+                logger.warn("NoHttpResponseException " + e.getMessage());
+                logger.warn(LOG_ARG, RequestAndResponseData.of(apacheHttpRequest, requestEntityCopy, smartsheetResponse,
+                        responseEntityCopy, REQUEST_RESPONSE_SUMMARY));
                 try {
-                    logger.warn("NoHttpResponseException " + e.getMessage());
-                    logger.warn(LOG_ARG, RequestAndResponseData.of(apacheHttpRequest, requestEntityCopy, smartsheetResponse,
-                            responseEntityCopy, REQUEST_RESPONSE_SUMMARY));
                     // check to see if the response was empty and this was a POST. All other HTTP methods
                     // will be automatically retried by the http client.
                     // (POST is non-idempotent and is not retried automatically, but is safe for us to retry)
@@ -353,15 +310,73 @@ public class DefaultHttpClient implements HttpClient {
                 }
                 throw new HttpClientException(ERROR_OCCURRED, e);
             } catch (IOException e) {
-                try {
-                    logger.warn(LOG_ARG, RequestAndResponseData.of(apacheHttpRequest, requestEntityCopy, smartsheetResponse,
-                            responseEntityCopy, REQUEST_RESPONSE_SUMMARY));
-                } catch (IOException ignore) {
-                }
+                logger.warn(LOG_ARG, RequestAndResponseData.of(apacheHttpRequest, requestEntityCopy, smartsheetResponse,
+                        responseEntityCopy, REQUEST_RESPONSE_SUMMARY));
                 throw new HttpClientException(ERROR_OCCURRED, e);
             }
         }
         return smartsheetResponse;
+    }
+
+    private HttpEntitySnapshot copyRequestEntity(HttpRequest smartsheetRequest, HttpRequestBase apacheHttpRequest) {
+        final HttpEntity entity = smartsheetRequest.getEntity();
+        HttpEntitySnapshot requestEntityCopy = null;
+        if (apacheHttpRequest instanceof HttpEntityEnclosingRequestBase && entity != null && entity.getContent() != null) {
+            try {
+                // we need access to the original request stream so we can log it (in the event of errors and/or tracing)
+                requestEntityCopy = new HttpEntitySnapshot(entity);
+            } catch (IOException iox) {
+                logger.error("failed to make copy of original request entity", iox);
+            }
+
+            InputStreamEntity streamEntity = new InputStreamEntity(entity.getContent(), entity.getContentLength());
+            // why?  not supported by library?
+            streamEntity.setChunked(false);
+            ((HttpEntityEnclosingRequestBase) apacheHttpRequest).setEntity(streamEntity);
+        }
+        return requestEntityCopy;
+    }
+
+    @Nullable
+    private HttpEntitySnapshot updateWithResponse(HttpRequestBase apacheHttpRequest, HttpContext context,
+                                                  HttpResponse smartsheetResponse) throws IOException {
+        // Set request headers to values ACTUALLY SENT (not just created by us), this would include:
+        // 'Connection', 'Accept-Encoding', etc. However, if a proxy is used, this may be the proxy's CONNECT
+        // request, hence the test for HTTP method first
+        Object httpRequest = context.getAttribute("http.request");
+        if (httpRequest != null && HttpRequestWrapper.class.isAssignableFrom(httpRequest.getClass())) {
+            HttpRequestWrapper actualRequest = (HttpRequestWrapper) httpRequest;
+            switch (HttpMethod.valueOf(actualRequest.getMethod())) {
+                case GET:
+                case POST:
+                case PUT:
+                case DELETE:
+                    apacheHttpRequest.setHeaders(actualRequest.getAllHeaders());
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        // Set returned headers
+        smartsheetResponse.setHeaders(new HashMap<>());
+        for (Header header : apacheHttpResponse.getAllHeaders()) {
+            smartsheetResponse.getHeaders().put(header.getName(), header.getValue());
+        }
+        smartsheetResponse.setStatus(apacheHttpResponse.getStatusLine().getStatusCode(),
+                apacheHttpResponse.getStatusLine().toString());
+
+        // Set returned entities
+        if (apacheHttpResponse.getEntity() != null) {
+            HttpEntity httpEntity = new HttpEntity();
+            httpEntity.setContentType(apacheHttpResponse.getEntity().getContentType().getValue());
+            httpEntity.setContentLength(apacheHttpResponse.getEntity().getContentLength());
+            httpEntity.setContent(apacheHttpResponse.getEntity().getContent());
+            smartsheetResponse.setEntity(httpEntity);
+            return new HttpEntitySnapshot(httpEntity);
+        }
+
+        return null;
     }
 
     /**

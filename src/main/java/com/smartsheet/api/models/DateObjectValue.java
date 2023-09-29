@@ -89,12 +89,14 @@ public class DateObjectValue implements ObjectValue {
             switch (objectValueType) {
                 case ABSTRACT_DATETIME:
                     return ABSTRACT_DATETIME_FORMAT;
-
                 case DATETIME:
                     return DATETIME_FORMAT;
-
                 case DATE:
                     return DATE_FORMAT;
+
+                default:
+                    // Throw IllegalArgumentException
+                    break;
             }
         }
 
