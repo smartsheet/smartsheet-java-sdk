@@ -164,9 +164,13 @@ public interface FolderResources {
      * @return the folder
      * @throws SmartsheetException the smartsheet exception
      */
-    @Deprecated
-    Folder copyFolder(long folderId, ContainerDestination containerDestination, EnumSet<FolderCopyInclusion> includes,
-                             EnumSet<FolderRemapExclusion> skipRemap, EnumSet<CopyExclusion> excludes) throws SmartsheetException;
+    Folder copyFolder(
+            long folderId,
+            ContainerDestination containerDestination,
+            EnumSet<FolderCopyInclusion> includes,
+            EnumSet<FolderRemapExclusion> skipRemap,
+            EnumSet<CopyExclusion> excludes
+    ) throws SmartsheetException;
 
     /**
      * <p>Moves the specified Folder to another location.</p>

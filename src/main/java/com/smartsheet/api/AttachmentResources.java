@@ -25,9 +25,9 @@ import java.io.InputStream;
  * <p>This interface provides methods to access Attachment resources by their id.</p>
  *
  * <p>Thread Safety: Implementation of this interface must be thread safe.</p>
- * @deprecated As of release 2.0
+ * @deprecated As of release 2.0. Please use {@link AttachmentVersioningResources} instead
  */
-@Deprecated
+@Deprecated(since = "2.0.0", forRemoval = true)
 public interface AttachmentResources {
 
     /**
@@ -36,9 +36,9 @@ public interface AttachmentResources {
      * @param contentType the content type
      * @return the attachment (note that if there is no such resource, this method will throw ResourceNotFoundException
      *     rather than returning null).
-     * @deprecated As of release 2.0
+     * @deprecated As of release 2.0. Please use {@link AttachmentVersioningResources} instead
      */
-    @Deprecated
+    @Deprecated(since = "2.0.0", forRemoval = true)
     Attachment attachNewVersion(long attachmentId, File file, String contentType);
 
     /**
@@ -48,8 +48,8 @@ public interface AttachmentResources {
      * @param attachmentName attachment name
      * @param contentLength content length
      * @return the created attachment
-     * @deprecated As of release 2.0
+     * @deprecated As of release 2.0. Please use {@link AttachmentVersioningResources} instead
      */
-    @Deprecated
+    @Deprecated(since = "2.0.0", forRemoval = true)
     Attachment attachNewVersion(long attachmentId, InputStream inputStream, String contentType, long contentLength, String attachmentName);
 }

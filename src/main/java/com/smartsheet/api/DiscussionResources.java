@@ -44,9 +44,9 @@ public interface DiscussionResources {
 
     /**
      * @return associated resources
-     * @deprecated As of release 2.0
+     * @deprecated As of release 2.0. Please use the corresponding method in the [Row/Sheet/etc]AttachmentResources classes
      */
-    @Deprecated
+    @Deprecated(since = "2.0.0", forRemoval = true)
     AssociatedAttachmentResources attachments();
 
     /**

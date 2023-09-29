@@ -34,6 +34,7 @@ import com.smartsheet.api.SheetSummaryResources;
 import com.smartsheet.api.SheetUpdateRequestResources;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.SmartsheetRestException;
+import com.smartsheet.api.UserResources;
 import com.smartsheet.api.internal.http.HttpEntity;
 import com.smartsheet.api.internal.http.HttpMethod;
 import com.smartsheet.api.internal.http.HttpRequest;
@@ -236,8 +237,9 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
      * @throws ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetRestException : if there is any other REST API related error occurred during the operation
      * @throws SmartsheetException : if there is any other error occurred during the operation
+     * @deprecated As of release 2.0. Please use {@link UserResources} instead
      */
-    @Deprecated
+    @Deprecated(since = "2.0.0", forRemoval = true)
     public PagedResult<Sheet> listOrganizationSheets(PaginationParameters parameters) throws SmartsheetException {
         String path = "users/sheets";
 
@@ -1243,7 +1245,9 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
      * @param input the input
      * @param output the output
      * @throws IOException Signals that an I/O exception has occurred.
+     * @deprecated replace with StreamUtil.copyContentIntoOutputStream()
      */
+    @Deprecated(since = "2.0.0", forRemoval = true)
     private static void copyStream(InputStream input, OutputStream output) throws IOException {
         byte[] buffer = new byte[BUFFER_SIZE];
         int len;

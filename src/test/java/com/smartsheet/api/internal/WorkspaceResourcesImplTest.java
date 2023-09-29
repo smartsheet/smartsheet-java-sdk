@@ -36,6 +36,7 @@ import java.io.IOException;
 import java.util.EnumSet;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatCode;
 
 class WorkspaceResourcesImplTest extends ResourcesImplBase {
 
@@ -112,9 +113,9 @@ class WorkspaceResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    void testDeleteWorkspace() throws IOException, SmartsheetException {
+    void testDeleteWorkspace() throws IOException {
         server.setResponseBody(new File("src/test/resources/deleteWorkspace.json"));
-        workspaceResources.deleteWorkspace(1234L);
+        assertThatCode(() -> workspaceResources.deleteWorkspace(1234L)).doesNotThrowAnyException();
     }
 
     @Test

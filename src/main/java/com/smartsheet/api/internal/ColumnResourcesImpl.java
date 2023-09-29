@@ -17,37 +17,38 @@
 package com.smartsheet.api.internal;
 
 import com.smartsheet.api.ColumnResources;
+import com.smartsheet.api.SheetCommentResources;
 import com.smartsheet.api.models.Column;
 
 /**
  * This is the implementation of the ColumnResources.
  * <p>
  * Thread Safety: This class is thread safe because it is immutable and its base class is thread safe.
- * @deprecated As of release 2.0
+ * @deprecated As of release 2.0. Please use {@link SheetCommentResources} instead
  */
-@Deprecated
+@Deprecated(since = "2.0.0", forRemoval = true)
 public class ColumnResourcesImpl implements ColumnResources {
 
     /**
-     * @deprecated As of release 2.0
+     * @deprecated As of release 2.0. Please use {@link SheetCommentResources} instead
      */
-    @Deprecated
+    @Deprecated(since = "2.0.0", forRemoval = true)
     public ColumnResourcesImpl() {
 
     }
 
     /**
-     * @deprecated As of release 2.0
+     * @deprecated As of release 2.0. Please use {@link SheetCommentResources} instead
      */
-    @Deprecated
+    @Deprecated(since = "2.0.0", forRemoval = true)
     public Column updateColumn(Column column) {
         throw new UnsupportedOperationException();
     }
 
     /**
-     * @deprecated As of release 2.0
+     * @deprecated As of release 2.0. Please use {@link SheetCommentResources} instead
      */
-    @Deprecated
+    @Deprecated(since = "2.0.0", forRemoval = true)
     public void deleteColumn(long id, long sheetId) {
         throw new UnsupportedOperationException();
     }

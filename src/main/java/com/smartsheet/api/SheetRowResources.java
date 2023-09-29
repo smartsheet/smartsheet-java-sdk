@@ -141,8 +141,6 @@ public interface SheetRowResources {
     Row getRow(long sheetId, long rowId, EnumSet<RowInclusion> includes, EnumSet<ObjectExclusion> excludes) throws SmartsheetException;
 
     /**
-     * <p>@deprecated as of API 2.0.2 release, replaced by {@link #deleteRows(long, Set, boolean)}</p>
-     *
      * <p>Delete a row.</p>
      *
      * <p>It mirrors to the following Smartsheet REST API method: DELETE /sheets/{sheetId}/rows/{rowId}</p>
@@ -158,13 +156,12 @@ public interface SheetRowResources {
      * @param sheetId the sheet id
      * @param rowId the row id
      * @throws SmartsheetException the smartsheet exception
+     * @deprecated as of API 2.0.2 release, replaced by {@link #deleteRows(long, Set, boolean)}
      */
-    @Deprecated
+    @Deprecated(since = "2.0.2", forRemoval = true)
     void deleteRow(long sheetId, long rowId) throws SmartsheetException;
 
     /**
-     * <p>@deprecated as of API V2.0.2, replaced by {@link #sendRows(long, MultiRowEmail)}</p>
-     *
      * <p>Send a row via email to the designated recipients.</p>
      *
      * <p>It mirrors to the following Smartsheet REST API method: POST /sheets/{sheetId}/rows/{rowId}/emails</p>
@@ -181,8 +178,9 @@ public interface SheetRowResources {
      * @param rowId the id of the row
      * @param email the row email
      * @throws SmartsheetException the smartsheet exception
+     * @deprecated as of API V2.0.2, replaced by {@link #sendRows(long, MultiRowEmail)}
      */
-    @Deprecated
+    @Deprecated(since = "2.0.2", forRemoval = true)
     void sendRow(long sheetId, long rowId, RowEmail email) throws SmartsheetException;
 
     /**

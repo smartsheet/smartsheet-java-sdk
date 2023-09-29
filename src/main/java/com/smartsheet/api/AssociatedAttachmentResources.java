@@ -23,16 +23,16 @@ import java.io.InputStream;
 import java.util.List;
 
 /**
- * @deprecated As of release 2.0
+ * @deprecated As of release 2.0. Please use the corresponding method in the [Row/Sheet/etc]AttachmentResources classes
  */
-@Deprecated
+@Deprecated(since = "2.0.0", forRemoval = true)
 public interface AssociatedAttachmentResources {
     /**
      * @param objectId the ID of the object to which the attachments are associated
      * @return the attachments (note that empty list will be returned if there is none)
-     * @deprecated As of release 2.0
+     * @deprecated As of release 2.0. Please use the corresponding method in the [Row/Sheet/etc]AttachmentResources classes
      */
-    @Deprecated
+    @Deprecated(since = "2.0.0", forRemoval = true)
     List<Attachment> listAttachments(long objectId);
 
     /**
@@ -40,9 +40,9 @@ public interface AssociatedAttachmentResources {
      * @param file the file to attach
      * @param contentType the content type of the file
      * @return the created attachment
-     * @deprecated As of release 2.0
+     * @deprecated As of release 2.0. Please use the corresponding method in the [Row/Sheet/etc]AttachmentResources classes
      */
-    @Deprecated
+    @Deprecated(since = "2.0.0", forRemoval = true)
     Attachment attachFile(long objectId, File file, String contentType);
 
     /**
@@ -52,17 +52,17 @@ public interface AssociatedAttachmentResources {
      * @param contentLength the size of the file in bytes.
      * @param attachmentName the name of the file.
      * @return the created attachment
-     * @deprecated As of release 2.0
+     * @deprecated As of release 2.0. Please use the corresponding method in the [Row/Sheet/etc]AttachmentResources classes
      */
-    @Deprecated
+    @Deprecated(since = "2.0.0", forRemoval = true)
     Attachment attachFile(long objectId, InputStream inputStream, String contentType, long contentLength, String attachmentName);
 
     /**
      * @param objectId the object id
      * @param attachment the attachment object
      * @return the created attachment
-     * @deprecated As of release 2.0
+     * @deprecated As of release 2.0. Please use the corresponding method in the [Row/Sheet/etc]AttachmentResources classes
      */
-    @Deprecated
+    @Deprecated(since = "2.0.0", forRemoval = true)
     Attachment attachURL(long objectId, Attachment attachment);
 }

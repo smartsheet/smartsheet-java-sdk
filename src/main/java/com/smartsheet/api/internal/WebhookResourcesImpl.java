@@ -77,7 +77,7 @@ public class WebhookResourcesImpl extends AbstractResources implements WebhookRe
      * <p>
      * It mirrors to the following Smartsheet REST API method: GET /webhooks/{webhookId}
      *
-     * @param webhookId the Id of the webhook
+     * @param webhookId the ID of the webhook
      * @return the webhook resource.
      * @throws IllegalArgumentException if any argument is null or empty string
      * @throws InvalidRequestException if there is any problem with the REST API request
@@ -148,7 +148,7 @@ public class WebhookResourcesImpl extends AbstractResources implements WebhookRe
      * <p>
      * It mirrors to the following Smartsheet REST API method: POST /webhooks/{webhookId}/resetsharedsecret
      *
-     * @param webhookId the webhook Id
+     * @param webhookId the webhook ID
      * @return the Webhook shared secret
      * @throws IllegalArgumentException if any argument is null or empty string
      * @throws InvalidRequestException if there is any problem with the REST API request
