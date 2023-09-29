@@ -9,8 +9,6 @@ plugins {
     // ** CODE QUALITY PLUGINS **
     // Allows us to do code coverage
     id 'jacoco'
-    // Allows us to use Sonarqube code quality scans
-    id 'org.sonarqube' version '4.0.0.2929'
     // Allows use to Lint our code and specify the code style rules we want to enforce
     id 'checkstyle'
     // Allows us to publish our code coverage so it can appear in a badge on our Github Repo
@@ -89,6 +87,9 @@ dependencies {
 
 // Configuration for our Javadocs
 javadoc {
+    // Exclude any javadocs from our internal implementations
+    exclude "com/smartsheet/api/internal/**"
+    // Only include javadocs from `main` (don't include test javadocs)
     source = sourceSets.main.allJava
 }
 
@@ -230,17 +231,6 @@ signing {
     sign publishing.publications.mavenJava
 }
 
-
-//// Sonarqube Configuration
-//sonarqube {
-//    // system properties are defined in gradle.properties
-//    properties {
-//        property "sonar.sourceEncoding", "UTF-8"
-//        property "sonar.projectKey", "smartsheet-sdk-java"
-//        property "sonar.exclusions", [] // files to exclude from SonarQube analysis
-//        property "sonar.jacoco.reportPath", "${project.buildDir}/jacoco/test.exec"
-//    }
-//}
 
 // Checkstyle Configuration
 checkstyle {
