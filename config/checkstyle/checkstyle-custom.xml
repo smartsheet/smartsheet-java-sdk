@@ -225,10 +225,10 @@
         <!-- Make sure there is only one occurrence of each string per file -->
 <!--        This check was disabled as it flagged strings in the constructors of Enums.
             Using constants for these literals seemed unnecessary -->
-<!--        <module name="MultipleStringLiterals" >-->
-<!--            <property name="ignoreStringsRegexp" value='^("")|(",\s*)|(".")'/>-->
-<!--            <property name="allowedDuplicates" value="2"/>-->
-<!--        </module>-->
+        <module name="MultipleStringLiterals" >
+            <property name="ignoreStringsRegexp" value='^("")|(",\s*)|(".")'/>
+            <property name="allowedDuplicates" value="2"/>
+        </module>
         <!-- Only one variable declaration per line -->
         <module name="MultipleVariableDeclarations"/>
         <!-- Max number of nested for loops -->
@@ -349,7 +349,7 @@
         </module>
         <!-- Generic parameter names for classes MyClass<T> -->
         <module name="ClassTypeParameterName">
-            <property name="format" value="^[A-Z][A-Za-z]{0,6}$"/>
+            <property name="format" value="^[A-Z]$"/>
         </module>
         <module name="ConstantName">
             <!-- Allow log or logger or CONSTANTS_LIKE_THIS -->
