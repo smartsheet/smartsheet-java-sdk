@@ -17,7 +17,8 @@
 package com.smartsheet.api.models;
 
 /**
- * The AlternateEmail object (see: http://smartsheet-platform.github.io/api-docs/?shell#alternateemail-object)
+ * The AlternateEmail object, retruned by endpoints like
+ * the <a href="https://smartsheet.redoc.ly/tag/alternateEmailAddress#operation/get-alternate-email">Get Alternate Email endpoint</a>
  */
 public class AlternateEmail {
 
