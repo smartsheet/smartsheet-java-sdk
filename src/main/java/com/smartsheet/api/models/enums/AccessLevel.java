@@ -18,7 +18,7 @@ package com.smartsheet.api.models.enums;
 
 /**
  * Represents access levels that users can have.
- * @see <a href="http://www.smartsheet.com/developers/api-documentation#h.umfgm4xt25dq">Access Level Help</a>
+ * @see <a href="https://smartsheet.redoc.ly/#section/Security/Access-Levels">Access Level Help</a>
  */
 public enum AccessLevel {
     VIEWER,

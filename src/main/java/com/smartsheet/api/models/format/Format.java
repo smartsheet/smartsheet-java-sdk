@@ -40,7 +40,7 @@ public class Format {
      * Constructs a {@link Format} object using the format string provided by the Smartsheet API.
      * <p>
      *  The format of the string is a comma separated list. See
-     *  <a href="http://www.smartsheet.com/developers/api-documentation#h.mf6r2e3k3ftb">http://www.smartsheet.com/developers/api-documentation#h.mf6r2e3k3ftb</a>
+     *  <a href="https://smartsheet.redoc.ly/#section/API-Basics/Formatting">https://smartsheet.redoc.ly/#section/API-Basics/Formatting</a>
      *  for details
      * @param original the original
      */

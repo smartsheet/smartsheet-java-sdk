@@ -279,7 +279,7 @@ public class Cell {
      * Gets the strict value for this cell.
      *
      * @return the strict
-     * @see <a href="http://www.smartsheet.com/developers/api-documentation#h.lay2yj3x1pp8">Column Types</a>
+     * @see <a href="https://smartsheet.redoc.ly/tag/columnsRelated">Column Types</a>
      */
     public Boolean getStrict() {
         return strict;
@@ -289,7 +289,7 @@ public class Cell {
      * Sets the strict formatting rule for this cell.
      *
      * @param strict the new strict
-     * @see <a href="http://www.smartsheet.com/developers/api-documentation#h.lay2yj3x1pp8">Column Types</a>
+     * @see <a href="https://smartsheet.redoc.ly/tag/columnsRelated">Column Types</a>
      */
     public Cell setStrict(Boolean strict) {
         this.strict = strict;
