@@ -142,6 +142,9 @@ Each specific release is available for download via [Github](https://github.com/
 
 See <https://github.com/smartsheet/smartsheet-java-sdk/releases>
 
+## Developer Agreement
+Review the [Developer Program Agreement](https://www.smartsheet.com/legal/developer-program-agreement).
+
 ## Acknowledgements
 
 We would like to thank the following people for their contributions to this project:
