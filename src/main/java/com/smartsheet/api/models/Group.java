@@ -36,7 +36,7 @@ public class Group extends NamedModel<Long> {
     private String owner;
 
     /**
-     *    The the id of the owner of the group.
+     *    The id of the owner of the group.
      */
     private Long ownerId;
 

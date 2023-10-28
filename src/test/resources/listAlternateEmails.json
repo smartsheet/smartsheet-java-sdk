@@ -1,0 +1,17 @@
+{
+  "pageNumber": 1,
+  "pageSize": 100,
+  "totalPages": 1,
+  "totalCount": 1,
+  "data": [
+    {
+      "id": 2894323533539204,
+      "email": "john.doe@smartsheet.com"
+    },
+    {
+      "id": 787878,
+      "email": "jane.doe@smartsheet.com",
+      "confirmed": false
+    }
+  ]
+}

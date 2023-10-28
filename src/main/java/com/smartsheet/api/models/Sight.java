@@ -64,7 +64,7 @@ public class Sight extends NamedModel<Long> {
     private Source source;
 
     /**
-     * A workspace object, limited to only Id and Name
+     * A workspace object, limited to only id and Name
      */
     private Workspace workspace;
 

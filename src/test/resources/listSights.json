@@ -1,0 +1,27 @@
+{
+  "data": [
+    {
+      "columnCount": 7845,
+      "widgets": [],
+      "favorite": false,
+      "accessLevel": "VIEWER",
+      "permalink" : "https://foo.bar.url",
+      "createdAt":"2014-01-06T16:25:57Z",
+      "modifiedAt":"2014-01-06T16:25:57Z",
+      "workspace": {
+        "id":2349499415848836,
+        "name":"New Workspace1",
+        "accessLevel":"OWNER",
+        "permalink":"https://app.smartsheet.com/b/home?lx=asdf"
+      },
+      "source": {
+        "id": 4503604829677444,
+        "type": "sight"
+      }
+    }
+  ],
+  "pageNumber": 1,
+  "pageSize": 100,
+  "totalCount": 418,
+  "totalPages": 5
+}

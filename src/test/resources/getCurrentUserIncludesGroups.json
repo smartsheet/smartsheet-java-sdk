@@ -1,0 +1,23 @@
+{
+  "id": 2222222222,
+  "email": "test@smartsheet.com",
+  "firstName": "John",
+  "lastName": "Doe",
+  "locale": "en_US",
+  "timeZone": "US/Pacific",
+  "account": {
+    "name": "Smartsheet",
+    "id": 111111111111
+  },
+  "groups": [
+    {
+      "id": 456456,
+      "name": "Group 1",
+      "description": "My group",
+      "owner": "jane.doe@smartsheet.com",
+      "ownerId": 789789,
+      "createdAt": "2019-08-24T14:15:22Z",
+      "modifiedAt": "2019-08-24T14:15:22Z"
+    }
+  ]
+}

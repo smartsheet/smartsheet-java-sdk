@@ -90,7 +90,7 @@ public class SightResourcesImpl extends AbstractResources implements SightResour
      * <p>
      * It mirrors to the following Smartsheet REST API method: GET /sights/{sightId}
      *
-     * @param sightId the Id of the Sight
+     * @param sightId the id of the Sight
      * @return the Sight resource.
      * @throws IllegalArgumentException if any argument is null or empty string
      * @throws InvalidRequestException if there is any problem with the REST API request
@@ -108,7 +108,7 @@ public class SightResourcesImpl extends AbstractResources implements SightResour
      * <p>
      * It mirrors to the following Smartsheet REST API method: GET /sights/{sightId}
      *
-     * @param sightId the Id of the Sight
+     * @param sightId the id of the Sight
      * @param level compatibility level
      * @return the Sight resource.
      * @throws IllegalArgumentException if any argument is null or empty string
@@ -127,7 +127,7 @@ public class SightResourcesImpl extends AbstractResources implements SightResour
      * <p>
      * It mirrors to the following Smartsheet REST API method: GET /sights/{sightId}
      *
-     * @param sightId the Id of the Sight
+     * @param sightId the id of the Sight
      * @param level compatibility level
      * @param includes optional parameters to include
      * @return the Sight resource.
@@ -173,7 +173,7 @@ public class SightResourcesImpl extends AbstractResources implements SightResour
      * <p>
      * It mirrors to the following Smartsheet REST API method: DELETE /sights/{sightId}
      *
-     * @param sightId the Id of the Sight
+     * @param sightId the id of the Sight
      *
      * @throws IllegalArgumentException if any argument is null or empty string
      * @throws InvalidRequestException if there is any problem with the REST API request
@@ -191,7 +191,7 @@ public class SightResourcesImpl extends AbstractResources implements SightResour
      * <p>
      * It mirrors to the following Smartsheet REST API method: POST /sights/{sightId}/copy
      *
-     * @param sightId the Id of the Sight
+     * @param sightId the id of the Sight
      * @param destination the destination to copy to
      * @return the newly created Sight resource.
      * @throws IllegalArgumentException if any argument is null or empty string
@@ -210,7 +210,7 @@ public class SightResourcesImpl extends AbstractResources implements SightResour
      * <p>
      * It mirrors to the following Smartsheet REST API method: POST /sights/{sightId}/move
      *
-     * @param sightId the Id of the Sight
+     * @param sightId the id of the Sight
      * @param destination the destination to copy to
      * @return the newly created Sight resource.
      * @throws IllegalArgumentException if any argument is null or empty string
@@ -229,7 +229,7 @@ public class SightResourcesImpl extends AbstractResources implements SightResour
      * <p>
      * It mirrors to the following Smartsheet REST API method: POST /sights/{sightId}/publish
      *
-     * @param sightId the Id of the Sight
+     * @param sightId the id of the Sight
      * @return the Sight's publish status.
      * @throws IllegalArgumentException if any argument is null or empty string
      * @throws InvalidRequestException if there is any problem with the REST API request
@@ -247,7 +247,7 @@ public class SightResourcesImpl extends AbstractResources implements SightResour
      * <p>
      * It mirrors to the following Smartsheet REST API method: POST /sights/{sightId}/publish
      *
-     * @param sightId the Id of the Sight
+     * @param sightId the id of the Sight
      * @param sightPublish the SightPublish object containing publish status
      * @return the Sight's publish status.
      * @throws IllegalArgumentException if any argument is null or empty string

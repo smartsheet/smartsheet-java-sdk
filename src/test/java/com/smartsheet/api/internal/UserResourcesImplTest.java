@@ -19,23 +19,30 @@ package com.smartsheet.api.internal;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
 import com.smartsheet.api.models.Account;
+import com.smartsheet.api.models.AlternateEmail;
 import com.smartsheet.api.models.DeleteUserParameters;
 import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.PaginationParameters;
 import com.smartsheet.api.models.Sheet;
 import com.smartsheet.api.models.User;
 import com.smartsheet.api.models.UserProfile;
+import com.smartsheet.api.models.enums.UserInclusion;
 import com.smartsheet.api.models.enums.UserStatus;
+import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.Assertions.assertThatCode;
 
 class UserResourcesImplTest extends ResourcesImplBase {
 
@@ -145,6 +152,29 @@ class UserResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
+    void testGetCurrentUser_withIncludesExcludes() throws SmartsheetException, IOException {
+        server.setResponseBody(new File("src/test/resources/getCurrentUserIncludesGroups.json"));
+
+        EnumSet<UserInclusion> includes = EnumSet.of(UserInclusion.GROUPS);
+        UserProfile user = userResources.getCurrentUser(includes);
+        assertThat(user.getEmail()).isEqualTo("test@smartsheet.com");
+        assertThat(user.getId().longValue()).isEqualTo(2222222222L);
+        assertThat(user.getFirstName()).isEqualTo("John");
+        assertThat(user.getLastName()).isEqualTo("Doe");
+        assertThat(user.getLocale()).isEqualTo("en_US");
+        assertThat(user.getTimeZone()).isEqualTo("US/Pacific");
+
+        Account account = user.getAccount();
+        assertThat(account.getName()).isEqualTo("Smartsheet");
+        assertThat(account.getId().longValue()).isEqualTo(111111111111L);
+
+        // has groups
+        assertThat(user.getGroups()).hasSize(1);
+        assertThat(user.getGroups().get(0).getId()).isEqualTo(456456L);
+        assertThat(user.getGroups().get(0).getOwner()).isEqualTo("jane.doe@smartsheet.com");
+    }
+
+    @Test
     void testUpdateUser() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/updateUser.json"));
 
@@ -161,10 +191,10 @@ class UserResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    void testDeleteUser() throws IOException, SmartsheetException {
+    void testDeleteUser() throws IOException {
         server.setResponseBody(new File("src/test/resources/deleteUser.json"));
         DeleteUserParameters parameters = new DeleteUserParameters(12345L, true, true);
-        userResources.deleteUser(1234L, parameters);
+        assertThatCode(() -> userResources.deleteUser(1234L, parameters)).doesNotThrowAnyException();
     }
 
     @Test
@@ -177,5 +207,122 @@ class UserResourcesImplTest extends ResourcesImplBase {
         pagination.setPage(1);
 
         PagedResult<Sheet> sheets = userResources.listOrgSheets(pagination, null);
+        assertThat(sheets.getData()).isNotNull().isNotEmpty();
+        assertThat(sheets.getData()).hasSize(1);
+        assertThat(sheets.getData().get(0).getId()).isEqualTo(2894323533539204L);
+        assertThat(sheets.getData().get(0).getOwner()).isEqualTo("john.doe@smartsheet.com");
+    }
+
+    @Test
+    void testListAlternateEmails() throws SmartsheetException, IOException {
+        server.setResponseBody(new File("src/test/resources/listAlternateEmails.json"));
+
+        PaginationParameters pagination = new PaginationParameters();
+        pagination.setIncludeAll(true);
+        pagination.setPageSize(1);
+        pagination.setPage(1);
+
+        PagedResult<AlternateEmail> alternateEmailPagedResult = userResources.listAlternateEmails(1234L, pagination);
+        assertThat(alternateEmailPagedResult.getData()).isNotNull().isNotEmpty();
+        assertThat(alternateEmailPagedResult.getData()).hasSize(2);
+        assertThat(alternateEmailPagedResult.getData().get(0).getId()).isEqualTo(2894323533539204L);
+        assertThat(alternateEmailPagedResult.getData().get(0).getEmail()).isEqualTo("john.doe@smartsheet.com");
+        // since this is a Boolean, this is null if not set
+        assertThat(alternateEmailPagedResult.getData().get(0).getConfirmed()).isNull();
+
+        assertThat(alternateEmailPagedResult.getData().get(1).getId()).isEqualTo(787878L);
+        assertThat(alternateEmailPagedResult.getData().get(1).getEmail()).isEqualTo("jane.doe@smartsheet.com");
+        assertThat(alternateEmailPagedResult.getData().get(1).getConfirmed()).isFalse();
+    }
+
+    @Test
+    void testGetAlternateEmail() throws SmartsheetException, IOException {
+        server.setResponseBody(new File("src/test/resources/getAlternateEmail.json"));
+
+        PaginationParameters pagination = new PaginationParameters();
+        pagination.setIncludeAll(true);
+        pagination.setPageSize(1);
+        pagination.setPage(1);
+
+        AlternateEmail alternateEmail = userResources.getAlternateEmail(1234L, 7845112L);
+        assertThat(alternateEmail).isNotNull();
+        assertThat(alternateEmail.getId()).isEqualTo(2894323533539204L);
+        assertThat(alternateEmail.getEmail()).isEqualTo("john.doe@smartsheet.com");
+        // since this is a Boolean, this is null if not set
+        assertThat(alternateEmail.getConfirmed()).isNull();
+    }
+
+    @Test
+    void testAddAlternateEmail() throws SmartsheetException, IOException {
+        server.setResponseBody(new File("src/test/resources/addAlternateEmail.json"));
+
+        PaginationParameters pagination = new PaginationParameters();
+        pagination.setIncludeAll(true);
+        pagination.setPageSize(1);
+        pagination.setPage(1);
+
+        AlternateEmail alternateEmail = new AlternateEmail();
+        alternateEmail.setEmail("foo.bar@smartsheet.com");
+
+        List<AlternateEmail> alternateEmailList = Lists.newArrayList(alternateEmail);
+
+        List<AlternateEmail> alternateEmails = userResources.addAlternateEmail(1234L, alternateEmailList);
+        assertThat(alternateEmails).isNotNull();
+        assertThat(alternateEmails).hasSize(2);
+    }
+
+    @Test
+    void testAddAlternateEmail_AlternateEmailNull() throws IOException {
+        server.setResponseBody(new File("src/test/resources/addAlternateEmail.json"));
+
+        PaginationParameters pagination = new PaginationParameters();
+        pagination.setIncludeAll(true);
+        pagination.setPageSize(1);
+        pagination.setPage(1);
+
+        assertThatThrownBy(() -> userResources.addAlternateEmail(1234L, null)).isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
+    void testAddAlternateEmail_NoEmailSupplied() throws SmartsheetException, IOException {
+        server.setResponseBody(new File("src/test/resources/addAlternateEmail.json"));
+
+        PaginationParameters pagination = new PaginationParameters();
+        pagination.setIncludeAll(true);
+        pagination.setPageSize(1);
+        pagination.setPage(1);
+
+        List<AlternateEmail> alternateEmailList = Lists.newArrayList();
+
+        List<AlternateEmail> alternateEmails = userResources.addAlternateEmail(1234L, alternateEmailList);
+        assertThat(alternateEmails).isNotNull();
+        assertThat(alternateEmails).hasSize(0);
+    }
+
+    @Test
+    void testDeleteAlternateEmail() throws IOException {
+        server.setResponseBody(new File("src/test/resources/deleteUser.json"));
+        assertThatCode(() -> userResources.deleteAlternateEmail(1234L, 7878L)).doesNotThrowAnyException();
+    }
+
+    @Disabled("Not working with return type")
+    @Test
+    void testPromoteAlternateEmail() throws IOException, SmartsheetException {
+        server.setResponseBody(new File("src/test/resources/promoteAlternateEmail.json"));
+
+        PaginationParameters pagination = new PaginationParameters();
+        pagination.setIncludeAll(true);
+        pagination.setPageSize(1);
+        pagination.setPage(1);
+
+        AlternateEmail alternateEmail = userResources.promoteAlternateEmail(1234L, 7878L);
+        assertThat(alternateEmail).isNotNull();
+    }
+
+    @Test
+    void testAddProfileImage_ImageNull() {
+        assertThatThrownBy(() -> {
+            userResources.addProfileImage(1234L, null, "application/octet-stream");
+        }).isInstanceOf(IllegalArgumentException.class);
     }
 }
