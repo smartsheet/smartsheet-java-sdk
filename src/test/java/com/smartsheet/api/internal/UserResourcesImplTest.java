@@ -33,7 +33,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.Assertions.assertThatCode;
+
 
 class UserResourcesImplTest extends ResourcesImplBase {
 
@@ -273,9 +276,7 @@ class UserResourcesImplTest extends ResourcesImplBase {
         pagination.setPageSize(1);
         pagination.setPage(1);
 
-        assertThatThrownBy(() -> {
-            userResources.addAlternateEmail(1234L, null);;
-        }).isInstanceOf(IllegalArgumentException.class);
+        assertThatThrownBy(() -> userResources.addAlternateEmail(1234L, null)).isInstanceOf(IllegalArgumentException.class);
     }
 
     @Test

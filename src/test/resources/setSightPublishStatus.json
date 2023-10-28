@@ -1,0 +1,10 @@
+{
+  "resultCode": 0,
+  "message": "SUCCESS",
+  "result":
+    {
+      "readOnlyFullEnabled": false,
+      "readOnlyFullAccessibleBy": false,
+      "readOnlyFullUrl": "https://foo.bar.com"
+    }
+}
