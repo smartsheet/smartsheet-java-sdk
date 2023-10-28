@@ -18,7 +18,11 @@ package com.smartsheet.api.internal;
 
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
-import com.smartsheet.api.models.*;
+import com.smartsheet.api.models.PagedResult;
+import com.smartsheet.api.models.PaginationParameters;
+import com.smartsheet.api.models.ContainerDestination;
+import com.smartsheet.api.models.Sight;
+import com.smartsheet.api.models.SightPublish;
 import com.smartsheet.api.models.enums.AccessLevel;
 import com.smartsheet.api.models.enums.SightInclusion;
 import org.junit.jupiter.api.BeforeEach;
@@ -31,7 +35,6 @@ import java.util.EnumSet;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.assertj.core.api.Assertions.assertThatCode;
-
 
 class SightResourcesImplTest extends ResourcesImplBase {
     private SightResourcesImpl sightResourcesImpl;

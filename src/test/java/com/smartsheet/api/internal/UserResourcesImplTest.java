@@ -18,7 +18,14 @@ package com.smartsheet.api.internal;
 
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
-import com.smartsheet.api.models.*;
+import com.smartsheet.api.models.Account;
+import com.smartsheet.api.models.AlternateEmail;
+import com.smartsheet.api.models.DeleteUserParameters;
+import com.smartsheet.api.models.PagedResult;
+import com.smartsheet.api.models.PaginationParameters;
+import com.smartsheet.api.models.Sheet;
+import com.smartsheet.api.models.User;
+import com.smartsheet.api.models.UserProfile;
 import com.smartsheet.api.models.enums.UserInclusion;
 import com.smartsheet.api.models.enums.UserStatus;
 import org.assertj.core.util.Lists;
@@ -36,7 +43,6 @@ import java.util.Set;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.assertj.core.api.Assertions.assertThatCode;
-
 
 class UserResourcesImplTest extends ResourcesImplBase {
 
