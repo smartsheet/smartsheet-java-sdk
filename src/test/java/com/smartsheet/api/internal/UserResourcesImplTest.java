@@ -169,7 +169,7 @@ class UserResourcesImplTest extends ResourcesImplBase {
         assertThat(account.getId().longValue()).isEqualTo(111111111111L);
 
         // has groups
-        assertThat(user.getGroups().size()).isEqualTo(1);
+        assertThat(user.getGroups()).hasSize(1);
         assertThat(user.getGroups().get(0).getId()).isEqualTo(456456L);
         assertThat(user.getGroups().get(0).getOwner()).isEqualTo("jane.doe@smartsheet.com");
     }
@@ -207,9 +207,8 @@ class UserResourcesImplTest extends ResourcesImplBase {
         pagination.setPage(1);
 
         PagedResult<Sheet> sheets = userResources.listOrgSheets(pagination, null);
-        assertThat(sheets.getData()).isNotNull();
-        assertThat(sheets.getData()).isNotEmpty();
-        assertThat(sheets.getData().size()).isEqualTo(1);
+        assertThat(sheets.getData()).isNotNull().isNotEmpty();
+        assertThat(sheets.getData()).hasSize(1);
         assertThat(sheets.getData().get(0).getId()).isEqualTo(2894323533539204L);
         assertThat(sheets.getData().get(0).getOwner()).isEqualTo("john.doe@smartsheet.com");
     }
@@ -224,9 +223,8 @@ class UserResourcesImplTest extends ResourcesImplBase {
         pagination.setPage(1);
 
         PagedResult<AlternateEmail> alternateEmailPagedResult = userResources.listAlternateEmails(1234L, pagination);
-        assertThat(alternateEmailPagedResult.getData()).isNotNull();
-        assertThat(alternateEmailPagedResult.getData()).isNotEmpty();
-        assertThat(alternateEmailPagedResult.getData().size()).isEqualTo(2);
+        assertThat(alternateEmailPagedResult.getData()).isNotNull().isNotEmpty();
+        assertThat(alternateEmailPagedResult.getData()).hasSize(2);
         assertThat(alternateEmailPagedResult.getData().get(0).getId()).isEqualTo(2894323533539204L);
         assertThat(alternateEmailPagedResult.getData().get(0).getEmail()).isEqualTo("john.doe@smartsheet.com");
         // since this is a Boolean, this is null if not set
@@ -270,7 +268,7 @@ class UserResourcesImplTest extends ResourcesImplBase {
 
         List<AlternateEmail> alternateEmails = userResources.addAlternateEmail(1234L, alternateEmailList);
         assertThat(alternateEmails).isNotNull();
-        assertThat(alternateEmails.size()).isEqualTo(2);
+        assertThat(alternateEmails).hasSize(2);
     }
 
     @Test
@@ -298,7 +296,7 @@ class UserResourcesImplTest extends ResourcesImplBase {
 
         List<AlternateEmail> alternateEmails = userResources.addAlternateEmail(1234L, alternateEmailList);
         assertThat(alternateEmails).isNotNull();
-        assertThat(alternateEmails.size()).isEqualTo(0);
+        assertThat(alternateEmails).hasSize(0);
     }
 
     @Test

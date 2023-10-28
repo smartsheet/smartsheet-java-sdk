@@ -62,7 +62,7 @@ class SightResourcesImplTest extends ResourcesImplBase {
         PagedResult<Sight> sightPagedResult = sightResourcesImpl.listSights(pagination, null);
         assertThat(sightPagedResult.getData()).isNotNull();
         assertThat(sightPagedResult.getData()).isNotEmpty();
-        assertThat(sightPagedResult.getData().size()).isEqualTo(1);
+        assertThat(sightPagedResult.getData()).hasSize(1);
         assertThat(sightPagedResult.getData().get(0).getAccessLevel()).isEqualTo(AccessLevel.VIEWER);
         assertThat(sightPagedResult.getData().get(0).getFavorite()).isFalse();
         assertThat(sightPagedResult.getData().get(0).getWidgets()).isEmpty();
@@ -153,7 +153,7 @@ class SightResourcesImplTest extends ResourcesImplBase {
         server.setResponseBody(new File("src/test/resources/setSightPublishStatus.json"));
         SightPublish sightPublish = sightResourcesImpl.setPublishStatus(1234L, new SightPublish());
         assertThat(sightPublish.getReadOnlyFullAccessibleBy()).isEqualTo(Boolean.FALSE.toString());
-        assertThat(sightPublish.getReadOnlyFullAccessibleBy()).isEqualTo(Boolean.FALSE.toString());
+        assertThat(sightPublish.getReadOnlyFullEnabled()).isEqualTo(Boolean.FALSE);
         assertThat(sightPublish.getReadOnlyFullUrl()).isNotBlank();
     }
 
@@ -162,7 +162,7 @@ class SightResourcesImplTest extends ResourcesImplBase {
         server.setResponseBody(new File("src/test/resources/getSightPublishStatus.json"));
         SightPublish sightPublish = sightResourcesImpl.getPublishStatus(1234L);
         assertThat(sightPublish.getReadOnlyFullAccessibleBy()).isEqualTo(Boolean.FALSE.toString());
-        assertThat(sightPublish.getReadOnlyFullAccessibleBy()).isEqualTo(Boolean.FALSE.toString());
+        assertThat(sightPublish.getReadOnlyFullEnabled()).isEqualTo(Boolean.FALSE);
         assertThat(sightPublish.getReadOnlyFullUrl()).isNotBlank();
     }
 
