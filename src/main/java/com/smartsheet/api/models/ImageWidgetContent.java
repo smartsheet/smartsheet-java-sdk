@@ -33,7 +33,7 @@ public class ImageWidgetContent implements WidgetContent {
 
     /**
      * Format Descriptor
-     * @see <a href="https://smartsheet-platform.github.io/api-docs/?ruby#formatting">FormatDescriptor</a>
+     * @see <a href="https://smartsheet.redoc.ly/#section/API-Basics/Formatting">FormatDescriptor</a>
      */
     private Format format;
 

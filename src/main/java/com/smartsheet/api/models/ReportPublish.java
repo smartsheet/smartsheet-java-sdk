@@ -17,8 +17,8 @@
 package com.smartsheet.api.models;
 
 /**
- * The ReportPublish object
- * @see <a href="http://smartsheet-platform.github.io/api-docs/?java#reportpublish-object">Publish Object</a>
+ * The ReportPublish object. Retruned by endpoints such as the
+ * @see <a href="https://smartsheet.redoc.ly/tag/sheets#operation/get-sheetPublish">get sheet publish status</a>
  */
 public class ReportPublish {
 

@@ -18,43 +18,44 @@ package com.smartsheet.api.internal;
 
 import com.smartsheet.api.AssociatedAttachmentResources;
 import com.smartsheet.api.CommentResources;
+import com.smartsheet.api.SheetCommentResources;
 import com.smartsheet.api.models.Comment;
 
 /**
- * @deprecated As of release 2.0
+ * @deprecated As of release 2.0. Please use {@link SheetCommentResources} instead
  */
-@Deprecated
+@Deprecated(since = "2.0.0", forRemoval = true)
 public class CommentResourcesImpl extends AbstractResources implements CommentResources {
     private static final String METHOD_MOVED_MESSAGE = "Method moved to SheetCommentResources.";
 
     /**
-     * @deprecated As of release 2.0
+     * @deprecated As of release 2.0. Please use {@link SheetCommentResources} instead
      */
-    @Deprecated
+    @Deprecated(since = "2.0.0", forRemoval = true)
     public CommentResourcesImpl(SmartsheetImpl smartsheet) {
         super(smartsheet);
     }
 
     /**
-     * @deprecated As of release 2.0
+     * @deprecated As of release 2.0. Please use {@link SheetCommentResources} instead
      */
-    @Deprecated
+    @Deprecated(since = "2.0.0", forRemoval = true)
     public AssociatedAttachmentResources attachments() {
         throw new UnsupportedOperationException(METHOD_MOVED_MESSAGE);
     }
 
     /**
-     * @deprecated As of release 2.0
+     * @deprecated As of release 2.0. Please use {@link SheetCommentResources} instead
      */
-    @Deprecated
+    @Deprecated(since = "2.0.0", forRemoval = true)
     public Comment getComment(long sheetId, long commentId) {
         throw new UnsupportedOperationException(METHOD_MOVED_MESSAGE);
     }
 
     /**
-     * @deprecated As of release 2.0
+     * @deprecated As of release 2.0. Please use {@link SheetCommentResources} instead
      */
-    @Deprecated
+    @Deprecated(since = "2.0.0", forRemoval = true)
     public void deleteComment(long sheetId, long commentId) {
         throw new UnsupportedOperationException(METHOD_MOVED_MESSAGE);
     }

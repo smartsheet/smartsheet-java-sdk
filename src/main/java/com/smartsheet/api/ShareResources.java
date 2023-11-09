@@ -45,8 +45,9 @@ public interface ShareResources {
      * @throws ResourceNotFoundException if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
+     * @deprecated As of release 2.0. Please use the other listShares method in this class and pass `includeWorkspaceShares` as `false`
      */
-    @Deprecated
+    @Deprecated(since = "2.0.0", forRemoval = true)
     PagedResult<Share> listShares(long objectId, PaginationParameters parameters) throws SmartsheetException;
 
     /**

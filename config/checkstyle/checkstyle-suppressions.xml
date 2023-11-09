@@ -15,4 +15,12 @@
     <suppress files="[\\/]src[\\/]test[\\/].*" checks="FileLength" />
     <!-- Don't check method lengths for tests -->
     <suppress files="[\\/]src[\\/]test[\\/].*" checks="MethodLength" />
+
+<!--    These classes use TRow TColumn and TCell which are confusing to replace with single letter types -->
+    <suppress checks="ClassTypeParameterName" files="src/main/java/com/smartsheet/api/models/AbstractSheet.java"/>
+    <suppress checks="ClassTypeParameterName" files="src/main/java/com/smartsheet/api/models/AbstractRow.java"/>
+
+<!--    These classes are enums with multiple enums using the same string in value -->
+    <suppress checks="MultipleStringLiterals" files="src/main/java/com/smartsheet/api/models/format/Currency.java"/>
+    <suppress checks="MultipleStringLiterals" files="src/main/java/com/smartsheet/api/models/format/FontFamily.java"/>
 </suppressions>

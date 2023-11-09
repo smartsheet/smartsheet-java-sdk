@@ -160,6 +160,9 @@ public class AndroidHttpClient implements HttpClient {
                     case DELETE:
                         builder.delete();
                         break;
+                    default:
+                        // This switch is exhaustive, but the checkstyle doesn't know that
+                        throw new UnsupportedOperationException("Unsupported method: " + smartsheetRequest.getMethod());
                 }
             } catch (IOException e) {
                 throw new HttpClientException(ERROR_OCCURRED, e);

@@ -18,7 +18,7 @@ package com.smartsheet.api.models;
 
 /**
  * Represents the AutoNumberFormat object. It describes how the the System Column type of "AUTO_NUMBER" is auto-generated
- * @see <a href="http://www.smartsheet.com/developers/api-documentation#h.xu85ymcuwnmq">Auto Number Format API Documentation</a>
+ * @see <a href="https://smartsheet.redoc.ly/tag/commonObjects/#section/AutoNumberFormat-Object">Auto Number Format API Documentation</a>
  * @see <a href="http://help.smartsheet.com/customer/portal/articles/1108408-auto-numbering">Auto Number Format Help</a>
  */
 public class AutoNumberFormat {

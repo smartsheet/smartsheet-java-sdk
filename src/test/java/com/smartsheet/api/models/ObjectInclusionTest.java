@@ -17,25 +17,47 @@
 package com.smartsheet.api.models;
 
 import com.smartsheet.api.models.enums.ObjectInclusion;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
+
+import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 class ObjectInclusionTest {
 
-    @Test
-    void testObjectInclusion() {
-        assertThat(ObjectInclusion.valueOf("DISCUSSIONS")).isNotNull();
-        assertThat(ObjectInclusion.valueOf("ATTACHMENTS")).isNotNull();
-        assertThat(ObjectInclusion.valueOf("DATA")).isNotNull();
-        assertThat(ObjectInclusion.valueOf("COLUMNS")).isNotNull();
-        assertThat(ObjectInclusion.valueOf("TEMPLATES")).isNotNull();
-        assertThat(ObjectInclusion.valueOf("FORMS")).isNotNull();
-        assertThat(ObjectInclusion.valueOf("CELL_LINKS")).isNotNull();
-        assertThat(ObjectInclusion.valueOf("FORMAT")).isNotNull();
-        assertThat(ObjectInclusion.valueOf("SOURCE")).isNotNull();
+    @Nested
+    @TestInstance(TestInstance.Lifecycle.PER_CLASS)
+    class ToStringTests {
+        @ParameterizedTest
+        @MethodSource("toStringArguments")
+        void toString(ObjectInclusion objectInclusion, String expectedString) {
+            // Act
+            String result = objectInclusion.toString();
 
-        assertThat(ObjectInclusion.values()).hasSize(9);
+            // Assert
+            assertThat(result).isEqualTo(expectedString);
+
+            // This will cause the test to fail if we ever add a new value.
+            // Please remember to add the new value in the method below
+            assertThat(ObjectInclusion.values()).hasSize(9);
+        }
+
+        private Stream<Arguments> toStringArguments() {
+            return Stream.of(
+                    Arguments.of(ObjectInclusion.DISCUSSIONS, "discussions"),
+                    Arguments.of(ObjectInclusion.ATTACHMENTS, "attachments"),
+                    Arguments.of(ObjectInclusion.DATA, "data"),
+                    Arguments.of(ObjectInclusion.COLUMNS, "columns"),
+                    Arguments.of(ObjectInclusion.TEMPLATES, "templates"),
+                    Arguments.of(ObjectInclusion.FORMS, "forms"),
+                    Arguments.of(ObjectInclusion.CELL_LINKS, "cellLinks"),
+                    Arguments.of(ObjectInclusion.FORMAT, "format"),
+                    Arguments.of(ObjectInclusion.SOURCE, "source")
+            );
+        }
     }
-
 }

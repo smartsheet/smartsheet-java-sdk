@@ -18,7 +18,7 @@ package com.smartsheet.api.models.enums;
 
 /**
  * Represents the type of access that is granted on a given sheet.
- * @see <a href="http://www.smartsheet.com/developers/api-documentation#h.89hb3ivv7eum">Access Scopes Help</a>
+ * @see <a href="https://smartsheet.redoc.ly/#section/OAuth-Walkthrough/Access-Scopes">Access Scopes Help</a>
  */
 public enum AccessScope {
     ADMIN_SHEETS,

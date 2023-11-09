@@ -244,7 +244,9 @@ public class WorkspaceResourcesImpl extends AbstractResources implements Workspa
      * @param excludes optional parameters to exclude     *
      * @return the folder
      * @throws SmartsheetException the smartsheet exception
+     * @deprecated As of release 2.0. `excludes` param is deprecated. Please use the `copyWorkspace` method with `includes` instead.
      */
+    @Deprecated(since = "2.0.0", forRemoval = true)
     public Workspace copyWorkspace(long workspaceId, ContainerDestination containerDestination, EnumSet<WorkspaceCopyInclusion> includes,
                                    EnumSet<WorkspaceRemapExclusion> skipRemap, EnumSet<CopyExclusion> excludes) throws SmartsheetException {
 

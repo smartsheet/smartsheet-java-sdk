@@ -82,7 +82,6 @@ public interface SheetResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    @Deprecated
     PagedResult<Sheet> listSheets(EnumSet<SourceInclusion> includes, PaginationParameters pagination) throws SmartsheetException;
 
     /**
@@ -98,8 +97,9 @@ public interface SheetResources {
      * @throws ResourceNotFoundException if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
+     * @deprecated As of release 2.0. Please use {@link UserResources} instead
      */
-    @Deprecated
+    @Deprecated(since = "2.0.0", forRemoval = true)
     PagedResult<Sheet> listOrganizationSheets(PaginationParameters parameters) throws SmartsheetException;
 
     /**
@@ -688,8 +688,9 @@ public interface SheetResources {
      * @param email the email
      * @return the update request object
      * @throws SmartsheetException the smartsheet exception
+     * @deprecated As of release 2.0. Please use {@link SheetUpdateRequestResources} instead.
      */
-    @Deprecated
+    @Deprecated(since = "2.0.0", forRemoval = true)
     UpdateRequest createUpdateRequest(long sheetId, MultiRowEmail email) throws SmartsheetException;
 
     /**

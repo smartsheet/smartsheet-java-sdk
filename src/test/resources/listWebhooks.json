@@ -1,0 +1,38 @@
+{
+  "pageNumber": 1,
+  "pageSize": 100,
+  "totalPages": 1,
+  "totalCount": 2,
+  "data": [
+    {
+      "apiClientId": "2382749284kjdskfhjsfhkjds",
+      "scopeObjectId": 827634728462,
+      "apiClientName": "testClientName1",
+      "callbackUrl": "https://foo-callback.smar.com/webhook",
+      "createdAt": "2023-01-30T11:42:30Z",
+      "modifiedAt": "2023-05-30T11:42:30Z",
+      "disabledDetails": "disabled by owner for additional testing",
+      "enabled": false,
+      "events": ["delete", "add"],
+      "scope": "some-scope-string",
+      "sharedSecret": "sdklfldsjwe9oak232m4n22424kh2390283923",
+      "status": "DISABLED_BY_OWNER",
+      "version": 1.0
+    },
+    {
+      "apiClientId": "39432809243jkhk234234234",
+      "scopeObjectId": 873422211111,
+      "apiClientName": "testClientName2",
+      "callbackUrl": "https://bar-callback.smar.com/webhook",
+      "createdAt": "2023-01-14T11:42:30Z",
+      "modifiedAt": "2023-01-29T11:42:30Z",
+      "disabledDetails": "",
+      "enabled": true,
+      "events": [],
+      "scope": "some-scope-string",
+      "sharedSecret": "9087234jhg23j2323423",
+      "status": "ENABLED",
+      "version": 1.0
+    }
+  ]
+}

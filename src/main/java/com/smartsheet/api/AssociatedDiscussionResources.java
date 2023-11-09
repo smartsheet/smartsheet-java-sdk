@@ -19,17 +19,17 @@ package com.smartsheet.api;
 import com.smartsheet.api.models.Discussion;
 
 /**
- * @deprecated As of release 2.0
+ * @deprecated As of release 2.0. Please use {@link RowDiscussionResources} or {@link SheetDiscussionResources}
  */
-@Deprecated
+@Deprecated(since = "2.0.0", forRemoval = true)
 public interface AssociatedDiscussionResources {
     /**
      * @param objectId the object id (sheet id or row id)
      * @param discussion the discussion object
      * @return the created discussion
      * @throws SmartsheetException if there is any other error during the operation
-     * @deprecated As of release 2.0
+     * @deprecated As of release 2.0. Please use {@link RowDiscussionResources} or {@link SheetDiscussionResources}
      */
-    @Deprecated
+    @Deprecated(since = "2.0.0", forRemoval = true)
     Discussion createDiscussion(long objectId, Discussion discussion) throws SmartsheetException;
 }
