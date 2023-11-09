@@ -49,8 +49,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -87,11 +85,12 @@ public class DefaultHttpClient implements HttpClient {
     private CloseableHttpResponse apacheHttpResponse;
 
     /** to avoid creating new sets for each call (we use Sets for practical and perf reasons) */
-    private static final Set<Trace> REQUEST_RESPONSE_SUMMARY = Collections.unmodifiableSet(new HashSet<>(
-            Arrays.asList(Trace.RequestHeaders, Trace.RequestBodySummary, Trace.ResponseHeaders, Trace.ResponseBodySummary)));
-
-    private static final Set<Trace> REQUEST_RESPONSE = Collections.unmodifiableSet(new HashSet<>(
-            Arrays.asList(Trace.RequestHeaders, Trace.RequestBody, Trace.ResponseHeaders, Trace.ResponseBody)));
+    private static final Set<Trace> REQUEST_RESPONSE_SUMMARY = Set.of(
+            Trace.RequestHeaders,
+            Trace.RequestBodySummary,
+            Trace.ResponseHeaders,
+            Trace.ResponseBodySummary
+    );
 
     /** default values for trace-logging extracted from system-properties (can still be overwritten at the instance level) */
     private static final boolean TRACE_PRETTY_PRINT_DEFAULT = Boolean.parseBoolean(System.getProperty("Smartsheet.trace.pretty", "true"));
@@ -100,13 +99,15 @@ public class DefaultHttpClient implements HttpClient {
     private static final Set<Trace> TRACE_DEFAULT_TRACE_SET = Trace.parse(System.getProperty("Smartsheet.trace.parts"));
 
     /** where to send trace logs */
-    private static PrintWriter TRACE_WRITER;
+    private static PrintWriter traceWriter;
+
+    private final Random random = new Random();
 
     static {
         // default trace stream
         setTraceStream(System.out);
-        if (TRACE_DEFAULT_TRACE_SET.size() > 0) {
-            TRACE_WRITER.println("default trace logging - pretty:" + TRACE_PRETTY_PRINT_DEFAULT + " parts:" + TRACE_DEFAULT_TRACE_SET);
+        if (!TRACE_DEFAULT_TRACE_SET.isEmpty()) {
+            traceWriter.println("default trace logging - pretty:" + TRACE_PRETTY_PRINT_DEFAULT + " parts:" + TRACE_DEFAULT_TRACE_SET);
         }
     }
 
@@ -155,13 +156,7 @@ public class DefaultHttpClient implements HttpClient {
 
         logger.info("{} {}, Response Code:{}, Request completed in {} ms", request.getMethod(), request.getURI(),
                 response.getStatusCode(), durationMillis);
-        if (response.getStatusCode() != 200) {
-            // log the request and response on error
-            logger.warn(LOG_ARG, RequestAndResponseData.of(request, requestEntity, response, responseEntity, REQUEST_RESPONSE));
-        } else {
-            // log the summary request and response on success
-            logger.debug(LOG_ARG, RequestAndResponseData.of(request, requestEntity, response, responseEntity, REQUEST_RESPONSE_SUMMARY));
-        }
+        logger.debug(LOG_ARG, RequestAndResponseData.of(request, requestEntity, response, responseEntity, REQUEST_RESPONSE_SUMMARY));
     }
 
     /**
@@ -285,7 +280,7 @@ public class DefaultHttpClient implements HttpClient {
                 if (traces.size() > 0) {
                     RequestAndResponseData requestAndResponseData = RequestAndResponseData.of(apacheHttpRequest,
                             requestEntityCopy, smartsheetResponse, responseEntityCopy, traces);
-                    TRACE_WRITER.println(requestAndResponseData.toString(tracePrettyPrint));
+                    traceWriter.println(requestAndResponseData.toString(tracePrettyPrint));
                 }
 
                 if (smartsheetResponse.getStatusCode() == 200) {
@@ -337,7 +332,7 @@ public class DefaultHttpClient implements HttpClient {
                 throw new HttpClientException(ERROR_OCCURRED, e);
             } catch (NoHttpResponseException e) {
                 try {
-                    logger.warn("NoHttpResponseException " + e.getMessage());
+                    logger.warn("NoHttpResponseException {}", e.getMessage());
                     logger.warn(LOG_ARG, RequestAndResponseData.of(apacheHttpRequest, requestEntityCopy, smartsheetResponse,
                             responseEntityCopy, REQUEST_RESPONSE_SUMMARY));
                     // check to see if the response was empty and this was a POST. All other HTTP methods
@@ -416,11 +411,15 @@ public class DefaultHttpClient implements HttpClient {
      */
     public long calcBackoff(int previousAttempts, long totalElapsedTimeMillis, Error error) {
 
-        long backoffMillis = (long) (Math.pow(2, previousAttempts) * 1000) + new Random().nextInt(1000);
+        long backoffMillis = (long) (Math.pow(2, previousAttempts) * 1000) + random.nextInt(1000);
 
         if (totalElapsedTimeMillis + backoffMillis > maxRetryTimeMillis) {
-            logger.info("Elapsed time " + totalElapsedTimeMillis + " + backoff time " + backoffMillis +
-                    " exceeds max retry time " + maxRetryTimeMillis + ", exiting retry loop");
+            logger.info(
+                    "Elapsed time {} + backoff time {} exceeds max retry time {}, exiting retry loop",
+                    totalElapsedTimeMillis,
+                    backoffMillis,
+                    maxRetryTimeMillis
+            );
             return -1;
         }
         return backoffMillis;
@@ -467,7 +466,7 @@ public class DefaultHttpClient implements HttpClient {
             return false;
         }
 
-        logger.info("HttpError StatusCode=" + response.getStatusCode() + ": Retrying in " + backoffMillis + " milliseconds");
+        logger.info("HttpError StatusCode={}: Retrying in {} milliseconds", response.getStatusCode(), backoffMillis);
         try {
             Thread.sleep(backoffMillis);
         } catch (InterruptedException e) {
@@ -525,6 +524,6 @@ public class DefaultHttpClient implements HttpClient {
 
     /** only included for testing purposes */
     public static void setTraceStream(OutputStream traceStream) {
-        TRACE_WRITER = new PrintWriter(traceStream, true);
+        traceWriter = new PrintWriter(traceStream, true);
     }
 }
