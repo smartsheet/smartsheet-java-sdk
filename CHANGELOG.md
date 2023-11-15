@@ -4,11 +4,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## Unreleased - 
+## [3.1.3] - 2023-11-15
 ### Added
 - Added latest Checkstyle version, 
   - for violations in `src/main/` the build WILL fail if we exceed 20 violations since we haven't fixed all existing ones yet  
   - for violations in `src/test/` the build WILL fail if there is a single violation  
+- Added more test coverage
+### Updated
+- When we get a non 200 response from Smartsheet, we won't log the entire response to prevent logging PII. Clients can enable debug logging 
+  if they need more details
 
 ## [3.1.2] - 2023-07-25
 ### Changed
