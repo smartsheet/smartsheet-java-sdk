@@ -231,7 +231,6 @@ signing {
     sign publishing.publications.mavenJava
 }
 
-
 // Checkstyle Configuration
 checkstyle {
     toolVersion = "${checkstyleVersion}"
