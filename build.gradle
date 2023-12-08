@@ -20,7 +20,7 @@ plugins {
     // Allows us to publish our artifact
     id 'maven-publish'
     // Allows us to publish to https://oss.sonatype.org/ and release our artifact
-    id("io.github.gradle-nexus.publish-plugin") version "1.3.0"
+    id 'io.github.gradle-nexus.publish-plugin' version '1.3.0'
 
     // ** MAINTENANCE PLUGINS **
     // Allows us to run `./gradlew dependencyUpdates` to check for dependency updates
