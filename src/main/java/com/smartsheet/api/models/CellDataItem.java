@@ -17,7 +17,21 @@
 package com.smartsheet.api.models;
 
 import com.smartsheet.api.models.format.Format;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+@EqualsAndHashCode
+@Builder
 public class CellDataItem {
 
     /**
@@ -74,191 +88,4 @@ public class CellDataItem {
      * SummaryField object if dataSource is SUMMARY_FIELD
      */
     private SummaryField profileField;
-
-    /**
-     * Get the column Id for the cell.
-     *
-     * @return columnId
-     */
-    public Long getColumnId() {
-        return columnId;
-    }
-
-    /**
-     * Set the column Id for the cell.
-     */
-    public CellDataItem setColumnId(Long columnId) {
-        this.columnId = columnId;
-        return this;
-    }
-
-    /**
-     * Get the row Id for the item
-     *
-     * @return rowId
-     */
-    public Long getRowId() {
-        return rowId;
-    }
-
-    /**
-     * Set the row Id for the item
-     */
-    public CellDataItem setRowId(Long rowId) {
-        this.rowId = rowId;
-        return this;
-    }
-
-    /**
-     * Get the sheet Id for the item
-     */
-    public Long getSheetId() {
-        return sheetId;
-    }
-
-    /**
-     * Set the sheet Id for the item
-     */
-    public CellDataItem setSheetId(Long sheetId) {
-        this.sheetId = sheetId;
-        return this;
-    }
-
-    /**
-     * Get the object for this CellDataItem. The type of the data returned will depend on
-     * the cell type and the data in the cell.
-     *
-     * @return objectValue
-     */
-    public Object getObjectValue() {
-        return objectValue;
-    }
-
-    /**
-     * Set the object for this CellDataItem. The type of the data returned will depend on
-     * the cell type and the data in the cell.
-     */
-    public CellDataItem setObjectValue(Object objectValue) {
-        this.objectValue = objectValue;
-        return this;
-    }
-
-    /**
-     * Get the cell object
-     *
-     * @return cell
-     */
-    public Cell getCell() {
-        return cell;
-    }
-
-    /**
-     * Set the cell object
-     */
-    public CellDataItem setCell(Cell cell) {
-        this.cell = cell;
-        return this;
-    }
-
-    /**
-     * Gets the data source (currently CELL)
-     *
-     * @return CELL
-     */
-    public String getDataSource() {
-        return dataSource;
-    }
-
-    /**
-     * Sets the data source
-     */
-    public CellDataItem setDataSource(String dataSource) {
-        this.dataSource = dataSource;
-        return this;
-    }
-
-    /**
-     * Get the label for the data point.
-     *
-     * @return label
-     */
-    public String getLabel() {
-        return label;
-    }
-
-    /**
-     * Set the label for the data point.
-     */
-    public CellDataItem setLabel(String label) {
-        this.label = label;
-        return this;
-    }
-
-    /**
-     * Get the format descriptor for the label
-     *
-     * @return labelFormat
-     */
-    public Format getLabelFormat() {
-        return labelFormat;
-    }
-
-    /**
-     * Set the format descriptor for the label
-     */
-    public CellDataItem setLabelFormat(Format labelFormat) {
-        this.labelFormat = labelFormat;
-        return this;
-    }
-
-    /**
-     * Get the display order for the CellDataItem
-     *
-     * @return order
-     */
-    public Integer getOrder() {
-        return order;
-    }
-
-    /**
-     * Set the display order for the CellDataItem
-     */
-    public CellDataItem setOrder(Integer order) {
-        this.order = order;
-        return this;
-    }
-
-    /**
-     * Get the format descriptor for the cell value
-     *
-     * @return valueFormat
-     */
-    public Format getValueFormat() {
-        return valueFormat;
-    }
-
-    /**
-     * Set the format descriptor for the cell value
-     */
-    public CellDataItem setValueFormat(Format valueFormat) {
-        this.valueFormat = valueFormat;
-        return this;
-    }
-
-    /**
-     * Get the SummaryField when dataSource is SUMMARY_FIELD
-     *
-     * @return summaryField
-     */
-    public SummaryField getProfileField() {
-        return profileField;
-    }
-
-    /**
-     * Sets the SummaryField if dataSource is SUMMARY_FIELD
-     */
-    public CellDataItem setProfileField(SummaryField profileField) {
-        this.profileField = profileField;
-        return this;
-    }
 }

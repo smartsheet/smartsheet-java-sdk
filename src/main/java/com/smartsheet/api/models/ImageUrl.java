@@ -16,6 +16,21 @@
 
 package com.smartsheet.api.models;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+@EqualsAndHashCode
+@Builder
 public class ImageUrl {
 
     /**
@@ -43,94 +58,4 @@ public class ImageUrl {
      * Error object. Present in the getImageUrls response only if an error occurred.
      */
     private Error error;
-
-    /**
-     * Constructor(s)
-     */
-    public ImageUrl() { }
-
-    public ImageUrl(String imageId) {
-        setImageId(imageId);
-    }
-
-    /**
-     * Get the image id.
-     *
-     * @return imageId
-     */
-    public String getImageId() {
-        return imageId;
-    }
-
-    /**
-     * Set the image id
-     */
-    public ImageUrl setImageId(String imageId) {
-        this.imageId = imageId;
-        return this;
-    }
-
-    /**
-     * Get the image width
-     */
-    public Long getWidth() {
-        return width;
-    }
-
-    /**
-     * Set the image width
-     */
-    public ImageUrl setWidth(Long width) {
-        this.width = width;
-        return this;
-    }
-
-    /**
-     * Get the image height
-     */
-    public Long getHeight() {
-        return height;
-    }
-
-    /**
-     * Set the image height
-     */
-    public ImageUrl setHeight(Long height) {
-        this.height = height;
-        return this;
-    }
-
-    /**
-     * Get the temporary URL that can be used to retrieve the image.
-     *
-     * @return the url
-     */
-    public String getUrl() {
-        return url;
-    }
-
-    /**
-     * Set the temporary URL that can be used to retrieve the image.
-     */
-    public ImageUrl setUrl(String url) {
-        this.url = url;
-        return this;
-    }
-
-    /**
-     * Get the error object
-     *
-     * @return error
-     */
-    public Error getError() {
-        return error;
-    }
-
-    /**
-     * Set the error object.
-     */
-    public ImageUrl setError(Error error) {
-        this.error = error;
-        return this;
-    }
 }

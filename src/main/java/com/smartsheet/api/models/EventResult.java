@@ -16,8 +16,23 @@
 
 package com.smartsheet.api.models;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
 import java.util.List;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+@EqualsAndHashCode
+@Builder
 public class EventResult {
 
     /**
@@ -34,58 +49,4 @@ public class EventResult {
      * This string should be passed back to the next GET events call to obtain subsequent events
      */
     private String nextStreamPosition;
-
-    /**
-     * Gets the list of events
-     *
-     * @return the list of events
-     */
-    public List<Event> getData() {
-        return data;
-    }
-
-    /**
-     * Sets the list of events
-     *
-     * @param data the list of events
-     */
-    public void setData(List<Event> data) {
-        this.data = data;
-    }
-
-    /***
-     * Returns if more events are available for retrieval
-     *
-     * @return true if more events are available, false otherwise
-     */
-    public Boolean getMoreAvailable() {
-        return moreAvailable;
-    }
-
-    /**
-     * Sets the flag indicating if more events are available
-     *
-     * @param moreAvailable the flag
-     */
-    public void setMoreAvailable(Boolean moreAvailable) {
-        this.moreAvailable = moreAvailable;
-    }
-
-    /**
-     * Gets a string indicating the streamPosition of the next set of events
-     *
-     * @return the string streamPosition
-     */
-    public String getNextStreamPosition() {
-        return nextStreamPosition;
-    }
-
-    /**
-     * Sets a string indicating the streamPosition for the next set of events
-     *
-     * @param nextStreamPosition the string for the next set of events
-     */
-    public void setNextStreamPosition(String nextStreamPosition) {
-        this.nextStreamPosition = nextStreamPosition;
-    }
 }

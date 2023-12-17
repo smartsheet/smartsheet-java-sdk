@@ -16,23 +16,27 @@
 
 package com.smartsheet.api.models;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
 import java.util.List;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+@EqualsAndHashCode
+@Builder
 public class WebhookSubscope {
-    private List<Long> columnIds;
 
     /**
      * Get the array of columnIds if you want to limit the subscription to a subscope.
      */
-    public List<Long> getColumnIds() {
-        return columnIds;
-    }
-
-    /**
-     * Set the array of columnIds if you want to limit the subscription to a subscope.
-     */
-    public WebhookSubscope setColumnIds(List<Long> columnIds) {
-        this.columnIds = columnIds;
-        return this;
-    }
+    private List<Long> columnIds;
 }

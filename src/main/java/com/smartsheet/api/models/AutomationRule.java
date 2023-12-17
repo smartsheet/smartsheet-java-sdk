@@ -17,10 +17,33 @@
 package com.smartsheet.api.models;
 
 import com.smartsheet.api.models.enums.AutomationRuleDisabledReason;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.util.Date;
 
-public class AutomationRule extends NamedModel<Long> {
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+@EqualsAndHashCode
+@Builder
+public class AutomationRule {
+    /**
+     * Represents the ID.
+     */
+    private Long id;
+
+    /**
+     * Represents the name.
+     */
+    private String name;
 
     /**
      * AutomationAction object containing information for this rule.
@@ -66,173 +89,4 @@ public class AutomationRule extends NamedModel<Long> {
      * Indicates that the current user can modify this rule.
      */
     private Boolean userCanModify;
-
-    /**
-     * Gets the automation action for this rule.
-     *
-     * @return the automation action
-     */
-    public AutomationAction getAction() {
-        return action;
-    }
-
-    /**
-     * Sets the automation action for this rule.
-     *
-     * @param action the automation action
-     */
-    public AutomationRule setAction(AutomationAction action) {
-        this.action = action;
-        return this;
-    }
-
-    /**
-     * Gets a timestamp of when the rule was created.
-     *
-     * @return the timestamp
-     */
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    /**
-     * Sets a timestamp for when the rule was created.
-     *
-     * @param createdAt the timestamp
-     */
-    public AutomationRule setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-        return this;
-    }
-
-    /**
-     * Gets the User object for the author of this rule.
-     *
-     * @return the User object
-     */
-    public User getCreatedBy() {
-        return createdBy;
-    }
-
-    /**
-     * Sets the User object for the author of this rule.
-     *
-     * @param createdBy the User object
-     */
-    public AutomationRule setCreatedBy(User createdBy) {
-        this.createdBy = createdBy;
-        return this;
-    }
-
-    /**
-     * Gets a machine-readable reason a rule is disabled.
-     *
-     * @return the reason
-     */
-    public AutomationRuleDisabledReason getDisabledReason() {
-        return disabledReason;
-    }
-
-    /**
-     * Sets a machine-readable reason a rule is disabled.
-     *
-     * @param disabledReason the reason
-     */
-    public AutomationRule setDisabledReason(AutomationRuleDisabledReason disabledReason) {
-        this.disabledReason = disabledReason;
-        return this;
-    }
-
-    /**
-     * Gets descriptive text for why this rule is disabled.
-     *
-     * @return the reason
-     */
-    public String getDisabledReasonText() {
-        return disabledReasonText;
-    }
-
-    /**
-     * Sets descriptive text for why this rule is disabled.
-     *
-     * @param disabledReasonText the reason
-     */
-    public AutomationRule setDisabledReasonText(String disabledReasonText) {
-        this.disabledReasonText = disabledReasonText;
-        return this;
-    }
-
-    /**
-     * Gets flag indicating if rule is active
-     *
-     * @return the flag
-     */
-    public Boolean getEnabled() {
-        return enabled;
-    }
-
-    /**
-     * Sets flag indicating if rule is active
-     *
-     * @param enabled the flag
-     */
-    public AutomationRule setEnabled(Boolean enabled) {
-        this.enabled = enabled;
-        return this;
-    }
-
-    /**
-     * Gets a timestamp for the last modification to this rule.
-     *
-     * @return the timestamp
-     */
-    public Date getModifiedAt() {
-        return modifiedAt;
-    }
-
-    /**
-     * Sets a timestamp for the last modification to this rule
-     *
-     * @param modifiedAt the timestamp
-     */
-    public AutomationRule setModifiedAt(Date modifiedAt) {
-        this.modifiedAt = modifiedAt;
-        return this;
-    }
-
-    /**
-     * Gets the User who last modified this rule.
-     *
-     * @return the User
-     */
-    public User getModifiedBy() {
-        return modifiedBy;
-    }
-
-    /**
-     * Sets the User who last modified this rule.
-     */
-    public AutomationRule setModifiedBy(User modifiedBy) {
-        this.modifiedBy = modifiedBy;
-        return this;
-    }
-
-    /**
-     * Gets a flag indicating if the current user can modify this rule.
-     *
-     * @return the flag
-     */
-    public Boolean getUserCanModify() {
-        return userCanModify;
-    }
-
-    /**
-     * Sets a flag indicating if the current user can modify this rule.
-     *
-     * @param userCanModify the flag
-     */
-    public AutomationRule setUserCanModify(Boolean userCanModify) {
-        this.userCanModify = userCanModify;
-        return this;
-    }
 }

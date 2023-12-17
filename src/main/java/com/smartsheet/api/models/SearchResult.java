@@ -16,6 +16,14 @@
 
 package com.smartsheet.api.models;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
 import java.util.List;
 
 /**
@@ -23,6 +31,13 @@ import java.util.List;
  * @see <a href="http://help.smartsheet.com/customer/portal/articles/522231-searching-in-smartsheet">Help Searching in
  * Smartsheet</a>
  */
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+@EqualsAndHashCode
+@Builder
 public class SearchResult {
     /**
      * Represents total count of results.
@@ -33,40 +48,4 @@ public class SearchResult {
      * A list of items returned from the search results.
      */
     private List<SearchResultItem> results;
-
-    /**
-     * Gets the total count of results.
-     *
-     * @return the total count
-     */
-    public Integer getTotalCount() {
-        return totalCount;
-    }
-
-    /**
-     * Sets the total count of results.
-     *
-     * @param totalCount the new total count
-     */
-    public void setTotalCount(Integer totalCount) {
-        this.totalCount = totalCount;
-    }
-
-    /**
-     * Gets the list of results from the search.
-     *
-     * @return the results
-     */
-    public List<SearchResultItem> getResults() {
-        return results;
-    }
-
-    /**
-     * Sets the results list of results.
-     *
-     * @param results the new results
-     */
-    public void setResults(List<SearchResultItem> results) {
-        this.results = results;
-    }
 }

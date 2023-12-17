@@ -17,8 +17,31 @@
 package com.smartsheet.api.models;
 
 import com.smartsheet.api.models.enums.SheetFilterType;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
-public class SheetFilter extends NamedModel<Long> {
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+@EqualsAndHashCode
+@Builder
+public class SheetFilter {
+    /**
+     * Represents the ID.
+     */
+    private Long id;
+
+    /**
+     * Represents the name.
+     */
+    private String name;
 
     /**
      * Represents the filter type
@@ -34,61 +57,4 @@ public class SheetFilter extends NamedModel<Long> {
      * the Filter version
      */
     private Integer version;
-
-    /**
-     * Gets the filter type
-     *
-     * @return the filter type
-     */
-    public SheetFilterType getFilterType() {
-        return filterType;
-    }
-
-    /**
-     * Sets the filter type
-     *
-     * @param filterType the filter type
-     */
-    public SheetFilter setFilterType(SheetFilterType filterType) {
-        this.filterType = filterType;
-        return this;
-    }
-
-    /**
-     * Gets the details that make up the Filter query
-     *
-     * @return the SheetFilterDetails
-     */
-    public SheetFilterDetails getQuery() {
-        return query;
-    }
-
-    /**
-     * Sets the details that make up the Filter query
-     *
-     * @param query the SheetFilterDetails
-     */
-    public SheetFilter setQuery(SheetFilterDetails query) {
-        this.query = query;
-        return this;
-    }
-
-    /**
-     * Gets the sheet filter version
-     *
-     * @return the SheetFilter version
-     */
-    public Integer getVersion() {
-        return version;
-    }
-
-    /**
-     * Sets the sheet filter version
-     *
-     * @param version the SheetFilter version
-     */
-    public SheetFilter setVersion(Integer version) {
-        this.version = version;
-        return this;
-    }
 }

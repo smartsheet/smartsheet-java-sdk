@@ -16,11 +16,26 @@
 
 package com.smartsheet.api.models;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
 import java.util.List;
 
 /**
  * Represents the ImageUrl object.
  */
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+@EqualsAndHashCode
+@Builder
 public class ImageUrlMap {
 
     /**
@@ -32,38 +47,4 @@ public class ImageUrlMap {
      * Array of imageUrl objects
      */
     private List<ImageUrl> imageUrls;
-
-    /**
-     * Get the milliseconds before the URLs within imageUrls will expire.
-     *
-     * @return urlExpiresInMillis
-     */
-    public Long getUrlExpiresInMillis() {
-        return urlExpiresInMillis;
-    }
-
-    /**
-     * Set the milliseconds before the URLs within imageUruls will expire.
-     */
-    public ImageUrlMap setUrlExpiresInMillis(Long urlExpiresInMillis) {
-        this.urlExpiresInMillis = urlExpiresInMillis;
-        return this;
-    }
-
-    /**
-     * Get the array of imageUrl objects
-     *
-     * @return imageUrls
-     */
-    public List<ImageUrl> getImageUrls() {
-        return imageUrls;
-    }
-
-    /**
-     * Set the array of imageUrl objects
-     */
-    public ImageUrlMap setImageUrls(List<ImageUrl> imageUrls) {
-        this.imageUrls = imageUrls;
-        return this;
-    }
 }

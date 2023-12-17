@@ -16,29 +16,36 @@
 
 package com.smartsheet.api.models;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
 /**
  * Represents the Contact object.
  */
-public class Contact extends NamedModel<String> {
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString(onlyExplicitlyIncluded = true)
+@EqualsAndHashCode
+@Builder
+public class Contact {
+    /**
+     * Represents the ID.
+     */
+    @ToString.Include
+    private String id;
+
+    /**
+     * Represents the name.
+     */
+    private String name;
 
     /** Represents the contact email. */
     private String email;
-
-    /**
-     * Gets the email for the contact.
-     *
-     * @return the email
-     */
-    public String getEmail() {
-        return email;
-    }
-
-    /**
-     * Sets the email for the contact
-     * @param email the email
-     */
-    public Contact setEmail(String email) {
-        this.email = email;
-        return this;
-    }
 }

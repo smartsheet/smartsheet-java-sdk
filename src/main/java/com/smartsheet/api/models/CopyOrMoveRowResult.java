@@ -16,51 +16,32 @@
 
 package com.smartsheet.api.models;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
 import java.util.List;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+@EqualsAndHashCode
+@Builder
 public class CopyOrMoveRowResult {
 
-    /** Represents the ID of the destination sheet. */
+    /**
+     * Represents the ID of the destination sheet.
+     */
     private String destinationSheetId;
 
-    /** Represents Array of RowMapping objects. */
+    /**
+     * Represents Array of RowMapping objects.
+     */
     private List<RowMapping> rowMappings;
-
-    /**
-     * Gets the ID of the destination sheet.
-     *
-     * @return ID of the destination sheet
-     */
-    public String getDestinationSheetId() {
-        return destinationSheetId;
-    }
-
-    /**
-     * Sets the ID of the destination sheet.
-     *
-     * @param destinationSheetId ID of the destination sheet
-     */
-    public CopyOrMoveRowResult setDestinationSheetId(String destinationSheetId) {
-        this.destinationSheetId = destinationSheetId;
-        return this;
-    }
-
-    /**
-     * Gets the Array of RowMapping objects.
-     *
-     * @return Array of RowMapping objects
-     */
-    public List<RowMapping> getRowMappings() {
-        return rowMappings;
-    }
-
-    /**
-     * Sets the Array of RowMapping objects.
-     *
-     * @param rowMappings the Array of RowMapping objects
-     */
-    public CopyOrMoveRowResult setRowMappings(List<RowMapping> rowMappings) {
-        this.rowMappings = rowMappings;
-        return this;
-    }
 }

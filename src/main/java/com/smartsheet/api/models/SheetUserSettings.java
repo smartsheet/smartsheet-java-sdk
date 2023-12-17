@@ -16,6 +16,21 @@
 
 package com.smartsheet.api.models;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+@EqualsAndHashCode
+@Builder
 public class SheetUserSettings {
 
     /**
@@ -32,121 +47,4 @@ public class SheetUserSettings {
      * Identifies if the user has display summary tasks enabled.
      */
     private Boolean displaySummaryTasks;
-
-    /**
-     * Get the applied sheet filter ID
-     *
-     * @return the sheet filter ID
-     */
-    public Long getAppliedSheetFilterId() {
-        return appliedSheetFilterId;
-    }
-
-    /**
-     * Sets the applied sheet filter ID.
-     *
-     * @param appliedSheetFilterId the sheet filter ID
-     */
-    public SheetUserSettings setAppliedSheetFilterId(Long appliedSheetFilterId) {
-        this.appliedSheetFilterId = appliedSheetFilterId;
-        return this;
-    }
-
-    /**
-     * True if the user has critical path enabled.
-     *
-     * @return criticalPathEnabled
-     */
-    public Boolean isCriticalPathEnabled() {
-        return criticalPathEnabled;
-    }
-
-    /**
-     * Sets the value for critical path enabled.
-     *
-     * @param criticalPathEnabled if the user has critical path enabled
-     */
-    public SheetUserSettings setCriticalPathEnabled(Boolean criticalPathEnabled) {
-        this.criticalPathEnabled = criticalPathEnabled;
-        return this;
-    }
-
-    /**
-     * True if the user has display summary tasks enabled
-     *
-     * @return displaySummaryTasks
-     */
-    public Boolean isDisplaySummaryTasksEnabled() {
-        return displaySummaryTasks;
-    }
-
-    /**
-     * Sets the value for display summary tasks.
-     */
-    public SheetUserSettings setDisplaySummaryTasks(Boolean displaySummaryTasks) {
-        this.displaySummaryTasks = displaySummaryTasks;
-        return this;
-    }
-
-    /**
-     * The Class AddUserSettingsBuilder.
-     */
-    public static class AddUserSettingsBuilder {
-        /**
-         * Identifies if the user has critical path enabled.
-         */
-        private Boolean criticalPathEnabled;
-
-        /**
-         * Identifies if the user has display summary tasks enabled.
-         */
-        private Boolean displaySummaryTasks;
-
-        /**
-         * True if the user has critical path enabled.
-         *
-         * @return criticalPathEnabled
-         */
-        public Boolean isCriticalPathEnabled() {
-            return criticalPathEnabled;
-        }
-
-        /**
-         * True if the user has display summary tasks enabled
-         *
-         * @return displaySummaryTasks;
-         */
-        public Boolean isDisplaySummaryTasksEnabled() {
-            return displaySummaryTasks;
-        }
-
-        /**
-         * Sets the value for critical path enabled.
-         *
-         * @param criticalPathEnabled if the user has critical path enabled
-         * @return the builder
-         */
-        public AddUserSettingsBuilder setCriticalPathEnabled(Boolean criticalPathEnabled) {
-            this.criticalPathEnabled = criticalPathEnabled;
-            return this;
-        }
-
-        /**
-         * Sets the value for display summary tasks.
-         */
-        public AddUserSettingsBuilder setDisplaySummaryTasks(Boolean displaySummaryTasks) {
-            this.displaySummaryTasks = displaySummaryTasks;
-            return this;
-        }
-
-        /**
-         * Build a SheetUserSettings
-         */
-        public SheetUserSettings build() {
-            SheetUserSettings sheetUserSettings = new SheetUserSettings();
-            sheetUserSettings.criticalPathEnabled = criticalPathEnabled;
-            sheetUserSettings.displaySummaryTasks = displaySummaryTasks;
-            return sheetUserSettings;
-        }
-    }
 }

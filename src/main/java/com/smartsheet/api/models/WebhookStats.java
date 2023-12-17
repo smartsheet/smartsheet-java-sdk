@@ -16,8 +16,23 @@
 
 package com.smartsheet.api.models;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
 import java.util.Date;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+@EqualsAndHashCode
+@Builder
 public class WebhookStats {
 
     /**
@@ -34,56 +49,4 @@ public class WebhookStats {
      * When this webhook last make a successful callback.
      */
     private Date lastSuccessfulCallback;
-
-    /**
-     * Get the number of retries the webhook had performed as of the last callback attempt.
-     *
-     * @return lastCallbackAttemptRetryCount
-     */
-    public Integer getLastCallbackAttemptRetryCount() {
-        return lastCallbackAttemptRetryCount;
-    }
-
-    /**
-     * Set the number of retries the webhook had performed as of the last callback attempt.
-     */
-    public WebhookStats setLastCallbackAttemptRetryCount(Integer lastCallbackAttemptRetryCount) {
-        this.lastCallbackAttemptRetryCount = lastCallbackAttemptRetryCount;
-        return this;
-    }
-
-    /**
-     * Get the timestamp from the last callback attempt.
-     *
-     * @return lastCallbackAttempt
-     */
-    public Date getLastCallbackAttempt() {
-        return lastCallbackAttempt;
-    }
-
-    /**
-     * Set the timestamp from the last callback attempt.
-     */
-    public WebhookStats setLastCallbackAttempt(Date lastCallbackAttempt) {
-        this.lastCallbackAttempt = lastCallbackAttempt;
-        return this;
-    }
-
-    /**
-     * Get the timestamp from the last successful callback.
-     *
-     * @return lastSuccessfulCallback
-     */
-    public Date getLastSuccessfulCallback() {
-        return lastSuccessfulCallback;
-    }
-
-    /**
-     * Set the timestamp from the last successful callback.
-     */
-    public WebhookStats setLastSuccessfulCallback(Date lastSuccessfulCallback) {
-        this.lastSuccessfulCallback = lastSuccessfulCallback;
-        return this;
-    }
-
 }

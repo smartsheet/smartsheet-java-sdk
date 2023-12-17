@@ -16,9 +16,24 @@
 
 package com.smartsheet.api.oauth;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
 /**
  * Represents OAuth token.
  */
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+@EqualsAndHashCode
+@Builder
 public class Token {
     /**
      * Represents the access token.
@@ -39,77 +54,4 @@ public class Token {
      * Represents the expiration time in seconds.
      */
     private long expiresInSeconds;
-
-    /**
-     * Gets the access token.
-     *
-     * @return the access token
-     */
-    public String getAccessToken() {
-        return accessToken;
-    }
-
-    /**
-     * Sets the access token.
-     *
-     * @param accessToken the new access token
-     */
-    public void setAccessToken(String accessToken) {
-        this.accessToken = accessToken;
-    }
-
-    /**
-     * Gets the token type.
-     *
-     * @return the token type
-     */
-    public String getTokenType() {
-        return tokenType;
-    }
-
-    /**
-     * Sets the token type.
-     *
-     * @param tokenType the new token type
-     */
-    public void setTokenType(String tokenType) {
-        this.tokenType = tokenType;
-    }
-
-    /**
-     * Gets the refresh token.
-     *
-     * @return the refresh token
-     */
-    public String getRefreshToken() {
-        return refreshToken;
-    }
-
-    /**
-     * Sets the refresh token.
-     *
-     * @param refreshToken the new refresh token
-     */
-    public void setRefreshToken(String refreshToken) {
-        this.refreshToken = refreshToken;
-    }
-
-    /**
-     * Gets the expires in seconds.
-     *
-     * @return the expires in seconds
-     */
-    public long getExpiresInSeconds() {
-        return expiresInSeconds;
-    }
-
-    /**
-     * Sets the expires in seconds.
-     *
-     * @param expiresInSeconds the new expires in seconds
-     */
-    public void setExpiresInSeconds(long expiresInSeconds) {
-        this.expiresInSeconds = expiresInSeconds;
-    }
-
 }

@@ -17,29 +17,29 @@
 package com.smartsheet.api.models;
 
 import com.smartsheet.api.models.enums.SourceType;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
-public class Source extends IdentifiableModel<Long> {
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+@EqualsAndHashCode
+@Builder
+public class Source {
+    /**
+     * Represents the ID.
+     */
+    private Long id;
+
     /**
      * Represents the type.
      */
     private SourceType type;
-
-    /**
-     * Gets the type.
-     *
-     * @return the name
-     */
-    public SourceType getType() {
-        return type;
-    }
-
-    /**
-     * Sets the type.
-     *
-     * @param type the type
-     */
-    public Source setType(SourceType type) {
-        this.type = type;
-        return this;
-    }
 }

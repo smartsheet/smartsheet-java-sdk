@@ -19,10 +19,24 @@ package com.smartsheet.api.models;
 import com.smartsheet.api.models.enums.DayDescriptor;
 import com.smartsheet.api.models.enums.DayOrdinal;
 import com.smartsheet.api.models.enums.ScheduleType;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.util.Date;
 import java.util.List;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+@EqualsAndHashCode
+@Builder
 public class Schedule {
 
     /**
@@ -69,157 +83,4 @@ public class Schedule {
      * The date and time for when the next request is scheduled to send.
      */
     private Date nextSendAt;
-
-    /**
-     * Get the schedule type
-     *
-     * @return type
-     */
-    public ScheduleType getType() {
-        return type;
-    }
-
-    /**
-     * Set the schedule type
-     */
-    public Schedule setType(ScheduleType type) {
-        this.type = type;
-        return this;
-    }
-
-    /**
-     * Get the date, time and time zone at which the first delivery will start
-     *
-     * @return startAt
-     */
-    public Date getStartAt() {
-        return startAt;
-    }
-
-    /**
-     * Set the date, time and time zone at which the first delivery will start
-     */
-    public Schedule setStartAt(Date startAt) {
-        this.startAt = startAt;
-        return this;
-    }
-
-    /**
-     * Get the date, time and time zone at which the delivery schedule will end
-     *
-     * @return endAt
-     */
-    public Date getEndAt() {
-        return endAt;
-    }
-
-    /**
-     * Set the date, time and time zone at which the delivery schedule will end
-     */
-    public Schedule setEndAt(Date endAt) {
-        this.endAt = endAt;
-        return this;
-    }
-
-    /**
-     * Get the day within the month
-     *
-     * @return dayOfMonth
-     */
-    public Integer getDayOfMonth() {
-        return dayOfMonth;
-    }
-
-    /**
-     * Set the day within the month
-     */
-    public Schedule setDayOfMonth(Integer dayOfMonth) {
-        this.dayOfMonth = dayOfMonth;
-        return this;
-    }
-
-    /**
-     * Get the day ordinal
-     *
-     * @return dayOrdinal
-     */
-    public DayOrdinal getDayOrdinal() {
-        return dayOrdinal;
-    }
-
-    /**
-     * Set the day ordinal
-     */
-    public Schedule setDayOrdinal(DayOrdinal dayOrdinal) {
-        this.dayOrdinal = dayOrdinal;
-        return this;
-    }
-
-    /**
-     * Get an array of day descriptors
-     *
-     * @return dayDescriptors
-     */
-    public List<DayDescriptor> getDayDescriptors() {
-        return dayDescriptors;
-    }
-
-    /**
-     * Set the array of day descriptors
-     */
-    public Schedule setDayDescriptors(List<DayDescriptor> dayDescriptors) {
-        this.dayDescriptors = dayDescriptors;
-        return this;
-    }
-
-    /**
-     * Get the frequency on which the request will be delivered.
-     *
-     * @return repeatEvery
-     */
-    public Integer getRepeatEvery() {
-        return repeatEvery;
-    }
-
-    /**
-     * Set the frequency on which the request will be delivered.
-     */
-    public Schedule setRepeatEvery(Integer repeatEvery) {
-        this.repeatEvery = repeatEvery;
-        return this;
-    }
-
-    /**
-     * Get the date and time for when the last request was sent.
-     *
-     * @return lastSentAt
-     */
-    public Date getLastSentAt() {
-        return lastSentAt;
-    }
-
-    /**
-     * Set the date and time for when the last request was sent.
-     */
-    public Schedule setLastSentAt(Date lastSentAt) {
-        this.lastSentAt = lastSentAt;
-        return this;
-    }
-
-    /**
-     * Get the date and time for when the next request is scheduled to send.
-     *
-     * @return nextSendAt
-     */
-    public Date getNextSendAt() {
-        return nextSendAt;
-    }
-
-    /**
-     * Set the date and time for when the next request is schedule to send.
-     */
-    public Schedule sentNextSendAt(Date nextSendAt) {
-        this.nextSendAt = nextSendAt;
-        return this;
-    }
 }

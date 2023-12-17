@@ -17,32 +17,27 @@
 package com.smartsheet.api.models;
 
 import com.smartsheet.api.models.enums.PaperSize;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 /**
  * Represents the format details when generating a digital copy (PDF/EXCEL) of a sheet.
  */
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+@EqualsAndHashCode
+@Builder
 public class FormatDetails {
     /**
      * Represents the paper size.
      */
     private PaperSize paperSize;
-
-    /**
-     * Gets the paper size.
-     *
-     * @return the paper size
-     */
-    public PaperSize getPaperSize() {
-        return paperSize;
-    }
-
-    /**
-     * Sets the paper size.
-     *
-     * @param paperSize the new paper size
-     */
-    public FormatDetails setPaperSize(PaperSize paperSize) {
-        this.paperSize = paperSize;
-        return this;
-    }
 }

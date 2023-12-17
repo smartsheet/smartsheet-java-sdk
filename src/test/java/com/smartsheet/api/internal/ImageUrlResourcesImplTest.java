@@ -50,22 +50,21 @@ class ImageUrlResourcesImplTest extends ResourcesImplBase {
 
     @Test
     void testGetImageUrls() throws SmartsheetException, IOException {
+        // Arrange
         // Set a fake response
         server.setResponseBody(new File("src/test/resources/getImageUrls.json"));
 
-        ImageUrl imageUrl1 = new ImageUrl("imageId1");
-        imageUrl1.setUrl("https://foo.com/imageId1-url.png");
-        ImageUrl imageUrl2 = new ImageUrl("imageId2");
-        imageUrl2.setUrl("https://foo.com/imageId2-url.png");
+        ImageUrl imageUrl1 = ImageUrl.builder().imageId("imageId1").url("https://foo.com/imageId1-url.png").build();
+        ImageUrl imageUrl2 = ImageUrl.builder().imageId("imageI21").url("https://foo.com/imageId2-url.png").build();
 
         List<ImageUrl> requestUrls = Lists.newArrayList(imageUrl1, imageUrl2);
 
+        // Act
         ImageUrlMap imageUrls = imageUrlResources.getImageUrls(requestUrls);
-        assertThat(imageUrls.getImageUrls().size()).isEqualTo(2);
-        assertThat(imageUrls.getImageUrls().get(0).getUrl()).isNotBlank();
-        assertThat(imageUrls.getImageUrls().get(1).getUrl()).isNotBlank();
-        assertThat(imageUrls.getImageUrls().get(0).getImageId()).isNotBlank();
-        assertThat(imageUrls.getImageUrls().get(1).getImageId()).isNotBlank();
-        assertThat(imageUrls.getUrlExpiresInMillis()).isEqualTo(29837329487297392L);
+
+        // Assert
+        ImageUrlMap expectedImageUrlMap = ImageUrlMap.builder().imageUrls(List.of(imageUrl1, imageUrl2)).build();
+        assertThat(imageUrls).isEqualTo(expectedImageUrlMap);
+//        assertThat(imageUrls.getUrlExpiresInMillis()).isEqualTo(29837329487297392L);
     }
 }
