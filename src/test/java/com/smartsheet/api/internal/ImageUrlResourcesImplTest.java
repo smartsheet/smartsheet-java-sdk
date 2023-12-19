@@ -55,7 +55,7 @@ class ImageUrlResourcesImplTest extends ResourcesImplBase {
         server.setResponseBody(new File("src/test/resources/getImageUrls.json"));
 
         ImageUrl imageUrl1 = ImageUrl.builder().imageId("imageId1").url("https://foo.com/imageId1-url.png").build();
-        ImageUrl imageUrl2 = ImageUrl.builder().imageId("imageI21").url("https://foo.com/imageId2-url.png").build();
+        ImageUrl imageUrl2 = ImageUrl.builder().imageId("imageId2").url("https://foo.com/imageId2-url.png").build();
 
         List<ImageUrl> requestUrls = Lists.newArrayList(imageUrl1, imageUrl2);
 
@@ -63,8 +63,10 @@ class ImageUrlResourcesImplTest extends ResourcesImplBase {
         ImageUrlMap imageUrls = imageUrlResources.getImageUrls(requestUrls);
 
         // Assert
-        ImageUrlMap expectedImageUrlMap = ImageUrlMap.builder().imageUrls(List.of(imageUrl1, imageUrl2)).build();
+        ImageUrlMap expectedImageUrlMap = ImageUrlMap.builder()
+                .urlExpiresInMillis(29837329487297392L)
+                .imageUrls(List.of(imageUrl1, imageUrl2))
+                .build();
         assertThat(imageUrls).isEqualTo(expectedImageUrlMap);
-//        assertThat(imageUrls.getUrlExpiresInMillis()).isEqualTo(29837329487297392L);
     }
 }
