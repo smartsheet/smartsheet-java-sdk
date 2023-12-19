@@ -26,64 +26,40 @@ import java.util.List;
  * @see <a href="http://help.smartsheet.com/customer/portal/articles/504767-using-discussions">Help Using Discussions</a>
  */
 public class Discussion extends IdentifiableModel<Long> {
-    /**
-     * Represents the title for the discussion.
-     */
+    /** Represents the title for the discussion. */
     private String title;
 
-    /**
-     * Represents the comments for the discussion.
-     */
+    /** Represents the comments for the discussion. */
     private List<Comment> comments;
 
-    /**
-     * Represents the comment for the discussion (outbound only - singular "comment")
-     */
+    /** Represents the comment for the discussion (outbound only - singular "comment") */
     private Comment comment;
 
-    /**
-     * Represents the comment attachments.
-     */
+    /** Represents the comment attachments. */
     private List<Attachment> commentAttachments;
 
-    /**
-     * The number of comments in the discussion.
-     */
+    /** The number of comments in the discussion. */
     private Integer commentCount;
 
-    /**
-     * Represents the date a comment was last added to a discussion.
-     */
+    /** Represents the date a comment was last added to a discussion. */
     private Date lastCommentedAt;
 
-    /**
-     * Represents the last user that left a comment in the discussion.
-     */
+    /** Represents the last user that left a comment in the discussion. */
     private User lastCommentedUser;
 
-    /**
-     * Users permission on the Discussion
-     */
+    /** Users permission on the Discussion */
     private String accessLevel;
 
-    /**
-     * Represents ID of the directly associated row or sheet.
-     */
+    /** Represents ID of the directly associated row or sheet. */
     private Long parentId;
 
-    /**
-     * Represents the “SHEET” or “ROW”: present only when the direct association is not clear.
-     */
+    /** Represents the “SHEET” or “ROW”: present only when the direct association is not clear. */
     private ParentType parentType;
 
-    /**
-     * Represents the User object containing name and email of the creator of the Discussion.
-     */
+    /** Represents the User object containing name and email of the creator of the Discussion. */
     private User createdBy;
 
-    /**
-     * Represents the status of the Discussion.
-     */
+    /** Represents the status of the Discussion. */
     private Boolean readOnly;
 
     /**
