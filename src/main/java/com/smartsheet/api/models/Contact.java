@@ -31,7 +31,7 @@ import lombok.ToString;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-// Only include explicitly include fields in the toString method so clients don't log sensitive data (such as name/email)
+// Only include explicitly included fields in the toString method so clients don't log sensitive data (such as name/email)
 @ToString(onlyExplicitlyIncluded = true)
 @EqualsAndHashCode
 @Builder
