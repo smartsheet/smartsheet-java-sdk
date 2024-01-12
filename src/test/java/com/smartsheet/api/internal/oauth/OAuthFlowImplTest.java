@@ -41,7 +41,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 // Note this is an IT test because at least one of the tests requires an internet connection
-class OAuthFlowImplIT {
+class OAuthFlowImplTest {
 
     OAuthFlowImpl oauth;
     HttpClient httpClient = new DefaultHttpClient();
@@ -154,8 +154,18 @@ class OAuthFlowImplIT {
 
     @Test
     void testRefreshToken() {
-        // Note this requires an internet connection
-        oauth.setTokenURL("https://api.smartsheet.com/1.1/token");
+        server.setStatus(401);
+        server.setContentType("application/x-www-form-urlencoded");
+        server.setResponseBody(
+                "{" +
+                "\"errorCode\": \"1067\"," +
+                "\"message\": \"Invalid client_id\"," +
+                "\"error\": \"invalid_client\"," +
+                "\"refId\":\"someRefId\"" +
+                "}"
+        );
+
+        oauth.setTokenURL("http://localhost:9090/1.1/token");
 
         Token token = new Token();
         token.setAccessToken("AccessToken");
@@ -173,8 +183,18 @@ class OAuthFlowImplIT {
 
     @Test
     void testRevokeAccessToken() {
-        // note this requires internet connection
-        oauth.setTokenURL("https://api.smartsheet.com/1.1/token");
+        server.setStatus(401);
+        server.setContentType("application/x-www-form-urlencoded");
+        server.setResponseBody(
+                "{" +
+                        "\"errorCode\": \"1067\"," +
+                        "\"message\": \"Invalid client_id\"," +
+                        "\"error\": \"invalid_client\"," +
+                        "\"refId\":\"someRefId\"" +
+                        "}"
+        );
+
+        oauth.setTokenURL("http://localhost:9090/1.1/token");
 
         Token token = new Token();
         token.setAccessToken("AccessToken");
