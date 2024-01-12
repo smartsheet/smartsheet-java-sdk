@@ -23,6 +23,7 @@ import com.smartsheet.api.internal.json.JacksonJsonSerializer;
 import com.smartsheet.api.internal.json.JsonSerializer;
 import com.smartsheet.api.oauth.AccessDeniedException;
 import com.smartsheet.api.oauth.AccessScope;
+import com.smartsheet.api.oauth.AuthorizationResult;
 import com.smartsheet.api.oauth.InvalidOAuthClientException;
 import com.smartsheet.api.oauth.InvalidScopeException;
 import com.smartsheet.api.oauth.OAuthAuthorizationCodeException;
@@ -33,9 +34,6 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
 import java.util.EnumSet;
 
@@ -46,11 +44,6 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 class OAuthFlowImplIT {
 
     OAuthFlowImpl oauth;
-    String clientId = "clientID";
-    String clientSecret = "clientSecret";
-    String redirectURL = "redirectURL";
-    String authorizationURL = "authorizationURL";
-    String tokenURL = "tokenURL";
     HttpClient httpClient = new DefaultHttpClient();
     JsonSerializer json = new JacksonJsonSerializer();
 
@@ -63,7 +56,15 @@ class OAuthFlowImplIT {
 
     @BeforeEach
     public void setUp() throws Exception {
-        oauth = new OAuthFlowImpl(clientId, clientSecret, redirectURL, authorizationURL, tokenURL, httpClient, json);
+        oauth = new OAuthFlowImpl(
+                "clientID",
+                "clientSecret",
+                "redirectURL",
+                "authorizationURL",
+                "tokenURL",
+                httpClient,
+                json
+        );
 
         // Setup test server
         server = new HttpTestServer();
@@ -78,17 +79,17 @@ class OAuthFlowImplIT {
     @Test
     void testOAuthFlowImpl() {
 
-        assertThat(oauth.getClientId()).isEqualTo(clientId);
-        assertThat(oauth.getClientSecret()).isEqualTo(clientSecret);
-        assertThat(oauth.getRedirectURL()).isEqualTo(redirectURL);
-        assertThat(oauth.getAuthorizationURL()).isEqualTo(authorizationURL);
-        assertThat(oauth.getTokenURL()).isEqualTo(tokenURL);
+        assertThat(oauth.getClientId()).isEqualTo("clientID");
+        assertThat(oauth.getClientSecret()).isEqualTo("clientSecret");
+        assertThat(oauth.getRedirectURL()).isEqualTo("redirectURL");
+        assertThat(oauth.getAuthorizationURL()).isEqualTo("authorizationURL");
+        assertThat(oauth.getTokenURL()).isEqualTo("tokenURL");
         assertThat(oauth.getHttpClient()).isEqualTo(httpClient);
         assertThat(oauth.getJsonSerializer()).isEqualTo(json);
     }
 
     @Test
-    void testNewAuthorizationURL() throws UnsupportedEncodingException {
+    void testNewAuthorizationURL() {
         assertThatThrownBy(() -> oauth.newAuthorizationURL(null, null))
                 .isInstanceOf(IllegalArgumentException.class);
 
@@ -110,46 +111,49 @@ class OAuthFlowImplIT {
                 .isInstanceOf(IllegalArgumentException.class);
 
         // Null query
-        assertThatThrownBy(() -> oauth.extractAuthorizationResult("http://smartsheet.com"))
+        assertThatThrownBy(() -> oauth.extractAuthorizationResult("https://smartsheet.com"))
                 .isInstanceOf(OAuthAuthorizationCodeException.class);
 
-        assertThatThrownBy(() -> oauth.extractAuthorizationResult("http://smartsheet.com?error=access_denied"))
+        assertThatThrownBy(() -> oauth.extractAuthorizationResult("https://smartsheet.com?error=access_denied"))
                 .isInstanceOf(AccessDeniedException.class);
 
-        assertThatThrownBy(() -> oauth.extractAuthorizationResult("http://smartsheet.com?error=unsupported_response_type"))
+        assertThatThrownBy(() -> oauth.extractAuthorizationResult("https://smartsheet.com?error=unsupported_response_type"))
                 .isInstanceOf(UnsupportedResponseTypeException.class);
 
-        assertThatThrownBy(() -> oauth.extractAuthorizationResult("http://smartsheet.com?error=invalid_scope"))
+        assertThatThrownBy(() -> oauth.extractAuthorizationResult("https://smartsheet.com?error=invalid_scope"))
                 .isInstanceOf(InvalidScopeException.class);
 
-        assertThatThrownBy(() -> oauth.extractAuthorizationResult("http://smartsheet.com?error=something_undefined"))
+        assertThatThrownBy(() -> oauth.extractAuthorizationResult("https://smartsheet.com?error=something_undefined"))
                 .isInstanceOf(OAuthAuthorizationCodeException.class);
 
         // No valid parameters (empty result)
-        oauth.extractAuthorizationResult("http://smartsheet.com?a=b");
+        oauth.extractAuthorizationResult("https://smartsheet.com?a=b");
 
         // Empty Error (empty result)
-        oauth.extractAuthorizationResult("http://smartsheet.com?error=");
+        oauth.extractAuthorizationResult("https://smartsheet.com?error=");
 
         // All parameters set (good response)
-        oauth.extractAuthorizationResult("http://smartsheet.com?code=code&state=state&expires_in=10");
+        oauth.extractAuthorizationResult("https://smartsheet.com?code=code&state=state&expires_in=10");
     }
 
     @Test
-    void testObtainNewToken() throws IOException {
+    void testObtainNewToken() throws OAuthAuthorizationCodeException, URISyntaxException {
+        // Arrange
         server.setStatus(403);
         server.setContentType("application/x-www-form-urlencoded");
-        server.setResponseBody(new File("src/test/resources/OAuthException.json"));
-        server.setResponseBody("{\"errorCode\": \"1004\", \"message\": \"You are not authorized to perform this action.\"}");
+        server.setResponseBody("{\"errorCode\":1004,\"message\":\"You are not authorized to perform this action.\"}");
 
         oauth.setTokenURL("http://localhost:9090/1.1/token");
+        AuthorizationResult authorizationResult = oauth.extractAuthorizationResult("http://localhost?a=b");
+
+        // Act & Assert
         // 403 access forbidden
-        assertThatThrownBy(() -> oauth.extractAuthorizationResult("http://localhost?a=b"))
+        assertThatThrownBy(() -> oauth.obtainNewToken(authorizationResult))
                 .isInstanceOf(OAuthTokenException.class);
     }
 
     @Test
-    void testRefreshToken() throws Exception {
+    void testRefreshToken() {
         // Note this requires an internet connection
         oauth.setTokenURL("https://api.smartsheet.com/1.1/token");
 
@@ -168,7 +172,7 @@ class OAuthFlowImplIT {
     }
 
     @Test
-    void testRevokeAccessToken() throws Exception {
+    void testRevokeAccessToken() {
         // note this requires internet connection
         oauth.setTokenURL("https://api.smartsheet.com/1.1/token");
 
