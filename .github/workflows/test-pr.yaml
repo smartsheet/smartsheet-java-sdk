@@ -34,4 +34,4 @@ jobs:
         continue-on-error: true
         env:
           SMARTSHEET_ACCESS_TOKEN: ${{secrets.SMARTSHEET_ACCESS_TOKEN}}
-        run: ./gradlew clean integrationTests
+        run: ./gradlew clean integrationTest
