@@ -34,7 +34,7 @@ class LoggingIT {
     void testConsoleLogging() {
         ByteArrayOutputStream traceStream = new ByteArrayOutputStream();
         DefaultHttpClient.setTraceStream(traceStream);
-        Smartsheet client = new SmartsheetBuilder().build();
+        Smartsheet client = new SmartsheetBuilder().setAccessToken("null").build();
         // should log entire request and response
         client.setTraces(Trace.Request, Trace.Response);
 
