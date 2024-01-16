@@ -117,6 +117,13 @@ tasks.register('integrationTest', Test) {
         includeTestsMatching "*.*IT"
     }
 
+    testLogging {
+        // Log tests ran since there so few and they run so fast
+        events "PASSED", "SKIPPED", "FAILED"
+        // Log the full exception so we can see why tests failed
+        exceptionFormat = 'full'
+    }
+
     testClassesDirs = sourceSets.test.output
     classpath = sourceSets.test.runtimeClasspath
 }
@@ -131,6 +138,11 @@ test {
     filter {
         excludeTestsMatching "*.*IT"
         excludeTestsMatching "com.smartsheet.api.sdktest.*"
+    }
+
+    testLogging {
+        // Log the full exception so we can see why tests failed
+        exceptionFormat = 'full'
     }
 
     // Code Coverage settings for tests

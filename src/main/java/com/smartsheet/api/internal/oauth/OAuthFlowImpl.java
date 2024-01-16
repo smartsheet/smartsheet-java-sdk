@@ -173,31 +173,22 @@ public class OAuthFlowImpl implements OAuthFlow {
     /**
      * Extract AuthorizationResult from the authorization response URL (i.e. the redirectURL with the response
      * parameters from Smartsheet OAuth server).
-     * <p>
-     * Exceptions:
-     * <p>
-     *   - IllegalArgumentException : if authorizationResponseURL is null/empty, or a malformed URL
-     * <p>
-     *   - AccessDeniedException : if the user has denied the authorization request
-     * <p>
-     *   - UnsupportedResponseTypeException : if the response type isn't supported
-     *   (note that this won't really happen in current implementation)
-     * <p>
-     *   - InvalidScopeException : if some of the specified scopes are invalid
-     * <p>
-     *   - OAuthAuthorizationCodeException : if any other error occurred during the operation
-     *
      * @param authorizationResponseURL the authorization response URL
      * @return the authorization result
      * @throws URISyntaxException the URI syntax exception
-     * @throws OAuthAuthorizationCodeException the o auth authorization code exception
+     * @throws IllegalArgumentException if authorizationResponseURL is null/empty, or a malformed URL
+     * @throws AccessDeniedException if the user has denied the authorization request
+     * @throws UnsupportedResponseTypeException if the response type isn't supported
+     *     (note that this won't really happen in current implementation)
+     * @throws InvalidScopeException if some of the specified scopes are invalid
+     * @throws OAuthAuthorizationCodeException if any other error occurred during the operation
      */
     public AuthorizationResult extractAuthorizationResult(String authorizationResponseURL)
             throws URISyntaxException, OAuthAuthorizationCodeException {
         Util.throwIfNull(authorizationResponseURL);
         Util.throwIfEmpty(authorizationResponseURL);
 
-        // Get all of the parms from the URL
+        // Get all of the params from the URL
         URI uri = new URI(authorizationResponseURL);
         String query = uri.getQuery();
         if (query == null) {
@@ -279,7 +270,6 @@ public class OAuthFlowImpl implements OAuthFlow {
         byte[] digest;
         digest = md.digest(doHash.getBytes(StandardCharsets.UTF_8));
 
-        //String hash = javax.xml.bind.DatatypeConverter.printHexBinary(digest);
         String hash = org.apache.commons.codec.binary.Hex.encodeHexString(digest);
 
         // create a Map of the parameters
@@ -326,7 +316,6 @@ public class OAuthFlowImpl implements OAuthFlow {
         }
         byte[] digest;
         digest = md.digest(doHash.getBytes(StandardCharsets.UTF_8));
-        //String hash = javax.xml.bind.DatatypeConverter.printHexBinary(digest);
         String hash = org.apache.commons.codec.binary.Hex.encodeHexString(digest);
 
         // Create a map of the parameters
@@ -359,10 +348,9 @@ public class OAuthFlowImpl implements OAuthFlow {
      * @throws JSONSerializerException the JSON serializer exception
      * @throws HttpClientException the http client exception
      * @throws URISyntaxException the URI syntax exception
-     * @throws InvalidRequestException the invalid request exception
      */
     private Token requestToken(String url) throws OAuthTokenException, JSONSerializerException, HttpClientException,
-            URISyntaxException, InvalidRequestException {
+            URISyntaxException {
 
         // Create the request and send it to get the response/token.
         HttpRequest request = new HttpRequest();
