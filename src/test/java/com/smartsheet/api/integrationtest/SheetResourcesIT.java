@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024 Smartsheet
+* Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,6 +15,7 @@
  */
 
 package com.smartsheet.api.integrationtest;
+
 import com.smartsheet.api.Smartsheet;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.models.Cell;
@@ -56,7 +57,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class SheetResourcesIT extends ITResourcesImpl{
+class SheetResourcesIT extends ITResourcesImpl {
     Smartsheet smartsheet;
     Sheet sheetHome;
     Sheet newSheetHome;
@@ -109,7 +110,6 @@ public class SheetResourcesIT extends ITResourcesImpl{
     public void testCopySheet() throws SmartsheetException, IOException {
         Folder folder = createFolder();
 
-        //ContainerDestination destination = new ContainerDestination.AddContainerDestinationBuilder().setDestinationType(DestinationType.HOME).setDestinationId(null).setNewName("New Copied sheet").build();
         ContainerDestination destination = new ContainerDestination.AddContainerDestinationBuilder()
                 .setDestinationType(DestinationType.FOLDER)
                 .setDestinationId(folder.getId())
@@ -125,8 +125,10 @@ public class SheetResourcesIT extends ITResourcesImpl{
         Folder folder = createFolder();
         Sheet sheet = smartsheet.sheetResources().createSheet(createSheetObject());
 
-        //ContainerDestination destination = new ContainerDestination.AddContainerDestinationBuilder().setDestinationType(DestinationType.HOME).setDestinationId(null).setNewName("New Copied sheet").build();
-        ContainerDestination destination = new ContainerDestination.AddContainerDestinationBuilder().setDestinationType(DestinationType.FOLDER).setDestinationId(folder.getId()).build();
+        ContainerDestination destination = new ContainerDestination.AddContainerDestinationBuilder()
+                .setDestinationType(DestinationType.FOLDER)
+                .setDestinationId(folder.getId())
+                .build();
 
         Sheet movedSheet = smartsheet.sheetResources().moveSheet(sheet.getId(), destination);
         assertThat(movedSheet).isNotNull();
@@ -141,19 +143,28 @@ public class SheetResourcesIT extends ITResourcesImpl{
 
         //get column
         PaginationParameters parameters = new PaginationParameters.PaginationParametersBuilder().setIncludeAll(true).build();
-        PagedResult<Column> wrapper = smartsheet.sheetResources().columnResources().listColumns(sheet.getId(), EnumSet.allOf(ColumnInclusion.class), parameters);
+        PagedResult<Column> wrapper = smartsheet
+                .sheetResources()
+                .columnResources()
+                .listColumns(sheet.getId(), EnumSet.allOf(ColumnInclusion.class), parameters);
 
         Column addedColumn1 = wrapper.getData().get(0);
         Column addedColumn2 = wrapper.getData().get(1);
 
         // Specify cell values for first row.
-        List<Cell> cellsA = new Cell.AddRowCellsBuilder().addCell(addedColumn1.getId(), true).addCell(addedColumn2.getId(), "New status").build();
+        List<Cell> cellsA = new Cell.AddRowCellsBuilder()
+                .addCell(addedColumn1.getId(), true)
+                .addCell(addedColumn2.getId(), "New status")
+                .build();
 
         // Specify contents of first row.
         Row row = new Row.AddRowBuilder().setCells(cellsA).setToBottom(true).build();
 
         // Specify cell values for second row.
-        List<Cell> cellsB = new Cell.AddRowCellsBuilder().addCell(addedColumn1.getId(), true).addCell(addedColumn2.getId(), "New status").build();
+        List<Cell> cellsB = new Cell.AddRowCellsBuilder()
+                .addCell(addedColumn1.getId(), true)
+                .addCell(addedColumn2.getId(), "New status")
+                .build();
 
         // Specify contents of first row.
         Row rowA = new Row.AddRowBuilder().setCells(cellsB).setToBottom(true).build();
@@ -190,8 +201,18 @@ public class SheetResourcesIT extends ITResourcesImpl{
 
     public void testCreateSheetHomeFromTemplate() throws SmartsheetException, IOException {
 
-        Sheet sheet = new Sheet.CreateFromTemplateOrSheetBuilder().setFromId(newSheetHome.getId()).setName("New test sheet from template").build();
-        newSheetTemplate = smartsheet.sheetResources().createSheetFromTemplate(sheet, EnumSet.of(SheetTemplateInclusion.ATTACHMENTS, SheetTemplateInclusion.DATA, SheetTemplateInclusion.DISCUSSIONS));
+        Sheet sheet = new Sheet.CreateFromTemplateOrSheetBuilder()
+                .setFromId(newSheetHome.getId())
+                .setName("New test sheet from template")
+                .build();
+        EnumSet<SheetTemplateInclusion> inclusions = EnumSet.of(
+                SheetTemplateInclusion.ATTACHMENTS,
+                SheetTemplateInclusion.DATA,
+                SheetTemplateInclusion.DISCUSSIONS
+        );
+        newSheetTemplate = smartsheet
+                .sheetResources()
+                .createSheetFromTemplate(sheet, inclusions);
 
         assertThat(newSheetHome.getAccessLevel()).isEqualTo(AccessLevel.OWNER);
     }
@@ -205,17 +226,20 @@ public class SheetResourcesIT extends ITResourcesImpl{
         assertThat(newSheetFolder.getColumns()).hasSameSizeAs(sheetHome.getColumns());
     }
 
-    public void testCreateSheetInFolderFromTemplate() throws SmartsheetException, IOException {
+    public void testCreateSheetInFolderFromTemplate() throws SmartsheetException {
 
-        Sheet sheet = new Sheet.CreateFromTemplateOrSheetBuilder().setFromId(newSheetHome.getId()).setName("New test sheet from template").build();
-        Sheet newSheetFromTemplate= smartsheet.sheetResources().createSheetInFolderFromTemplate(folder.getId(), sheet, null);
+        Sheet sheet = new Sheet.CreateFromTemplateOrSheetBuilder()
+                .setFromId(newSheetHome.getId())
+                .setName("New test sheet from template")
+                .build();
+        Sheet newSheetFromTemplate = smartsheet.sheetResources().createSheetInFolderFromTemplate(folder.getId(), sheet, null);
 
         assertThat(newSheetFromTemplate.getId().toString()).isNotEmpty();
         assertThat(newSheetFromTemplate.getAccessLevel()).isEqualTo(AccessLevel.OWNER);
         assertThat(newSheetFromTemplate.getPermalink()).isNotEmpty();
     }
 
-    public void testCreateSheetInWorkspace() throws SmartsheetException, IOException {
+    public void testCreateSheetInWorkspace() throws SmartsheetException {
         //create temporary workspace
         workspace = createWorkspace("New Test Workspace");
 
@@ -226,9 +250,14 @@ public class SheetResourcesIT extends ITResourcesImpl{
         //testDeleteWorkspace(workspace.getId());
     }
 
-    public void testCreateSheetInWorkspaceFromTemplate() throws SmartsheetException, IOException {
-        Sheet sheet = new Sheet.CreateFromTemplateOrSheetBuilder().setFromId(newSheetHome.getId()).setName("New test sheet in workspace from template").build();
-        Sheet newSheetFromTemplate = smartsheet.sheetResources().createSheetInWorkspaceFromTemplate(workspace.getId(), sheet, EnumSet.allOf(SheetTemplateInclusion.class));
+    public void testCreateSheetInWorkspaceFromTemplate() throws SmartsheetException {
+        Sheet sheet = new Sheet.CreateFromTemplateOrSheetBuilder()
+                .setFromId(newSheetHome.getId())
+                .setName("New test sheet in workspace from template")
+                .build();
+        Sheet newSheetFromTemplate = smartsheet
+                .sheetResources()
+                .createSheetInWorkspaceFromTemplate(workspace.getId(), sheet, EnumSet.allOf(SheetTemplateInclusion.class));
 
         assertThat(newSheetFromTemplate.getId().toString()).isNotEmpty();
         assertThat(newSheetFromTemplate.getAccessLevel()).isEqualTo(AccessLevel.OWNER);
@@ -331,7 +360,11 @@ public class SheetResourcesIT extends ITResourcesImpl{
     }
 
     public void testListSheets() throws SmartsheetException, IOException {
-        PaginationParameters parameters = new PaginationParameters.PaginationParametersBuilder().setIncludeAll(false).setPageSize(1).setPage(1).build();
+        PaginationParameters parameters = new PaginationParameters.PaginationParametersBuilder()
+                .setIncludeAll(false)
+                .setPageSize(1)
+                .setPage(1)
+                .build();
         PagedResult<Sheet> sheets = smartsheet.sheetResources().listSheets(EnumSet.of(SourceInclusion.SOURCE), parameters);
         smartsheet.sheetResources().listSheets(null, null);
 
@@ -339,7 +372,11 @@ public class SheetResourcesIT extends ITResourcesImpl{
     }
 
     public void testListOrganizationSheets() throws SmartsheetException, IOException {
-        //PaginationParameters parameters = new PaginationParameters.PaginationParametersBuilder().setIncludeAll(false).setPageSize(1).setPage(1).build();
+        //PaginationParameters parameters = new PaginationParameters.PaginationParametersBuilder()
+        //    .setIncludeAll(false)
+        //    .setPageSize(1)
+        //    .setPage(1)
+        //    .build();
         //PagedResult<Sheet> sheets = smartsheet.sheetResources().listOrganizationSheets(parameters);
 
         //assertThat(sheets.getPageNumber() == 1).isTrue();
@@ -347,9 +384,8 @@ public class SheetResourcesIT extends ITResourcesImpl{
 
     public void testattachFile() throws SmartsheetException, IOException {
 
-//        File file = new File("src/test/resources/small-text.txt");
-//        Attachment attachment = smartsheet.sheetResources().attachmentResources().attachFile(1234L, 345L, file,
-//                "application/pdf");
+        // File file = new File("src/test/resources/small-text.txt");
+        // Attachment attachment = smartsheet.sheetResources().attachmentResources().attachFile(1234L, 345L, file, "application/pdf");
     }
 
     public void testDeleteSheet() throws SmartsheetException, IOException {
