@@ -134,7 +134,7 @@ public class ReportResourcesIT extends ITResourcesImpl {
         reportPublish.setReadOnlyFullShowToolbar(false);
 
         ReportPublish newReportPublish = smartsheet.reportResources().updatePublishStatus(reportId, reportPublish);
-        assertThat(newReportPublish.getReadOnlyFullEnabled()).isTrue();
+        assertThat(newReportPublish.isReadOnlyFullEnabled()).isTrue();
         assertThat(newReportPublish.getReadOnlyFullShowToolbar()).isFalse();
     }
 
@@ -144,6 +144,6 @@ public class ReportResourcesIT extends ITResourcesImpl {
         reportPublish.setReadOnlyFullShowToolbar(false);
 
         ReportPublish newReportPublish = smartsheet.reportResources().updatePublishStatus(reportId, reportPublish);
-        assertThat(newReportPublish.getReadOnlyFullEnabled()).isFalse();
+        assertThat(newReportPublish.isReadOnlyFullEnabled()).isFalse();
     }
 }
