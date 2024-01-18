@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024 Smartsheet
+* Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,9 @@
  * limitations under the License.
  */
 
-package com.smartsheet.api.integrationtest;import com.smartsheet.api.Smartsheet;
+package com.smartsheet.api.integrationtest;
+
+import com.smartsheet.api.Smartsheet;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.models.SearchResult;
 import com.smartsheet.api.models.Sheet;
@@ -25,7 +27,7 @@ import java.io.IOException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class SearchResourcesIT extends ITResourcesImpl{
+class SearchResourcesIT extends ITResourcesImpl {
     Smartsheet smartsheet;
 
     @BeforeEach
