@@ -1,9 +1,6 @@
 /*
- * #[license]
- * Smartsheet Java SDK
- * %%
 * Copyright (C) 2024 Smartsheet
- * %%
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -15,22 +12,23 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * %[license]
  */
+
+package com.smartsheet.api.integrationtest;
+
 import com.smartsheet.api.Smartsheet;
 import com.smartsheet.api.SmartsheetException;
+import com.smartsheet.api.models.Contact;
 import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.PaginationParameters;
-import com.smartsheet.api.models.Template;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class TemplateResourcesIT extends ITResourcesImpl{
+public class ContactResourcesIT extends ITResourcesImpl {
     Smartsheet smartsheet;
+    String contactId;
 
     @BeforeEach
     public void setUp() throws Exception {
@@ -38,18 +36,22 @@ public class TemplateResourcesIT extends ITResourcesImpl{
     }
 
     @Test
-    void testListPublicTemplates() throws IOException, SmartsheetException {
-        PaginationParameters parameters = new PaginationParameters.PaginationParametersBuilder().setIncludeAll(true).build();
-        PagedResult<Template> templates = smartsheet.templateResources().listPublicTemplates(null);
-
-        assertThat(templates).isNotNull();
+    void testContactMethods() throws SmartsheetException {
+        testListContacts();
+        testGetContact();
     }
 
-    @Test
-    void testListTemplates() throws IOException, SmartsheetException {
-        PaginationParameters parameters = new PaginationParameters.PaginationParametersBuilder().setIncludeAll(true).build();
-        PagedResult<Template> templates = smartsheet.templateResources().listUserCreatedTemplates(parameters);
+    public void testGetContact() throws SmartsheetException {
+        Contact contact = smartsheet.contactResources().getContact(contactId);
+        assertThat(contact.getEmail()).isNotNull();
+    }
 
-        assertThat(templates).isNotNull();
+    public void testListContacts() throws SmartsheetException {
+        PagedResult<Contact> contacts = smartsheet
+                .contactResources()
+                .listContacts(new PaginationParameters.PaginationParametersBuilder().setIncludeAll(true).build());
+        //assertEquals(contacts.getData().get(0).getName(), "David Davidson");
+        assertThat(contacts.getTotalCount()).isPositive();
+        contactId = contacts.getData().get(0).getId();
     }
 }

@@ -1,9 +1,6 @@
 /*
- * #[license]
- * Smartsheet Java SDK
- * %%
 * Copyright (C) 2024 Smartsheet
- * %%
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -15,8 +12,9 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * %[license]
  */
+
+package com.smartsheet.api.integrationtest;
 
 import com.smartsheet.api.Smartsheet;
 import com.smartsheet.api.SmartsheetException;
@@ -43,24 +41,24 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class ReportResourcesIT extends ITResourcesImpl{
+public class ReportResourcesIT extends ITResourcesImpl {
     Smartsheet smartsheet;
-    private Long reportId = null;
+    private Long reportId;
 
     @BeforeEach
     public void setUp() throws Exception {
-         smartsheet = createAuthentication();
+        smartsheet = createAuthentication();
 
-         PagedResult<Report> reports = smartsheet.reportResources().listReports(null, null);
-         for (Report report : reports.getData()) {
-             if (report.getAccessLevel() == AccessLevel.OWNER) {
-                 reportId = report.getId();
-                 break;
-             }
-         }
-         if (reportId == null) {
-             throw new Exception("No valid reports found for the configured account. This test requires at least one owned report");
-         }
+        PagedResult<Report> reports = smartsheet.reportResources().listReports(null, null);
+        for (Report report : reports.getData()) {
+            if (report.getAccessLevel() == AccessLevel.OWNER) {
+                reportId = report.getId();
+                break;
+            }
+        }
+        if (reportId == null) {
+            throw new Exception("No valid reports found for the configured account. This test requires at least one owned report");
+        }
 
     }
 
@@ -75,7 +73,7 @@ public class ReportResourcesIT extends ITResourcesImpl{
         testUnpublishReport();
     }
 
-    public void testListReports() throws  SmartsheetException, IOException {
+    public void testListReports() throws SmartsheetException, IOException {
         PaginationParameters parameters = new PaginationParameters.PaginationParametersBuilder()
                 .setIncludeAll(true).build();
 
@@ -91,13 +89,13 @@ public class ReportResourcesIT extends ITResourcesImpl{
         assertThat(report).isNotNull();
     }
 
-    public void testGetReportAsExcel() throws SmartsheetException, IOException{
+    public void testGetReportAsExcel() throws SmartsheetException, IOException {
         ByteArrayOutputStream output = new ByteArrayOutputStream();
         smartsheet.reportResources().getReportAsExcel(reportId, output);
         assertThat(output).isNotNull();
     }
 
-    public void testGetReportAsCsv() throws SmartsheetException, IOException{
+    public void testGetReportAsCsv() throws SmartsheetException, IOException {
         ByteArrayOutputStream output = new ByteArrayOutputStream();
         smartsheet.reportResources().getReportAsCsv(reportId, output);
         assertThat(output).isNotNull();
@@ -148,6 +146,4 @@ public class ReportResourcesIT extends ITResourcesImpl{
         ReportPublish newReportPublish = smartsheet.reportResources().updatePublishStatus(reportId, reportPublish);
         assertThat(newReportPublish.getReadOnlyFullEnabled()).isFalse();
     }
-
-
 }
