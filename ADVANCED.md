@@ -89,7 +89,7 @@ Integration tests:
 2. `./gradlew integrationTest`
 
 Mock API tests:
-1. Clone the [Smartsheet sdk tests](https://github.com/smartsheet-platform/smartsheet-sdk-tests) repo and follow the 
+1. Clone the [Smartsheet sdk tests](https://github.com/smartsheet/smartsheet-sdk-tests) repo and follow the 
 instructions from the readme to start the mock server.
 2. `./gradlew sdkTest`
 

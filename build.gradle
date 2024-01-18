@@ -103,6 +103,13 @@ tasks.register('sdkTest', Test) {
         includeTestsMatching "com.smartsheet.api.sdktest.*"
     }
 
+    testLogging {
+        // Log tests ran since there so few and they run so fast
+        events "PASSED", "SKIPPED", "FAILED"
+        // Log the full exception so we can see why tests failed
+        exceptionFormat = 'full'
+    }
+
     testClassesDirs = sourceSets.test.output
     classpath = sourceSets.test.runtimeClasspath
 }
