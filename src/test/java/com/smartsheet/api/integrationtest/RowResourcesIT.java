@@ -1,9 +1,6 @@
 /*
- * #[license]
- * Smartsheet Java SDK
- * %%
 * Copyright (C) 2024 Smartsheet
- * %%
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -15,8 +12,9 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * %[license]
  */
+
+package com.smartsheet.api.integrationtest;
 
 import com.smartsheet.api.Smartsheet;
 import com.smartsheet.api.SmartsheetException;
@@ -49,7 +47,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class RowResourcesIT extends ITResourcesImpl{
+public class RowResourcesIT extends ITResourcesImpl {
     Smartsheet smartsheet;
     Sheet sheet;
     List<Row> newRows;
@@ -69,8 +67,8 @@ public class RowResourcesIT extends ITResourcesImpl{
         testCopyRow();
         testSendRows();
         testUpdateRows();
-//        testPartialInsertRows(); covered by @Test annotation.
-//        testPartialUpdateRows(); covered by @Test annotation.
+        // testPartialInsertRows(); covered by @Test annotation.
+        // testPartialUpdateRows(); covered by @Test annotation.
         testMoveRow();
         testDeleteRows();
     }
@@ -81,19 +79,28 @@ public class RowResourcesIT extends ITResourcesImpl{
 
         //get column
         PaginationParameters parameters = new PaginationParameters.PaginationParametersBuilder().setIncludeAll(true).build();
-        PagedResult<Column> wrapper = smartsheet.sheetResources().columnResources().listColumns(sheet.getId(), EnumSet.allOf(ColumnInclusion.class), parameters);
+        PagedResult<Column> wrapper = smartsheet
+                .sheetResources()
+                .columnResources()
+                .listColumns(sheet.getId(), EnumSet.allOf(ColumnInclusion.class), parameters);
 
         Column addedColumn1 = wrapper.getData().get(0);
         Column addedColumn2 = wrapper.getData().get(1);
 
         // Specify cell values for first row.
-        List<Cell> cellsA = new Cell.AddRowCellsBuilder().addCell(addedColumn1.getId(), true).addCell(addedColumn2.getId(), "New status").build();
+        List<Cell> cellsA = new Cell.AddRowCellsBuilder()
+                .addCell(addedColumn1.getId(), true)
+                .addCell(addedColumn2.getId(), "New status")
+                .build();
 
         // Specify contents of first row.
         row = new Row.AddRowBuilder().setCells(cellsA).setToBottom(true).build();
 
         // Specify cell values for second row.
-        List<Cell> cellsB = new Cell.AddRowCellsBuilder().addCell(addedColumn1.getId(), true).addCell(addedColumn2.getId(), "New status").build();
+        List<Cell> cellsB = new Cell.AddRowCellsBuilder()
+                .addCell(addedColumn1.getId(), true)
+                .addCell(addedColumn2.getId(), "New status")
+                .build();
 
         // Specify contents of first row.
         Row rowA = new Row.AddRowBuilder().setCells(cellsB).setToBottom(true).build();
@@ -104,31 +111,48 @@ public class RowResourcesIT extends ITResourcesImpl{
         addedColumn = columns.get(1);
     }
 
-    public void testGetRow() throws SmartsheetException, IOException {
+    public void testGetRow() throws SmartsheetException {
         smartsheet.sheetResources().rowResources().getRow(sheet.getId(), newRows.get(0).getId(), null, null);
-        row = smartsheet.sheetResources().rowResources().getRow(sheet.getId(), newRows.get(0).getId(), EnumSet.of(RowInclusion.COLUMNS, RowInclusion.COLUMN_TYPE), EnumSet.of(ObjectExclusion.NONEXISTENT_CELLS));
-       assertThat(row).isNotNull();
+        row = smartsheet
+                .sheetResources()
+                .rowResources()
+                .getRow(
+                        sheet.getId(),
+                        newRows.get(0).getId(),
+                        EnumSet.of(RowInclusion.COLUMNS, RowInclusion.COLUMN_TYPE),
+                        EnumSet.of(ObjectExclusion.NONEXISTENT_CELLS)
+                );
+        assertThat(row).isNotNull();
     }
 
     @Test
     void testUpdateRows() throws SmartsheetException, IOException {
-         //create sheet
+        // create sheet
         Sheet sheet = smartsheet.sheetResources().createSheet(createSheetObject());
         PaginationParameters parameters = new PaginationParameters.PaginationParametersBuilder().setIncludeAll(true).build();
-        PagedResult<Column> wrapper = smartsheet.sheetResources().columnResources().listColumns(sheet.getId(), EnumSet.allOf(ColumnInclusion.class), parameters);
+        PagedResult<Column> wrapper = smartsheet
+                .sheetResources()
+                .columnResources()
+                .listColumns(sheet.getId(), EnumSet.allOf(ColumnInclusion.class), parameters);
 
         Column addedColumn1 = wrapper.getData().get(0);
         Column addedColumn2 = wrapper.getData().get(1);
 
         // Specify cell values for first row.
-        List<Cell> cellsA = new Cell.AddRowCellsBuilder().addCell(addedColumn1.getId(), true).addCell(addedColumn2.getId(), "New status").build();
+        List<Cell> cellsA = new Cell.AddRowCellsBuilder()
+                .addCell(addedColumn1.getId(), true)
+                .addCell(addedColumn2.getId(), "New status")
+                .build();
 
         // Specify contents of first row.
         Row row = new Row.AddRowBuilder().setCells(cellsA).setToBottom(true).build();
         List<Row> newRows = smartsheet.sheetResources().rowResources().addRows(sheet.getId(), Arrays.asList(row));
 
         //Updated cells //correct
-        List<Cell> cellsB = new Cell.UpdateRowCellsBuilder().addCell(addedColumn1.getId(), true).addCell(addedColumn2.getId(), "Updtaed status").build();
+        List<Cell> cellsB = new Cell.UpdateRowCellsBuilder()
+                .addCell(addedColumn1.getId(), true)
+                .addCell(addedColumn2.getId(), "Updtaed status")
+                .build();
 
         Row rowB = new Row.UpdateRowBuilder().setCells(cellsB).setRowId(newRows.get(0).getId()).build();
 
@@ -142,29 +166,49 @@ public class RowResourcesIT extends ITResourcesImpl{
         //Create new sheet to copy to
         copyToSheet = smartsheet.sheetResources().createSheet(createSheetObject());
 
-        CopyOrMoveRowDestination destination = new CopyOrMoveRowDestination.InsertCopyOrMoveRowDestinationBuilder().setSheetId(copyToSheet.getId()).build();
-        CopyOrMoveRowDirective copyOrMoveRowDirective = new CopyOrMoveRowDirective.InsertCopyOrMoveRowDirectiveBuilder().setRowIds(Arrays.asList(newRows.get(0).getId())).setTo(destination).build();
+        CopyOrMoveRowDestination destination = new CopyOrMoveRowDestination.InsertCopyOrMoveRowDestinationBuilder()
+                .setSheetId(copyToSheet.getId())
+                .build();
+        CopyOrMoveRowDirective copyOrMoveRowDirective = new CopyOrMoveRowDirective.InsertCopyOrMoveRowDirectiveBuilder()
+                .setRowIds(Arrays.asList(newRows.get(0).getId())).setTo(destination)
+                .build();
 
-        smartsheet.sheetResources().rowResources().copyRows(sheet.getId(), null, null, copyOrMoveRowDirective);
-            smartsheet.sheetResources().rowResources().copyRows(sheet.getId(), EnumSet.of(RowCopyInclusion.CHILDREN), false, copyOrMoveRowDirective);
-
+        smartsheet
+                .sheetResources()
+                .rowResources()
+                .copyRows(sheet.getId(), null, null, copyOrMoveRowDirective);
+        smartsheet
+                .sheetResources()
+                .rowResources()
+                .copyRows(sheet.getId(), EnumSet.of(RowCopyInclusion.CHILDREN), false, copyOrMoveRowDirective);
     }
 
     public void testMoveRow() throws SmartsheetException, IOException {
         List<Long> rowIds = new ArrayList<>();
         rowIds.add(newRows.get(0).getId());
 
-        CopyOrMoveRowDestination destination = new CopyOrMoveRowDestination.InsertCopyOrMoveRowDestinationBuilder().setSheetId(copyToSheet.getId()).build();
-        CopyOrMoveRowDirective directive = new CopyOrMoveRowDirective.InsertCopyOrMoveRowDirectiveBuilder().setRowIds(rowIds).setTo(destination).build();
+        CopyOrMoveRowDestination destination = new CopyOrMoveRowDestination.InsertCopyOrMoveRowDestinationBuilder()
+                .setSheetId(copyToSheet.getId())
+                .build();
+        CopyOrMoveRowDirective directive = new CopyOrMoveRowDirective.InsertCopyOrMoveRowDirectiveBuilder()
+                .setRowIds(rowIds)
+                .setTo(destination)
+                .build();
 
-        //smartsheet.sheetResources().rowResources().moveRows(sheet.getId(), null, null, directive);
-        smartsheet.sheetResources().rowResources().moveRows(sheet.getId(), EnumSet.of(RowMoveInclusion.ATTACHMENTS, RowMoveInclusion.DISCUSSIONS), false, directive);
+        smartsheet
+                .sheetResources()
+                .rowResources()
+                .moveRows(
+                        sheet.getId(),
+                        EnumSet.of(RowMoveInclusion.ATTACHMENTS, RowMoveInclusion.DISCUSSIONS),
+                        false,
+                        directive
+                );
     }
 
-    public void testSendRows() throws SmartsheetException, IOException {
+    public void testSendRows() throws SmartsheetException {
         // Specify individual recipient.
         RecipientEmail recipientEmail = new RecipientEmail.AddRecipientEmailBuilder().setEmail("john.doe@smartsheet.com").build();
-
 
         List<Recipient> recipients = new ArrayList<>();
         recipients.add(recipientEmail);
@@ -180,21 +224,25 @@ public class RowResourcesIT extends ITResourcesImpl{
                                         .setIncludeDiscussions(false)
                                         .build();
 
-
-        smartsheet.sheetResources().rowResources().sendRows(sheet.getId(),multiRowEmail);
+        smartsheet.sheetResources().rowResources().sendRows(sheet.getId(), multiRowEmail);
     }
-
 
     @Test
     void testPartialInsertRows() throws SmartsheetException, IOException {
         Sheet sheet = smartsheet.sheetResources().createSheet(createSheetObjectWithAutoNumberColumn());
 
         PaginationParameters parameters = new PaginationParameters.PaginationParametersBuilder().setIncludeAll(true).build();
-        PagedResult<Column> wrapper = smartsheet.sheetResources().columnResources().listColumns(sheet.getId(), EnumSet.allOf(ColumnInclusion.class), parameters);
+        PagedResult<Column> wrapper = smartsheet
+                .sheetResources()
+                .columnResources()
+                .listColumns(sheet.getId(), EnumSet.allOf(ColumnInclusion.class), parameters);
 
-        Column addedColumn1 = wrapper.getData().get(0); //checkbox
-        Column textNumberColumn = wrapper.getData().get(1);//Text number
-        Column autoNumberColumn = wrapper.getData().get(3);//AutoNumber column
+        // Checkbox
+        Column addedColumn1 = wrapper.getData().get(0);
+        // Text number
+        Column textNumberColumn = wrapper.getData().get(1);
+        // AutoNumber column
+        Column autoNumberColumn = wrapper.getData().get(3);
 
         List<Cell> cellsSucceed = new Cell.UpdateRowCellsBuilder().addCell(textNumberColumn.getId(), "Updated status").build();
         List<Cell> cellsFail = new Cell.UpdateRowCellsBuilder().addCell(autoNumberColumn.getId(), "Updated status").build();
@@ -202,7 +250,10 @@ public class RowResourcesIT extends ITResourcesImpl{
         Row row = new Row.AddRowBuilder().setCells(cellsSucceed).setToBottom(true).build();
         Row row2 = new Row.AddRowBuilder().setCells(cellsFail).setToBottom(true).build();
 
-        PartialRowUpdateResult result = smartsheet.sheetResources().rowResources().addRowsAllowPartialSuccess(sheet.getId(), Arrays.asList(row, row2));
+        PartialRowUpdateResult result = smartsheet
+                .sheetResources()
+                .rowResources()
+                .addRowsAllowPartialSuccess(sheet.getId(), Arrays.asList(row, row2));
 
         assertThat(result.getMessage()).isEqualTo("PARTIAL_SUCCESS");
         assertThat(result.getResult())
@@ -230,11 +281,17 @@ public class RowResourcesIT extends ITResourcesImpl{
         Sheet sheet = smartsheet.sheetResources().createSheet(createSheetObjectWithAutoNumberColumn());
 
         PaginationParameters parameters = new PaginationParameters.PaginationParametersBuilder().setIncludeAll(true).build();
-        PagedResult<Column> wrapper = smartsheet.sheetResources().columnResources().listColumns(sheet.getId(), EnumSet.allOf(ColumnInclusion.class), parameters);
+        PagedResult<Column> wrapper = smartsheet
+                .sheetResources()
+                .columnResources()
+                .listColumns(sheet.getId(), EnumSet.allOf(ColumnInclusion.class), parameters);
 
-        Column addedColumn1 = wrapper.getData().get(0); //checkbox
-        Column textNumberColumn = wrapper.getData().get(1);//Text number
-        Column autoNumberColumn = wrapper.getData().get(3);//AutoNumber column
+        // Checkbox
+        Column addedColumn1 = wrapper.getData().get(0);
+        // Text number
+        Column textNumberColumn = wrapper.getData().get(1);
+        // AutoNumber column
+        Column autoNumberColumn = wrapper.getData().get(3);
 
         // Specify cell values for first row.
         List<Cell> cellsCreate = new Cell.AddRowCellsBuilder()
@@ -253,7 +310,10 @@ public class RowResourcesIT extends ITResourcesImpl{
         Row rowSucceeds = new Row.UpdateRowBuilder().setCells(cellUpdateSucceed).setRowId(newRows.get(0).getId()).build();
         Row rowFails = new Row.UpdateRowBuilder().setCells(cellUpdateFail).setRowId(newRows.get(1).getId()).build();
 
-        PartialRowUpdateResult result = smartsheet.sheetResources().rowResources().updateRowsAllowPartialSuccess(sheet.getId(), Arrays.asList(rowSucceeds, rowFails));
+        PartialRowUpdateResult result = smartsheet
+                .sheetResources()
+                .rowResources()
+                .updateRowsAllowPartialSuccess(sheet.getId(), Arrays.asList(rowSucceeds, rowFails));
 
         assertThat(result.getMessage()).isEqualTo("PARTIAL_SUCCESS");
         assertThat(result.getResult())
@@ -264,7 +324,10 @@ public class RowResourcesIT extends ITResourcesImpl{
                 .hasSize(1);
 
         Row rowSucceeds2 = new Row.UpdateRowBuilder().setCells(cellUpdateSucceed).setRowId(newRows.get(1).getId()).build();
-        result = smartsheet.sheetResources().rowResources().updateRowsAllowPartialSuccess(sheet.getId(), Arrays.asList(rowSucceeds, rowSucceeds2));
+        result = smartsheet
+                .sheetResources()
+                .rowResources()
+                .updateRowsAllowPartialSuccess(sheet.getId(), Arrays.asList(rowSucceeds, rowSucceeds2));
 
         assertThat(result.getMessage()).isEqualTo("SUCCESS");
         assertThat(result.getResult())

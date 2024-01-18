@@ -1,9 +1,6 @@
 /*
- * #[license]
- * Smartsheet Java SDK
- * %%
 * Copyright (C) 2024 Smartsheet
- * %%
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -15,13 +12,14 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * %[license]
  */
+
+package com.smartsheet.api.integrationtest;
+
 import com.smartsheet.api.Smartsheet;
 import com.smartsheet.api.SmartsheetException;
-import com.smartsheet.api.models.PagedResult;
-import com.smartsheet.api.models.PaginationParameters;
-import com.smartsheet.api.models.Template;
+import com.smartsheet.api.models.SearchResult;
+import com.smartsheet.api.models.Sheet;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -29,7 +27,7 @@ import java.io.IOException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class TemplateResourcesIT extends ITResourcesImpl{
+class SearchResourcesIT extends ITResourcesImpl {
     Smartsheet smartsheet;
 
     @BeforeEach
@@ -38,18 +36,22 @@ public class TemplateResourcesIT extends ITResourcesImpl{
     }
 
     @Test
-    void testListPublicTemplates() throws IOException, SmartsheetException {
-        PaginationParameters parameters = new PaginationParameters.PaginationParametersBuilder().setIncludeAll(true).build();
-        PagedResult<Template> templates = smartsheet.templateResources().listPublicTemplates(null);
-
-        assertThat(templates).isNotNull();
+    void testSearch() throws IOException, SmartsheetException {
+        SearchResult result = smartsheet.searchResources().search("aditi");
+        assertThat(result.getResults()).isNotNull();
     }
 
     @Test
-    void testListTemplates() throws IOException, SmartsheetException {
-        PaginationParameters parameters = new PaginationParameters.PaginationParametersBuilder().setIncludeAll(true).build();
-        PagedResult<Template> templates = smartsheet.templateResources().listUserCreatedTemplates(parameters);
+    void testSearchSheet() throws IOException, SmartsheetException {
+        //create sheet
+        Sheet sheet = smartsheet.sheetResources().createSheet(createSheetObject());
 
-        assertThat(templates).isNotNull();
+        addRows(sheet.getId());
+
+        SearchResult searchSheet = smartsheet.searchResources().searchSheet(sheet.getId(), "test");
+        assertThat(searchSheet).isNotNull();
+
+        //clean up
+        deleteSheet(sheet.getId());
     }
 }
