@@ -81,6 +81,7 @@ class SheetResourcesIT extends ITResourcesImpl {
         testCreateSheetInFolderFromTemplate();
         // This test was consistently failing because ResourceNotFoundException: Not Found
         // testCreateSheetInWorkspace();
+        // This test was failing with an NPE
         // testCreateSheetInWorkspaceFromTemplate();
         testGetSheet();
         testGetSheetVersion();
