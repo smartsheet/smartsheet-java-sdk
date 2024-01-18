@@ -121,7 +121,7 @@ tasks.register('integrationTest', Test) {
 
     // We only want to run tests in files ending with IT.java
     filter {
-        includeTestsMatching "*.*IT"
+        includeTestsMatching "com.smartsheet.api.integrationtest.*"
     }
 
     testLogging {
@@ -143,7 +143,7 @@ test {
 
     // exclude SDK Tests and integration tests
     filter {
-        excludeTestsMatching "*.*IT"
+        excludeTestsMatching "com.smartsheet.api.integrationtest.*"
         excludeTestsMatching "com.smartsheet.api.sdktest.*"
     }
 

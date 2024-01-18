@@ -1,9 +1,6 @@
 /*
- * #[license]
- * Smartsheet Java SDK
- * %%
 * Copyright (C) 2024 Smartsheet
- * %%
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -15,8 +12,9 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * %[license]
  */
+
+package com.smartsheet.api.integrationtest;
 
 import com.smartsheet.api.Smartsheet;
 import com.smartsheet.api.SmartsheetException;
@@ -36,7 +34,7 @@ import java.io.InputStream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class CellResourcesIT extends ITResourcesImpl{
+public class CellResourcesIT extends ITResourcesImpl {
     Smartsheet smartsheet;
 
     @BeforeEach
@@ -51,11 +49,15 @@ public class CellResourcesIT extends ITResourcesImpl{
         PaginationParameters parameters = new PaginationParameters.PaginationParametersBuilder().setIncludeAll(true).build();
 
         //get columns
-        PagedResult<Column> columns = smartsheet.sheetResources().columnResources().listColumns(sheet.getId(),null,parameters);
+        PagedResult<Column> columns = smartsheet.sheetResources().columnResources().listColumns(sheet.getId(), null, parameters);
         //add rows
         Row row = addRows(sheet.getId());
 
-        PagedResult<CellHistory> cellHistory= smartsheet.sheetResources().rowResources().cellResources().getCellHistory(sheet.getId(), row.getId() ,columns.getData().get(0).getId(), parameters);
+        PagedResult<CellHistory> cellHistory = smartsheet
+                .sheetResources()
+                .rowResources()
+                .cellResources()
+                .getCellHistory(sheet.getId(), row.getId(), columns.getData().get(0).getId(), parameters);
         assertThat(cellHistory).isNotNull();
 
         //cleanup
@@ -68,14 +70,14 @@ public class CellResourcesIT extends ITResourcesImpl{
         PaginationParameters parameters = new PaginationParameters.PaginationParametersBuilder().setIncludeAll(true).build();
 
         //get columns
-        PagedResult<Column> columns = smartsheet.sheetResources().columnResources().listColumns(sheet.getId(),null,parameters);
+        PagedResult<Column> columns = smartsheet.sheetResources().columnResources().listColumns(sheet.getId(), null, parameters);
         //add rows
         Row row = addRows(sheet.getId());
 
         smartsheet.sheetResources().rowResources().cellResources().addImageToCell(sheet.getId(), row.getId(),
-                columns.getData().get(0).getId(), "src/integration-test/resources/exclam.png", "image/png", false, "alt text");
+                columns.getData().get(0).getId(), "src/test/resources/exclam.png", "image/png", false, "alt text");
 
-        File file = new File("src/integration-test/resources/exclam.png");
+        File file = new File("src/test/resources/exclam.png");
         smartsheet.sheetResources().rowResources().cellResources().addImageToCell(sheet.getId(), row.getId(),
                 columns.getData().get(0).getId(), file, "image/png", false, file.getName());
 

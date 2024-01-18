@@ -1,9 +1,6 @@
 /*
- * #[license]
- * Smartsheet Java SDK
- * %%
 * Copyright (C) 2024 Smartsheet
- * %%
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -15,8 +12,9 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * %[license]
  */
+
+package com.smartsheet.api.integrationtest;
 
 import com.smartsheet.api.Smartsheet;
 import com.smartsheet.api.SmartsheetException;
@@ -37,9 +35,7 @@ import java.util.EnumSet;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-
 public class FolderResourcesIT extends ITResourcesImpl {
-
     Smartsheet smartsheet;
     Folder newFolderHome;
     Folder newFolder;
@@ -66,14 +62,14 @@ public class FolderResourcesIT extends ITResourcesImpl {
         testDeleteFolder();
     }
 
-    public void testCreateFolderInHome() throws IOException, SmartsheetException {
+    public void testCreateFolderInHome() throws SmartsheetException {
         Folder folder = new Folder.CreateFolderBuilder().setName("New Folder in Home By Aditi").build();
 
         newFolderHome = smartsheet.homeResources().folderResources().createFolder(folder);
         assertThat(newFolderHome.getName()).isEqualTo("New Folder in Home By Aditi");
     }
 
-    public void testCreateFolderInFolder() throws SmartsheetException, IOException {
+    public void testCreateFolderInFolder() throws SmartsheetException {
         Folder folder = new Folder.CreateFolderBuilder().setName("New Folder in Folder By Aditi").build();
         newFolder = smartsheet.folderResources().createFolder(newFolderHome.getId(), folder);
 
@@ -83,7 +79,7 @@ public class FolderResourcesIT extends ITResourcesImpl {
         assertThat(newFolder.getName()).isEqualTo(folder.getName());
     }
 
-    public void testCreateFolderInWorkspace() throws IOException, SmartsheetException {
+    public void testCreateFolderInWorkspace() throws SmartsheetException {
         //calling helper method
         workspace = createWorkspace("New Workspace By Aditi");
 
@@ -92,35 +88,35 @@ public class FolderResourcesIT extends ITResourcesImpl {
         assertThat(folder.getName()).isEqualTo("New Folder in Workspace By Aditi");
     }
 
-    public void testUpdateFolder() throws SmartsheetException, IOException {
+    public void testUpdateFolder() throws SmartsheetException {
         Folder folder = new Folder.UpdateFolderBuilder().setName("Updated Name By Aditi").setId(newFolderHome.getId()).build();
         Folder resultFolder = smartsheet.folderResources().updateFolder(folder);
 
         assertThat(resultFolder.getName()).isEqualTo(folder.getName());
     }
 
-    public void testListFoldersInFolder() throws SmartsheetException, IOException {
-        PaginationParameters parameters = new PaginationParameters(true,1,1);
+    public void testListFoldersInFolder() throws SmartsheetException {
+        PaginationParameters parameters = new PaginationParameters(true, 1, 1);
         PagedResult<Folder> foldersWrapper = smartsheet.folderResources().listFolders(newFolder.getId(), parameters);
 
         assertThat(foldersWrapper.getTotalCount()).isEqualTo(1);
     }
 
-    public void testListFoldersInHome() throws SmartsheetException, IOException {
-        PaginationParameters parameters = new PaginationParameters(true,1,1);
+    public void testListFoldersInHome() throws SmartsheetException {
+        PaginationParameters parameters = new PaginationParameters(true, 1, 1);
         PagedResult<Folder> foldersWrapper = smartsheet.homeResources().folderResources().listFolders(parameters);
 
         assertThat(foldersWrapper.getTotalCount()).isNotNull();
     }
 
-    public void testListFoldersInWorkspace() throws SmartsheetException, IOException {
-        PaginationParameters parameters = new PaginationParameters(true,1,1);
+    public void testListFoldersInWorkspace() throws SmartsheetException {
+        PaginationParameters parameters = new PaginationParameters(true, 1, 1);
         PagedResult<Folder> foldersWrapper = smartsheet.workspaceResources().folderResources().listFolders(workspace.getId(), parameters);
 
         assertThat(foldersWrapper.getTotalCount()).isNotNull();
     }
 
-    public void testGetFolder() throws SmartsheetException, IOException {
+    public void testGetFolder() throws SmartsheetException {
         Folder folder = smartsheet.folderResources().getFolder(newFolder.getId(), EnumSet.of(SourceInclusion.SOURCE));
         smartsheet.folderResources().getFolder(newFolder.getId(), null);
 
@@ -128,16 +124,30 @@ public class FolderResourcesIT extends ITResourcesImpl {
         assertThat(folder.getName()).isEqualTo("New Folder in Folder By Aditi");
     }
 
-    public void testCopyFolder() throws SmartsheetException, IOException {
-        ContainerDestination destination = new ContainerDestination.AddContainerDestinationBuilder().setDestinationType(DestinationType.FOLDER).setDestinationId(newFolderWorkspace.getId()).setNewName("New Copied folder").build();
+    public void testCopyFolder() throws SmartsheetException {
+        ContainerDestination destination = new ContainerDestination.AddContainerDestinationBuilder()
+                .setDestinationType(DestinationType.FOLDER)
+                .setDestinationId(newFolderWorkspace.getId())
+                .setNewName("New Copied folder")
+                .build();
         Folder folder1 = smartsheet.folderResources().copyFolder(newFolderHome.getId(), destination, null, null);
-        Folder folder2 = smartsheet.folderResources().copyFolder(newFolderHome.getId(), destination, EnumSet.of(FolderCopyInclusion.ALL), EnumSet.of(FolderRemapExclusion.CELLLINKS));
+        Folder folder2 = smartsheet
+                .folderResources()
+                .copyFolder(
+                        newFolderHome.getId(),
+                        destination,
+                        EnumSet.of(FolderCopyInclusion.ALL),
+                        EnumSet.of(FolderRemapExclusion.CELLLINKS)
+                );
         smartsheet.folderResources().deleteFolder(folder1.getId());
         smartsheet.folderResources().deleteFolder(folder2.getId());
     }
 
-    public void testMoveFolder() throws SmartsheetException, IOException {
-        ContainerDestination destination = new ContainerDestination.AddContainerDestinationBuilder().setDestinationType(DestinationType.FOLDER).setDestinationId(newFolderWorkspace.getId()).build();
+    public void testMoveFolder() throws SmartsheetException {
+        ContainerDestination destination = new ContainerDestination.AddContainerDestinationBuilder()
+                .setDestinationType(DestinationType.FOLDER)
+                .setDestinationId(newFolderWorkspace.getId())
+                .build();
         Folder folder1 = smartsheet.folderResources().moveFolder(newFolderHome.getId(), destination);
         smartsheet.folderResources().deleteFolder(folder1.getId());
     }
