@@ -1,22 +1,20 @@
 /*
- * #[license]
- * Smartsheet Java SDK
- * %%
- * Copyright (C) 2023 Smartsheet
- * %%
+* Copyright (C) 2024 Smartsheet
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * %[license]
  */
+
+package com.smartsheet.api.integrationtest;
 
 import com.smartsheet.api.Smartsheet;
 import com.smartsheet.api.SmartsheetException;
@@ -36,7 +34,6 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.EnumSet;
@@ -93,7 +90,7 @@ public class SheetSummaryResourcesIT extends ITResourcesImpl {
         sf1.setObjectValue(new BooleanObjectValue().setValue(false));
 
         asf = smartsheet.sheetResources().summaryResources().addSheetSummaryFields(
-                sheet.getId(), Arrays.asList(sf, sf1),true);
+                sheet.getId(), Arrays.asList(sf, sf1), true);
 
         assertThat(asf).hasSize(2);
     }
@@ -117,7 +114,7 @@ public class SheetSummaryResourcesIT extends ITResourcesImpl {
         sf1.setObjectValue(new BooleanObjectValue().setValue(false));
 
         BulkItemResult<SummaryField> asf = smartsheet.sheetResources().summaryResources().addSheetSummaryFieldsWithPartialSuccess(
-                sheet.getId(), Arrays.asList(sf, sf1),null);
+                sheet.getId(), Arrays.asList(sf, sf1), null);
 
         assertThat(asf.getMessage()).isEqualTo("PARTIAL_SUCCESS");
         assertThat(asf.getResult())
@@ -174,16 +171,16 @@ public class SheetSummaryResourcesIT extends ITResourcesImpl {
         try {
             rsf = smartsheet.sheetResources().summaryResources().addSheetSummaryFieldImage(
                     sheet.getId(), asf.get(0).getId(),
-                    "src/integration-test/resources/exclam.png", null, "alt text");
+                    "src/test/resources/exclam.png", null, "alt text");
 
-            File file = new File("src/integration-test/resources/exclam.png");
+            File file = new File("src/test/resources/exclam.png");
             rsf = smartsheet.sheetResources().summaryResources().addSheetSummaryFieldImage(
                     sheet.getId(), asf.get(0).getId(), file, "image/png", "alt text");
 
             rsf = smartsheet.sheetResources().summaryResources().addSheetSummaryFieldImage(
-                    sheet.getId(), asf.get(0).getId(), new FileInputStream(file), "image/png", file.length(),"alt text");
+                    sheet.getId(), asf.get(0).getId(), new FileInputStream(file), "image/png", file.length(), "alt text");
 
-        } catch (FileNotFoundException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         assertThat(rsf.getResultCode()).isZero();

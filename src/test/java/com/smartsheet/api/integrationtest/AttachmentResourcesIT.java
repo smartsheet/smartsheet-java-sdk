@@ -1,22 +1,20 @@
 /*
- * #[license]
- * Smartsheet Java SDK
- * %%
- * Copyright (C) 2023 Smartsheet
- * %%
+* Copyright (C) 2024 Smartsheet
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * %[license]
  */
+
+package com.smartsheet.api.integrationtest;
 
 import com.smartsheet.api.Smartsheet;
 import com.smartsheet.api.SmartsheetException;
@@ -36,7 +34,7 @@ import java.io.IOException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class AttachmentResourcesIT extends ITResourcesImpl{
+public class AttachmentResourcesIT extends ITResourcesImpl {
     Smartsheet smartsheet;
     File file;
     long sheetId;
@@ -58,7 +56,7 @@ public class AttachmentResourcesIT extends ITResourcesImpl{
         Sheet sheet = smartsheet.sheetResources().createSheet(createSheetObject());
         sheetId = sheet.getId();
 
-        file = new File("src/integration-test/resources/small-text.txt");
+        file = new File("src/test/resources/small-text.txt");
 
         testattachFileSheet();
         testattachFileRow();
@@ -79,7 +77,7 @@ public class AttachmentResourcesIT extends ITResourcesImpl{
         testGetAttachmentSheet(attachment.getId());
     }
 
-    public void testGetAttachmentSheet(long attachmentId) throws SmartsheetException, IOException {
+    public void testGetAttachmentSheet(long attachmentId) throws SmartsheetException {
         Attachment attachment = smartsheet.sheetResources().attachmentResources().getAttachment(sheetId, attachmentId);
         assertThat(attachment).isNotNull();
         sheetAttachmentId = attachment.getId();
@@ -91,18 +89,24 @@ public class AttachmentResourcesIT extends ITResourcesImpl{
         rowId = row.getId();
 
         //attach file to row
-        Attachment attachment = smartsheet.sheetResources().rowResources().attachmentResources().attachFile(sheetId, rowId,file,
-                "text/plain");
-        testGetAttachmentRow(attachment.getId());
+        Attachment attachment = smartsheet
+                .sheetResources()
+                .rowResources()
+                .attachmentResources()
+                .attachFile(sheetId, rowId, file, "text/plain");
+        testGetAttachmentRow();
     }
 
-    public void testGetAttachmentRow(long attachmentId) throws SmartsheetException, IOException {
+    public void testGetAttachmentRow() throws SmartsheetException {
         PaginationParameters parameters = new PaginationParameters.PaginationParametersBuilder().setIncludeAll(true).build();
-        PagedResult<Attachment> attachments = smartsheet.sheetResources().rowResources().attachmentResources().getAttachments(sheetId, rowId, parameters);
+        PagedResult<Attachment> attachments = smartsheet
+                .sheetResources()
+                .rowResources()
+                .attachmentResources()
+                .getAttachments(sheetId, rowId, parameters);
         assertThat(attachments).isNotNull();
     }
 
-    //smartsheet.sheetResources().commentResources().attachmentResources().attachFile(sheetId, commentId, file,"text/plain");
     public void testattachFileComment() throws SmartsheetException, IOException {
         //create comment to add to discussion
         Comment comment = new Comment.AddCommentBuilder().setText("This is a test comment").build();
@@ -115,7 +119,7 @@ public class AttachmentResourcesIT extends ITResourcesImpl{
         commentId = comment.getId();
         discussionId = discussion.getId();
 
-        File file1 = new File("src/integration-test/resources/small-text.txt");
+        File file1 = new File("src/test/resources/small-text.txt");
         //attach file to comment
         Attachment attachment = smartsheet.sheetResources().commentResources().attachmentResources().attachFile(sheetId, commentId, file1,
                 "text/plain");
@@ -124,13 +128,21 @@ public class AttachmentResourcesIT extends ITResourcesImpl{
 
     public void testGetAttachmentComment(long attachmentId) throws SmartsheetException, IOException {
         PaginationParameters parameters = new PaginationParameters.PaginationParametersBuilder().setIncludeAll(true).build();
-        PagedResult<Attachment> attachments = smartsheet.sheetResources().discussionResources().attachmentResources().getAttachments(sheetId, discussionId, parameters);
+        PagedResult<Attachment> attachments = smartsheet
+                .sheetResources()
+                .discussionResources()
+                .attachmentResources()
+                .getAttachments(sheetId, discussionId, parameters);
         assertThat(attachments).isNotNull();
     }
 
-    public void testattachUrl() throws SmartsheetException, IOException {
+    public void testattachUrl() throws SmartsheetException {
 
-        Attachment attachment = new Attachment.CreateAttachmentBuilder().setUrl("https://www.smartsheet.com").setAttachmentType(AttachmentType.LINK).setName("New Name").build();
+        Attachment attachment = new Attachment.CreateAttachmentBuilder()
+                .setUrl("https://www.smartsheet.com")
+                .setAttachmentType(AttachmentType.LINK)
+                .setName("New Name")
+                .build();
 
         //attach file to sheet
         Attachment attachedUrl = smartsheet.sheetResources().attachmentResources().attachUrl(sheetId, attachment);
@@ -141,12 +153,12 @@ public class AttachmentResourcesIT extends ITResourcesImpl{
         assertThat(attachedUrl).isNotNull();
 
         //attach file to comment
-        attachedUrl = smartsheet.sheetResources().commentResources().attachmentResources().attachUrl(sheetId, commentId,attachment);
+        attachedUrl = smartsheet.sheetResources().commentResources().attachmentResources().attachUrl(sheetId, commentId, attachment);
         assertThat(attachedUrl).isNotNull();
 
     }
 
-    public void testListAttachments() throws SmartsheetException, IOException {
+    public void testListAttachments() throws SmartsheetException {
         PaginationParameters parameters = new PaginationParameters.PaginationParametersBuilder().setIncludeAll(true).build();
 
         PagedResult<Attachment> attachments = smartsheet.sheetResources().attachmentResources().listAttachments(sheetId, parameters);
@@ -154,25 +166,35 @@ public class AttachmentResourcesIT extends ITResourcesImpl{
     }
 
     public void testDeleteAttachment() throws SmartsheetException, IOException {
-        //smartsheet.sheetResources().attachmentResources().deleteAttachment(sheetId, sheetAttachmentId);
         deleteSheet(sheetId);
     }
 
-    public void testAttachNewVersion() throws IOException, SmartsheetException  {
-        Attachment attachment = smartsheet.sheetResources().attachmentResources().versioningResources().attachNewVersion(sheetId, sheetAttachmentId, file,
-                "text/plain");
+    public void testAttachNewVersion() throws SmartsheetException, IOException {
+        Attachment attachment = smartsheet
+                .sheetResources()
+                .attachmentResources()
+                .versioningResources()
+                .attachNewVersion(sheetId, sheetAttachmentId, file, "text/plain");
         assertThat(attachment).isNotNull();
         attachmentWithVersionId = attachment.getId();
     }
 
     public void testListAllVersions() throws SmartsheetException, IOException {
         PaginationParameters parameters = new PaginationParameters.PaginationParametersBuilder().setIncludeAll(true).build();
-        PagedResult<Attachment> attachments = smartsheet.sheetResources().attachmentResources().versioningResources().listAllVersions(sheetId, attachmentWithVersionId, parameters);
-        PagedResult<Attachment> attachments1 = smartsheet.sheetResources().attachmentResources().versioningResources().listAllVersions(sheetId, attachmentWithVersionId, null);
+        PagedResult<Attachment> attachments = smartsheet
+                .sheetResources()
+                .attachmentResources()
+                .versioningResources()
+                .listAllVersions(sheetId, attachmentWithVersionId, parameters);
+        PagedResult<Attachment> attachments1 = smartsheet
+                .sheetResources()
+                .attachmentResources()
+                .versioningResources()
+                .listAllVersions(sheetId, attachmentWithVersionId, null);
         assertThat(attachments).isNotNull();
     }
 
-    public void testDeleteAllVersions() throws SmartsheetException, IOException {
+    public void testDeleteAllVersions() throws SmartsheetException {
         smartsheet.sheetResources().attachmentResources().versioningResources().deleteAllVersions(sheetId, attachmentWithVersionId);
     }
 }

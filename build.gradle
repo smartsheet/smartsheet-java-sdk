@@ -103,6 +103,13 @@ tasks.register('sdkTest', Test) {
         includeTestsMatching "com.smartsheet.api.sdktest.*"
     }
 
+    testLogging {
+        // Log tests ran since there so few and they run so fast
+        events "PASSED", "SKIPPED", "FAILED"
+        // Log the full exception so we can see why tests failed
+        exceptionFormat = 'full'
+    }
+
     testClassesDirs = sourceSets.test.output
     classpath = sourceSets.test.runtimeClasspath
 }
@@ -114,7 +121,14 @@ tasks.register('integrationTest', Test) {
 
     // We only want to run tests in files ending with IT.java
     filter {
-        includeTestsMatching "*.*IT"
+        includeTestsMatching "com.smartsheet.api.integrationtest.*"
+    }
+
+    testLogging {
+        // Log tests ran since there so few and they run so fast
+        events "PASSED", "SKIPPED", "FAILED"
+        // Log the full exception so we can see why tests failed
+        exceptionFormat = 'full'
     }
 
     testClassesDirs = sourceSets.test.output
@@ -129,8 +143,13 @@ test {
 
     // exclude SDK Tests and integration tests
     filter {
-        excludeTestsMatching "*.*IT"
+        excludeTestsMatching "com.smartsheet.api.integrationtest.*"
         excludeTestsMatching "com.smartsheet.api.sdktest.*"
+    }
+
+    testLogging {
+        // Log the full exception so we can see why tests failed
+        exceptionFormat = 'full'
     }
 
     // Code Coverage settings for tests

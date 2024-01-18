@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Smartsheet
+* Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,9 +18,9 @@ package com.smartsheet.api.internal;
 
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
+import com.smartsheet.api.models.ContainerDestination;
 import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.PaginationParameters;
-import com.smartsheet.api.models.ContainerDestination;
 import com.smartsheet.api.models.Sight;
 import com.smartsheet.api.models.SightPublish;
 import com.smartsheet.api.models.enums.AccessLevel;
@@ -33,8 +33,8 @@ import java.io.IOException;
 import java.util.EnumSet;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.assertj.core.api.Assertions.assertThatCode;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class SightResourcesImplTest extends ResourcesImplBase {
     private SightResourcesImpl sightResourcesImpl;

@@ -1,22 +1,20 @@
 /*
- * #[license]
- * Smartsheet Java SDK
- * %%
- * Copyright (C) 2023 Smartsheet
- * %%
+* Copyright (C) 2024 Smartsheet
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * %[license]
  */
+
+package com.smartsheet.api.integrationtest;
 
 import com.smartsheet.api.Smartsheet;
 import com.smartsheet.api.SmartsheetException;
@@ -92,25 +90,25 @@ public class MultiPicklistIT extends ITResourcesImpl {
     }
 
     public void testAddMultiPicklistRow() throws SmartsheetException {
-        List<Cell> insert_cells = Arrays.asList(new Cell().setColumnId(addCols.get(0).getId()).setObjectValue(
+        List<Cell> insertCells = Arrays.asList(new Cell().setColumnId(addCols.get(0).getId()).setObjectValue(
                 new MultiPicklistObjectValue(Arrays.asList("Bat", "Cat"))));
-        Row insert_row = new Row();
-        insert_row.setToTop(true).setCells(insert_cells);
-        List<Row> insert_rows = smartsheet.sheetResources().rowResources().addRows(sheet.getId(),
-                Arrays.asList(insert_row));
-        assertThat(insert_rows).hasSize(1);
+        Row insertRow = new Row();
+        insertRow.setToTop(true).setCells(insertCells);
+        List<Row> insertRows = smartsheet.sheetResources().rowResources().addRows(sheet.getId(),
+                Arrays.asList(insertRow));
+        assertThat(insertRows).hasSize(1);
     }
 
     public void testGetMultiPicklistSheet() throws SmartsheetException {
         Sheet mpl = smartsheet.sheetResources().getSheet(sheet.getId(), EnumSet.of(SheetInclusion.OBJECT_VALUE),
                 null, null, null, new HashSet<>(Arrays.asList(addCols.get(0).getId())), null,
-                null, null,null);
+                null, null, null);
         // should be TEXT_NUMBER since level not specified
         assertThat(mpl.getRows().get(0).getCells().get(0).getObjectValue()).isInstanceOf(StringObjectValue.class);
 
         mpl = smartsheet.sheetResources().getSheet(sheet.getId(), EnumSet.of(SheetInclusion.OBJECT_VALUE),
                 null, null, null, new HashSet<>(Arrays.asList(addCols.get(0).getId())), null,
-                null, null,2);
+                null, null, 2);
         // should be MULTI_PICKLIST since level 2 specified
         assertThat(mpl.getRows().get(0).getCells().get(0).getObjectValue()).isInstanceOf(MultiPicklistObjectValue.class);
     }

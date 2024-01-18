@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Smartsheet
+* Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,22 +19,14 @@ package com.smartsheet.api.models.format;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.io.IOException;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.mock;
 
-@ExtendWith(MockitoExtension.class)
 class FormatTest {
-
-    @Mock
-    private JsonGenerator generator;
-    @Mock
-    private SerializerProvider provider;
     private static final int U = Format.UNSET;
 
     enum ParserTests {
@@ -165,6 +157,9 @@ class FormatTest {
      * Serializes out a format and compares it to the expected value. Fails the test if it does not match.
      */
     private void verifySerializedFormat(String expected, Format format) throws IOException {
+        JsonGenerator generator = mock(JsonGenerator.class);
+        SerializerProvider provider = mock(SerializerProvider.class);
+
         Format.FormatSerializer formatSerializer = new Format.FormatSerializer();
         formatSerializer.serialize(format, generator, provider);
         Mockito.verify(generator).writeString(expected);

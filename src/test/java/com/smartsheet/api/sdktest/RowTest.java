@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Smartsheet
+* Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -151,8 +151,8 @@ class RowTest {
     void addRows_AssignValues_Hyperlink() throws SmartsheetException {
         Smartsheet ss = HelperFunctions.SetupClient("Add Rows - Assign Values - Hyperlink");
 
-        Cell cell1 = new Cell().setColumnId(101L).setValue("Google").setHyperlink(new Hyperlink().setUrl("https://google.com"));
-        Cell cell2 = new Cell().setColumnId(102L).setValue("Bing").setHyperlink(new Hyperlink().setUrl("https://bing.com"));
+        Cell cell1 = new Cell().setColumnId(101L).setValue("Google").setHyperlink(new Hyperlink().setUrl("http://google.com"));
+        Cell cell2 = new Cell().setColumnId(102L).setValue("Bing").setHyperlink(new Hyperlink().setUrl("http://bing.com"));
         Row rowA = new Row().setCells(Arrays.asList(cell1, cell2));
 
         // Update rows in sheet
@@ -160,7 +160,7 @@ class RowTest {
 
         assertThat(addedRows.get(0).getCells().get(0).getValue()).isEqualTo("Google");
         assertThat(addedRows.get(0).getCells().get(0).getColumnId().longValue()).isEqualTo(101L);
-        assertThat(addedRows.get(0).getCells().get(0).getHyperlink().getUrl()).isEqualTo("https://google.com");
+        assertThat(addedRows.get(0).getCells().get(0).getHyperlink().getUrl()).isEqualTo("http://google.com");
     }
 
     @Test
@@ -202,8 +202,8 @@ class RowTest {
         Cell cell1 = new Cell()
                 .setColumnId(101L)
                 .setValue("Google")
-                .setHyperlink(new Hyperlink().setUrl("https://google.com").setSheetId(2L));
-        Cell cell2 = new Cell().setColumnId(102L).setValue("Bing").setHyperlink(new Hyperlink().setUrl("https://bing.com"));
+                .setHyperlink(new Hyperlink().setUrl("http://google.com").setSheetId(2L));
+        Cell cell2 = new Cell().setColumnId(102L).setValue("Bing").setHyperlink(new Hyperlink().setUrl("http://bing.com"));
         Row rowA = new Row().setCells(Arrays.asList(cell1, cell2));
 
         // Update rows in sheet
@@ -320,9 +320,9 @@ class RowTest {
     void updateRows_AssignValues_Hyperlink() throws SmartsheetException {
         Smartsheet ss = HelperFunctions.SetupClient("Update Rows - Assign Values - Hyperlink");
 
-        Hyperlink hyperlink1 = new Hyperlink().setUrl("https://google.com");
+        Hyperlink hyperlink1 = new Hyperlink().setUrl("http://google.com");
         Cell cell1 = new Cell().setColumnId(101L).setValue("Google").setHyperlink(hyperlink1);
-        Hyperlink hyperlink2 = new Hyperlink().setUrl("https://bing.com");
+        Hyperlink hyperlink2 = new Hyperlink().setUrl("http://bing.com");
         Cell cell2 = new Cell().setColumnId(102L).setValue("Bing").setHyperlink(hyperlink2);
         Row rowA = new Row().setRowId(10L).setCells(Arrays.asList(cell1, cell2));
 
@@ -331,7 +331,7 @@ class RowTest {
 
         assertThat(updatedRows.get(0).getCells().get(0).getValue()).isEqualTo("Google");
         assertThat(updatedRows.get(0).getCells().get(0).getColumnId().longValue()).isEqualTo(101L);
-        assertThat(updatedRows.get(0).getCells().get(0).getHyperlink().getUrl()).isEqualTo("https://google.com");
+        assertThat(updatedRows.get(0).getCells().get(0).getHyperlink().getUrl()).isEqualTo("http://google.com");
     }
 
     @Test
@@ -374,9 +374,9 @@ class RowTest {
     void updateRows_Invalid_AssignHyperlinkUrlAndSheetId() {
         Smartsheet ss = HelperFunctions.SetupClient("Update Rows - Invalid - Assign Hyperlink URL and SheetId");
 
-        Hyperlink hyperlink1 = new Hyperlink().setUrl("https://google.com").setSheetId(2L);
+        Hyperlink hyperlink1 = new Hyperlink().setUrl("http://google.com").setSheetId(2L);
         Cell cell1 = new Cell().setColumnId(101L).setValue("Google").setHyperlink(hyperlink1);
-        Hyperlink hyperlink2 = new Hyperlink().setUrl("https://bing.com");
+        Hyperlink hyperlink2 = new Hyperlink().setUrl("http://bing.com");
         Cell cell2 = new Cell().setColumnId(102L).setValue("Bing").setHyperlink(hyperlink2);
         Row rowA = new Row().setRowId(10L).setCells(Arrays.asList(cell1, cell2));
 

@@ -1,22 +1,21 @@
 /*
- * #[license]
- * Smartsheet Java SDK
- * %%
- * Copyright (C) 2023 Smartsheet
- * %%
+* Copyright (C) 2024 Smartsheet
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * %[license]
  */
+
+package com.smartsheet.api.integrationtest;
+
 import com.smartsheet.api.Smartsheet;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.models.Event;
@@ -31,7 +30,7 @@ import java.util.concurrent.TimeUnit;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class EventResourcesIT extends ITResourcesImpl{
+public class EventResourcesIT extends ITResourcesImpl {
     Smartsheet smartsheet;
     User user;
 
@@ -59,7 +58,7 @@ public class EventResourcesIT extends ITResourcesImpl{
             assertThat(event.getSource()).isNotNull();
         }
 
-        while(eventResult.getMoreAvailable()) {
+        while (eventResult.getMoreAvailable()) {
             eventResult = smartsheet.eventResources().listEvents(null, eventResult.getNextStreamPosition(), 10, true);
             assertThat(eventResult.getData())
                     .isNotEmpty()
@@ -81,11 +80,18 @@ public class EventResourcesIT extends ITResourcesImpl{
     @Test
     void testInvalidParams() {
         try {
-            EventResult eventResult = smartsheet.eventResources().listEvents(0, "2.1.0An4ZapaQaOXPdojlmediSZ1WqMdi5U_3l9gViOW7ic", 10, null);
-        } catch (SmartsheetException e) { }
-
+            EventResult eventResult = smartsheet
+                    .eventResources()
+                    .listEvents(0, "2.1.0An4ZapaQaOXPdojlmediSZ1WqMdi5U_3l9gViOW7ic", 10, null);
+        } catch (SmartsheetException e) {
+            // Shouldn't be empty!
+        }
         try {
-            EventResult eventResult = smartsheet.eventResources().listEvents(new Date(), null, 10, true);
-        } catch (SmartsheetException e) { }
+            EventResult eventResult = smartsheet
+                    .eventResources()
+                    .listEvents(new Date(), null, 10, true);
+        } catch (SmartsheetException e) {
+            // Shouldn't be empty!
+        }
     }
 }

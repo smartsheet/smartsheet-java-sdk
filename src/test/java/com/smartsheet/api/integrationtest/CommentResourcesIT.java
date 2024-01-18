@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Smartsheet
+* Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,6 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+package com.smartsheet.api.integrationtest;
+
 import com.smartsheet.api.Smartsheet;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.models.Comment;
@@ -26,7 +29,7 @@ import java.io.IOException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class CommentResourcesIT extends ITResourcesImpl{
+public class CommentResourcesIT extends ITResourcesImpl {
     Smartsheet smartsheet;
     Sheet newSheet;
     Discussion newDiscussion;
@@ -56,15 +59,23 @@ public class CommentResourcesIT extends ITResourcesImpl{
         newDiscussion = smartsheet.sheetResources().discussionResources().createDiscussion(newSheet.getId(), discussion);
 
         Comment newComment1 = new Comment.AddCommentBuilder().setText("This is a test comment").build();
-        newComment = smartsheet.sheetResources().discussionResources().commentResources().addComment(newSheet.getId(),newDiscussion.getId(), newComment1);
+        newComment = smartsheet
+                .sheetResources()
+                .discussionResources()
+                .commentResources()
+                .addComment(newSheet.getId(), newDiscussion.getId(), newComment1);
     }
 
     public void testAddCommentWithAttachment() throws SmartsheetException, IOException {
         //create comment to add to discussion
         Comment comment = new Comment.AddCommentBuilder().setText("This is a test comment").build();
-        File file = new File("src/integration-test/resources/small-text.txt");
+        File file = new File("src/test/resources/small-text.txt");
 
-        Comment comment1 = smartsheet.sheetResources().discussionResources().commentResources().addCommentWithAttachment(newSheet.getId(), newDiscussion.getId(), comment, file, "application/pdf");
+        Comment comment1 = smartsheet
+                .sheetResources()
+                .discussionResources()
+                .commentResources()
+                .addCommentWithAttachment(newSheet.getId(), newDiscussion.getId(), comment, file, "application/pdf");
         assertThat(comment1).isNotNull();
         file = null;
     }
