@@ -16,6 +16,7 @@
 
 package com.smartsheet.api.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.smartsheet.api.models.enums.AccessLevel;
 import com.smartsheet.api.models.enums.GlobalTemplate;
 import lombok.AllArgsConstructor;
@@ -42,7 +43,11 @@ import java.util.List;
 public class Template {
     /**
      * Represents the ID.
+     * <p>
+     * This excludes "id" field from being serialized to JSON. This is needed because when updating a resource,
+     * the resource ID should be present and deserialized in the response, but it shouldn't be serialized and sent to Smartsheet REST API.
      */
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Long id;
 
     /**

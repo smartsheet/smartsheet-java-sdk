@@ -16,6 +16,7 @@
 
 package com.smartsheet.api.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.smartsheet.api.models.enums.WidgetType;
 import com.smartsheet.api.models.format.Format;
 import lombok.AllArgsConstructor;
@@ -34,7 +35,13 @@ import lombok.ToString;
 @EqualsAndHashCode
 @Builder
 public class Widget {
-    /** Represents the ID. */
+    /**
+     * Represents the ID.
+     * <p>
+     * This excludes "id" field from being serialized to JSON. This is needed because when updating a resource,
+     * the resource ID should be present and deserialized in the response, but it shouldn't be serialized and sent to Smartsheet REST API.
+     */
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Long id;
 
     /**
