@@ -166,8 +166,8 @@ public class RowResourcesIT extends ITResourcesImpl {
         //Create new sheet to copy to
         copyToSheet = smartsheet.sheetResources().createSheet(createSheetObject());
 
-        CopyOrMoveRowDestination destination = CopyOrMoveRowDestination.builder()
-                .sheetId(copyToSheet.getId())
+        CopyOrMoveRowDestination destination = new CopyOrMoveRowDestination.InsertCopyOrMoveRowDestinationBuilder()
+                .setSheetId(copyToSheet.getId())
                 .build();
         CopyOrMoveRowDirective copyOrMoveRowDirective = new CopyOrMoveRowDirective.InsertCopyOrMoveRowDirectiveBuilder()
                 .setRowIds(Arrays.asList(newRows.get(0).getId())).setTo(destination)
@@ -187,8 +187,8 @@ public class RowResourcesIT extends ITResourcesImpl {
         List<Long> rowIds = new ArrayList<>();
         rowIds.add(newRows.get(0).getId());
 
-        CopyOrMoveRowDestination destination = CopyOrMoveRowDestination.builder()
-                .sheetId(copyToSheet.getId())
+        CopyOrMoveRowDestination destination = new CopyOrMoveRowDestination.InsertCopyOrMoveRowDestinationBuilder()
+                .setSheetId(copyToSheet.getId())
                 .build();
         CopyOrMoveRowDirective directive = new CopyOrMoveRowDirective.InsertCopyOrMoveRowDirectiveBuilder()
                 .setRowIds(rowIds)
