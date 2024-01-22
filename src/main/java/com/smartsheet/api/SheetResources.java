@@ -17,14 +17,12 @@
 package com.smartsheet.api;
 
 import com.smartsheet.api.models.ContainerDestination;
-import com.smartsheet.api.models.MultiRowEmail;
 import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.PaginationParameters;
 import com.smartsheet.api.models.Sheet;
 import com.smartsheet.api.models.SheetEmail;
 import com.smartsheet.api.models.SheetPublish;
 import com.smartsheet.api.models.SortSpecifier;
-import com.smartsheet.api.models.UpdateRequest;
 import com.smartsheet.api.models.enums.CopyExclusion;
 import com.smartsheet.api.models.enums.ObjectExclusion;
 import com.smartsheet.api.models.enums.PaperSize;
@@ -83,24 +81,6 @@ public interface SheetResources {
      * @throws SmartsheetException if there is any other error during the operation
      */
     PagedResult<Sheet> listSheets(EnumSet<SourceInclusion> includes, PaginationParameters pagination) throws SmartsheetException;
-
-    /**
-     * <p>List all sheets in the organization.</p>
-     *
-     * <p>It mirrors to the following Smartsheet REST API method: GET /users/sheets</p>
-     *
-     * @param parameters the object containing the pagination parameters
-     * @return the list of all sheets (note that an empty list will be returned if there are none)
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
-     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
-     * @deprecated As of release 2.0. Please use {@link UserResources} instead
-     */
-    @Deprecated(since = "2.0.0", forRemoval = true)
-    PagedResult<Sheet> listOrganizationSheets(PaginationParameters parameters) throws SmartsheetException;
 
     /**
      * <p>Get a sheet.</p>
@@ -670,28 +650,6 @@ public interface SheetResources {
      * @throws SmartsheetException the smartsheet exception
      */
     Sheet moveSheet(long sheetId, ContainerDestination containerDestination) throws SmartsheetException;
-
-    /**
-     * <p>Creates an Update Request for the specified Row(s) within the Sheet.</p>
-     *
-     * <p>It mirrors to the following Smartsheet REST API method: POST /sheets/{sheetId}/updaterequests</p>
-     *
-     * Exceptions:
-     *   - IllegalArgumentException : if any argument is null
-     *   - InvalidRequestException : if there is any problem with the REST API request
-     *   - AuthorizationException : if there is any problem with the REST API authorization(access token)
-     *   - ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-     *   - SmartsheetRestException : if there is any other REST API related error occurred during the operation
-     *   - SmartsheetException : if there is any other error occurred during the operation
-     *
-     * @param sheetId the sheet id
-     * @param email the email
-     * @return the update request object
-     * @throws SmartsheetException the smartsheet exception
-     * @deprecated As of release 2.0. Please use {@link SheetUpdateRequestResources} instead.
-     */
-    @Deprecated(since = "2.0.0", forRemoval = true)
-    UpdateRequest createUpdateRequest(long sheetId, MultiRowEmail email) throws SmartsheetException;
 
     /**
      * <p>Sort a sheet according to the sort criteria.</p>

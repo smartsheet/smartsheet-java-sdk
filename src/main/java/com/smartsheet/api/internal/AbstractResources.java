@@ -914,7 +914,7 @@ public abstract class AbstractResources {
             switch (response.getStatusCode()) {
                 case 200:
                     try {
-                        copyStream(response.getEntity().getContent(), outputStream);
+                        StreamUtil.copyContentIntoOutputStream(response.getEntity().getContent(), outputStream, BUFFER_SIZE, true);
                     } catch (IOException e) {
                         throw new SmartsheetException(e);
                     }
@@ -924,32 +924,6 @@ public abstract class AbstractResources {
             }
         } finally {
             getSmartsheet().getHttpClient().releaseConnection();
-        }
-    }
-
-    /*
-     * Copy an input stream to an output stream.
-     *
-     * @param input The input stream to copy.
-     *
-     * @param output the output stream to write to.
-     *
-     * @throws IOException if there is trouble reading or writing to the streams.
-     */
-    /**
-     * Copy stream.
-     *
-     * @param input the input
-     * @param output the output
-     * @throws IOException Signals that an I/O exception has occurred.
-     * @deprecated replace with StreamUtil.copyContentIntoOutputStream()
-     */
-    @Deprecated(since = "2.0.0", forRemoval = true)
-    private static void copyStream(InputStream input, OutputStream output) throws IOException {
-        byte[] buffer = new byte[BUFFER_SIZE];
-        int len;
-        while ((len = input.read(buffer)) != -1) {
-            output.write(buffer, 0, len);
         }
     }
 

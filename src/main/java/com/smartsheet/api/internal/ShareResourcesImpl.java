@@ -54,32 +54,6 @@ public class ShareResourcesImpl extends AbstractAssociatedResources implements S
 
     /**
      * List shares of a given object.
-     * <p>
-     * It mirrors to the following Smartsheet REST API method:
-     *     GET /workspace/{id}/shares
-     *     GET /sheet/{id}/shares
-     *     GET /sights/{id}/shares
-     *     GET /reports/{id}/shares
-     * <p>
-     * Exceptions:
-     *   InvalidRequestException : if there is any problem with the REST API request
-     *   AuthorizationException : if there is any problem with the REST API authorization(access token)
-     *   ResourceNotFoundException : if the resource can not be found
-     *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-     *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
-     *   SmartsheetException : if there is any other error occurred during the operation
-     *
-     * @param objectId the id of the object to share.
-     * @param pagination the pagination parameters
-     * @return the shares (note that empty list will be returned if there is none)
-     * @throws SmartsheetException the smartsheet exception
-     */
-    public PagedResult<Share> listShares(long objectId, PaginationParameters pagination) throws SmartsheetException {
-        return this.listShares(objectId, pagination, false);
-    }
-
-    /**
-     * List shares of a given object.
      */
     public PagedResult<Share> listShares(
             long objectId,

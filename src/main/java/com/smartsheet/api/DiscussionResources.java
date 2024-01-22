@@ -43,13 +43,6 @@ public interface DiscussionResources {
     Comment addDiscussionComment(long id, Comment comment) throws SmartsheetException;
 
     /**
-     * @return associated resources
-     * @deprecated As of release 2.0. Please use the corresponding method in the [Row/Sheet/etc]AttachmentResources classes
-     */
-    @Deprecated(since = "2.0.0", forRemoval = true)
-    AssociatedAttachmentResources attachments();
-
-    /**
      * <p>Represents the DiscussionCommentResources.</p>
      * <p>It will be initialized in constructor and will not change afterwards.</p>
      *

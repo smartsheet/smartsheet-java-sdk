@@ -16,7 +16,6 @@
 
 package com.smartsheet.api.internal;
 
-import com.smartsheet.api.AssociatedAttachmentResources;
 import com.smartsheet.api.DiscussionCommentResources;
 import com.smartsheet.api.DiscussionResources;
 import com.smartsheet.api.SmartsheetException;
@@ -28,12 +27,6 @@ import com.smartsheet.api.models.Comment;
  * Thread Safety: This class is thread safe because it is immutable and its base class is thread safe.
  */
 public class DiscussionResourcesImpl extends AbstractResources implements DiscussionResources {
-    /**
-     * Represents the AssociatedAttachmentResources.
-     * <p>
-     * It will be initialized in constructor and will not change afterward.
-     */
-    private AssociatedAttachmentResources attachments;
 
     /**
      * Represents the DiscussionCommentResources.
@@ -73,16 +66,6 @@ public class DiscussionResourcesImpl extends AbstractResources implements Discus
      */
     public Comment addDiscussionComment(long id, Comment comment) throws SmartsheetException {
         return this.createResource("discussion/" + id + "/comments", Comment.class, comment);
-    }
-
-    /**
-     * Return the AssociatedAttachmentResources object that provides access to attachment resources associated with
-     * Discussion resources.
-     *
-     * @return the associated attachment resources
-     */
-    public AssociatedAttachmentResources attachments() {
-        return this.attachments;
     }
 
     /**
