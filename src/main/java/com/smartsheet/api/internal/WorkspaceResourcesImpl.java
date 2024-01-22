@@ -25,7 +25,6 @@ import com.smartsheet.api.models.ContainerDestination;
 import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.PaginationParameters;
 import com.smartsheet.api.models.Workspace;
-import com.smartsheet.api.models.enums.CopyExclusion;
 import com.smartsheet.api.models.enums.SourceInclusion;
 import com.smartsheet.api.models.enums.WorkspaceCopyInclusion;
 import com.smartsheet.api.models.enums.WorkspaceRemapExclusion;
@@ -221,41 +220,11 @@ public class WorkspaceResourcesImpl extends AbstractResources implements Workspa
             EnumSet<WorkspaceCopyInclusion> includes,
             EnumSet<WorkspaceRemapExclusion> skipRemap
     ) throws SmartsheetException {
-        return copyWorkspace(workspaceId, containerDestination, includes, skipRemap, null);
-    }
-
-    /**
-     * Creates a copy of the specified workspace.
-     * <p>
-     * It mirrors to the following Smartsheet REST API method: POST /workspaces/{workspaceId}/copy
-     * <p>
-     * Exceptions:
-     *   IllegalArgumentException : if folder is null
-     *   InvalidRequestException : if there is any problem with the REST API request
-     *   AuthorizationException : if there is any problem with the REST API authorization(access token)
-     *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-     *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
-     *   SmartsheetException : if there is any other error occurred during the operation
-     *
-     * @param workspaceId the folder id
-     * @param containerDestination describes the destination container
-     * @param includes optional parameters to include
-     * @param skipRemap optional parameters to NOT re-map in the new folder
-     * @param excludes optional parameters to exclude     *
-     * @return the folder
-     * @throws SmartsheetException the smartsheet exception
-     * @deprecated As of release 2.0. `excludes` param is deprecated. Please use the `copyWorkspace` method with `includes` instead.
-     */
-    @Deprecated(since = "2.0.0", forRemoval = true)
-    public Workspace copyWorkspace(long workspaceId, ContainerDestination containerDestination, EnumSet<WorkspaceCopyInclusion> includes,
-                                   EnumSet<WorkspaceRemapExclusion> skipRemap, EnumSet<CopyExclusion> excludes) throws SmartsheetException {
-
         String path = WORKSPACES + "/" + workspaceId + "/copy";
         Map<String, Object> parameters = new HashMap<>();
 
         parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
         parameters.put("skipRemap", QueryUtil.generateCommaSeparatedList(skipRemap));
-        parameters.put("exclude", QueryUtil.generateCommaSeparatedList(excludes));
 
         path += QueryUtil.generateUrl(null, parameters);
 
