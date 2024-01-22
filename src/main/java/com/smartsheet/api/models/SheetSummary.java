@@ -16,27 +16,29 @@
 
 package com.smartsheet.api.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
-
 import java.util.List;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@ToString
-@EqualsAndHashCode
-@Builder
 public class SheetSummary {
 
     /**
      * Array of summary (or metadata) fields defined on the sheet.
      */
     private List<SummaryField> fields;
+
+    /**
+     * Get sheet summary fields
+     *
+     * @return fields
+     */
+    public List<SummaryField> getFields() {
+        return fields;
+    }
+
+    /**
+     * Set sheet summary fields
+     */
+    public SheetSummary setFields(List<SummaryField> fields) {
+        this.fields = fields;
+        return this;
+    }
 }

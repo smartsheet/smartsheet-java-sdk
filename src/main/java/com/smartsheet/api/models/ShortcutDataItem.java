@@ -18,21 +18,7 @@ package com.smartsheet.api.models;
 
 import com.smartsheet.api.models.enums.AttachmentType;
 import com.smartsheet.api.models.format.Format;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@ToString
-@EqualsAndHashCode
-@Builder
 public class ShortcutDataItem {
 
     /**
@@ -64,4 +50,109 @@ public class ShortcutDataItem {
      * The mime type for the Shortcut
      */
     private String mimeType;
+
+    /**
+     * Get the label for the data point.
+     *
+     * @return label
+     */
+    public String getLabel() {
+        return label;
+    }
+
+    /**
+     * Set the label for the data point.
+     */
+    public ShortcutDataItem setLabel(String label) {
+        this.label = label;
+        return this;
+    }
+
+    /**
+     * Get the label format string
+     *
+     * @return labelFormat;
+     */
+    public Format getLabelFormat() {
+        return labelFormat;
+    }
+
+    /**
+     * Set the label format string
+     */
+    public ShortcutDataItem setLabelFormat(Format labelFormat) {
+        this.labelFormat = labelFormat;
+        return this;
+    }
+
+    /**
+     * Get the attachment type
+     * (one of FILE, GOOGLE_DRIVE, LINK, BOX_COM, DROPBOX, EVERNOTE, EGNYTE, ONEDRIVE, SMARTSHEET)
+     *
+     * @return attachmentType
+     */
+    public AttachmentType getAttachmentType() {
+        return attachmentType;
+    }
+
+    /**
+     * Set the attachment type
+     * (one of FILE, GOOGLE_DRIVE, LINK, BOX_COM, DROPBOX, EVERNOTE, or EGNYTE).
+     */
+    public ShortcutDataItem setAttachmentType(AttachmentType attachmentType) {
+        this.attachmentType = attachmentType;
+        return this;
+    }
+
+    /**
+     * Get the hyperlink object
+     *
+     * @return hyperlink
+     */
+    public Hyperlink getHyperlink() {
+        return hyperlink;
+    }
+
+    /**
+     * Set the hyperlink object
+     */
+    public ShortcutDataItem setHyperlink(Hyperlink hyperlink) {
+        this.hyperlink = hyperlink;
+        return this;
+    }
+
+    /**
+     * Get the display order for this shortcut data item
+     *
+     * @return order
+     */
+    public Integer getOrder() {
+        return order;
+    }
+
+    /**
+     * Set the display order for this shortcut data item
+     */
+    public ShortcutDataItem setOrder(Integer order) {
+        this.order = order;
+        return this;
+    }
+
+    /**
+     * Get the MIME type
+     *
+     * @return mimeType
+     */
+    public String getMimeType() {
+        return mimeType;
+    }
+
+    /**
+     * Set the MIME Type
+     */
+    public ShortcutDataItem setMimeType(String mimeType) {
+        this.mimeType = mimeType;
+        return this;
+    }
+
 }

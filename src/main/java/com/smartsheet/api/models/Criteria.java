@@ -18,23 +18,9 @@ package com.smartsheet.api.models;
 
 import com.smartsheet.api.models.enums.CriteriaTarget;
 import com.smartsheet.api.models.enums.Operator;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
 
 import java.util.List;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@ToString
-@EqualsAndHashCode
-@Builder
 public class Criteria {
 
     /**
@@ -56,4 +42,81 @@ public class Criteria {
      * Present if a custom filter criteria's operator has one or more arguments
      */
     private List<Object> values;
+
+    /**
+     * Gets the column ID
+     *
+     * @return the column ID
+     */
+    public Long getColumnId() {
+        return columnId;
+    }
+
+    /**
+     * Sets the operator
+     *
+     * @param columnId the column ID
+     */
+    public Criteria setColumnId(Long columnId) {
+        this.columnId = columnId;
+        return this;
+    }
+
+    /**
+     * Gets the operator
+     *
+     * @return the operator
+     */
+    public Operator getOperator() {
+        return operator;
+    }
+
+    /**
+     * Sets the operator
+     *
+     * @param operator the operator
+     */
+    public Criteria setOperator(Operator operator) {
+        this.operator = operator;
+        return this;
+    }
+
+    /**
+     * Gets the criteria target
+     *
+     * @return the criteria target
+     */
+    public CriteriaTarget getTarget() {
+        return target;
+    }
+
+    /**
+     * Sets the criteria target
+     *
+     * @param target the criteria target
+     */
+    public Criteria setTarget(CriteriaTarget target) {
+        this.target = target;
+        return this;
+    }
+
+    /**
+     * Gets the values if this criteria's operator has arguments
+     *
+     * @return the values array
+     */
+    public List<Object> getValues() {
+        return values;
+    }
+
+    /**
+     * Sets the values if this criteria's operator has arguments
+     *
+     * @param values the criteria target
+     */
+    public Criteria setValues(List<Object> values) {
+        this.values = values;
+        return this;
+    }
+
 }

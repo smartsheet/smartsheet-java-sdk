@@ -17,23 +17,9 @@
 package com.smartsheet.api.models;
 
 import com.smartsheet.api.models.enums.SheetFilterOperator;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
 
 import java.util.List;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@ToString
-@EqualsAndHashCode
-@Builder
 public class SheetFilterDetails {
 
     /**
@@ -50,4 +36,61 @@ public class SheetFilterDetails {
      * How to combine criteria in this filter
      */
     private SheetFilterOperator operator;
+
+    /**
+     * Gets the list of criteria
+     *
+     * @return list of criteria
+     */
+    public List<Criteria> getCriteria() {
+        return criteria;
+    }
+
+    /**
+     * Sets the list of criteria
+     *
+     * @param criteria list of criteria
+     */
+    public SheetFilterDetails setCriteria(List<Criteria> criteria) {
+        this.criteria = criteria;
+        return this;
+    }
+
+    /**
+     * Gets flag indicating whether to include parent rows whose children are included in this filter
+     *
+     * @return flag indicating whether to include parent
+     */
+    public Boolean getIncludeParent() {
+        return includeParent;
+    }
+
+    /**
+     * Sets flag indicating whether to include parent rows whose children are included in this filter
+     *
+     * @param includeParent flag indicating whether to include parent
+     */
+    public SheetFilterDetails setIncludeParent(Boolean includeParent) {
+        this.includeParent = includeParent;
+        return this;
+    }
+
+    /**
+     * Gets how to combine criteria in this filter
+     *
+     * @return the operator
+     */
+    public SheetFilterOperator getOperator() {
+        return operator;
+    }
+
+    /**
+     * Sets how to combine criteria in this filter
+     *
+     * @param operator the operator
+     */
+    public SheetFilterDetails setOperator(SheetFilterOperator operator) {
+        this.operator = operator;
+        return this;
+    }
 }

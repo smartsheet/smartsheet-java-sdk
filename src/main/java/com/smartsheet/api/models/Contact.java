@@ -27,6 +27,8 @@ import lombok.ToString;
 
 /**
  * Represents the Contact object.
+ * <p>
+ * This class has the "equals" and "hashCode" methods overridden and will base equality based on if the "id" field is equal.
  */
 @Getter
 @Setter
@@ -34,7 +36,7 @@ import lombok.ToString;
 @AllArgsConstructor
 // Only include explicitly included fields in the toString method so clients don't log sensitive data (such as name/email)
 @ToString(onlyExplicitlyIncluded = true)
-@EqualsAndHashCode
+@EqualsAndHashCode(of = "id")
 @Builder
 public class Contact {
 

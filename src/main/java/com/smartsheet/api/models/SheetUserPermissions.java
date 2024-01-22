@@ -16,21 +16,6 @@
 
 package com.smartsheet.api.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
-
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@ToString
-@EqualsAndHashCode
-@Builder
 public class SheetUserPermissions {
 
     /**
@@ -41,4 +26,21 @@ public class SheetUserPermissions {
      * READ_WRITE: can edit values of existing fields, but not create or delete fields, nor modify field type.
      */
     private String summaryPermissions;
+
+    /**
+     * Gets the sheet summary permissions
+     *
+     * @return summaryPermissions
+     */
+    public String getSummaryPermissions() {
+        return summaryPermissions;
+    }
+
+    /**
+     * Sets the sheet summary permissions
+     */
+    public SheetUserPermissions setSummaryPermissions(String summaryPermissions) {
+        this.summaryPermissions = summaryPermissions;
+        return this;
+    }
 }

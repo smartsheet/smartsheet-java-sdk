@@ -16,21 +16,6 @@
 
 package com.smartsheet.api.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
-
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@ToString
-@EqualsAndHashCode
-@Builder
 public class SelectionRange {
 
     /**
@@ -52,4 +37,72 @@ public class SelectionRange {
      * Defines ending edge of range when specifying one or more rows.
      */
     private Long sourceRowId2;
+
+    /**
+     * Gets the beginning of the range of columns
+     *
+     * @return sourceColumnId1
+     */
+    public Long getSourceColumnId1() {
+        return sourceColumnId1;
+    }
+
+    /**
+     * Sets the beginning of the range of columns
+     */
+    public SelectionRange setSourceColumnId1(Long sourceColumnId1) {
+        this.sourceColumnId1 = sourceColumnId1;
+        return this;
+    }
+
+    /**
+     * Gets the ending of the range of columns
+     *
+     * @return sourceColumnId2
+     */
+    public Long getSourceColumnId2() {
+        return sourceColumnId2;
+    }
+
+    /**
+     * Sets the ending of the range of columns
+     */
+    public SelectionRange setSourceColumnId2(Long sourceColumnId2) {
+        this.sourceColumnId2 = sourceColumnId2;
+        return this;
+    }
+
+    /**
+     * Gets the beginning of the range of rows
+     *
+     * @return sourceRowId1
+     */
+    public Long getSourceRowId1() {
+        return sourceRowId1;
+    }
+
+    /**
+     * Sets the beginning of the range of rows
+     */
+    public SelectionRange setSourceRowId1(Long sourceRowId1) {
+        this.sourceRowId1 = sourceRowId1;
+        return this;
+    }
+
+    /**
+     * Gets the ending of the range of rows
+     *
+     * @return sourceRowId2
+     */
+    public Long getSourceRowId2() {
+        return sourceRowId2;
+    }
+
+    /**
+     * Sets the ending of the range of rows
+     */
+    public SelectionRange setSourceRowId2(Long sourceRowId2) {
+        this.sourceRowId2 = sourceRowId2;
+        return this;
+    }
 }

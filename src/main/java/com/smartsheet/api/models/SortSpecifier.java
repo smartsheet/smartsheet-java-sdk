@@ -16,27 +16,31 @@
 
 package com.smartsheet.api.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
-
 import java.util.List;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@ToString
-@EqualsAndHashCode
-@Builder
 public class SortSpecifier {
 
     /**
      * An array of sort criterion
      */
     private List<SortCriterion> sortCriteria;
+
+    /**
+     * Get the sort criteria
+     *
+     * @return the array of sort criteria
+     */
+    public List<SortCriterion> getSortCriteria() {
+        return sortCriteria;
+    }
+
+    /**
+     * Set the sort criteria
+     *
+     * @param sortCriteria the array of sort criteria
+     */
+    public SortSpecifier setSortCriteria(List<SortCriterion> sortCriteria) {
+        this.sortCriteria = sortCriteria;
+        return this;
+    }
 }

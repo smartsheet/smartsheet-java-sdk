@@ -16,25 +16,10 @@
 
 package com.smartsheet.api.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
-
 /**
  * The ReportPublish object. Retruned by endpoints such as the
  * @see <a href="https://smartsheet.redoc.ly/tag/sheets#operation/get-sheetPublish">get sheet publish status</a>
  */
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@ToString
-@EqualsAndHashCode
-@Builder
 public class ReportPublish {
 
     /**
@@ -63,4 +48,89 @@ public class ReportPublish {
      *  Default view for published report. (GRID, CARDS, CALENDAR)
      */
     private String readOnlyFullDefaultView;
+
+    /**
+    * Get the current publish status of a report
+    *
+    * @return read only publish status
+    */
+    public boolean getReadOnlyFullEnabled() {
+        return readOnlyFullEnabled;
+    }
+
+    /**
+     * If true, a rich version of the report is published
+     *
+     * @param readOnlyFullEnabled report publish status
+     */
+    public ReportPublish setReadOnlyFullEnabled(boolean readOnlyFullEnabled) {
+        this.readOnlyFullEnabled = readOnlyFullEnabled;
+        return this;
+    }
+
+    /**
+     * Get who can see the published report. Only available when readOnlyFullEnabled = true
+     *
+     * @return String containing "ALL" - anyone, "ORG" - owner organization members
+     */
+    public String getReadOnlyFullAccessibleBy() {
+        return readOnlyFullAccessibleBy;
+    }
+
+    /**
+     * Set parameter indicating who can see the published report. Only valid when
+     * readOnlyFullEnabled = true.
+     *
+     * @param readOnlyFullAccessibleBy - valid options are "ALL" and "ORG"
+     */
+    public ReportPublish setReadOnlyFullAccessibleBy(String readOnlyFullAccessibleBy) {
+        this.readOnlyFullAccessibleBy = readOnlyFullAccessibleBy;
+        return this;
+    }
+
+    /**
+     * Get the URL of the published report. Valid only if readOnlyFullEnabled = true.
+     *
+     * @return String containing the URL of the published report.
+     */
+    public String getReadOnlyFullUrl() {
+        return readOnlyFullUrl;
+    }
+
+    /**
+     * Get the read only full show toolbar flag
+     *
+     * @return readOnlyFullShowToolbar
+     */
+    public Boolean getReadOnlyFullShowToolbar() {
+        return readOnlyFullShowToolbar;
+    }
+
+    /**
+     * Set the read only full show toolbar flag
+     */
+    public ReportPublish setReadOnlyFullShowToolbar(Boolean readOnlyFullShowToolbar) {
+        this.readOnlyFullShowToolbar = readOnlyFullShowToolbar;
+        return this;
+    }
+
+    /**
+     * Get the read only full default view
+     *
+     * @return readOnlyFullDefaultView. Valid options are "GRID", "CARDS", "CALENDAR"
+     */
+    public String getReadOnlyFullDefaultView() {
+        return readOnlyFullDefaultView;
+    }
+
+    /**
+     * Set the read only full default view
+     *
+     * @param readOnlyFullDefaultView Valid options are "GRID", "CARDS", "CALENDAR"
+     * @return the ReportPublish
+     */
+    public ReportPublish setReadOnlyFullDefaultView(String readOnlyFullDefaultView) {
+        this.readOnlyFullDefaultView = readOnlyFullDefaultView;
+        return this;
+    }
 }

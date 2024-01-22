@@ -18,23 +18,9 @@ package com.smartsheet.api.models;
 
 import com.smartsheet.api.models.enums.AutomationActionFrequency;
 import com.smartsheet.api.models.enums.AutomationActionType;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
 
 import java.util.List;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@ToString
-@EqualsAndHashCode
-@Builder
 public class AutomationAction {
 
     /**
@@ -91,4 +77,213 @@ public class AutomationAction {
      * AutomationActionType
      */
     private AutomationActionType type;
+
+    /**
+     * Gets the automation action frequency
+     *
+     * @return the automation action frequency
+     */
+    public AutomationActionFrequency getFrequency() {
+        return frequency;
+    }
+
+    /**
+     * Sets the automation action frequency
+     *
+     * @param frequency the automation action frequency
+     */
+    public AutomationAction setFrequency(AutomationActionFrequency frequency) {
+        this.frequency = frequency;
+        return this;
+    }
+
+    /**
+     * Gets the flag indicating if all columns in the sheet should be included with the email
+     *
+     * @return includeAllColumns flag
+     */
+    public Boolean getIncludeAllColumns() {
+        return includeAllColumns;
+    }
+
+    /**
+     * Sets the flag indicating if all columns in the sheet should be included with the email
+     *
+     * @param includeAllColumns includeAllColumns flag
+     */
+    public AutomationAction setIncludeAllColumns(Boolean includeAllColumns) {
+        this.includeAllColumns = includeAllColumns;
+        return this;
+    }
+
+    /**
+     * Gets the flag indicating if attachments should be included with the email
+     *
+     * @return the includeAttachments flag
+     */
+    public Boolean getIncludeAttachments() {
+        return includeAttachments;
+    }
+
+    /**
+     * Sets the flag indicating if attachments should be included with the email
+     *
+     * @param includeAttachments the includeAttachments flag
+     */
+    public AutomationAction setIncludeAttachments(Boolean includeAttachments) {
+        this.includeAttachments = includeAttachments;
+        return this;
+    }
+
+    /**
+     * Gets the flag indicating if discussions should be included with the email
+     *
+     * @return the includeDiscussions flag
+     */
+    public Boolean getIncludeDiscussions() {
+        return includeDiscussions;
+    }
+
+    /**
+     * Sets the flag indicating if discussions should be included with the email
+     *
+     * @param includeDiscussions the includeDiscussions flag
+     */
+    public AutomationAction setIncludeDiscussions(Boolean includeDiscussions) {
+        this.includeDiscussions = includeDiscussions;
+        return this;
+    }
+
+    /**
+     * Gets the list of included columns
+     *
+     * @return the list of included columns
+     */
+    public List<Long> getIncludedColumnIds() {
+        return includedColumnIds;
+    }
+
+    /**
+     * Sets the list of included columns
+     *
+     * @param includedColumnIds the list of included columns
+     */
+    public AutomationAction setIncludedColumnIds(List<Long> includedColumnIds) {
+        this.includedColumnIds = includedColumnIds;
+        return this;
+    }
+
+    /**
+     * Gets the email body
+     *
+     * @return the email body
+     */
+    public String getMessage() {
+        return message;
+    }
+
+    /**
+     * Sets the email body
+     *
+     * @param message the email body
+     */
+    public AutomationAction setMessage(String message) {
+        this.message = message;
+        return this;
+    }
+
+    /**
+     * Gets the flag indicating if notification should be sent to all shared users
+     *
+     * @return the notifyAllSharedUsers flag
+     */
+    public Boolean getNotifyAllSharedUsers() {
+        return notifyAllSharedUsers;
+    }
+
+    /**
+     * Sets the flag indicating if notification should be sent to all shared users
+     *
+     * @param notifyAllSharedUsers the notifyAllSharedUsers flag
+     */
+    public AutomationAction setNotifyAllSharedUsers(Boolean notifyAllSharedUsers) {
+        this.notifyAllSharedUsers = notifyAllSharedUsers;
+        return this;
+    }
+
+    /**
+     * Gets a list of columns from which to collect email recipients
+     *
+     * @return the list of column IDs
+     */
+    public List<Long> getRecipientColumnIds() {
+        return recipientColumnIds;
+    }
+
+    /**
+     * Sets a list of columns from which to collect email recipients
+     *
+     * @param recipientColumnIds the list of column IDs
+     */
+    public AutomationAction setRecipientColumnIds(List<Long> recipientColumnIds) {
+        this.recipientColumnIds = recipientColumnIds;
+        return this;
+    }
+
+    /**
+     * Gets the list of Recipients
+     *
+     * @return the list of Recipients
+     */
+    public List<Recipient> getRecipients() {
+        return recipients;
+    }
+
+    /**
+     * Sets the list of Recipients
+     *
+     * @param recipients the list of Recipients
+     */
+    public AutomationAction setRecipients(List<Recipient> recipients) {
+        this.recipients = recipients;
+        return this;
+    }
+
+    /**
+     * Gets the email subject line
+     *
+     * @return the email subject line
+     */
+    public String getSubject() {
+        return subject;
+    }
+
+    /**
+     * Sets the email subject line
+     *
+     * @param subject the email subject line
+     */
+    public AutomationAction setSubject(String subject) {
+        this.subject = subject;
+        return this;
+    }
+
+    /**
+     * Gets the automation action type
+     *
+     * @return the action type
+     */
+    public AutomationActionType getType() {
+        return type;
+    }
+
+    /**
+     * Sets the automation action type
+     *
+     * @param type the action type
+     */
+    public AutomationAction setType(AutomationActionType type) {
+        this.type = type;
+        return this;
+    }
 }

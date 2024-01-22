@@ -31,6 +31,8 @@ import java.util.List;
 
 /**
  * A template object that is a default layout for future sheets.
+ * <p>
+ * This class has the "equals" and "hashCode" methods overridden and will base equality based on if the "id" field is equal.
  * @see <a href="http://help.smartsheet.com/customer/portal/articles/522123-using-templates">Using Templates Help</a>
  */
 @Getter
@@ -38,7 +40,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-@EqualsAndHashCode
+@EqualsAndHashCode(of = "id")
 @Builder
 public class Template {
     /**

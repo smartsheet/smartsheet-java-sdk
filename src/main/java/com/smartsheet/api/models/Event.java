@@ -19,25 +19,11 @@ package com.smartsheet.api.models;
 import com.smartsheet.api.models.enums.EventAction;
 import com.smartsheet.api.models.enums.EventObjectType;
 import com.smartsheet.api.models.enums.EventSource;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
 
 import java.text.SimpleDateFormat;
 import java.util.Map;
 import java.util.TimeZone;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@ToString
-@EqualsAndHashCode
-@Builder
 public class Event {
 
     /**
@@ -91,11 +77,94 @@ public class Event {
     private Long userId;
 
     /**
+     * Gets the access token name associated with the event, can be null
+     *
+     * @return the access token name associated with the event
+     */
+    public String getAccessTokenName() {
+        return accessTokenName;
+    }
+
+    /**
+     * Sets the access token name associated with the event
+     *
+     * @param accessTokenName the access token name
+     */
+    public Event setAccessTokenName(String accessTokenName) {
+        this.accessTokenName = accessTokenName;
+        return this;
+    }
+
+    /**
+     * Gets the action associated with the event (EventAction enumeration)
+     *
+     * @return the event action
+     */
+    public EventAction getAction() {
+        return action;
+    }
+
+    /**
+     * Sets the action associated with the event (EventAction enumeration)
+     */
+    public Event setAction(EventAction action) {
+        this.action = action;
+        return this;
+    }
+
+    /**
+     * Returns a hashmap of additional details associated with the event
+     *
+     * @return the hashmap
+     */
+    public Map<String, Object> getAdditionalDetails() {
+        return additionalDetails;
+    }
+
+    /**
+     * Set the hashmap of additional details associated with the event
+     *
+     * @param additionalDetails the hashmap
+     */
+    public Event setAdditionalDetails(Map<String, Object> additionalDetails) {
+        this.additionalDetails = additionalDetails;
+        return this;
+    }
+
+    /**
+     * Gets a unique event ID
+     *
+     * @return the event ID
+     */
+    public String getEventId() {
+        return eventId;
+    }
+
+    /**
+     * Sets a unique event ID
+     *
+     * @param eventId the event ID
+     */
+    public Event setEventId(String eventId) {
+        this.eventId = eventId;
+        return this;
+    }
+
+    /**
+     * Gets an event timestamp, either a Date object, or Long if numericDates parameter is true on API call.
+     *
+     * @return the event timestamp
+     */
+    public Object getEventTimestamp() {
+        return eventTimestamp;
+    }
+
+    /**
      * Sets an event timestamp
      *
      * @param eventTimestamp String if Date, Long if numericDate true on API call.
      */
-    public void setEventTimestamp(Object eventTimestamp) {
+    public Event setEventTimestamp(Object eventTimestamp) {
         if (eventTimestamp instanceof String) {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
             sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
@@ -107,6 +176,101 @@ public class Event {
         } else {
             this.eventTimestamp = eventTimestamp;
         }
+        return this;
     }
 
+    /**
+     * Get the object ID of the object associated with the event
+     *
+     * @return the object ID
+     */
+    public Object getObjectId() {
+        return objectId;
+    }
+
+    /**
+     * Sets an object ID for the object associated with the event
+     *
+     * @param objectId the object ID
+     */
+    public Event setObjectId(Object objectId) {
+        this.objectId = objectId;
+        return this;
+    }
+
+    /**
+     * Gets the object type of the object associated with the event (EventObjectType enumeration)
+     *
+     * @return the object type
+     */
+    public EventObjectType getObjectType() {
+        return objectType;
+    }
+
+    /**
+     * Sets the object type of the object associated with the event
+     *
+     * @param objectType the object type
+     */
+    public Event setObjectType(EventObjectType objectType) {
+        this.objectType = objectType;
+        return this;
+    }
+
+    /**
+     * Get the user ID of the user whose credential initiated the request
+     *
+     * @return the request user ID
+     */
+    public Long getRequestUserId() {
+        return requestUserId;
+    }
+
+    /**
+     * Sets the user ID of the user whose credential initiated the request
+     *
+     * @param requestUserId the request user ID
+     */
+    public Event setRequestUserId(Long requestUserId) {
+        this.requestUserId = requestUserId;
+        return this;
+    }
+
+    /**
+     * Gets the source of the event request (EventSource enumeration)
+     *
+     * @return the event source
+     */
+    public EventSource getSource() {
+        return source;
+    }
+
+    /**
+     * Sets the source of the event request
+     *
+     * @param source the event source
+     */
+    public Event setSource(EventSource source) {
+        this.source = source;
+        return this;
+    }
+
+    /**
+     * Gets the assumed user ID for the event request
+     *
+     * @return the assumed user ID
+     */
+    public Long getUserId() {
+        return userId;
+    }
+
+    /**
+     * Sets the assumed user ID for the event request
+     *
+     * @param userId the assumed user ID
+     */
+    public Event setUserId(Long userId) {
+        this.userId = userId;
+        return this;
+    }
 }

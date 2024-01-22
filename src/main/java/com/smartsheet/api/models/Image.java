@@ -16,21 +16,6 @@
 
 package com.smartsheet.api.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
-
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@ToString
-@EqualsAndHashCode
-@Builder
 public class Image {
 
     /**
@@ -52,4 +37,89 @@ public class Image {
      * Alternate text for the image.
      */
     private String altText;
+
+    /**
+     * Gets the image id.
+     *
+     * @return the image id
+     */
+    public String getId() {
+        return id;
+    }
+
+    /**
+     * Sets the image id
+     */
+    public Image setId(String id) {
+        this.id = id;
+        return this;
+    }
+
+    /**
+     * gets the image ID
+     *
+     * @return the id
+     */
+    public String getImageId() {
+        return id;
+    }
+
+    /**
+     * sets the image ID
+     *
+     * @param id the id
+     */
+    public Image setImageId(String id) {
+        this.id = id;
+        return this;
+    }
+
+    /**
+     * gets the width (in pixels) of the uploaded image
+     */
+    public Long getWidth() {
+        return width;
+    }
+
+    /**
+     * sets the width (in pixels)
+     */
+    public Image setWidth(Long width) {
+        this.width = width;
+        return this;
+    }
+
+    /**
+     * gets the height (in pixels) of the uploaded image
+     *
+     * @return the height
+     */
+    public Long getHeight() {
+        return height;
+    }
+
+    /**
+     * sets the width (in pixels) of the uploaded image
+     */
+    public Image setHeight(Long height) {
+        this.height = height;
+        return this;
+    }
+
+    /**
+     * get the alternate text (altText) for the image.
+     *
+     * @return altText
+     */
+    public String getAltText() {
+        return altText;
+    }
+
+    /**
+     * set the alternate text (altText) for the image.
+     */
+    public Image setAltText(String altText) {
+        this.altText = altText;
+        return this;
+    }
 }

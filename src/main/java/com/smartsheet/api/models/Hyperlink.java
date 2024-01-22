@@ -27,7 +27,7 @@ public class Hyperlink {
     private String url;
 
     /**
-     * If non-null, this hyperlink is a link to the Sheet with this ID.
+     * If non-null, this hyperlink is a link to the Sheet with this ID..
      */
     private Long sheetId;
 

@@ -16,21 +16,6 @@
 
 package com.smartsheet.api.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
-
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@ToString
-@EqualsAndHashCode
-@Builder
 public class SightPublish {
 
     /**
@@ -49,4 +34,55 @@ public class SightPublish {
      * URL for 'Read-Only Full' view of the published Sight.
      */
     private String readOnlyFullUrl;
+
+    /**
+     * Returns the value of the readOnlyFullEnabled flag.
+     *
+     * @return readOnlyFullEnabled
+     */
+    public Boolean getReadOnlyFullEnabled() {
+        return readOnlyFullEnabled;
+    }
+
+    /**
+     * Set the value of the readOnlyFullEnabled flag.
+     */
+    public SightPublish setReadOnlyFullEnabled(Boolean readOnlyFullEnabled) {
+        this.readOnlyFullEnabled = readOnlyFullEnabled;
+        return this;
+    }
+
+    /**
+     * Returns the readOnlyFullUrl string.
+     *
+     * @return readOnlyFullUrl
+     */
+    public String getReadOnlyFullUrl() {
+        return readOnlyFullUrl;
+    }
+
+    /**
+     * Sets the value of the readOnlyFullUrL string.
+     */
+    public SightPublish setReadOnlyFullUrl(String readOnlyFullUrl) {
+        this.readOnlyFullUrl = readOnlyFullUrl;
+        return this;
+    }
+
+    /**
+     * Returns the readOnlyFullAccessibleBy string indicating if this sight is viewable by ALL or ORG
+     *
+     * @return readOnlyFullAccessibleBy
+     */
+    public String getReadOnlyFullAccessibleBy() {
+        return readOnlyFullAccessibleBy;
+    }
+
+    /**
+     * Sets the value of the readOnlyFullAccessibleBy string
+     */
+    public SightPublish setReadOnlyFullAccessibleBy(String readOnlyFullAccessibleBy) {
+        this.readOnlyFullAccessibleBy = readOnlyFullAccessibleBy;
+        return this;
+    }
 }

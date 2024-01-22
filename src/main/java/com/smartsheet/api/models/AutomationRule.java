@@ -28,12 +28,17 @@ import lombok.ToString;
 
 import java.util.Date;
 
+/**
+ * The AutomationRule model.
+ * <p>
+ * This class has the "equals" and "hashCode" methods overridden and will base equality based on if the "id" field is equal.
+ */
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-@EqualsAndHashCode
+@EqualsAndHashCode(of = "id")
 @Builder
 public class AutomationRule {
     /**

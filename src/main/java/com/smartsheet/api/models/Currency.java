@@ -16,21 +16,6 @@
 
 package com.smartsheet.api.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
-
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@ToString
-@EqualsAndHashCode
-@Builder
 public class Currency {
 
     /**
@@ -42,4 +27,42 @@ public class Currency {
      * Represents currency symbol.
      */
     private String symbol;
+
+    /**
+     * Gets the currency code.
+     *
+     * @return the currency code
+     */
+    public String getCode() {
+        return code;
+    }
+
+    /**
+     * Sets the currency code.
+     *
+     * @param code the currency code
+     */
+    public Currency setCode(String code) {
+        this.code = code;
+        return this;
+    }
+
+    /**
+     * Gets the currency symbol.
+     *
+     * @return the currency symbol
+     */
+    public String getSymbol() {
+        return symbol;
+    }
+
+    /**
+     * Sets the currency symbol.
+     *
+     * @param symbol the currency symbol
+     */
+    public Currency setSymbol(String symbol) {
+        this.symbol = symbol;
+        return this;
+    }
 }

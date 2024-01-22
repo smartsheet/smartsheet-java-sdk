@@ -16,13 +16,6 @@
 
 package com.smartsheet.api.internal.http;
 
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
-
 import java.util.Map;
 
 /**
@@ -30,12 +23,6 @@ import java.util.Map;
  * <p>
  * Thread Safety: This class is not thread safe since it's mutable.
  */
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@ToString
-@EqualsAndHashCode
 public abstract class HttpMessage {
     /**
      * Represents the HTTP headers.
@@ -50,4 +37,40 @@ public abstract class HttpMessage {
      * It has a pair of setter/getter (not shown on class diagram for brevity).
      */
     private HttpEntity entity;
+
+    /**
+     * Gets the headers.
+     *
+     * @return the headers
+     */
+    public Map<String, String> getHeaders() {
+        return headers;
+    }
+
+    /**
+     * Sets the headers.
+     *
+     * @param headers the headers
+     */
+    public void setHeaders(Map<String, String> headers) {
+        this.headers = headers;
+    }
+
+    /**
+     * Gets the entity.
+     *
+     * @return the entity
+     */
+    public HttpEntity getEntity() {
+        return entity;
+    }
+
+    /**
+     * Sets the entity.
+     *
+     * @param entity the new entity
+     */
+    public void setEntity(HttpEntity entity) {
+        this.entity = entity;
+    }
 }
