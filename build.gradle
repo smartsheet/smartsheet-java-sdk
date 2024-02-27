@@ -22,6 +22,10 @@ plugins {
     // Allows us to publish to https://oss.sonatype.org/ and release our artifact
     id 'io.github.gradle-nexus.publish-plugin' version '1.3.0'
 
+    //** TESTING PLUGINS
+    // Allow a test to be retried a specified number of times... this is for the flaky integration tests unfortunately
+    id 'org.gradle.test-retry' version '1.5.8'
+
     // ** MAINTENANCE PLUGINS **
     // Allows us to run `./gradlew dependencyUpdates` to check for dependency updates
     // https://github.com/ben-manes/gradle-versions-plugin
@@ -118,6 +122,14 @@ tasks.register('sdkTest', Test) {
 tasks.register('integrationTest', Test) {
     // Discover and execute JUnit Platform-based tests
     useJUnitPlatform()
+
+    // Sadly, some of the tests are flaky so we want to automatically retry them
+    retry {
+        // How many times we will retry a failing test
+        maxRetries = 5
+        // The limit of tests that can fail. If more than this limit fail, then we won't do any reruns
+        maxFailures = 3
+    }
 
     // We only want to run tests in files ending with IT.java
     filter {
