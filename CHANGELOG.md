@@ -7,7 +7,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [UNRELEASED] - TBD
 ### Added
 - Added more test coverage
-- Automatic retries for flaky integration tests
 ### Removed
 - Eclipse Config Files
 
