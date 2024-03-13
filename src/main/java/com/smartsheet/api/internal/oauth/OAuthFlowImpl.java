@@ -123,8 +123,15 @@ public class OAuthFlowImpl implements OAuthFlow {
      * @param jsonSerializer the json serializer
      * @throws IllegalArgumentException If any argument is null, or empty string.
      */
-    public OAuthFlowImpl(String clientId, String clientSecret, String redirectURL, String authorizationURL,
-                         String tokenURL, HttpClient httpClient, JsonSerializer jsonSerializer) {
+    public OAuthFlowImpl(
+            String clientId,
+            String clientSecret,
+            String redirectURL,
+            String authorizationURL,
+            String tokenURL,
+            HttpClient httpClient,
+            JsonSerializer jsonSerializer
+    ) {
         Util.throwIfNull(clientId, clientSecret, redirectURL, authorizationURL, tokenURL, httpClient, jsonSerializer);
         Util.throwIfEmpty(clientId, clientSecret, redirectURL, authorizationURL, tokenURL);
 

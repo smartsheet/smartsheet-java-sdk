@@ -22,6 +22,7 @@ import com.smartsheet.api.models.Contact;
 import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.PaginationParameters;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -38,19 +39,48 @@ class ContactResourcesImplTest extends ResourcesImplBase {
                 new DefaultHttpClient(), serializer));
     }
 
-    @Test
-    void testGetContact() throws SmartsheetException, IOException {
-        server.setResponseBody(new File("src/test/resources/getContact.json"));
-        Contact contact = contactResources.getContact("xyz");
-        assertThat(contact.getName()).isEqualTo("David Davidson");
+    @Nested
+    class GetContactTests {
+        @Test
+        void getContact() throws SmartsheetException, IOException {
+            // Arrange
+            server.setResponseBody(new File("src/test/resources/getContact.json"));
+
+            // Act
+            Contact contact = contactResources.getContact("xyz");
+
+            // Assert
+            assertThat(contact.getName()).isEqualTo("David Davidson");
+        }
     }
 
-    @Test
-    void testListContacts() throws SmartsheetException, IOException {
-        server.setResponseBody(new File("src/test/resources/listContacts.json"));
-        PaginationParameters paginationParameters = new PaginationParameters.PaginationParametersBuilder().setIncludeAll(true).build();
-        PagedResult<Contact> contacts = contactResources.listContacts(paginationParameters);
-        assertThat(contacts.getData().get(0).getName()).isEqualTo("David Davidson");
-        assertThat(contacts.getTotalCount()).isEqualTo(2);
+    @Nested
+    class ListContactsTests {
+        @Test
+        void listContacts_withParameters() throws SmartsheetException, IOException {
+            // Arrange
+            server.setResponseBody(new File("src/test/resources/listContacts.json"));
+            PaginationParameters paginationParameters = new PaginationParameters.PaginationParametersBuilder().setIncludeAll(true).build();
+
+            // Act
+            PagedResult<Contact> contacts = contactResources.listContacts(paginationParameters);
+
+            // Assert
+            assertThat(contacts.getData().get(0).getName()).isEqualTo("David Davidson");
+            assertThat(contacts.getTotalCount()).isEqualTo(2);
+        }
+
+        @Test
+        void listContacts_nullParameters() throws SmartsheetException, IOException {
+            // Arrange
+            server.setResponseBody(new File("src/test/resources/listContacts.json"));
+
+            // Act
+            PagedResult<Contact> contacts = contactResources.listContacts(null);
+
+            // Assert
+            assertThat(contacts.getData().get(0).getName()).isEqualTo("David Davidson");
+            assertThat(contacts.getTotalCount()).isEqualTo(2);
+        }
     }
 }

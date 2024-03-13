@@ -22,6 +22,7 @@ import com.smartsheet.api.models.Folder;
 import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.PaginationParameters;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -39,27 +40,45 @@ class HomeFolderResourcesImplTest extends ResourcesImplBase {
                 "accessToken", new DefaultHttpClient(), serializer));
     }
 
-    @Test
-    void testListFolders() throws SmartsheetException, IOException {
-        server.setResponseBody(new File("src/test/resources/listFolders.json"));
+    @Nested
+    class ListFoldersTests {
+        @Test
+        void listFolders_withParameters() throws SmartsheetException, IOException {
+            server.setResponseBody(new File("src/test/resources/listFolders.json"));
 
-        PaginationParameters parameters = new PaginationParameters(true, null, null);
-        PagedResult<Folder> foldersWrapper = homeFolderResources.listFolders(parameters);
+            PaginationParameters parameters = new PaginationParameters(true, null, null);
+            PagedResult<Folder> foldersWrapper = homeFolderResources.listFolders(parameters);
 
-        assertThat(foldersWrapper.getPageSize()).isEqualTo(100);
-        assertThat(foldersWrapper.getData().get(0).getName()).isEqualTo("Folder 1");
-        assertThat(foldersWrapper.getData().get(1).getName()).isEqualTo("Folder 2");
-        assertThat(foldersWrapper.getData().get(0).getId()).isEqualTo(7116448184199044L);
+            assertThat(foldersWrapper.getPageSize()).isEqualTo(100);
+            assertThat(foldersWrapper.getData().get(0).getName()).isEqualTo("Folder 1");
+            assertThat(foldersWrapper.getData().get(1).getName()).isEqualTo("Folder 2");
+            assertThat(foldersWrapper.getData().get(0).getId()).isEqualTo(7116448184199044L);
+        }
+
+        @Test
+        void listFolders_nullParameters() throws SmartsheetException, IOException {
+            server.setResponseBody(new File("src/test/resources/listFolders.json"));
+
+            PagedResult<Folder> foldersWrapper = homeFolderResources.listFolders(null);
+
+            assertThat(foldersWrapper.getPageSize()).isEqualTo(100);
+            assertThat(foldersWrapper.getData().get(0).getName()).isEqualTo("Folder 1");
+            assertThat(foldersWrapper.getData().get(1).getName()).isEqualTo("Folder 2");
+            assertThat(foldersWrapper.getData().get(0).getId()).isEqualTo(7116448184199044L);
+        }
     }
 
-    @Test
-    void testCreateFolder() throws IOException, SmartsheetException {
-        server.setResponseBody(new File("src/test/resources/createFolders.json"));
+    @Nested
+    class CreateFolderTests {
+        @Test
+        void createFolder() throws IOException, SmartsheetException {
+            server.setResponseBody(new File("src/test/resources/createFolders.json"));
 
-        Folder folder = new Folder.CreateFolderBuilder().setName("Hello World").build();
+            Folder folder = new Folder.CreateFolderBuilder().setName("Hello World").build();
 
-        Folder newFolder = homeFolderResources.createFolder(folder);
-        assertThat(newFolder.getId()).isEqualTo(6821399500220292L);
-        assertThat(newFolder.getName()).isEqualTo("hello world");
+            Folder newFolder = homeFolderResources.createFolder(folder);
+            assertThat(newFolder.getId()).isEqualTo(6821399500220292L);
+            assertThat(newFolder.getName()).isEqualTo("hello world");
+        }
     }
 }

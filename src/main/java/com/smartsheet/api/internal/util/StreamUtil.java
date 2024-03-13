@@ -29,6 +29,10 @@ import java.nio.charset.StandardCharsets;
  * a collection of Stream-oriented utility methods
  */
 public class StreamUtil {
+    private StreamUtil() {
+        // Empty private constructor since every method in this class is static
+    }
+
     public static final int ONE_MB = 1 << 20;
     public static final int ONE_KB = 1 << 10;
     public static final int TEN_KB = 10 * ONE_KB;
