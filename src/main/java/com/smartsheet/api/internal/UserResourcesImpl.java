@@ -87,7 +87,27 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
      * @throws SmartsheetException if there is any other error during the operation
      */
     public PagedResult<User> listUsers() throws SmartsheetException {
-        return this.listResourcesWithWrapper(USERS, User.class);
+        return this.listUsersInternal(null, null, null);
+    }
+
+    /**
+     * List all users.
+     * <p>
+     * It mirrors to the following Smartsheet REST API method: GET /users
+     * <p>
+     * Exceptions:
+     *   - InvalidRequestException : if there is any problem with the REST API request
+     *   - AuthorizationException : if there is any problem with the REST API authorization(access token)
+     *   - ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     *   - SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     *   - SmartsheetException : if there is any other error occurred during the operation
+     *
+     * @param pagination the object containing the pagination query parameters
+     * @return all users (note that empty list will be returned if there is none)
+     * @throws SmartsheetException the smartsheet exception
+     */
+    public PagedResult<User> listUsers(PaginationParameters pagination) throws SmartsheetException {
+        return this.listUsersInternal(null, null, pagination);
     }
 
     /**
@@ -108,7 +128,7 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
      * @throws SmartsheetException the smartsheet exception
      */
     public PagedResult<User> listUsers(Set<String> email, PaginationParameters pagination) throws SmartsheetException {
-        return this.listUsers(email, null, pagination);
+        return this.listUsersInternal(email, null, pagination);
     }
 
     /**
@@ -131,14 +151,43 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
      */
     public PagedResult<User> listUsers(Set<String> email, EnumSet<ListUserInclusion> includes,
                                        PaginationParameters pagination) throws SmartsheetException {
+        return this.listUsersInternal(email, includes, pagination);
+    }
+
+    /**
+     * List all users.
+     * <p>
+     * It mirrors to the following Smartsheet REST API method: GET /users
+     * <p>
+     * Exceptions:
+     *   - InvalidRequestException : if there is any problem with the REST API request
+     *   - AuthorizationException : if there is any problem with the REST API authorization(access token)
+     *   - ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     *   - SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     *   - SmartsheetException : if there is any other error occurred during the operation
+     *
+     * @param email the list of email addresses
+     * @param includes elements to include in the response
+     * @param pagination the object containing the pagination query parameters
+     * @return all users (note that empty list will be returned if there is none)
+     * @throws SmartsheetException the smartsheet exception
+     */
+    private PagedResult<User> listUsersInternal(Set<String> email, EnumSet<ListUserInclusion> includes,
+                                       PaginationParameters pagination) throws SmartsheetException {
         String path = USERS;
         Map<String, Object> parameters = new HashMap<>();
 
         if (pagination != null) {
             parameters = pagination.toHashMap();
         }
-        parameters.put("email", QueryUtil.generateCommaSeparatedList(email));
-        parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
+
+        if (email != null) {
+            parameters.put("email", QueryUtil.generateCommaSeparatedList(email));
+        }
+
+        if (includes != null) {
+            parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
+        }
 
         path += QueryUtil.generateUrl(null, parameters);
         return this.listResourcesWithWrapper(path, User.class);
