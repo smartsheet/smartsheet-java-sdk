@@ -76,12 +76,17 @@ public class SmartsheetBuilder {
      */
     private String changeAgent;
 
+    /** URI to prod-us API endpoints */
+    public static final String US_BASE_URI = "https://api.smartsheet.com/2.0/";
+    /** URI to prod-eu API endpoints */
+    public static final String EU_BASE_URI = "https://api.smartsheet.eu/2.0/";
+
     /**
      * <p>Represents the default base URI of the Smartsheet REST API.</p>
      *
      * <p>It is a constant with value "https://api.smartsheet.com/2.0".</p>
      */
-    public static final String DEFAULT_BASE_URI = "https://api.smartsheet.com/2.0/";
+    public static final String DEFAULT_BASE_URI = US_BASE_URI;
 
     /**
      * <p>Represents the default base URI of the Smartsheetgov REST API.</p>
