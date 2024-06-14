@@ -1,6 +1,6 @@
 # Smartsheet SDK for Java
 
-[![Java CI](https://github.com/smartsheet/smartsheet-java-sdk/actions/workflows/mock-api-test.yaml/badge.svg)](https://github.com/smartsheet/smartsheet-java-sdk/actions/workflows/mock-api-test.yaml) [![Coverage Status](https://coveralls.io/repos/github/smartsheet/smartsheet-java-sdk/badge.svg?branch=mainline)](https://coveralls.io/github/smartsheet/smartsheet-java-sdk?branch=mainline) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.smartsheet/smartsheet-sdk-java/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.smartsheet/smartsheet-sdk-java/)
+[![Java CI](https://github.com/smartsheet/smartsheet-java-sdk/actions/workflows/test-mainline.yaml/badge.svg)](https://github.com/smartsheet/smartsheet-java-sdk/actions/workflows/test-mainline.yaml) [![Coverage Status](https://coveralls.io/repos/github/smartsheet/smartsheet-java-sdk/badge.svg?branch=mainline)](https://coveralls.io/github/smartsheet/smartsheet-java-sdk?branch=mainline) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.smartsheet/smartsheet-sdk-java/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.smartsheet/smartsheet-sdk-java/)
 
 This is a Java SDK to simplify connecting to [Smartsheet API](https://www.smartsheet.redoc.ly) in Java applications.
 
