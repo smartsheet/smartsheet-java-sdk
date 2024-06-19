@@ -16,12 +16,14 @@
 
 package com.smartsheet.api;
 
+import com.smartsheet.api.models.Cell;
 import com.smartsheet.api.models.CopyOrMoveRowDirective;
 import com.smartsheet.api.models.CopyOrMoveRowResult;
 import com.smartsheet.api.models.MultiRowEmail;
 import com.smartsheet.api.models.PartialRowUpdateResult;
 import com.smartsheet.api.models.Row;
 import com.smartsheet.api.models.RowEmail;
+import com.smartsheet.api.models.Sheet;
 import com.smartsheet.api.models.enums.ObjectExclusion;
 import com.smartsheet.api.models.enums.RowCopyInclusion;
 import com.smartsheet.api.models.enums.RowInclusion;
@@ -271,6 +273,42 @@ public interface SheetRowResources {
     ) throws SmartsheetException;
 
     /**
+     * <p>Helper method: Update a single cell</p>
+     *
+     * @param sheetId the sheet ID the cell should be written to
+     * @param cell the cell object to be written. Must include a rowId and columnId
+     * @return The returned Row object from the api
+     * @throws SmartsheetException the smartsheet exception
+     */
+    Row updateCell(long sheetId, Cell cell) throws SmartsheetException;
+
+    /**
+     * <p>Helper method: Update a single with a string value</p>
+     * <p>NOTE: This method internally fetches the sheet. To avoid this step, fetch the sheet in
+     * advance and use the method by the same name</p>
+     *
+     * @param sheetId the sheet ID the cell should be written to
+     * @param rowIdx the row index of the cell (base 1 indexed)
+     * @param colIdx the column index of the cell (base 1 indexed)
+     * @param newValue the new value of the cell
+     * @return The returned Row object from the api
+     * @throws SmartsheetException the smartsheet exception
+     */
+    Row updateCell(long sheetId, int rowIdx, int colIdx, String newValue) throws SmartsheetException;
+
+    /**
+     * <p>Helper method: Update a single with a string value</p>
+     *
+     * @param sheet The sheet to update the cell in. Must include rowId and cell information
+     * @param rowIdx The row index of the cell (base 1 indexed)
+     * @param colIdx The column index of the cell (base 1 indexed)
+     * @param newValue The new value of the cell
+     * @return The returned Row object from the api
+     * @throws SmartsheetException the smartsheet exception
+     */
+    Row updateCell(Sheet sheet, int rowIdx, int colIdx, String newValue) throws SmartsheetException;
+
+    /**
      * <p>Update rows, but allow partial success. The PartialRowUpdateResult will contain the successful
      * rows and those that failed, with specific messages for each.</p>
      *
@@ -372,6 +410,8 @@ public interface SheetRowResources {
             Boolean ignoreRowsNotFound,
             CopyOrMoveRowDirective copyParameters
     ) throws SmartsheetException;
+
+
 
     /**
      * <p>Creates an object of RowAttachmentResources.</p>

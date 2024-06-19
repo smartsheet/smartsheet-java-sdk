@@ -46,6 +46,20 @@ import java.util.Set;
 public interface SheetResources {
 
     /**
+     * List all sheets.
+     * <p>
+     * It mirrors to the following Smartsheet REST API method: GET /sheets
+     * @return A list of all sheets (note that an empty list will be returned if there are none).
+     * @throws IllegalArgumentException if any argument is null or empty string
+     * @throws InvalidRequestException if there is any problem with the REST API request
+     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetException if there is any other error during the operation
+     */
+    PagedResult<Sheet> listSheets() throws SmartsheetException;
+
+    /**
      * <p>List all sheets.</p>
      *
      * <p>It mirrors to the following Smartsheet REST API method: GET /sheets</p>
@@ -200,6 +214,21 @@ public interface SheetResources {
                           Integer page,
                           Integer ifVersionAfter,
                           Integer level) throws SmartsheetException;
+
+    /**
+     * <p>Get sheet by ID. Load all row and column data</p>
+     *
+     * @param sheetId id of the sheet to fetch
+     * @return the sheet resource (note that if there is no such resource, this method will throw
+     *     ResourceNotFoundException rather than returning null).
+     * @throws IllegalArgumentException if any argument is null or empty string
+     * @throws InvalidRequestException if there is any problem with the REST API request
+     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetException if there is any other error during the operation
+     */
+    Sheet getSheet(long sheetId) throws SmartsheetException;
 
     /**
      * <p>Get a sheet as an Excel file.</p>

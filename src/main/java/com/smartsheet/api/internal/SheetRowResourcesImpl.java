@@ -42,6 +42,7 @@ import com.smartsheet.api.models.MultiRowEmail;
 import com.smartsheet.api.models.PartialRowUpdateResult;
 import com.smartsheet.api.models.Row;
 import com.smartsheet.api.models.RowEmail;
+import com.smartsheet.api.models.Sheet;
 import com.smartsheet.api.models.enums.ObjectExclusion;
 import com.smartsheet.api.models.enums.RowCopyInclusion;
 import com.smartsheet.api.models.enums.RowInclusion;
@@ -351,6 +352,72 @@ public class SheetRowResourcesImpl extends AbstractResources implements SheetRow
     }
 
     /**
+     * <p>Helper method: Update a single cell</p>
+     *
+     * @param sheetId the sheet ID the cell should be written to
+     * @param cell the cell object to be written. Must include a rowId and columnId
+     * @return The returned Row object from the api
+     * @throws SmartsheetException the smartsheet exception
+     */
+    public Row updateCell(long sheetId, Cell cell) throws SmartsheetException {
+        if (cell.getRowId() == null || cell.getColumnId() == null) {
+            throw new SmartsheetException("Cell must include rowId and columnId");
+        }
+
+        Row updateRow = new Row();
+        updateRow.setCells(List.of(cell));
+        updateRow.setId(cell.getRowId());
+
+        List<Row> rows = updateRows(sheetId, List.of(updateRow));
+        return rows.isEmpty() ? null : rows.get(0);
+    }
+
+    /**
+     * <p>Helper method: Update a single with a string value</p>
+     * <p>NOTE: This method internally fetches the sheet. To avoid this step, fetch the sheet in
+     * advance and use the method by the same name</p>
+     *
+     * @param sheetId the sheet ID the cell should be written to
+     * @param rowIdx the row index of the cell (base 1 indexed)
+     * @param colIdx the column index of the cell (base 1 indexed)
+     * @param newValue the new value of the cell
+     * @return The returned Row object from the api
+     * @throws SmartsheetException the smartsheet exception
+     */
+    public Row updateCell(long sheetId, int rowIdx, int colIdx, String newValue) throws SmartsheetException {
+        Sheet sheet = smartsheet.sheetResources().getSheet(sheetId);
+        return updateCell(sheet, colIdx, rowIdx, newValue);
+    }
+
+    /**
+     * <p>Helper method: Update a single with a string value</p>
+     *
+     * @param sheet The sheet to update the cell in. Must include rowId and cell information
+     * @param rowIdx The row index of the cell (base 1 indexed)
+     * @param colIdx The column index of the cell (base 1 indexed)
+     * @param newValue The new value of the cell
+     * @return The returned Row object from the api
+     * @throws SmartsheetException the smartsheet exception
+     */
+    public Row updateCell(Sheet sheet, int rowIdx, int colIdx, String newValue) throws SmartsheetException {
+        Row row = sheet.getRowByRowNumber(rowIdx);
+        if (row == null) {
+            throw new SmartsheetException("Sheet does not contain row at index" + rowIdx);
+        }
+        long rowId = row.getId();
+        if (row.getCells().size() < colIdx) {
+            throw new SmartsheetException("Sheet does not contain column at index" + colIdx);
+        }
+        long colId = row.getCells().get(colIdx - 1).getColumnId();
+
+        Cell cell = new Cell();
+        cell.setColumnId(colId);
+        cell.setRowId(rowId);
+        cell.setValue(newValue);
+        return updateCell(sheet.getId(), cell);
+    }
+
+    /**
      * Update rows, but allow partial success. The PartialRowUpdateResult will contain the successful
      * rows and those that failed, with specific messages for each.
      * <p>
@@ -531,6 +598,8 @@ public class SheetRowResourcesImpl extends AbstractResources implements SheetRow
         path += QueryUtil.generateUrl(null, parameters);
         return this.postAndReceiveRowObject(path, copyParameters);
     }
+
+
 
     /**
     /**
