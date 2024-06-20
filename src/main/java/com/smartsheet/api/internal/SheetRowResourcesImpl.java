@@ -599,8 +599,6 @@ public class SheetRowResourcesImpl extends AbstractResources implements SheetRow
         return this.postAndReceiveRowObject(path, copyParameters);
     }
 
-
-
     /**
     /**
      * Update the values of the Cells in a Row.

@@ -411,8 +411,6 @@ public interface SheetRowResources {
             CopyOrMoveRowDirective copyParameters
     ) throws SmartsheetException;
 
-
-
     /**
      * <p>Creates an object of RowAttachmentResources.</p>
      *
