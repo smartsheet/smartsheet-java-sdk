@@ -21,7 +21,6 @@ import com.smartsheet.api.models.CopyOrMoveRowResult;
 import com.smartsheet.api.models.MultiRowEmail;
 import com.smartsheet.api.models.PartialRowUpdateResult;
 import com.smartsheet.api.models.Row;
-import com.smartsheet.api.models.RowEmail;
 import com.smartsheet.api.models.enums.ObjectExclusion;
 import com.smartsheet.api.models.enums.RowCopyInclusion;
 import com.smartsheet.api.models.enums.RowInclusion;
@@ -139,49 +138,6 @@ public interface SheetRowResources {
      * @throws SmartsheetException if there is any other error during the operation
      */
     Row getRow(long sheetId, long rowId, EnumSet<RowInclusion> includes, EnumSet<ObjectExclusion> excludes) throws SmartsheetException;
-
-    /**
-     * <p>Delete a row.</p>
-     *
-     * <p>It mirrors to the following Smartsheet REST API method: DELETE /sheets/{sheetId}/rows/{rowId}</p>
-     *
-     * Exceptions:
-     *   InvalidRequestException : if there is any problem with the REST API request
-     *   AuthorizationException : if there is any problem with the REST API authorization(access token)
-     *   ResourceNotFoundException : if the resource can not be found
-     *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-     *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
-     *   SmartsheetException : if there is any other error occurred during the operation
-     *
-     * @param sheetId the sheet id
-     * @param rowId the row id
-     * @throws SmartsheetException the smartsheet exception
-     * @deprecated as of API 2.0.2 release, replaced by {@link #deleteRows(long, Set, boolean)}
-     */
-    @Deprecated(since = "2.0.2", forRemoval = true)
-    void deleteRow(long sheetId, long rowId) throws SmartsheetException;
-
-    /**
-     * <p>Send a row via email to the designated recipients.</p>
-     *
-     * <p>It mirrors to the following Smartsheet REST API method: POST /sheets/{sheetId}/rows/{rowId}/emails</p>
-     *
-     * Exceptions:
-     *   IllegalArgumentException : if any argument is null
-     *   InvalidRequestException : if there is any problem with the REST API request
-     *   AuthorizationException : if there is any problem with the REST API authorization(access token)
-     *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-     *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
-     *   SmartsheetException : if there is any other error occurred during the operation
-     *
-     * @param sheetId the id of the sheet
-     * @param rowId the id of the row
-     * @param email the row email
-     * @throws SmartsheetException the smartsheet exception
-     * @deprecated as of API V2.0.2, replaced by {@link #sendRows(long, MultiRowEmail)}
-     */
-    @Deprecated(since = "2.0.2", forRemoval = true)
-    void sendRow(long sheetId, long rowId, RowEmail email) throws SmartsheetException;
 
     /**
      * <p>Send a row via email to the designated recipients.</p>

@@ -34,22 +34,20 @@ import com.smartsheet.api.SheetSummaryResources;
 import com.smartsheet.api.SheetUpdateRequestResources;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.SmartsheetRestException;
-import com.smartsheet.api.UserResources;
 import com.smartsheet.api.internal.http.HttpEntity;
 import com.smartsheet.api.internal.http.HttpMethod;
 import com.smartsheet.api.internal.http.HttpRequest;
 import com.smartsheet.api.internal.http.HttpResponse;
 import com.smartsheet.api.internal.util.QueryUtil;
+import com.smartsheet.api.internal.util.StreamUtil;
 import com.smartsheet.api.internal.util.Util;
 import com.smartsheet.api.models.ContainerDestination;
-import com.smartsheet.api.models.MultiRowEmail;
 import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.PaginationParameters;
 import com.smartsheet.api.models.Sheet;
 import com.smartsheet.api.models.SheetEmail;
 import com.smartsheet.api.models.SheetPublish;
 import com.smartsheet.api.models.SortSpecifier;
-import com.smartsheet.api.models.UpdateRequest;
 import com.smartsheet.api.models.enums.CopyExclusion;
 import com.smartsheet.api.models.enums.ObjectExclusion;
 import com.smartsheet.api.models.enums.PaperSize;
@@ -223,29 +221,6 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
         parameters.put(INCLUDE, QueryUtil.generateCommaSeparatedList(includes));
 
         path += QueryUtil.generateUrl(null, parameters);
-        return this.listResourcesWithWrapper(path, Sheet.class);
-    }
-
-    /**
-     * List all sheets in the organization.
-     * <p>
-     * It mirrors to the following Smartsheet REST API method: GET /users/sheets
-     * @param parameters the object containing the pagination parameters
-     * @return all sheets (note that empty list will be returned if there is none)
-     * @throws InvalidRequestException : if there is any problem with the REST API request
-     * @throws AuthorizationException : if there is any problem with the REST API authorization(access token)
-     * @throws ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetRestException : if there is any other REST API related error occurred during the operation
-     * @throws SmartsheetException : if there is any other error occurred during the operation
-     * @deprecated As of release 2.0. Please use {@link UserResources} instead
-     */
-    @Deprecated(since = "2.0.0", forRemoval = true)
-    public PagedResult<Sheet> listOrganizationSheets(PaginationParameters parameters) throws SmartsheetException {
-        String path = "users/sheets";
-
-        if (parameters != null) {
-            path += parameters.toQueryString();
-        }
         return this.listResourcesWithWrapper(path, Sheet.class);
     }
 
@@ -931,24 +906,6 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
     }
 
     /**
-     * Creates an Update Request for the specified Row(s) within the Sheet.
-     * <p>
-     * It mirrors to the following Smartsheet REST API method: POST /sheets/{sheetId}/updaterequests
-     * @param sheetId the sheet id
-     * @param email the email
-     * @return the update request object
-     * @throws IllegalArgumentException : if any argument is null
-     * @throws InvalidRequestException : if there is any problem with the REST API request
-     * @throws AuthorizationException : if there is any problem with the REST API authorization(access token)
-     * @throws ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetRestException : if there is any other REST API related error occurred during the operation
-     * @throws SmartsheetException : if there is any other error occurred during the operation
-     */
-    public UpdateRequest createUpdateRequest(long sheetId, MultiRowEmail email) throws SmartsheetException {
-        return this.createResource(SHEETS + "/" + sheetId + "/updaterequests", UpdateRequest.class, email);
-    }
-
-    /**
      * Sort a sheet according to the sort criteria.
      * <p>
      * It mirrors to the following Smartsheet REST API method: POST /sheet/{sheetId}/sort
@@ -1227,7 +1184,7 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
         switch (response.getStatusCode()) {
             case 200:
                 try {
-                    copyStream(response.getEntity().getContent(), outputStream);
+                    StreamUtil.copyContentIntoOutputStream(response.getEntity().getContent(), outputStream, BUFFER_SIZE, true);
                 } catch (IOException e) {
                     throw new SmartsheetException(e);
                 }
@@ -1238,22 +1195,4 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 
         getSmartsheet().getHttpClient().releaseConnection();
     }
-
-    /**
-     * Copy stream.
-     *
-     * @param input the input
-     * @param output the output
-     * @throws IOException Signals that an I/O exception has occurred.
-     * @deprecated replace with StreamUtil.copyContentIntoOutputStream()
-     */
-    @Deprecated(since = "2.0.0", forRemoval = true)
-    private static void copyStream(InputStream input, OutputStream output) throws IOException {
-        byte[] buffer = new byte[BUFFER_SIZE];
-        int len;
-        while ((len = input.read(buffer)) != -1) {
-            output.write(buffer, 0, len);
-        }
-    }
-
 }
