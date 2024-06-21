@@ -105,7 +105,7 @@ class SheetResourcesImplTest extends ResourcesImplBase {
     void testGetSheet() throws SmartsheetException, IOException {
 
         server.setResponseBody(new File("src/test/resources/getSheet.json"));
-        Sheet sheet = sheetResource.getSheet(123123L, null, null, null, null, null, null, null);
+        Sheet sheet = sheetResource.getSheet(123123L);
         assertThat(sheet.getColumns()).hasSize(9);
         assertThat(sheet.getRows()).isEmpty();
 
@@ -135,7 +135,7 @@ class SheetResourcesImplTest extends ResourcesImplBase {
     void testGetSheetWithFormat() throws SmartsheetException, IOException {
 
         server.setResponseBody(new File("src/test/resources/getSheetWithFormat.json"));
-        Sheet sheet = sheetResource.getSheet(123123L, null, null, null, null, null, null, null);
+        Sheet sheet = sheetResource.getSheet(123123L);
 
         assertThat(sheet.getColumnByIndex(0).getFormat()).isNotNull();
         assertThat(sheet.getColumnByIndex(0).getFormat().getVerticalAlignment()).isEqualTo(VerticalAlignment.TOP);

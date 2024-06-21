@@ -341,7 +341,7 @@ public class Sample {
             Smartsheet smartsheet = SmartsheetFactory.createDefaultGovAccountClient( /* "ll352u9jujauoqz4gstvsae05" */);
 
             // List all sheets
-            PagedResult<Sheet> sheets = smartsheet.sheetResources().listSheets(null, null, null );
+            PagedResult<Sheet> sheets = smartsheet.sheetResources().listSheets();
             System.out.println("\nFound " + sheets.getTotalCount() + " sheets\n");
 
             Long sheetId = sheets.getData().get(0).getId();            // Default to first sheet
@@ -350,7 +350,7 @@ public class Sample {
             // sheetId = 239236234L;
 
             // Load entire sheet
-            Sheet sheet = smartsheet.sheetResources().getSheet(sheetId, null, null, null, null, null, null, null);
+            Sheet sheet = smartsheet.sheetResources().getSheet(sheetId);
             List<Row> rows = sheet.getRows();
             System.out.println("\nLoaded sheet id " + sheetId + " with " + rows.size() + " rows, title: " + sheet.getName());
 
