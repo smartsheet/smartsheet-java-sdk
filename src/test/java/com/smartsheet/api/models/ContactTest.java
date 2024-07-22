@@ -23,6 +23,35 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class ContactTest {
     @Nested
+    class BuilderTests {
+        @Test
+        void contactBuilder() {
+            // Arrange
+            // Common Objects
+
+            // Act
+            Contact contactNoArg = Contact.builder().build();
+            contactNoArg.setId("id");
+            contactNoArg.setName("name");
+            contactNoArg.setEmail("email");
+
+            Contact contactAllArg = Contact.builder()
+                    .id("id")
+                    .name("name")
+                    .email("email")
+                    .build();
+
+
+            // Assert
+            assertThat(contactNoArg)
+                    .hasNoNullFieldsOrProperties()
+                    .usingRecursiveComparison()
+                    .isEqualTo(contactAllArg);
+        }
+    }
+
+
+    @Nested
     class EqualsTests {
         @Test
         void testEquals_differentIds() {

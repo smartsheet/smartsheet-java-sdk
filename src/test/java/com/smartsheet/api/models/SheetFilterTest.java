@@ -16,12 +16,46 @@
 
 package com.smartsheet.api.models;
 
+import com.smartsheet.api.models.enums.SheetFilterType;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 class SheetFilterTest {
+    @Nested
+    class BuilderTests {
+        @Test
+        void sheetFilterBuilder() {
+            // Arrange
+            // Common Objects
+            SheetFilterDetails sheetFilterDetails = new SheetFilterDetails();
+
+            // Act
+            SheetFilter sheetFilterNoArg = SheetFilter.builder().build();
+            sheetFilterNoArg.setId(1L);
+            sheetFilterNoArg.setName("name");
+            sheetFilterNoArg.setFilterType(SheetFilterType.PERSONAL);
+            sheetFilterNoArg.setQuery(sheetFilterDetails);
+            sheetFilterNoArg.setVersion(2);
+
+            SheetFilter sheetFilterAllArg = SheetFilter.builder()
+                    .id(1L)
+                    .name("name")
+                    .filterType(SheetFilterType.PERSONAL)
+                    .query(sheetFilterDetails)
+                    .version(2)
+                    .build();
+
+
+            // Assert
+            assertThat(sheetFilterNoArg)
+                    .hasNoNullFieldsOrProperties()
+                    .usingRecursiveComparison()
+                    .isEqualTo(sheetFilterAllArg);
+        }
+    }
+
     @Nested
     class EqualsTests {
         @Test

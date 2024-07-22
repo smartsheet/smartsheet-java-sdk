@@ -24,6 +24,32 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class SourceTest {
     @Nested
+    class BuilderTests {
+        @Test
+        void sourceBuilder() {
+            // Arrange
+
+            // Act
+            Source sourceNoArg = Source.builder().build();
+            sourceNoArg.setId(1L);
+            sourceNoArg.setType(SourceType.SHEET);
+
+            Source sourceAllArg = Source.builder()
+                    .id(1L)
+                    .type(SourceType.SHEET)
+                    .build();
+
+
+            // Assert
+            assertThat(sourceNoArg)
+                    .hasNoNullFieldsOrProperties()
+                    .usingRecursiveComparison()
+                    .isEqualTo(sourceAllArg);
+        }
+    }
+
+
+    @Nested
     class EqualsTests {
         @Test
         void testEquals_differentIds() {

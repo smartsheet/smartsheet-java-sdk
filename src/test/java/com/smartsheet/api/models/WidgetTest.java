@@ -16,12 +16,68 @@
 
 package com.smartsheet.api.models;
 
+import com.smartsheet.api.models.enums.WidgetType;
+import com.smartsheet.api.models.format.Format;
+import org.assertj.core.api.recursive.comparison.FieldLocation;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+
+import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 class WidgetTest {
+    @Nested
+    class BuilderTests {
+        @Test
+        void widgetBuilder() {
+            // Arrange
+            // Common Objects
+            Format titleFormat = new Format();
+            ImageWidgetContent contents = new ImageWidgetContent();
+            Error error = new Error();
+
+            // Act
+            Widget widgetNoArg = Widget.builder().build();
+            widgetNoArg.setId(1L);
+            widgetNoArg.setType(WidgetType.CHART);
+            widgetNoArg.setTitle("title");
+            widgetNoArg.setShowTitle(true);
+            widgetNoArg.setShowTitleIcon(false);
+            widgetNoArg.setTitleFormat(titleFormat);
+            widgetNoArg.setXPosition(2);
+            widgetNoArg.setYPosition(3);
+            widgetNoArg.setHeight(4);
+            widgetNoArg.setWidth(5);
+            widgetNoArg.setVersion(6);
+            widgetNoArg.setContents(contents);
+            widgetNoArg.setError(error);
+
+            Widget widgetAllArg = Widget.builder()
+                    .id(1L)
+                    .type(WidgetType.CHART)
+                    .title("title")
+                    .showTitle(true)
+                    .showTitleIcon(false)
+                    .titleFormat(titleFormat)
+                    .xPosition(2)
+                    .yPosition(3)
+                    .height(4)
+                    .width(5)
+                    .version(6)
+                    .contents(contents)
+                    .error(error)
+                    .build();
+
+
+            // Assert
+            assertThat(widgetNoArg)
+                    .hasNoNullFieldsOrProperties()
+                    .usingRecursiveComparison()
+                    .isEqualTo(widgetAllArg);
+        }
+    }
+
     @Nested
     class EqualsTests {
         @Test

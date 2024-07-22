@@ -16,12 +16,65 @@
 
 package com.smartsheet.api.models;
 
+import com.smartsheet.api.models.enums.AccessLevel;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+
+import java.util.Date;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 class SightTest {
+    @Nested
+    class BuilderTests {
+        @Test
+        void sightBuilder() {
+            // Arrange
+            // Common Objects
+            Date createdAt = new Date();
+            Date modifiedAt = new Date();
+            Workspace workspace = new Workspace();
+
+            // Act
+            Sight sightNoArg = Sight.builder().build();
+            sightNoArg.setId(1L);
+            sightNoArg.setName("name");
+            sightNoArg.setColumnCount(2);
+            sightNoArg.setWidgets(List.of(Widget.builder().id(1L).build(), Widget.builder().id(2L).build()));
+            sightNoArg.setFavorite(true);
+            sightNoArg.setAccessLevel(AccessLevel.EDITOR);
+            sightNoArg.setPermalink("permalink");
+            sightNoArg.setCreatedAt(createdAt);
+            sightNoArg.setModifiedAt(modifiedAt);
+            sightNoArg.setSource(Source.builder().id(99L).build());
+            sightNoArg.setWorkspace(workspace);
+            sightNoArg.setBackgroundColor("backgroundColor");
+
+            Sight sightAllArg = Sight.builder()
+                    .id(1L)
+                    .name("name")
+                    .columnCount(2)
+                    .widgets(List.of(Widget.builder().id(1L).build(), Widget.builder().id(2L).build()))
+                    .favorite(true)
+                    .accessLevel(AccessLevel.EDITOR)
+                    .permalink("permalink")
+                    .createdAt(createdAt)
+                    .modifiedAt(modifiedAt)
+                    .source(Source.builder().id(99L).build())
+                    .workspace(workspace)
+                    .backgroundColor("backgroundColor")
+                    .build();
+
+
+            // Assert
+            assertThat(sightNoArg)
+                    .hasNoNullFieldsOrProperties()
+                    .usingRecursiveComparison()
+                    .isEqualTo(sightAllArg);
+        }
+    }
+
     @Nested
     class EqualsTests {
         @Test

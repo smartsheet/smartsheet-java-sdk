@@ -16,12 +16,62 @@
 
 package com.smartsheet.api.models;
 
+import com.smartsheet.api.models.enums.AccessLevel;
+import com.smartsheet.api.models.enums.GlobalTemplate;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 class TemplateTest {
+    @Nested
+    class BuilderTests {
+        @Test
+        void templateBuilder() {
+            // Arrange
+
+            // Act
+            Template templateNoArg = Template.builder().build();
+            templateNoArg.setId(1L);
+            templateNoArg.setName("name");
+            templateNoArg.setDescription("description");
+            templateNoArg.setAccessLevel(AccessLevel.ADMIN);
+            templateNoArg.setImage("image");
+            templateNoArg.setLargeImage("largeImage");
+            templateNoArg.setLocale("locale");
+            templateNoArg.setType("type");
+            templateNoArg.setTags(List.of("tag1", "tag2"));
+            templateNoArg.setCategories(List.of("category1", "category2"));
+            templateNoArg.setBlank(true);
+            templateNoArg.setGlobalTemplate(GlobalTemplate.TASK_LIST);
+
+            Template templateAllArg = Template.builder()
+                    .id(1L)
+                    .name("name")
+                    .description("description")
+                    .accessLevel(AccessLevel.ADMIN)
+                    .image("image")
+                    .largeImage("largeImage")
+                    .locale("locale")
+                    .type("type")
+                    .tags(List.of("tag1", "tag2"))
+                    .categories(List.of("category1", "category2"))
+                    .blank(true)
+                    .globalTemplate(GlobalTemplate.TASK_LIST)
+                    .build();
+
+
+            // Assert
+            assertThat(templateNoArg)
+                    .hasNoNullFieldsOrProperties()
+                    .usingRecursiveComparison()
+                    .isEqualTo(templateAllArg);
+        }
+    }
+
+
     @Nested
     class EqualsTests {
         @Test

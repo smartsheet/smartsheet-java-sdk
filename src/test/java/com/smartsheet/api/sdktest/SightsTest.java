@@ -58,7 +58,7 @@ class SightsTest {
     @Test
     void updateSight() throws SmartsheetException {
         Smartsheet ss = HelperFunctions.SetupClient("Update Sight");
-        Sight sight = new Sight();
+        Sight sight = Sight.builder().build();
         sight.setId(812L);
         sight.setName("new new sight");
         ss.sightResources().updateSight(sight);

@@ -32,6 +32,7 @@ import lombok.ToString;
  */
 @Getter
 @Setter
+// No Arg and All arg constructor is needed because this class is extended
 @NoArgsConstructor
 @AllArgsConstructor
 // Only include explicitly included fields in the toString method so clients don't log sensitive data (such as name/email)

@@ -19,11 +19,9 @@ package com.smartsheet.api.models;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.smartsheet.api.models.enums.WidgetType;
 import com.smartsheet.api.models.format.Format;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -34,8 +32,6 @@ import lombok.ToString;
  */
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 @ToString
 @EqualsAndHashCode(of = "id")
 @Builder

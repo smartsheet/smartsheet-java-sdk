@@ -461,9 +461,10 @@ class SheetResourcesImplTest extends ResourcesImplBase {
     void testSortSheet() throws Exception {
         server.setResponseBody(new File("src/test/resources/getSheet.json"));
         SortSpecifier specifier = new SortSpecifier();
-        SortCriterion criterion = new SortCriterion();
-        criterion.setColumnId(1234L);
-        criterion.setDirection(SortDirection.DESCENDING);
+        SortCriterion criterion = SortCriterion.builder()
+                .columnId(1234L)
+                .direction(SortDirection.DESCENDING)
+                .build();
         List<SortCriterion> criteria = new ArrayList<>();
         criteria.add(criterion);
         specifier.setSortCriteria(criteria);

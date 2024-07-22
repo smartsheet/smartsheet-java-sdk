@@ -16,12 +16,52 @@
 
 package com.smartsheet.api.models;
 
+import com.smartsheet.api.models.enums.CrossSheetReferenceStatus;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 class CrossSheetReferenceTest {
+    @Nested
+    class BuilderTests {
+        @Test
+        void crossSheetReferenceBuilder() {
+            // Arrange
+            // Common Objects
+
+            // Act
+            CrossSheetReference crossSheetReferenceNoArg = CrossSheetReference.builder().build();
+            crossSheetReferenceNoArg.setId(1L);
+            crossSheetReferenceNoArg.setName("name");
+            crossSheetReferenceNoArg.setEndColumnId(2L);
+            crossSheetReferenceNoArg.setEndRowId(3L);
+            crossSheetReferenceNoArg.setSourceSheetId(4L);
+            crossSheetReferenceNoArg.setStartColumnId(5L);
+            crossSheetReferenceNoArg.setStartRowId(6L);
+            crossSheetReferenceNoArg.setStatus(CrossSheetReferenceStatus.OK);
+
+            CrossSheetReference crossSheetReferenceAllArg = CrossSheetReference.builder()
+                    .id(1L)
+                    .name("name")
+                    .endColumnId(2L)
+                    .endRowId(3L)
+                    .sourceSheetId(4L)
+                    .startColumnId(5L)
+                    .startRowId(6L)
+                    .status(CrossSheetReferenceStatus.OK)
+                    .build();
+
+
+            // Assert
+            assertThat(crossSheetReferenceNoArg)
+                    .hasNoNullFieldsOrProperties()
+                    .usingRecursiveComparison()
+                    .isEqualTo(crossSheetReferenceAllArg);
+        }
+    }
+
+
     @Nested
     class EqualsTests {
         @Test

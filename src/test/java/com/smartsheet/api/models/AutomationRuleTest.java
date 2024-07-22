@@ -16,12 +16,64 @@
 
 package com.smartsheet.api.models;
 
+import com.smartsheet.api.models.enums.AutomationRuleDisabledReason;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+
+import java.util.Date;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 class AutomationRuleTest {
+    @Nested
+    class BuilderTests {
+        @Test
+        void automationRuleBuilder() {
+            // Arrange
+            // Common Objects
+            AutomationAction automationAction = new AutomationAction();
+            Date createdAt = new Date();
+            User createdBy = new User();
+            Date modifiedAt = new Date();
+            User modifiedBy = new User();
+
+            // Act
+            AutomationRule automationRuleNoArg = AutomationRule.builder().build();
+            automationRuleNoArg.setId(1L);
+            automationRuleNoArg.setName("name");
+            automationRuleNoArg.setAction(automationAction);
+            automationRuleNoArg.setCreatedAt(createdAt);
+            automationRuleNoArg.setCreatedBy(createdBy);
+            automationRuleNoArg.setDisabledReason(AutomationRuleDisabledReason.COLUMN_MISSING);
+            automationRuleNoArg.setDisabledReasonText("disabledReasonText");
+            automationRuleNoArg.setEnabled(true);
+            automationRuleNoArg.setModifiedAt(modifiedAt);
+            automationRuleNoArg.setModifiedBy(modifiedBy);
+            automationRuleNoArg.setUserCanModify(true);
+
+            AutomationRule automationRuleAllArg = AutomationRule.builder()
+                    .id(1L)
+                    .name("name")
+                    .action(automationAction)
+                    .createdAt(createdAt)
+                    .createdBy(createdBy)
+                    .disabledReason(AutomationRuleDisabledReason.COLUMN_MISSING)
+                    .disabledReasonText("disabledReasonText")
+                    .enabled(true)
+                    .modifiedAt(modifiedAt)
+                    .modifiedBy(modifiedBy)
+                    .userCanModify(true)
+                    .build();
+
+
+            // Assert
+            assertThat(automationRuleNoArg)
+                    .hasNoNullFieldsOrProperties()
+                    .usingRecursiveComparison()
+                    .isEqualTo(automationRuleAllArg);
+        }
+    }
+
     @Nested
     class EqualsTests {
         @Test

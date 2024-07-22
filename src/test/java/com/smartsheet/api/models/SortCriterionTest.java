@@ -16,12 +16,42 @@
 
 package com.smartsheet.api.models;
 
+import com.smartsheet.api.models.enums.SortDirection;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 class SortCriterionTest {
+    @Nested
+    class BuilderTests {
+        @Test
+        void sortCriterionBuilder() {
+            // Arrange
+
+            // Act
+            SortCriterion sortCriterionNoArg = SortCriterion.builder().build();
+            sortCriterionNoArg.setId(1L);
+            sortCriterionNoArg.setName("name");
+            sortCriterionNoArg.setColumnId(2L);
+            sortCriterionNoArg.setDirection(SortDirection.ASCENDING);
+
+            SortCriterion sortCriterionAllArg = SortCriterion.builder()
+                    .id(1L)
+                    .name("name")
+                    .columnId(2L)
+                    .direction(SortDirection.ASCENDING)
+                    .build();
+
+
+            // Assert
+            assertThat(sortCriterionNoArg)
+                    .hasNoNullFieldsOrProperties()
+                    .usingRecursiveComparison()
+                    .isEqualTo(sortCriterionAllArg);
+        }
+    }
+
     @Nested
     class EqualsTests {
         @Test

@@ -16,12 +16,65 @@
 
 package com.smartsheet.api.models;
 
+import com.smartsheet.api.models.enums.UpdateRequestStatus;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+
+import java.util.Date;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 class SentUpdateRequestTest {
+    @Nested
+    class BuilderTests {
+        @Test
+        void sentUpdateRequestBuilder() {
+            // Arrange
+            // Common Objects
+            Date sentAt = new Date();
+            User sentBy = new User();
+            RecipientEmail recipientEmail = new RecipientEmail();
+
+            // Act
+            SentUpdateRequest sentUpdateRequestNoArg = SentUpdateRequest.builder().build();
+            sentUpdateRequestNoArg.setId(1L);
+            sentUpdateRequestNoArg.setUpdateRequestId(2L);
+            sentUpdateRequestNoArg.setSentAt(sentAt);
+            sentUpdateRequestNoArg.setSentBy(sentBy);
+            sentUpdateRequestNoArg.setStatus(UpdateRequestStatus.COMPLETE);
+            sentUpdateRequestNoArg.setRowIds(List.of(11L, 22L));
+            sentUpdateRequestNoArg.setColumnIds(List.of(33L, 44L));
+            sentUpdateRequestNoArg.setIncludeAttachments(true);
+            sentUpdateRequestNoArg.setIncludeDiscussions(true);
+            sentUpdateRequestNoArg.setSentTo(recipientEmail);
+            sentUpdateRequestNoArg.setSubject("subject");
+            sentUpdateRequestNoArg.setMessage("message");
+
+            SentUpdateRequest sentUpdateRequestAllArg = SentUpdateRequest.builder()
+                    .id(1L)
+                    .updateRequestId(2L)
+                    .sentAt(sentAt)
+                    .sentBy(sentBy)
+                    .status(UpdateRequestStatus.COMPLETE)
+                    .rowIds(List.of(11L, 22L))
+                    .columnIds(List.of(33L, 44L))
+                    .includeAttachments(true)
+                    .includeDiscussions(true)
+                    .sentTo(recipientEmail)
+                    .subject("subject")
+                    .message("message")
+                    .build();
+
+
+            // Assert
+            assertThat(sentUpdateRequestNoArg)
+                    .hasNoNullFieldsOrProperties()
+                    .usingRecursiveComparison()
+                    .isEqualTo(sentUpdateRequestAllArg);
+        }
+    }
+
     @Nested
     class EqualsTests {
         @Test
