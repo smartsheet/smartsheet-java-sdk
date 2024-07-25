@@ -66,7 +66,6 @@ class SightTest {
                     .backgroundColor("backgroundColor")
                     .build();
 
-
             // Assert
             assertThat(sightNoArg)
                     .hasNoNullFieldsOrProperties()

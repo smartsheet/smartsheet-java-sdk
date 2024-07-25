@@ -39,7 +39,6 @@ class SourceTest {
                     .type(SourceType.SHEET)
                     .build();
 
-
             // Assert
             assertThat(sourceNoArg)
                     .hasNoNullFieldsOrProperties()
@@ -47,7 +46,6 @@ class SourceTest {
                     .isEqualTo(sourceAllArg);
         }
     }
-
 
     @Nested
     class EqualsTests {

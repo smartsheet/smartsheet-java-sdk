@@ -41,7 +41,6 @@ class ContactTest {
                     .email("email")
                     .build();
 
-
             // Assert
             assertThat(contactNoArg)
                     .hasNoNullFieldsOrProperties()
@@ -49,7 +48,6 @@ class ContactTest {
                     .isEqualTo(contactAllArg);
         }
     }
-
 
     @Nested
     class EqualsTests {

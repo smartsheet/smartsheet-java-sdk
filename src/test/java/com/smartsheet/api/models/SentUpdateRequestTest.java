@@ -66,7 +66,6 @@ class SentUpdateRequestTest {
                     .message("message")
                     .build();
 
-
             // Assert
             assertThat(sentUpdateRequestNoArg)
                     .hasNoNullFieldsOrProperties()

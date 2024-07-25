@@ -18,11 +18,8 @@ package com.smartsheet.api.models;
 
 import com.smartsheet.api.models.enums.WidgetType;
 import com.smartsheet.api.models.format.Format;
-import org.assertj.core.api.recursive.comparison.FieldLocation;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-
-import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -68,7 +65,6 @@ class WidgetTest {
                     .contents(contents)
                     .error(error)
                     .build();
-
 
             // Assert
             assertThat(widgetNoArg)

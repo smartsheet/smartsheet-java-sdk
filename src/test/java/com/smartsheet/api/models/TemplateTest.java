@@ -62,7 +62,6 @@ class TemplateTest {
                     .globalTemplate(GlobalTemplate.TASK_LIST)
                     .build();
 
-
             // Assert
             assertThat(templateNoArg)
                     .hasNoNullFieldsOrProperties()
@@ -70,7 +69,6 @@ class TemplateTest {
                     .isEqualTo(templateAllArg);
         }
     }
-
 
     @Nested
     class EqualsTests {

@@ -47,7 +47,6 @@ class SheetFilterTest {
                     .version(2)
                     .build();
 
-
             // Assert
             assertThat(sheetFilterNoArg)
                     .hasNoNullFieldsOrProperties()

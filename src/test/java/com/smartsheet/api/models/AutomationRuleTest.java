@@ -65,7 +65,6 @@ class AutomationRuleTest {
                     .userCanModify(true)
                     .build();
 
-
             // Assert
             assertThat(automationRuleNoArg)
                     .hasNoNullFieldsOrProperties()

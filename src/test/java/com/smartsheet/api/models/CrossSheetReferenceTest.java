@@ -52,7 +52,6 @@ class CrossSheetReferenceTest {
                     .status(CrossSheetReferenceStatus.OK)
                     .build();
 
-
             // Assert
             assertThat(crossSheetReferenceNoArg)
                     .hasNoNullFieldsOrProperties()
@@ -60,7 +59,6 @@ class CrossSheetReferenceTest {
                     .isEqualTo(crossSheetReferenceAllArg);
         }
     }
-
 
     @Nested
     class EqualsTests {

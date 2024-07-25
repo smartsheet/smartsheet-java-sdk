@@ -43,7 +43,6 @@ class SortCriterionTest {
                     .direction(SortDirection.ASCENDING)
                     .build();
 
-
             // Assert
             assertThat(sortCriterionNoArg)
                     .hasNoNullFieldsOrProperties()
