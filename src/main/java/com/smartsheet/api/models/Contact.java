@@ -17,6 +17,7 @@
 package com.smartsheet.api.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -32,12 +33,11 @@ import lombok.ToString;
  */
 @Getter
 @Setter
-// No Arg and All arg constructor is needed because this class is extended
-@NoArgsConstructor
-@AllArgsConstructor
 // Only include explicitly included fields in the toString method so clients don't log sensitive data (such as name/email)
 @ToString(onlyExplicitlyIncluded = true)
 @EqualsAndHashCode(of = "id")
+@NoArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Builder
 public class Contact {
 

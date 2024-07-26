@@ -19,9 +19,11 @@ package com.smartsheet.api.models;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.smartsheet.api.models.enums.AccessLevel;
 import com.smartsheet.api.models.enums.GlobalTemplate;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -37,6 +39,8 @@ import java.util.List;
 @Setter
 @ToString
 @EqualsAndHashCode(of = "id")
+@NoArgsConstructor
+@AllArgsConstructor(access = lombok.AccessLevel.PRIVATE)
 @Builder
 public class Template {
     /**
