@@ -22,6 +22,7 @@ import com.smartsheet.api.models.Attachment;
 import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.PaginationParameters;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -39,13 +40,25 @@ class DiscussionAttachmentResourcesImplTest extends ResourcesImplBase {
                 "accessToken", new DefaultHttpClient(), serializer));
     }
 
-    @Test
-    void testGetAttachments() throws SmartsheetException, IOException {
-        server.setResponseBody(new File("src/test/resources/listAssociatedAttachments.json"));
-        PaginationParameters parameters = new PaginationParameters(false, 1, 1);
+    @Nested
+    class GetAttachmentsTests {
+        @Test
+        void getAttachments_withParameters() throws SmartsheetException, IOException {
+            server.setResponseBody(new File("src/test/resources/listAssociatedAttachments.json"));
+            PaginationParameters parameters = new PaginationParameters(false, 1, 1);
 
-        PagedResult<Attachment> attachments = discussionAttachmentResources.getAttachments(1234L, 456L, parameters);
-        assertThat(attachments.getTotalCount()).isEqualTo(2);
-        assertThat(attachments.getData().get(0).getId()).isEqualTo(4583173393803140L);
+            PagedResult<Attachment> attachments = discussionAttachmentResources.getAttachments(1234L, 456L, parameters);
+            assertThat(attachments.getTotalCount()).isEqualTo(2);
+            assertThat(attachments.getData().get(0).getId()).isEqualTo(4583173393803140L);
+        }
+
+        @Test
+        void getAttachments_nullParameters() throws SmartsheetException, IOException {
+            server.setResponseBody(new File("src/test/resources/listAssociatedAttachments.json"));
+
+            PagedResult<Attachment> attachments = discussionAttachmentResources.getAttachments(1234L, 456L, null);
+            assertThat(attachments.getTotalCount()).isEqualTo(2);
+            assertThat(attachments.getData().get(0).getId()).isEqualTo(4583173393803140L);
+        }
     }
 }

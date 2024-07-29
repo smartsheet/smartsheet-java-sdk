@@ -39,7 +39,7 @@ class RowTest {
     @Test
     void ListSheets_NoParams() throws SmartsheetException {
         Smartsheet ss = HelperFunctions.SetupClient("List Sheets - No Params");
-        PagedResult<Sheet> sheets = ss.sheetResources().listSheets(null, null, null);
+        PagedResult<Sheet> sheets = ss.sheetResources().listSheets();
         assertThat(sheets.getData().get(0).getName()).isEqualTo("Copy of Sample Sheet");
     }
 

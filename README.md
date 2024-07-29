@@ -1,6 +1,6 @@
 # Smartsheet SDK for Java
 
-[![Java CI](https://github.com/smartsheet/smartsheet-java-sdk/actions/workflows/mock-api-test.yaml/badge.svg)](https://github.com/smartsheet/smartsheet-java-sdk/actions/workflows/mock-api-test.yaml) [![Coverage Status](https://coveralls.io/repos/github/smartsheet/smartsheet-java-sdk/badge.svg?branch=mainline)](https://coveralls.io/github/smartsheet/smartsheet-java-sdk?branch=mainline) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.smartsheet/smartsheet-sdk-java/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.smartsheet/smartsheet-sdk-java/)
+[![Java CI](https://github.com/smartsheet/smartsheet-java-sdk/actions/workflows/test-mainline.yaml/badge.svg)](https://github.com/smartsheet/smartsheet-java-sdk/actions/workflows/test-mainline.yaml) [![Coverage Status](https://coveralls.io/repos/github/smartsheet/smartsheet-java-sdk/badge.svg?branch=mainline)](https://coveralls.io/github/smartsheet/smartsheet-java-sdk?branch=mainline) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.smartsheet/smartsheet-sdk-java/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.smartsheet/smartsheet-sdk-java/)
 
 This is a Java SDK to simplify connecting to [Smartsheet API](https://www.smartsheet.redoc.ly) in Java applications.
 
@@ -82,11 +82,7 @@ String accessToken = "JKlMNOpQ12RStUVwxYZAbcde3F5g6hijklM789";
 Smartsheet smartsheet = SmartsheetFactory.createDefaultClient(accessToken);
 
 // List all sheets
-PagedResult<Sheet> sheets = smartsheet.sheetResources().listSheets(
-    null,           // EnumSet<SourceInclusion> includes
-    null,           // PaginationParameters
-    null            // Date modifiedSince
-);
+PagedResult<Sheet> sheets = smartsheet.sheetResources().listSheets();
 
 System.out.println("Found " + sheets.getTotalCount() + " sheets");
 
@@ -97,16 +93,7 @@ long sheetId = sheets.getData().get(0).getId();      // Default to first sheet
 System.out.println("Loading sheet id: " + sheetId);
 
 // Load the entire sheet
-Sheet sheet = smartsheet.sheetResources().getSheet(
-    sheetId,                // long sheetId
-    null,                   // EnumSet<SheetInclusion> includes
-    null,                   // EnumSet<ObjectExclusion> excludes
-    null,                   // Set<Long> rowIds
-    null,                   // Set<Integer> rowNumbers
-    null,                   // Set<Long> columnIds
-    null,                   // Integer pageSize
-    null                    // Integer page
-);
+Sheet sheet = smartsheet.sheetResources().getSheet(sheetId);
 System.out.println("Loaded " + sheet.getTotalRowCount() + " rows from sheet: " + sheet.getName());
 ```
 

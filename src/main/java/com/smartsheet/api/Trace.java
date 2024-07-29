@@ -74,6 +74,6 @@ public enum Trace {
                 LoggerFactory.getLogger(Trace.class).warn("invalid trace in parse() - '{}'", part);
             }
         }
-        return results.size() > 0 ? results : Collections.<Trace>emptySet();
+        return !results.isEmpty() ? results : Collections.<Trace>emptySet();
     }
 }

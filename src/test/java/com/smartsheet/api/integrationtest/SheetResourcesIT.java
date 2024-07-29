@@ -268,7 +268,7 @@ class SheetResourcesIT extends ITResourcesImpl {
     }
 
     public void testGetSheet() throws SmartsheetException, IOException {
-        Sheet sheet = smartsheet.sheetResources().getSheet(newSheetHome.getId(), null, null, null, null, null, null, null);
+        Sheet sheet = smartsheet.sheetResources().getSheet(newSheetHome.getId());
 
         assertThat(newSheetHome.getPermalink()).isEqualTo(sheet.getPermalink());
     }
@@ -369,7 +369,7 @@ class SheetResourcesIT extends ITResourcesImpl {
                 .setPage(1)
                 .build();
         PagedResult<Sheet> sheets = smartsheet.sheetResources().listSheets(EnumSet.of(SourceInclusion.SOURCE), parameters);
-        smartsheet.sheetResources().listSheets(null, null);
+        smartsheet.sheetResources().listSheets();
 
         assertThat(sheets.getPageNumber()).isEqualTo(1);
     }

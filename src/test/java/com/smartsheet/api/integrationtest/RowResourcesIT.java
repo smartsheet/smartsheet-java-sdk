@@ -47,7 +47,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class RowResourcesIT extends ITResourcesImpl {
+class RowResourcesIT extends ITResourcesImpl {
     Smartsheet smartsheet;
     Sheet sheet;
     List<Row> newRows;
@@ -333,7 +333,7 @@ public class RowResourcesIT extends ITResourcesImpl {
         assertThat(result.getResult())
                 .isNotNull()
                 .hasSize(2);
-        assertThat(result.getFailedItems()).isNull();
+        assertThat(result.getFailedItems()).isNullOrEmpty();
 
         deleteSheet(sheet.getId());
     }
@@ -345,5 +345,15 @@ public class RowResourcesIT extends ITResourcesImpl {
         //clean up
         deleteSheet(sheet.getId());
         deleteSheet(copyToSheet.getId());
+    }
+
+    @Test
+    public void testUpdateSingleCell() throws Exception {
+        testAddRows();
+
+        smartsheet.sheetResources().rowResources().updateCell(sheet.getId(), 1, 1, "Updated Value");
+
+        Sheet checkSheet = smartsheet.sheetResources().getSheet(sheet.getId());
+        assertThat(checkSheet.getRows().get(0).getCells().get(0).getValue()).isEqualTo("Updated Value");
     }
 }
