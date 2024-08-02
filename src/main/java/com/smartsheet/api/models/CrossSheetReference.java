@@ -18,14 +18,12 @@ package com.smartsheet.api.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.smartsheet.api.models.enums.CrossSheetReferenceStatus;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import lombok.extern.jackson.Jacksonized;
 
 /**
  * The CrossSheetReference model.
@@ -36,8 +34,7 @@ import lombok.ToString;
 @Setter
 @ToString
 @EqualsAndHashCode(of = "id")
-@NoArgsConstructor
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@Jacksonized
 @Builder
 public class CrossSheetReference {
     /**

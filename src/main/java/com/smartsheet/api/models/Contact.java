@@ -36,7 +36,9 @@ import lombok.ToString;
 // Only include explicitly included fields in the toString method so clients don't log sensitive data (such as name/email)
 @ToString(onlyExplicitlyIncluded = true)
 @EqualsAndHashCode(of = "id")
+// We need to have a constructor with no arguments for the subclasses of this class to work
 @NoArgsConstructor
+// We need to have a constructor with all arguments for Lombok Builder to work
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Builder
 public class Contact {
