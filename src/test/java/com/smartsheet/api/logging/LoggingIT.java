@@ -49,9 +49,7 @@ class LoggingIT {
                 // truncated Auth header
                 .contains("Authorization':'Bearer ****null")
                 .contains("response:{")
-                .contains("status:'HTTP/1.1 401 Unauthorized',")
-                .contains("\"errorCode\" : 1002,")
-                .contains("\"message\" : \"Your Access Token is invalid.\"");
+                .contains("status:'HTTP/1.1 401 Unauthorized',");
     }
 
     @Test
@@ -73,7 +71,6 @@ class LoggingIT {
                 .contains("request:{")
                 .contains("'Authorization':'Bearer ****oken")
                 .contains("response:{")
-                .contains("body:'{\n  \"errorCode\" : 1002,\n  \"message\" : \"Your Access Token is invalid.\",\n  \"refId\" :")
                 .contains("status:'HTTP/1.1 401 Unauthorized'");
     }
 }

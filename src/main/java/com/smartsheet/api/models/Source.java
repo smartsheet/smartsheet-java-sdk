@@ -16,30 +16,38 @@
 
 package com.smartsheet.api.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.smartsheet.api.models.enums.SourceType;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import lombok.extern.jackson.Jacksonized;
 
-public class Source extends IdentifiableModel<Long> {
+/**
+ * The Source model.
+ * <p>
+ * This class has the "equals" and "hashCode" methods overridden and will base equality based on if the "id" field is equal.
+ */
+@Getter
+@Setter
+@ToString
+@EqualsAndHashCode(of = "id")
+@Jacksonized
+@Builder
+public class Source {
+    /**
+     * Represents the ID.
+     * <p>
+     * This excludes "id" field from being serialized to JSON. This is needed because when updating a resource,
+     * the resource ID should be present and deserialized in the response, but it shouldn't be serialized and sent to Smartsheet REST API.
+     */
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private Long id;
+
     /**
      * Represents the type.
      */
     private SourceType type;
-
-    /**
-     * Gets the type.
-     *
-     * @return the name
-     */
-    public SourceType getType() {
-        return type;
-    }
-
-    /**
-     * Sets the type.
-     *
-     * @param type the type
-     */
-    public Source setType(SourceType type) {
-        this.type = type;
-        return this;
-    }
 }

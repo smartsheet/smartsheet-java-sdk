@@ -16,12 +16,38 @@
 
 package com.smartsheet.api.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.smartsheet.api.models.enums.UpdateRequestStatus;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import lombok.extern.jackson.Jacksonized;
 
 import java.util.Date;
 import java.util.List;
 
-public class SentUpdateRequest extends IdentifiableModel<Long> {
+/**
+ * The SentUpdateRequest model.
+ * <p>
+ * This class has the "equals" and "hashCode" methods overridden and will base equality based on if the "id" field is equal.
+ */
+@Getter
+@Setter
+@ToString
+@EqualsAndHashCode(of = "id")
+@Jacksonized
+@Builder
+public class SentUpdateRequest {
+    /**
+     * Represents the ID.
+     * <p>
+     * This excludes "id" field from being serialized to JSON. This is needed because when updating a resource,
+     * the resource ID should be present and deserialized in the response, but it shouldn't be serialized and sent to Smartsheet REST API.
+     */
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private Long id;
 
     /**
      * Id of the originating update request.
@@ -77,192 +103,5 @@ public class SentUpdateRequest extends IdentifiableModel<Long> {
      * The message of the email
      */
     private String message;
-
-    /**
-     * Get the Id of the originating update request.
-     *
-     * @return updateRequestId
-     */
-    public Long getUpdateRequestId() {
-        return updateRequestId;
-    }
-
-    /**
-     * Set the Id of the originating update request.
-     */
-    public SentUpdateRequest setUpdateRequestId(Long updateRequestId) {
-        this.updateRequestId = updateRequestId;
-        return this;
-    }
-
-    /**
-     * Get the date and time for when the update request was sent
-     *
-     * @return sentAt
-     */
-    public Date getSentAt() {
-        return sentAt;
-    }
-
-    /**
-     * Set the date and time for when the update request was sent
-     */
-    public SentUpdateRequest setSentAt(Date sentAt) {
-        this.sentAt = sentAt;
-        return this;
-    }
-
-    /**
-     * Get the User object containing the name and email of the sender.
-     *
-     * @return sentBy
-     */
-    public User getSentBy() {
-        return sentBy;
-    }
-
-    /**
-     * Set the User object containing the name and email of the sender.
-     */
-    public SentUpdateRequest setSentBy(User sentBy) {
-        this.sentBy = sentBy;
-        return this;
-    }
-
-    /**
-     * Get the status of the sent update request.
-     *
-     * @return status
-     */
-    public UpdateRequestStatus getStatus() {
-        return status;
-    }
-
-    /**
-     * Set the status of the sent update request.
-     */
-    public SentUpdateRequest setStatus(UpdateRequestStatus status) {
-        this.status = status;
-        return this;
-    }
-
-    /**
-     * Get the Ids of the rows for which the update is requested.
-     *
-     * @return rowIds
-     */
-    public List<Long> getRowIds() {
-        return rowIds;
-    }
-
-    /**
-     * Set the Ids of the rows for which the update is request.
-     */
-    public SentUpdateRequest setRowIds(List<Long> rowIds) {
-        this.rowIds = rowIds;
-        return this;
-    }
-
-    /**
-     * Get the Ids of the columns included in the request.
-     *
-     * @return columnIds
-     */
-    public List<Long> getColumnIds() {
-        return columnIds;
-    }
-
-    /**
-     * Set the Ids of the columns included in the request.
-     */
-    public SentUpdateRequest setColumnIds(List<Long> columnIds) {
-        this.columnIds = columnIds;
-        return this;
-    }
-
-    /**
-     * Gets the flag that indicates if attachments should be included in the email.
-     *
-     * @return includeAttachments
-     */
-    public Boolean getIncludeAttachments() {
-        return includeAttachments;
-    }
-
-    /**
-     * Sets the flag that indicates if attachments should be included in the email.
-     */
-    public SentUpdateRequest setIncludeAttachments(Boolean includeAttachments) {
-        this.includeAttachments = includeAttachments;
-        return this;
-    }
-
-    /**
-     * Gets the flag that indicates if discussions should be included in the email.
-     *
-     * @return includeDiscussions
-     */
-    public Boolean getIncludeDiscussions() {
-        return includeDiscussions;
-    }
-
-    /**
-     * Sets the flag that indicates if discussions should be included in the email.
-     */
-    public SentUpdateRequest setIncludeDiscussions(Boolean includeDiscussions) {
-        this.includeDiscussions = includeDiscussions;
-        return this;
-    }
-
-    /**
-     * Gets the recipient
-     *
-     * @return sentTo
-     */
-    public Recipient getSentTo() {
-        return sentTo;
-    }
-
-    /**
-     * Sets the recipient
-     */
-    public SentUpdateRequest setSentTo(Recipient sentTo) {
-        this.sentTo = sentTo;
-        return this;
-    }
-
-    /**
-     * Gets the subject
-     *
-     * @return subject
-     */
-    public String getSubject() {
-        return subject;
-    }
-
-    /**
-     * Sets the subject
-     */
-    public SentUpdateRequest setSubject(String subject) {
-        this.subject = subject;
-        return this;
-    }
-
-    /**
-     * Gets the email message.
-     *
-     * @return message
-     */
-    public String getMessage() {
-        return message;
-    }
-
-    /**
-     * Sets the email message.
-     */
-    public SentUpdateRequest setMessage(String message) {
-        this.message = message;
-        return this;
-    }
 }
 

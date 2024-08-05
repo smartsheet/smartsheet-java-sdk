@@ -16,9 +16,40 @@
 
 package com.smartsheet.api.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.smartsheet.api.models.enums.CrossSheetReferenceStatus;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import lombok.extern.jackson.Jacksonized;
 
-public class CrossSheetReference extends NamedModel<Long> {
+/**
+ * The CrossSheetReference model.
+ * <p>
+ * This class has the "equals" and "hashCode" methods overridden and will base equality based on if the "id" field is equal.
+ */
+@Getter
+@Setter
+@ToString
+@EqualsAndHashCode(of = "id")
+@Jacksonized
+@Builder
+public class CrossSheetReference {
+    /**
+     * Represents the ID.
+     * <p>
+     * This excludes "id" field from being serialized to JSON. This is needed because when updating a resource,
+     * the resource ID should be present and deserialized in the response, but it shouldn't be serialized and sent to Smartsheet REST API.
+     */
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private Long id;
+
+    /**
+     * Represents the name.
+     */
+    private String name;
 
     /**
      * the final column in the reference block
@@ -49,128 +80,4 @@ public class CrossSheetReference extends NamedModel<Long> {
      * The status of the cross sheet reference
      */
     private CrossSheetReferenceStatus status;
-
-    /**
-     * Provide an 'override' of setName (returns CrossSheetReference not NamedModel)
-     *
-     * @param name the new name
-     */
-    public CrossSheetReference setName(String name) {
-        super.setName(name);
-        return this;
-    }
-
-    /**
-     * Get the last column ID in the cross sheet reference block
-     *
-     * @return the last column ID
-     */
-    public Long getEndColumnId() {
-        return endColumnId;
-    }
-
-    /**
-     * Set the last column ID in the cross sheet reference block
-     *
-     * @param endColumnId the last column ID
-     */
-    public CrossSheetReference setEndColumnId(Long endColumnId) {
-        this.endColumnId = endColumnId;
-        return this;
-    }
-
-    /**
-     * Get the last row ID in the cross sheet reference block
-     *
-     * @return the last row ID
-     */
-    public Long getEndRowId() {
-        return endRowId;
-    }
-
-    /**
-     * Set the last row ID in the cross sheet reference block
-     *
-     * @param endRowId the last row ID
-     */
-    public CrossSheetReference setEndRowId(Long endRowId) {
-        this.endRowId = endRowId;
-        return this;
-    }
-
-    /**
-     *Get the source sheet ID for the cross sheet reference
-     *
-     * @return the source sheet ID
-     */
-    public Long getSourceSheetId() {
-        return sourceSheetId;
-    }
-
-    /**
-     * Set the source sheet ID for the cross sheet reference
-     *
-     * @param sourceSheetId the source sheet ID
-     */
-    public CrossSheetReference setSourceSheetId(Long sourceSheetId) {
-        this.sourceSheetId = sourceSheetId;
-        return this;
-    }
-
-    /**
-     * Get the start column ID for the cross sheet reference block
-     *
-     * @return the start column ID
-     */
-    public Long getStartColumnId() {
-        return startColumnId;
-    }
-
-    /**
-     * Set the start column ID for the cross sheet reference block
-     *
-     * @param startColumnId the start column ID
-     */
-    public CrossSheetReference setStartColumnId(Long startColumnId) {
-        this.startColumnId = startColumnId;
-        return this;
-    }
-
-    /**
-     * Get the start row ID for the cross sheet reference block
-     *
-     * @return the start row ID
-     */
-    public Long getStartRowId() {
-        return startRowId;
-    }
-
-    /**
-     * Set the start row ID for the cross sheet reference block
-     *
-     * @param startRowId the start row ID
-     */
-    public CrossSheetReference setStartRowId(Long startRowId) {
-        this.startRowId = startRowId;
-        return this;
-    }
-
-    /**
-     * Get the status of the cross sheet reference
-     *
-     * @return CrossSheetReferenceStatus enum
-     */
-    public CrossSheetReferenceStatus getStatus() {
-        return status;
-    }
-
-    /**
-     * Set the status of the cross sheet reference
-     *
-     * @param status CrossSheetReferenceStatus enum
-     */
-    public CrossSheetReference setStatus(CrossSheetReferenceStatus status) {
-        this.status = status;
-        return this;
-    }
 }

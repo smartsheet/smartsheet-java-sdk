@@ -16,12 +16,43 @@
 
 package com.smartsheet.api.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.smartsheet.api.models.enums.AccessLevel;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import lombok.extern.jackson.Jacksonized;
 
 import java.util.Date;
 import java.util.List;
 
-public class Sight extends NamedModel<Long> {
+/**
+ * The Sight (Dashboard) model.
+ * <p>
+ * This class has the "equals" and "hashCode" methods overridden and will base equality based on if the "id" field is equal.
+ */
+@Getter
+@Setter
+@ToString
+@EqualsAndHashCode(of = "id")
+@Jacksonized
+@Builder
+public class Sight {
+    /**
+     * Represents the ID.
+     * <p>
+     * This excludes "id" field from being serialized to JSON. This is needed because when updating a resource,
+     * the resource ID should be present and deserialized in the response, but it shouldn't be serialized and sent to Smartsheet REST API.
+     */
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private Long id;
+
+    /**
+     * Represents the name.
+     */
+    private String name;
 
     /**
      * Number of columns that the Sight contains
@@ -72,189 +103,5 @@ public class Sight extends NamedModel<Long> {
      * The background color of the Sight
      */
     private String backgroundColor;
-
-    /**
-     * Provide an 'override' of setName (returns Sight not NamedModel)
-     *
-     * @param name the new name
-     */
-    public Sight setName(String name) {
-        super.setName(name);
-        return this;
-    }
-
-    /**
-     * Get the number of columns that the Sight contains
-     *
-     * @return columnCount
-     */
-    public Integer getColumnCount() {
-        return columnCount;
-    }
-
-    /**
-     * Set the number of columns that the Sight contains
-     */
-    public Sight setColumnCount(Integer columnCount) {
-        this.columnCount = columnCount;
-        return this;
-    }
-
-    /**
-     * Get the array of Sight widgets
-     *
-     * @return array of widgets
-     */
-    public List<Widget> getWidgets() {
-        return widgets;
-    }
-
-    /**
-     * Set the array of Sight widgets
-     */
-    public Sight setWidgets(List<Widget> widgets) {
-        this.widgets = widgets;
-        return this;
-    }
-
-    /**
-     * Get flag indicating whether the user has marked the Sight as a favorite
-     *
-     * @return favorite flag
-     */
-    public Boolean getFavorite() {
-        return favorite;
-    }
-
-    /**
-     * Set flag indicating whether the user has marked the Sight as a favorite
-     */
-    public Sight setFavorite(Boolean favorite) {
-        this.favorite = favorite;
-        return this;
-    }
-
-    /**
-     * User's permissions on the Sight (OWNDER, ADMIN, VIEWER)
-     *
-     * @return accessLevel
-     */
-    public AccessLevel getAccessLevel() {
-        return accessLevel;
-    }
-
-    /**
-     * Set User's permissions on the Sight
-     */
-    public Sight setAccessLevel(AccessLevel accessLevel) {
-        this.accessLevel = accessLevel;
-        return this;
-    }
-
-    /**
-     * URL that represents a direct link to the Sight
-     *
-     * @return permalink
-     */
-    public String getPermalink() {
-        return permalink;
-    }
-
-    /**
-     * Set URL pointing to a direct link to the Sight
-     */
-    public Sight setPermalink(String permalink) {
-        this.permalink = permalink;
-        return this;
-    }
-
-    /**
-     * Get time of Sight creation
-     *
-     * @return createdAt (Date)
-     */
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    /**
-     * Set time of Sight creation
-     */
-    public Sight setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-        return this;
-    }
-
-    /**
-     * Get time of last modification
-     *
-     * @return modifiedAt (Date)
-     */
-    public Date getModifiedAt() {
-        return modifiedAt;
-    }
-
-    /**
-     * Set time of last modification
-     */
-    public Sight setModifiedAt(Date modifiedAt) {
-        this.modifiedAt = modifiedAt;
-        return this;
-    }
-
-    /**
-     * Gets the source.
-     *
-     * @return the source
-     */
-    public Source getSource() {
-        return source;
-    }
-
-    /**
-     * Sets the source.
-     *
-     * @param source the source
-     */
-    public Sight setSource(Source source) {
-        this.source = source;
-        return this;
-    }
-
-    /**
-     * A workspace object limited to only id and name
-     *
-     * @return workspace
-     */
-    public Workspace getWorkspace() {
-        return workspace;
-    }
-
-    /**
-     * Set workspace object for this Sight (limited to only id and name)
-     */
-    public Sight setWorkspace(Workspace workspace) {
-        this.workspace = workspace;
-        return this;
-    }
-
-    /**
-     * Get the background color of the Sight
-     *
-     * @return the background color
-     */
-    public String getBackgroundColor() {
-        return backgroundColor;
-    }
-
-    /**
-     * Set the background color of the Sight
-     *
-     * @param backgroundColor the background color
-     */
-    public Sight setBackgroundColor(String backgroundColor) {
-        this.backgroundColor = backgroundColor;
-        return this;
-    }
 }
 

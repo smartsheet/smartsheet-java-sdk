@@ -16,9 +16,40 @@
 
 package com.smartsheet.api.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.smartsheet.api.models.enums.SortDirection;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import lombok.extern.jackson.Jacksonized;
 
-public class SortCriterion extends NamedModel<Long> {
+/**
+ * The SortCriterion model.
+ * <p>
+ * This class has the "equals" and "hashCode" methods overridden and will base equality based on if the "id" field is equal.
+ */
+@Getter
+@Setter
+@ToString
+@EqualsAndHashCode(of = "id")
+@Jacksonized
+@Builder
+public class SortCriterion {
+    /**
+     * Represents the ID.
+     * <p>
+     * This excludes "id" field from being serialized to JSON. This is needed because when updating a resource,
+     * the resource ID should be present and deserialized in the response, but it shouldn't be serialized and sent to Smartsheet REST API.
+     */
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private Long id;
+
+    /**
+     * Represents the name.
+     */
+    private String name;
 
     /**
      * The column ID to sort on
@@ -29,42 +60,4 @@ public class SortCriterion extends NamedModel<Long> {
      * The direction of the sort
      */
     private SortDirection direction;
-
-    /**
-     * Get the column ID of the column to sort on
-     *
-     * @return the column ID
-     */
-    public Long getColumnId() {
-        return columnId;
-    }
-
-    /**
-     * Set the column ID of the column to sort on
-     *
-     * @param columnId the column ID
-     */
-    public SortCriterion setColumnId(Long columnId) {
-        this.columnId = columnId;
-        return this;
-    }
-
-    /**
-     * Get the sort direction
-     *
-     * @return the sort direction
-     */
-    public SortDirection getDirection() {
-        return direction;
-    }
-
-    /**
-     * Set the sort direction
-     *
-     * @param direction the sort direction
-     */
-    public SortCriterion setDirection(SortDirection direction) {
-        this.direction = direction;
-        return this;
-    }
 }

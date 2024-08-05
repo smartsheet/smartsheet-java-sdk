@@ -61,9 +61,10 @@ class AutomationRulesTest {
         autoRuleAction.setRecipients(recipients);
         autoRuleAction.setType(AutomationActionType.NOTIFICATION_ACTION);
         autoRuleAction.setFrequency(AutomationActionFrequency.WEEKLY);
-        AutomationRule autoRule = new AutomationRule();
-        autoRule.setId(284L);
-        autoRule.setAction(autoRuleAction);
+        AutomationRule autoRule = AutomationRule.builder()
+                .id(284L)
+                .action(autoRuleAction)
+                .build();
         AutomationRule automationRule = ss.sheetResources().automationRuleResources().updateAutomationRule(324, autoRule);
     }
 

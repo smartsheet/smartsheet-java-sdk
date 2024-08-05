@@ -16,14 +16,39 @@
 
 package com.smartsheet.api.models;
 
-import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.smartsheet.api.models.enums.WidgetType;
 import com.smartsheet.api.models.format.Format;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import lombok.extern.jackson.Jacksonized;
 
-public class Widget extends IdentifiableModel<Long> {
+/**
+ * The Widget model.
+ * <p>
+ * This class has the "equals" and "hashCode" methods overridden and will base equality based on if the "id" field is equal.
+ */
+@Getter
+@Setter
+@ToString
+@EqualsAndHashCode(of = "id")
+@Jacksonized
+@Builder
+public class Widget {
+    /**
+     * Represents the ID.
+     * <p>
+     * This excludes "id" field from being serialized to JSON. This is needed because when updating a resource,
+     * the resource ID should be present and deserialized in the response, but it shouldn't be serialized and sent to Smartsheet REST API.
+     */
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private Long id;
 
     /**
-     * Tyep of widget
+     * Type of widget
      */
     private WidgetType type;
 
@@ -82,212 +107,4 @@ public class Widget extends IdentifiableModel<Long> {
      * Present when the widget is in an error state.
      */
     private Error error;
-
-    /**
-     * Get the type of the widget
-     *
-     * @return type
-     */
-    public WidgetType getType() {
-        return type;
-    }
-
-    /**
-     * Set the type of the widget
-     */
-    public Widget setType(WidgetType type) {
-        this.type = type;
-        return this;
-    }
-
-    /**
-     * Get the title of the widget.
-     *
-     * @return title
-     */
-    public String getTitle() {
-        return title;
-    }
-
-    /**
-     * Set the title of the widget.
-     */
-    public Widget setTitle(String title) {
-        this.title = title;
-        return this;
-    }
-
-    /**
-     * Get flag indicating if the client should display the widget title.
-     *
-     * @return showTitle flag
-     */
-    public Boolean getShowTitle() {
-        return showTitle;
-    }
-
-    /**
-     * Set flag indicating if the client should display the widget title.
-     */
-    public Widget setShowTitle(Boolean showTitle) {
-        this.showTitle = showTitle;
-        return this;
-    }
-
-    /**
-     * Get flag indicating if the client should display the sheet icon.
-     *
-     * @return showTitleIcon flag
-     */
-    public Boolean getShowTitleIcon() {
-        return showTitleIcon;
-    }
-
-    /**
-     * Set flag indicating if the client should display the sheet icon.
-     */
-    public Widget setShowTitleIcon(Boolean showTitleIcon) {
-        this.showTitleIcon = showTitleIcon;
-        return this;
-    }
-
-    /**
-     * Get the title format descriptor string
-     *
-     * @return titleFormat
-     */
-    public Format getTitleFormat() {
-        return titleFormat;
-    }
-
-    /**
-     * Set the title format descriptor string
-     */
-    public Widget setTitleFormat(Format titleFormat) {
-        this.titleFormat = titleFormat;
-        return this;
-    }
-
-    /**
-     * Get the x-coordinate of widget's position on the sight.
-     *
-     * @return xPosition
-     */
-    public Integer getXPosition() {
-        return xPosition;
-    }
-
-    /**
-     * Set the x-coordinate of widget's position on the sight.
-     */
-    @JsonSetter("xPosition")
-    public Widget setXPosition(Integer xPosition) {
-        this.xPosition = xPosition;
-        return this;
-    }
-
-    /**
-     * Get the y-coordinate of widget's position on the sight.
-     *
-     * @return yPosition
-     */
-    public Integer getYPosition() {
-        return yPosition;
-    }
-
-    /**
-     * Set the y-coordinate of widget's position on the sight.
-     */
-    @JsonSetter("yPosition")
-    public Widget setYPosition(Integer yPosition) {
-        this.yPosition = yPosition;
-        return this;
-    }
-
-    /**
-     * Get the number of rows that the widget occupies
-     *
-     * @return height
-     */
-    public Integer getHeight() {
-        return height;
-    }
-
-    /**
-     * Set the number of rows that the widget occupies
-     */
-    public Widget setHeight(Integer height) {
-        this.height = height;
-        return this;
-    }
-
-    /**
-     * Get the number of columns that the widget occupies
-     *
-     * @return width
-     */
-    public Integer getWidth() {
-        return width;
-    }
-
-    /**
-     * Set the number of columns that the widget occupies
-     */
-    public Widget setWidth(Integer width) {
-        this.width = width;
-        return this;
-    }
-
-    /**
-     * Get the widget version number
-     *
-     * @return version
-     */
-    public Integer getVersion() {
-        return version;
-    }
-
-    /**
-     * Set the widget version number
-     */
-    public Widget setVersion(Integer version) {
-        this.version = version;
-        return this;
-    }
-
-    /**
-     * Get the data that specifies the contents of the widget.
-     * See description of contents variable for valid objects
-     *
-     * @return contents
-     */
-    public WidgetContent getContents() {
-        return contents;
-    }
-
-    /**
-     * Set the data that specifies the contents of the widget.
-     * See description of contents variable for valid objects
-     */
-    public Widget setContents(WidgetContent contents) {
-        this.contents = contents;
-        return this;
-    }
-
-    /**
-     * Gets an Error object if the widget is in an error state
-     *
-     * @return error
-     */
-    public Error getError() {
-        return error;
-    }
-
-    /**
-     * Sets an Error object when the widget is in an error state
-     */
-    public Widget setError(Error error) {
-        this.error = error;
-        return this;
-    }
 }

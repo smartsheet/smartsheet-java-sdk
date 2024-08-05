@@ -16,16 +16,45 @@
 
 package com.smartsheet.api.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.smartsheet.api.models.enums.AccessLevel;
 import com.smartsheet.api.models.enums.GlobalTemplate;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import lombok.extern.jackson.Jacksonized;
 
 import java.util.List;
 
 /**
  * A template object that is a default layout for future sheets.
+ * <p>
+ * This class has the "equals" and "hashCode" methods overridden and will base equality based on if the "id" field is equal.
  * @see <a href="http://help.smartsheet.com/customer/portal/articles/522123-using-templates">Using Templates Help</a>
  */
-public class Template extends NamedModel<Long> {
+@Getter
+@Setter
+@ToString
+@EqualsAndHashCode(of = "id")
+@Jacksonized
+@Builder
+public class Template {
+    /**
+     * Represents the ID.
+     * <p>
+     * This excludes "id" field from being serialized to JSON. This is needed because when updating a resource,
+     * the resource ID should be present and deserialized in the response, but it shouldn't be serialized and sent to Smartsheet REST API.
+     */
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private Long id;
+
+    /**
+     * Represents the name.
+     */
+    private String name;
+
     /**
      * Represents the description for the template.
      */
@@ -75,176 +104,4 @@ public class Template extends NamedModel<Long> {
      * Type of global template. One of "BLANK_SHEET", "TASK_LIST", or "PROJECT_SHEET"
      */
     private GlobalTemplate globalTemplate;
-
-    /**
-     * Gets the description of the template.
-     *
-     * @return the description
-     */
-    public String getDescription() {
-        return description;
-    }
-
-    /**
-     * Sets the description of the template.
-     *
-     * @param description the new description
-     */
-    public Template setDescription(String description) {
-        this.description = description;
-        return this;
-    }
-
-    /**
-     * Gets the access level of the template.
-     *
-     * @return the access level
-     */
-    public AccessLevel getAccessLevel() {
-        return accessLevel;
-    }
-
-    /**
-     * Sets the access level of the template.
-     *
-     * @param accessLevel the new access level
-     */
-    public Template setAccessLevel(AccessLevel accessLevel) {
-        this.accessLevel = accessLevel;
-        return this;
-    }
-
-    /**
-     * Gets the URL to the small preview image for this template.
-     *
-     * @return the URL
-     */
-    public String getImage() {
-        return image;
-    }
-
-    /**
-     * Sets the URL to the small preview image for this template.
-     */
-    public Template setImage(String image) {
-        this.image = image;
-        return this;
-    }
-
-    /**
-     * Gets the URL to the large preview image for this template.
-     *
-     * @return the URL
-     */
-    public String getLargeImage() {
-        return largeImage;
-    }
-
-    /**
-     * Sets the URL to the large preview image for this template.
-     */
-    public Template setLargeImage(String largeImage) {
-        this.largeImage = largeImage;
-        return this;
-    }
-
-    /**
-     * Gets the locate of the template.
-     *
-     * @return locale
-     */
-    public String getLocale() {
-        return locale;
-    }
-
-    /**
-     * Sets the locate of the template.
-     */
-    public Template setLocale(String locale) {
-        this.locale = locale;
-        return this;
-    }
-
-    /**
-     * Gets the type of the template. One of "sheet" or "report"
-     *
-     * @return type
-     */
-    public String getType() {
-        return type;
-    }
-
-    /**
-     * Sets the type of the template. One of "sheet" or "report"
-     */
-    public Template setType(String type) {
-        this.type = type;
-        return this;
-    }
-
-    /**
-     * Gets the list of search tags for this template.
-     */
-    public List<String> getTags() {
-        return tags;
-    }
-
-    /**
-     * Sets the array of search tags for this template.
-     */
-    public Template setTags(List<String> tags) {
-        this.tags = tags;
-        return this;
-    }
-
-    /**
-     * Gets the list of categories this template belongs to
-     *
-     * @return array of categories
-     */
-    public List<String> getCategories() {
-        return categories;
-    }
-
-    /**
-     * Sets the array of categories this template belongs to
-     */
-    public Template setCategories(List<String> categories) {
-        this.categories = categories;
-        return this;
-    }
-
-    /**
-     * Returns true if this template is blank
-     *
-     * @return flag indicating whether template is blank
-     */
-    public Boolean isBlank() {
-        return blank;
-    }
-
-    /**
-     * Sets the flag indicating whether this template is blank.
-     */
-    public Template setBlank(Boolean blank) {
-        this.blank = blank;
-        return this;
-    }
-
-    /**
-     * Gets the type of global template
-     *
-     * @return template type
-     */
-    public GlobalTemplate getGlobalTemplate() {
-        return globalTemplate;
-    }
-
-    /**
-     * Sets the type of global template
-     */
-    public Template setGlobalTemplate(GlobalTemplate globalTemplate) {
-        this.globalTemplate = globalTemplate;
-        return this;
-    }
 }

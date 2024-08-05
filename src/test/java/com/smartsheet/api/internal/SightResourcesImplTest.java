@@ -127,7 +127,7 @@ class SightResourcesImplTest extends ResourcesImplBase {
         pagination.setPageSize(1);
         pagination.setPage(1);
 
-        Sight sight = sightResourcesImpl.updateSight(new Sight());
+        Sight sight = sightResourcesImpl.updateSight(Sight.builder().build());
         assertThat(sight).isNotNull();
         assertThat(sight.getAccessLevel()).isEqualTo(AccessLevel.VIEWER);
         assertThat(sight.getFavorite()).isFalse();

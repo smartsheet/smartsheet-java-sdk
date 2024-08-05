@@ -16,29 +16,48 @@
 
 package com.smartsheet.api.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
 /**
  * Represents the Contact object.
+ * <p>
+ * This class has the "equals" and "hashCode" methods overridden and will base equality based on if the "id" field is equal.
  */
-public class Contact extends NamedModel<String> {
+@Getter
+@Setter
+// Only include explicitly included fields in the toString method so clients don't log sensitive data (such as name/email)
+@ToString(onlyExplicitlyIncluded = true)
+@EqualsAndHashCode(of = "id")
+// We need to have a constructor with no arguments for the subclasses of this class to work
+@NoArgsConstructor
+// We need to have a constructor with all arguments for Lombok Builder to work
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@Builder
+public class Contact {
+
+    /**
+     * Represents the ID.
+     * <p>
+     * This excludes "id" field from being serialized to JSON. This is needed because when updating a resource,
+     * the resource ID should be present and deserialized in the response, but it shouldn't be serialized and sent to Smartsheet REST API.
+     */
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @ToString.Include
+    private String id;
+
+    /**
+     * Represents the name.
+     */
+    private String name;
 
     /** Represents the contact email. */
     private String email;
-
-    /**
-     * Gets the email for the contact.
-     *
-     * @return the email
-     */
-    public String getEmail() {
-        return email;
-    }
-
-    /**
-     * Sets the email for the contact
-     * @param email the email
-     */
-    public Contact setEmail(String email) {
-        this.email = email;
-        return this;
-    }
 }

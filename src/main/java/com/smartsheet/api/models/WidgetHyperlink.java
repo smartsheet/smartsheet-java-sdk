@@ -83,3 +83,4 @@ public class WidgetHyperlink extends Hyperlink {
         return this;
     }
 }
+
