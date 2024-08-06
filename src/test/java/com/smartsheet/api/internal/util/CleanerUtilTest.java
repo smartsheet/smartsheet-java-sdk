@@ -29,15 +29,17 @@ class CleanerUtilTest {
         CleanerUtil.register(object, () -> {
             synchronized (closed) {
                 closed.set(true);
-                closed.notify();    // wake up the sleeping main thread
+                // wake up the sleeping main thread
+                closed.notify();
             }
         });
         assertThat(closed).isFalse();
 
-        // synchronized should prevent byte-code reordering
-        assertThat(object).isNotNull();;  // not dead yet
+        // use the ref to fend of the GC a little longer
+        assertThat(object).isNotNull();
         assertThat(closed).isFalse();
-        object = null;  // force release the ref
+        // force release the ref
+        object = null;
         assertThat(object).isNull();
 
         // ask the JVM to clean up heap, please :)
@@ -47,7 +49,8 @@ class CleanerUtilTest {
         // we use wait-notify - there is an edge-case here where the GC fires and the Cleaner cleans BEFORE we block but
         // that's not really an issue; this wait-notify is just to minimize the wait for closed to be updated
         synchronized (closed) {
-            assertDoesNotThrow(() -> closed.wait(1000));  // wait one second (or less)
+            // wait one second (or less)
+            assertDoesNotThrow(() -> closed.wait(1000));
         }
         assertThat(closed).isTrue();
     }
