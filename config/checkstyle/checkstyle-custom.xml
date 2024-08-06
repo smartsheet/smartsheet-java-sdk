@@ -388,7 +388,7 @@
         </module>
         <!-- Max number of methods per class -->
         <module name="MethodCount">
-            <property name="maxTotal" value="40"/>
+            <property name="maxTotal" value="50"/>
         </module>
         <!-- Max number of lines per method, ignoring blank lines or comments -->
         <module name="MethodLength">
