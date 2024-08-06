@@ -16,6 +16,7 @@
 
 package com.smartsheet.api.internal.util;
 
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.Closeable;
@@ -41,7 +42,7 @@ public class CleanerUtil {
      * @param cleaningAction - code to execute when the objToWatch becomes "phantom reachable" (i.e., about to be GCed)
      * @return a Cleanable which can be used to force a clean() action (and unregisters the objToWatch-cleaningAction)
      */
-    public static Cleaner.Cleanable register(Object objToWatch, Runnable cleaningAction) {
+    public static Cleaner.Cleanable register(@NotNull Object objToWatch, @NotNull Runnable cleaningAction) {
         return CLEANER.register(objToWatch, cleaningAction);
     }
 
