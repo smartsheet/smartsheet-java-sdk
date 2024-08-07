@@ -346,4 +346,14 @@ class RowResourcesIT extends ITResourcesImpl {
         deleteSheet(sheet.getId());
         deleteSheet(copyToSheet.getId());
     }
+
+    @Test
+    public void testUpdateSingleCell() throws Exception {
+        testAddRows();
+
+        smartsheet.sheetResources().rowResources().updateCell(sheet.getId(), 1, 1, "Updated Value");
+
+        Sheet checkSheet = smartsheet.sheetResources().getSheet(sheet.getId());
+        assertThat(checkSheet.getRows().get(0).getCells().get(0).getValue()).isEqualTo("Updated Value");
+    }
 }
