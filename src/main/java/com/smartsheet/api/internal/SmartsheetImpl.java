@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -101,7 +101,6 @@ public class SmartsheetImpl implements Smartsheet {
      * Represents the AtomicReference for change agent
      * <p>
      * It will be initialized in constructor and will not change afterwards.
-     *
      */
     private final AtomicReference<String> changeAgent;
 
@@ -279,7 +278,7 @@ public class SmartsheetImpl implements Smartsheet {
      * <p>
      * Exceptions: - IllegalArgumentException : if serverURI/version/accessToken is null/empty
      *
-     * @param baseURI the server uri
+     * @param baseURI     the server uri
      * @param accessToken the access token
      */
     public SmartsheetImpl(String baseURI, String accessToken) {
@@ -291,9 +290,9 @@ public class SmartsheetImpl implements Smartsheet {
      * <p>
      * Exceptions: - IllegalArgumentException : if serverURI/version/accessToken is null/empty
      *
-     * @param baseURI the server uri
-     * @param accessToken the access token
-     * @param httpClient the http client (optional)
+     * @param baseURI        the server uri
+     * @param accessToken    the access token
+     * @param httpClient     the http client (optional)
      * @param jsonSerializer the json serializer (optional)
      */
     public SmartsheetImpl(String baseURI, String accessToken, HttpClient httpClient, JsonSerializer jsonSerializer) {
@@ -420,7 +419,6 @@ public class SmartsheetImpl implements Smartsheet {
 
     /**
      * Sets the change agent identifier
-     *
      */
     public void setChangeAgent(String changeAgent) {
         this.changeAgent.set(changeAgent);
@@ -459,7 +457,9 @@ public class SmartsheetImpl implements Smartsheet {
         }
     }
 
-    /** set what request/response fields to log in trace-logging */
+    /**
+     * set what request/response fields to log in trace-logging
+     */
     public void setTraces(Trace... traces) {
         if (this.httpClient instanceof DefaultHttpClient) {
             ((DefaultHttpClient) this.httpClient).setTraces(traces);
@@ -468,7 +468,9 @@ public class SmartsheetImpl implements Smartsheet {
         }
     }
 
-    /** set whether or not to generate "pretty formatted" JSON in trace-logging */
+    /**
+     * set whether or not to generate "pretty formatted" JSON in trace-logging
+     */
     public void setTracePrettyPrint(boolean pretty) {
         if (this.httpClient instanceof DefaultHttpClient) {
             ((DefaultHttpClient) this.httpClient).setTracePrettyPrint(pretty);

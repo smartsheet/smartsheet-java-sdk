@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -214,15 +214,15 @@ class RowResourcesIT extends ITResourcesImpl {
         recipients.add(recipientEmail);
 
         MultiRowEmail multiRowEmail = new MultiRowEmail.AddMultiRowEmailBuilder()
-                                        .setSendTo(recipients)
-                                        .setSubject("some subject")
-                                        .setMessage("some message")
-                                        .setCcMe(false)
-                                        .setRowIds(Arrays.asList(newRows.get(0).getId()))
-                                        .setColumnIds(Arrays.asList(addedColumn.getId()))
-                                        .setIncludeAttachments(false)
-                                        .setIncludeDiscussions(false)
-                                        .build();
+                .setSendTo(recipients)
+                .setSubject("some subject")
+                .setMessage("some message")
+                .setCcMe(false)
+                .setRowIds(Arrays.asList(newRows.get(0).getId()))
+                .setColumnIds(Arrays.asList(addedColumn.getId()))
+                .setIncludeAttachments(false)
+                .setIncludeDiscussions(false)
+                .build();
 
         smartsheet.sheetResources().rowResources().sendRows(sheet.getId(), multiRowEmail);
     }

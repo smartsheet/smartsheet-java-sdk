@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,17 +26,17 @@ import java.util.List;
 
 /**
  * This is the implementation of the ShareResources.
- *
+ * <p>
  * Thread Safety: This class is thread safe because it is immutable and its base class is thread safe.
  */
 public class GroupMemberResourcesImpl extends AbstractAssociatedResources implements GroupMemberResources {
 
     /**
      * Constructor.
-     *
+     * <p>
      * Exceptions: - IllegalArgumentException : if any argument is null or empty string
      *
-     * @param smartsheet the smartsheet
+     * @param smartsheet         the smartsheet
      * @param masterResourceType the master resource type (e.g. "sheet", "workspace")
      */
     public GroupMemberResourcesImpl(SmartsheetImpl smartsheet, String masterResourceType) {

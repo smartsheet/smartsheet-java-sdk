@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@ package com.smartsheet.api.models.enums;
 
 /**
  * Represents the type of access that is granted on a given sheet.
+ *
  * @see <a href="https://smartsheet.redoc.ly/#section/OAuth-Walkthrough/Access-Scopes">Access Scopes Help</a>
  */
 public enum AccessScope {

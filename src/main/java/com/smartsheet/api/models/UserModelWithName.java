@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,6 +28,7 @@ public class UserModelWithName extends UserModel {
 
     /**
      * Gets the user's name
+     *
      * @return the user name
      */
     public String getName() {
@@ -36,6 +37,7 @@ public class UserModelWithName extends UserModel {
 
     /**
      * Sets the user's name
+     *
      * @param name the user name
      */
     public UserModelWithName setName(String name) {

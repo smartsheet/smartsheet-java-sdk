@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,16 +36,16 @@ public interface SheetColumnResources {
      *
      * <p>It mirrors to the following Smartsheet REST API method: GET /sheets/{sheetId}/columns</p>
      *
-     * @param sheetId the sheet id
-     * @param includes list of includes
+     * @param sheetId    the sheet id
+     * @param includes   list of includes
      * @param pagination the object containing the pagination parameters
      * @return the list of Columns (note that an empty list will be returned if there is none)
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     PagedResult<Column> listColumns(
             long sheetId,
@@ -58,17 +58,17 @@ public interface SheetColumnResources {
      *
      * <p>It mirrors to the following Smartsheet REST API method: GET /sheets/{sheetId}/columns</p>
      *
-     * @param sheetId the sheet id
-     * @param includes list of includes
+     * @param sheetId    the sheet id
+     * @param includes   list of includes
      * @param pagination the object containing the pagination parameters
-     * @param level compatibility level
+     * @param level      compatibility level
      * @return the list of Columns (note that an empty list will be returned if there is none)
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     PagedResult<Column> listColumns(
             long sheetId,
@@ -85,12 +85,12 @@ public interface SheetColumnResources {
      * @param sheetId the sheet id
      * @param columns the list of column object
      * @return the list of created column
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     List<Column> addColumns(long sheetId, List<Column> columns) throws SmartsheetException;
 
@@ -99,14 +99,14 @@ public interface SheetColumnResources {
      *
      * <p>It mirrors to the following Smartsheet REST API method: DELETE /sheets/{sheetId}/columns/{columnId}</p>
      *
-     * @param sheetId the sheet id
+     * @param sheetId  the sheet id
      * @param columnId the column id
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     void deleteColumn(long sheetId, long columnId) throws SmartsheetException;
 
@@ -114,22 +114,22 @@ public interface SheetColumnResources {
      * <p>Update a column.</p>
      *
      * <p>It mirrors to the following Smartsheet REST API method: PUT /sheets/{sheetId}/columns/{columnId}</p>
-     *
+     * <p>
      * Exceptions:
-     *   IllegalArgumentException : if any argument is null
-     *   InvalidRequestException : if there is any problem with the REST API request
-     *   AuthorizationException : if there is any problem with the REST API authorization(access token)
-     *   ResourceNotFoundException : if the resource can not be found
-     *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-     *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
-     *   SmartsheetException : if there is any other error occurred during the operation
+     * IllegalArgumentException : if any argument is null
+     * InvalidRequestException : if there is any problem with the REST API request
+     * AuthorizationException : if there is any problem with the REST API authorization(access token)
+     * ResourceNotFoundException : if the resource can not be found
+     * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     * SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     * SmartsheetException : if there is any other error occurred during the operation
      *
      * @param sheetId the sheetId
-     * @param column the column to update limited to the following attributes: index (column's new index in the sheet),
-     *     title, sheetId, type, options (optional), symbol (optional), systemColumnType (optional),
-     *     autoNumberFormat (optional)
+     * @param column  the column to update limited to the following attributes: index (column's new index in the sheet),
+     *                title, sheetId, type, options (optional), symbol (optional), systemColumnType (optional),
+     *                autoNumberFormat (optional)
      * @return the updated sheet (note that if there is no such resource, this method will throw
-     *     ResourceNotFoundException rather than returning null).
+     * ResourceNotFoundException rather than returning null).
      * @throws SmartsheetException the smartsheet exception
      */
     Column updateColumn(long sheetId, Column column) throws SmartsheetException;
@@ -138,16 +138,16 @@ public interface SheetColumnResources {
      * <p>Gets the Column specified in the URL.</p>
      *
      * <p>It mirrors to the following Smartsheet REST API method: GET /sheets/{sheetId}/columns/{columnId}</p>
-     *
+     * <p>
      * Exceptions:
-     *   InvalidRequestException : if there is any problem with the REST API request
-     *   AuthorizationException : if there is any problem with the REST API authorization(access token)
-     *   ResourceNotFoundException : if the resource can not be found
-     *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-     *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
-     *   SmartsheetException : if there is any other error occurred during the operation
+     * InvalidRequestException : if there is any problem with the REST API request
+     * AuthorizationException : if there is any problem with the REST API authorization(access token)
+     * ResourceNotFoundException : if the resource can not be found
+     * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     * SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     * SmartsheetException : if there is any other error occurred during the operation
      *
-     * @param sheetId the sheet id
+     * @param sheetId  the sheet id
      * @param columnId the column id
      * @param includes list of includes
      * @return the column (note that empty list will be returned if there is none)

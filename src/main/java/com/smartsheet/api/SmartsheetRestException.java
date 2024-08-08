@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,7 +25,9 @@ import com.smartsheet.api.models.Error;
  */
 public class SmartsheetRestException extends SmartsheetException {
 
-    /** The Constant serialVersionUID. */
+    /**
+     * The Constant serialVersionUID.
+     */
     private static final long serialVersionUID = 1L;
     /**
      * <p>Represents the error code.</p>
@@ -35,16 +37,16 @@ public class SmartsheetRestException extends SmartsheetException {
     private final int errorCode;
 
     /**
-     *     <p>Represents the reference ID.</p>
+     * <p>Represents the reference ID.</p>
      *
-     *     <p>It will be initialized in the constructor and will not change afterwards.</p>
+     * <p>It will be initialized in the constructor and will not change afterwards.</p>
      */
     private final String refId;
 
     /**
-     *      <p>Represents any error detail provided by the API</p>
+     * <p>Represents any error detail provided by the API</p>
      *
-     *     <p>It will be initialized in the constructor and will not change afterwards.</p>
+     * <p>It will be initialized in the constructor and will not change afterwards.</p>
      */
     private final Object detail;
 

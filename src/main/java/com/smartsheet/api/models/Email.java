@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -44,6 +44,7 @@ public abstract class Email {
 
     /**
      * Gets the list of recipients to send to
+     *
      * @return the list of recipients
      */
     public List<Recipient> getSendTo() {
@@ -52,6 +53,7 @@ public abstract class Email {
 
     /**
      * Sets the list of recipients to send to
+     *
      * @param sendTo list of recipients
      */
     public Email setSendTo(List<Recipient> sendTo) {

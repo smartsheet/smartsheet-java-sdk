@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -60,16 +60,20 @@ import java.util.Map;
 
 /**
  * This is the base class of the Smartsheet REST API resources.
- *
+ * <p>
  * Thread Safety: This class is thread safe because it is immutable and the underlying SmartsheetImpl is thread safe.
  */
 public abstract class AbstractResources {
-    /** this system property is used to control the number of characters logged from an API response in logs */
+    /**
+     * this system property is used to control the number of characters logged from an API response in logs
+     */
     public static final String PROPERTY_RESPONSE_LOG_CHARS = "Smartsheet.responseLogChars";
 
     private static final Logger log = LoggerFactory.getLogger(AbstractResources.class);
 
-    /** The Constant BUFFER_SIZE. */
+    /**
+     * The Constant BUFFER_SIZE.
+     */
     private static final int BUFFER_SIZE = 4098;
 
     private static final String JSON_CONTENT_TYPE = "application/json";
@@ -87,16 +91,20 @@ public abstract class AbstractResources {
         INTERNAL_SERVER_ERROR(500, InvalidRequestException.class),
         SERVICE_UNAVAILABLE(503, ServiceUnavailableException.class);
 
-        /** The error code. */
+        /**
+         * The error code.
+         */
         int errorCode;
 
-        /** The Exception class. */
+        /**
+         * The Exception class.
+         */
         Class<? extends SmartsheetRestException> exceptionClass;
 
         /**
          * Instantiates a new error code.
          *
-         * @param errorCode the error code
+         * @param errorCode      the error code
          * @param exceptionClass the Exception class
          */
         ErrorCode(int errorCode, Class<? extends SmartsheetRestException> exceptionClass) {
@@ -160,7 +168,7 @@ public abstract class AbstractResources {
 
     /**
      * Represents the SmartsheetImpl.
-     *
+     * <p>
      * It will be initialized in constructor and will not change afterwards.
      */
     protected final SmartsheetImpl smartsheet;
@@ -178,22 +186,22 @@ public abstract class AbstractResources {
 
     /**
      * Get a resource from Smartsheet REST API.
-     *
+     * <p>
      * Parameters: - path : the relative path of the resource - objectClass : the resource object class
-     *
+     * <p>
      * Returns: the resource (note that if there is no such resource, this method will throw ResourceNotFoundException
      * rather than returning null).
-     *
+     * <p>
      * Exceptions: -
-     *   InvalidRequestException : if there is any problem with the REST API request
-     *   AuthorizationException : if there is any problem with the REST API authorization(access token)
-     *   ResourceNotFoundException : if the resource can not be found
-     *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-     *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
-     *   SmartsheetException : if there is any other error occurred during the operation
+     * InvalidRequestException : if there is any problem with the REST API request
+     * AuthorizationException : if there is any problem with the REST API authorization(access token)
+     * ResourceNotFoundException : if the resource can not be found
+     * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     * SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     * SmartsheetException : if there is any other error occurred during the operation
      *
-     * @param <T> the generic type
-     * @param path the relative path of the resource.
+     * @param <T>         the generic type
+     * @param path        the relative path of the resource.
      * @param objectClass the object class
      * @return the resource
      * @throws SmartsheetException the smartsheet exception
@@ -248,20 +256,20 @@ public abstract class AbstractResources {
 
     /**
      * Create a resource using Smartsheet REST API.
-     *
+     * <p>
      * Exceptions:
-     *   IllegalArgumentException : if any argument is null, or path is empty string
-     *   InvalidRequestException : if there is any problem with the REST API request
-     *   AuthorizationException : if there is any problem with the REST API authorization(access token)
-     *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-     *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
-     *   SmartsheetException : if there is any other error occurred during the operation
+     * IllegalArgumentException : if any argument is null, or path is empty string
+     * InvalidRequestException : if there is any problem with the REST API request
+     * AuthorizationException : if there is any problem with the REST API authorization(access token)
+     * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     * SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     * SmartsheetException : if there is any other error occurred during the operation
      *
-     * @param <T> the generic type of object to return/deserialize
-     * @param <S> the generic type of object to serialize
-     * @param path the relative path of the resource collections
+     * @param <T>         the generic type of object to return/deserialize
+     * @param <S>         the generic type of object to serialize
+     * @param path        the relative path of the resource collections
      * @param objectClass the resource object class
-     * @param object the object to create
+     * @param object      the object to create
      * @return the created resource
      * @throws SmartsheetException the smartsheet exception
      */
@@ -314,19 +322,19 @@ public abstract class AbstractResources {
 
     /**
      * Create a resource using Smartsheet REST API.
-     *
+     * <p>
      * Exceptions:
-     *   IllegalArgumentException : if any argument is null, or path is empty string
-     *   InvalidRequestException : if there is any problem with the REST API request
-     *   AuthorizationException : if there is any problem with the REST API authorization(access token)
-     *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-     *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
-     *   SmartsheetException : if there is any other error occurred during the operation
+     * IllegalArgumentException : if any argument is null, or path is empty string
+     * InvalidRequestException : if there is any problem with the REST API request
+     * AuthorizationException : if there is any problem with the REST API authorization(access token)
+     * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     * SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     * SmartsheetException : if there is any other error occurred during the operation
      *
-     * @param <T> the generic type
-     * @param path the relative path of the resource collections
+     * @param <T>         the generic type
+     * @param path        the relative path of the resource collections
      * @param objectClass the resource object class
-     * @param object the object to create
+     * @param object      the object to create
      * @return the created resource
      * @throws SmartsheetException the smartsheet exception
      */
@@ -376,20 +384,20 @@ public abstract class AbstractResources {
 
     /**
      * Update a resource using Smartsheet REST API.
-     *
+     * <p>
      * Exceptions:
-     *   IllegalArgumentException : if any argument is null, or path is empty string
-     *   InvalidRequestException : if there is any problem with the REST API request
-     *   AuthorizationException : if there is any problem with the REST API authorization(access token)
-     *   ResourceNotFoundException : if the resource can not be found
-     *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-     *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
-     *   SmartsheetException : if there is any other error occurred during the operation
+     * IllegalArgumentException : if any argument is null, or path is empty string
+     * InvalidRequestException : if there is any problem with the REST API request
+     * AuthorizationException : if there is any problem with the REST API authorization(access token)
+     * ResourceNotFoundException : if the resource can not be found
+     * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     * SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     * SmartsheetException : if there is any other error occurred during the operation
      *
-     * @param <T> the generic type
-     * @param path the relative path of the resource
+     * @param <T>         the generic type
+     * @param path        the relative path of the resource
      * @param objectClass the resource object class
-     * @param object the object to create
+     * @param object      the object to create
      * @return the updated resource
      * @throws SmartsheetException the smartsheet exception
      */
@@ -428,17 +436,17 @@ public abstract class AbstractResources {
 
     /**
      * List resources using Smartsheet REST API.
-     *
+     * <p>
      * Exceptions:
-     *   IllegalArgumentException : if any argument is null, or path is empty string
-     *   InvalidRequestException : if there is any problem with the REST API request
-     *   AuthorizationException : if there is any problem with the REST API authorization(access token)
-     *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-     *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
-     *   SmartsheetException : if there is any other error occurred during the operation
+     * IllegalArgumentException : if any argument is null, or path is empty string
+     * InvalidRequestException : if there is any problem with the REST API request
+     * AuthorizationException : if there is any problem with the REST API authorization(access token)
+     * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     * SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     * SmartsheetException : if there is any other error occurred during the operation
      *
-     * @param <T> the generic type
-     * @param path the relative path of the resource collections
+     * @param <T>         the generic type
+     * @param path        the relative path of the resource collections
      * @param objectClass the resource object class
      * @return the resources
      * @throws SmartsheetException if an error occurred during the operation
@@ -470,12 +478,13 @@ public abstract class AbstractResources {
 
     /**
      * List resources Wrapper (supports paging info) using Smartsheet REST API.
-     * @throws IllegalArgumentException : if any argument is null, or path is empty string
-     * @throws InvalidRequestException : if there is any problem with the REST API request
-     * @throws AuthorizationException : if there is any problem with the REST API authorization(access token)
+     *
+     * @throws IllegalArgumentException    : if any argument is null, or path is empty string
+     * @throws InvalidRequestException     : if there is any problem with the REST API request
+     * @throws AuthorizationException      : if there is any problem with the REST API authorization(access token)
      * @throws ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetRestException : if there is any other REST API related error occurred during the operation
-     * @throws SmartsheetException : if there is any other error occurred during the operation
+     * @throws SmartsheetRestException     : if there is any other REST API related error occurred during the operation
+     * @throws SmartsheetException         : if there is any other error occurred during the operation
      */
     protected <T> PagedResult<T> listResourcesWithWrapper(String path, Class<T> objectClass) throws SmartsheetException {
         Util.throwIfNull(path, objectClass);
@@ -504,18 +513,18 @@ public abstract class AbstractResources {
 
     /**
      * Delete a resource from Smartsheet REST API.
-     *
+     * <p>
      * Exceptions:
-     *   IllegalArgumentException : if any argument is null, or path is empty string
-     *   InvalidRequestException : if there is any problem with the REST API request
-     *   AuthorizationException : if there is any problem with the REST API authorization(access token)
-     *   ResourceNotFoundException : if the resource can not be found
-     *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-     *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
-     *   SmartsheetException : if there is any other error occurred during the operation
+     * IllegalArgumentException : if any argument is null, or path is empty string
+     * InvalidRequestException : if there is any problem with the REST API request
+     * AuthorizationException : if there is any problem with the REST API authorization(access token)
+     * ResourceNotFoundException : if the resource can not be found
+     * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     * SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     * SmartsheetException : if there is any other error occurred during the operation
      *
-     * @param <T> the generic type
-     * @param path the relative path of the resource
+     * @param <T>         the generic type
+     * @param path        the relative path of the resource
      * @param objectClass the resource object class
      * @throws SmartsheetException the smartsheet exception
      */
@@ -543,18 +552,18 @@ public abstract class AbstractResources {
 
     /**
      * Delete resources and return a list from Smartsheet REST API.
-     *
+     * <p>
      * Exceptions:
-     *   IllegalArgumentException : if any argument is null, or path is empty string
-     *   InvalidRequestException : if there is any problem with the REST API request
-     *   AuthorizationException : if there is any problem with the REST API authorization(access token)
-     *   ResourceNotFoundException : if the resource can not be found
-     *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-     *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
-     *   SmartsheetException : if there is any other error occurred during the operation
+     * IllegalArgumentException : if any argument is null, or path is empty string
+     * InvalidRequestException : if there is any problem with the REST API request
+     * AuthorizationException : if there is any problem with the REST API authorization(access token)
+     * ResourceNotFoundException : if the resource can not be found
+     * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     * SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     * SmartsheetException : if there is any other error occurred during the operation
      *
-     * @param <T> the generic type
-     * @param path the relative path of the resource
+     * @param <T>         the generic type
+     * @param path        the relative path of the resource
      * @param objectClass the resource object class
      * @return List of ids deleted
      * @throws SmartsheetException the smartsheet exception
@@ -584,24 +593,24 @@ public abstract class AbstractResources {
 
     /**
      * Post an object to Smartsheet REST API and receive a list of objects from response.
-     *
+     * <p>
      * Parameters: - path : the relative path of the resource collections - objectToPost : the object to post -
      * objectClassToReceive : the resource object class to receive
-     *
+     * <p>
      * Returns: the object list
-     *
+     * <p>
      * Exceptions:
-     *   IllegalArgumentException : if any argument is null, or path is empty string
-     *   InvalidRequestException : if there is any problem with the REST API request
-     *   AuthorizationException : if there is any problem with the REST API authorization(access token)
-     *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-     *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
-     *   SmartsheetException : if there is any other error occurred during the operation
+     * IllegalArgumentException : if any argument is null, or path is empty string
+     * InvalidRequestException : if there is any problem with the REST API request
+     * AuthorizationException : if there is any problem with the REST API authorization(access token)
+     * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     * SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     * SmartsheetException : if there is any other error occurred during the operation
      *
-     * @param <T> the generic type
-     * @param <S> the generic type
-     * @param path the path
-     * @param objectToPost the object to post
+     * @param <T>                  the generic type
+     * @param <S>                  the generic type
+     * @param path                 the path
+     * @param objectToPost         the object to post
      * @param objectClassToReceive the object class to receive
      * @return the list
      * @throws SmartsheetException the smartsheet exception
@@ -640,20 +649,20 @@ public abstract class AbstractResources {
 
     /**
      * Post an object to Smartsheet REST API and receive a CopyOrMoveRowResult object from response.
-     *
+     * <p>
      * Parameters: - path : the relative path of the resource collections - objectToPost : the object to post -
-     *
+     * <p>
      * Returns: the object
-     *
+     * <p>
      * Exceptions:
-     *   IllegalArgumentException : if any argument is null, or path is empty string
-     *   InvalidRequestException : if there is any problem with the REST API request
-     *   AuthorizationException : if there is any problem with the REST API authorization(access token)
-     *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-     *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
-     *   SmartsheetException : if there is any other error occurred during the operation
+     * IllegalArgumentException : if any argument is null, or path is empty string
+     * InvalidRequestException : if there is any problem with the REST API request
+     * AuthorizationException : if there is any problem with the REST API authorization(access token)
+     * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     * SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     * SmartsheetException : if there is any other error occurred during the operation
      *
-     * @param path the path
+     * @param path         the path
      * @param objectToPost the object to post
      * @return the result object
      * @throws SmartsheetException the smartsheet exception
@@ -692,18 +701,19 @@ public abstract class AbstractResources {
 
     /**
      * Put an object to Smartsheet REST API and receive a list of objects from response.
-     * @param <T> the generic type
-     * @param <S> the generic type
-     * @param path the relative path of the resource collections
-     * @param objectToPut the object to put
+     *
+     * @param <T>                  the generic type
+     * @param <S>                  the generic type
+     * @param path                 the relative path of the resource collections
+     * @param objectToPut          the object to put
      * @param objectClassToReceive the resource object class to receive
      * @return the object list
-     * @throws IllegalArgumentException : if any argument is null, or path is empty string
-     * @throws InvalidRequestException : if there is any problem with the REST API request
-     * @throws AuthorizationException : if there is any problem with the REST API authorization(access token)
+     * @throws IllegalArgumentException    : if any argument is null, or path is empty string
+     * @throws InvalidRequestException     : if there is any problem with the REST API request
+     * @throws AuthorizationException      : if there is any problem with the REST API authorization(access token)
      * @throws ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetRestException : if there is any other REST API related error occurred during the operation
-     * @throws SmartsheetException : if there is any other error occurred during the operation
+     * @throws SmartsheetRestException     : if there is any other REST API related error occurred during the operation
+     * @throws SmartsheetException         : if there is any other error occurred during the operation
      */
     protected <T, S> List<S> putAndReceiveList(String path, T objectToPut, Class<S> objectClassToReceive)
             throws SmartsheetException {
@@ -740,6 +750,7 @@ public abstract class AbstractResources {
 
     /**
      * Create an HttpRequest.
+     *
      * @param uri    the URI
      * @param method the HttpMethod
      * @return the http request
@@ -802,9 +813,9 @@ public abstract class AbstractResources {
     /**
      * Create a multipart upload request.
      *
-     * @param url the url
-     * @param t the object to create
-     * @param partName the name of the part
+     * @param url         the url
+     * @param t           the object to create
+     * @param partName    the name of the part
      * @param inputstream the file inputstream
      * @param contentType the type of the file to be attached
      * @return the http request
@@ -846,8 +857,9 @@ public abstract class AbstractResources {
 
     /**
      * Handles an error HttpResponse (non-200) returned by Smartsheet REST API.
+     *
      * @param response the HttpResponse
-     * @throws SmartsheetException the smartsheet exception
+     * @throws SmartsheetException     the smartsheet exception
      * @throws SmartsheetRestException : the exception corresponding to the error
      */
     protected void handleError(HttpResponse response) throws SmartsheetException {
@@ -890,15 +902,16 @@ public abstract class AbstractResources {
 
     /**
      * Get a sheet as a file.
-     * @param path the path
-     * @param fileType the output file type
+     *
+     * @param path         the path
+     * @param fileType     the output file type
      * @param outputStream the OutputStream to which the file will be written
-     * @throws InvalidRequestException : if there is any problem with the REST API request
-     * @throws AuthorizationException : if there is any problem with the REST API authorization(access token)
-     * @throws ResourceNotFoundException : if the resource can not be found
+     * @throws InvalidRequestException     : if there is any problem with the REST API request
+     * @throws AuthorizationException      : if there is any problem with the REST API authorization(access token)
+     * @throws ResourceNotFoundException   : if the resource can not be found
      * @throws ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetRestException : if there is any other REST API related error occurred during the operation
-     * @throws SmartsheetException : if there is any other error occurred during the operation
+     * @throws SmartsheetRestException     : if there is any other REST API related error occurred during the operation
+     * @throws SmartsheetException         : if there is any other error occurred during the operation
      */
     public void getResourceAsFile(String path, String fileType, OutputStream outputStream)
             throws SmartsheetException {
@@ -936,10 +949,11 @@ public abstract class AbstractResources {
      *
      * @throws IOException if there is trouble reading or writing to the streams.
      */
+
     /**
      * Copy stream.
      *
-     * @param input the input
+     * @param input  the input
      * @param output the output
      * @throws IOException Signals that an I/O exception has occurred.
      * @deprecated replace with StreamUtil.copyContentIntoOutputStream()

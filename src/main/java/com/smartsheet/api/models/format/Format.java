@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,7 +26,6 @@ import java.util.Arrays;
 
 /**
  * This class represents the format as applied to a cell, row or column.
- *
  */
 @JsonSerialize(using = Format.FormatSerializer.class)
 public class Format {
@@ -39,9 +38,10 @@ public class Format {
     /**
      * Constructs a {@link Format} object using the format string provided by the Smartsheet API.
      * <p>
-     *  The format of the string is a comma separated list. See
-     *  <a href="https://smartsheet.redoc.ly/#section/API-Basics/Formatting">https://smartsheet.redoc.ly/#section/API-Basics/Formatting</a>
-     *  for details
+     * The format of the string is a comma separated list. See
+     * <a href="https://smartsheet.redoc.ly/#section/API-Basics/Formatting">https://smartsheet.redoc.ly/#section/API-Basics/Formatting</a>
+     * for details
+     *
      * @param original the original
      */
     public Format(String original) {
@@ -193,9 +193,9 @@ public class Format {
     }
 
     /**
-    * An enum whose "ordinal" property is used to identify the index into the format array.
-    * Note that this means you !MUST NOT! change the order of these - even if you can't stand that they are not alphabetic
-    */
+     * An enum whose "ordinal" property is used to identify the index into the format array.
+     * Note that this means you !MUST NOT! change the order of these - even if you can't stand that they are not alphabetic
+     */
     private enum FormatAttribute {
         FONT_FAMILY,
         FONT_SIZE,
@@ -220,14 +220,13 @@ public class Format {
      * A utility class to help us parse the format string. Format strings are a comma separated list of integers.
      * Each position in the comma separated list maps to a specific format attribute. An attribute may not be set,
      * and in these situations, the default must be used.
-     *
+     * <p>
      * Valid strings (though actual format strings currently have 16 positions - these are for illustrative purposes only):
      * "0,1,0,2,0,1,"
      * ",,,,,,,,,,,"
      * ",,3,,,4,,1,,0"
      * "
      * This assumes positive integers only.
-     *
      */
     class FormatTokenizer {
         char[] chars;
@@ -253,6 +252,7 @@ public class Format {
         /**
          * Since we want to know the difference between set to "0" and unset, this  tells us if the next position is set or not.
          * Accounts for being at the end of the char array, where there is potentially one more position that needs to be accounted for.
+         *
          * @return whether the next position is set or not.
          */
         public boolean isNextUnset() {
@@ -266,6 +266,7 @@ public class Format {
         /**
          * Retrieves the next int. If an int is unset, 0 is returned.
          * You cannot distinguish between unset and 0 using this method. see isNextUnset() instead.
+         *
          * @return the next integer value.
          */
         public int nextInt() {
@@ -286,12 +287,12 @@ public class Format {
      * Builder class for a Format object
      */
     public static class FormatBuilder {
-        int[] formatArray = new int[] {
-            UNSET, UNSET, UNSET, UNSET,
-            UNSET, UNSET, UNSET, UNSET,
-            UNSET, UNSET, UNSET, UNSET,
-            UNSET, UNSET, UNSET, UNSET,
-            UNSET,
+        int[] formatArray = new int[]{
+                UNSET, UNSET, UNSET, UNSET,
+                UNSET, UNSET, UNSET, UNSET,
+                UNSET, UNSET, UNSET, UNSET,
+                UNSET, UNSET, UNSET, UNSET,
+                UNSET,
         };
 
         /**

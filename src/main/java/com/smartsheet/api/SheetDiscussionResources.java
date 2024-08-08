@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,15 +32,15 @@ public interface SheetDiscussionResources {
      *
      * <p>It mirrors to the following Smartsheet REST API method: POST /sheets/{sheetId}/discussions</p>
      *
-     * @param sheetId the sheet id
+     * @param sheetId    the sheet id
      * @param discussion the discussion object
      * @return the created discussion
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     Discussion createDiscussion(long sheetId, Discussion discussion) throws SmartsheetException;
 
@@ -49,18 +49,18 @@ public interface SheetDiscussionResources {
      *
      * <p>It mirrors to the following Smartsheet REST API method: POST /sheets/{sheetId}/discussions</p>
      *
-     * @param sheetId the sheet id
-     * @param discussion the discussion object
-     * @param file the file to attach
+     * @param sheetId     the sheet id
+     * @param discussion  the discussion object
+     * @param file        the file to attach
      * @param contentType the type of file
      * @return the created discussion
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
-     * @throws IOException is there is with file
+     * @throws SmartsheetException         if there is any other error during the operation
+     * @throws IOException                 is there is with file
      */
     Discussion createDiscussionWithAttachment(
             long sheetId,
@@ -75,15 +75,15 @@ public interface SheetDiscussionResources {
      * <p>It mirrors to the following Smartsheet REST API method: GET /sheets/{sheetId}/discussions/{discussionId}</p>
      *
      * @param discussionId the discussion id
-     * @param sheetId the sheet id
+     * @param sheetId      the sheet id
      * @return the discussion (note that if there is no such resource, this method will throw ResourceNotFoundException
-     *     rather than returning null).
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * rather than returning null).
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     Discussion getDiscussion(long sheetId, long discussionId) throws SmartsheetException;
 
@@ -91,16 +91,16 @@ public interface SheetDiscussionResources {
      * <p>Delete discussion.</p>
      *
      * <p>It mirrors to the following Smartsheet REST API method: DELETE /sheets/{sheetId}/discussions/{discussionId}</p>
-     *
+     * <p>
      * Exceptions:
-     *   IllegalArgumentException : if any argument is null
-     *   InvalidRequestException : if there is any problem with the REST API request
-     *   AuthorizationException : if there is any problem with the REST API authorization(access token)
-     *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-     *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
-     *   SmartsheetException : if there is any other error occurred during the operation
+     * IllegalArgumentException : if any argument is null
+     * InvalidRequestException : if there is any problem with the REST API request
+     * AuthorizationException : if there is any problem with the REST API authorization(access token)
+     * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     * SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     * SmartsheetException : if there is any other error occurred during the operation
      *
-     * @param sheetId the sheet ID
+     * @param sheetId      the sheet ID
      * @param discussionId the discussion ID
      * @throws SmartsheetException the smartsheet exception
      */
@@ -110,18 +110,18 @@ public interface SheetDiscussionResources {
      * <p>Get all discussions</p>
      *
      * <p>It mirrors to the following Smartsheet REST API method: GET /sheets/{sheetId}/discussions</p>
-     *
+     * <p>
      * Exceptions:
-     *   IllegalArgumentException : if any argument is null
-     *   InvalidRequestException : if there is any problem with the REST API request
-     *   AuthorizationException : if there is any problem with the REST API authorization(access token)
-     *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-     *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
-     *   SmartsheetException : if there is any other error occurred during the operation
+     * IllegalArgumentException : if any argument is null
+     * InvalidRequestException : if there is any problem with the REST API request
+     * AuthorizationException : if there is any problem with the REST API authorization(access token)
+     * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     * SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     * SmartsheetException : if there is any other error occurred during the operation
      *
-     * @param sheetId the sheet ID
+     * @param sheetId    the sheet ID
      * @param pagination the pagination parameters
-     * @param includes the optional paramters to include
+     * @param includes   the optional paramters to include
      * @return a list of discussions
      * @throws SmartsheetException the smartsheet exception
      */

@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,31 +24,46 @@ import java.util.List;
  */
 public class Comment extends IdentifiableModel<Long> {
 
-    /** Represents the text for the comment. */
+    /**
+     * Represents the text for the comment.
+     */
     private String text;
 
-    /** Represents the user that created the comment. */
+    /**
+     * Represents the user that created the comment.
+     */
     private User createdBy;
 
-    /** Represents the date the comment was modified. */
+    /**
+     * Represents the date the comment was modified.
+     */
     private Date modifiedDate;
 
-    /** Represents the attachments for the comment. */
+    /**
+     * Represents the attachments for the comment.
+     */
     private List<Attachment> attachments;
 
-    /** Represents the discussion ID. */
+    /**
+     * Represents the discussion ID.
+     */
     private Long discussionId;
 
-    /** The date the comment was created. */
+    /**
+     * The date the comment was created.
+     */
     private Date createdAt;
 
-    /** The date the comment was last modified. */
+    /**
+     * The date the comment was last modified.
+     */
     private Date modifiedAt;
 
     /**
      * Constructors
      */
-    public Comment() { }
+    public Comment() {
+    }
 
     public Comment(String text) {
         setText(text);
@@ -192,7 +207,9 @@ public class Comment extends IdentifiableModel<Long> {
      */
     public static class AddCommentBuilder {
 
-        /** The text. */
+        /**
+         * The text.
+         */
         private String text;
 
         /**
@@ -208,6 +225,7 @@ public class Comment extends IdentifiableModel<Long> {
 
         /**
          * Gets the text for the comment.
+         *
          * @return the text
          */
         public String getText() {

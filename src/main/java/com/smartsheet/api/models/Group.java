@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,32 +21,33 @@ import java.util.List;
 
 /**
  * Represents a Group Object.
+ *
  * @see <a href="http://help.smartsheet.com/customer/portal/articles/1554165-managing-groups-team-enterprise-only-">Managing groups</a>
  */
 public class Group extends NamedModel<Long> {
 
     /**
-     *    The description of the group.
+     * The description of the group.
      */
     private String description;
 
     /**
-     *    The email address of the owner of the group.
+     * The email address of the owner of the group.
      */
     private String owner;
 
     /**
-     *    The id of the owner of the group.
+     * The id of the owner of the group.
      */
     private Long ownerId;
 
     /**
-     *    The date when the group was created.
+     * The date when the group was created.
      */
     private Date createdAt;
 
     /**
-     *    The date when the group was last modified.
+     * The date when the group was last modified.
      */
     private Date modifiedAt;
 
@@ -58,7 +59,8 @@ public class Group extends NamedModel<Long> {
     /**
      * Constructors
      */
-    public Group() { }
+    public Group() {
+    }
 
     public Group(Long id) {
         setId(id);

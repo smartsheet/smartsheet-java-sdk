@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -75,16 +75,16 @@ public class SheetSummaryResourcesImpl extends AbstractResources implements Shee
      * <p>
      * It mirrors to the following Smartsheet REST API method: GET /sheets/{id}/summary
      *
-     * @param sheetId the sheet id
+     * @param sheetId  the sheet id
      * @param includes optional objects to include
      * @param excludes optional objects to exclude
      * @return the sheet summary
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws com.smartsheet.api.InvalidRequestException if there is any problem with the REST API request
-     * @throws com.smartsheet.api.AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws com.smartsheet.api.ResourceNotFoundException if the resource cannot be found
+     * @throws IllegalArgumentException                       if any argument is null or empty string
+     * @throws com.smartsheet.api.InvalidRequestException     if there is any problem with the REST API request
+     * @throws com.smartsheet.api.AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws com.smartsheet.api.ResourceNotFoundException   if the resource cannot be found
      * @throws com.smartsheet.api.ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException                            if there is any other error during the operation
      **/
     @Override
     public SheetSummary getSheetSummary(
@@ -111,17 +111,17 @@ public class SheetSummaryResourcesImpl extends AbstractResources implements Shee
      * <p>
      * It mirrors to the following Smartsheet REST API method: GET /sheets/{id}/summary/fields
      *
-     * @param sheetId the sheet id
-     * @param includes optional objects to include
-     * @param excludes optional objects to exclude
+     * @param sheetId    the sheet id
+     * @param includes   optional objects to include
+     * @param excludes   optional objects to exclude
      * @param pagination pagination parameters for the response
      * @return the list of sheet summary fields
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     public PagedResult<SummaryField> getSheetSummaryFields(long sheetId, EnumSet<SummaryFieldInclusion> includes,
                                                            EnumSet<SummaryFieldExclusion> excludes,
@@ -144,16 +144,16 @@ public class SheetSummaryResourcesImpl extends AbstractResources implements Shee
      * <p>
      * It mirrors to the following Smartsheet REST API method: POST /sheets/{sheetId}/summary/fields
      *
-     * @param sheetId the sheet id
-     * @param fields a list of summary fields to add
+     * @param sheetId          the sheet id
+     * @param fields           a list of summary fields to add
      * @param renameIfConflict true if the call should rename conflicting field titles
      * @return the list of created fields
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     public List<SummaryField> addSheetSummaryFields(
             long sheetId,
@@ -174,16 +174,16 @@ public class SheetSummaryResourcesImpl extends AbstractResources implements Shee
      * <p>
      * It mirrors to the following Smartsheet REST API method: POST /sheets/{sheetId}/summary/fields
      *
-     * @param sheetId the sheet id
-     * @param fields the list of summary fields to add
+     * @param sheetId          the sheet id
+     * @param fields           the list of summary fields to add
      * @param renameIfConflict true if the call should rename conflicting field titles
      * @return a bulk item result containing the created fields
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     public BulkItemResult<SummaryField> addSheetSummaryFieldsWithPartialSuccess(long sheetId, List<SummaryField> fields,
                                                                                 Boolean renameIfConflict) throws SmartsheetException {
@@ -195,16 +195,16 @@ public class SheetSummaryResourcesImpl extends AbstractResources implements Shee
      * <p>
      * It mirrors to the following Smartsheet REST API method: PUT /sheets/{sheetId}/summary/fields
      *
-     * @param sheetId the sheet id
-     * @param fields a list of summary fields to update
+     * @param sheetId          the sheet id
+     * @param fields           a list of summary fields to update
      * @param renameIfConflict true if the call should rename conflicting field titles
      * @return the updated fields
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     public List<SummaryField> updateSheetSummaryFields(
             long sheetId,
@@ -225,16 +225,16 @@ public class SheetSummaryResourcesImpl extends AbstractResources implements Shee
      * <p>
      * It mirrors to the following Smartsheet REST API method: PUT /sheets/{sheetId}/summary/fields
      *
-     * @param sheetId the sheet id
-     * @param fields a list of summary fields to update
+     * @param sheetId          the sheet id
+     * @param fields           a list of summary fields to update
      * @param renameIfConflict true if the call should rename conflicting field titles
      * @return a bulk item result containing the updated fields
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     public BulkItemResult<SummaryField> updateSheetSummaryFieldsWithPartialSuccess(long sheetId, List<SummaryField> fields,
                                                                                    Boolean renameIfConflict) throws SmartsheetException {
@@ -246,16 +246,16 @@ public class SheetSummaryResourcesImpl extends AbstractResources implements Shee
      * <p>
      * It mirrors to the following Smartsheet REST API method: DELETE /sheets/{sheetId}/summary/fields
      *
-     * @param sheetId the sheet id
-     * @param fieldIds List of field Ids
+     * @param sheetId                     the sheet id
+     * @param fieldIds                    List of field Ids
      * @param ignoreSummaryFieldsNotFound true if the call should ignore fields not found
      * @return List of field Ids deleted
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     public List<Long> deleteSheetSummaryFields(
             long sheetId,
@@ -277,18 +277,18 @@ public class SheetSummaryResourcesImpl extends AbstractResources implements Shee
      * <p>
      * It mirrors to the following Smartsheet REST API method: POST /sheets/{sheetId}/summary/fields/{fieldId}/images
      *
-     * @param sheetId the sheet id
-     * @param fieldId the summary field id
-     * @param file path to image file to upload
+     * @param sheetId     the sheet id
+     * @param fieldId     the summary field id
+     * @param file        path to image file to upload
      * @param contentType content-type of the file being uploaded
-     * @param altText alternate text for the image
+     * @param altText     alternate text for the image
      * @return Result
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     public Result<SummaryField> addSheetSummaryFieldImage(
             long sheetId,
@@ -314,18 +314,18 @@ public class SheetSummaryResourcesImpl extends AbstractResources implements Shee
      * <p>
      * It mirrors to the following Smartsheet REST API method: POST /sheets/{sheetId}/summary/fields/{fieldId}/images
      *
-     * @param sheetId the sheet id
-     * @param fieldId the summary field id
-     * @param file File to upload
+     * @param sheetId     the sheet id
+     * @param fieldId     the summary field id
+     * @param file        File to upload
      * @param contentType content-type of the file being uploaded
-     * @param altText alternate text for the image
+     * @param altText     alternate text for the image
      * @return Result
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     public Result<SummaryField> addSheetSummaryFieldImage(
             long sheetId,
@@ -350,19 +350,19 @@ public class SheetSummaryResourcesImpl extends AbstractResources implements Shee
      * <p>
      * It mirrors to the following Smartsheet REST API method: POST /sheets/{sheetId}/summary/fields/{fieldId}/images
      *
-     * @param sheetId the sheet id
-     * @param fieldId the summary field id
-     * @param inputStream File to upload
-     * @param contentType content-type of the file being uploaded
+     * @param sheetId       the sheet id
+     * @param fieldId       the summary field id
+     * @param inputStream   File to upload
+     * @param contentType   content-type of the file being uploaded
      * @param contentLength content length
-     * @param altText alternate text for the image
+     * @param altText       alternate text for the image
      * @return Result
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     public Result<SummaryField> addSheetSummaryFieldImage(
             long sheetId,

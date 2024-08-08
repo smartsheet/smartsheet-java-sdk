@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,9 @@ package com.smartsheet.api.models;
  * Represents an object with an ID.
  */
 public abstract class IdentifiableModel<T> {
-    /** Represents the ID. */
+    /**
+     * Represents the ID.
+     */
     private T id;
 
     /**
@@ -57,9 +59,9 @@ public abstract class IdentifiableModel<T> {
         } else if (object != null && object.getClass() == this.getClass() &&
                 // If they are both null
                 (((IdentifiableModel<?>) object).getId() == this.getId() ||
-                // If they are not null but are equal objects.
-                ((IdentifiableModel<?>) object).getId() != null && this.getId() != null &&
-                ((IdentifiableModel<?>) object).getId().equals(this.getId()))) {
+                        // If they are not null but are equal objects.
+                        ((IdentifiableModel<?>) object).getId() != null && this.getId() != null &&
+                                ((IdentifiableModel<?>) object).getId().equals(this.getId()))) {
             result = true;
         }
 

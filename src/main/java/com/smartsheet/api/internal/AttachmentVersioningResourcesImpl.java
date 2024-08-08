@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -43,7 +43,7 @@ public class AttachmentVersioningResourcesImpl extends AbstractResources impleme
      * Constructor.
      * <p>
      * Exceptions:
-     *   IllegalArgumentException : if any argument is null or empty string
+     * IllegalArgumentException : if any argument is null or empty string
      *
      * @param smartsheet the smartsheet
      */
@@ -56,14 +56,14 @@ public class AttachmentVersioningResourcesImpl extends AbstractResources impleme
      * <p>
      * It mirrors to the following Smartsheet REST API method: DELETE /sheets/{sheetId}/attachments/{attachmentId}/versions
      *
-     * @param sheetId the sheet id
+     * @param sheetId     the sheet id
      * @param attachentId the attachment id
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     public void deleteAllVersions(long sheetId, long attachentId) throws SmartsheetException {
         // Note: "attachentId" has a typo in it here, but it'd be a breaking change to rename it since this is public
@@ -75,17 +75,17 @@ public class AttachmentVersioningResourcesImpl extends AbstractResources impleme
      * <p>
      * It mirrors to the following Smartsheet REST API method: GET /sheets/{sheetId}/attachments/{attachmentId}/versions
      *
-     * @param sheetId the id
+     * @param sheetId      the id
      * @param attachmentId the attachment id
-     * @param parameters the pagination paramaters
+     * @param parameters   the pagination paramaters
      * @return the attachment (note that if there is no such resource, this method will throw ResourceNotFoundException
-     *     rather than returning null).
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * rather than returning null).
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     public PagedResult<Attachment> listAllVersions(
             long sheetId,
@@ -102,21 +102,21 @@ public class AttachmentVersioningResourcesImpl extends AbstractResources impleme
 
     /**
      * Attach a new version of an attachment.
-     *
+     * <p>
      * It mirrors to the following Smartsheet REST API method: POST /attachment/{id}/versions
      *
-     * @param sheetId the id of the sheet
+     * @param sheetId      the id of the sheet
      * @param attachmentId the id of the attachment to upload a new version.
-     * @param file the file to attach
-     * @param contentType the content type of the file
+     * @param file         the file to attach
+     * @param contentType  the content type of the file
      * @return the created attachment
-     * @throws FileNotFoundException the file not found exception
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws FileNotFoundException       the file not found exception
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     public Attachment attachNewVersion(
             long sheetId,
@@ -135,19 +135,19 @@ public class AttachmentVersioningResourcesImpl extends AbstractResources impleme
      * <p>
      * It mirrors to the following Smartsheet REST API method: POST /attachment/{id}/versions
      *
-     * @param sheetId the id of the sheet
-     * @param attachmentId the id of the object
-     * @param inputStream the {@link InputStream} of the file to attach
-     * @param contentType the content type of the file
-     * @param contentLength the size of the file in bytes.
+     * @param sheetId        the id of the sheet
+     * @param attachmentId   the id of the object
+     * @param inputStream    the {@link InputStream} of the file to attach
+     * @param contentType    the content type of the file
+     * @param contentLength  the size of the file in bytes.
      * @param attachmentName the name of the file.
      * @return the created attachment
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     private Attachment attachNewVersion(
             long sheetId,

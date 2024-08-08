@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@ package com.smartsheet.api.models;
 
 /**
  * Represents the publish status of a sheet.
+ *
  * @see <a href="http://help.smartsheet.com/customer/portal/articles/522078-publishing-sheets">Help Publishing
  * Sheets</a>
  */
@@ -44,15 +45,15 @@ public class SheetPublish {
 
     /**
      * Flag to indicate who can access the 'Read-Only Full' view of the published sheet:
-     *    If "ALL", it is available to anyone who has the link.
-     *    If "ORG", it is available only to members of the sheet owner's Smartsheet organization.
+     * If "ALL", it is available to anyone who has the link.
+     * If "ORG", it is available only to members of the sheet owner's Smartsheet organization.
      */
     private String readOnlyFullAccessibleBy;
 
     /**
      * Flag to indicate who can access the 'Edit by Anyone' view of the published sheet:
-     *    If "ALL", it is available to anyone who has the link.
-     *    If "ORG", it is available only to members of the sheet owner's Smartsheet organization.
+     * If "ALL", it is available to anyone who has the link.
+     * If "ORG", it is available only to members of the sheet owner's Smartsheet organization.
      */
     private String readWriteAccessibleBy;
 

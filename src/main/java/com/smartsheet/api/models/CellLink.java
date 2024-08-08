@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,30 +20,43 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class CellLink {
 
-    /** One of the following values:
-     OK: the link is in a good state
-     BROKEN: the row or sheet linked to was deleted
-     INACCESSIBLE: the sheet linked to cannot be viewed by this user
-     Several other values indicating unusual error conditions: NOT_SHARED, BLOCKED, CIRCULAR, INVALID, and DISABLED . */
+    /**
+     * One of the following values:
+     * OK: the link is in a good state
+     * BROKEN: the row or sheet linked to was deleted
+     * INACCESSIBLE: the sheet linked to cannot be viewed by this user
+     * Several other values indicating unusual error conditions: NOT_SHARED, BLOCKED, CIRCULAR, INVALID, and DISABLED .
+     */
     private String status;
 
-    /** The Sheet ID of the sheet that the linked cell belongs to. */
+    /**
+     * The Sheet ID of the sheet that the linked cell belongs to.
+     */
     private Long sheetId;
 
-    /** The Row ID of the linked cell. */
+    /**
+     * The Row ID of the linked cell.
+     */
     private Long rowId;
 
-    /** The Column ID of the linked cell. */
+    /**
+     * The Column ID of the linked cell.
+     */
     private Long columnId;
 
-    /** The Sheet name of the linked cell. */
+    /**
+     * The Sheet name of the linked cell.
+     */
     private String sheetName;
 
-    /** If true, update will serialize a null to reset the linkInFromCell */
+    /**
+     * If true, update will serialize a null to reset the linkInFromCell
+     */
     private boolean isNull = true;
 
     /**
      * Gets the status.
+     *
      * @return status
      */
     public String getStatus() {
@@ -52,6 +65,7 @@ public class CellLink {
 
     /**
      * Sets the status
+     *
      * @param status the status
      */
     public CellLink setStatus(String status) {
@@ -61,6 +75,7 @@ public class CellLink {
 
     /**
      * Gets the Sheet ID of the sheet that the linked cell belongs to.
+     *
      * @return sheet ID
      */
     public Long getSheetId() {
@@ -69,6 +84,7 @@ public class CellLink {
 
     /**
      * Sets the Sheet ID of the sheet that the linked cell belongs to
+     *
      * @param sheetId the sheetId
      */
     public CellLink setSheetId(Long sheetId) {
@@ -79,6 +95,7 @@ public class CellLink {
 
     /**
      * Gets Row ID of the linked cell.
+     *
      * @return rowI the row id
      */
     public Long getRowId() {
@@ -87,6 +104,7 @@ public class CellLink {
 
     /**
      * Sets
+     *
      * @param rowId the row Id
      */
     public CellLink setRowId(Long rowId) {
@@ -97,6 +115,7 @@ public class CellLink {
 
     /**
      * Gets Column ID of the linked cell.
+     *
      * @return column ID
      */
     public Long getColumnId() {
@@ -105,6 +124,7 @@ public class CellLink {
 
     /**
      * Sets Column ID of the linked cell
+     *
      * @param columnId the column ID
      */
     public CellLink setColumnId(Long columnId) {
@@ -115,6 +135,7 @@ public class CellLink {
 
     /**
      * Gets Sheet name of the linked cell.
+     *
      * @return sheet name
      */
     public String getSheetName() {
@@ -123,6 +144,7 @@ public class CellLink {
 
     /**
      * Sets Sheet name of the linked cell
+     *
      * @param sheetName the sheet name
      */
     public CellLink setSheetName(String sheetName) {

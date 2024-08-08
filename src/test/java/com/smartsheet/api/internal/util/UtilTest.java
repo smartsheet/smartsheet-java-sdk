@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -118,7 +118,7 @@ class UtilTest {
             @Test
             void throwIfNullVarArgs_nonnullArray() {
                 //Arrange
-                Object[] objArray = new Object[] {
+                Object[] objArray = new Object[]{
                         new Object(),
                         new Object(),
                         new Object(),
@@ -131,7 +131,7 @@ class UtilTest {
             @Test
             void throwIfNullVarArgs_nullArray() {
                 //Arrange
-                Object[] objArray = new Object[] {
+                Object[] objArray = new Object[]{
                         new Object(),
                         new Object(),
                         null,

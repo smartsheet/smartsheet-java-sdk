@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -79,12 +79,12 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
      * It mirrors to the following Smartsheet REST API method: GET /users
      *
      * @return the list of all users
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     public PagedResult<User> listUsers() throws SmartsheetException {
         return this.listResourcesWithWrapper(USERS, User.class);
@@ -96,13 +96,13 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
      * It mirrors to the following Smartsheet REST API method: GET /users
      * <p>
      * Exceptions:
-     *   - InvalidRequestException : if there is any problem with the REST API request
-     *   - AuthorizationException : if there is any problem with the REST API authorization(access token)
-     *   - ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-     *   - SmartsheetRestException : if there is any other REST API related error occurred during the operation
-     *   - SmartsheetException : if there is any other error occurred during the operation
+     * - InvalidRequestException : if there is any problem with the REST API request
+     * - AuthorizationException : if there is any problem with the REST API authorization(access token)
+     * - ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     * - SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     * - SmartsheetException : if there is any other error occurred during the operation
      *
-     * @param email the list of email addresses
+     * @param email      the list of email addresses
      * @param pagination the object containing the pagination query parameters
      * @return all users (note that empty list will be returned if there is none)
      * @throws SmartsheetException the smartsheet exception
@@ -117,14 +117,14 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
      * It mirrors to the following Smartsheet REST API method: GET /users
      * <p>
      * Exceptions:
-     *   - InvalidRequestException : if there is any problem with the REST API request
-     *   - AuthorizationException : if there is any problem with the REST API authorization(access token)
-     *   - ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-     *   - SmartsheetRestException : if there is any other REST API related error occurred during the operation
-     *   - SmartsheetException : if there is any other error occurred during the operation
+     * - InvalidRequestException : if there is any problem with the REST API request
+     * - AuthorizationException : if there is any problem with the REST API authorization(access token)
+     * - ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     * - SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     * - SmartsheetException : if there is any other error occurred during the operation
      *
-     * @param email the list of email addresses
-     * @param includes elements to include in the response
+     * @param email      the list of email addresses
+     * @param includes   elements to include in the response
      * @param pagination the object containing the pagination query parameters
      * @return all users (note that empty list will be returned if there is none)
      * @throws SmartsheetException the smartsheet exception
@@ -150,13 +150,13 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
      * It mirrors to the following Smartsheet REST API method: POST /users
      * <p>
      * Exceptions:
-     *   - IllegalArgumentException : if any argument is null
-     *   - InvalidRequestException : if there is any problem with the REST API request
-     *   - AuthorizationException : if there is any problem with the REST API authorization(access token)
-     *   - ResourceNotFoundException : if the resource can not be found
-     *   - ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-     *   - SmartsheetRestException : if there is any other REST API related error occurred during the operation
-     *   - SmartsheetException : if there is any other error occurred during the operation
+     * - IllegalArgumentException : if any argument is null
+     * - InvalidRequestException : if there is any problem with the REST API request
+     * - AuthorizationException : if there is any problem with the REST API authorization(access token)
+     * - ResourceNotFoundException : if the resource can not be found
+     * - ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     * - SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     * - SmartsheetException : if there is any other error occurred during the operation
      *
      * @param user the user object limited to the following attributes: * admin * email * licensedSheetCreator
      * @return the user
@@ -172,15 +172,15 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
      * It mirrors to the following Smartsheet REST API method: POST /users
      * <p>
      * Exceptions:
-     *   - IllegalArgumentException : if any argument is null
-     *   - InvalidRequestException : if there is any problem with the REST API request
-     *   - AuthorizationException : if there is any problem with the REST API authorization(access token)
-     *   - ResourceNotFoundException : if the resource can not be found
-     *   - ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-     *   - SmartsheetRestException : if there is any other REST API related error occurred during the operation
-     *   - SmartsheetException : if there is any other error occurred during the operation
+     * - IllegalArgumentException : if any argument is null
+     * - InvalidRequestException : if there is any problem with the REST API request
+     * - AuthorizationException : if there is any problem with the REST API authorization(access token)
+     * - ResourceNotFoundException : if the resource can not be found
+     * - ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     * - SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     * - SmartsheetException : if there is any other error occurred during the operation
      *
-     * @param user the created user
+     * @param user      the created user
      * @param sendEmail whether to send email
      * @return the user object limited to the following attributes: * admin * email * licensedSheetCreator
      * @throws SmartsheetException the smartsheet exception
@@ -196,12 +196,12 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
      *
      * @param userId the user id
      * @return the user
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     public UserProfile getUser(long userId) throws SmartsheetException {
         return this.getResource(USERS + "/" + userId, UserProfile.class);
@@ -213,15 +213,15 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
      * It mirrors to the following Smartsheet REST API method: GET /users/me
      * <p>
      * Exceptions:
-     *   - InvalidRequestException : if there is any problem with the REST API request
-     *   - AuthorizationException : if there is any problem with the REST API authorization(access token)
-     *   - ResourceNotFoundException : if the resource can not be found
-     *   - ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-     *   - SmartsheetRestException : if there is any other REST API related error occurred during the operation
-     *   - SmartsheetException : if there is any other error occurred during the operation
+     * - InvalidRequestException : if there is any problem with the REST API request
+     * - AuthorizationException : if there is any problem with the REST API authorization(access token)
+     * - ResourceNotFoundException : if the resource can not be found
+     * - ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     * - SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     * - SmartsheetException : if there is any other error occurred during the operation
      *
      * @return the resource (note that if there is no such resource, this method will throw ResourceNotFoundException
-     *     rather than returning null).
+     * rather than returning null).
      * @throws SmartsheetException the smartsheet exception
      */
     public UserProfile getCurrentUser() throws SmartsheetException {
@@ -235,12 +235,12 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
      *
      * @param includes used to specify the optional objects to include.
      * @return the current user
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     public UserProfile getCurrentUser(EnumSet<UserInclusion> includes) throws SmartsheetException {
         String path = "users/me";
@@ -259,12 +259,12 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
      *
      * @param pagination the object containing the pagination query parameters
      * @return the list of all organisation sheets
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     public PagedResult<Sheet> listOrgSheets(PaginationParameters pagination, Date modifiedSince) throws SmartsheetException {
         String path = "users/sheets";
@@ -290,15 +290,15 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
      * <p>
      * It mirrors to the following Smartsheet REST API method: GET /users/{userId}/alternateemails
      *
-     * @param userId the id of the user
+     * @param userId     the id of the user
      * @param pagination the object containing the pagination query parameters
      * @return the list of all user alternate emails
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     public PagedResult<AlternateEmail> listAlternateEmails(long userId, PaginationParameters pagination) throws SmartsheetException {
         String path = USERS + "/" + userId + "/" + ALTERNATE_EMAILS;
@@ -314,16 +314,16 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
      * <p>
      * It mirrors to the following Smartsheet REST API method: GET /users/{userId}/alternateemails/{alternateEmailId}
      *
-     * @param userId the id of the user
+     * @param userId     the id of the user
      * @param altEmailId the alternate email id for the alternate email to retrieve.
      * @return the resource (note that if there is no such resource, this method will throw
-     *     ResourceNotFoundException rather than returning null).
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * ResourceNotFoundException rather than returning null).
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     public AlternateEmail getAlternateEmail(long userId, long altEmailId) throws SmartsheetException {
         return this.getResource(USERS + "/" + userId + "/" + ALTERNATE_EMAILS + "/" + altEmailId, AlternateEmail.class);
@@ -334,16 +334,16 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
      * <p>
      * It mirrors to the following Smartsheet REST API method: POST /users/{userId}/alternateemails
      *
-     * @param userId the id of the user
+     * @param userId    the id of the user
      * @param altEmails AlternateEmail alternate email address to add.
      * @return the resource (note that if there is no such resource, this method will throw
-     *     ResourceNotFoundException rather than returning null).
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * ResourceNotFoundException rather than returning null).
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     public List<AlternateEmail> addAlternateEmail(long userId, List<AlternateEmail> altEmails) throws SmartsheetException {
         Util.throwIfNull(altEmails);
@@ -358,14 +358,14 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
      * <p>
      * It mirrors to the following Smartsheet REST API method: DELETE /users/{userId}/alternateemails/{alternateEmailId}
      *
-     * @param userId the id of the user
+     * @param userId     the id of the user
      * @param altEmailId the alternate email id for the alternate email to retrieve.
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     public void deleteAlternateEmail(long userId, long altEmailId) throws SmartsheetException {
         this.deleteResource(USERS + "/" + userId + "/" + ALTERNATE_EMAILS + "/" + altEmailId, AlternateEmail.class);
@@ -374,15 +374,15 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
     /**
      * Promote and alternate email to primary.
      *
-     * @param userId id of the user
+     * @param userId     id of the user
      * @param altEmailId alternate email id
      * @return alternateEmail of the primary
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException f there is any other error during the operation
+     * @throws SmartsheetException         f there is any other error during the operation
      */
     public AlternateEmail promoteAlternateEmail(long userId, long altEmailId) throws SmartsheetException {
 
@@ -410,16 +410,16 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
     /**
      * Uploads a profile image for the specified user.
      *
-     * @param userId id of the user
-     * @param file path to the image file
+     * @param userId   id of the user
+     * @param file     path to the image file
      * @param fileType content type of the image file
      * @return user
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException f there is any other error during the operation
+     * @throws SmartsheetException         f there is any other error during the operation
      */
     public User addProfileImage(long userId, String file, String fileType) throws SmartsheetException, FileNotFoundException {
         return attachProfileImage(USERS + "/" + userId + "/profileimage", file, fileType);

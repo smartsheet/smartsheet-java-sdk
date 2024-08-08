@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,7 @@ import java.util.Date;
 
 /**
  * Represents the UpdateRequest object.
+ *
  * @see <a href="http://help.smartsheet.com/customer/portal/articles/504779-using-update-requests">Using Update Request Help</a>
  */
 public class UpdateRequest extends MultiRowEmail {

@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -53,7 +53,8 @@ public class ErrorDeserializer extends JsonDeserializer<com.smartsheet.api.model
             if (detail != null) {
                 if (detail.isArray()) {
                     String asText = detail.toString();
-                    List<ErrorDetail> details = mapper.readValue(asText, new TypeReference<List<ErrorDetail>>(){});
+                    List<ErrorDetail> details = mapper.readValue(asText, new TypeReference<List<ErrorDetail>>() {
+                    });
                     error.setDetail(details);
                 } else {
                     error.setDetail(mapper.treeToValue(detail, ErrorDetail.class));

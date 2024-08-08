@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,6 +25,7 @@ import java.io.InputStream;
  * <p>This interface provides methods to access Attachment resources by their id.</p>
  *
  * <p>Thread Safety: Implementation of this interface must be thread safe.</p>
+ *
  * @deprecated As of release 2.0. Please use {@link AttachmentVersioningResources} instead
  */
 @Deprecated(since = "2.0.0", forRemoval = true)
@@ -32,21 +33,21 @@ public interface AttachmentResources {
 
     /**
      * @param attachmentId the id
-     * @param file the file
-     * @param contentType the content type
+     * @param file         the file
+     * @param contentType  the content type
      * @return the attachment (note that if there is no such resource, this method will throw ResourceNotFoundException
-     *     rather than returning null).
+     * rather than returning null).
      * @deprecated As of release 2.0. Please use {@link AttachmentVersioningResources} instead
      */
     @Deprecated(since = "2.0.0", forRemoval = true)
     Attachment attachNewVersion(long attachmentId, File file, String contentType);
 
     /**
-     * @param attachmentId the id of the attachment to upload a new version.
-     * @param inputStream the file to attach
-     * @param contentType the content type of the file
+     * @param attachmentId   the id of the attachment to upload a new version.
+     * @param inputStream    the file to attach
+     * @param contentType    the content type of the file
      * @param attachmentName attachment name
-     * @param contentLength content length
+     * @param contentLength  content length
      * @return the created attachment
      * @deprecated As of release 2.0. Please use {@link AttachmentVersioningResources} instead
      */

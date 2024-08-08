@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,9 @@ package com.smartsheet.api.models;
 
 public class CopyOrMoveRowDestination {
 
-    /** Represents the ID of the destination object. */
+    /**
+     * Represents the ID of the destination object.
+     */
     private Long sheetId;
 
     /**
@@ -45,7 +47,9 @@ public class CopyOrMoveRowDestination {
      */
     public static class InsertCopyOrMoveRowDestinationBuilder {
 
-        /** Represents the ID of the destination object. */
+        /**
+         * Represents the ID of the destination object.
+         */
         private Long sheetId;
 
         /**
