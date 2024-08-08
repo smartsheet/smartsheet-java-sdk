@@ -253,7 +253,6 @@ signing {
 // Checkstyle Configuration
 checkstyle {
     toolVersion = "${checkstyleVersion}"
-    configFile = file('config/checkstyle/checkstyle-custom.xml')
 }
 
 // Override configuration for Checkstyle that runs on our 'src/main' package

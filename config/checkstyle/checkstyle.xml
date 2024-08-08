@@ -1,0 +1,528 @@
+<?xml version="1.0"?>
+<!DOCTYPE module PUBLIC
+        "-//Checkstyle//DTD Checkstyle Configuration 1.3//EN"
+        "https://checkstyle.org/dtds/configuration_1_3.dtd">
+
+<!--
+    All checks within this file are grouped together based on their location within the checkstyle
+    documentation for easy searching. Please do not rearrange these items without conforming to
+    the checkstyle layout.
+-->
+
+<module name="Checker">
+
+    <property name="severity" value="error"/>
+
+    <property name="fileExtensions" value="java"/>
+
+    <!-- Filters -->
+    <module name="SeverityMatchFilter">
+        <!-- report all violations except ignore -->
+        <property name="severity" value="ignore"/>
+        <property name="acceptOnMatch" value="false"/>
+    </module>
+
+    <!--           Misc          -->
+    <module name="NewlineAtEndOfFile">
+        <property name="lineSeparator" value="lf"/>
+    </module>
+    <!--           End Misc          -->
+
+    <!--          Regexp          -->
+    <module name="RegexpMultiline"/>
+    <module name="RegexpMultiline">
+        <property name="format" value="\r?\n[\t ]*\r?\n[\t ]*\r?\n"/>
+        <property name="fileExtensions" value="java"/>
+        <property name="message" value="Unnecessary consecutive lines. Consolidate to one line"/>
+    </module>
+    <!-- Validate for no whitespace at the end of a line -->
+    <module name="RegexpSingleline">
+        <property name="format" value="^.+\s$"/>
+        <property name="minimum" value="0"/>
+        <property name="maximum" value="0"/>
+        <property name="message" value="Trailing whitespace is not allowed"/>
+    </module>
+    <!--          End Regexp          -->
+
+    <!--         Size Violations          -->
+    <!-- Max file length for only java files -->
+    <module name="FileLength">
+        <property name="max" value="2000"/>
+        <property name="fileExtensions" value="java"/>
+    </module>
+    <!--         End Size Violations          -->
+
+    <!--         Line Length Violations          -->
+    <!-- Max characters per line, ignoring some lines we can't really control -->
+    <module name="LineLength">
+        <property name="max" value="140"/>
+        <property name="ignorePattern" value="^ *\* *([^ ]+|\{@code .*|&lt;a href.*)$"/>
+    </module>
+    <!--         Line Length Violations          -->
+
+    <!--          Whitespace          -->
+    <module name="FileTabCharacter">
+        <property name="eachLine" value="false"/>
+    </module>
+    <!--          End Whitespace          -->
+
+    <module name="SuppressWarningsFilter"/>
+
+    <module name="SuppressionFilter">
+        <property name="file" value="${config_loc}/suppressions.xml"/>
+    </module>
+
+    <!-- File Header -->
+    <module name="Header">
+        <property name="headerFile" value="${config_loc}/java.header"/>
+    </module>
+
+    <module name="TreeWalker">
+        <property name="tabWidth" value="4"/>
+
+        <!-- To suppress a checkstyle rule put //CHECKSTYLE:OFF: RuleName -->
+        <!-- Note that once a rule is suppressed it is suppressed for the rest of the file AFTER that line -->
+        <module name="SuppressionCommentFilter">
+            <property name="offCommentFormat" value="CHECKSTYLE\:OFF\: ([\w\|]+)"/>
+            <property name="onCommentFormat" value="CHECKSTYLE\:ON\: ([\w\|]+)"/>
+            <property name="checkFormat" value="$1"/>
+        </module>
+
+        <!--           Annotations          -->
+        <module name="AnnotationLocation">
+            <property name="tokens" value="ANNOTATION_DEF"/>
+            <property name="tokens" value="ANNOTATION_FIELD_DEF"/>
+            <!-- Annotation defs never get annotations on the same line -->
+            <property name="allowSamelineSingleParameterlessAnnotation" value="false"/>
+        </module>
+        <!-- All other tokens do get checked though -->
+        <module name="AnnotationLocation"/>
+        <!-- Control how annotations are written -->
+        <module name="AnnotationUseStyle"/>
+        <!-- Forces @override javadoc along with the annotation -->
+        <module name="MissingOverride"/>
+        <!-- Only allow these types of warnings to be suppressed -->
+        <module name="SuppressWarnings">
+            <property name="format"
+                      value="^((?!(unused|ClassTypeParameterName|WeakerAccess|unchecked|rawtypes|resource|Duplicates|ParameterNumber|MethodCount)).)*$"/>
+            <message key="suppressed.warning.not.allowed"
+                     value="The warning ''{0}'' cannot be suppressed at this location. Only a few javac warnings are allowed to suppressed."
+            />
+        </module>
+        <module name="SuppressWarningsHolder"/>
+        <!--           End Annotations          -->
+
+        <!--           Block Checks            -->
+        <!-- No nested blocks except within switch statements -->
+        <module name="AvoidNestedBlocks">
+            <property name="allowInSwitchCase" value="true"/>
+        </module>
+        <!-- Ban empty blocks -->
+        <module name="EmptyBlock">
+            <property name="tokens" value="ARRAY_INIT"/>
+            <property name="tokens" value="LITERAL_DEFAULT"/>
+            <property name="tokens" value="LITERAL_CASE"/>
+            <property name="tokens" value="INSTANCE_INIT"/>
+            <property name="tokens" value="LITERAL_DO"/>
+            <property name="tokens" value="LITERAL_ELSE"/>
+            <property name="tokens" value="LITERAL_FINALLY"/>
+            <property name="tokens" value="LITERAL_FOR"/>
+            <property name="tokens" value="LITERAL_IF"/>
+            <property name="tokens" value="LITERAL_SWITCH"/>
+            <property name="tokens" value="LITERAL_SYNCHRONIZED"/>
+            <property name="tokens" value="LITERAL_TRY"/>
+            <property name="tokens" value="LITERAL_WHILE"/>
+            <property name="tokens" value="STATIC_INIT"/>
+            <!-- An empty block is one without the following in it: (text or statement) -->
+            <property name="option" value="text"/>
+        </module>
+        <!-- Ban empty catch blocks, except for ones with a variable name matching our pattern -->
+        <module name="EmptyCatchBlock">
+            <property name="exceptionVariableName" value="expected|ignore|ignored"/>
+        </module>
+        <!-- Left curly always goes on the same line as the content before it -->
+        <module name="LeftCurly"/>
+        <!-- Braces are required everywhere and empty loops are banned -->
+        <module name="NeedBraces"/>
+        <!-- However, lambdas we ignore since any non-braced lambdas will generate an error -->
+        <module name="NeedBraces">
+            <property name="tokens" value="LAMBDA"/>
+            <property name="severity" value="ignore"/>
+        </module>
+        <module name="RightCurly">
+            <property name="tokens" value="LITERAL_TRY"/>
+            <property name="tokens" value="LITERAL_CATCH"/>
+            <property name="tokens" value="LITERAL_FINALLY"/>
+            <property name="tokens" value="LITERAL_IF"/>
+            <property name="tokens" value="LITERAL_ELSE"/>
+            <property name="tokens" value="LITERAL_DO"/>
+            <property name="option" value="same"/>
+        </module>
+        <!--           End Block Checks            -->
+
+        <!--           Class Design           -->
+        <module name="OneTopLevelClass"/>
+        <!--           End Class Design           -->
+
+        <!--           Coding            -->
+        <module name="ArrayTrailingComma"/>
+        <!-- If you define equals(Foo f) you must also define equals(Object f) -->
+        <module name="CovariantEquals"/>
+        <module name="DefaultComesLast"/>
+        <!-- Prevent dangling ; -->
+        <module name="EmptyStatement"/>
+        <!-- Forces string literals to be on the left of a .equals check -->
+        <module name="EqualsAvoidNull"/>
+        <!-- Forces both equals and hashCode to be overwritten at the same time -->
+        <module name="EqualsHashCode"/>
+        <!-- Prevent explicit initialization to default values -->
+        <module name="ExplicitInitialization">
+            <property name="onlyObjectReferences" value="true"/>
+        </module>
+        <!-- Prevent switch fall through without a comment declaring it as such -->
+        <module name="FallThrough"/>
+        <!-- You can't instantiate these classes -->
+        <module name="IllegalInstantiation">
+            <property name="classes"
+                      value="java.lang.Boolean,
+                             java.lang.Double,
+                             java.lang.Float,
+                             java.lang.Long,
+                             java.lang.Integer"/>
+        </module>
+        <!-- You can't throw these exceptions -->
+        <module name="IllegalThrows">
+            <property name="illegalClassNames"
+                      value="java.lang.RuntimeException,
+                             java.lang.Error,
+                             java.lang.Throwable"/>
+        </module>
+        <!-- These tokens should never appear in source code -->
+        <module name="IllegalToken">
+            <!-- GOTO label -->
+            <property name="tokens" value="LABELED_STAT"/>
+            <property name="tokens" value="LITERAL_ASSERT"/>
+        </module>
+        <!-- Ban certain types from being declared in places such as variables and method parameters -->
+        <module name="IllegalType">
+            <property name="illegalClassNames"
+                      value="java.util.LinkedHashMap,
+                             java.util.HashMap,
+                             java.util.TreeMap,
+                             java.util.LinkedHashSet
+                             java.util.TreeSet,
+                             java.util.HashSet"/>
+            <property name="ignoredMethodNames" value="getInstance"/>
+        </module>
+        <!-- Prevent assignment inside a statement such as if (i = 2) -->
+        <module name="InnerAssignment"/>
+        <!-- Switches need to have a default -->
+        <module name="MissingSwitchDefault"/>
+        <!-- Prevent modification of variables used in for loops -->
+        <module name="ModifiedControlVariable">
+            <property name="skipEnhancedForLoopVariable" value="true"/>
+        </module>
+        <!-- Make sure there is only one occurrence of each string per file -->
+        <!--        This check was disabled as it flagged strings in the constructors of Enums.
+                    Using constants for these literals seemed unnecessary -->
+        <module name="MultipleStringLiterals">
+            <property name="ignoreStringsRegexp" value='^("")|(",\s*)|(".")'/>
+            <property name="allowedDuplicates" value="2"/>
+        </module>
+        <!-- Only one variable declaration per line -->
+        <module name="MultipleVariableDeclarations"/>
+        <!-- Max number of nested for loops -->
+        <module name="NestedForDepth">
+            <property name="max" value="2"/>
+        </module>
+        <module name="NoClone"/>
+        <module name="NoFinalizer"/>
+        <module name="OneStatementPerLine"/>
+        <!-- Make sure that each overloaded function is placed in a continuous group -->
+        <module name="OverloadMethodsDeclarationOrder"/>
+        <!-- Require a package declaration and also enforce folder structure == package structure -->
+        <module name="PackageDeclaration"/>
+        <!-- Require this on fields and methods -->
+        <module name="RequireThis"/>
+        <!-- Simplify boolean expressions like (b == true) -->
+        <module name="SimplifyBooleanExpression"/>
+        <!-- Simplify expressions like if (valid()) {return false } else { return true } -->
+        <module name="SimplifyBooleanReturn"/>
+        <!-- Force .equals on strings not == -->
+        <module name="StringLiteralEquality"/>
+        <module name="UnnecessaryParentheses">
+            <!-- All tokens in default value but equality checks "GT,LT,GE,LE,EQUAL,NOT_EQUAL," -->
+            <!-- This means we don't do checks for the following comparisons `>, <, >=, <=, ==, !=` -->
+            <!-- https://checkstyle.sourceforge.io/apidocs/com/puppycrawl/tools/checkstyle/checks/coding/UnnecessaryParenthesesCheck.html-->
+            <!-- https://checkstyle.org/apidocs/com/puppycrawl/tools/checkstyle/api/TokenTypes.html#EXPR-->
+            <property name="tokens" value="EXPR,IDENT,NUM_DOUBLE,NUM_FLOAT,NUM_INT,NUM_LONG,STRING_LITERAL,
+                LITERAL_NULL,LITERAL_FALSE,LITERAL_TRUE,ASSIGN,BAND_ASSIGN,BOR_ASSIGN,BSR_ASSIGN,BXOR_ASSIGN,
+                DIV_ASSIGN,MINUS_ASSIGN,MOD_ASSIGN,PLUS_ASSIGN,SL_ASSIGN,SR_ASSIGN,STAR_ASSIGN,LAMBDA,
+                TEXT_BLOCK_LITERAL_BEGIN,LAND,LOR,LITERAL_INSTANCEOF,UNARY_MINUS,UNARY_PLUS,INC,DEC,LNOT,BNOT,POST_INC,POST_DEC"
+            />
+        </module>
+        <!--           End Coding            -->
+
+        <!--           Imports           -->
+        <module name="AvoidStarImport"/>
+        <module name="RedundantImport"/>
+        <module name="UnusedImports"/>
+        <!--           End Imports           -->
+
+        <!--           Javadoc Comments          -->
+        <!-- Enforce the order of the @javadoc comments -->
+        <module name="AtclauseOrder"/>
+        <!-- Javadocs for method signatures -->
+        <module name="JavadocMethod">
+            <property name="accessModifiers" value="public"/>
+            <property name="allowMissingParamTags" value="true"/>
+            <property name="allowMissingReturnTag" value="true"/>
+            <property name="tokens" value="METHOD_DEF"/>
+            <property name="tokens" value="ANNOTATION_FIELD_DEF"/>
+        </module>
+        <!-- Do not enforce JavaDoc comments to have all properties -->
+        <module name="MissingJavadocMethodCheck">
+            <property name="allowMissingPropertyJavadoc" value="true"/>
+            <!-- 1 line functions don't need javadocs -->
+            <property name="minLineCount" value="1"/>
+        </module>
+        <!-- Force 4 spaces on indent of javadoc -->
+        <!-- conflicts with IntelliJ default java formatter
+        <module name="JavadocTagContinuationIndentation"/>
+        -->
+        <!-- Javadoc types like classes -->
+        <module name="JavadocType">
+            <!-- avoid errors on tag '@noinspection' -->
+            <property name="allowUnknownTags" value="true"/>
+            <property name="allowMissingParamTags" value="true"/>
+        </module>
+        <!-- @ clauses must have some sort of description on them -->
+        <module name="NonEmptyAtclauseDescription"/>
+        <!-- Force javadocs with @ clauses to be on multiple lines -->
+        <module name="SingleLineJavadoc"/>
+        <!--           End Javadoc Comments          -->
+
+        <!--           Misc          -->
+        <module name="ArrayTypeStyle"/>
+        <!-- Force unicode characters to be directly inputted instead of escaped -->
+        <module name="AvoidEscapedUnicodeCharacters">
+            <property name="allowEscapesForControlCharacters" value="true"/>
+            <!-- Switch to true to allow escaped characters ONLY if a comment follows it -->
+            <property name="allowByTailComment" value="false"/>
+            <property name="allowNonPrintableEscapes" value="true"/>
+        </module>
+        <!-- Force all comments to line up with the lines above them -->
+        <module name="CommentsIndentation"/>
+        <!-- Basic indentation of code -->
+        <module name="Indentation">
+            <property name="basicOffset" value="4"/>
+            <property name="braceAdjustment" value="0"/>
+            <property name="caseIndent" value="4"/>
+            <property name="throwsIndent" value="8"/>
+            <property name="lineWrappingIndentation" value="8"/>
+            <property name="arrayInitIndent" value="4"/>
+            <!-- Switch to false if we want to allow >X of indentation instead of =X -->
+            <property name="forceStrictCondition" value="false"/>
+        </module>
+        <module name="TodoComment">
+            <property name="format" value="(TODO: \[.*\])|(FIXME: \[.*\])"/>
+        </module>
+        <!-- Ban trailing comments -->
+        <module name="TrailingComment"/>
+        <!-- Ban main() functions (except for the SpringBoot Application class) -->
+        <module name="UncommentedMain">
+            <property name="excludedClasses" value="\.Application$"/>
+        </module>
+        <!-- Force all long literals to be declared with L not l (ie 123L not 123l) -->
+        <module name="UpperEll"/>
+        <!--           End Misc          -->
+
+        <!--           Modifiers           -->
+        <!-- Enforce ordering of modifiers according to Java spec -->
+        <module name="ModifierOrder"/>
+        <!--           End Modifiers           -->
+
+        <!--           Naming Conventions          -->
+        <module name="AbbreviationAsWordInName">
+            <!-- Ignore final variables but don't ignore static, that way constants get ignored -->
+            <property name="ignoreFinal" value="false"/>
+            <!-- Ban all abbreviations except those enumerated below -->
+            <property name="allowedAbbreviationLength" value="4"/>
+        </module>
+        <!-- Generic parameter names for classes MyClass<T> -->
+        <module name="ClassTypeParameterName">
+            <property name="format" value="^[A-Z]$"/>
+        </module>
+        <module name="ConstantName">
+            <!-- Allow log or logger or CONSTANTS_LIKE_THIS -->
+            <property name="format" value="^log(ger)?|[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$"/>
+        </module>
+        <!-- Generic interface types -->
+        <module name="InterfaceTypeParameterName">
+            <property name="format" value="^[A-Za-z].*$"/>
+        </module>
+        <module name="LocalVariableName">
+            <!-- start with lower case and allow 1+ alphanumeric characters -->
+            <property name="format" value="^[a-z][a-zA-Z0-9]*$"/>
+            <property name="allowOneCharVarInForLoop" value="true"/>
+        </module>
+        <!-- Matches our LocalVariableName format -->
+        <module name="MemberName"/>
+        <module name="MethodName"/>
+        <!-- Generic method params -->
+        <module name="MethodTypeParameterName">
+            <property name="format" value="^[a-zA-Z]$"/>
+        </module>
+        <!-- Package names should be all lower case alphanumeric -->
+        <module name="PackageName">
+            <property name="format" value="^[a-z]+(\.[a-z][a-z0-9]*)*$"/>
+        </module>
+        <!-- Match our local variable format -->
+        <module name="ParameterName"/>
+        <!-- Class/enum/interface/annotation names -->
+        <module name="TypeName"/>
+        <!--           End Naming Conventions          -->
+
+        <!--         Size Violations         -->
+        <!-- Size limit for anonymous inner classes -->
+        <module name="AnonInnerLength">
+            <property name="max" value="20"/>
+        </module>
+        <!-- Max number of methods per class -->
+        <module name="MethodCount">
+            <property name="maxTotal" value="40"/>
+        </module>
+        <!-- Max number of lines per method, ignoring blank lines or comments -->
+        <module name="MethodLength">
+            <property name="max" value="150"/>
+        </module>
+        <!-- Max number of types per file at the outer level (aka 1) -->
+        <module name="OuterTypeNumber"/>
+        <!-- Max number of params for functions -->
+        <module name="ParameterNumber">
+            <property name="max" value="10"/>
+            <property name="ignoreOverriddenMethods" value="true"/>
+        </module>
+        <!--         End Size Violations         -->
+
+        <!--         Whitespace            -->
+        <!-- force (a, b) not ( a, b ) -->
+        <module name="EmptyForInitializerPad"/>
+        <!-- Same as above, but for iterators not for loops -->
+        <module name="EmptyForIteratorPad"/>
+        <!-- Spaces and empty lines -->
+        <module name="EmptyLineSeparator">
+            <!-- Allow fields to be grouped together -->
+            <property name="allowNoEmptyLineBetweenFields" value="true"/>
+            <property name="allowMultipleEmptyLinesInsideClassMembers" value="false"/>
+            <property name="allowMultipleEmptyLines" value="false"/>
+        </module>
+        <!-- Validate that for generic tokens (aka < and >) there is proper whitespace -->
+        <module name="GenericWhitespace"/>
+        <!-- Force no spaces around method params, and no space before the first ( -->
+        <module name="MethodParamPad"/>
+        <!-- Verifies that certain tokens don't have line wraps in them -->
+        <module name="NoLineWrap">
+            <property name="tokens" value="PACKAGE_DEF"/>
+            <property name="tokens" value="IMPORT"/>
+        </module>
+        <!-- Validates that there is no whitespace after the given token -->
+        <module name="NoWhitespaceAfter">
+            <property name="tokens" value="ARRAY_INIT"/>
+            <property name="tokens" value="BNOT"/>
+            <property name="tokens" value="DEC"/>
+            <property name="tokens" value="DOT"/>
+            <property name="tokens" value="INC"/>
+            <property name="tokens" value="LNOT"/>
+            <property name="tokens" value="UNARY_MINUS"/>
+            <property name="tokens" value="UNARY_PLUS"/>
+            <property name="tokens" value="ARRAY_DECLARATOR"/>
+            <property name="tokens" value="INDEX_OP"/>
+        </module>
+        <module name="NoWhitespaceBefore">
+            <property name="tokens" value="COMMA"/>
+            <property name="tokens" value="POST_INC"/>
+            <property name="tokens" value="POST_DEC"/>
+            <property name="tokens" value="ELLIPSIS"/>
+        </module>
+        <!-- Don't allow whitespace before dots, but do allow line breaks -->
+        <module name="NoWhitespaceBefore">
+            <property name="tokens" value="DOT"/>
+            <property name="tokens" value="SEMI"/>
+            <property name="allowLineBreaks" value="true"/>
+        </module>
+        <!-- Wrap these operators after the newline -->
+        <module name="OperatorWrap">
+            <property name="tokens" value="QUESTION"/>
+            <property name="tokens" value="COLON"/>
+            <property name="tokens" value="MOD"/>
+            <property name="tokens" value="SR"/>
+            <property name="tokens" value="BSR"/>
+            <property name="tokens" value="GE"/>
+            <property name="tokens" value="GT"/>
+            <property name="tokens" value="SL"/>
+            <property name="tokens" value="LE"/>
+            <property name="tokens" value="LT"/>
+            <property name="tokens" value="TYPE_EXTENSION_AND"/>
+            <property name="tokens" value="LITERAL_INSTANCEOF"/>
+            <property name="option" value="nl"/>
+        </module>
+        <!-- Wrap these operators before the newline (aka don't wrap them) -->
+        <module name="OperatorWrap">
+            <property name="tokens" value="ASSIGN"/>
+            <property name="tokens" value="DIV_ASSIGN"/>
+            <property name="tokens" value="PLUS_ASSIGN"/>
+            <property name="tokens" value="MINUS_ASSIGN"/>
+            <property name="tokens" value="STAR_ASSIGN"/>
+            <property name="tokens" value="MOD_ASSIGN"/>
+            <property name="tokens" value="SR_ASSIGN"/>
+            <property name="tokens" value="BSR_ASSIGN"/>
+            <property name="tokens" value="SL_ASSIGN"/>
+            <property name="tokens" value="BXOR_ASSIGN"/>
+            <property name="tokens" value="BOR_ASSIGN"/>
+            <property name="tokens" value="BAND_ASSIGN"/>
+            <property name="tokens" value="BXOR"/>
+            <property name="tokens" value="BOR"/>
+            <property name="tokens" value="LOR"/>
+            <property name="tokens" value="BAND"/>
+            <property name="tokens" value="LAND"/>
+            <property name="tokens" value="EQUAL"/>
+            <property name="tokens" value="NOT_EQUAL"/>
+            <property name="tokens" value="DIV"/>
+            <property name="tokens" value="PLUS"/>
+            <property name="tokens" value="MINUS"/>
+            <property name="tokens" value="STAR"/>
+            <property name="option" value="eol"/>
+        </module>
+        <!-- Don't pad parentheses -->
+        <module name="ParenPad"/>
+        <!-- Separators that should appear on the next line -->
+        <module name="SeparatorWrap">
+            <property name="tokens" value="DOT"/>
+            <property name="option" value="nl"/>
+        </module>
+        <!-- Separators that should appear on the same line -->
+        <module name="SeparatorWrap">
+            <property name="tokens" value="COMMA"/>
+            <property name="tokens" value="RBRACK"/>
+            <property name="tokens" value="ARRAY_DECLARATOR"/>
+            <property name="tokens" value="ELLIPSIS"/>
+            <property name="option" value="EOL"/>
+        </module>
+        <!-- Make sure that everything only has one space around it -->
+        <module name="SingleSpaceSeparator">
+            <property name="validateComments" value="false"/>
+        </module>
+        <!-- Don't pad typecasts with whitespace -->
+        <module name="TypecastParenPad"/>
+        <!-- Validate that various tokens have whitespace after them  -->
+        <module name="WhitespaceAfter"/>
+        <!-- Validates that various elements have whitespace around them -->
+        <module name="WhitespaceAround">
+            <property name="allowEmptyConstructors" value="true"/>
+            <property name="allowEmptyTypes" value="true"/>
+        </module>
+        <!--         End Whitespace            -->
+    </module>
+
+</module>
