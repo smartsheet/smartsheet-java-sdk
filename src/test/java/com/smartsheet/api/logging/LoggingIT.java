@@ -45,7 +45,6 @@ class LoggingIT {
         String output = traceStream.toString();
         // not super-robust but asserts some of the important parts
         assertThat(output)
-                // truncated Auth header
                 .contains("request:{").contains("Authorization':'Bearer ****null")
                 .contains("response:{").contains("status:'HTTP/1.1 401 Unauthorized'")
         ;
