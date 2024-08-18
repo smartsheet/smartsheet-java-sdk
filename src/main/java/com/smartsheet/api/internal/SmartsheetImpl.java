@@ -41,6 +41,7 @@ import com.smartsheet.api.internal.http.DefaultHttpClient;
 import com.smartsheet.api.internal.http.HttpClient;
 import com.smartsheet.api.internal.json.JacksonJsonSerializer;
 import com.smartsheet.api.internal.json.JsonSerializer;
+import com.smartsheet.api.internal.util.CleanerUtil;
 import com.smartsheet.api.internal.util.Util;
 import org.apache.http.impl.client.HttpClients;
 
@@ -61,14 +62,14 @@ public class SmartsheetImpl implements Smartsheet {
     /**
      * Represents the base URI of the Smartsheet REST API.
      * <p>
-     * It will be initialized in constructor and will not change afterwards.
+     * It will be initialized in constructor and will not change afterward.
      */
-    private URI baseURI;
+    private final URI baseURI;
 
     /**
      * Represents the AtomicReference for access token.
      * <p>
-     * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
+     * It will be initialized in constructor and will not change afterward. The underlying value will be initially set
      * as null, and can be set via corresponding setter, therefore effectively the access token can be updated in the
      * SmartsheetImpl in thread safe manner.
      */
@@ -77,21 +78,21 @@ public class SmartsheetImpl implements Smartsheet {
     /**
      * Represents the HttpClient.
      * <p>
-     * It will be initialized in constructor and will not change afterwards.
+     * It will be initialized in constructor and will not change afterward.
      */
     private final HttpClient httpClient;
 
     /**
      * Represents the JsonSerializer.
      * <p>
-     * It will be initialized in constructor and will not change afterwards.
+     * It will be initialized in constructor and will not change afterward.
      */
-    private JsonSerializer jsonSerializer;
+    private final JsonSerializer jsonSerializer;
 
     /**
      * Represents the AtomicReference for assumed user email.
      * <p>
-     * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
+     * It will be initialized in constructor and will not change afterward. The underlying value will be initially set
      * as null, and can be set via corresponding setter, therefore effectively the assumed user can be updated in the
      * SmartsheetImpl in thread safe manner.
      */
@@ -100,8 +101,7 @@ public class SmartsheetImpl implements Smartsheet {
     /**
      * Represents the AtomicReference for change agent
      * <p>
-     * It will be initialized in constructor and will not change afterwards.
-     *
+     * It will be initialized in constructor and will not change afterward.
      */
     private final AtomicReference<String> changeAgent;
 
@@ -113,97 +113,97 @@ public class SmartsheetImpl implements Smartsheet {
     /**
      * Represents the AtomicReference to HomeResources.
      * <p>
-     * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
+     * It will be initialized in constructor and will not change afterward. The underlying value will be initially set
      * as null, and will be initialized to non-null at the first time it is accessed via corresponding getter, therefore
      * effectively the underlying value is lazily created in a thread safe manner.
      */
-    private AtomicReference<HomeResources> home;
+    private final AtomicReference<HomeResources> home;
 
     /**
      * Represents the AtomicReference to WorkspaceResources.
      * <p>
-     * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
+     * It will be initialized in constructor and will not change afterward. The underlying value will be initially set
      * as null, and will be initialized to non-null at the first time it is accessed via corresponding getter, therefore
      * effectively the underlying value is lazily created in a thread safe manner.
      */
-    private AtomicReference<WorkspaceResources> workspaces;
+    private final AtomicReference<WorkspaceResources> workspaces;
 
     /**
      * Represents the AtomicReference to FolderResources.
      * <p>
-     * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
+     * It will be initialized in constructor and will not change afterward. The underlying value will be initially set
      * as null, and will be initialized to non-null at the first time it is accessed via corresponding getter, therefore
      * effectively the underlying value is lazily created in a thread safe manner.
      */
-    private AtomicReference<FolderResources> folders;
+    private final AtomicReference<FolderResources> folders;
 
     /**
      * Represents the AtomicReference to TemplateResources.
      * <p>
-     * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
+     * It will be initialized in constructor and will not change afterward. The underlying value will be initially set
      * as null, and will be initialized to non-null at the first time it is accessed via corresponding getter, therefore
      * effectively the underlying value is lazily created in a thread safe manner.
      */
-    private AtomicReference<TemplateResources> templates;
+    private final AtomicReference<TemplateResources> templates;
 
     /**
      * Represents the AtomicReference to SheetResources.
      * <p>
-     * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
+     * It will be initialized in constructor and will not change afterward. The underlying value will be initially set
      * as null, and will be initialized to non-null at the first time it is accessed via corresponding getter, therefore
      * effectively the underlying value is lazily created in a thread safe manner.
      */
-    private AtomicReference<SheetResources> sheets;
+    private final AtomicReference<SheetResources> sheets;
 
     /**
      * Represents the AtomicReference to SightResources
      * <p>
-     * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
+     * It will be initialized in constructor and will not change afterward. The underlying value will be initially set
      * as null, and will be initialized to non-null at the first time it is accessed via corresponding getter, therefore
      * effectively the underlying value is lazily created in a thread safe manner.
      */
-    private AtomicReference<SightResources> sights;
+    private final AtomicReference<SightResources> sights;
 
     /**
      * Represents the AtomicReference to UserResources.
      * <p>
-     * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
+     * It will be initialized in constructor and will not change afterward. The underlying value will be initially set
      * as null, and will be initialized to non-null at the first time it is accessed via corresponding getter, therefore
      * effectively the underlying value is lazily created in a thread safe manner.
      */
-    private AtomicReference<UserResources> users;
+    private final AtomicReference<UserResources> users;
 
     /**
      * Represents the AtomicReference to {@link GroupResources}.
      * <p>
-     * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
+     * It will be initialized in constructor and will not change afterward. The underlying value will be initially set
      * as null, and will be initialized to non-null at the first time it is accessed via corresponding getter, therefore
      * effectively the underlying value is lazily created in a thread safe manner.
      */
-    private AtomicReference<GroupResources> groups;
+    private final AtomicReference<GroupResources> groups;
 
     /**
      * Represents the AtomicReference to SearchResources.
      * <p>
-     * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
+     * It will be initialized in constructor and will not change afterward. The underlying value will be initially set
      * as null, and will be initialized to non-null at the first time it is accessed via corresponding getter, therefore
      * effectively the underlying value is lazily created in a thread safe manner.
      */
-    private AtomicReference<SearchResources> search;
+    private final AtomicReference<SearchResources> search;
 
     /**
      * Represents the AtomicReference to ReportResources.
      * <p>
-     * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
+     * It will be initialized in constructor and will not change afterward. The underlying value will be initially set
      * as null, and will be initialized to non-null at the first time it is accessed via corresponding getter, therefore
      * effectively the underlying value is lazily created in a thread safe manner.
      */
-    private AtomicReference<ReportResources> reports;
+    private final AtomicReference<ReportResources> reports;
 
     /**
      * Represents the AtomicReference for ServerInfoResources.
      * <p>
-     * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
+     * It will be initialized in constructor and will not change afterward. The underlying value will be initially set
      * as null, and will be initialized to non-null at the first time it is accessed via corresponding getter, therefore
      * effectively the underlying value is lazily created in a thread safe manner.
      */
@@ -212,7 +212,7 @@ public class SmartsheetImpl implements Smartsheet {
     /**
      * Represents the AtomicReference for FavoriteResources.
      * <p>
-     * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
+     * It will be initialized in constructor and will not change afterward. The underlying value will be initially set
      * as null, and will be initialized to non-null at the first time it is accessed via corresponding getter, therefore
      * effectively the underlying value is lazily created in a thread safe manner.
      */
@@ -221,7 +221,7 @@ public class SmartsheetImpl implements Smartsheet {
     /**
      * Represents the AtomicReference for TokenResources.
      * <p>
-     * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
+     * It will be initialized in constructor and will not change afterward. The underlying value will be initially set
      * as null, and will be initialized to non-null at the first time it is accessed via corresponding getter, therefore
      * effectively the underlying value is lazily created in a thread safe manner.
      */
@@ -230,7 +230,7 @@ public class SmartsheetImpl implements Smartsheet {
     /**
      * Represents the AtomicReference for ContactResources.
      * <p>
-     * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
+     * It will be initialized in constructor and will not change afterward. The underlying value will be initially set
      * as null, and will be initialized to non-null at the first time it is accessed via corresponding getter, therefore
      * effectively the underlying value is lazily created in a thread safe manner.
      */
@@ -239,7 +239,7 @@ public class SmartsheetImpl implements Smartsheet {
     /**
      * Represents the AtomicReference for ImageUrlResources.
      * <p>
-     * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
+     * It will be initialized in constructor and will not change afterward. The underlying value will be initially set
      * as null, and will be initialized to non-null at the first time it is accessed via corresponding getter, therefore
      * effectively the underlying value is lazily created in a thread safe manner.
      */
@@ -248,7 +248,7 @@ public class SmartsheetImpl implements Smartsheet {
     /**
      * Represents the AtomicReference for WebhookResources.
      * <p>
-     * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
+     * It will be initialized in constructor and will not change afterward. The underlying value will be initially set
      * as null, and will be initialized to non-null at the first time it is accessed via corresponding getter, therefore
      * effectively the underlying value is lazily created in a thread safe manner.
      */
@@ -257,7 +257,7 @@ public class SmartsheetImpl implements Smartsheet {
     /**
      * Represents the AtomicReference for PassthroughResources.
      * <p>
-     * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
+     * It will be initialized in constructor and will not change afterward. The underlying value will be initially set
      * as null, and will be initialized to non-null at the first time it is accessed via corresponding getter, therefore
      * effectively the underlying value is lazily created in a thread safe manner.
      */
@@ -266,7 +266,7 @@ public class SmartsheetImpl implements Smartsheet {
     /**
      * Represents the AtomicReference for EventResources.
      * <p>
-     * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
+     * It will be initialized in constructor and will not change afterward. The underlying value will be initially set
      * as null, and will be initialized to non-null at the first time it is accessed via corresponding getter, therefore
      * effectively the underlying value is lazily created in a thread safe manner.
      */
@@ -279,7 +279,7 @@ public class SmartsheetImpl implements Smartsheet {
      * <p>
      * Exceptions: - IllegalArgumentException : if serverURI/version/accessToken is null/empty
      *
-     * @param baseURI the server uri
+     * @param baseURI     the server uri
      * @param accessToken the access token
      */
     public SmartsheetImpl(String baseURI, String accessToken) {
@@ -291,9 +291,9 @@ public class SmartsheetImpl implements Smartsheet {
      * <p>
      * Exceptions: - IllegalArgumentException : if serverURI/version/accessToken is null/empty
      *
-     * @param baseURI the server uri
-     * @param accessToken the access token
-     * @param httpClient the http client (optional)
+     * @param baseURI        the server uri
+     * @param accessToken    the access token
+     * @param httpClient     the http client (optional)
      * @param jsonSerializer the json serializer (optional)
      */
     public SmartsheetImpl(String baseURI, String accessToken, HttpClient httpClient, JsonSerializer jsonSerializer) {
@@ -305,6 +305,8 @@ public class SmartsheetImpl implements Smartsheet {
         this.jsonSerializer = (jsonSerializer == null) ? new JacksonJsonSerializer() : jsonSerializer;
         this.httpClient = (httpClient == null)
                 ? new DefaultHttpClient(HttpClients.createDefault(), this.jsonSerializer) : httpClient;
+        CleanerUtil.register(this, CleanerUtil.closeQuietly(this.httpClient));
+
         this.assumedUser = new AtomicReference<>(null);
         this.changeAgent = new AtomicReference<>(null);
         this.userAgent = new AtomicReference<>(generateUserAgent(null));
@@ -328,15 +330,6 @@ public class SmartsheetImpl implements Smartsheet {
         this.webhooks = new AtomicReference<>();
         this.passthrough = new AtomicReference<>();
         this.events = new AtomicReference<>();
-    }
-
-    /**
-     * Finalize the object, this method is overridden to close the HttpClient.
-     *
-     * @throws IOException Signals that an I/O exception has occurred.
-     */
-    protected void finalize() throws IOException {
-        this.httpClient.close();
     }
 
     /**
@@ -420,7 +413,6 @@ public class SmartsheetImpl implements Smartsheet {
 
     /**
      * Sets the change agent identifier
-     *
      */
     public void setChangeAgent(String changeAgent) {
         this.changeAgent.set(changeAgent);
@@ -459,7 +451,9 @@ public class SmartsheetImpl implements Smartsheet {
         }
     }
 
-    /** set what request/response fields to log in trace-logging */
+    /**
+     * set what request/response fields to log in trace-logging
+     */
     public void setTraces(Trace... traces) {
         if (this.httpClient instanceof DefaultHttpClient) {
             ((DefaultHttpClient) this.httpClient).setTraces(traces);
@@ -468,7 +462,9 @@ public class SmartsheetImpl implements Smartsheet {
         }
     }
 
-    /** set whether or not to generate "pretty formatted" JSON in trace-logging */
+    /**
+     * set whether or not to generate "pretty formatted" JSON in trace-logging
+     */
     public void setTracePrettyPrint(boolean pretty) {
         if (this.httpClient instanceof DefaultHttpClient) {
             ((DefaultHttpClient) this.httpClient).setTracePrettyPrint(pretty);
