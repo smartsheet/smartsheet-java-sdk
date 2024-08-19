@@ -77,6 +77,9 @@ public class FolderResourcesIT extends ITResourcesImpl {
         smartsheet.folderResources().createFolder(newFolder.getId(), folder1);
 
         assertThat(newFolder.getName()).isEqualTo(folder.getName());
+
+        // FIXME this IT is flaky because of delay in the creation of a new folder being visible to all servers
+        // possibly add a post-creation check loop with exponential backoff to verify folder is visible to later tests?
     }
 
     public void testCreateFolderInWorkspace() throws SmartsheetException {
