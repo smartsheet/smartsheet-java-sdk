@@ -21,6 +21,7 @@ import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.models.Comment;
 import com.smartsheet.api.models.Discussion;
 import com.smartsheet.api.models.Sheet;
+import com.smartsheet.api.resilience4j.RetryUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -77,12 +78,12 @@ public class CommentResourcesIT extends ITResourcesImpl {
                 .commentResources()
                 .addCommentWithAttachment(newSheet.getId(), newDiscussion.getId(), comment, file, "application/pdf");
         assertThat(comment1).isNotNull();
-        file = null;
     }
 
     public void testGetComment() throws SmartsheetException, IOException {
-        Comment comment = smartsheet.sheetResources().commentResources().getComment(newSheet.getId(), newComment.getId());
-
+        // sometimes fails to find the just-added comment
+        Comment comment = RetryUtil.callWithRetry(() ->
+                smartsheet.sheetResources().commentResources().getComment(newSheet.getId(), newComment.getId()));
         assertThat(comment).isNotNull();
     }
 

@@ -27,6 +27,7 @@ import com.smartsheet.api.models.enums.DestinationType;
 import com.smartsheet.api.models.enums.FolderCopyInclusion;
 import com.smartsheet.api.models.enums.FolderRemapExclusion;
 import com.smartsheet.api.models.enums.SourceInclusion;
+import com.smartsheet.api.resilience4j.RetryUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -100,7 +101,8 @@ public class FolderResourcesIT extends ITResourcesImpl {
 
     public void testListFoldersInFolder() throws SmartsheetException {
         PaginationParameters parameters = new PaginationParameters(true, 1, 1);
-        PagedResult<Folder> foldersWrapper = smartsheet.folderResources().listFolders(newFolder.getId(), parameters);
+        PagedResult<Folder> foldersWrapper = RetryUtil.callWithRetry(
+                () -> smartsheet.folderResources().listFolders(newFolder.getId(), parameters));
 
         assertThat(foldersWrapper.getTotalCount()).isEqualTo(1);
     }

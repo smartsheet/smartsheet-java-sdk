@@ -27,6 +27,7 @@ import com.smartsheet.api.models.Sheet;
 import com.smartsheet.api.models.StringObjectValue;
 import com.smartsheet.api.models.enums.ColumnType;
 import com.smartsheet.api.models.enums.SheetInclusion;
+import com.smartsheet.api.resilience4j.RetryUtil;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -78,8 +79,9 @@ public class MultiPicklistIT extends ITResourcesImpl {
     }
 
     public void testListMultiPicklistColumn() throws SmartsheetException {
-        PagedResult<Column> cols = smartsheet.sheetResources().columnResources().listColumns(sheet.getId(),
-                null, null, null);
+        // sometimes fails to find the just-added resource
+        PagedResult<Column> cols = RetryUtil.callWithRetry(
+                () -> smartsheet.sheetResources().columnResources().listColumns(sheet.getId(), null, null, null));
         // should be TEXT_NUMBER since level not specified
         assertThat(cols.getData().get(0).getType()).isEqualTo(ColumnType.TEXT_NUMBER);
 

@@ -24,6 +24,7 @@ import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.PaginationParameters;
 import com.smartsheet.api.models.Row;
 import com.smartsheet.api.models.Sheet;
+import com.smartsheet.api.resilience4j.RetryUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -46,10 +47,12 @@ public class CellResourcesIT extends ITResourcesImpl {
     void testGetCellHistory() throws SmartsheetException, IOException {
         //create sheet
         Sheet sheet = smartsheet.sheetResources().createSheet(createSheetObject());
+
         PaginationParameters parameters = new PaginationParameters.PaginationParametersBuilder().setIncludeAll(true).build();
 
         //get columns
-        PagedResult<Column> columns = smartsheet.sheetResources().columnResources().listColumns(sheet.getId(), null, parameters);
+        PagedResult<Column> columns = RetryUtil.callWithRetry(
+                () -> smartsheet.sheetResources().columnResources().listColumns(sheet.getId(), null, parameters));
         //add rows
         Row row = addRows(sheet.getId());
 
@@ -70,7 +73,8 @@ public class CellResourcesIT extends ITResourcesImpl {
         PaginationParameters parameters = new PaginationParameters.PaginationParametersBuilder().setIncludeAll(true).build();
 
         //get columns
-        PagedResult<Column> columns = smartsheet.sheetResources().columnResources().listColumns(sheet.getId(), null, parameters);
+        PagedResult<Column> columns = RetryUtil.callWithRetry(
+                () -> smartsheet.sheetResources().columnResources().listColumns(sheet.getId(), null, parameters));
         //add rows
         Row row = addRows(sheet.getId());
 

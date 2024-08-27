@@ -20,6 +20,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.smartsheet.api.Smartsheet;
 import com.smartsheet.api.SmartsheetException;
+import com.smartsheet.api.resilience4j.RetryUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -30,6 +31,7 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class PassthroughResourcesIT extends ITResourcesImpl {
+    private static final ObjectMapper MAPPER = new ObjectMapper();
     Smartsheet smartsheet;
 
     @BeforeEach
@@ -39,7 +41,6 @@ public class PassthroughResourcesIT extends ITResourcesImpl {
 
     @Test
     void testPassthroughMethods() throws SmartsheetException, IOException {
-        Long id = 0L;
         String payload =
                 "{\"name\": \"my new sheet\"," +
                         "\"columns\": [" +
@@ -48,47 +49,28 @@ public class PassthroughResourcesIT extends ITResourcesImpl {
                         "]" +
                         "}";
         String jsonResponse = smartsheet.passthroughResources().postRequest("sheets", payload, null);
-        try {
-            ObjectMapper mapper = new ObjectMapper();
-            JsonNode root = mapper.readTree(jsonResponse);
-            assertThat(root.get("message").asText()).isEqualTo("SUCCESS");
-            JsonNode result = root.get("result");
-            assertThat(result.get("id").asLong()).isNotNull();
-            id = result.get("id").asLong();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        JsonNode root = MAPPER.readTree(jsonResponse);
+        assertThat(root.get("message").asText()).isEqualTo("SUCCESS");
+        JsonNode result = root.get("result");
+        assertThat(result.get("id").asLong()).isNotNull();
+        long id = result.get("id").asLong();
 
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("include", "objectValue");
-        jsonResponse = smartsheet.passthroughResources().getRequest("sheets/" + id, parameters);
-        try {
-            ObjectMapper mapper = new ObjectMapper();
-            JsonNode root = mapper.readTree(jsonResponse);
-            assertThat(root.get("name").asText()).isEqualTo("my new sheet");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        jsonResponse = RetryUtil.callWithRetry(
+                () -> smartsheet.passthroughResources().getRequest("sheets/" + id, parameters));
+        root = MAPPER.readTree(jsonResponse);
+        assertThat(root.get("name").asText()).isEqualTo("my new sheet");
 
         payload = "{\"name\": \"my new new sheet\"}";
         jsonResponse = smartsheet.passthroughResources().putRequest("sheets/" + id, payload, null);
-        try {
-            ObjectMapper mapper = new ObjectMapper();
-            JsonNode root = mapper.readTree(jsonResponse);
-            assertThat(root.get("message").asText()).isEqualTo("SUCCESS");
-            JsonNode result = root.get("result");
-            assertThat(result.get("name").asText()).isEqualTo("my new new sheet");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        root = MAPPER.readTree(jsonResponse);
+        assertThat(root.get("message").asText()).isEqualTo("SUCCESS");
+        result = root.get("result");
+        assertThat(result.get("name").asText()).isEqualTo("my new new sheet");
 
         jsonResponse = smartsheet.passthroughResources().deleteRequest("sheets/" + id);
-        try {
-            ObjectMapper mapper = new ObjectMapper();
-            JsonNode root = mapper.readTree(jsonResponse);
-            assertThat(root.get("message").asText()).isEqualTo("SUCCESS");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        root = MAPPER.readTree(jsonResponse);
+        assertThat(root.get("message").asText()).isEqualTo("SUCCESS");
     }
 }
