@@ -8,19 +8,19 @@
     <!--  Allow strings to occur multiple times without making them a variable in tests  -->
     <suppress checks="MultipleStringLiterals" files="[\\/]src[\\/]test[\\/].*"/>
     <!--  Allow underscores in test method names  -->
-    <suppress files="[\\/]src[\\/]test[\\/].*" checks="MethodName" />
+    <suppress files="[\\/]src[\\/]test[\\/].*" checks="MethodName"/>
     <!-- Don't require Javadocs for tests -->
-    <suppress files="[\\/]src[\\/]test[\\/].*" checks="MissingJavadocMethod" />
+    <suppress files="[\\/]src[\\/]test[\\/].*" checks="MissingJavadocMethod"/>
     <!-- Don't check file lengths for tests -->
-    <suppress files="[\\/]src[\\/]test[\\/].*" checks="FileLength" />
+    <suppress files="[\\/]src[\\/]test[\\/].*" checks="FileLength"/>
     <!-- Don't check method lengths for tests -->
-    <suppress files="[\\/]src[\\/]test[\\/].*" checks="MethodLength" />
+    <suppress files="[\\/]src[\\/]test[\\/].*" checks="MethodLength"/>
 
-<!--    These classes use TRow TColumn and TCell which are confusing to replace with single letter types -->
+    <!-- These classes use TRow TColumn and TCell which are confusing to replace with single letter types -->
     <suppress checks="ClassTypeParameterName" files="src/main/java/com/smartsheet/api/models/AbstractSheet.java"/>
     <suppress checks="ClassTypeParameterName" files="src/main/java/com/smartsheet/api/models/AbstractRow.java"/>
 
-<!--    These classes are enums with multiple enums using the same string in value -->
+    <!-- These classes are enums with multiple enums using the same string in value -->
     <suppress checks="MultipleStringLiterals" files="src/main/java/com/smartsheet/api/models/format/Currency.java"/>
     <suppress checks="MultipleStringLiterals" files="src/main/java/com/smartsheet/api/models/format/FontFamily.java"/>
 </suppressions>

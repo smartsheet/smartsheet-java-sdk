@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -53,12 +53,12 @@ public class WebhookResourcesImpl extends AbstractResources implements WebhookRe
      *
      * @param paging the object containing the pagination parameters
      * @return IndexResult object containing an array of Webhook objects.
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     public PagedResult<Webhook> listWebhooks(PaginationParameters paging) throws SmartsheetException {
         String path = "webhooks";
@@ -79,12 +79,12 @@ public class WebhookResourcesImpl extends AbstractResources implements WebhookRe
      *
      * @param webhookId the ID of the webhook
      * @return the webhook resource.
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     public Webhook getWebhook(long webhookId) throws SmartsheetException {
         return this.getResource(WEBHOOKS_PATH + webhookId, Webhook.class);
@@ -97,12 +97,12 @@ public class WebhookResourcesImpl extends AbstractResources implements WebhookRe
      *
      * @param webhook the webhook to be created
      * @return the webhook resource.
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     public Webhook createWebhook(Webhook webhook) throws SmartsheetException {
         return this.createResource("webhooks", Webhook.class, webhook);
@@ -115,10 +115,10 @@ public class WebhookResourcesImpl extends AbstractResources implements WebhookRe
      *
      * @param webhook the webhook to update
      * @return the updated webhook resource.
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      */
     public Webhook updateWebhook(Webhook webhook) throws SmartsheetException {
@@ -131,12 +131,12 @@ public class WebhookResourcesImpl extends AbstractResources implements WebhookRe
      * It mirrors to the following Smartsheet REST API method: DELETE /webhooks/{webhookId}
      *
      * @param webhookId the webhook Id
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     public void deleteWebhook(long webhookId) throws SmartsheetException {
         this.deleteResource(WEBHOOKS_PATH + webhookId, Webhook.class);
@@ -144,18 +144,18 @@ public class WebhookResourcesImpl extends AbstractResources implements WebhookRe
 
     /**
      * Resets the shared secret for the specified Webhook. For more information about how a shared secret is used,
-     *  see Authenticating Callbacks.
+     * see Authenticating Callbacks.
      * <p>
      * It mirrors to the following Smartsheet REST API method: POST /webhooks/{webhookId}/resetsharedsecret
      *
      * @param webhookId the webhook ID
      * @return the Webhook shared secret
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     public WebhookSharedSecret resetSharedSecret(long webhookId) throws SmartsheetException {
         HttpRequest request = createHttpRequest(this.getSmartsheet().getBaseURI().resolve(WEBHOOKS_PATH +
@@ -168,7 +168,7 @@ public class WebhookResourcesImpl extends AbstractResources implements WebhookRe
             case 200:
                 try {
                     secret = this.smartsheet.getJsonSerializer().deserialize(WebhookSharedSecret.class,
-                        response.getEntity().getContent());
+                            response.getEntity().getContent());
                 } catch (JsonParseException e) {
                     throw new SmartsheetException(e);
                 } catch (JsonMappingException e) {

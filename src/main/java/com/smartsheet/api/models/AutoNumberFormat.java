@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,21 +18,30 @@ package com.smartsheet.api.models;
 
 /**
  * Represents the AutoNumberFormat object. It describes how the the System Column type of "AUTO_NUMBER" is auto-generated
+ *
  * @see <a href="https://smartsheet.redoc.ly/tag/commonObjects/#section/AutoNumberFormat-Object">Auto Number Format API Documentation</a>
  * @see <a href="http://help.smartsheet.com/customer/portal/articles/1108408-auto-numbering">Auto Number Format Help</a>
  */
 public class AutoNumberFormat {
 
-    /** Represents the prefix. */
+    /**
+     * Represents the prefix.
+     */
     private String prefix;
 
-    /** Represents the suffix. */
+    /**
+     * Represents the suffix.
+     */
     private String suffix;
 
-    /** Represents the fill. */
+    /**
+     * Represents the fill.
+     */
     private String fill;
 
-    /** Represents the starting number. */
+    /**
+     * Represents the starting number.
+     */
     private Long startingNumber;
 
     /**

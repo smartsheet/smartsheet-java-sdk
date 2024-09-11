@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -413,16 +413,18 @@ public class Cell {
      */
     public static class AddRowCellsBuilder {
 
-        /** The cells. */
+        /**
+         * The cells.
+         */
         List<Cell> cells = new ArrayList<>();
 
         /**
          * Adds the cell.
          *
-         * @param columnId the column id
-         * @param value the value
-         * @param strict the strict
-         * @param hyperlink the hyperlink
+         * @param columnId       the column id
+         * @param value          the value
+         * @param strict         the strict
+         * @param hyperlink      the hyperlink
          * @param linkInFromCell the link
          * @return the add row cells builder
          */
@@ -446,11 +448,11 @@ public class Cell {
         /**
          * Adds the cell
          *
-         * @param columnId the column id
-         * @param value the value
-         * @param strict the strict
-         * @param hyperlink the hyperlink
-         * @param linkInFromCell the link
+         * @param columnId           the column id
+         * @param value              the value
+         * @param strict             the strict
+         * @param hyperlink          the hyperlink
+         * @param linkInFromCell     the link
          * @param overrideValidation the overrideValidation flag
          * @return the add row cells builder
          */
@@ -477,7 +479,7 @@ public class Cell {
          * Adds the cell.
          *
          * @param columnId the column id
-         * @param value the value
+         * @param value    the value
          * @return the builder
          */
         public AddRowCellsBuilder addCell(Long columnId, Object value) {
@@ -504,16 +506,18 @@ public class Cell {
      */
     public static class UpdateRowCellsBuilder {
 
-        /** The cells. */
+        /**
+         * The cells.
+         */
         List<Cell> cells = new ArrayList<>();
 
         /**
          * Adds the cell.
          *
-         * @param columnId the column id
-         * @param value the value
-         * @param strict the strict
-         * @param hyperlink the hyperlink
+         * @param columnId       the column id
+         * @param value          the value
+         * @param strict         the strict
+         * @param hyperlink      the hyperlink
          * @param linkInFromCell the link
          * @return the update row cells builder
          */
@@ -531,11 +535,11 @@ public class Cell {
         /**
          * Adds the cell.
          *
-         * @param columnId the column id
-         * @param value the value
-         * @param strict the strict
-         * @param hyperlink the hyperlink
-         * @param linkInFromCell the link
+         * @param columnId           the column id
+         * @param value              the value
+         * @param strict             the strict
+         * @param hyperlink          the hyperlink
+         * @param linkInFromCell     the link
          * @param overrideValidation the overrideValidation flag
          * @return the update row cells builder
          */
@@ -562,7 +566,7 @@ public class Cell {
          * Adds the cell.
          *
          * @param columnId the column id
-         * @param value the value
+         * @param value    the value
          * @return the update row cells builder
          */
         public UpdateRowCellsBuilder addCell(Long columnId, Object value) {

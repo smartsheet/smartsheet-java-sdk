@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,6 +33,7 @@ public class ContactObjectValue extends Contact implements ObjectValue {
 
     /**
      * Gets the offset in contactReferences for this Contact
+     *
      * @return the refIndex
      */
     public Integer getRefIndex() {
@@ -41,6 +42,7 @@ public class ContactObjectValue extends Contact implements ObjectValue {
 
     /**
      * Sets the offset in contactReferences for this Contact
+     *
      * @return ContactObjectValue
      */
     public ContactObjectValue setRefIndex(Integer refIndex) {
@@ -50,6 +52,7 @@ public class ContactObjectValue extends Contact implements ObjectValue {
 
     /**
      * Gets the ID for the contact image
+     *
      * @return the imageId
      */
     public String getImageId() {
@@ -58,6 +61,7 @@ public class ContactObjectValue extends Contact implements ObjectValue {
 
     /**
      * Sets the contact image for this Contact
+     *
      * @param imageId the imageId
      * @return ContactObjectValue
      */

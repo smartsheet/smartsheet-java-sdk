@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,6 +39,7 @@ public class StreamUtil {
 
     /**
      * read all bytes from an InputStream; doesn't close input-stream
+     *
      * @param source the input stream to consume
      * @return the bytes read from 'is'
      * @throws IOException if anything goes wrong reading from 'is'
@@ -49,6 +50,7 @@ public class StreamUtil {
 
     /**
      * read all bytes from an InputStream with the specified buffer size; doesn't close input-stream
+     *
      * @param source     the input stream to consume
      * @param bufferSize the buffer size to use when reading the stream
      * @return the bytes read from 'is'
@@ -62,6 +64,7 @@ public class StreamUtil {
 
     /**
      * the real work-horse behind most of these methods
+     *
      * @param source     the source InputStream from which to read the data (not closed when done)
      * @param target     the target OutputStream to which to write the data (not closed when done)
      * @param bufferSize the size of the transfer buffer to use
@@ -94,6 +97,7 @@ public class StreamUtil {
 
     /**
      * used when you want to clone a InputStream's content and still have it appear "rewound" to the stream beginning
+     *
      * @param source       the stream around the contents we want to clone
      * @param readbackSize the farthest we should read a resetable stream before giving up
      * @param target       an output stream into which we place a copy of the content read from source
@@ -120,7 +124,9 @@ public class StreamUtil {
         }
     }
 
-    /** a convenience method to reduce all the casting of HttpEntity.getContentLength() to int */
+    /**
+     * a convenience method to reduce all the casting of HttpEntity.getContentLength() to int
+     */
     public static InputStream cloneContent(InputStream source, long readbackSize, ByteArrayOutputStream target) throws IOException {
         return cloneContent(source, (int) Math.min((long) Integer.MAX_VALUE, readbackSize), target);
     }
@@ -128,6 +134,7 @@ public class StreamUtil {
     /**
      * generate a String of UTF-8 characters (or hex-digits if byteStream isn't UTF-8 chars) from byteStream,
      * truncating to maxLen (with "..." added if the result is truncated)
+     *
      * @param byteStream the source of bytes to be converted to a UTF-8 String
      * @param maxLen     the point at which to truncate the string (-1 means don't truncate) in which case "..." is appended
      * @return the String read from the stream

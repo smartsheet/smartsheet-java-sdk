@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -148,6 +148,7 @@ public class SheetEmail extends Email {
 
         /**
          * Gets the list of recipients to send to
+         *
          * @return the list of recipients
          */
         public List<Recipient> getSendTo() {
@@ -156,6 +157,7 @@ public class SheetEmail extends Email {
 
         /**
          * Sets the list of recipients to send to
+         *
          * @param sendTo list of recipients
          * @return the associated builder
          */

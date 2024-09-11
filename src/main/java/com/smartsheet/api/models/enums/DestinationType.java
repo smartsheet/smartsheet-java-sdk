@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,12 +20,18 @@ package com.smartsheet.api.models.enums;
  * Represents the type of the destination container when a Sheet or Folder is moved, or when a Sheet, Folder, or Workspace is copied..
  */
 public enum DestinationType {
-    /** Represents the home destination container. */
+    /**
+     * Represents the home destination container.
+     */
     HOME,
 
-    /** Represents the workspace destination container. */
+    /**
+     * Represents the workspace destination container.
+     */
     WORKSPACE,
 
-    /** Represents the folder destination container. */
+    /**
+     * Represents the folder destination container.
+     */
     FOLDER,
 }

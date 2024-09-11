@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,6 +24,7 @@ import java.util.Date;
 
 /**
  * Represents the Attachment object.
+ *
  * @see <a href="http://help.smartsheet.com/customer/portal/articles/518408-uploading-attachments">Help Uploading
  * Attachments</a>
  */
@@ -125,8 +126,7 @@ public class Attachment extends NamedModel<Long> {
     /**
      * Sets the url expires in millis.
      *
-     * @param urlExpiresInMillis
-     *            the new url expires in millis
+     * @param urlExpiresInMillis the new url expires in millis
      */
     public Attachment setUrlExpiresInMillis(Long urlExpiresInMillis) {
         this.urlExpiresInMillis = urlExpiresInMillis;
@@ -145,8 +145,7 @@ public class Attachment extends NamedModel<Long> {
     /**
      * Sets the attachment type.
      *
-     * @param attachmentType
-     *            the new attachment type
+     * @param attachmentType the new attachment type
      */
     public Attachment setAttachmentType(AttachmentType attachmentType) {
         this.attachmentType = attachmentType;
@@ -165,8 +164,7 @@ public class Attachment extends NamedModel<Long> {
     /**
      * Sets the attachment sub type.
      *
-     * @param attachmentSubType
-     *            the new attachment sub type
+     * @param attachmentSubType the new attachment sub type
      */
     public Attachment setAttachmentSubType(AttachmentSubType attachmentSubType) {
         this.attachmentSubType = attachmentSubType;
@@ -185,8 +183,7 @@ public class Attachment extends NamedModel<Long> {
     /**
      * Sets the created at.
      *
-     * @param createdAt
-     *            the new created at
+     * @param createdAt the new created at
      */
     public Attachment setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
@@ -205,8 +202,7 @@ public class Attachment extends NamedModel<Long> {
     /**
      * Sets the mime type.
      *
-     * @param mimeType
-     *            the new mime type
+     * @param mimeType the new mime type
      */
     public Attachment setMimeType(String mimeType) {
         this.mimeType = mimeType;
@@ -225,8 +221,7 @@ public class Attachment extends NamedModel<Long> {
     /**
      * Sets the parent type.
      *
-     * @param parentType
-     *            the new parent type
+     * @param parentType the new parent type
      */
     public Attachment setParentType(AttachmentParentType parentType) {
         this.parentType = parentType;
@@ -245,8 +240,7 @@ public class Attachment extends NamedModel<Long> {
     /**
      * Sets the parent id.
      *
-     * @param parentId
-     *            the new parent id
+     * @param parentId the new parent id
      */
     public Attachment setParentId(Long parentId) {
         this.parentId = parentId;
@@ -265,8 +259,7 @@ public class Attachment extends NamedModel<Long> {
     /**
      * Sets the size in kb.
      *
-     * @param sizeInKb
-     *            the new size in kb
+     * @param sizeInKb the new size in kb
      */
     public Attachment setSizeInKb(Long sizeInKb) {
         this.sizeInKb = sizeInKb;
@@ -301,7 +294,6 @@ public class Attachment extends NamedModel<Long> {
      * Sets the attachment description.
      *
      * @param description the description
-     *
      */
     public Attachment setDescription(String description) {
         this.description = description;
@@ -352,7 +344,6 @@ public class Attachment extends NamedModel<Long> {
          *
          * @param name the new name
          * @return the builder object
-         *
          */
         public CreateAttachmentBuilder setName(String name) {
             this.name = name;
@@ -373,7 +364,6 @@ public class Attachment extends NamedModel<Long> {
          *
          * @param url the new url
          * @return the builder object
-         *
          */
         public CreateAttachmentBuilder setUrl(String url) {
             this.url = url;
@@ -392,8 +382,7 @@ public class Attachment extends NamedModel<Long> {
         /**
          * Sets the attachment type.
          *
-         * @param attachmentType
-         *            the new attachment type
+         * @param attachmentType the new attachment type
          * @return the builder object
          */
         public CreateAttachmentBuilder setAttachmentType(AttachmentType attachmentType) {
@@ -413,8 +402,7 @@ public class Attachment extends NamedModel<Long> {
         /**
          * Sets the attachment sub type.
          *
-         * @param attachmentSubType
-         *            the new attachment sub type
+         * @param attachmentSubType the new attachment sub type
          * @return the builder object
          */
         public CreateAttachmentBuilder setAttachmentSubType(AttachmentSubType attachmentSubType) {

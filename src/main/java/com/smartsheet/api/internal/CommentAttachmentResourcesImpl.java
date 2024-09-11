@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,7 +31,7 @@ import java.io.InputStream;
 
 /**
  * This is the implementation of the CommentAttachmentResources.
- *
+ * <p>
  * Thread Safety: This class is thread safe because it is immutable and its base class is thread safe.
  */
 public class CommentAttachmentResourcesImpl extends AbstractResources implements com.smartsheet.api.CommentAttachmentResources {
@@ -42,22 +42,22 @@ public class CommentAttachmentResourcesImpl extends AbstractResources implements
 
     /**
      * Attach a URL to a comment.
-     *
+     * <p>
      * The URL can be a normal URL (attachmentType "URL"), a Google Drive URL (attachmentType "GOOGLE_DRIVE") or a
      * Box.com URL (attachmentType "BOX_COM").
-     *
+     * <p>
      * It mirrors to the following Smartsheet REST API method: POST /sheets/{sheetId}/comments/{commentId}/attachments
      *
-     * @param sheetId the sheet id
-     * @param commentId the comment id
+     * @param sheetId    the sheet id
+     * @param commentId  the comment id
      * @param attachment the attachment object
      * @return the created attachment
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     public Attachment attachUrl(long sheetId, long commentId, Attachment attachment) throws SmartsheetException {
         return this.createResource("sheets/" + sheetId + "/comments/" + commentId + "/attachments", Attachment.class, attachment);
@@ -65,21 +65,21 @@ public class CommentAttachmentResourcesImpl extends AbstractResources implements
 
     /**
      * Attach a file to a comment with simple upload.
-     *
+     * <p>
      * It mirrors to the following Smartsheet REST API method: POST /sheets/{sheetId}/comments/{commentId}/attachments
      *
-     * @param sheetId the id of the sheet
-     * @param commentId the id of the comment
-     * @param file the file to attach
+     * @param sheetId     the id of the sheet
+     * @param commentId   the id of the comment
+     * @param file        the file to attach
      * @param contentType the content type of the file
      * @return the created attachment
-     * @throws FileNotFoundException the file not found exception
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws FileNotFoundException       the file not found exception
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     public Attachment attachFile(long sheetId, long commentId, File file, String contentType) throws FileNotFoundException,
             SmartsheetException {
@@ -92,11 +92,11 @@ public class CommentAttachmentResourcesImpl extends AbstractResources implements
     /**
      * Attach file for simple upload.
      *
-     * @param sheetId the sheet id
-     * @param commentId the comment id
-     * @param inputStream the attachment data inputStream
-     * @param contentType the content type
-     * @param contentLength the content length
+     * @param sheetId        the sheet id
+     * @param commentId      the comment id
+     * @param inputStream    the attachment data inputStream
+     * @param contentType    the content type
+     * @param contentLength  the content length
      * @param attachmentName the name of the attachment
      * @return the attachment
      * @throws SmartsheetException the smartsheet exception

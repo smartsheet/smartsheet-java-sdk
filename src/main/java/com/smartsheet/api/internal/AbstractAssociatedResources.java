@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,13 +20,13 @@ import com.smartsheet.api.internal.util.Util;
 
 /**
  * This is the base class of the Smartsheet REST API resources that are associated to other resources.
- *
+ * <p>
  * Thread Safety: This class is thread safe because it is immutable and its base class is thread safe.
  */
 public abstract class AbstractAssociatedResources extends AbstractResources {
     /**
      * Represents the master resource type (e.g. "sheet", "workspace").
-     *
+     * <p>
      * It will be initialized in constructor and will not change afterwards.
      */
     private String masterResourceType;
@@ -34,7 +34,7 @@ public abstract class AbstractAssociatedResources extends AbstractResources {
     /**
      * Constructor.
      *
-     * @param smartsheet the smartsheet
+     * @param smartsheet         the smartsheet
      * @param masterResourceType the master resource type
      */
     public AbstractAssociatedResources(SmartsheetImpl smartsheet, String masterResourceType) {

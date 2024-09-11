@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,9 +20,13 @@ package com.smartsheet.api.models.enums;
  * Represents column types.
  */
 public enum ShareType {
-    /** Represents the GROUP share type. */
+    /**
+     * Represents the GROUP share type.
+     */
     GROUP,
 
-    /** Represents the USER share type. */
+    /**
+     * Represents the USER share type.
+     */
     USER
 }

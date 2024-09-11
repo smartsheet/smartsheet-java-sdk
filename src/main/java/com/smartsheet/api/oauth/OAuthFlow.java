@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,8 +34,8 @@ public interface OAuthFlow {
      * <p>Generate a new authorization URL.</p>
      *
      * @param scopes the requested scopes
-     * @param state an arbitrary string that will be returned to your app; intended to be used by you to ensure that
-     *     this redirect is indeed from an OAuth flow that you initiated.
+     * @param state  an arbitrary string that will be returned to your app; intended to be used by you to ensure that
+     *               this redirect is indeed from an OAuth flow that you initiated.
      * @return the authorization URL
      * @throws IllegalArgumentException if scopes is null or empty
      */
@@ -47,12 +47,12 @@ public interface OAuthFlow {
      *
      * @param authorizationResponseURL the authorization response url
      * @return the authorization result
-     * @throws URISyntaxException the URI syntax exception
-     * @throws AccessDeniedException the access denied exception
+     * @throws URISyntaxException               the URI syntax exception
+     * @throws AccessDeniedException            the access denied exception
      * @throws UnsupportedResponseTypeException the unsupported response type exception
-     * @throws InvalidScopeException the invalid scope exception
-     * @throws OAuthAuthorizationCodeException the o auth authorization code exception
-     * @throws IllegalArgumentException if any other error occurred during the operation
+     * @throws InvalidScopeException            the invalid scope exception
+     * @throws OAuthAuthorizationCodeException  the o auth authorization code exception
+     * @throws IllegalArgumentException         if any other error occurred during the operation
      */
     AuthorizationResult extractAuthorizationResult(String authorizationResponseURL) throws
             URISyntaxException,
@@ -66,11 +66,11 @@ public interface OAuthFlow {
      *
      * @param authorizationResult the authorization result
      * @return the token
-     * @throws OAuthTokenException the o auth token exception
-     * @throws JSONSerializerException the JSON serializer exception
-     * @throws HttpClientException the http client exception
-     * @throws URISyntaxException the URI syntax exception
-     * @throws InvalidRequestException the invalid request exception
+     * @throws OAuthTokenException      the o auth token exception
+     * @throws JSONSerializerException  the JSON serializer exception
+     * @throws HttpClientException      the http client exception
+     * @throws URISyntaxException       the URI syntax exception
+     * @throws InvalidRequestException  the invalid request exception
      * @throws IllegalArgumentException if any other error occurred during the operation
      */
     Token obtainNewToken(AuthorizationResult authorizationResult) throws
@@ -85,11 +85,11 @@ public interface OAuthFlow {
      *
      * @param token the token to refresh
      * @return the refreshed token
-     * @throws OAuthTokenException the o auth token exception
-     * @throws JSONSerializerException the JSON serializer exception
-     * @throws HttpClientException the http client exception
-     * @throws URISyntaxException the URI syntax exception
-     * @throws InvalidRequestException the invalid request exception
+     * @throws OAuthTokenException      the o auth token exception
+     * @throws JSONSerializerException  the JSON serializer exception
+     * @throws HttpClientException      the http client exception
+     * @throws URISyntaxException       the URI syntax exception
+     * @throws InvalidRequestException  the invalid request exception
      * @throws IllegalArgumentException if any other error occurred during the operation
      */
     Token refreshToken(Token token) throws
@@ -103,19 +103,19 @@ public interface OAuthFlow {
      * Revoke access token.
      * <p>
      * Exceptions:
-     *   - IllegalArgumentException : if url is null or empty
-     *   - InvalidTokenRequestException : if the token request is invalid
-     *   - InvalidOAuthClientException : if the client information is invalid
-     *   - InvalidOAuthGrantException : if the authorization code or refresh token is invalid or
-     *   expired, the redirect_uri does not match, or the hash value does not match the client secret and/or code
-     *   - UnsupportedOAuthGrantTypeException : if the grant type is invalid
-     *   - OAuthTokenException : if any other error occurred during the operation
+     * - IllegalArgumentException : if url is null or empty
+     * - InvalidTokenRequestException : if the token request is invalid
+     * - InvalidOAuthClientException : if the client information is invalid
+     * - InvalidOAuthGrantException : if the authorization code or refresh token is invalid or
+     * expired, the redirect_uri does not match, or the hash value does not match the client secret and/or code
+     * - UnsupportedOAuthGrantTypeException : if the grant type is invalid
+     * - OAuthTokenException : if any other error occurred during the operation
      *
      * @param token the access token to revoke access from
-     * @throws OAuthTokenException the o auth token exception
+     * @throws OAuthTokenException     the o auth token exception
      * @throws JSONSerializerException the JSON serializer exception
-     * @throws HttpClientException the http client exception
-     * @throws URISyntaxException the URI syntax exception
+     * @throws HttpClientException     the http client exception
+     * @throws URISyntaxException      the URI syntax exception
      * @throws InvalidRequestException the invalid request exception
      */
     void revokeAccessToken(Token token) throws OAuthTokenException, JSONSerializerException, HttpClientException,

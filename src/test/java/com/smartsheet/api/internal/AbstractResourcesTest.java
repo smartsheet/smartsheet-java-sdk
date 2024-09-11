@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,7 +39,8 @@ class AbstractResourcesTest {
 
         SmartsheetImpl smartsheet = new SmartsheetImpl("doesnt/matter", tokenValue, new DefaultHttpClient(), null);
         smartsheet.setChangeAgent(changeAgent);
-        AbstractResources resources = new AbstractResources(smartsheet) {};
+        AbstractResources resources = new AbstractResources(smartsheet) {
+        };
 
         Map<String, String> headers = resources.createHeaders();
         assertThat(headers)
@@ -55,7 +56,8 @@ class AbstractResourcesTest {
                 new DefaultHttpClient(),
                 null
         );
-        AbstractResources resources = new AbstractResources(smartsheetImpl) {};
+        AbstractResources resources = new AbstractResources(smartsheetImpl) {
+        };
         Home home = new Home();
 
         assertThatThrownBy(() -> resources.createResource("someValidPath", null, home))

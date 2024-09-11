@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,8 +22,7 @@ public enum FavoriteType {
     FOLDER("folder"),
     SHEET("sheet"),
     REPORT("report"),
-    SIGHT("sight")
-    ;
+    SIGHT("sight");
 
     String type;
 

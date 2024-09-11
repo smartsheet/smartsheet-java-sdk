@@ -66,10 +66,10 @@
     </module>
     <!--          End Whitespace          -->
 
-    <module name="SuppressWarningsFilter" />
+    <module name="SuppressWarningsFilter"/>
 
     <module name="SuppressionFilter">
-        <property name="file" value="${config_loc}/checkstyle-suppressions.xml" />
+        <property name="file" value="${config_loc}/suppressions.xml"/>
     </module>
 
     <!-- File Header -->
@@ -78,7 +78,6 @@
     </module>
 
     <module name="TreeWalker">
-
         <property name="tabWidth" value="4"/>
 
         <!-- To suppress a checkstyle rule put //CHECKSTYLE:OFF: RuleName -->
@@ -104,12 +103,13 @@
         <module name="MissingOverride"/>
         <!-- Only allow these types of warnings to be suppressed -->
         <module name="SuppressWarnings">
-            <property name="format" value="^((?!(unused|ClassTypeParameterName|WeakerAccess|unchecked|rawtypes|resource|Duplicates|ParameterNumber|MethodCount)).)*$"/>
+            <property name="format"
+                      value="^((?!(unused|ClassTypeParameterName|WeakerAccess|unchecked|rawtypes|resource|Duplicates|ParameterNumber|MethodCount)).)*$"/>
             <message key="suppressed.warning.not.allowed"
                      value="The warning ''{0}'' cannot be suppressed at this location. Only a few javac warnings are allowed to suppressed."
             />
         </module>
-        <module name="SuppressWarningsHolder" />
+        <module name="SuppressWarningsHolder"/>
         <!--           End Annotations          -->
 
         <!--           Block Checks            -->
@@ -223,9 +223,9 @@
             <property name="skipEnhancedForLoopVariable" value="true"/>
         </module>
         <!-- Make sure there is only one occurrence of each string per file -->
-<!--        This check was disabled as it flagged strings in the constructors of Enums.
-            Using constants for these literals seemed unnecessary -->
-        <module name="MultipleStringLiterals" >
+        <!--        This check was disabled as it flagged strings in the constructors of Enums.
+                    Using constants for these literals seemed unnecessary -->
+        <module name="MultipleStringLiterals">
             <property name="ignoreStringsRegexp" value='^("")|(",\s*)|(".")'/>
             <property name="allowedDuplicates" value="2"/>
         </module>
@@ -287,7 +287,9 @@
             <property name="minLineCount" value="1"/>
         </module>
         <!-- Force 4 spaces on indent of javadoc -->
+        <!-- conflicts with IntelliJ default java formatter
         <module name="JavadocTagContinuationIndentation"/>
+        -->
         <!-- Javadoc types like classes -->
         <module name="JavadocType">
             <!-- avoid errors on tag '@noinspection' -->

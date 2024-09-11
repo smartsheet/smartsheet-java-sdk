@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -59,17 +59,17 @@ public class FolderResourcesImpl extends AbstractResources implements FolderReso
      * It mirrors to the following Smartsheet REST API method: GET /folder/{id}
      * <p>
      * Exceptions:
-     *   InvalidRequestException : if there is any problem with the REST API request
-     *   AuthorizationException : if there is any problem with the REST API authorization(access token)
-     *   ResourceNotFoundException : if the resource can not be found
-     *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-     *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
-     *   SmartsheetException : if there is any other error occurred during the operation
+     * InvalidRequestException : if there is any problem with the REST API request
+     * AuthorizationException : if there is any problem with the REST API authorization(access token)
+     * ResourceNotFoundException : if the resource can not be found
+     * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     * SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     * SmartsheetException : if there is any other error occurred during the operation
      *
      * @param folderId the folder id
      * @param includes the include parameters
      * @return the folder (note that if there is no such resource, this method will throw ResourceNotFoundException
-     *     rather than returning null)
+     * rather than returning null)
      * @throws SmartsheetException the smartsheet exception
      */
     public Folder getFolder(long folderId, EnumSet<SourceInclusion> includes) throws SmartsheetException {
@@ -87,17 +87,17 @@ public class FolderResourcesImpl extends AbstractResources implements FolderReso
      * It mirrors to the following Smartsheet REST API method: PUT /folder/{id}
      * <p>
      * Exceptions:
-     *   IllegalArgumentException : if folder is null
-     *   InvalidRequestException : if there is any problem with the REST API request
-     *   AuthorizationException : if there is any problem with the REST API authorization(access token)
-     *   ResourceNotFoundException : if the resource can not be found
-     *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-     *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
-     *   SmartsheetException : if there is any other error occurred during the operation
+     * IllegalArgumentException : if folder is null
+     * InvalidRequestException : if there is any problem with the REST API request
+     * AuthorizationException : if there is any problem with the REST API authorization(access token)
+     * ResourceNotFoundException : if the resource can not be found
+     * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     * SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     * SmartsheetException : if there is any other error occurred during the operation
      *
      * @param folder the folder to update
      * @return the updated folder (note that if there is no such folder, this method will throw
-     *      ResourceNotFoundException rather than returning null).
+     * ResourceNotFoundException rather than returning null).
      * @throws SmartsheetException the smartsheet exception
      */
     public Folder updateFolder(Folder folder) throws SmartsheetException {
@@ -111,12 +111,12 @@ public class FolderResourcesImpl extends AbstractResources implements FolderReso
      * It mirrors to the following Smartsheet REST API method: DELETE /folder{id}
      * <p>
      * Exceptions:
-     *   InvalidRequestException : if there is any problem with the REST API request
-     *   AuthorizationException : if there is any problem with the REST API authorization(access token)
-     *   ResourceNotFoundException : if the resource can not be found
-     *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-     *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
-     *   SmartsheetException : if there is any other error occurred during the operation
+     * InvalidRequestException : if there is any problem with the REST API request
+     * AuthorizationException : if there is any problem with the REST API authorization(access token)
+     * ResourceNotFoundException : if the resource can not be found
+     * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     * SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     * SmartsheetException : if there is any other error occurred during the operation
      *
      * @param folderId the folder id
      * @throws SmartsheetException the smartsheet exception
@@ -134,15 +134,15 @@ public class FolderResourcesImpl extends AbstractResources implements FolderReso
      * Parameters: - parentFolderId : the parent folder ID
      * <p>
      * Exceptions:
-     *   InvalidRequestException : if there is any problem with the REST API request
-     *   AuthorizationException : if there is any problem with the REST API authorization(access token)
-     *   ResourceNotFoundException : if the resource can not be found
-     *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-     *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
-     *   SmartsheetException : if there is any other error occurred during the operation
+     * InvalidRequestException : if there is any problem with the REST API request
+     * AuthorizationException : if there is any problem with the REST API authorization(access token)
+     * ResourceNotFoundException : if the resource can not be found
+     * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     * SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     * SmartsheetException : if there is any other error occurred during the operation
      *
      * @param parentFolderId the parent folder id
-     * @param parameters the parameters for pagination
+     * @param parameters     the parameters for pagination
      * @return the child folders (note that empty list will be returned if no child folder found)
      * @throws SmartsheetException the smartsheet exception
      */
@@ -162,15 +162,15 @@ public class FolderResourcesImpl extends AbstractResources implements FolderReso
      * It mirrors to the following Smartsheet REST API method: POST /folder/{id}/folders
      * <p>
      * Exceptions:
-     *   IllegalArgumentException : if folder is null
-     *   InvalidRequestException : if there is any problem with the REST API request
-     *   AuthorizationException : if there is any problem with the REST API authorization(access token)
-     *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-     *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
-     *   SmartsheetException : if there is any other error occurred during the operation
+     * IllegalArgumentException : if folder is null
+     * InvalidRequestException : if there is any problem with the REST API request
+     * AuthorizationException : if there is any problem with the REST API authorization(access token)
+     * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     * SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     * SmartsheetException : if there is any other error occurred during the operation
      *
      * @param parentFolderId the parent folder id
-     * @param folder the folder to create
+     * @param folder         the folder to create
      * @return the folder
      * @throws SmartsheetException the smartsheet exception
      */
@@ -185,17 +185,17 @@ public class FolderResourcesImpl extends AbstractResources implements FolderReso
      * It mirrors to the following Smartsheet REST API method: POST /folders/{folderId}/copy
      * <p>
      * Exceptions:
-     *   IllegalArgumentException : if folder is null
-     *   InvalidRequestException : if there is any problem with the REST API request
-     *   AuthorizationException : if there is any problem with the REST API authorization(access token)
-     *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-     *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
-     *   SmartsheetException : if there is any other error occurred during the operation
+     * IllegalArgumentException : if folder is null
+     * InvalidRequestException : if there is any problem with the REST API request
+     * AuthorizationException : if there is any problem with the REST API authorization(access token)
+     * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     * SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     * SmartsheetException : if there is any other error occurred during the operation
      *
-     * @param folderId the folder id
+     * @param folderId             the folder id
      * @param containerDestination describes the destination container
-     * @param includes optional parameters to include
-     * @param skipRemap optional parameters to exclude
+     * @param includes             optional parameters to include
+     * @param skipRemap            optional parameters to exclude
      * @return the folder
      * @throws SmartsheetException the smartsheet exception
      */
@@ -214,18 +214,18 @@ public class FolderResourcesImpl extends AbstractResources implements FolderReso
      * It mirrors to the following Smartsheet REST API method: POST /folders/{folderId}/copy
      * <p>
      * Exceptions:
-     *   IllegalArgumentException : if folder is null
-     *   InvalidRequestException : if there is any problem with the REST API request
-     *   AuthorizationException : if there is any problem with the REST API authorization(access token)
-     *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-     *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
-     *   SmartsheetException : if there is any other error occurred during the operation
+     * IllegalArgumentException : if folder is null
+     * InvalidRequestException : if there is any problem with the REST API request
+     * AuthorizationException : if there is any problem with the REST API authorization(access token)
+     * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     * SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     * SmartsheetException : if there is any other error occurred during the operation
      *
-     * @param folderId the folder id
+     * @param folderId             the folder id
      * @param containerDestination describes the destination container
-     * @param includes optional parameters to include
-     * @param skipRemap optional parameters to NOT re-map in the new folder
-     * @param excludes optional parameters to exclude
+     * @param includes             optional parameters to include
+     * @param skipRemap            optional parameters to NOT re-map in the new folder
+     * @param excludes             optional parameters to exclude
      * @return the folder
      * @throws SmartsheetException the smartsheet exception
      */
@@ -250,14 +250,14 @@ public class FolderResourcesImpl extends AbstractResources implements FolderReso
      * It mirrors to the following Smartsheet REST API method: POST /folders/{folderId}/move
      * <p>
      * Exceptions:
-     *   IllegalArgumentException : if folder is null
-     *   InvalidRequestException : if there is any problem with the REST API request
-     *   AuthorizationException : if there is any problem with the REST API authorization(access token)
-     *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-     *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
-     *   SmartsheetException : if there is any other error occurred during the operation
+     * IllegalArgumentException : if folder is null
+     * InvalidRequestException : if there is any problem with the REST API request
+     * AuthorizationException : if there is any problem with the REST API authorization(access token)
+     * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     * SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     * SmartsheetException : if there is any other error occurred during the operation
      *
-     * @param folderId the folder id
+     * @param folderId             the folder id
      * @param containerDestination describes the destination container
      * @return the folder
      * @throws SmartsheetException the smartsheet exception

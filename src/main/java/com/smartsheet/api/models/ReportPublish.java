@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@ package com.smartsheet.api.models;
 
 /**
  * The ReportPublish object. Retruned by endpoints such as the
+ *
  * @see <a href="https://smartsheet.redoc.ly/tag/sheets#operation/get-sheetPublish">get sheet publish status</a>
  */
 public class ReportPublish {
@@ -29,8 +30,8 @@ public class ReportPublish {
 
     /**
      * Indicates who can see the published report
-     *    If "ALL", report is available to anyone who has the link.
-     *    If "ORG", report is available only to members of the report owner's organization.
+     * If "ALL", report is available to anyone who has the link.
+     * If "ORG", report is available only to members of the report owner's organization.
      */
     private String readOnlyFullAccessibleBy;
 
@@ -45,15 +46,15 @@ public class ReportPublish {
     private Boolean readOnlyFullShowToolbar;
 
     /**
-     *  Default view for published report. (GRID, CARDS, CALENDAR)
+     * Default view for published report. (GRID, CARDS, CALENDAR)
      */
     private String readOnlyFullDefaultView;
 
     /**
-    * Get the current publish status of a report
-    *
-    * @return read only publish status
-    */
+     * Get the current publish status of a report
+     *
+     * @return read only publish status
+     */
     public boolean getReadOnlyFullEnabled() {
         return readOnlyFullEnabled;
     }

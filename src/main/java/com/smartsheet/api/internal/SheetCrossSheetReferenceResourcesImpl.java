@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -48,16 +48,16 @@ public class SheetCrossSheetReferenceResourcesImpl extends AbstractResources imp
      * <p>Get all cross sheet references for this sheet</p>
      *
      * <p>It mirrors to the following Smartsheet REST API method: GET /sheets/{sheetId}/crosssheetreferences</p>
-     *
+     * <p>
      * Exceptions:
-     *   IllegalArgumentException : if any argument is null
-     *   InvalidRequestException : if there is any problem with the REST API request
-     *   AuthorizationException : if there is any problem with the REST API authorization(access token)
-     *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-     *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
-     *   SmartsheetException : if there is any other error occurred during the operation
+     * IllegalArgumentException : if any argument is null
+     * InvalidRequestException : if there is any problem with the REST API request
+     * AuthorizationException : if there is any problem with the REST API authorization(access token)
+     * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     * SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     * SmartsheetException : if there is any other error occurred during the operation
      *
-     * @param sheetId the sheet ID
+     * @param sheetId    the sheet ID
      * @param pagination the pagination parameters
      * @return a list of cross sheet references
      * @throws SmartsheetException the smartsheet exception
@@ -82,16 +82,16 @@ public class SheetCrossSheetReferenceResourcesImpl extends AbstractResources imp
      *
      * <p>It mirrors to the following Smartsheet REST API method: GET /sheets/{sheetId}/crosssheetreferences/{crossSheetReferenceId}</p>
      *
-     * @param sheetId the sheet id
+     * @param sheetId               the sheet id
      * @param crossSheetReferenceId the cross sheet reference id
      * @return the cross sheet reference (note that if there is no such resource, this method will throw ResourceNotFoundException
-     *     rather than returning null).
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * rather than returning null).
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     public CrossSheetReference getCrossSheetReference(long sheetId, long crossSheetReferenceId) throws SmartsheetException {
         return this.getResource(SHEETS_PATH + sheetId + "/crosssheetreferences/" + crossSheetReferenceId, CrossSheetReference.class);
@@ -102,15 +102,15 @@ public class SheetCrossSheetReferenceResourcesImpl extends AbstractResources imp
      *
      * <p>It mirrors to the following Smartsheet REST API method: POST /sheets/{sheetId}/crosssheetreferences</p>
      *
-     * @param sheetId the sheet id
+     * @param sheetId             the sheet id
      * @param crossSheetReference the cross sheet reference to create
      * @return the created cross sheet reference
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     public CrossSheetReference createCrossSheetReference(long sheetId, CrossSheetReference crossSheetReference) throws SmartsheetException {
         return this.createResource(SHEETS_PATH + sheetId + "/crosssheetreferences", CrossSheetReference.class, crossSheetReference);

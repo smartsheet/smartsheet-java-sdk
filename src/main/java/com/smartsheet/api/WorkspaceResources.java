@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -41,12 +41,12 @@ public interface WorkspaceResources {
      *
      * @param parameters the object containing the pagination parameters
      * @return the list of workspaces (note that an empty list will be returned if there are none)
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     PagedResult<Workspace> listWorkspaces(PaginationParameters parameters) throws SmartsheetException;
 
@@ -55,17 +55,17 @@ public interface WorkspaceResources {
      *
      * <p>It mirrors to the following Smartsheet REST API method: GET /workspace/{id}</p>
      *
-     * @param id the id
+     * @param id       the id
      * @param includes the include parameters
-     * @param loadAll the loadAll boolean value
+     * @param loadAll  the loadAll boolean value
      * @return the workspace (note that if there is no such resource, this method will throw ResourceNotFoundException
-     *     rather than returning null)
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * rather than returning null)
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     Workspace getWorkspace(long id, Boolean loadAll, EnumSet<SourceInclusion> includes) throws SmartsheetException;
 
@@ -76,12 +76,12 @@ public interface WorkspaceResources {
      *
      * @param workspace the workspace to create
      * @return the created workspace
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     Workspace createWorkspace(Workspace workspace) throws SmartsheetException;
 
@@ -92,13 +92,13 @@ public interface WorkspaceResources {
      *
      * @param workspace the workspace to update
      * @return the updated workspace (note that if there is no such resource, this method will throw
-     *     ResourceNotFoundException rather than returning null)
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * ResourceNotFoundException rather than returning null)
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     Workspace updateWorkspace(Workspace workspace) throws SmartsheetException;
 
@@ -108,12 +108,12 @@ public interface WorkspaceResources {
      * <p>It mirrors to the following Smartsheet REST API method: DELETE /workspace{id}</p>
      *
      * @param id the id of the workspace
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     void deleteWorkspace(long id) throws SmartsheetException;
 
@@ -121,19 +121,19 @@ public interface WorkspaceResources {
      * <p>Creates a copy of the specified workspace.</p>
      *
      * <p>It mirrors to the following Smartsheet REST API method: POST /workspaces/{workspaceId}/copy</p>
-     *
+     * <p>
      * Exceptions:
-     *   IllegalArgumentException : if folder is null
-     *   InvalidRequestException : if there is any problem with the REST API request
-     *   AuthorizationException : if there is any problem with the REST API authorization(access token)
-     *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-     *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
-     *   SmartsheetException : if there is any other error occurred during the operation
+     * IllegalArgumentException : if folder is null
+     * InvalidRequestException : if there is any problem with the REST API request
+     * AuthorizationException : if there is any problem with the REST API authorization(access token)
+     * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     * SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     * SmartsheetException : if there is any other error occurred during the operation
      *
-     * @param workspaceId the folder id
+     * @param workspaceId          the folder id
      * @param containerDestination describes the destination container
-     * @param includes optional parameters to include
-     * @param skipRemap optional parameters to exclude
+     * @param includes             optional parameters to include
+     * @param skipRemap            optional parameters to exclude
      * @return the folder
      * @throws SmartsheetException the smartsheet exception
      */
@@ -148,27 +148,27 @@ public interface WorkspaceResources {
      * <p>Creates a copy of the specified workspace.</p>
      *
      * <p>It mirrors to the following Smartsheet REST API method: POST /workspaces/{workspaceId}/copy</p>
-     *
+     * <p>
      * Exceptions:
-     *   IllegalArgumentException : if folder is null
-     *   InvalidRequestException : if there is any problem with the REST API request
-     *   AuthorizationException : if there is any problem with the REST API authorization(access token)
-     *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-     *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
-     *   SmartsheetException : if there is any other error occurred during the operation
+     * IllegalArgumentException : if folder is null
+     * InvalidRequestException : if there is any problem with the REST API request
+     * AuthorizationException : if there is any problem with the REST API authorization(access token)
+     * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     * SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     * SmartsheetException : if there is any other error occurred during the operation
      *
-     * @param workspaceId the folder id
+     * @param workspaceId          the folder id
      * @param containerDestination describes the destination container
-     * @param includes optional parameters to include
-     * @param skipRemap optional parameters to NOT re-map in the new folder
-     * @param excludes optional parameters to exclude
+     * @param includes             optional parameters to include
+     * @param skipRemap            optional parameters to NOT re-map in the new folder
+     * @param excludes             optional parameters to exclude
      * @return the folder
      * @throws SmartsheetException the smartsheet exception
      * @deprecated As of release 2.0. `excludes` param is deprecated. Please use the `copyWorkspace` method with `includes` instead.
      */
     @Deprecated(since = "2.0.0", forRemoval = true)
     Workspace copyWorkspace(long workspaceId, ContainerDestination containerDestination, EnumSet<WorkspaceCopyInclusion> includes,
-                                   EnumSet<WorkspaceRemapExclusion> skipRemap, EnumSet<CopyExclusion> excludes) throws SmartsheetException;
+                            EnumSet<WorkspaceRemapExclusion> skipRemap, EnumSet<CopyExclusion> excludes) throws SmartsheetException;
 
     /**
      * <p>Return the WorkspaceFolderResources object that provides access to Folder resources associated with Workspace

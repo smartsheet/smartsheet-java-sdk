@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,6 +22,7 @@ import com.smartsheet.api.models.Column;
  * <p>This interface provides methods to access Column resources.</p>
  *
  * <p>Thread Safety: Implementation of this interface must be thread safe.</p>
+ *
  * @deprecated As of release 2.0. Please use {@link SheetCommentResources} instead
  */
 @Deprecated(since = "2.0.0", forRemoval = true)
@@ -30,14 +31,14 @@ public interface ColumnResources {
     /**
      * @param column the column to update
      * @return the updated Column (note that if there is no such resource, this method will throw
-     *     ResourceNotFoundException rather than returning null).
+     * ResourceNotFoundException rather than returning null).
      * @deprecated As of release 2.0. Please use {@link SheetCommentResources} instead
      */
     @Deprecated(since = "2.0.0", forRemoval = true)
     Column updateColumn(Column column);
 
     /**
-     * @param id id of the column
+     * @param id      id of the column
      * @param sheetId the sheet id
      * @deprecated As of release 2.0. Please use {@link SheetCommentResources} instead
      */

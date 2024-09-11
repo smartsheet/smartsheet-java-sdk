@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -53,12 +53,12 @@ public class SheetUpdateRequestResourcesImpl extends AbstractResources implement
      *
      * @param paging the object containing the pagination parameters
      * @return A list of all UpdateRequests (note that an empty list will be returned if there are none).
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     public PagedResult<UpdateRequest> listUpdateRequests(long sheetId, PaginationParameters paging) throws SmartsheetException {
         String path = SHEETS_PATH + sheetId + "/" + UPDATE_REQUESTS;
@@ -77,16 +77,16 @@ public class SheetUpdateRequestResourcesImpl extends AbstractResources implement
      * <p>
      * It mirrors to the following Smartsheet REST API method: GET /sheets/{sheetId}/updaterequests/{updateRequestId}
      *
-     * @param sheetId the Id of the sheet
+     * @param sheetId         the Id of the sheet
      * @param updateRequestId the update request Id
      * @return the update request resource (note that if there is no such resource, this method will throw
-     *     ResourceNotFoundException rather than returning null).
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * ResourceNotFoundException rather than returning null).
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     public UpdateRequest getUpdateRequest(long sheetId, long updateRequestId) throws SmartsheetException {
         String path = SHEETS_PATH + sheetId + "/" + UPDATE_REQUESTS + "/" + updateRequestId;
@@ -99,15 +99,15 @@ public class SheetUpdateRequestResourcesImpl extends AbstractResources implement
      * <p>
      * It mirrors to the following Smartsheet REST API method: POST /sheets/{sheetId}/updaterequests
      *
-     * @param sheetId the Id of the sheet
+     * @param sheetId       the Id of the sheet
      * @param updateRequest the update request object
      * @return the update request resource.
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     public UpdateRequest createUpdateRequest(long sheetId, UpdateRequest updateRequest) throws SmartsheetException {
         String path = SHEETS_PATH + sheetId + "/" + UPDATE_REQUESTS;
@@ -119,14 +119,14 @@ public class SheetUpdateRequestResourcesImpl extends AbstractResources implement
      * <p>
      * It mirrors to the following Smartsheet REST API method: DELETE /sheets/{sheetId}/updaterequests/{updateRequestId}
      *
-     * @param sheetId the Id of the sheet
+     * @param sheetId         the Id of the sheet
      * @param updateRequestId the update request Id
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     public void deleteUpdateRequest(long sheetId, long updateRequestId) throws SmartsheetException {
         String path = SHEETS_PATH + sheetId + "/" + UPDATE_REQUESTS + "/" + updateRequestId;
@@ -138,15 +138,15 @@ public class SheetUpdateRequestResourcesImpl extends AbstractResources implement
      * <p>
      * It mirrors to the following Smartsheet REST API method: PUT /sheets/{sheetId}/updaterequests/{updateRequestId}
      *
-     * @param sheetId the Id of the sheet
+     * @param sheetId       the Id of the sheet
      * @param updateRequest the update request object
      * @return the update request resource.
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     public UpdateRequest updateUpdateRequest(long sheetId, UpdateRequest updateRequest) throws SmartsheetException {
         String path = SHEETS_PATH + sheetId + "/" + UPDATE_REQUESTS + "/" + updateRequest.getId();
@@ -159,14 +159,14 @@ public class SheetUpdateRequestResourcesImpl extends AbstractResources implement
      * It mirrors To the following Smartsheet REST API method: GET /sheets/{sheetId}/sentupdaterequests
      *
      * @param sheetId the Id of the sheet
-     * @param paging the object containing the pagination parameters
+     * @param paging  the object containing the pagination parameters
      * @return A list of all UpdateRequests (note that an empty list will be returned if there are none).
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     public PagedResult<SentUpdateRequest> listSentUpdateRequests(long sheetId, PaginationParameters paging) throws SmartsheetException {
         String path = SHEETS_PATH + sheetId + "/sentupdaterequests";
@@ -185,16 +185,16 @@ public class SheetUpdateRequestResourcesImpl extends AbstractResources implement
      * <p>
      * It mirrors To the following Smartsheet REST API method: GET /sheets/{sheetId}/sentupdaterequests/{updateRequestId}
      *
-     * @param sheetId the Id of the sheet
+     * @param sheetId             the Id of the sheet
      * @param sentUpdateRequestId the sent update request Id
      * @return the sent update request resource (note that if there is no such resource, this method will throw
-     *     ResourceNotFoundException rather than returning null).
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * ResourceNotFoundException rather than returning null).
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     public SentUpdateRequest getSentUpdateRequest(long sheetId, long sentUpdateRequestId) throws SmartsheetException {
         String path = SHEETS_PATH + sheetId + "/sentupdaterequests/" + sentUpdateRequestId;
@@ -206,14 +206,14 @@ public class SheetUpdateRequestResourcesImpl extends AbstractResources implement
      * <p>
      * It mirrors To the following Smartsheet REST API method: DELETE /sheets/{sheetId}/sentupdaterequests/{sentUpdateRequestId}
      *
-     * @param sheetId the Id of the sheet
+     * @param sheetId             the Id of the sheet
      * @param sentUpdateRequestId the sent update request Id
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     public void deleteSentUpdateRequest(long sheetId, long sentUpdateRequestId) throws SmartsheetException {
         String path = SHEETS_PATH + sheetId + "/sentupdaterequests/" + sentUpdateRequestId;

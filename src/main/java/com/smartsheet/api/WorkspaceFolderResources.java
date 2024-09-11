@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,14 +33,14 @@ public interface WorkspaceFolderResources {
      * <p>It mirrors to the following Smartsheet REST API method: GET /workspace/{id}/folders</p>
      *
      * @param workspaceId the workspace id
-     * @param parameters the pagination parameters
+     * @param parameters  the pagination parameters
      * @return the list of folders (note that an empty list will be returned if there are none)
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     PagedResult<Folder> listFolders(long workspaceId, PaginationParameters parameters) throws SmartsheetException;
 
@@ -50,14 +50,14 @@ public interface WorkspaceFolderResources {
      * <p>It mirrors to the following Smartsheet REST API method: POST /workspace/{id}/folders</p>
      *
      * @param workspaceId the workspace id
-     * @param folder the folder to create
+     * @param folder      the folder to create
      * @return the created folder
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     Folder createFolder(long workspaceId, Folder folder) throws SmartsheetException;
 }

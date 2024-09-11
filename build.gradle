@@ -56,6 +56,7 @@ ext {
     mockitoCoreVersion = '5.12.0'
     mockitoJUnitJupiterVersion = '5.12.0'
     okHttpVersion = '4.0.0'
+    resilience4jVersion = "1.7.1"   // last version compatible with pre-17 JDKs
     slf4jSimpleVersion = '1.7.25'
     slf4jVersion = '1.7.25'
 }
@@ -83,6 +84,7 @@ dependencies {
     testImplementation "org.mockito:mockito-core:${mockitoCoreVersion}"
     testImplementation "org.mockito:mockito-junit-jupiter:${mockitoJUnitJupiterVersion}"
     testImplementation "org.slf4j:slf4j-simple:${slf4jSimpleVersion}"
+    testImplementation "io.github.resilience4j:resilience4j-retry:${resilience4jVersion}"
 }
 
 // Configuration for our Javadocs
@@ -253,7 +255,6 @@ signing {
 // Checkstyle Configuration
 checkstyle {
     toolVersion = "${checkstyleVersion}"
-    configFile = file('config/checkstyle/checkstyle-custom.xml')
 }
 
 // Override configuration for Checkstyle that runs on our 'src/main' package

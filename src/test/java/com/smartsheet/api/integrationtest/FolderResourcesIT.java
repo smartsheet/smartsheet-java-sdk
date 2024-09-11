@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,6 +27,7 @@ import com.smartsheet.api.models.enums.DestinationType;
 import com.smartsheet.api.models.enums.FolderCopyInclusion;
 import com.smartsheet.api.models.enums.FolderRemapExclusion;
 import com.smartsheet.api.models.enums.SourceInclusion;
+import com.smartsheet.api.resilience4j.RetryUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -77,6 +78,9 @@ public class FolderResourcesIT extends ITResourcesImpl {
         smartsheet.folderResources().createFolder(newFolder.getId(), folder1);
 
         assertThat(newFolder.getName()).isEqualTo(folder.getName());
+
+        // FIXME this IT is flaky because of delay in the creation of a new folder being visible to all servers
+        // possibly add a post-creation check loop with exponential backoff to verify folder is visible to later tests?
     }
 
     public void testCreateFolderInWorkspace() throws SmartsheetException {
@@ -97,7 +101,8 @@ public class FolderResourcesIT extends ITResourcesImpl {
 
     public void testListFoldersInFolder() throws SmartsheetException {
         PaginationParameters parameters = new PaginationParameters(true, 1, 1);
-        PagedResult<Folder> foldersWrapper = smartsheet.folderResources().listFolders(newFolder.getId(), parameters);
+        PagedResult<Folder> foldersWrapper = RetryUtil.callWithRetry(
+                () -> smartsheet.folderResources().listFolders(newFolder.getId(), parameters));
 
         assertThat(foldersWrapper.getTotalCount()).isEqualTo(1);
     }

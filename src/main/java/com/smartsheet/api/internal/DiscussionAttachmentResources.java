@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -46,18 +46,18 @@ public class DiscussionAttachmentResources extends AssociatedAttachmentResources
      * Attach a file to the object.
      * <p>
      * It mirrors to the following Smartsheet REST API method:
-     *     POST /sheet/{id}/attachments
-     *     POST /row/{id}/attachments
-     *     POST /comment/{id}/attachments
+     * POST /sheet/{id}/attachments
+     * POST /row/{id}/attachments
+     * POST /comment/{id}/attachments
      * <p>
      * Returns: the created attachment
      * <p>
      * Exceptions:
-     *   UnsupportedOperationException : this exception is always thrown since this method is not supported by
-     *   discussion resources.
+     * UnsupportedOperationException : this exception is always thrown since this method is not supported by
+     * discussion resources.
      *
-     * @param objectId the object id
-     * @param file the file to attach
+     * @param objectId    the object id
+     * @param file        the file to attach
      * @param contentType the content type of the file
      * @return the attachment
      */

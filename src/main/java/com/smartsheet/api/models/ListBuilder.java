@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,6 +35,7 @@ public class ListBuilder<T> {
 
     /**
      * Constructor
+     *
      * @param initialCapacity Initial capacity of the internal storage of the list.
      */
     public ListBuilder(int initialCapacity) {
@@ -43,6 +44,7 @@ public class ListBuilder<T> {
 
     /**
      * Adds a single element to the list
+     *
      * @param element element to add
      * @return ListBuilder
      */
@@ -53,6 +55,7 @@ public class ListBuilder<T> {
 
     /**
      * Adds multiple elements to the list
+     *
      * @param elements elements to add
      * @return ListBuilder
      */
@@ -63,6 +66,7 @@ public class ListBuilder<T> {
 
     /**
      * Adds multiple elements to the list
+     *
      * @param elements elements to add
      * @return ListBuilder
      */
@@ -73,6 +77,7 @@ public class ListBuilder<T> {
 
     /**
      * Retrieves the built up list of objects
+     *
      * @return The build up list of objects
      */
     public List<T> build() {
