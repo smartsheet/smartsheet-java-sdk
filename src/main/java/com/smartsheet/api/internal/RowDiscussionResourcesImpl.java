@@ -134,11 +134,10 @@ public class RowDiscussionResourcesImpl extends AbstractResources implements Row
         Map<String, Object> parameters = new HashMap<>();
 
         parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
-        path += QueryUtil.generateUrl(null, parameters);
-
         if (pagination != null) {
-            path += pagination.toQueryString();
+            parameters.putAll(pagination.toHashMap());
         }
+        path += QueryUtil.generateUrl(null, parameters);
 
         return this.listResourcesWithWrapper(path, Discussion.class);
     }
