@@ -40,6 +40,7 @@ public class HttpTestServer {
     private String contentType;
     private byte[] responseBody;
     private int status;
+    private String lastRequestUrl;
 
     public HttpTestServer() {
         this.port = 9090;
@@ -71,7 +72,7 @@ public class HttpTestServer {
                                HttpServletResponse response) throws IOException, ServletException {
 
                 setRequestBody(IOUtils.toString(baseRequest.getInputStream()));
-
+                lastRequestUrl = baseRequest.getOriginalURI();
                 response.setStatus(getStatus());
                 response.setContentType(getContentType());
 
@@ -92,6 +93,10 @@ public class HttpTestServer {
 
     public int getStatus() {
         return this.status;
+    }
+
+    public String getLastRequestUrl() {
+        return this.lastRequestUrl;
     }
 
     public void stop() throws Exception {
