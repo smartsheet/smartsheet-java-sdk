@@ -4,11 +4,26 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [UNRELEASED] - TBD
+## [3.2.1] - 2024-10-02
 ### Added
+- Added helper methods to do things like get a sheet by id
+  - goes from `getSheet(sheetId, null, null, null, null, null, null, null, null, null)` to `getSheetById(sheetId)`
 - Added more test coverage
+- Added an EU url as a public variable
+- Added tweaks to build with java21 and remove finalize()
+- Added SDK tests to our pipeline
+### Updated
+- Updated mockito and junit test dependency versions
+- Updated gradle versions
+- Updated copyright year
 ### Removed
 - Eclipse Config Files
+### Fixed
+- When fetching discussions, comments attachments were not included if pagination parameters were specified
+- Fixed formatting issues
+- Fixed redocly URL for API documentation
+- Fixed broken CI badge
+- Fixed deploy commands in CI pipeline
 
 
 ## [3.2.0] - 2023-11-15
