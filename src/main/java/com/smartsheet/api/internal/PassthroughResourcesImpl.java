@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -51,15 +51,15 @@ public class PassthroughResourcesImpl extends AbstractResources implements Passt
     /**
      * Issue an HTTP GET request.
      *
-     * @param endpoint the API endpoint
+     * @param endpoint   the API endpoint
      * @param parameters optional list of resource parameters
      * @return a JSON response string
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     public String getRequest(String endpoint, Map<String, Object> parameters) throws SmartsheetException {
         return passthroughRequest(HttpMethod.GET, endpoint, null, parameters);
@@ -68,16 +68,16 @@ public class PassthroughResourcesImpl extends AbstractResources implements Passt
     /**
      * Issue an HTTP POST request.
      *
-     * @param endpoint the API endpoint
-     * @param payload a JSON payload string
+     * @param endpoint   the API endpoint
+     * @param payload    a JSON payload string
      * @param parameters optional list of resource parameters
      * @return a JSON response string
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     public String postRequest(String endpoint, String payload, Map<String, Object> parameters) throws SmartsheetException {
         Util.throwIfNull(payload);
@@ -87,16 +87,16 @@ public class PassthroughResourcesImpl extends AbstractResources implements Passt
     /**
      * Issue an HTTP PUT request.
      *
-     * @param endpoint the API endpoint
-     * @param payload a JSON payload string
+     * @param endpoint   the API endpoint
+     * @param payload    a JSON payload string
      * @param parameters optional list of resource parameters
      * @return a JSON response string
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     public String putRequest(String endpoint, String payload, Map<String, Object> parameters) throws SmartsheetException {
         Util.throwIfNull(payload);
@@ -108,12 +108,12 @@ public class PassthroughResourcesImpl extends AbstractResources implements Passt
      *
      * @param endpoint the API endpoint
      * @return a JSON response string
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     public String deleteRequest(String endpoint) throws SmartsheetException {
         return passthroughRequest(HttpMethod.DELETE, endpoint, null, null);
@@ -122,9 +122,9 @@ public class PassthroughResourcesImpl extends AbstractResources implements Passt
     /**
      * Passthrough request
      *
-     * @param method HTTP method
-     * @param endpoint the API endpoint (required)
-     * @param payload optional JSON payload
+     * @param method     HTTP method
+     * @param endpoint   the API endpoint (required)
+     * @param payload    optional JSON payload
      * @param parameters optional list of resource parameters
      * @return the result string
      */

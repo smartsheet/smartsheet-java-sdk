@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,17 +36,17 @@ public interface RowDiscussionResources {
      * <p>Create discussion on a row.</p>
      *
      * <p>It mirrors to the following Smartsheet REST API method: /sheets/{sheetId}/rows/{rowId}/discussions</p>
-     *
+     * <p>
      * Exceptions:
-     *   IllegalArgumentException : if any argument is null
-     *   InvalidRequestException : if there is any problem with the REST API request
-     *   AuthorizationException : if there is any problem with the REST API authorization(access token)
-     *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-     *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
-     *   SmartsheetException : if there is any other error occurred during the operation
+     * IllegalArgumentException : if any argument is null
+     * InvalidRequestException : if there is any problem with the REST API request
+     * AuthorizationException : if there is any problem with the REST API authorization(access token)
+     * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     * SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     * SmartsheetException : if there is any other error occurred during the operation
      *
-     * @param sheetId the sheet ID
-     * @param rowId the row ID
+     * @param sheetId    the sheet ID
+     * @param rowId      the row ID
      * @param discussion the comment to add, limited to the following required attributes: text
      * @return the created comment
      * @throws SmartsheetException the smartsheet exception
@@ -57,19 +57,19 @@ public interface RowDiscussionResources {
      * <p>Gets a list of all Discussions associated with the specified Row.</p>
      *
      * <p>It mirrors to the following Smartsheet REST API method: GET /sheets/{sheetId}/rows/{rowId}/discussions</p>
-     *
+     * <p>
      * Exceptions:
-     *   IllegalArgumentException : if any argument is null
-     *   InvalidRequestException : if there is any problem with the REST API request
-     *   AuthorizationException : if there is any problem with the REST API authorization(access token)
-     *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-     *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
-     *   SmartsheetException : if there is any other error occurred during the operation
+     * IllegalArgumentException : if any argument is null
+     * InvalidRequestException : if there is any problem with the REST API request
+     * AuthorizationException : if there is any problem with the REST API authorization(access token)
+     * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     * SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     * SmartsheetException : if there is any other error occurred during the operation
      *
-     * @param sheetId the sheet ID
-     * @param rowId the row ID
+     * @param sheetId    the sheet ID
+     * @param rowId      the row ID
      * @param pagination the pagination pagination
-     * @param includes the optional include parameters
+     * @param includes   the optional include parameters
      * @return the row discussions
      * @throws SmartsheetException the smartsheet exception
      */
@@ -84,23 +84,23 @@ public interface RowDiscussionResources {
      * <p>Create discussion on a row.</p>
      *
      * <p>It mirrors to the following Smartsheet REST API method: /sheets/{sheetId}/rows/{rowId}/discussions</p>
-     *
+     * <p>
      * Exceptions:
-     *   IllegalArgumentException : if any argument is null
-     *   InvalidRequestException : if there is any problem with the REST API request
-     *   AuthorizationException : if there is any problem with the REST API authorization(access token)
-     *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-     *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
-     *   SmartsheetException : if there is any other error occurred during the operation
+     * IllegalArgumentException : if any argument is null
+     * InvalidRequestException : if there is any problem with the REST API request
+     * AuthorizationException : if there is any problem with the REST API authorization(access token)
+     * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     * SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     * SmartsheetException : if there is any other error occurred during the operation
      *
-     * @param sheetId the sheet ID
-     * @param rowId the row ID
-     * @param discussion the comment to add, limited to the following required attributes: text
-     * @param file the file to be attached
+     * @param sheetId     the sheet ID
+     * @param rowId       the row ID
+     * @param discussion  the comment to add, limited to the following required attributes: text
+     * @param file        the file to be attached
      * @param contentType the type of file
      * @return the created discussion
      * @throws SmartsheetException the smartsheet exception
-     * @throws IOException is there is an I/O exception
+     * @throws IOException         is there is an I/O exception
      */
     Discussion createDiscussionWithAttachment(
             long sheetId,

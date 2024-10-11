@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -77,7 +77,7 @@ public class HttpEntitySnapshot extends HttpEntity {
                 // we see a lot of Content-Length:-1 from certain responses - no point in logging those
                 if (contentLength != -1 && fullContentArray.length != contentLength) {
                     LoggerFactory.getLogger(HttpEntitySnapshot.class).info("actual content-length {} doesn't match" +
-                                    " declared content-length {}", fullContentArray.length, contentLength);
+                            " declared content-length {}", fullContentArray.length, contentLength);
                 }
             }
         } else {

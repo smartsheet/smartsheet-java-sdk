@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,12 +35,12 @@ public interface GroupMemberResources {
      * @param groupId the ID of the object to add members to.
      * @param members the list of members to add. Users that are already members will be ignored.
      * @return the list of newly added members. Users that were added to the group. Pre-existing members are not included in the result.
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     List<GroupMember> addGroupMembers(long groupId, List<GroupMember> members) throws SmartsheetException;
 
@@ -50,13 +50,13 @@ public interface GroupMemberResources {
      * <p>It mirrors to the following Smartsheet REST API method: DELETE /group/{id}/member/{userId}</p>
      *
      * @param groupId the ID of the object to remove the member from
-     * @param userId the ID of the user to remove.
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * @param userId  the ID of the user to remove.
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     void deleteGroupMember(long groupId, long userId) throws SmartsheetException;
 }

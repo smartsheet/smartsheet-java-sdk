@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -62,13 +62,13 @@ public class SightResourcesImpl extends AbstractResources implements SightResour
      * It mirrors to the following Smartsheet REST API method: GET /sights
      *
      * @return IndexResult object containing an array of Sight objects limited to the following attributes:
-     *     id, name, accessLevel, permalink, createdAt, modifiedAt.
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * id, name, accessLevel, permalink, createdAt, modifiedAt.
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     public PagedResult<Sight> listSights(PaginationParameters paging, Date modifiedSince) throws SmartsheetException {
         String path = SIGHTS;
@@ -92,12 +92,12 @@ public class SightResourcesImpl extends AbstractResources implements SightResour
      *
      * @param sightId the id of the Sight
      * @return the Sight resource.
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     public Sight getSight(long sightId) throws SmartsheetException {
         return this.getSight(sightId, null, null);
@@ -109,14 +109,14 @@ public class SightResourcesImpl extends AbstractResources implements SightResour
      * It mirrors to the following Smartsheet REST API method: GET /sights/{sightId}
      *
      * @param sightId the id of the Sight
-     * @param level compatibility level
+     * @param level   compatibility level
      * @return the Sight resource.
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     public Sight getSight(long sightId, Integer level) throws SmartsheetException {
         return this.getSight(sightId, null, level);
@@ -127,16 +127,16 @@ public class SightResourcesImpl extends AbstractResources implements SightResour
      * <p>
      * It mirrors to the following Smartsheet REST API method: GET /sights/{sightId}
      *
-     * @param sightId the id of the Sight
-     * @param level compatibility level
+     * @param sightId  the id of the Sight
+     * @param level    compatibility level
      * @param includes optional parameters to include
      * @return the Sight resource.
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     public Sight getSight(long sightId, EnumSet<SightInclusion> includes, Integer level) throws SmartsheetException {
         String path = SIGHTS + "/" + sightId;
@@ -156,12 +156,12 @@ public class SightResourcesImpl extends AbstractResources implements SightResour
      *
      * @param sight - the Sight to update
      * @return the updated Sight resource.
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     public Sight updateSight(Sight sight) throws SmartsheetException {
         Util.throwIfNull(sight);
@@ -174,13 +174,12 @@ public class SightResourcesImpl extends AbstractResources implements SightResour
      * It mirrors to the following Smartsheet REST API method: DELETE /sights/{sightId}
      *
      * @param sightId the id of the Sight
-     *
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     public void deleteSight(long sightId) throws SmartsheetException {
         this.deleteResource(SIGHTS + "/" + sightId, Sight.class);
@@ -191,15 +190,15 @@ public class SightResourcesImpl extends AbstractResources implements SightResour
      * <p>
      * It mirrors to the following Smartsheet REST API method: POST /sights/{sightId}/copy
      *
-     * @param sightId the id of the Sight
+     * @param sightId     the id of the Sight
      * @param destination the destination to copy to
      * @return the newly created Sight resource.
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     public Sight copySight(long sightId, ContainerDestination destination) throws SmartsheetException {
         return this.createResource(SIGHTS + "/" + sightId + "/copy", Sight.class, destination);
@@ -210,15 +209,15 @@ public class SightResourcesImpl extends AbstractResources implements SightResour
      * <p>
      * It mirrors to the following Smartsheet REST API method: POST /sights/{sightId}/move
      *
-     * @param sightId the id of the Sight
+     * @param sightId     the id of the Sight
      * @param destination the destination to copy to
      * @return the newly created Sight resource.
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     public Sight moveSight(long sightId, ContainerDestination destination) throws SmartsheetException {
         return this.createResource(SIGHTS + "/" + sightId + "/move", Sight.class, destination);
@@ -231,12 +230,12 @@ public class SightResourcesImpl extends AbstractResources implements SightResour
      *
      * @param sightId the id of the Sight
      * @return the Sight's publish status.
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     public SightPublish getPublishStatus(long sightId) throws SmartsheetException {
         return this.getResource(SIGHTS + "/" + sightId + "/publish", SightPublish.class);
@@ -247,15 +246,15 @@ public class SightResourcesImpl extends AbstractResources implements SightResour
      * <p>
      * It mirrors to the following Smartsheet REST API method: POST /sights/{sightId}/publish
      *
-     * @param sightId the id of the Sight
+     * @param sightId      the id of the Sight
      * @param sightPublish the SightPublish object containing publish status
      * @return the Sight's publish status.
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     public SightPublish setPublishStatus(long sightId, SightPublish sightPublish) throws SmartsheetException {
         Util.throwIfNull(sightPublish);

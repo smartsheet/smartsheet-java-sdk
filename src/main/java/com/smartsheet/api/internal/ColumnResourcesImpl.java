@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,6 +24,7 @@ import com.smartsheet.api.models.Column;
  * This is the implementation of the ColumnResources.
  * <p>
  * Thread Safety: This class is thread safe because it is immutable and its base class is thread safe.
+ *
  * @deprecated As of release 2.0. Please use {@link SheetCommentResources} instead
  */
 @Deprecated(since = "2.0.0", forRemoval = true)

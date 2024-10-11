@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -99,7 +99,6 @@ public class Sheet extends AbstractSheet<Row, Column, Cell> {
 
     /**
      * A class to simplify the creation of a sheet from another sheet or another template.
-     *
      */
     public static class CreateFromTemplateOrSheetBuilder {
         private String name;
@@ -169,6 +168,7 @@ public class Sheet extends AbstractSheet<Row, Column, Cell> {
 
         /**
          * Get the user settings
+         *
          * @return the user setting
          */
         public SheetUserSettings getUserSettings() {
@@ -177,6 +177,7 @@ public class Sheet extends AbstractSheet<Row, Column, Cell> {
 
         /**
          * Set the user settings
+         *
          * @param userSettings the sheet user settings
          * @return the updateSheetBuilder object
          */
@@ -187,6 +188,7 @@ public class Sheet extends AbstractSheet<Row, Column, Cell> {
 
         /**
          * Get the project settings
+         *
          * @return the project settings
          */
         public ProjectSettings getProjectSettings() {
@@ -195,6 +197,7 @@ public class Sheet extends AbstractSheet<Row, Column, Cell> {
 
         /**
          * Set the project settings
+         *
          * @param projectSettings the sheet project settings
          * @return the updateSheetBuilder object
          */
@@ -205,6 +208,7 @@ public class Sheet extends AbstractSheet<Row, Column, Cell> {
 
         /**
          * Get the id of the sheet
+         *
          * @return the id
          */
         public Long getSheetId() {
@@ -213,6 +217,7 @@ public class Sheet extends AbstractSheet<Row, Column, Cell> {
 
         /**
          * Set the sheet id
+         *
          * @param sheetId the sheet id
          * @return the updateSheetBuilder object
          */

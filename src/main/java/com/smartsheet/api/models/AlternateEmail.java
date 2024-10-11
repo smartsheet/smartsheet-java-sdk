@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -52,6 +52,7 @@ public class AlternateEmail {
 
     /**
      * Set the user's alternate email address.
+     *
      * @param email the  email
      */
     public AlternateEmail setEmail(String email) {
@@ -81,6 +82,7 @@ public class AlternateEmail {
 
         /**
          * Get the alt email address
+         *
          * @return the email
          */
         public String getEmail() {
@@ -89,6 +91,7 @@ public class AlternateEmail {
 
         /**
          * Set the alt email address
+         *
          * @param email the email
          * @return the builder
          */

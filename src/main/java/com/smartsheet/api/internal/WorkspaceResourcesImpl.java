@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -60,7 +60,7 @@ public class WorkspaceResourcesImpl extends AbstractResources implements Workspa
      * Constructor.
      * <p>
      * Exceptions:
-     *   - IllegalArgumentException : if any argument is
+     * - IllegalArgumentException : if any argument is
      *
      * @param smartsheet the smartsheet
      */
@@ -76,11 +76,11 @@ public class WorkspaceResourcesImpl extends AbstractResources implements Workspa
      * It mirrors to the following Smartsheet REST API method: GET /workspaces
      * <p>
      * Exceptions:
-     *   - InvalidRequestException : if there is any problem with the REST API request
-     *   - AuthorizationException : if there is any problem with the REST API authorization(access token)
-     *   - ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-     *   - SmartsheetRestException : if there is any other REST API related error occurred during the operation
-     *   - SmartsheetException : if there is any other error occurred during the operation
+     * - InvalidRequestException : if there is any problem with the REST API request
+     * - AuthorizationException : if there is any problem with the REST API authorization(access token)
+     * - ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     * - SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     * - SmartsheetException : if there is any other error occurred during the operation
      *
      * @param parameters the object containing the pagination parameters
      * @return all workspaces (note that empty list will be returned if there is none)
@@ -101,18 +101,18 @@ public class WorkspaceResourcesImpl extends AbstractResources implements Workspa
      * It mirrors to the following Smartsheet REST API method: GET /workspace/{id}
      * <p>
      * Exceptions:
-     *   - InvalidRequestException : if there is any problem with the REST API request
-     *   - AuthorizationException : if there is any problem with the REST API authorization(access token)
-     *   - ResourceNotFoundException : if the resource can not be found
-     *   - ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-     *   - SmartsheetRestException : if there is any other REST API related error occurred during the operation
-     *   - SmartsheetException : if there is any other error occurred during the operation
+     * - InvalidRequestException : if there is any problem with the REST API request
+     * - AuthorizationException : if there is any problem with the REST API authorization(access token)
+     * - ResourceNotFoundException : if the resource can not be found
+     * - ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     * - SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     * - SmartsheetException : if there is any other error occurred during the operation
      *
-     * @param id the id
-     * @param loadAll load all contents in a workspace
+     * @param id       the id
+     * @param loadAll  load all contents in a workspace
      * @param includes used to specify the optional objects to include
      * @return the resource (note that if there is no such resource, this method will throw ResourceNotFoundException
-     *     rather than returning null).
+     * rather than returning null).
      * @throws SmartsheetException the smartsheet exception
      */
     public Workspace getWorkspace(long id, Boolean loadAll, EnumSet<SourceInclusion> includes) throws SmartsheetException {
@@ -137,12 +137,12 @@ public class WorkspaceResourcesImpl extends AbstractResources implements Workspa
      * It mirrors to the following Smartsheet REST API method: POST /workspaces
      * <p>
      * Exceptions:
-     *   - IllegalArgumentException : if any argument is null
-     *   - InvalidRequestException : if there is any problem with the REST API request
-     *   - AuthorizationException : if there is any problem with the REST API authorization(access token)
-     *   - ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-     *   - SmartsheetRestException : if there is any other REST API related error occurred during the operation
-     *   - SmartsheetException : if there is any other error occurred during the operation
+     * - IllegalArgumentException : if any argument is null
+     * - InvalidRequestException : if there is any problem with the REST API request
+     * - AuthorizationException : if there is any problem with the REST API authorization(access token)
+     * - ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     * - SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     * - SmartsheetException : if there is any other error occurred during the operation
      *
      * @param workspace the workspace to create, limited to the following required attributes: * name (string)
      * @return the created workspace
@@ -158,17 +158,17 @@ public class WorkspaceResourcesImpl extends AbstractResources implements Workspa
      * It mirrors to the following Smartsheet REST API method: PUT /workspace/{id}
      * <p>
      * Exceptions:
-     *   - IllegalArgumentException : if any argument is null
-     *   - InvalidRequestException : if there is any problem with the REST API request
-     *   - AuthorizationException : if there is any problem with the REST API authorization(access token)
-     *   - ResourceNotFoundException : if the resource can not be found
-     *   - ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-     *   - SmartsheetRestException : if there is any other REST API related error occurred during the operation
-     *   - SmartsheetException : if there is any other error occurred during the operation
+     * - IllegalArgumentException : if any argument is null
+     * - InvalidRequestException : if there is any problem with the REST API request
+     * - AuthorizationException : if there is any problem with the REST API authorization(access token)
+     * - ResourceNotFoundException : if the resource can not be found
+     * - ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     * - SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     * - SmartsheetException : if there is any other error occurred during the operation
      *
      * @param workspace the workspace to update limited to the following attribute: * name (string)
      * @return the updated workspace (note that if there is no such resource, this method will throw
-     *     ResourceNotFoundException rather than returning null).
+     * ResourceNotFoundException rather than returning null).
      * @throws SmartsheetException the smartsheet exception
      */
     public Workspace updateWorkspace(Workspace workspace) throws SmartsheetException {
@@ -181,12 +181,12 @@ public class WorkspaceResourcesImpl extends AbstractResources implements Workspa
      * It mirrors to the following Smartsheet REST API method: DELETE /workspace{id}
      * <p>
      * Exceptions:
-     *   - InvalidRequestException : if there is any problem with the REST API request
-     *   - AuthorizationException : if there is any problem with the REST API authorization(access token)
-     *   - ResourceNotFoundException : if the resource can not be found
-     *   - ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-     *   - SmartsheetRestException : if there is any other REST API related error occurred during the operation
-     *   - SmartsheetException : if there is any other error occurred during the operation
+     * - InvalidRequestException : if there is any problem with the REST API request
+     * - AuthorizationException : if there is any problem with the REST API authorization(access token)
+     * - ResourceNotFoundException : if the resource can not be found
+     * - ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     * - SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     * - SmartsheetException : if there is any other error occurred during the operation
      *
      * @param id the ID of the workspace
      * @throws SmartsheetException the smartsheet exception
@@ -201,17 +201,17 @@ public class WorkspaceResourcesImpl extends AbstractResources implements Workspa
      * It mirrors to the following Smartsheet REST API method: POST /workspaces/{workspaceId}/copy
      * <p>
      * Exceptions:
-     *   IllegalArgumentException : if folder is null
-     *   InvalidRequestException : if there is any problem with the REST API request
-     *   AuthorizationException : if there is any problem with the REST API authorization(access token)
-     *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-     *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
-     *   SmartsheetException : if there is any other error occurred during the operation
+     * IllegalArgumentException : if folder is null
+     * InvalidRequestException : if there is any problem with the REST API request
+     * AuthorizationException : if there is any problem with the REST API authorization(access token)
+     * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     * SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     * SmartsheetException : if there is any other error occurred during the operation
      *
-     * @param workspaceId the folder id
+     * @param workspaceId          the folder id
      * @param containerDestination describes the destination container
-     * @param includes optional parameters to include
-     * @param skipRemap optional parameters to exclude
+     * @param includes             optional parameters to include
+     * @param skipRemap            optional parameters to exclude
      * @return the folder
      * @throws SmartsheetException the smartsheet exception
      */
@@ -230,18 +230,18 @@ public class WorkspaceResourcesImpl extends AbstractResources implements Workspa
      * It mirrors to the following Smartsheet REST API method: POST /workspaces/{workspaceId}/copy
      * <p>
      * Exceptions:
-     *   IllegalArgumentException : if folder is null
-     *   InvalidRequestException : if there is any problem with the REST API request
-     *   AuthorizationException : if there is any problem with the REST API authorization(access token)
-     *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-     *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
-     *   SmartsheetException : if there is any other error occurred during the operation
+     * IllegalArgumentException : if folder is null
+     * InvalidRequestException : if there is any problem with the REST API request
+     * AuthorizationException : if there is any problem with the REST API authorization(access token)
+     * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     * SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     * SmartsheetException : if there is any other error occurred during the operation
      *
-     * @param workspaceId the folder id
+     * @param workspaceId          the folder id
      * @param containerDestination describes the destination container
-     * @param includes optional parameters to include
-     * @param skipRemap optional parameters to NOT re-map in the new folder
-     * @param excludes optional parameters to exclude     *
+     * @param includes             optional parameters to include
+     * @param skipRemap            optional parameters to NOT re-map in the new folder
+     * @param excludes             optional parameters to exclude     *
      * @return the folder
      * @throws SmartsheetException the smartsheet exception
      * @deprecated As of release 2.0. `excludes` param is deprecated. Please use the `copyWorkspace` method with `includes` instead.

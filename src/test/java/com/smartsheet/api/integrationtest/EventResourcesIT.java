@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -47,7 +47,7 @@ public class EventResourcesIT extends ITResourcesImpl {
         Date lastHour = new Date(System.currentTimeMillis() - TimeUnit.HOURS.toMillis(1));
         EventResult eventResult = smartsheet.eventResources().listEvents(lastHour, null, 10, false);
         assertThat(eventResult.getData()).hasSizeLessThanOrEqualTo(10);
-        for (Event event: eventResult.getData()) {
+        for (Event event : eventResult.getData()) {
             assertThat(event.getObjectType()).isNotNull();
             assertThat(event.getAction()).isNotNull();
             assertThat(event.getObjectId()).isNotNull();
@@ -64,7 +64,7 @@ public class EventResourcesIT extends ITResourcesImpl {
                     .isNotEmpty()
                     .hasSizeLessThanOrEqualTo(10);
 
-            for (Event event: eventResult.getData()) {
+            for (Event event : eventResult.getData()) {
                 assertThat(event.getObjectType()).isNotNull();
                 assertThat(event.getAction()).isNotNull();
                 assertThat(event.getObjectId()).isNotNull();

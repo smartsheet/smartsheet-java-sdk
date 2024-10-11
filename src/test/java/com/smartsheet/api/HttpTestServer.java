@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -40,6 +40,7 @@ public class HttpTestServer {
     private String contentType;
     private byte[] responseBody;
     private int status;
+    private String lastRequestUrl;
 
     public HttpTestServer() {
         this.port = 9090;
@@ -68,10 +69,10 @@ public class HttpTestServer {
 
             //@Override
             public void handle(String target, Request baseRequest, HttpServletRequest request,
-                    HttpServletResponse response) throws IOException, ServletException {
+                               HttpServletResponse response) throws IOException, ServletException {
 
                 setRequestBody(IOUtils.toString(baseRequest.getInputStream()));
-
+                lastRequestUrl = baseRequest.getOriginalURI();
                 response.setStatus(getStatus());
                 response.setContentType(getContentType());
 
@@ -92,6 +93,10 @@ public class HttpTestServer {
 
     public int getStatus() {
         return this.status;
+    }
+
+    public String getLastRequestUrl() {
+        return this.lastRequestUrl;
     }
 
     public void stop() throws Exception {

@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,7 +25,9 @@ import com.smartsheet.api.SmartsheetException;
  */
 public class HttpClientException extends SmartsheetException {
 
-    /** The Constant serialVersionUID. */
+    /**
+     * The Constant serialVersionUID.
+     */
     private static final long serialVersionUID = 1L;
 
     /**
@@ -41,7 +43,7 @@ public class HttpClientException extends SmartsheetException {
      * Constructor.
      *
      * @param message the message
-     * @param cause the cause
+     * @param cause   the cause
      */
     public HttpClientException(String message, Throwable cause) {
         super(message, cause);

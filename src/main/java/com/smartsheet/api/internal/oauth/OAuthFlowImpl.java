@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -114,13 +114,14 @@ public class OAuthFlowImpl implements OAuthFlow {
     /**
      * Constructor.
      * <p>
-     * @param clientId the client id
-     * @param clientSecret the client secret
-     * @param redirectURL the redirect url
+     *
+     * @param clientId         the client id
+     * @param clientSecret     the client secret
+     * @param redirectURL      the redirect url
      * @param authorizationURL the authorization url
-     * @param tokenURL the token url
-     * @param httpClient the http client
-     * @param jsonSerializer the json serializer
+     * @param tokenURL         the token url
+     * @param httpClient       the http client
+     * @param jsonSerializer   the json serializer
      * @throws IllegalArgumentException If any argument is null, or empty string.
      */
     public OAuthFlowImpl(
@@ -150,8 +151,8 @@ public class OAuthFlowImpl implements OAuthFlow {
      * Exceptions: - IllegalArgumentException : if scopes is null/empty
      *
      * @param scopes the scopes
-     * @param state an arbitrary string that will be returned to your app; intended to be used by you to ensure that
-     *              this redirect is indeed from an OAuth flow that you initiated
+     * @param state  an arbitrary string that will be returned to your app; intended to be used by you to ensure that
+     *               this redirect is indeed from an OAuth flow that you initiated
      * @return the authorization URL
      */
     public String newAuthorizationURL(EnumSet<AccessScope> scopes, String state) {
@@ -180,15 +181,16 @@ public class OAuthFlowImpl implements OAuthFlow {
     /**
      * Extract AuthorizationResult from the authorization response URL (i.e. the redirectURL with the response
      * parameters from Smartsheet OAuth server).
+     *
      * @param authorizationResponseURL the authorization response URL
      * @return the authorization result
-     * @throws URISyntaxException the URI syntax exception
-     * @throws IllegalArgumentException if authorizationResponseURL is null/empty, or a malformed URL
-     * @throws AccessDeniedException if the user has denied the authorization request
+     * @throws URISyntaxException               the URI syntax exception
+     * @throws IllegalArgumentException         if authorizationResponseURL is null/empty, or a malformed URL
+     * @throws AccessDeniedException            if the user has denied the authorization request
      * @throws UnsupportedResponseTypeException if the response type isn't supported
-     *     (note that this won't really happen in current implementation)
-     * @throws InvalidScopeException if some of the specified scopes are invalid
-     * @throws OAuthAuthorizationCodeException if any other error occurred during the operation
+     *                                          (note that this won't really happen in current implementation)
+     * @throws InvalidScopeException            if some of the specified scopes are invalid
+     * @throws OAuthAuthorizationCodeException  if any other error occurred during the operation
      */
     public AuthorizationResult extractAuthorizationResult(String authorizationResponseURL)
             throws URISyntaxException, OAuthAuthorizationCodeException {
@@ -241,21 +243,21 @@ public class OAuthFlowImpl implements OAuthFlow {
      * Obtain a new token using AuthorizationResult.
      * <p>
      * Exceptions:
-     *   - IllegalArgumentException : if authorizationResult is null
-     *   - InvalidTokenRequestException : if the token request is invalid (note that this won't really happen in current implementation)
-     *   - InvalidOAuthClientException : if the client information is invalid
-     *   - InvalidOAuthGrantException : if the authorization code or refresh token is invalid or expired, the
-     *   redirect_uri does not match, or the hash value does not match the client secret and/or code
-     *   - UnsupportedOAuthGrantTypeException : if the grant type is invalid (note that this won't really happen in
-     *   current implementation)
-     *   - OAuthTokenException : if any other error occurred during the operation
+     * - IllegalArgumentException : if authorizationResult is null
+     * - InvalidTokenRequestException : if the token request is invalid (note that this won't really happen in current implementation)
+     * - InvalidOAuthClientException : if the client information is invalid
+     * - InvalidOAuthGrantException : if the authorization code or refresh token is invalid or expired, the
+     * redirect_uri does not match, or the hash value does not match the client secret and/or code
+     * - UnsupportedOAuthGrantTypeException : if the grant type is invalid (note that this won't really happen in
+     * current implementation)
+     * - OAuthTokenException : if any other error occurred during the operation
      *
      * @param authorizationResult the authorization result
      * @return the token
-     * @throws OAuthTokenException the o auth token exception
+     * @throws OAuthTokenException     the o auth token exception
      * @throws JSONSerializerException the JSON serializer exception
-     * @throws HttpClientException the http client exception
-     * @throws URISyntaxException the URI syntax exception
+     * @throws HttpClientException     the http client exception
+     * @throws URISyntaxException      the URI syntax exception
      * @throws InvalidRequestException the invalid request exception
      */
     public Token obtainNewToken(AuthorizationResult authorizationResult)
@@ -295,20 +297,20 @@ public class OAuthFlowImpl implements OAuthFlow {
      * Refresh token.
      * <p>
      * Exceptions:
-     *   - IllegalArgumentException : if token is null.
-     *   - InvalidTokenRequestException : if the token request is invalid
-     *   - InvalidOAuthClientException : if the client information is invalid
-     *   - InvalidOAuthGrantException : if the authorization code or refresh token is invalid or expired,
-     *   the redirect_uri does not match, or the hash value does not match the client secret and/or code
-     *   - UnsupportedOAuthGrantTypeException : if the grant type is invalid
-     *   - OAuthTokenException : if any other error occurred during the operation
+     * - IllegalArgumentException : if token is null.
+     * - InvalidTokenRequestException : if the token request is invalid
+     * - InvalidOAuthClientException : if the client information is invalid
+     * - InvalidOAuthGrantException : if the authorization code or refresh token is invalid or expired,
+     * the redirect_uri does not match, or the hash value does not match the client secret and/or code
+     * - UnsupportedOAuthGrantTypeException : if the grant type is invalid
+     * - OAuthTokenException : if any other error occurred during the operation
      *
      * @param token the token to refresh
      * @return the refreshed token
-     * @throws OAuthTokenException the o auth token exception
+     * @throws OAuthTokenException     the o auth token exception
      * @throws JSONSerializerException the JSON serializer exception
-     * @throws HttpClientException the http client exception
-     * @throws URISyntaxException the URI syntax exception
+     * @throws HttpClientException     the http client exception
+     * @throws URISyntaxException      the URI syntax exception
      * @throws InvalidRequestException the invalid request exception
      */
     public Token refreshToken(Token token)
@@ -341,20 +343,20 @@ public class OAuthFlowImpl implements OAuthFlow {
      * Request a token.
      * <p>
      * Exceptions:
-     *   - IllegalArgumentException : if url is null or empty
-     *   - InvalidTokenRequestException : if the token request is invalid
-     *   - InvalidOAuthClientException : if the client information is invalid
-     *   - InvalidOAuthGrantException : if the authorization code or refresh token is invalid or
-     *   expired, the redirect_uri does not match, or the hash value does not match the client secret and/or code
-     *   - UnsupportedOAuthGrantTypeException : if the grant type is invalid
-     *   - OAuthTokenException : if any other error occurred during the operation
+     * - IllegalArgumentException : if url is null or empty
+     * - InvalidTokenRequestException : if the token request is invalid
+     * - InvalidOAuthClientException : if the client information is invalid
+     * - InvalidOAuthGrantException : if the authorization code or refresh token is invalid or
+     * expired, the redirect_uri does not match, or the hash value does not match the client secret and/or code
+     * - UnsupportedOAuthGrantTypeException : if the grant type is invalid
+     * - OAuthTokenException : if any other error occurred during the operation
      *
      * @param url the URL (with request parameters) from which the token will be requested
      * @return the token
-     * @throws OAuthTokenException the o auth token exception
+     * @throws OAuthTokenException     the o auth token exception
      * @throws JSONSerializerException the JSON serializer exception
-     * @throws HttpClientException the http client exception
-     * @throws URISyntaxException the URI syntax exception
+     * @throws HttpClientException     the http client exception
+     * @throws URISyntaxException      the URI syntax exception
      */
     private Token requestToken(String url) throws OAuthTokenException, JSONSerializerException, HttpClientException,
             URISyntaxException {
@@ -416,19 +418,19 @@ public class OAuthFlowImpl implements OAuthFlow {
      * Revoke access token.
      * <p>
      * Exceptions:
-     *   - IllegalArgumentException : if url is null or empty
-     *   - InvalidTokenRequestException : if the token request is invalid
-     *   - InvalidOAuthClientException : if the client information is invalid
-     *   - InvalidOAuthGrantException : if the authorization code or refresh token is invalid or
-     *   expired, the redirect_uri does not match, or the hash value does not match the client secret and/or code
-     *   - UnsupportedOAuthGrantTypeException : if the grant type is invalid
-     *   - OAuthTokenException : if any other error occurred during the operation
+     * - IllegalArgumentException : if url is null or empty
+     * - InvalidTokenRequestException : if the token request is invalid
+     * - InvalidOAuthClientException : if the client information is invalid
+     * - InvalidOAuthGrantException : if the authorization code or refresh token is invalid or
+     * expired, the redirect_uri does not match, or the hash value does not match the client secret and/or code
+     * - UnsupportedOAuthGrantTypeException : if the grant type is invalid
+     * - OAuthTokenException : if any other error occurred during the operation
      *
      * @param token the access token to revoke access from
-     * @throws OAuthTokenException the o auth token exception
+     * @throws OAuthTokenException     the o auth token exception
      * @throws JSONSerializerException the JSON serializer exception
-     * @throws HttpClientException the http client exception
-     * @throws URISyntaxException the URI syntax exception
+     * @throws HttpClientException     the http client exception
+     * @throws URISyntaxException      the URI syntax exception
      * @throws InvalidRequestException the invalid request exception
      */
     public void revokeAccessToken(Token token) throws OAuthTokenException, JSONSerializerException, HttpClientException,

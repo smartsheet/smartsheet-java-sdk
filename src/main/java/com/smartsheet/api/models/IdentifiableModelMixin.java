@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,17 +23,19 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * This is a Jackson Mixin class that excludes "id" field from being serialized to JSON. This is needed because when
  * updating a resource, the resource ID should be present in the resource model but it shouldn't be serialized and sent
  * to Smartsheet REST API.
- *
+ * <p>
  * It defines two abstract methods ("id" getter and setter) and annotates them as @JsonIgnore and @JsonProperty
  * respectively.
- *
+ * <p>
  * It is a static private inner class of JacksonJsonSerializer class.
- *
+ * <p>
  * Thread Safety: This class is thread safe since it's immutable.
  */
 
 public abstract class IdentifiableModelMixin<T> {
-    @JsonIgnore public abstract T getId();
+    @JsonIgnore
+    public abstract T getId();
 
-    @JsonProperty public abstract void setId(T id);
+    @JsonProperty
+    public abstract void setId(T id);
 }

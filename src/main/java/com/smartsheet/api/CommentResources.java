@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,17 +24,17 @@ import com.smartsheet.api.models.Comment;
 @Deprecated(since = "2.0.0", forRemoval = true)
 public interface CommentResources {
     /**
-     * @param sheetId the id
+     * @param sheetId   the id
      * @param commentId the commentid
      * @return the comment (note that if there is no such resource, this method will throw ResourceNotFoundException
-     *     rather than returning null).
+     * rather than returning null).
      * @deprecated As of release 2.0. Please use {@link SheetCommentResources} instead
      */
     @Deprecated(since = "2.0.0", forRemoval = true)
     Comment getComment(long sheetId, long commentId);
 
     /**
-     * @param sheetId the id
+     * @param sheetId   the id
      * @param commentId the commentid
      * @deprecated As of release 2.0. Please use {@link SheetCommentResources} instead
      */

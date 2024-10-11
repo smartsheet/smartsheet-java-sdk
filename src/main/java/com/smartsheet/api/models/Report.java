@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,7 @@ import java.util.List;
 
 /**
  * A report object that is a filtered view of the data from one or more Sheets.
+ *
  * @see <a href="http://help.smartsheet.com/customer/portal/articles/522214-creating-reports">Creating Reports Help</a>
  */
 public class Report extends AbstractSheet<ReportRow, ReportColumn, ReportCell> {

@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,7 +25,7 @@ import java.io.InputStream;
  * Compare the given expected content length with the actual number of bytes read.
  * Throws an exception if more bytes are read than the expected length, or if the
  * stream ends before reading the expected number of bytes.
- *
+ * <p>
  * If reset is called the totalBytesRead property is reset to 0.
  */
 public class LengthEnforcingInputStream extends FilterInputStream {

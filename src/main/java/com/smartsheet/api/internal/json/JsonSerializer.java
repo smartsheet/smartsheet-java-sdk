@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -47,8 +47,8 @@ public interface JsonSerializer {
      * Exceptions: - IllegalArgumentException : if any argument is null - JSONSerializerException : if there is any
      * other error occurred during the operation
      *
-     * @param <T> the generic type
-     * @param object the object
+     * @param <T>          the generic type
+     * @param object       the object
      * @param outputStream the output stream
      * @throws JSONSerializerException the JSON serializer exception
      */
@@ -65,7 +65,7 @@ public interface JsonSerializer {
      * Exceptions: - IllegalArgumentException : if any argument is null - JSONSerializerException : if there is any
      * other error occurred during the operation
      *
-     * @param <T> the generic type
+     * @param <T>    the generic type
      * @param object the object
      * @throws JSONSerializerException the JSON serializer exception
      */
@@ -73,9 +73,10 @@ public interface JsonSerializer {
 
     /**
      * De-serialize json to PagedResult.
+     *
      * @param objectClass the object class
      * @param inputStream the input stream
-     * @param <T> the generic type
+     * @param <T>         the generic type
      * @return the PagedResult containing a list of type T
      */
     <T> PagedResult<T> deserializeDataWrapper(Class<T> objectClass, java.io.InputStream inputStream) throws JSONSerializerException;
@@ -91,13 +92,13 @@ public interface JsonSerializer {
      * Exceptions: - IllegalArgumentException : if any argument is null - JSONSerializerException : if there is any
      * other error occurred during the operation
      *
-     * @param <T> the generic type
+     * @param <T>         the generic type
      * @param objectClass the object class
      * @param inputStream the input stream
      * @return the t
-     * @throws JsonParseException the json parse exception
+     * @throws JsonParseException   the json parse exception
      * @throws JsonMappingException the json mapping exception
-     * @throws IOException Signals that an I/O exception has occurred.
+     * @throws IOException          Signals that an I/O exception has occurred.
      */
     <T> T deserialize(Class<T> objectClass, java.io.InputStream inputStream) throws JsonParseException,
             JsonMappingException, IOException;
@@ -113,7 +114,7 @@ public interface JsonSerializer {
      * Exceptions: - IllegalArgumentException : if any argument is null - JSONSerializerException : if there is any
      * other error occurred during the operation
      *
-     * @param <T> the generic type
+     * @param <T>         the generic type
      * @param objectClass the object class
      * @param inputStream the input stream
      * @return the list
@@ -141,7 +142,7 @@ public interface JsonSerializer {
      * Exceptions: - IllegalArgumentException : if any argument is null - JSONSerializerException : if there is any
      * other error occurred during the operation
      *
-     * @param <T> the generic type
+     * @param <T>         the generic type
      * @param objectClass the object class
      * @param inputStream the input stream
      * @return the result
@@ -161,7 +162,7 @@ public interface JsonSerializer {
      * Exceptions: - IllegalArgumentException : if any argument is null - JSONSerializerException : if there is any
      * other error occurred during the operation
      *
-     * @param <T> the generic type
+     * @param <T>         the generic type
      * @param objectClass the object class
      * @param inputStream the input stream
      * @return the result
@@ -181,7 +182,7 @@ public interface JsonSerializer {
      * Exceptions: - IllegalArgumentException : if any argument is null - JSONSerializerException : if there is any
      * other error occurred during the operation
      *
-     * @param <T> the generic type
+     * @param <T>         the generic type
      * @param objectClass the object class
      * @param inputStream the input stream
      * @return the result
@@ -210,6 +211,7 @@ public interface JsonSerializer {
 
     /**
      * De-serialize json to EventResult.
+     *
      * @param inputStream the input stream
      * @return the EventResult containing a list of Event
      */

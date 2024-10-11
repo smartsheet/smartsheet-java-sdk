@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,36 +20,58 @@ package com.smartsheet.api.models.enums;
  * Represents column types.
  */
 public enum ColumnType {
-    /** Represents the TEXT_NUMBER column type. */
+    /**
+     * Represents the TEXT_NUMBER column type.
+     */
     TEXT_NUMBER,
 
-    /** Represents the CONTACT_LIST column type. */
+    /**
+     * Represents the CONTACT_LIST column type.
+     */
     CONTACT_LIST,
 
-    /** Represents the DATE column type. */
+    /**
+     * Represents the DATE column type.
+     */
     DATE,
 
-    /** Represents the DATETIME column type. */
+    /**
+     * Represents the DATETIME column type.
+     */
     DATETIME,
 
-    /** Represents the PICKLIST column type. */
+    /**
+     * Represents the PICKLIST column type.
+     */
     PICKLIST,
 
-    /** Represents the CHECKBOX column type. */
+    /**
+     * Represents the CHECKBOX column type.
+     */
     CHECKBOX,
 
-    /** Represents the DURATION column type. */
+    /**
+     * Represents the DURATION column type.
+     */
     DURATION,
 
-    /** Represents the PREDECESSOR column type. */
+    /**
+     * Represents the PREDECESSOR column type.
+     */
     PREDECESSOR,
 
-    /** Represents the ABSTRACT_DATETIME (auto number) column type */
+    /**
+     * Represents the ABSTRACT_DATETIME (auto number) column type
+     */
     ABSTRACT_DATETIME,
 
-    /** Represents the MULTI_CONTACT_LIST (multi-assign) column type */
+    /**
+     * Represents the MULTI_CONTACT_LIST (multi-assign) column type
+     */
     MULTI_CONTACT_LIST,
 
-    /** Represents the MULTI_PICKLIST (multi select picklist) column type */
+    /**
+     * Represents the MULTI_PICKLIST (multi select picklist) column type
+     */
     MULTI_PICKLIST,
 }

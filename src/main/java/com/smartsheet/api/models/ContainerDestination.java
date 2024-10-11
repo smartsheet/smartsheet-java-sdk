@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,19 +20,26 @@ import com.smartsheet.api.models.enums.DestinationType;
 
 public class ContainerDestination {
 
-    /** Represents the destination type when a Sheet or Folder is moved, or when a Sheet, Folder, or Workspace is copied.. */
+    /**
+     * Represents the destination type when a Sheet or Folder is moved, or when a Sheet, Folder, or Workspace is copied..
+     */
     private DestinationType destinationType;
 
-    /** Represents the destination id when a Sheet or Folder is moved, or when a Sheet, Folder, or Workspace is copied.. */
+    /**
+     * Represents the destination id when a Sheet or Folder is moved, or when a Sheet, Folder, or Workspace is copied..
+     */
     private Long destinationId;
 
-    /** Represents the new name when a Sheet or Folder is moved, or when a Sheet, Folder, or Workspace is copied.. */
+    /**
+     * Represents the new name when a Sheet or Folder is moved, or when a Sheet, Folder, or Workspace is copied..
+     */
     private String newName;
 
     /**
      * Constructors
      */
-    public ContainerDestination() { }
+    public ContainerDestination() {
+    }
 
     public ContainerDestination(Long destinationId) {
         setDestinationId(destinationId);
@@ -49,6 +56,7 @@ public class ContainerDestination {
 
     /**
      * Sets the type for the folder
+     *
      * @param destinationType the destination type
      */
     public ContainerDestination setDestinationType(DestinationType destinationType) {
@@ -67,6 +75,7 @@ public class ContainerDestination {
 
     /**
      * Sets the id for the folder
+     *
      * @param destinationId the destination id
      */
     public ContainerDestination setDestinationId(Long destinationId) {
@@ -85,6 +94,7 @@ public class ContainerDestination {
 
     /**
      * Sets the name for the destination
+     *
      * @param newName the new name
      */
     public ContainerDestination setNewName(String newName) {
@@ -97,13 +107,19 @@ public class ContainerDestination {
      */
     public static class AddContainerDestinationBuilder {
 
-        /** Represents the destination type when a Sheet or Folder is moved, or when a Sheet, Folder, or Workspace is copied.. */
+        /**
+         * Represents the destination type when a Sheet or Folder is moved, or when a Sheet, Folder, or Workspace is copied..
+         */
         private DestinationType destinationType;
 
-        /** Represents the destination id when a Sheet or Folder is moved, or when a Sheet, Folder, or Workspace is copied.. */
+        /**
+         * Represents the destination id when a Sheet or Folder is moved, or when a Sheet, Folder, or Workspace is copied..
+         */
         Long destinationId;
 
-        /** Represents the new name when a Sheet or Folder is moved, or when a Sheet, Folder, or Workspace is copied.. */
+        /**
+         * Represents the new name when a Sheet or Folder is moved, or when a Sheet, Folder, or Workspace is copied..
+         */
         String newName;
 
         /**
@@ -117,6 +133,7 @@ public class ContainerDestination {
 
         /**
          * Sets the type for the folder
+         *
          * @param destinationType the destination type
          * @return the builder
          */
@@ -136,6 +153,7 @@ public class ContainerDestination {
 
         /**
          * Sets the id for the folder
+         *
          * @param destinationId the destination id
          * @return the builder
          */
@@ -155,6 +173,7 @@ public class ContainerDestination {
 
         /**
          * Sets the name for the folder
+         *
          * @param newName the new name for destination
          * @return the builder
          */

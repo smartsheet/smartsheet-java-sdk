@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,18 +35,18 @@ public interface TokenResources {
      * Revoke access token.
      * <p>
      * Exceptions:
-     *   - IllegalArgumentException : if url is null or empty
-     *   - InvalidTokenRequestException : if the token request is invalid
-     *   - InvalidOAuthClientException : if the client information is invalid
-     *   - InvalidOAuthGrantException : if the authorization code or refresh token is invalid or
-     *   expired, the redirect_uri does not match, or the hash value does not match the client secret and/or code
-     *   - UnsupportedOAuthGrantTypeException : if the grant type is invalid
-     *   - OAuthTokenException : if any other error occurred during the operation
+     * - IllegalArgumentException : if url is null or empty
+     * - InvalidTokenRequestException : if the token request is invalid
+     * - InvalidOAuthClientException : if the client information is invalid
+     * - InvalidOAuthGrantException : if the authorization code or refresh token is invalid or
+     * expired, the redirect_uri does not match, or the hash value does not match the client secret and/or code
+     * - UnsupportedOAuthGrantTypeException : if the grant type is invalid
+     * - OAuthTokenException : if any other error occurred during the operation
      *
-     * @throws OAuthTokenException the o auth token exception
+     * @throws OAuthTokenException     the o auth token exception
      * @throws JSONSerializerException the JSON serializer exception
-     * @throws HttpClientException the http client exception
-     * @throws URISyntaxException the URI syntax exception
+     * @throws HttpClientException     the http client exception
+     * @throws URISyntaxException      the URI syntax exception
      * @throws InvalidRequestException the invalid request exception
      */
     void revokeAccessToken() throws OAuthTokenException, JSONSerializerException, HttpClientException,

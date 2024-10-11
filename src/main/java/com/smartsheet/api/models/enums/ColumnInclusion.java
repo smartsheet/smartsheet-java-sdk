@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,8 +21,7 @@ package com.smartsheet.api.models.enums;
  */
 public enum ColumnInclusion {
     FILTERS("filters"),
-    FORMAT("format")
-    ;
+    FORMAT("format");
 
     String inclusion;
 

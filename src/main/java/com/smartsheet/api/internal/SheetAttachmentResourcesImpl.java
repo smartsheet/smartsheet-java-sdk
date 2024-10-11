@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -61,15 +61,15 @@ public class SheetAttachmentResourcesImpl extends AbstractResources implements S
      * <p>
      * It mirrors to the following Smartsheet REST API method: POST /sheets/{sheetId}/attachments
      *
-     * @param sheetId the sheet id
+     * @param sheetId    the sheet id
      * @param attachment the attachment object
      * @return the attachment object
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     public Attachment attachUrl(long sheetId, Attachment attachment) throws SmartsheetException {
         return this.createResource(SHEETS_PATH + sheetId + ATTACHMENTS_PATH, Attachment.class, attachment);
@@ -81,14 +81,14 @@ public class SheetAttachmentResourcesImpl extends AbstractResources implements S
      * It mirrors to the following Smartsheet REST API method: DELETE /sheets/{sheetId}/attachments/{attachmentId}
      * <p>
      * Exceptions:
-     *   InvalidRequestException : if there is any problem with the REST API request
-     *   AuthorizationException : if there is any problem with the REST API authorization(access token)
-     *   ResourceNotFoundException : if the resource can not be found
-     *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-     *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
-     *   SmartsheetException : if there is any other error occurred during the operation
+     * InvalidRequestException : if there is any problem with the REST API request
+     * AuthorizationException : if there is any problem with the REST API authorization(access token)
+     * ResourceNotFoundException : if the resource can not be found
+     * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     * SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     * SmartsheetException : if there is any other error occurred during the operation
      *
-     * @param sheetId the ID of the sheet
+     * @param sheetId      the ID of the sheet
      * @param attachmentId the ID of the attachment
      * @throws SmartsheetException the smartsheet exception
      */
@@ -105,17 +105,17 @@ public class SheetAttachmentResourcesImpl extends AbstractResources implements S
      * rather than returning null).
      * <p>
      * Exceptions:
-     *   InvalidRequestException : if there is any problem with the REST API request
-     *   AuthorizationException : if there is any problem with the REST API authorization(access token)
-     *   ResourceNotFoundException : if the resource can not be found
-     *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-     *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
-     *   SmartsheetException : if there is any other error occurred during the operation
+     * InvalidRequestException : if there is any problem with the REST API request
+     * AuthorizationException : if there is any problem with the REST API authorization(access token)
+     * ResourceNotFoundException : if the resource can not be found
+     * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     * SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     * SmartsheetException : if there is any other error occurred during the operation
      *
-     * @param sheetId the sheet id
+     * @param sheetId      the sheet id
      * @param attachmentId the attachment id
      * @return the resource (note that if there is no such resource, this method will throw ResourceNotFoundException
-     *     rather than returning null).
+     * rather than returning null).
      * @throws SmartsheetException the smartsheet exception
      */
     public Attachment getAttachment(long sheetId, long attachmentId) throws SmartsheetException {
@@ -128,14 +128,14 @@ public class SheetAttachmentResourcesImpl extends AbstractResources implements S
      * It mirrors to the following Smartsheet REST API method: GET /sheets/{sheetId}/attachments
      * <p>
      * Exceptions:
-     *   InvalidRequestException : if there is any problem with the REST API request
-     *   AuthorizationException : if there is any problem with the REST API authorization(access token)
-     *   ResourceNotFoundException : if the resource can not be found
-     *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-     *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
-     *   SmartsheetException : if there is any other error occurred during the operation
+     * InvalidRequestException : if there is any problem with the REST API request
+     * AuthorizationException : if there is any problem with the REST API authorization(access token)
+     * ResourceNotFoundException : if the resource can not be found
+     * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     * SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     * SmartsheetException : if there is any other error occurred during the operation
      *
-     * @param sheetId the ID of the sheet to which the attachments are associated
+     * @param sheetId    the ID of the sheet to which the attachments are associated
      * @param parameters the pagination parameters
      * @return the attachments (note that empty list will be returned if there is none)
      * @throws SmartsheetException the smartsheet exception
@@ -154,17 +154,17 @@ public class SheetAttachmentResourcesImpl extends AbstractResources implements S
      * <p>
      * It mirrors to the following Smartsheet REST API method: POST /sheets/{sheetId}/attachments
      *
-     * @param sheetId the id of the sheet
-     * @param file the file to attach
+     * @param sheetId     the id of the sheet
+     * @param file        the file to attach
      * @param contentType the content type of the file
      * @return the created attachment
-     * @throws FileNotFoundException the file not found exception
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws FileNotFoundException       the file not found exception
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     public Attachment attachFile(long sheetId, File file, String contentType) throws FileNotFoundException,
             SmartsheetException {
@@ -177,10 +177,10 @@ public class SheetAttachmentResourcesImpl extends AbstractResources implements S
     /**
      * Attach file for simple upload.
      *
-     * @param sheetId the sheet id
-     * @param inputStream attachment data inputStream
-     * @param contentType the content type
-     * @param contentLength the content length
+     * @param sheetId        the sheet id
+     * @param inputStream    attachment data inputStream
+     * @param contentType    the content type
+     * @param contentLength  the content length
      * @param attachmentName the name of the attachment
      * @return the attachment
      * @throws SmartsheetException the smartsheet exception

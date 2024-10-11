@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,14 +20,16 @@ import com.smartsheet.api.models.Error;
 
 /**
  * This is the exception to indicate a resource can not be found.
- *
+ * <p>
  * Basically this exception will be thrown when the Smartsheet REST API responds with "404 NOT FOUND".
- *
+ * <p>
  * Thread safety: Exceptions are not thread safe.
  */
 public class ResourceNotFoundException extends SmartsheetRestException {
 
-    /** The Constant serialVersionUID. */
+    /**
+     * The Constant serialVersionUID.
+     */
     private static final long serialVersionUID = 1L;
 
     /**

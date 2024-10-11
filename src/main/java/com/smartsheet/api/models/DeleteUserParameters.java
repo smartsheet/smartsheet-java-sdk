@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -40,12 +40,14 @@ public class DeleteUserParameters {
     /**
      * Constructor for creating the DeleteUserParameters object
      */
-    public DeleteUserParameters() {}
+    public DeleteUserParameters() {
+    }
 
     /**
      * Constructor for creating the DeleteUserParameters object
-     * @param transferToId the transferToId
-     * @param transferSheets the transferSheets flag
+     *
+     * @param transferToId      the transferToId
+     * @param transferSheets    the transferSheets flag
      * @param removeFromSharing the removeFromSharing flag
      */
     public DeleteUserParameters(Long transferToId, Boolean transferSheets, Boolean removeFromSharing) {
@@ -56,6 +58,7 @@ public class DeleteUserParameters {
 
     /**
      * Gets the id of the user to transfer ownership to
+     *
      * @return the user id
      */
     public Long getTransferToId() {
@@ -64,6 +67,7 @@ public class DeleteUserParameters {
 
     /**
      * Sets the id of the user to transfer ownership to
+     *
      * @param transferToId the user id
      */
     public DeleteUserParameters setTransferToId(Long transferToId) {
@@ -73,6 +77,7 @@ public class DeleteUserParameters {
 
     /**
      * Gets transfer sheets flag
+     *
      * @return the transfer sheets flag
      */
     public Boolean isTransferSheets() {
@@ -81,6 +86,7 @@ public class DeleteUserParameters {
 
     /**
      * Sets the transfer sheets flag
+     *
      * @param transferSheets the transfer sheets flag
      */
     public DeleteUserParameters setTransferSheets(boolean transferSheets) {
@@ -90,6 +96,7 @@ public class DeleteUserParameters {
 
     /**
      * Gets whether or not the user is removed from sharing
+     *
      * @return the remove sharing flag
      */
     public Boolean isRemoveFromSharing() {
@@ -98,6 +105,7 @@ public class DeleteUserParameters {
 
     /**
      * Sets the remove from sharing flag
+     *
      * @param removeFromSharing the remove from sharing flag
      */
     public DeleteUserParameters setRemoveFromSharing(boolean removeFromSharing) {

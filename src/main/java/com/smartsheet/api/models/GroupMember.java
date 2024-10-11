@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@ package com.smartsheet.api.models;
 
 /**
  * Represents the Group Member object.
+ *
  * @see <a href="http://help.smartsheet.com/customer/portal/articles/1554165-managing-groups-team-enterprise-only-">Help
  * Managing Groups</a>
  */
@@ -97,6 +98,7 @@ public class GroupMember extends UserModelWithName {
 
         /**
          * Get the email of the group member
+         *
          * @return the email
          */
         public String getEmail() {
@@ -105,6 +107,7 @@ public class GroupMember extends UserModelWithName {
 
         /**
          * Set the id of the group member
+         *
          * @param email the email
          * @return the builder
          */

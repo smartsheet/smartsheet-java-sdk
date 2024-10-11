@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,8 +36,8 @@ public interface AssociatedAttachmentResources {
     List<Attachment> listAttachments(long objectId);
 
     /**
-     * @param objectId the id of the object
-     * @param file the file to attach
+     * @param objectId    the id of the object
+     * @param file        the file to attach
      * @param contentType the content type of the file
      * @return the created attachment
      * @deprecated As of release 2.0. Please use the corresponding method in the [Row/Sheet/etc]AttachmentResources classes
@@ -46,10 +46,10 @@ public interface AssociatedAttachmentResources {
     Attachment attachFile(long objectId, File file, String contentType);
 
     /**
-     * @param objectId the id of the object
-     * @param inputStream the file to attach
-     * @param contentType the content type of the file
-     * @param contentLength the size of the file in bytes.
+     * @param objectId       the id of the object
+     * @param inputStream    the file to attach
+     * @param contentType    the content type of the file
+     * @param contentLength  the size of the file in bytes.
      * @param attachmentName the name of the file.
      * @return the created attachment
      * @deprecated As of release 2.0. Please use the corresponding method in the [Row/Sheet/etc]AttachmentResources classes
@@ -58,7 +58,7 @@ public interface AssociatedAttachmentResources {
     Attachment attachFile(long objectId, InputStream inputStream, String contentType, long contentLength, String attachmentName);
 
     /**
-     * @param objectId the object id
+     * @param objectId   the object id
      * @param attachment the attachment object
      * @return the created attachment
      * @deprecated As of release 2.0. Please use the corresponding method in the [Row/Sheet/etc]AttachmentResources classes

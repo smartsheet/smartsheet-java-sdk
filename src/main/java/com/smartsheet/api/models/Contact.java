@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +21,9 @@ package com.smartsheet.api.models;
  */
 public class Contact extends NamedModel<String> {
 
-    /** Represents the contact email. */
+    /**
+     * Represents the contact email.
+     */
     private String email;
 
     /**
@@ -35,6 +37,7 @@ public class Contact extends NamedModel<String> {
 
     /**
      * Sets the email for the contact
+     *
      * @param email the email
      */
     public Contact setEmail(String email) {

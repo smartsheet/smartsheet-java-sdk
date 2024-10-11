@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,7 +24,7 @@ import com.smartsheet.api.models.Discussion;
 @Deprecated(since = "2.0.0", forRemoval = true)
 public interface AssociatedDiscussionResources {
     /**
-     * @param objectId the object id (sheet id or row id)
+     * @param objectId   the object id (sheet id or row id)
      * @param discussion the discussion object
      * @return the created discussion
      * @throws SmartsheetException if there is any other error during the operation

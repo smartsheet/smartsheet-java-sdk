@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,6 +30,7 @@ public class MultiRowEmail extends RowEmail {
 
     /**
      * Gets the IDs of rows to be included
+     *
      * @return the row ids
      */
     public List<Long> getRowIds() {
@@ -38,6 +39,7 @@ public class MultiRowEmail extends RowEmail {
 
     /**
      * Sets the IDs of rows to be included
+     *
      * @param rowIds list of row ids
      */
     public MultiRowEmail setRowIds(List<Long> rowIds) {
@@ -61,6 +63,7 @@ public class MultiRowEmail extends RowEmail {
 
         /**
          * Sets the list of recipients to send to
+         *
          * @param sendTo list of recipients
          * @return the builder
          */
@@ -104,6 +107,7 @@ public class MultiRowEmail extends RowEmail {
 
         /**
          * Sets the IDs of rows to be included
+         *
          * @param rowIds list of row ids
          * @return the builder
          */
@@ -147,6 +151,7 @@ public class MultiRowEmail extends RowEmail {
 
         /**
          * Builds the multi row email object
+         *
          * @return the multi row email object
          */
         public MultiRowEmail build() {

@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -42,15 +42,15 @@ public interface ReportResources {
      * @param reportId the reportId of the report
      * @param includes used To specify the optional objects to include.
      * @param pageSize page size parameter for pagination
-     * @param page page parameter for pagination
-     * @return  the report (note that if there is no such resource, this method will throw ResourceNotFoundException
-     *     rather than returning null)
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * @param page     page parameter for pagination
+     * @return the report (note that if there is no such resource, this method will throw ResourceNotFoundException
+     * rather than returning null)
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     Report getReport(long reportId, EnumSet<ReportInclusion> includes, Integer pageSize, Integer page) throws SmartsheetException;
 
@@ -62,16 +62,16 @@ public interface ReportResources {
      * @param reportId the reportId of the report
      * @param includes used To specify the optional objects to include.
      * @param pageSize page size parameter for pagination
-     * @param page page parameter for pagination
-     * @param level compatibility level
-     * @return  the report (note that if there is no such resource, this method will throw ResourceNotFoundException
-     *     rather than returning null)
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * @param page     page parameter for pagination
+     * @param level    compatibility level
+     * @return the report (note that if there is no such resource, this method will throw ResourceNotFoundException
+     * rather than returning null)
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     Report getReport(
             long reportId,
@@ -87,13 +87,13 @@ public interface ReportResources {
      * <p>It mirrors to the following Smartsheet REST API method: POST /reports/{reportId}/emails</p>
      *
      * @param reportId the reportId of the report
-     * @param email email of designated recipient.
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * @param email    email of designated recipient.
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     void sendReport(long reportId, SheetEmail email) throws SmartsheetException;
 
@@ -101,15 +101,15 @@ public interface ReportResources {
      * <p>List all reports.</p>
      *
      * <p>It mirrors to the following Smartsheet REST API method: GET /reports</p>
-     *
+     * <p>
      * Exceptions:
-     *   - InvalidRequestException : if there is any problem with the REST API request
-     *   - AuthorizationException : if there is any problem with the REST API authorization(access token)
-     *   - ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-     *   - SmartsheetRestException : if there is any other REST API related error occurred during the operation
-     *   - SmartsheetException : if there is any other error occurred during the operation
+     * - InvalidRequestException : if there is any problem with the REST API request
+     * - AuthorizationException : if there is any problem with the REST API authorization(access token)
+     * - ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     * - SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     * - SmartsheetException : if there is any other error occurred during the operation
      *
-     * @param parameters pagination parameters for paging result
+     * @param parameters    pagination parameters for paging result
      * @param modifiedSince restrict results to sheets modified on or after this date
      * @return all sheets (note that empty list will be returned if there is none)
      * @throws SmartsheetException the smartsheet exception
@@ -120,13 +120,13 @@ public interface ReportResources {
      * <p>List all reports.</p>
      *
      * <p>It mirrors to the following Smartsheet REST API method: GET /reports</p>
-     *
+     * <p>
      * Exceptions:
-     *   - InvalidRequestException : if there is any problem with the REST API request
-     *   - AuthorizationException : if there is any problem with the REST API authorization(access token)
-     *   - ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-     *   - SmartsheetRestException : if there is any other REST API related error occurred during the operation
-     *   - SmartsheetException : if there is any other error occurred during the operation
+     * - InvalidRequestException : if there is any problem with the REST API request
+     * - AuthorizationException : if there is any problem with the REST API authorization(access token)
+     * - ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     * - SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     * - SmartsheetException : if there is any other error occurred during the operation
      *
      * @param parameters pagination parameters for paging result
      * @return all sheets (note that empty list will be returned if there is none)
@@ -139,20 +139,20 @@ public interface ReportResources {
      *
      * <p>It mirrors to the following Smartsheet REST API method: GET /reports/{id} with "application/vnd.ms-excel" Accept
      * HTTP header</p>
-     *
+     * <p>
      * Exceptions:
-     *   IllegalArgumentException : if outputStream is null
-     *   InvalidRequestException : if there is any problem with the REST API request
-     *   AuthorizationException : if there is any problem with the REST API authorization(access token)
-     *   ResourceNotFoundException : if the resource can not be found
-     *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-     *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
-     *   SmartsheetException : if there is any other error occurred during the operation
+     * IllegalArgumentException : if outputStream is null
+     * InvalidRequestException : if there is any problem with the REST API request
+     * AuthorizationException : if there is any problem with the REST API authorization(access token)
+     * ResourceNotFoundException : if the resource can not be found
+     * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     * SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     * SmartsheetException : if there is any other error occurred during the operation
      *
-     * @param id the id
+     * @param id           the id
      * @param outputStream the OutputStream to which the Excel file will be written
      * @throws SmartsheetException the smartsheet exception
-     * */
+     */
     void getReportAsExcel(long id, OutputStream outputStream) throws SmartsheetException;
 
     /**
@@ -160,20 +160,20 @@ public interface ReportResources {
      *
      * <p>It mirrors to the following Smartsheet REST API method: GET /reports/{id} with "application/vnd.ms-excel" Accept
      * HTTP header</p>
-     *
+     * <p>
      * Exceptions:
-     *   IllegalArgumentException : if outputStream is null
-     *   InvalidRequestException : if there is any problem with the REST API request
-     *   AuthorizationException : if there is any problem with the REST API authorization(access token)
-     *   ResourceNotFoundException : if the resource can not be found
-     *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-     *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
-     *   SmartsheetException : if there is any other error occurred during the operation
+     * IllegalArgumentException : if outputStream is null
+     * InvalidRequestException : if there is any problem with the REST API request
+     * AuthorizationException : if there is any problem with the REST API authorization(access token)
+     * ResourceNotFoundException : if the resource can not be found
+     * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     * SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     * SmartsheetException : if there is any other error occurred during the operation
      *
-     * @param id the id
+     * @param id           the id
      * @param outputStream the OutputStream to which the Excel file will be written
      * @throws SmartsheetException the smartsheet exception
-     * */
+     */
     void getReportAsCsv(long id, OutputStream outputStream) throws SmartsheetException;
 
     /**
@@ -183,13 +183,13 @@ public interface ReportResources {
      *
      * @param id the ID of the report
      * @return the report publish status (note that if there is no such resource, this method will
-     *     throw ResourceNotFoundException rather than returning null).
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * throw ResourceNotFoundException rather than returning null).
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     ReportPublish getPublishStatus(long id) throws SmartsheetException;
 
@@ -199,16 +199,16 @@ public interface ReportResources {
      *
      * <p>It mirrors to the following Smartsheet REST API method: PUT /reports/{id}/publish</p>
      *
-     * @param id the ID of the report
+     * @param id            the ID of the report
      * @param reportPublish the ReportPublish object
      * @return the updated ReportPublish (note that if there is no such resource, this method will
-     *     throw ResourceNotFoundException rather than returning null)
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * throw ResourceNotFoundException rather than returning null)
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     ReportPublish updatePublishStatus(long id, ReportPublish reportPublish) throws SmartsheetException;
 

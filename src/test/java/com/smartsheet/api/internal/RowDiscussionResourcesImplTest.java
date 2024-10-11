@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -92,5 +92,8 @@ class RowDiscussionResourcesImplTest extends ResourcesImplBase {
         );
         assertThat(newDiscussion.getData().get(0).getTitle()).isEqualTo("Lincoln");
         assertThat(newDiscussion.getData().get(0).getId()).isEqualTo(3138415114905476L);
+        assertThat(newDiscussion.getData().get(0).getComments().get(0).getAttachments().get(0).getName()).isEqualTo("test.html");
+        assertThat(server.getLastRequestUrl())
+                .isEqualTo("/1.1/sheets/1234/rows/5678/discussions?include=comments&pageSize=1&includeAll=false&page=1");
     }
 }

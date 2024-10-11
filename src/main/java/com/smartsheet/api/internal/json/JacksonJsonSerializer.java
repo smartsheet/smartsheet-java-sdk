@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -122,8 +122,7 @@ public class JacksonJsonSerializer implements JsonSerializer {
     /**
      * Sets if the OBJECT MAPPER should ignore unknown properties or fail when de-serializing the JSON data.
      *
-     * @param value
-     *            true if it should fail, false otherwise.
+     * @param value true if it should fail, false otherwise.
      */
     public static void setFailOnUnknownProperties(boolean value) {
         OBJECT_MAPPER.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, value);
@@ -143,8 +142,8 @@ public class JacksonJsonSerializer implements JsonSerializer {
      * Serialize an object to JSON.
      * <p>
      * Parameters:
-     *   object : the object to serialize
-     *   outputStream : the output stream to which the JSON will be written
+     * object : the object to serialize
+     * outputStream : the output stream to which the JSON will be written
      * <p>
      * Returns: None
      * <p>
@@ -152,7 +151,7 @@ public class JacksonJsonSerializer implements JsonSerializer {
      * other error occurred during the operation
      *
      * @param outputStream the output stream to write the deserialized object to
-     * @param object object to serialize
+     * @param object       object to serialize
      * @throws JSONSerializerException thrown for any serialization exception we catch
      */
     // @Override
@@ -174,8 +173,8 @@ public class JacksonJsonSerializer implements JsonSerializer {
      * Serialize an object to JSON.
      * <p>
      * Parameters:
-     *   object : the object to serialize
-     *   outputStream : the output stream to which the JSON will be written
+     * object : the object to serialize
+     * outputStream : the output stream to which the JSON will be written
      * <p>
      * Returns: None
      * <p>
@@ -208,8 +207,8 @@ public class JacksonJsonSerializer implements JsonSerializer {
      * Returns: the de-serialized object
      * <p>
      * Exceptions:
-     *   - IllegalArgumentException : if any argument is null
-     *   - JSONSerializerException : if there is any other error occurred during the operation
+     * - IllegalArgumentException : if any argument is null
+     * - JSONSerializerException : if there is any other error occurred during the operation
      *
      * @param inputStream the input stream from which the JSON will be read
      * @param objectClass the class of the object to de-serialize
@@ -227,8 +226,8 @@ public class JacksonJsonSerializer implements JsonSerializer {
      * Returns: the de-serialized list
      * <p>
      * Exceptions:
-     *   - IllegalArgumentException : if any argument is null
-     *   - JSONSerializerException : if there is any other error occurred during the operation
+     * - IllegalArgumentException : if any argument is null
+     * - JSONSerializerException : if there is any other error occurred during the operation
      *
      * @param inputStream the input stream from which the JSON will be read
      * @param objectClass the class of the object (of the list) to de-serialize
@@ -313,8 +312,8 @@ public class JacksonJsonSerializer implements JsonSerializer {
      * De-serialize a Result object from JSON.
      * <p>
      * Exceptions:
-     *   - IllegalArgumentException : if any argument is null
-     *   - JSONSerializerException : if there is any other error occurred during the operation
+     * - IllegalArgumentException : if any argument is null
+     * - JSONSerializerException : if there is any other error occurred during the operation
      *
      * @param inputStream the input stream from which the JSON will be read
      * @param objectClass the class of the object (of the Result) to de-serialize
@@ -349,8 +348,8 @@ public class JacksonJsonSerializer implements JsonSerializer {
      * Returns: the de-serialized result
      * <p>
      * Exceptions:
-     *   - IllegalArgumentException : if any argument is null
-     *   - JSONSerializerException : if there is any other error occurred during the operation
+     * - IllegalArgumentException : if any argument is null
+     * - JSONSerializerException : if there is any other error occurred during the operation
      *
      * @param inputStream the input stream from which the JSON will be read
      * @param objectClass the class of the object (of the Result) to de-serialize

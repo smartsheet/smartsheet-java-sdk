@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -42,7 +42,7 @@ public class OAuthTokenException extends SmartsheetException {
      * Constructor.
      *
      * @param message the message
-     * @param cause the cause
+     * @param cause   the cause
      */
     public OAuthTokenException(String message, Throwable cause) {
         super(message, cause);

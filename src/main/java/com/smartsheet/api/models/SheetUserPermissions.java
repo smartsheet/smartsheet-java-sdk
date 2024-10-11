@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +21,7 @@ public class SheetUserPermissions {
     /**
      * ADMIN: full control over fields
      * READ_DELETE: sheet is owned by an individual account that doesn't have summary capabilities. If a summary exists,
-     *     the only possible operations are GET and DELETE fields.
+     * the only possible operations are GET and DELETE fields.
      * READ_ONLY:
      * READ_WRITE: can edit values of existing fields, but not create or delete fields, nor modify field type.
      */

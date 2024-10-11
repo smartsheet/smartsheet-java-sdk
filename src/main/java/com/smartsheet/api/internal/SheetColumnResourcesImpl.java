@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -61,15 +61,15 @@ public class SheetColumnResourcesImpl extends AbstractResources implements Sheet
      * It mirrors to the following Smartsheet REST API method: GET /sheets/{sheetId}/columns
      * <p>
      * Exceptions:
-     *   InvalidRequestException : if there is any problem with the REST API request
-     *   AuthorizationException : if there is any problem with the REST API authorization(access token)
-     *   ResourceNotFoundException : if the resource can not be found
-     *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-     *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
-     *   SmartsheetException : if there is any other error occurred during the operation
+     * InvalidRequestException : if there is any problem with the REST API request
+     * AuthorizationException : if there is any problem with the REST API authorization(access token)
+     * ResourceNotFoundException : if the resource can not be found
+     * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     * SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     * SmartsheetException : if there is any other error occurred during the operation
      *
-     * @param sheetId the sheet id
-     * @param includes list of includes
+     * @param sheetId    the sheet id
+     * @param includes   list of includes
      * @param pagination the object containing the pagination parameters
      * @return the columns (note that empty list will be returned if there is none)
      * @throws SmartsheetException the smartsheet exception
@@ -88,17 +88,17 @@ public class SheetColumnResourcesImpl extends AbstractResources implements Sheet
      * It mirrors to the following Smartsheet REST API method: GET /sheets/{sheetId}/columns
      * <p>
      * Exceptions:
-     *   InvalidRequestException : if there is any problem with the REST API request
-     *   AuthorizationException : if there is any problem with the REST API authorization(access token)
-     *   ResourceNotFoundException : if the resource can not be found
-     *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-     *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
-     *   SmartsheetException : if there is any other error occurred during the operation
+     * InvalidRequestException : if there is any problem with the REST API request
+     * AuthorizationException : if there is any problem with the REST API authorization(access token)
+     * ResourceNotFoundException : if the resource can not be found
+     * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     * SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     * SmartsheetException : if there is any other error occurred during the operation
      *
-     * @param sheetId the sheet id
-     * @param includes list of includes
+     * @param sheetId    the sheet id
+     * @param includes   list of includes
      * @param pagination the object containing the pagination parameters
-     * @param level compatibility level
+     * @param level      compatibility level
      * @return the columns (note that empty list will be returned if there is none)
      * @throws SmartsheetException the smartsheet exception
      */
@@ -128,18 +128,18 @@ public class SheetColumnResourcesImpl extends AbstractResources implements Sheet
      * It mirrors to the following Smartsheet REST API method: POST /sheets/{sheetId}/columns
      * <p>
      * Exceptions:
-     *   IllegalArgumentException : if any argument is null
-     *   InvalidRequestException : if there is any problem with the REST API request
-     *   AuthorizationException : if there is any problem with the REST API authorization(access token)
-     *   ResourceNotFoundException : if the resource can not be found
-     *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-     *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
-     *   SmartsheetException : if there is any other error occurred during the operation
+     * IllegalArgumentException : if any argument is null
+     * InvalidRequestException : if there is any problem with the REST API request
+     * AuthorizationException : if there is any problem with the REST API authorization(access token)
+     * ResourceNotFoundException : if the resource can not be found
+     * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     * SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     * SmartsheetException : if there is any other error occurred during the operation
      *
      * @param sheetId the sheet id
      * @param columns the list of columns object limited to the following attributes: *
-     *     title * type * symbol (optional) * options (optional) - array of options * index (zero-based) * systemColumnType
-     *     (optional) * autoNumberFormat (optional)
+     *                title * type * symbol (optional) * options (optional) - array of options * index (zero-based) * systemColumnType
+     *                (optional) * autoNumberFormat (optional)
      * @return the list of created columns
      * @throws SmartsheetException the smartsheet exception
      */
@@ -152,15 +152,14 @@ public class SheetColumnResourcesImpl extends AbstractResources implements Sheet
      * <p>
      * It mirrors to the following Smartsheet REST API method: DELETE /sheets/{sheetId}/columns/{columnId}
      *
-     * @param sheetId the sheet id
+     * @param sheetId  the sheet id
      * @param columnId the column id
-     *
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     public void deleteColumn(long sheetId, long columnId) throws SmartsheetException {
         this.deleteResource(SHEETS_PATH + sheetId + "/" + COLUMNS + "/" + columnId, Column.class);
@@ -172,20 +171,20 @@ public class SheetColumnResourcesImpl extends AbstractResources implements Sheet
      * It mirrors to the following Smartsheet REST API method: PUT /sheets/{sheetId}/columns/{columnId}
      * <p>
      * Exceptions:
-     *   IllegalArgumentException : if any argument is null
-     *   InvalidRequestException : if there is any problem with the REST API request
-     *   AuthorizationException : if there is any problem with the REST API authorization(access token)
-     *   ResourceNotFoundException : if the resource can not be found
-     *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-     *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
-     *   SmartsheetException : if there is any other error occurred during the operation
+     * IllegalArgumentException : if any argument is null
+     * InvalidRequestException : if there is any problem with the REST API request
+     * AuthorizationException : if there is any problem with the REST API authorization(access token)
+     * ResourceNotFoundException : if the resource can not be found
+     * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     * SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     * SmartsheetException : if there is any other error occurred during the operation
      *
      * @param sheetId the sheetId
-     * @param column the column to update limited to the following attributes: index (column's new index in the sheet),
-     *     title, sheetId, type, options (optional), symbol (optional), systemColumnType (optional),
-     *     autoNumberFormat (optional)
+     * @param column  the column to update limited to the following attributes: index (column's new index in the sheet),
+     *                title, sheetId, type, options (optional), symbol (optional), systemColumnType (optional),
+     *                autoNumberFormat (optional)
      * @return the updated sheet (note that if there is no such resource, this method will throw
-     *     ResourceNotFoundException rather than returning null).
+     * ResourceNotFoundException rather than returning null).
      * @throws SmartsheetException the smartsheet exception
      */
     public Column updateColumn(long sheetId, Column column) throws SmartsheetException {
@@ -199,14 +198,14 @@ public class SheetColumnResourcesImpl extends AbstractResources implements Sheet
      * It mirrors to the following Smartsheet REST API method: GET /sheets/{sheetId}/columns/{columnId}
      * <p>
      * Exceptions:
-     *   InvalidRequestException : if there is any problem with the REST API request
-     *   AuthorizationException : if there is any problem with the REST API authorization(access token)
-     *   ResourceNotFoundException : if the resource can not be found
-     *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-     *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
-     *   SmartsheetException : if there is any other error occurred during the operation
+     * InvalidRequestException : if there is any problem with the REST API request
+     * AuthorizationException : if there is any problem with the REST API authorization(access token)
+     * ResourceNotFoundException : if the resource can not be found
+     * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     * SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     * SmartsheetException : if there is any other error occurred during the operation
      *
-     * @param sheetId the sheet id
+     * @param sheetId  the sheet id
      * @param columnId the column id
      * @param includes list of includes
      * @return the column (note that empty list will be returned if there is none)

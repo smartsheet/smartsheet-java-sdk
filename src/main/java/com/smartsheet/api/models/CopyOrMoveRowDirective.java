@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,16 +20,21 @@ import java.util.List;
 
 public class CopyOrMoveRowDirective {
 
-    /** Represents the IDs of the rows to move or copy from the source sheet. */
+    /**
+     * Represents the IDs of the rows to move or copy from the source sheet.
+     */
     private List<Long> rowIds;
 
-    /** Represents the CopyOrMoveRowDestination object that identifies the destination sheet */
+    /**
+     * Represents the CopyOrMoveRowDestination object that identifies the destination sheet
+     */
     private CopyOrMoveRowDestination to;
 
     /**
      * Constructors
      */
-    public CopyOrMoveRowDirective() { }
+    public CopyOrMoveRowDirective() {
+    }
 
     public CopyOrMoveRowDirective(Long destinationSheetId) {
         to.setSheetId(destinationSheetId);
@@ -77,10 +82,14 @@ public class CopyOrMoveRowDirective {
      * A convenience class to help create a CopyOrMoveRowDestination object with the appropriate fields for adding to a sheet.
      */
     public static class InsertCopyOrMoveRowDirectiveBuilder {
-        /** Represents the IDs of the rows to move or copy from the source sheet. */
+        /**
+         * Represents the IDs of the rows to move or copy from the source sheet.
+         */
         private List<Long> rowIds;
 
-        /** Represents the CopyOrMoveRowDestination object that identifies the destination sheet */
+        /**
+         * Represents the CopyOrMoveRowDestination object that identifies the destination sheet
+         */
         private CopyOrMoveRowDestination to;
 
         /**

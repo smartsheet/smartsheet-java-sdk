@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -240,6 +240,7 @@ public abstract class UserModel extends IdentifiableModel<Long> {
 
     /**
      * Sets the resource manager flag.
+     *
      * @param resourceViewer the flag
      */
     public UserModel setResourceViewer(Boolean resourceViewer) {
@@ -248,7 +249,6 @@ public abstract class UserModel extends IdentifiableModel<Long> {
     }
 
     /**
-     *
      * @return the flag indicating if the user is able to administer group.
      */
     public Boolean getGroupAdmin() {
@@ -312,7 +312,8 @@ public abstract class UserModel extends IdentifiableModel<Long> {
         return lastLogin;
     }
 
-    /** Sets the lastLogin date
+    /**
+     * Sets the lastLogin date
      *
      * @param lastLogin the new lastLogin date
      * @return the UserModel

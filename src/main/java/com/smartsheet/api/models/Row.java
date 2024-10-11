@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -136,6 +136,7 @@ public class Row extends AbstractRow<Column, Cell> {
 
         /**
          * Gets the above flag
+         *
          * @return the above flag
          */
         public Boolean getAbove() {
@@ -144,6 +145,7 @@ public class Row extends AbstractRow<Column, Cell> {
 
         /**
          * Sets the above flag
+         *
          * @param above the above flag
          * @return the insert rows builder
          */
@@ -154,6 +156,7 @@ public class Row extends AbstractRow<Column, Cell> {
 
         /**
          * Gets the format
+         *
          * @return the format
          */
         public Format getFormat() {
@@ -162,6 +165,7 @@ public class Row extends AbstractRow<Column, Cell> {
 
         /**
          * Sets the format
+         *
          * @param format the format
          * @return the insert rows builder
          */
@@ -172,6 +176,7 @@ public class Row extends AbstractRow<Column, Cell> {
 
         /**
          * Gets the expanded flag
+         *
          * @return the expanded flag
          */
         public Boolean getExpanded() {
@@ -180,6 +185,7 @@ public class Row extends AbstractRow<Column, Cell> {
 
         /**
          * Sets the expanded flag
+         *
          * @param expanded the expanded flag
          * @return the insert rows builder
          */
@@ -190,6 +196,7 @@ public class Row extends AbstractRow<Column, Cell> {
 
         /**
          * Gets the list of cells
+         *
          * @return the list of cells
          */
         public List<Cell> getCells() {
@@ -198,6 +205,7 @@ public class Row extends AbstractRow<Column, Cell> {
 
         /**
          * Sets the list of cells
+         *
          * @param cells the list of cells
          * @return the insert rows builder
          */
@@ -208,6 +216,7 @@ public class Row extends AbstractRow<Column, Cell> {
 
         /**
          * Builds the row object
+         *
          * @return the row object
          */
         public Row build() {
@@ -332,6 +341,7 @@ public class Row extends AbstractRow<Column, Cell> {
 
         /**
          * Gets the above flag
+         *
          * @return the above flag
          */
         public Boolean getAbove() {
@@ -340,6 +350,7 @@ public class Row extends AbstractRow<Column, Cell> {
 
         /**
          * Sets the above flag
+         *
          * @param above the above flag
          * @return the insert rows builder
          */
@@ -350,6 +361,7 @@ public class Row extends AbstractRow<Column, Cell> {
 
         /**
          * Gets the number of levels of indent
+         *
          * @return the number of levels of indent
          */
         public Integer getIndent() {
@@ -358,6 +370,7 @@ public class Row extends AbstractRow<Column, Cell> {
 
         /**
          * Sets the number of levels of indent
+         *
          * @param indent number of levels of indent
          * @return the update rows builder
          */
@@ -368,6 +381,7 @@ public class Row extends AbstractRow<Column, Cell> {
 
         /**
          * Gets the number of levels of outdent
+         *
          * @return the number of levels of outdent
          */
         public Integer getOutdent() {
@@ -376,6 +390,7 @@ public class Row extends AbstractRow<Column, Cell> {
 
         /**
          * Sets the number of levels of outdent
+         *
          * @param outdent number of levels of outdent
          * @return the update rows builder
          */
@@ -386,6 +401,7 @@ public class Row extends AbstractRow<Column, Cell> {
 
         /**
          * Gets the format
+         *
          * @return the format
          */
         public Format getFormat() {
@@ -394,6 +410,7 @@ public class Row extends AbstractRow<Column, Cell> {
 
         /**
          * Sets the format
+         *
          * @param format the format
          * @return the update rows builder
          */
@@ -404,6 +421,7 @@ public class Row extends AbstractRow<Column, Cell> {
 
         /**
          * Gets the expanded flag
+         *
          * @return the expanded flag
          */
         public Boolean getExpanded() {
@@ -412,6 +430,7 @@ public class Row extends AbstractRow<Column, Cell> {
 
         /**
          * Sets the expanded flag
+         *
          * @param expanded the expanded flag
          * @return the update rows builder
          */
@@ -422,6 +441,7 @@ public class Row extends AbstractRow<Column, Cell> {
 
         /**
          * Gets the list of cells
+         *
          * @return the list of cells
          */
         public List<Cell> getCells() {
@@ -430,6 +450,7 @@ public class Row extends AbstractRow<Column, Cell> {
 
         /**
          * Sets the list of cells
+         *
          * @param cells the list of cells
          * @return the update rows builder
          */
@@ -440,6 +461,7 @@ public class Row extends AbstractRow<Column, Cell> {
 
         /**
          * Gets the locked flag
+         *
          * @return the locked flag
          */
         public Boolean getLocked() {
@@ -448,6 +470,7 @@ public class Row extends AbstractRow<Column, Cell> {
 
         /**
          * Sets the locked flag
+         *
          * @param locked the locked flag
          * @return the update rows builder
          */
@@ -458,6 +481,7 @@ public class Row extends AbstractRow<Column, Cell> {
 
         /**
          * Builds the row object
+         *
          * @return the row object
          */
         public Row build() {

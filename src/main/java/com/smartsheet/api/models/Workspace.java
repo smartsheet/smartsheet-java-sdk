@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,18 +21,23 @@ import com.smartsheet.api.models.enums.AccessLevel;
 /**
  * Represents the Workspace object which is an area in which sheets, reports, templates and sub-folders can be
  * organized, similar to a folder.
+ *
  * @see <a href="http://help.smartsheet.com/customer/portal/articles/506687-creating-a-workspace">Help Creating a
  * Workspace</a>
  */
 public class Workspace extends Folder {
-    /** Represents the user's permissions on a workspace. */
+    /**
+     * Represents the user's permissions on a workspace.
+     */
     private AccessLevel accessLevel;
 
-    /** Represents the link . */
+    /**
+     * Represents the link .
+     */
     private String permalink;
 
     /**
-     *  Represents if the workspace is marked as favorite
+     * Represents if the workspace is marked as favorite
      */
     private Boolean favorite;
 
@@ -76,6 +81,7 @@ public class Workspace extends Folder {
 
     /**
      * Gets the favorite
+     *
      * @return the favorite
      */
     public Boolean getFavorite() {
@@ -84,6 +90,7 @@ public class Workspace extends Folder {
 
     /**
      * Sets the favorite
+     *
      * @param favorite the favorite
      */
     public Folder setFavorite(Boolean favorite) {
@@ -100,6 +107,7 @@ public class Workspace extends Folder {
 
         /**
          * Get the workspace id
+         *
          * @return the workspace id
          */
         public Long getId() {
@@ -108,6 +116,7 @@ public class Workspace extends Folder {
 
         /**
          * Set the workspace id
+         *
          * @param id the workspace id
          * @return the builder
          */

@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,6 +33,7 @@ public class ImageWidgetContent implements WidgetContent {
 
     /**
      * Format Descriptor
+     *
      * @see <a href="https://smartsheet.redoc.ly/#section/API-Basics/Formatting">FormatDescriptor</a>
      */
     private Format format;

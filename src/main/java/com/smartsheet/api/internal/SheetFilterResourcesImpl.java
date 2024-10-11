@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,7 +33,7 @@ public class SheetFilterResourcesImpl extends AbstractResources implements Sheet
      * Constructor.
      * <p>
      * Exceptions:
-     *   IllegalArgumentException : if any argument is null or empty string
+     * IllegalArgumentException : if any argument is null or empty string
      *
      * @param smartsheet the smartsheet
      */
@@ -52,14 +52,14 @@ public class SheetFilterResourcesImpl extends AbstractResources implements Sheet
      * rather than returning null).
      * <p>
      * Exceptions:
-     *   InvalidRequestException : if there is any problem with the REST API request
-     *   AuthorizationException : if there is any problem with the REST API authorization(access token)
-     *   ResourceNotFoundException : if the resource can not be found
-     *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-     *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
-     *   SmartsheetException : if there is any other error occurred during the operation
+     * InvalidRequestException : if there is any problem with the REST API request
+     * AuthorizationException : if there is any problem with the REST API authorization(access token)
+     * ResourceNotFoundException : if the resource can not be found
+     * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     * SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     * SmartsheetException : if there is any other error occurred during the operation
      *
-     * @param sheetId the sheetId
+     * @param sheetId  the sheetId
      * @param filterId the filter ID
      * @return the filter
      * @throws SmartsheetException the smartsheet exception
@@ -74,14 +74,14 @@ public class SheetFilterResourcesImpl extends AbstractResources implements Sheet
      * It mirrors to the following Smartsheet REST API method: DELETE /sheets/{sheetId}/filters/{filterId}
      * <p>
      * Exceptions:
-     *   IllegalArgumentException : if any argument is null
-     *   InvalidRequestException : if there is any problem with the REST API request
-     *   AuthorizationException : if there is any problem with the REST API authorization(access token)
-     *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-     *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
-     *   SmartsheetException : if there is any other error occurred during the operation
+     * IllegalArgumentException : if any argument is null
+     * InvalidRequestException : if there is any problem with the REST API request
+     * AuthorizationException : if there is any problem with the REST API authorization(access token)
+     * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     * SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     * SmartsheetException : if there is any other error occurred during the operation
      *
-     * @param sheetId the sheet ID
+     * @param sheetId  the sheet ID
      * @param filterId the filter ID
      * @throws SmartsheetException the smartsheet exception
      */
@@ -95,14 +95,14 @@ public class SheetFilterResourcesImpl extends AbstractResources implements Sheet
      * It mirrors to the following Smartsheet REST API method: GET /sheets/{sheetId}/filters
      * <p>
      * Exceptions:
-     *   IllegalArgumentException : if any argument is null
-     *   InvalidRequestException : if there is any problem with the REST API request
-     *   AuthorizationException : if there is any problem with the REST API authorization(access token)
-     *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-     *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
-     *   SmartsheetException : if there is any other error occurred during the operation
+     * IllegalArgumentException : if any argument is null
+     * InvalidRequestException : if there is any problem with the REST API request
+     * AuthorizationException : if there is any problem with the REST API authorization(access token)
+     * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     * SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     * SmartsheetException : if there is any other error occurred during the operation
      *
-     * @param sheetId the sheet ID
+     * @param sheetId    the sheet ID
      * @param pagination the pagination pagination
      * @return all the filters
      * @throws SmartsheetException the smartsheet exception

@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,6 +24,7 @@ public class RecipientEmail implements Recipient {
 
     /**
      * Get the recipient's email
+     *
      * @return the email
      */
     public String getEmail() {
@@ -32,6 +33,7 @@ public class RecipientEmail implements Recipient {
 
     /**
      * Set the recipient's email
+     *
      * @param email the email
      */
     public RecipientEmail setEmail(String email) {
@@ -50,6 +52,7 @@ public class RecipientEmail implements Recipient {
 
         /**
          * Get the recipient's email
+         *
          * @return the email
          */
         public String getEmail() {
@@ -58,6 +61,7 @@ public class RecipientEmail implements Recipient {
 
         /**
          * Set the recipient's email
+         *
          * @param email the email
          * @return the builder
          */

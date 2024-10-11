@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,16 +22,24 @@ package com.smartsheet.api.models;
  * @param <T> the generic type
  */
 public class Result<T> {
-    /** Represents the result code from the request. */
+    /**
+     * Represents the result code from the request.
+     */
     private Integer resultCode;
 
-    /** Represents the message from the request. */
+    /**
+     * Represents the message from the request.
+     */
     private String message;
 
-    /** Represents the object that was created or updated. */
+    /**
+     * Represents the object that was created or updated.
+     */
     private T result;
 
-    /** Represents the new version of the sheet. It is only available on some operations. */
+    /**
+     * Represents the new version of the sheet. It is only available on some operations.
+     */
     private Integer version;
 
     /**

@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,8 +25,8 @@ public class SightPublish {
 
     /**
      * Flag to indicate who can access the 'Read-Only Full' view of the published Sight
-     *     If "ALL", it is available to anyone who has the link.
-     *     If "ORG", it is available only to members of the Sight owner's Smartsheet organization.
+     * If "ALL", it is available to anyone who has the link.
+     * If "ORG", it is available only to members of the Sight owner's Smartsheet organization.
      */
     private String readOnlyFullAccessibleBy;
 
