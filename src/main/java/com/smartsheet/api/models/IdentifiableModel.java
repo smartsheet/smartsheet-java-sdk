@@ -38,6 +38,7 @@ public abstract class IdentifiableModel<T> {
      * Sets the id.
      *
      * @param id the new id
+     * @return   object with an ID
      */
     public IdentifiableModel<T> setId(T id) {
         this.id = id;

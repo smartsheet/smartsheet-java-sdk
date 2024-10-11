@@ -331,6 +331,7 @@ public interface UserResources {
      * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException         f there is any other error during the operation
+     * @throws FileNotFoundException       the file not found exception
      */
     User addProfileImage(long userId, String file, String fileType) throws SmartsheetException, FileNotFoundException;
 }

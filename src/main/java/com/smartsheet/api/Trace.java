@@ -57,6 +57,8 @@ public enum Trace {
 
     /**
      * Parse the string into a Set of Traces
+     * @param traces the traceId for the request / response
+     * @return collection of traces for request / response
      */
     public static Set<Trace> parse(String traces) {
         if (traces == null || traces.trim().isEmpty()) {

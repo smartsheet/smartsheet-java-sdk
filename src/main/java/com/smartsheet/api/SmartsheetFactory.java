@@ -47,7 +47,7 @@ public class SmartsheetFactory {
 
     /**
      * <p>Creates a Smartsheet client with default parameters.</p>
-     *
+     * @param accessToken the new access token
      * @return the Smartsheet client
      */
     public static Smartsheet createDefaultClient(String accessToken) {
@@ -69,7 +69,7 @@ public class SmartsheetFactory {
 
     /**
      * <p>Creates a Smartsheet client with default parameters using the Smartsheetgov URI.</p>
-     *
+     * @param accessToken the new access token
      * @return the Smartsheet client
      */
     public static Smartsheet createDefaultGovAccountClient(String accessToken) {

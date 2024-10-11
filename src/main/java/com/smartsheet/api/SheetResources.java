@@ -735,6 +735,7 @@ public interface SheetResources {
      * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException         if there is any other error during the operation
+     * @return the sheet
      */
     Sheet sortSheet(long sheetId, SortSpecifier sortSpecifier) throws SmartsheetException;
 
@@ -752,6 +753,7 @@ public interface SheetResources {
      * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException         if there is any other error during the operation
+     * @return the sheet
      */
     Sheet sortSheet(long sheetId, SortSpecifier sortSpecifier, Integer level) throws SmartsheetException;
 

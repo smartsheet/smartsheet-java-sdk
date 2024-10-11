@@ -149,7 +149,7 @@ public class SmartsheetBuilder {
      * <p>Store a user provided userCalcBackoff.</p>
      *
      * <p>This interface is only valid when the DefaultHttpClient is used.</p>
-     *
+     * @param maxRetryTimeMillis max retry time
      * @return the smartsheet builder
      */
     public SmartsheetBuilder setMaxRetryTimeMillis(long maxRetryTimeMillis) {

@@ -86,6 +86,8 @@ public class CellDataItem {
 
     /**
      * Set the column Id for the cell.
+     * @param columnId  id for a given column
+     * @return data object for a given cell
      */
     public CellDataItem setColumnId(Long columnId) {
         this.columnId = columnId;
@@ -103,6 +105,8 @@ public class CellDataItem {
 
     /**
      * Set the row Id for the item
+     * @param rowId  id for a given row
+     * @return data object for a given cell
      */
     public CellDataItem setRowId(Long rowId) {
         this.rowId = rowId;
@@ -118,6 +122,8 @@ public class CellDataItem {
 
     /**
      * Set the sheet Id for the item
+     * @param sheetId  id for a given sheet
+     * @return data object for a given cell
      */
     public CellDataItem setSheetId(Long sheetId) {
         this.sheetId = sheetId;
@@ -137,6 +143,8 @@ public class CellDataItem {
     /**
      * Set the object for this CellDataItem. The type of the data returned will depend on
      * the cell type and the data in the cell.
+     * @param objectValue  data for a given cell
+     * @return data object for a given cell
      */
     public CellDataItem setObjectValue(Object objectValue) {
         this.objectValue = objectValue;
@@ -154,6 +162,8 @@ public class CellDataItem {
 
     /**
      * Set the cell object
+     * @param cell  cell object that holds data in a sheet
+     * @return data object for a given cell
      */
     public CellDataItem setCell(Cell cell) {
         this.cell = cell;
@@ -171,6 +181,8 @@ public class CellDataItem {
 
     /**
      * Sets the data source
+     * @param dataSource  data in a cell
+     * @return data object for a given cell
      */
     public CellDataItem setDataSource(String dataSource) {
         this.dataSource = dataSource;
@@ -188,6 +200,8 @@ public class CellDataItem {
 
     /**
      * Set the label for the data point.
+     * @param label  label for cell
+     * @return data object for a given cell
      */
     public CellDataItem setLabel(String label) {
         this.label = label;
@@ -205,6 +219,8 @@ public class CellDataItem {
 
     /**
      * Set the format descriptor for the label
+     * @param labelFormat  label format for cell
+     * @return data object for a given cell
      */
     public CellDataItem setLabelFormat(Format labelFormat) {
         this.labelFormat = labelFormat;
@@ -222,6 +238,8 @@ public class CellDataItem {
 
     /**
      * Set the display order for the CellDataItem
+     * @param order  order for cell
+     * @return data object for a given cell
      */
     public CellDataItem setOrder(Integer order) {
         this.order = order;
@@ -239,6 +257,8 @@ public class CellDataItem {
 
     /**
      * Set the format descriptor for the cell value
+     * @param valueFormat  format for value in cell
+     * @return data object for a given cell
      */
     public CellDataItem setValueFormat(Format valueFormat) {
         this.valueFormat = valueFormat;
@@ -256,6 +276,8 @@ public class CellDataItem {
 
     /**
      * Sets the SummaryField if dataSource is SUMMARY_FIELD
+     * @param profileField  profile field
+     * @return data object for a given cell
      */
     public CellDataItem setProfileField(SummaryField profileField) {
         this.profileField = profileField;

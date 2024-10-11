@@ -187,6 +187,7 @@ public interface SheetSummaryResources {
      * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException         if there is any other error during the operation
+     * @throws FileNotFoundException       the file not found exception
      */
     Result<SummaryField> addSheetSummaryFieldImage(long sheetId, long fieldId, String file, String contentType, String altText)
             throws SmartsheetException, FileNotFoundException;
@@ -208,6 +209,7 @@ public interface SheetSummaryResources {
      * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException         if there is any other error during the operation
+     * @throws FileNotFoundException       the file not found exception
      */
     Result<SummaryField> addSheetSummaryFieldImage(
             long sheetId,
@@ -235,6 +237,7 @@ public interface SheetSummaryResources {
      * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException         if there is any other error during the operation
+     * @throws FileNotFoundException       the file not found exception
      */
     Result<SummaryField> addSheetSummaryFieldImage(
             long sheetId,

@@ -44,6 +44,10 @@ public abstract class AbstractRow<TColumn extends Column, TCell extends Cell> ex
 
     /**
      * Set the Row ID
+     *
+     * @param id    the row id
+     * @param <T>   the generic type
+     * @return row object with cells and columns
      */
     @JsonIgnore
     @SuppressWarnings("unchecked")
@@ -204,7 +208,9 @@ public abstract class AbstractRow<TColumn extends Column, TCell extends Cell> ex
     /**
      * Sets the user's permissions on the sheet.
      *
-     * @param accessLevel the new access level
+     * @param accessLevel   the new access level
+     * @param <T>           the generic type
+     * @return row object with cells and columns
      */
     @SuppressWarnings("unchecked")
     public <T extends AbstractRow<TColumn, TCell>> T setAccessLevel(AccessLevel accessLevel) {
@@ -222,9 +228,10 @@ public abstract class AbstractRow<TColumn extends Column, TCell extends Cell> ex
     }
 
     /**
-     * Sets the version number that is incremented every time a sheet is modified..
-     *
-     * @param version the new version
+     * Sets the version number that is incremented every time a sheet is modified.
+     * @param <T>           the generic type
+     * @param version       the new version
+     * @return row object with cells and columns
      */
     @SuppressWarnings("unchecked")
     public <T extends AbstractRow<TColumn, TCell>> T setVersion(Integer version) {
@@ -244,7 +251,9 @@ public abstract class AbstractRow<TColumn extends Column, TCell extends Cell> ex
     /**
      * Sets the row to be expanded.
      *
-     * @param expanded the new expanded
+     * @param expanded  the new expanded
+     * @param <T>       the generic type
+     * @return row object with cells and columns
      */
     @SuppressWarnings("unchecked")
     public <T extends AbstractRow<TColumn, TCell>> T setExpanded(Boolean expanded) {
@@ -253,7 +262,7 @@ public abstract class AbstractRow<TColumn extends Column, TCell extends Cell> ex
     }
 
     /**
-     * Get a column by it's index.
+     * Get a column by its index.
      *
      * @param index the column index
      * @return the column by index
@@ -266,7 +275,7 @@ public abstract class AbstractRow<TColumn extends Column, TCell extends Cell> ex
     }
 
     /**
-     * Get a column by it's ID.
+     * Get a column by its ID.
      *
      * @param columnId the column id
      * @return the column by id
@@ -290,7 +299,9 @@ public abstract class AbstractRow<TColumn extends Column, TCell extends Cell> ex
     /**
      * Sets the sheet id.
      *
-     * @param sheetId the new sheet id
+     * @param sheetId   the new sheet id
+     * @param <T>       the generic type
+     * @return row object with cells and columns
      */
     @SuppressWarnings("unchecked")
     public <T extends AbstractRow<TColumn, TCell>> T setSheetId(Long sheetId) {
@@ -311,6 +322,8 @@ public abstract class AbstractRow<TColumn extends Column, TCell extends Cell> ex
      * Sets the row number.
      *
      * @param rowNumber the new row number
+     * @param <T>       the generic type
+     * @return row object with cells and columns
      */
     @SuppressWarnings("unchecked")
     public <T extends AbstractRow<TColumn, TCell>> T setRowNumber(Integer rowNumber) {
@@ -330,8 +343,10 @@ public abstract class AbstractRow<TColumn extends Column, TCell extends Cell> ex
     /**
      * Sets the parent row number.
      *
-     * @param parentRowNumber the new parent row number
-     */
+     * @param parentRowNumber   the new parent row number
+     * @param <T>               the generic type
+     * @return row object with cells and columns
+     * */
     @SuppressWarnings("unchecked")
     public <T extends AbstractRow<TColumn, TCell>> T setParentRowNumber(Integer parentRowNumber) {
         this.parentRowNumber = parentRowNumber;
@@ -351,6 +366,8 @@ public abstract class AbstractRow<TColumn extends Column, TCell extends Cell> ex
      * Sets the cells.
      *
      * @param cells the new cells
+     * @param <T>   the generic type
+     * @return row object with cells and columns
      */
     @SuppressWarnings("unchecked")
     public <T extends AbstractRow<TColumn, TCell>> T setCells(List<TCell> cells) {
@@ -370,7 +387,9 @@ public abstract class AbstractRow<TColumn extends Column, TCell extends Cell> ex
     /**
      * Sets the discussions.
      *
-     * @param discussions the new discussions
+     * @param discussions   the new discussions
+     * @param <T>           the generic type
+     * @return row object with cells and columns
      */
     @SuppressWarnings("unchecked")
     public <T extends AbstractRow<TColumn, TCell>> T setDiscussions(List<Discussion> discussions) {
@@ -390,7 +409,9 @@ public abstract class AbstractRow<TColumn extends Column, TCell extends Cell> ex
     /**
      * Sets the attachments.
      *
-     * @param attachments the new attachments
+     * @param attachments   the new attachments
+     * @param <T>           the generic type
+     * @return row object with cells and columns
      */
     @SuppressWarnings("unchecked")
     public <T extends AbstractRow<TColumn, TCell>> T setAttachments(List<Attachment> attachments) {
@@ -410,7 +431,9 @@ public abstract class AbstractRow<TColumn extends Column, TCell extends Cell> ex
     /**
      * Sets the columns.
      *
-     * @param columns the new columns
+     * @param columns   the new columns
+     * @param <T>       the generic type
+     * @return row object with cells and columns
      */
     @SuppressWarnings("unchecked")
     public <T extends AbstractRow<TColumn, TCell>> T setColumns(List<TColumn> columns) {
@@ -431,6 +454,8 @@ public abstract class AbstractRow<TColumn extends Column, TCell extends Cell> ex
      * Sets the date and time a row was created.
      *
      * @param createdAt the new created at
+     * @param <T>       the generic type
+     * @return row object with cells and columns
      */
     @SuppressWarnings("unchecked")
     public <T extends AbstractRow<TColumn, TCell>> T setCreatedAt(Date createdAt) {
@@ -450,7 +475,9 @@ public abstract class AbstractRow<TColumn extends Column, TCell extends Cell> ex
     /**
      * Sets the date and time a row was modified.
      *
-     * @param modifiedAt the new modified at
+     * @param modifiedAt    the new modified at
+     * @param <T>           the generic type
+     * @return row object with cells and columns
      */
     @SuppressWarnings("unchecked")
     public <T extends AbstractRow<TColumn, TCell>> T setModifiedAt(Date modifiedAt) {
@@ -468,7 +495,9 @@ public abstract class AbstractRow<TColumn extends Column, TCell extends Cell> ex
     }
 
     /**
-     * @param locked the locked status
+     * @param locked    the locked status
+     * @param <T>       the generic type
+     * @return row object with cells and columns
      */
     @SuppressWarnings("unchecked")
     public <T extends AbstractRow<TColumn, TCell>> T setLocked(Boolean locked) {
@@ -487,6 +516,9 @@ public abstract class AbstractRow<TColumn extends Column, TCell extends Cell> ex
 
     /**
      * Set locked For User
+     * @param lockedForUser boolean indicating lock status for user
+     * @param <T>           the generic type
+     * @return row object with cells and columns
      */
     @SuppressWarnings("unchecked")
     public <T extends AbstractRow<TColumn, TCell>> T setLockedForUser(Boolean lockedForUser) {
@@ -503,6 +535,8 @@ public abstract class AbstractRow<TColumn extends Column, TCell extends Cell> ex
 
     /**
      * @param format the {@link Format} to set
+     * @param <T>       the generic type
+     * @return row object with cells and columns
      */
     @SuppressWarnings("unchecked")
     public <T extends AbstractRow<TColumn, TCell>> T setFormat(Format format) {
@@ -522,7 +556,9 @@ public abstract class AbstractRow<TColumn extends Column, TCell extends Cell> ex
     /**
      * Sets the parent row id.
      *
-     * @param parentId the parent row id
+     * @param parentId  the parent row id
+     * @param <T>       the generic type
+     * @return row object with cells and columns
      */
     @SuppressWarnings("unchecked")
     public <T extends AbstractRow<TColumn, TCell>> T setParentId(Long parentId) {
@@ -543,6 +579,8 @@ public abstract class AbstractRow<TColumn extends Column, TCell extends Cell> ex
      * Sets the sibling row id.
      *
      * @param siblingId the sibling row id
+     * @param <T>       the generic type
+     * @return row object with cells and columns
      */
     @SuppressWarnings("unchecked")
     public <T extends AbstractRow<TColumn, TCell>> T setSiblingId(Long siblingId) {
@@ -560,9 +598,11 @@ public abstract class AbstractRow<TColumn extends Column, TCell extends Cell> ex
     }
 
     /**
-     * Sets the parmalink URL.
+     * Sets the permalink URL.
      *
      * @param permalink the URL to the row
+     * @param <T>       the generic type
+     * @return row object with cells and columns
      */
     @SuppressWarnings("unchecked")
     public <T extends AbstractRow<TColumn, TCell>> T setPermalink(String permalink) {
@@ -582,7 +622,9 @@ public abstract class AbstractRow<TColumn extends Column, TCell extends Cell> ex
     /**
      * Sets the row to be filtered out.
      *
-     * @param filteredOut if the row is filtered out
+     * @param filteredOut   if the row is filtered out
+     * @param <T>           the generic type
+     * @return row object with cells and columns
      */
     @SuppressWarnings("unchecked")
     public <T extends AbstractRow<TColumn, TCell>> T setFilteredOut(Boolean filteredOut) {
@@ -603,6 +645,8 @@ public abstract class AbstractRow<TColumn extends Column, TCell extends Cell> ex
      * Sets the row to be in critical path.
      *
      * @param inCriticalPath if the row is in critical path
+     * @param <T>            the generic type
+     * @return row object with cells and columns
      */
     @SuppressWarnings("unchecked")
     public <T extends AbstractRow<TColumn, TCell>> T setInCriticalPath(Boolean inCriticalPath) {
@@ -621,6 +665,8 @@ public abstract class AbstractRow<TColumn extends Column, TCell extends Cell> ex
      * Sets the conditional format of the row.
      *
      * @param conditionalFormat the conditional format
+     * @param <T>               the generic type
+     * @return row object with cells and columns
      */
     @SuppressWarnings("unchecked")
     public <T extends AbstractRow<TColumn, TCell>> T setConditionalFormat(Format conditionalFormat) {
@@ -641,6 +687,8 @@ public abstract class AbstractRow<TColumn extends Column, TCell extends Cell> ex
      * Sets the to top
      *
      * @param toTop if the row is to the top
+     * @param <T>   the generic type
+     * @return row object with cells and columns
      */
     @SuppressWarnings("unchecked")
     public <T extends AbstractRow<TColumn, TCell>> T setToTop(Boolean toTop) {
@@ -661,6 +709,8 @@ public abstract class AbstractRow<TColumn extends Column, TCell extends Cell> ex
      * Sets the to bottom
      *
      * @param toBottom if the row is to the bottom
+     * @param <T>      the generic type
+     * @return row object with cells and columns
      */
     @SuppressWarnings("unchecked")
     public <T extends AbstractRow<TColumn, TCell>> T setToBottom(Boolean toBottom) {
@@ -681,6 +731,8 @@ public abstract class AbstractRow<TColumn extends Column, TCell extends Cell> ex
      * Sets the above
      *
      * @param above if the row is above a specified row
+     * @param <T>   the generic type
+     * @return row object with cells and columns
      */
     @SuppressWarnings("unchecked")
     public <T extends AbstractRow<TColumn, TCell>> T setAbove(Boolean above) {
@@ -701,6 +753,8 @@ public abstract class AbstractRow<TColumn extends Column, TCell extends Cell> ex
      * Sets integer value specifying the number of levels to indent this row (update only).
      *
      * @param indent integer value specifying the number of levels to indent
+     * @param <T>    the generic type
+     * @return row object with cells and columns
      */
     @SuppressWarnings("unchecked")
     public <T extends AbstractRow<TColumn, TCell>> T setIndent(Integer indent) {
@@ -721,6 +775,8 @@ public abstract class AbstractRow<TColumn extends Column, TCell extends Cell> ex
      * Sets integer value specifying the number of levels to outdent this row (update only).
      *
      * @param outdent integer value specifying number of levels to outdent
+     * @param <T>     the generic type
+     * @return row object with cells and columns
      */
     @SuppressWarnings("unchecked")
     public <T extends AbstractRow<TColumn, TCell>> T setOutdent(Integer outdent) {

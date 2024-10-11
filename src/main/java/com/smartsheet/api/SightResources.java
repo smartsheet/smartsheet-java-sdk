@@ -86,6 +86,7 @@ public interface SightResources {
      *
      * @param sightId the Id of the Sight
      * @param level   compatibility level
+     * @param includes optional parameters to include
      * @return the Sight resource.
      * @throws IllegalArgumentException    if any argument is null or empty string
      * @throws InvalidRequestException     if there is any problem with the REST API request

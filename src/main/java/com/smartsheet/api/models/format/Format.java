@@ -297,6 +297,7 @@ public class Format {
 
         /**
          * Build
+         * @return format as applied to a cell, row or column
          */
         public Format build() {
             String delimiter = "";

@@ -199,6 +199,8 @@ public abstract class AbstractSheet<TRow extends AbstractRow<TColumn, TCell>, TC
      * Sets the ID of the sheet/template from which the sheet was created.
      *
      * @param fromId the new from id
+     * @param <T>    the generic type
+     * @return sheet object with rows
      */
     @SuppressWarnings("unchecked")
     public <T extends AbstractSheet<TRow, TColumn, TCell>> T setFromId(Long fromId) {
@@ -218,7 +220,9 @@ public abstract class AbstractSheet<TRow extends AbstractRow<TColumn, TCell>, TC
     /**
      * Sets the owner id.
      *
-     * @param ownerId the owner id
+     * @param ownerId   the owner id
+     * @param <T>       the generic type
+     * @return sheet object with rows
      */
     @SuppressWarnings("unchecked")
     public <T extends AbstractSheet<TRow, TColumn, TCell>> T setOwnerId(long ownerId) {
@@ -238,7 +242,9 @@ public abstract class AbstractSheet<TRow extends AbstractRow<TColumn, TCell>, TC
     /**
      * Sets the access level for the sheet.
      *
-     * @param accessLevel the new access level
+     * @param accessLevel   the new access level
+     * @param <T>           the generic type
+     * @return sheet object with rows
      */
     @SuppressWarnings("unchecked")
     public <T extends AbstractSheet<TRow, TColumn, TCell>> T setAccessLevel(AccessLevel accessLevel) {
@@ -258,7 +264,9 @@ public abstract class AbstractSheet<TRow extends AbstractRow<TColumn, TCell>, TC
     /**
      * Sets the attachments for the sheet.
      *
-     * @param attachments the new attachments
+     * @param attachments   the new attachments
+     * @param <T>           the generic type
+     * @return sheet object with rows
      */
     @SuppressWarnings("unchecked")
     public <T extends AbstractSheet<TRow, TColumn, TCell>> T setAttachments(List<Attachment> attachments) {
@@ -278,7 +286,9 @@ public abstract class AbstractSheet<TRow extends AbstractRow<TColumn, TCell>, TC
     /**
      * Sets the columns for the sheet.
      *
-     * @param columns the new columns
+     * @param columns   the new columns
+     * @param <T>       the generic type
+     * @return sheet object with rows
      */
     @SuppressWarnings("unchecked")
     public <T extends AbstractSheet<TRow, TColumn, TCell>> T setColumns(List<TColumn> columns) {
@@ -297,6 +307,9 @@ public abstract class AbstractSheet<TRow extends AbstractRow<TColumn, TCell>, TC
 
     /**
      * Sets contact references used by MULTI_CONTACT_LIST columns
+     * @param contactReferences contact references used by MULTI_CONTACT_LIST columns
+     * @param <T>               the generic type
+     * @return sheet object with rows
      */
     @SuppressWarnings("unchecked")
     public <T extends AbstractSheet<TRow, TColumn, TCell>> T setContactReferences(List<ContactObjectValue> contactReferences) {
@@ -317,6 +330,8 @@ public abstract class AbstractSheet<TRow extends AbstractRow<TColumn, TCell>, TC
      * Sets the date and time the sheet was created.
      *
      * @param createdAt the new created at
+     * @param <T>       the generic type
+     * @return sheet object with rows
      */
     @SuppressWarnings("unchecked")
     public <T extends AbstractSheet<TRow, TColumn, TCell>> T setCreatedAt(Date createdAt) {
@@ -336,7 +351,9 @@ public abstract class AbstractSheet<TRow extends AbstractRow<TColumn, TCell>, TC
     /**
      * Sets the list of cross sheet references used by this sheet
      *
-     * @param crossSheetReferences the cross sheet references
+     * @param crossSheetReferences  the cross sheet references
+     * @param <T>                   the generic type
+     * @return sheet object with rows
      */
     @SuppressWarnings("unchecked")
     public <T extends AbstractSheet<TRow, TColumn, TCell>> T setCrossSheetReferences(List<CrossSheetReference> crossSheetReferences) {
@@ -356,7 +373,9 @@ public abstract class AbstractSheet<TRow extends AbstractRow<TColumn, TCell>, TC
     /**
      * Sets the dependencies enabled flag.
      *
-     * @param dependenciesEnabled the new dependencies enabled
+     * @param dependenciesEnabled   the new dependencies enabled
+     * @param <T>                   the generic type
+     * @return sheet object with rows
      */
     @SuppressWarnings("unchecked")
     public <T extends AbstractSheet<TRow, TColumn, TCell>> T setDependenciesEnabled(Boolean dependenciesEnabled) {
@@ -376,7 +395,9 @@ public abstract class AbstractSheet<TRow extends AbstractRow<TColumn, TCell>, TC
     /**
      * Sets the discussions for the sheet.
      *
-     * @param discussions the new discussions
+     * @param discussions   the new discussions
+     * @param <T>           the generic type
+     * @return sheet object with rows
      */
     @SuppressWarnings("unchecked")
     public <T extends AbstractSheet<TRow, TColumn, TCell>> T setDiscussions(List<Discussion> discussions) {
@@ -396,7 +417,9 @@ public abstract class AbstractSheet<TRow extends AbstractRow<TColumn, TCell>, TC
     /**
      * Sets the effective attachment options.
      *
-     * @param effectiveAttachmentOptions the effective attachment options
+     * @param effectiveAttachmentOptions    the effective attachment options
+     * @param <T>                           the generic type
+     * @return sheet object with rows
      */
     @SuppressWarnings("unchecked")
     public <T extends AbstractSheet<TRow, TColumn, TCell>> T setEffectiveAttachmentOptions(
@@ -418,7 +441,9 @@ public abstract class AbstractSheet<TRow extends AbstractRow<TColumn, TCell>, TC
     /**
      * Sets the favorite sheet
      *
-     * @param favorite the favorite
+     * @param favorite  the favorite
+     * @param <T>       the generic type
+     * @return sheet object with rows
      */
     @SuppressWarnings("unchecked")
     public <T extends AbstractSheet<TRow, TColumn, TCell>> T setFavorite(Boolean favorite) {
@@ -438,7 +463,9 @@ public abstract class AbstractSheet<TRow extends AbstractRow<TColumn, TCell>, TC
     /**
      * Sets the list of sheet filters for this sheet.
      *
-     * @param filters the list of SheetFilters
+     * @param filters   the list of SheetFilters
+     * @param <T>       the generic type
+     * @return sheet object with rows
      */
     @SuppressWarnings("unchecked")
     public <T extends AbstractSheet<TRow, TColumn, TCell>> T setFilters(List<SheetFilter> filters) {
@@ -458,7 +485,9 @@ public abstract class AbstractSheet<TRow extends AbstractRow<TColumn, TCell>, TC
     /**
      * Sets the gantt enabled flag.
      *
-     * @param ganttEnabled the new gantt enabled flag
+     * @param ganttEnabled  the new gantt enabled flag
+     * @param <T>           the generic type
+     * @return sheet object with rows
      */
     @SuppressWarnings("unchecked")
     public <T extends AbstractSheet<TRow, TColumn, TCell>> T setGanttEnabled(Boolean ganttEnabled) {
@@ -477,6 +506,9 @@ public abstract class AbstractSheet<TRow extends AbstractRow<TColumn, TCell>, TC
 
     /**
      * Sets flag indicating whether a sheet summary is present
+     * @param hasSummaryFields  boolean indicating whether sheet summary is present
+     * @param <T>               the generic type
+     * @return sheet object with rows
      */
     @SuppressWarnings("unchecked")
     public <T extends AbstractSheet<TRow, TColumn, TCell>> T setHasSummaryFields(Boolean hasSummaryFields) {
@@ -496,7 +528,9 @@ public abstract class AbstractSheet<TRow extends AbstractRow<TColumn, TCell>, TC
     /**
      * Sets the date and time the sheet was last modified.
      *
-     * @param modifiedAt the new modified at
+     * @param modifiedAt    the new modified at
+     * @param <T>           the generic type
+     * @return sheet object with rows
      */
     @SuppressWarnings("unchecked")
     public <T extends AbstractSheet<TRow, TColumn, TCell>> T setModifiedAt(Date modifiedAt) {
@@ -508,6 +542,7 @@ public abstract class AbstractSheet<TRow extends AbstractRow<TColumn, TCell>, TC
      * Provide an 'override' of setName (returns AbstractSheet not NamedModel)
      *
      * @param name the new name
+     * @return sheet object with rows
      */
     public AbstractSheet<TRow, TColumn, TCell> setName(String name) {
         super.setName(name);
@@ -517,8 +552,9 @@ public abstract class AbstractSheet<TRow extends AbstractRow<TColumn, TCell>, TC
     /**
      * version of setName that returns this type
      *
-     * @param name the new name
-     * @return this
+     * @param name      the new name
+     * @param <T>       the generic type
+     * @return sheet object with rows
      */
     @SuppressWarnings("unchecked")
     public <T extends AbstractSheet<TRow, TColumn, TCell>> T setSheetName(String name) {
@@ -529,8 +565,9 @@ public abstract class AbstractSheet<TRow extends AbstractRow<TColumn, TCell>, TC
     /**
      * version of setId that returns this type
      *
-     * @param id the new sheet ID
-     * @return this
+     * @param id        the new sheet ID
+     * @param <T>       the generic type
+     * @return sheet object with rows
      */
     @JsonIgnore(false)
     @SuppressWarnings("unchecked")
@@ -552,6 +589,8 @@ public abstract class AbstractSheet<TRow extends AbstractRow<TColumn, TCell>, TC
      * Sets the owner
      *
      * @param owner the owner email
+     * @param <T>   the generic type
+     * @return sheet object with rows
      */
     @SuppressWarnings("unchecked")
     public <T extends AbstractSheet<TRow, TColumn, TCell>> T setOwner(String owner) {
@@ -572,6 +611,8 @@ public abstract class AbstractSheet<TRow extends AbstractRow<TColumn, TCell>, TC
      * Sets the permalink for the sheet.
      *
      * @param permalink the new permalink
+     * @param <T>       the generic type
+     * @return sheet object with rows
      */
     @SuppressWarnings("unchecked")
     public <T extends AbstractSheet<TRow, TColumn, TCell>> T setPermalink(String permalink) {
@@ -591,7 +632,9 @@ public abstract class AbstractSheet<TRow extends AbstractRow<TColumn, TCell>, TC
     /**
      * Sets the project settings.
      *
-     * @param projectSettings the project settings
+     * @param projectSettings   the project settings
+     * @param <T>               the generic type
+     * @return sheet object with rows
      */
     @SuppressWarnings("unchecked")
     public <T extends AbstractSheet<TRow, TColumn, TCell>> T setProjectSettings(ProjectSettings projectSettings) {
@@ -612,6 +655,8 @@ public abstract class AbstractSheet<TRow extends AbstractRow<TColumn, TCell>, TC
      * Sets the read only flag for the sheet.
      *
      * @param readOnly the new read only
+     * @param <T>      the generic type
+     * @return sheet object with rows
      */
     @SuppressWarnings("unchecked")
     public <T extends AbstractSheet<TRow, TColumn, TCell>> T setReadOnly(Boolean readOnly) {
@@ -628,6 +673,8 @@ public abstract class AbstractSheet<TRow extends AbstractRow<TColumn, TCell>, TC
 
     /**
      * @param resourceManagementEnabled the resourceManagementEnabled to set
+     * @param <T>                       the generic type
+     * @return sheet object with rows
      */
     @SuppressWarnings("unchecked")
     public <T extends AbstractSheet<TRow, TColumn, TCell>> T setResourceManagementEnabled(Boolean resourceManagementEnabled) {
@@ -646,6 +693,9 @@ public abstract class AbstractSheet<TRow extends AbstractRow<TColumn, TCell>, TC
 
     /**
      * Sets the access level for the sheet.
+     * @param resourceManagementType    type of resource management
+     * @param <T>                       the generic type
+     * @return sheet object with rows
      */
     @SuppressWarnings("unchecked")
     public <T extends AbstractSheet<TRow, TColumn, TCell>> T setResourceManagementType(ResourceManagementType resourceManagementType) {
@@ -666,6 +716,8 @@ public abstract class AbstractSheet<TRow extends AbstractRow<TColumn, TCell>, TC
      * Sets the rows for the sheet.
      *
      * @param rows the new rows
+     * @param <T>  the generic type
+     * @return sheet object with rows
      */
     @SuppressWarnings("unchecked")
     public <T extends AbstractSheet<TRow, TColumn, TCell>> T setRows(List<TRow> rows) {
@@ -685,7 +737,9 @@ public abstract class AbstractSheet<TRow extends AbstractRow<TColumn, TCell>, TC
     /**
      * Sets the show parent rows for filters.
      *
-     * @param showParentRowsForFilters the show parent rows for filters
+     * @param showParentRowsForFilters  the show parent rows for filters
+     * @param <T>                       the generic type
+     * @return sheet object with rows
      */
     @SuppressWarnings("unchecked")
     public <T extends AbstractSheet<TRow, TColumn, TCell>> T setShowParentRowsForFilters(Boolean showParentRowsForFilters) {
@@ -705,7 +759,9 @@ public abstract class AbstractSheet<TRow extends AbstractRow<TColumn, TCell>, TC
     /**
      * Sets the source.
      *
-     * @param source the source
+     * @param source    the source
+     * @param <T>       the generic type
+     * @return sheet object with rows
      */
     @SuppressWarnings("unchecked")
     public <T extends AbstractSheet<TRow, TColumn, TCell>> T setSource(Source source) {
@@ -724,6 +780,9 @@ public abstract class AbstractSheet<TRow extends AbstractRow<TColumn, TCell>, TC
 
     /**
      * Sets the sheet summary if one exists for this sheet
+     * @param summary   sheet summary
+     * @param <T>       the generic type
+     * @return sheet object with rows
      */
     @SuppressWarnings("unchecked")
     public <T extends AbstractSheet<TRow, TColumn, TCell>> T setSummary(SheetSummary summary) {
@@ -744,6 +803,8 @@ public abstract class AbstractSheet<TRow extends AbstractRow<TColumn, TCell>, TC
      * Sets the total row count.
      *
      * @param totalRowCount the total row count
+     * @param <T>           the generic type
+     * @return sheet object with rows
      */
     @SuppressWarnings("unchecked")
     public <T extends AbstractSheet<TRow, TColumn, TCell>> T setTotalRowCount(Integer totalRowCount) {
@@ -762,6 +823,9 @@ public abstract class AbstractSheet<TRow extends AbstractRow<TColumn, TCell>, TC
 
     /**
      * Sets the sheet user permissions
+     * @param userPermissions   permissions for a user for a sheet
+     * @param <T>               the generic type
+     * @return sheet object with rows
      */
     @SuppressWarnings("unchecked")
     public <T extends AbstractSheet<TRow, TColumn, TCell>> T setUserPermissions(SheetUserPermissions userPermissions) {
@@ -781,7 +845,9 @@ public abstract class AbstractSheet<TRow extends AbstractRow<TColumn, TCell>, TC
     /**
      * Sets the user settings.
      *
-     * @param userSettings the user settings
+     * @param userSettings  the user settings
+     * @param <T>           the generic type
+     * @return sheet object with rows
      */
     @SuppressWarnings("unchecked")
     public <T extends AbstractSheet<TRow, TColumn, TCell>> T setUserSettings(SheetUserSettings userSettings) {
@@ -801,7 +867,9 @@ public abstract class AbstractSheet<TRow extends AbstractRow<TColumn, TCell>, TC
     /**
      * Sets the version for the sheet.
      *
-     * @param version the new version
+     * @param version   the new version
+     * @param <T>       the generic type
+     * @return sheet object with rows
      */
     @SuppressWarnings("unchecked")
     public <T extends AbstractSheet<TRow, TColumn, TCell>> T setVersion(Integer version) {
@@ -820,6 +888,9 @@ public abstract class AbstractSheet<TRow extends AbstractRow<TColumn, TCell>, TC
 
     /**
      * Sets a workspace object containing the name and id of the workspace containing this sheet
+     * @param workspace workspace object
+     * @param <T>       the generic type
+     * @return sheet object with rows
      */
     @SuppressWarnings("unchecked")
     public <T extends AbstractSheet<TRow, TColumn, TCell>> T setWorkspace(Workspace workspace) {
