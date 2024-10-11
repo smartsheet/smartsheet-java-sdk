@@ -18,14 +18,15 @@ package com.smartsheet.api.internal;
 
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
-import com.smartsheet.api.models.Account;
-import com.smartsheet.api.models.AlternateEmail;
-import com.smartsheet.api.models.DeleteUserParameters;
-import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.PaginationParameters;
-import com.smartsheet.api.models.Sheet;
 import com.smartsheet.api.models.User;
+import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.UserProfile;
+import com.smartsheet.api.models.Account;
+import com.smartsheet.api.models.DeleteUserParameters;
+import com.smartsheet.api.models.Sheet;
+import com.smartsheet.api.models.AlternateEmail;
+import com.smartsheet.api.models.enums.ListUserInclusion;
 import com.smartsheet.api.models.enums.UserInclusion;
 import com.smartsheet.api.models.enums.UserStatus;
 import org.assertj.core.util.Lists;
@@ -35,10 +36,12 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Calendar;
 import java.util.EnumSet;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
+import java.util.TimeZone;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
@@ -63,6 +66,7 @@ class UserResourcesImplTest extends ResourcesImplBase {
         pagination.setIncludeAll(true);
         pagination.setPageSize(1);
         pagination.setPage(1);
+        EnumSet<ListUserInclusion> includes = EnumSet.of(ListUserInclusion.LAST_LOGIN);
 
         PagedResult<User> userWrapper1 = userResources.listUsers();
         assertThat(userWrapper1.getData()).hasSize(2);
@@ -72,6 +76,26 @@ class UserResourcesImplTest extends ResourcesImplBase {
         assertThat(userWrapper.getPageSize()).isEqualTo(100);
         assertThat(userWrapper.getTotalCount()).isEqualTo(418);
         assertThat(userWrapper.getTotalPages()).isEqualTo(5);
+
+        PagedResult<User> userWrapper2 = userResources.listUsers(pagination);
+        assertThat(userWrapper2.getPageNumber()).isEqualTo(1);
+        assertThat(userWrapper2.getPageSize()).isEqualTo(100);
+        assertThat(userWrapper2.getTotalCount()).isEqualTo(418);
+        assertThat(userWrapper2.getTotalPages()).isEqualTo(5);
+
+        PagedResult<User> userWrapper3 = userResources.listUsers(email, includes, pagination);
+        Calendar expectedLoginCal = Calendar.getInstance();
+        expectedLoginCal.set(2020, Calendar.AUGUST, 25, 12, 15, 47);
+        expectedLoginCal.setTimeZone(TimeZone.getTimeZone("UTC"));
+        Calendar lastLoginCal = Calendar.getInstance();
+        lastLoginCal.setTime(userWrapper3.getData().get(0).getLastLogin());
+        lastLoginCal.setTimeZone(TimeZone.getTimeZone("UTC"));
+        assertThat(expectedLoginCal.get(Calendar.YEAR)).isEqualTo(lastLoginCal.get(Calendar.YEAR));
+        assertThat(expectedLoginCal.get(Calendar.MONTH)).isEqualTo(lastLoginCal.get(Calendar.MONTH));
+        assertThat(expectedLoginCal.get(Calendar.DAY_OF_MONTH)).isEqualTo(lastLoginCal.get(Calendar.DAY_OF_MONTH));
+        assertThat(expectedLoginCal.get(Calendar.HOUR)).isEqualTo(lastLoginCal.get(Calendar.HOUR));
+        assertThat(expectedLoginCal.get(Calendar.MINUTE)).isEqualTo(lastLoginCal.get(Calendar.MINUTE));
+        assertThat(expectedLoginCal.get(Calendar.SECOND)).isEqualTo(lastLoginCal.get(Calendar.SECOND));
 
         List<User> users = userWrapper.getData();
         assertThat(users).hasSize(2);
