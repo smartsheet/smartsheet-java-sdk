@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,25 +20,39 @@ import com.smartsheet.api.models.enums.DestinationType;
 
 public class ErrorDetail {
 
-    /** User's alternate email address that was specified in the request. */
+    /**
+     * User's alternate email address that was specified in the request.
+     */
     private String alternateEmailAddress;
 
-    /** When allowPartialSuccess = false, index of the row that caused the error. */
+    /**
+     * When allowPartialSuccess = false, index of the row that caused the error.
+     */
     private Integer index;
 
-    /** The server-side limit on the number of sheets allowed in a single folder/workspace copy operation. */
+    /**
+     * The server-side limit on the number of sheets allowed in a single folder/workspace copy operation.
+     */
     private Integer maxSheetCount;
 
-    /** User's primary email address that must instead by specified for the operation. */
+    /**
+     * User's primary email address that must instead by specified for the operation.
+     */
     private String primaryEmailAddress;
 
-    /** When allowPartialSuccess = false, rowID of the row that caused the error. */
+    /**
+     * When allowPartialSuccess = false, rowID of the row that caused the error.
+     */
     private Long rowId;
 
-    /** The ID of the top level folder or workspace that was partially copied. */
+    /**
+     * The ID of the top level folder or workspace that was partially copied.
+     */
     private Long topContainerId;
 
-    /** The destination type of the top level folder or workspace that was partially copied. */
+    /**
+     * The destination type of the top level folder or workspace that was partially copied.
+     */
     private DestinationType topContainerType;
 
     /**

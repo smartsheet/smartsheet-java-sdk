@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,7 @@ import java.util.Date;
 
 /**
  * Represents CellHistory object.
+ *
  * @see <a href="http://help.smartsheet.com/customer/portal/articles/518314-viewing-cell-history">Cell History Documentation</a>
  */
 public class CellHistory extends Cell {
@@ -28,7 +29,9 @@ public class CellHistory extends Cell {
      */
     private User modifiedBy;
 
-    /** The date the cell was modified. */
+    /**
+     * The date the cell was modified.
+     */
     private Date modifiedAt;
 
     /**

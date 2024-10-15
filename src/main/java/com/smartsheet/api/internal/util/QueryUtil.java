@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,12 +26,14 @@ import java.util.stream.Collectors;
 
 public class QueryUtil {
 
-    private QueryUtil() {}
+    private QueryUtil() {
+    }
 
     /**
      * Returns a comma seperated list of items as a string
+     *
      * @param list the collection
-     * @param <T> the type
+     * @param <T>  the type
      * @return comma separated string
      */
     public static <T> String generateCommaSeparatedList(@Nullable Collection<T> list) {

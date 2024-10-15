@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -49,6 +49,7 @@ public enum Trace {
         }
     },
     ;
+
     // this makes it possible to add other (or additional) Traces for specific types
     public boolean addReplacements(Set<Trace> traces) {
         return false;

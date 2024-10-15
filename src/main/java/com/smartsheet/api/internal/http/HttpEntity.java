@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -48,7 +48,8 @@ public class HttpEntity {
     /**
      * default ctor (needed because we're adding a copy-ctor)
      */
-    public HttpEntity() {}
+    public HttpEntity() {
+    }
 
     /**
      * Gets the content type.

@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -45,11 +45,9 @@ class LoggingIT {
         String output = traceStream.toString();
         // not super-robust but asserts some of the important parts
         assertThat(output)
-                .contains("request:{")
-                // truncated Auth header
-                .contains("Authorization':'Bearer ****null")
-                .contains("response:{")
-                .contains("status:'HTTP/1.1 401 Unauthorized',");
+                .contains("request:{").contains("Authorization':'Bearer ****null")
+                .contains("response:{").contains("status:'HTTP/1.1 401 Unauthorized'")
+        ;
     }
 
     @Test
@@ -68,9 +66,8 @@ class LoggingIT {
         String output = traceStream.toString();
         // not super-robust but asserts some of the important parts
         assertThat(output)
-                .contains("request:{")
-                .contains("'Authorization':'Bearer ****oken")
-                .contains("response:{")
-                .contains("status:'HTTP/1.1 401 Unauthorized'");
+                .contains("request:{").contains("'Authorization':'Bearer ****oken")
+                .contains("response:{").contains("status:'HTTP/1.1 401 Unauthorized'")
+        ;
     }
 }

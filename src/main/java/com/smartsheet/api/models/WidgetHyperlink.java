@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -73,7 +73,8 @@ public class WidgetHyperlink extends Hyperlink {
      * @return the workspace ID
      */
     public Long getWorkspaceId() {
-        return workspaceId; }
+        return workspaceId;
+    }
 
     /**
      * Sets the workspace ID - valid when interactionType == SMARTSHEET_ITEM

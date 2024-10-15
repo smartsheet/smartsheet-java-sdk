@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,12 +26,14 @@ public interface Smartsheet {
 
     /**
      * <p>Enable request/response tracing in client</p>
+     *
      * @param levels - what to trace (if anything; null if not tracing at all)
      */
     void setTraces(Trace... levels);
 
     /**
      * enable/disable pretty JSON trace logging
+     *
      * @param pretty if the JSON is nicely-formatted or compact
      */
     void setTracePrettyPrint(boolean pretty);

@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,16 +39,16 @@ public interface RowAttachmentResources {
      *
      * <p>It mirrors to the following Smartsheet REST API method: POST /sheets/{sheetId}/rows/{rowId}/attachments
      *
-     * @param sheetId the sheet id
-     * @param rowId the row id
+     * @param sheetId    the sheet id
+     * @param rowId      the row id
      * @param attachment the attachment object
      * @return the created attachment
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     Attachment attachUrl(long sheetId, long rowId, Attachment attachment) throws SmartsheetException;
 
@@ -56,20 +56,20 @@ public interface RowAttachmentResources {
      * <p>Get row attachment.</p>
      *
      * <p>It mirrors to the following Smartsheet REST API method: GET /sheets/{sheetId}/rows/{rowId}/attachments</p>
-     *
+     * <p>
      * Exceptions:
-     *   InvalidRequestException : if there is any problem with the REST API request
-     *   AuthorizationException : if there is any problem with the REST API authorization(access token)
-     *   ResourceNotFoundException : if the resource can not be found
-     *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-     *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
-     *   SmartsheetException : if there is any other error occurred during the operation
+     * InvalidRequestException : if there is any problem with the REST API request
+     * AuthorizationException : if there is any problem with the REST API authorization(access token)
+     * ResourceNotFoundException : if the resource can not be found
+     * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     * SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     * SmartsheetException : if there is any other error occurred during the operation
      *
-     * @param sheetId the sheet id
-     * @param rowId the row id
+     * @param sheetId    the sheet id
+     * @param rowId      the row id
      * @param parameters the pagination parameters
      * @return the resource (note that if there is no such resource, this method will throw ResourceNotFoundException
-     *     rather than returning null).
+     * rather than returning null).
      * @throws SmartsheetException the smartsheet exception
      */
     PagedResult<Attachment> getAttachments(long sheetId, long rowId, PaginationParameters parameters) throws SmartsheetException;
@@ -79,29 +79,29 @@ public interface RowAttachmentResources {
      *
      * <p>It mirrors to the following Smartsheet REST API method: POST /sheets/{sheetId}/rows/{rowId}/attachments</p>
      *
-     * @param sheetId the id of the sheet
-     * @param rowId the id of the comment
-     * @param file the file to attach
+     * @param sheetId     the id of the sheet
+     * @param rowId       the id of the comment
+     * @param file        the file to attach
      * @param contentType the content type of the file
      * @return the created attachment
-     * @throws FileNotFoundException the file not found exception
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws FileNotFoundException       the file not found exception
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     Attachment attachFile(long sheetId, long rowId, File file, String contentType) throws FileNotFoundException, SmartsheetException;
 
     /**
      * <p>Attach file for simple upload.</p>
      *
-     * @param sheetId the sheet id
-     * @param rowId the row id
-     * @param inputStream the attachment data inputStream
-     * @param contentType the content type
-     * @param contentLength the content length
+     * @param sheetId        the sheet id
+     * @param rowId          the row id
+     * @param inputStream    the attachment data inputStream
+     * @param contentType    the content type
+     * @param contentLength  the content length
      * @param attachmentName the name of the attachment
      * @return the attachment
      * @throws SmartsheetException the smartsheet exception

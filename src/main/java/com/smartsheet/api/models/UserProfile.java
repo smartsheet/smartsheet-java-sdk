@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,7 @@ import java.util.List;
 
 /**
  * A profile object that contains the basic fields that most profiles will contain.
+ *
  * @see <a href="http://help.smartsheet.com/customer/portal/articles/520100-user-types">User Types Help</a>
  */
 public class UserProfile extends UserModel {
@@ -46,6 +47,7 @@ public class UserProfile extends UserModel {
 
     /**
      * Gets the account
+     *
      * @return the account
      */
     public Account getAccount() {
@@ -54,6 +56,7 @@ public class UserProfile extends UserModel {
 
     /**
      * Sets the account
+     *
      * @param account the account
      */
     public UserProfile setAccount(Account account) {
@@ -63,6 +66,7 @@ public class UserProfile extends UserModel {
 
     /**
      * Gets the groups list
+     *
      * @return the groups list
      */
     public List<Group> getGroups() {
@@ -71,6 +75,7 @@ public class UserProfile extends UserModel {
 
     /**
      * Sets the groups list
+     *
      * @param groups the list of groups
      */
     public UserProfile setGroups(List<Group> groups) {
@@ -80,6 +85,7 @@ public class UserProfile extends UserModel {
 
     /**
      * Gets the locale
+     *
      * @return the locale
      */
     public String getLocale() {
@@ -88,6 +94,7 @@ public class UserProfile extends UserModel {
 
     /**
      * Sets the locale
+     *
      * @param locale the locale
      */
     public UserProfile setLocale(String locale) {
@@ -97,6 +104,7 @@ public class UserProfile extends UserModel {
 
     /**
      * Gets the time zone
+     *
      * @return the time zone
      */
     public String getTimeZone() {
@@ -105,6 +113,7 @@ public class UserProfile extends UserModel {
 
     /**
      * Sets the time zone
+     *
      * @param timeZone the time zone
      */
     public UserProfile setTimeZone(String timeZone) {

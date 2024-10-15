@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -49,13 +49,14 @@ public interface SheetResources {
      * List all sheets.
      * <p>
      * It mirrors to the following Smartsheet REST API method: GET /sheets
+     *
      * @return A list of all sheets (note that an empty list will be returned if there are none).
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     PagedResult<Sheet> listSheets() throws SmartsheetException;
 
@@ -64,16 +65,16 @@ public interface SheetResources {
      *
      * <p>It mirrors to the following Smartsheet REST API method: GET /sheets</p>
      *
-     * @param includes the source inclusion
-     * @param pagination the object containing the pagination parameters
+     * @param includes      the source inclusion
+     * @param pagination    the object containing the pagination parameters
      * @param modifiedSince restrict results to sheets modified on or after this date
      * @return A list of all sheets (note that an empty list will be returned if there are none).
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     PagedResult<Sheet> listSheets(
             EnumSet<SourceInclusion> includes,
@@ -86,15 +87,15 @@ public interface SheetResources {
      *
      * <p>It mirrors to the following Smartsheet REST API method: GET /sheets</p>
      *
-     * @param includes the source inclusion
+     * @param includes   the source inclusion
      * @param pagination the object containing the pagination parameters
      * @return A list of all sheets (note that an empty list will be returned if there are none).
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     PagedResult<Sheet> listSheets(EnumSet<SourceInclusion> includes, PaginationParameters pagination) throws SmartsheetException;
 
@@ -105,12 +106,12 @@ public interface SheetResources {
      *
      * @param parameters the object containing the pagination parameters
      * @return the list of all sheets (note that an empty list will be returned if there are none)
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      * @deprecated As of release 2.0. Please use {@link UserResources} instead
      */
     @Deprecated(since = "2.0.0", forRemoval = true)
@@ -121,112 +122,112 @@ public interface SheetResources {
      *
      * <p>It mirrors to the following Smartsheet REST API method: GET /sheet/{id}</p>
      *
-     * @param id the id of the sheet
-     * @param includes used to specify the optional objects to include.
-     * @param columnIds the column ids
-     * @param excludes the exclude parameters
-     * @param page the page number
-     * @param pageSize the page size
-     * @param rowIds the row ids
+     * @param id         the id of the sheet
+     * @param includes   used to specify the optional objects to include.
+     * @param columnIds  the column ids
+     * @param excludes   the exclude parameters
+     * @param page       the page number
+     * @param pageSize   the page size
+     * @param rowIds     the row ids
      * @param rowNumbers the row numbers
      * @return the sheet resource (note that if there is no such resource, this method will throw
-     *     ResourceNotFoundException rather than returning null).
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * ResourceNotFoundException rather than returning null).
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     Sheet getSheet(long id,
-                          EnumSet<SheetInclusion> includes,
-                          EnumSet<ObjectExclusion> excludes,
-                          Set<Long> rowIds,
-                          Set<Integer> rowNumbers,
-                          Set<Long> columnIds,
-                          Integer pageSize,
-                          Integer page) throws SmartsheetException;
+                   EnumSet<SheetInclusion> includes,
+                   EnumSet<ObjectExclusion> excludes,
+                   Set<Long> rowIds,
+                   Set<Integer> rowNumbers,
+                   Set<Long> columnIds,
+                   Integer pageSize,
+                   Integer page) throws SmartsheetException;
 
     /**
      * <p>Get a sheet.</p>
      *
      * <p>It mirrors to the following Smartsheet REST API method: GET /sheet/{id}</p>
      *
-     * @param id the id of the sheet
-     * @param includes used to specify the optional objects to include.
-     * @param columnIds the column ids
-     * @param excludes the exclude parameters
-     * @param page the page number
-     * @param pageSize the page size
-     * @param rowIds the row ids
-     * @param rowNumbers the row numbers
+     * @param id             the id of the sheet
+     * @param includes       used to specify the optional objects to include.
+     * @param columnIds      the column ids
+     * @param excludes       the exclude parameters
+     * @param page           the page number
+     * @param pageSize       the page size
+     * @param rowIds         the row ids
+     * @param rowNumbers     the row numbers
      * @param ifVersionAfter only fetch Sheet if more recent version available
      * @return the sheet resource (note that if there is no such resource, this method will throw
-     *     ResourceNotFoundException rather than returning null).
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * ResourceNotFoundException rather than returning null).
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     Sheet getSheet(long id,
-                          EnumSet<SheetInclusion> includes,
-                          EnumSet<ObjectExclusion> excludes,
-                          Set<Long> rowIds,
-                          Set<Integer> rowNumbers,
-                          Set<Long> columnIds,
-                          Integer pageSize,
-                          Integer page,
-                          Integer ifVersionAfter) throws SmartsheetException;
+                   EnumSet<SheetInclusion> includes,
+                   EnumSet<ObjectExclusion> excludes,
+                   Set<Long> rowIds,
+                   Set<Integer> rowNumbers,
+                   Set<Long> columnIds,
+                   Integer pageSize,
+                   Integer page,
+                   Integer ifVersionAfter) throws SmartsheetException;
 
     /**
      * <p>Get a sheet.</p>
      *
      * <p>It mirrors to the following Smartsheet REST API method: GET /sheet/{id}</p>
      *
-     * @param id the id of the sheet
-     * @param includes used to specify the optional objects to include.
-     * @param columnIds the column ids
-     * @param excludes the exclude parameters
-     * @param page the page number
-     * @param pageSize the page size
-     * @param rowIds the row ids
-     * @param rowNumbers the row numbers
+     * @param id             the id of the sheet
+     * @param includes       used to specify the optional objects to include.
+     * @param columnIds      the column ids
+     * @param excludes       the exclude parameters
+     * @param page           the page number
+     * @param pageSize       the page size
+     * @param rowIds         the row ids
+     * @param rowNumbers     the row numbers
      * @param ifVersionAfter only fetch Sheet if more recent version available
-     * @param level compatibility level
+     * @param level          compatibility level
      * @return the sheet resource (note that if there is no such resource, this method will throw
-     *     ResourceNotFoundException rather than returning null).
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * ResourceNotFoundException rather than returning null).
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     Sheet getSheet(long id,
-                          EnumSet<SheetInclusion> includes,
-                          EnumSet<ObjectExclusion> excludes,
-                          Set<Long> rowIds,
-                          Set<Integer> rowNumbers,
-                          Set<Long> columnIds,
-                          Integer pageSize,
-                          Integer page,
-                          Integer ifVersionAfter,
-                          Integer level) throws SmartsheetException;
+                   EnumSet<SheetInclusion> includes,
+                   EnumSet<ObjectExclusion> excludes,
+                   Set<Long> rowIds,
+                   Set<Integer> rowNumbers,
+                   Set<Long> columnIds,
+                   Integer pageSize,
+                   Integer page,
+                   Integer ifVersionAfter,
+                   Integer level) throws SmartsheetException;
 
     /**
      * <p>Get sheet by ID. Load all row and column data</p>
      *
      * @param sheetId id of the sheet to fetch
      * @return the sheet resource (note that if there is no such resource, this method will throw
-     *     ResourceNotFoundException rather than returning null).
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * ResourceNotFoundException rather than returning null).
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     Sheet getSheet(long sheetId) throws SmartsheetException;
 
@@ -235,14 +236,14 @@ public interface SheetResources {
      *
      * <p>It mirrors to the following Smartsheet REST API method: GET /sheet/{id} with "application/vnd.ms-excel" Accept HTTP header</p>
      *
-     * @param id the id of the sheet
+     * @param id           the id of the sheet
      * @param outputStream the output stream to which the Excel file will be written.
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     void getSheetAsExcel(long id, OutputStream outputStream) throws SmartsheetException;
 
@@ -251,14 +252,14 @@ public interface SheetResources {
      *
      * <p>It mirrors to the following Smartsheet REST API method: GET /sheet/{id} with "application/vnd.ms-excel" Accept HTTP header</p>
      *
-     * @param id the id of the sheet
+     * @param id           the id of the sheet
      * @param outputStream the output stream to which the Excel file will be written.
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     void getSheetAsCSV(long id, OutputStream outputStream) throws SmartsheetException;
 
@@ -267,15 +268,15 @@ public interface SheetResources {
      *
      * <p>It mirrors to the following Smartsheet REST API method: GET /sheet/{id} with "application/pdf" Accept HTTP header</p>
      *
-     * @param id the id of the sheet
+     * @param id           the id of the sheet
      * @param outputStream the output stream to which the PDF file will be written.
-     * @param paperSize the paper size
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * @param paperSize    the paper size
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     void getSheetAsPDF(long id, OutputStream outputStream, PaperSize paperSize) throws SmartsheetException;
 
@@ -286,12 +287,12 @@ public interface SheetResources {
      *
      * @param sheet the sheet to created
      * @return the created sheet
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     Sheet createSheet(Sheet sheet) throws SmartsheetException;
 
@@ -300,15 +301,15 @@ public interface SheetResources {
      *
      * <p>It mirrors to the following Smartsheet REST API method: POST /sheets</p>
      *
-     * @param sheet the sheet to create
+     * @param sheet    the sheet to create
      * @param includes used to specify the optional objects to include.
      * @return the created sheet
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     Sheet createSheetFromTemplate(Sheet sheet, EnumSet<SheetTemplateInclusion> includes) throws SmartsheetException;
 
@@ -317,17 +318,17 @@ public interface SheetResources {
      *
      * <p>It mirrors to the following Smartsheet REST API method: POST /sheets/import</p>
      *
-     * @param file path to the CSV file
-     * @param sheetName destination sheet name
-     * @param headerRowIndex index (0 based) of row to be used for column names
+     * @param file               path to the CSV file
+     * @param sheetName          destination sheet name
+     * @param headerRowIndex     index (0 based) of row to be used for column names
      * @param primaryColumnIndex index (0 based) of primary column
      * @return the created sheet
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     Sheet importCsv(String file, String sheetName, Integer headerRowIndex, Integer primaryColumnIndex) throws SmartsheetException;
 
@@ -336,17 +337,17 @@ public interface SheetResources {
      *
      * <p>It mirrors to the following Smartsheet REST API method: POST /sheets/import</p>
      *
-     * @param file path to the XLSX file
-     * @param sheetName destination sheet name
-     * @param headerRowIndex index (0 based) of row to be used for column names
+     * @param file               path to the XLSX file
+     * @param sheetName          destination sheet name
+     * @param headerRowIndex     index (0 based) of row to be used for column names
      * @param primaryColumnIndex index (0 based) of primary column
      * @return the created sheet
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     Sheet importXlsx(String file, String sheetName, Integer headerRowIndex, Integer primaryColumnIndex) throws SmartsheetException;
 
@@ -356,14 +357,14 @@ public interface SheetResources {
      * <p>It mirrors to the following Smartsheet REST API method: POST /folders/{folderId}/sheets</p>
      *
      * @param folderId the folder id
-     * @param sheet the sheet to create
+     * @param sheet    the sheet to create
      * @return the created sheet
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     Sheet createSheetInFolder(long folderId, Sheet sheet) throws SmartsheetException;
 
@@ -373,15 +374,15 @@ public interface SheetResources {
      * <p>It mirrors to the following Smartsheet REST API method: POST /folders/{folderId}/sheets</p>
      *
      * @param folderID the folder id
-     * @param sheet the sheet to create
-     * @param includes  used to specify the optional objects to include.
+     * @param sheet    the sheet to create
+     * @param includes used to specify the optional objects to include.
      * @return the created sheet
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     Sheet createSheetInFolderFromTemplate(long folderID, Sheet sheet, EnumSet<SheetTemplateInclusion> includes) throws SmartsheetException;
 
@@ -390,18 +391,18 @@ public interface SheetResources {
      *
      * <p>It mirrors to the following Smartsheet REST API method: POST /folders/{folderId}/sheets/import</p>
      *
-     * @param folderID the folder id
-     * @param file path to the CSV file
-     * @param sheetName destination sheet name
-     * @param headerRowIndex index (0 based) of row to be used for column names
+     * @param folderID           the folder id
+     * @param file               path to the CSV file
+     * @param sheetName          destination sheet name
+     * @param headerRowIndex     index (0 based) of row to be used for column names
      * @param primaryColumnIndex index (0 based) of primary column
      * @return the created sheet
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     Sheet importCsvInFolder(
             long folderID,
@@ -416,18 +417,18 @@ public interface SheetResources {
      *
      * <p>It mirrors to the following Smartsheet REST API method: POST /folders/{folderId}/sheets/import</p>
      *
-     * @param folderId the folder id
-     * @param file path to the XLSX file
-     * @param sheetName destination sheet name
-     * @param headerRowIndex index (0 based) of row to be used for column names
+     * @param folderId           the folder id
+     * @param file               path to the XLSX file
+     * @param sheetName          destination sheet name
+     * @param headerRowIndex     index (0 based) of row to be used for column names
      * @param primaryColumnIndex index (0 based) of primary column
      * @return the created sheet
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     Sheet importXlsxInFolder(
             long folderId,
@@ -443,14 +444,14 @@ public interface SheetResources {
      * <p>It mirrors to the following Smartsheet REST API method: POST /workspace/{workspaceId}/sheets</p>
      *
      * @param workspaceId the workspace id
-     * @param sheet the sheet to create
+     * @param sheet       the sheet to create
      * @return the created sheet
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     Sheet createSheetInWorkspace(long workspaceId, Sheet sheet) throws SmartsheetException;
 
@@ -460,15 +461,15 @@ public interface SheetResources {
      * <p>It mirrors to the following Smartsheet REST API method: POST /workspaces/{workspaceId}/sheets</p>
      *
      * @param workspaceId the workspace id
-     * @param sheet the sheet to create
-     * @param includes used to specify the optional objects to include
+     * @param sheet       the sheet to create
+     * @param includes    used to specify the optional objects to include
      * @return the created sheet
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     Sheet createSheetInWorkspaceFromTemplate(
             long workspaceId,
@@ -481,18 +482,18 @@ public interface SheetResources {
      *
      * <p>It mirrors to the following Smartsheet REST API method: POST /workspaces/{workspaceId}/sheets/import</p>
      *
-     * @param workspaceId the workspace id
-     * @param file path to the CSV file
-     * @param sheetName destination sheet name
-     * @param headerRowIndex index (0 based) of row to be used for column names
+     * @param workspaceId        the workspace id
+     * @param file               path to the CSV file
+     * @param sheetName          destination sheet name
+     * @param headerRowIndex     index (0 based) of row to be used for column names
      * @param primaryColumnIndex index (0 based) of primary column
      * @return the created sheet
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     Sheet importCsvInWorkspace(
             long workspaceId,
@@ -507,18 +508,18 @@ public interface SheetResources {
      *
      * <p>It mirrors to the following Smartsheet REST API method: POST /workspaces/{workspaceId}/sheets/import</p>
      *
-     * @param workspaceId the workspace id
-     * @param file path to the XLSX file
-     * @param sheetName destination sheet name
-     * @param headerRowIndex index (0 based) of row to be used for column names
+     * @param workspaceId        the workspace id
+     * @param file               path to the XLSX file
+     * @param sheetName          destination sheet name
+     * @param headerRowIndex     index (0 based) of row to be used for column names
      * @param primaryColumnIndex index (0 based) of primary column
      * @return the created sheet
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     Sheet importXlsxInWorkspace(
             long workspaceId,
@@ -532,19 +533,18 @@ public interface SheetResources {
      * <p>Delete a sheet.</p>
      *
      * <p>It mirrors to the following Smartsheet REST API method: DELETE /sheet{id}</p>
-     *
+     * <p>
      * Parameters: - id : the ID of the sheet
-     *
+     * <p>
      * Returns: None
      *
-     *
      * @param id the id
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     void deleteSheet(long id) throws SmartsheetException;
 
@@ -555,12 +555,12 @@ public interface SheetResources {
      *
      * @param sheet the sheet to update
      * @return the updated sheet
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     Sheet updateSheet(Sheet sheet) throws SmartsheetException;
 
@@ -571,13 +571,13 @@ public interface SheetResources {
      *
      * @param id the id
      * @return the sheet version (note that if there is no such resource, this method will throw
-     *     ResourceNotFoundException)
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * ResourceNotFoundException)
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     int getSheetVersion(long id) throws SmartsheetException;
 
@@ -586,14 +586,14 @@ public interface SheetResources {
      *
      * <p>It mirrors to the following Smartsheet REST API method: POST /sheet/{sheetId}/emails</p>
      *
-     * @param id the id
+     * @param id    the id
      * @param email the email
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     void sendSheet(long id, SheetEmail email) throws SmartsheetException;
 
@@ -604,13 +604,13 @@ public interface SheetResources {
      *
      * @param id the id
      * @return the publish status (note that if there is no such resource, this method will throw
-     *     ResourceNotFoundException rather than returning null)
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * ResourceNotFoundException rather than returning null)
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     SheetPublish getPublishStatus(long id) throws SmartsheetException;
 
@@ -619,16 +619,16 @@ public interface SheetResources {
      *
      * <p>It mirrors to the following Smartsheet REST API method: PUT /sheet/{sheetId}/publish</p>
      *
-     * @param id the id
+     * @param id      the id
      * @param publish the SheetPublish object limited.
      * @return the update SheetPublish object (note that if there is no such resource, this method will throw a
-     *     ResourceNotFoundException rather than returning null).
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * ResourceNotFoundException rather than returning null).
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     SheetPublish updatePublishStatus(long id, SheetPublish publish) throws SmartsheetException;
 
@@ -636,18 +636,18 @@ public interface SheetResources {
      * <p>Creates a copy of the specified sheet.</p>
      *
      * <p>It mirrors to the following Smartsheet REST API method: POST /folders/{folderId}/copy</p>
-     *
+     * <p>
      * Exceptions:
-     *   IllegalArgumentException : if folder is null
-     *   InvalidRequestException : if there is any problem with the REST API request
-     *   AuthorizationException : if there is any problem with the REST API authorization(access token)
-     *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-     *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
-     *   SmartsheetException : if there is any other error occurred during the operation
+     * IllegalArgumentException : if folder is null
+     * InvalidRequestException : if there is any problem with the REST API request
+     * AuthorizationException : if there is any problem with the REST API authorization(access token)
+     * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     * SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     * SmartsheetException : if there is any other error occurred during the operation
      *
-     * @param sheetId the sheet id
+     * @param sheetId              the sheet id
      * @param containerDestination describes the destination container
-     * @param includes optional parameters to include
+     * @param includes             optional parameters to include
      * @return the sheet
      * @throws SmartsheetException the smartsheet exception
      */
@@ -661,39 +661,39 @@ public interface SheetResources {
      * <p>Creates a copy of the specified sheet.</p>
      *
      * <p>It mirrors to the following Smartsheet REST API method: POST /folders/{folderId}/copy</p>
-     *
+     * <p>
      * Exceptions:
-     *   IllegalArgumentException : if folder is null
-     *   InvalidRequestException : if there is any problem with the REST API request
-     *   AuthorizationException : if there is any problem with the REST API authorization(access token)
-     *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-     *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
-     *   SmartsheetException : if there is any other error occurred during the operation
+     * IllegalArgumentException : if folder is null
+     * InvalidRequestException : if there is any problem with the REST API request
+     * AuthorizationException : if there is any problem with the REST API authorization(access token)
+     * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     * SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     * SmartsheetException : if there is any other error occurred during the operation
      *
-     * @param sheetId the sheet id
+     * @param sheetId              the sheet id
      * @param containerDestination describes the destination container
-     * @param includes optional parameters to include
-     * @param excludes optional parameters to exclude
+     * @param includes             optional parameters to include
+     * @param excludes             optional parameters to exclude
      * @return the sheet
      * @throws SmartsheetException the smartsheet exception
      */
     Sheet copySheet(long sheetId, ContainerDestination containerDestination, EnumSet<SheetCopyInclusion> includes,
-                           EnumSet<CopyExclusion> excludes) throws SmartsheetException;
+                    EnumSet<CopyExclusion> excludes) throws SmartsheetException;
 
     /**
      * <p>Moves the specified Sheet to another location.</p>
      *
      * <p>It mirrors to the following Smartsheet REST API method: POST /folders/{folderId}/move</p>
-     *
+     * <p>
      * Exceptions:
-     *   IllegalArgumentException : if folder is null
-     *   InvalidRequestException : if there is any problem with the REST API request
-     *   AuthorizationException : if there is any problem with the REST API authorization(access token)
-     *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-     *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
-     *   SmartsheetException : if there is any other error occurred during the operation
+     * IllegalArgumentException : if folder is null
+     * InvalidRequestException : if there is any problem with the REST API request
+     * AuthorizationException : if there is any problem with the REST API authorization(access token)
+     * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     * SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     * SmartsheetException : if there is any other error occurred during the operation
      *
-     * @param sheetId the folder id
+     * @param sheetId              the folder id
      * @param containerDestination describes the destination container
      * @return the sheet
      * @throws SmartsheetException the smartsheet exception
@@ -704,17 +704,17 @@ public interface SheetResources {
      * <p>Creates an Update Request for the specified Row(s) within the Sheet.</p>
      *
      * <p>It mirrors to the following Smartsheet REST API method: POST /sheets/{sheetId}/updaterequests</p>
-     *
+     * <p>
      * Exceptions:
-     *   - IllegalArgumentException : if any argument is null
-     *   - InvalidRequestException : if there is any problem with the REST API request
-     *   - AuthorizationException : if there is any problem with the REST API authorization(access token)
-     *   - ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-     *   - SmartsheetRestException : if there is any other REST API related error occurred during the operation
-     *   - SmartsheetException : if there is any other error occurred during the operation
+     * - IllegalArgumentException : if any argument is null
+     * - InvalidRequestException : if there is any problem with the REST API request
+     * - AuthorizationException : if there is any problem with the REST API authorization(access token)
+     * - ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     * - SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     * - SmartsheetException : if there is any other error occurred during the operation
      *
      * @param sheetId the sheet id
-     * @param email the email
+     * @param email   the email
      * @return the update request object
      * @throws SmartsheetException the smartsheet exception
      * @deprecated As of release 2.0. Please use {@link SheetUpdateRequestResources} instead.
@@ -727,14 +727,14 @@ public interface SheetResources {
      *
      * <p>It mirrors to the following Smartsheet REST API method: POST /sheets/{sheetId}/sort</p>
      *
-     * @param sheetId the sheet id
+     * @param sheetId       the sheet id
      * @param sortSpecifier the sort criteria
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     Sheet sortSheet(long sheetId, SortSpecifier sortSpecifier) throws SmartsheetException;
 
@@ -743,15 +743,15 @@ public interface SheetResources {
      *
      * <p>It mirrors to the following Smartsheet REST API method: POST /sheets/{sheetId}/sort</p>
      *
-     * @param sheetId the sheet id
+     * @param sheetId       the sheet id
      * @param sortSpecifier the sort criteria
-     * @param level compatibility level
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * @param level         compatibility level
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     Sheet sortSheet(long sheetId, SortSpecifier sortSpecifier, Integer level) throws SmartsheetException;
 

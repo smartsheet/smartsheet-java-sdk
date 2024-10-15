@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -99,7 +99,7 @@ public class ObjectValueDeserializer extends JsonDeserializer<ObjectValue> {
 
                 case MULTI_CONTACT:
                     List<ContactObjectValue> contactObjectValues = new ArrayList<>();
-                    for (Object contact: superset.values) {
+                    for (Object contact : superset.values) {
                         contactObjectValue = mapper.convertValue(contact, ContactObjectValue.class);
                         contactObjectValues.add(contactObjectValue);
                     }

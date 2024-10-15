@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -42,7 +42,7 @@ class PaginationParametersTest {
         assertThat(parameters2.toQueryString()).isEqualTo("?includeAll=true");
 
         PaginationParameters parameters3 = new PaginationParameters(false, 1, 1);
-        String[] matches1 = new String[] {"pageSize=1", "includeAll=false", "page=1"};
+        String[] matches1 = new String[]{"pageSize=1", "includeAll=false", "page=1"};
         for (String s : matches1) {
             assertThat(parameters3.toQueryString()).contains(s);
         }

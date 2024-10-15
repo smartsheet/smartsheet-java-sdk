@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -37,7 +37,8 @@ public class PaginationParameters {
      */
     private Integer page;
 
-    public PaginationParameters() {}
+    public PaginationParameters() {
+    }
 
     /**
      * Constructor
@@ -50,6 +51,7 @@ public class PaginationParameters {
 
     /**
      * Gets includeAll
+     *
      * @return includeAll
      */
     public boolean isIncludeAll() {
@@ -58,6 +60,7 @@ public class PaginationParameters {
 
     /**
      * Sets includeAll
+     *
      * @param includeAll include all parameter
      */
     public PaginationParameters setIncludeAll(boolean includeAll) {
@@ -67,6 +70,7 @@ public class PaginationParameters {
 
     /**
      * Gets the page size
+     *
      * @return page size
      */
     public Integer getPageSize() {
@@ -75,6 +79,7 @@ public class PaginationParameters {
 
     /**
      * Sets the page size
+     *
      * @param pageSize the page size
      */
     public PaginationParameters setPageSize(Integer pageSize) {
@@ -84,6 +89,7 @@ public class PaginationParameters {
 
     /**
      * Gets the page
+     *
      * @return page the page number
      */
     public Integer getPage() {
@@ -92,6 +98,7 @@ public class PaginationParameters {
 
     /**
      * Sets the page
+     *
      * @param page the page number
      */
     public PaginationParameters setPage(Integer page) {
@@ -133,6 +140,7 @@ public class PaginationParameters {
 
         /**
          * Gets the include all flag
+         *
          * @return the include all flag
          */
         public boolean isIncludeAll() {
@@ -141,6 +149,7 @@ public class PaginationParameters {
 
         /**
          * Sets the include All Flag
+         *
          * @param includeAll the include all flag
          * @return the builder
          */
@@ -151,6 +160,7 @@ public class PaginationParameters {
 
         /**
          * Gets the page
+         *
          * @return the page
          */
         public Integer getPage() {
@@ -159,6 +169,7 @@ public class PaginationParameters {
 
         /**
          * Sets the page
+         *
          * @param page the page
          * @return the builder
          */
@@ -169,6 +180,7 @@ public class PaginationParameters {
 
         /**
          * Gets the page size
+         *
          * @return the page size
          */
         public Integer getPageSize() {
@@ -177,6 +189,7 @@ public class PaginationParameters {
 
         /**
          * Sets the page size
+         *
          * @param pageSize the page size
          * @return the builder
          */
@@ -187,6 +200,7 @@ public class PaginationParameters {
 
         /**
          * Builds the PaginationParameters object
+         *
          * @return pagination parameter object
          */
         public PaginationParameters build() {

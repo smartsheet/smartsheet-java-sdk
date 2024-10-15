@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,6 +24,7 @@ import java.util.Date;
 
 /**
  * Represents a Share Object.
+ *
  * @see <a href="http://help.smartsheet.com/customer/portal/articles/520104-sharing-sheets">Sharing Sheets</a>
  */
 public class Share extends NamedModel<String> {
@@ -54,9 +55,9 @@ public class Share extends NamedModel<String> {
 
     /**
      * The scope of this share. One of the following values:
-     *    ITEM: an item-level share (i.e., the specific object to which the Share applies is shared with the user or group)
-     *    WORKSPACE: a workspace-level share (i.e., the workspace that contains the object to which the Share
-     *    applies is shared with the user or group)
+     * ITEM: an item-level share (i.e., the specific object to which the Share applies is shared with the user or group)
+     * WORKSPACE: a workspace-level share (i.e., the workspace that contains the object to which the Share
+     * applies is shared with the user or group)
      */
     private ShareScope scope;
 

@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,13 +20,19 @@ package com.smartsheet.api.oauth;
  * Represents an OAuth authorization result.
  */
 public class AuthorizationResult {
-    /** Represents the authorization code which is required to obtain an access token. */
+    /**
+     * Represents the authorization code which is required to obtain an access token.
+     */
     private String code;
 
-    /** Represents the total number of seconds that the authorization token is valid. This is always 4 minutes. */
+    /**
+     * Represents the total number of seconds that the authorization token is valid. This is always 4 minutes.
+     */
     private long expiresInSeconds;
 
-    /** Represents the state string which is returned to the redirect URL for a registered application. */
+    /**
+     * Represents the state string which is returned to the redirect URL for a registered application.
+     */
     private String state;
 
     /**

@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,10 +20,14 @@ import java.util.List;
 
 public class CopyOrMoveRowResult {
 
-    /** Represents the ID of the destination sheet. */
+    /**
+     * Represents the ID of the destination sheet.
+     */
     private String destinationSheetId;
 
-    /** Represents Array of RowMapping objects. */
+    /**
+     * Represents Array of RowMapping objects.
+     */
     private List<RowMapping> rowMappings;
 
     /**

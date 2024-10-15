@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -52,88 +52,144 @@ public abstract class AbstractRow<TColumn extends Column, TCell extends Cell> ex
         return (T) this;
     }
 
-    /** Represents the Sheet ID. */
+    /**
+     * Represents the Sheet ID.
+     */
     private Long sheetId;
 
-    /** Represents the row number. */
+    /**
+     * Represents the row number.
+     */
     private Integer rowNumber;
 
-    /** Represents the parent row number. */
+    /**
+     * Represents the parent row number.
+     */
     private Integer parentRowNumber;
 
-    /** Represents the cells for this row. */
+    /**
+     * Represents the cells for this row.
+     */
     private List<TCell> cells;
 
-    /** Represents the discussions for this row. */
+    /**
+     * Represents the discussions for this row.
+     */
     private List<Discussion> discussions;
 
-    /** Represents the attachments for this row. */
+    /**
+     * Represents the attachments for this row.
+     */
     private List<Attachment> attachments;
 
-    /** Represents the columns for this row. */
+    /**
+     * Represents the columns for this row.
+     */
     private List<TColumn> columns;
 
-    /** Represents the date and time the row was created. */
+    /**
+     * Represents the date and time the row was created.
+     */
     private Date createdAt;
 
-    /** Represents the date and time the row was modified. */
+    /**
+     * Represents the date and time the row was modified.
+     */
     private Date modifiedAt;
 
-    /** A read-only flag to indicate if the row is expanded or collapsed. */
+    /**
+     * A read-only flag to indicate if the row is expanded or collapsed.
+     */
     private Boolean expanded;
 
-    /** The version number that is incremented every time a sheet is modified. */
+    /**
+     * The version number that is incremented every time a sheet is modified.
+     */
     private Integer version;
 
-    /** The user's permissions on the sheet. */
+    /**
+     * The user's permissions on the sheet.
+     */
     private AccessLevel accessLevel;
 
-    /** Indicates if the row is locked. Defaults to false **/
+    /**
+     * Indicates if the row is locked. Defaults to false
+     **/
     private Boolean locked;
 
-    /** Indicates if the row is locked for the current user. Defaults to false. **/
+    /**
+     * Indicates if the row is locked for the current user. Defaults to false.
+     **/
     private Boolean lockedForUser;
 
-    /** Represents the {@link Format} for this cell.*/
+    /**
+     * Represents the {@link Format} for this cell.
+     */
     private Format format;
 
-    /** Represents the parent row ID. */
+    /**
+     * Represents the parent row ID.
+     */
     private Long parentId;
 
-    /** Represents the sibling row ID*/
+    /**
+     * Represents the sibling row ID
+     */
     private Long siblingId;
 
-    /** Represents the URL to the row of the sheet*/
+    /**
+     * Represents the URL to the row of the sheet
+     */
     private String permalink;
 
-    /** Indicates if the row is filtered out by a column filter*/
+    /**
+     * Indicates if the row is filtered out by a column filter
+     */
     private Boolean filteredOut;
 
-    /** Indicates if the sheet is a project sheet with dependencies enabled and this row is in the critical path*/
+    /**
+     * Indicates if the sheet is a project sheet with dependencies enabled and this row is in the critical path
+     */
     private Boolean inCriticalPath;
 
-    /** Represents the conditional {@link Format} for this row.*/
+    /**
+     * Represents the conditional {@link Format} for this row.
+     */
     private Format conditionalFormat;
 
-    /** Indicates if the row should be put at the top of the sheet*/
+    /**
+     * Indicates if the row should be put at the top of the sheet
+     */
     private Boolean toTop;
 
-    /** Indicates if the row should be put at the bottom of the sheet*/
+    /**
+     * Indicates if the row should be put at the bottom of the sheet
+     */
     private Boolean toBottom;
 
-    /** Indicates if the row should be put above the specified sibling row*/
+    /**
+     * Indicates if the row should be put above the specified sibling row
+     */
     private Boolean above;
 
-    /** Indent a row (applicable for update only)*/
+    /**
+     * Indent a row (applicable for update only)
+     */
     private Integer indent;
 
-    /** Outdent a row (applicable for update only)*/
+    /**
+     * Outdent a row (applicable for update only)
+     */
     private Integer outdent;
 
-    /** User object containing name and email of the creator of this row */
+    /**
+     * User object containing name and email of the creator of this row
+     */
     private User createdBy;
 
-    /** User object containing name and email of the last person to modify this row */
+    /**
+     * User object containing name and email of the last person to modify this row
+     */
     private User modifiedBy;
 
     /**
@@ -422,6 +478,7 @@ public abstract class AbstractRow<TColumn extends Column, TCell extends Cell> ex
 
     /**
      * Indicates whether a row is locked for the user. Users cannot modify rows that are locked for them.
+     *
      * @return the lock status for the user
      */
     public Boolean isLockedForUser() {

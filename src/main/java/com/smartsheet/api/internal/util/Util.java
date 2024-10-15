@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,9 +18,12 @@ package com.smartsheet.api.internal.util;
 
 public class Util {
 
-    private Util() {}
+    private Util() {
+    }
 
-    /** faster util method that avoids creation of array for single-arg cases */
+    /**
+     * faster util method that avoids creation of array for single-arg cases
+     */
     public static <T> T throwIfNull(T obj) {
         if (obj == null) {
             throw new IllegalArgumentException();
@@ -28,7 +31,9 @@ public class Util {
         return obj;
     }
 
-    /** faster util method that avoids creation of array for two-arg cases */
+    /**
+     * faster util method that avoids creation of array for two-arg cases
+     */
     public static void throwIfNull(Object obj1, Object obj2) {
         if (obj1 == null) {
             throw new IllegalArgumentException();
@@ -40,6 +45,7 @@ public class Util {
 
     /**
      * Helper function that throws an IllegalArgumentException if one of the parameters is null.
+     *
      * @param objects the paramters to
      */
     public static void throwIfNull(Object... objects) {
@@ -48,7 +54,9 @@ public class Util {
         }
     }
 
-    /** faster util method that avoids creation of array for single-arg cases */
+    /**
+     * faster util method that avoids creation of array for single-arg cases
+     */
     public static void throwIfEmpty(String string) {
         // FIXME - so... null isn't empty?
         if (string != null && string.isEmpty()) {

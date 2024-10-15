@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +21,7 @@ import java.util.List;
 /**
  * A wrapper object used to Wrap the data that comes back from the API. It holds the paging info as well as a List
  * of objects of the specified type.
+ *
  * @param <T> object
  */
 public class PagedResult<T> {

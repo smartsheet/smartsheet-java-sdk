@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -50,7 +50,7 @@ public class SheetDiscussionResourcesImpl extends AbstractResources implements S
      * Constructor.
      * <p>
      * Exceptions:
-     *   IllegalArgumentException : if any argument is null or empty string
+     * IllegalArgumentException : if any argument is null or empty string
      *
      * @param smartsheet the smartsheet
      */
@@ -65,15 +65,15 @@ public class SheetDiscussionResourcesImpl extends AbstractResources implements S
      * <p>
      * It mirrors to the following Smartsheet REST API method: POST /sheets/{sheetId}/discussions
      *
-     * @param sheetId the sheet id
+     * @param sheetId    the sheet id
      * @param discussion the discussion object
      * @return the created discussion
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     public Discussion createDiscussion(long sheetId, Discussion discussion) throws SmartsheetException {
         Util.throwIfNull(sheetId, discussion);
@@ -86,18 +86,18 @@ public class SheetDiscussionResourcesImpl extends AbstractResources implements S
      * <p>
      * It mirrors to the following Smartsheet REST API method: POST /sheets/{sheetId}/discussions
      *
-     * @param sheetId the sheet id
-     * @param discussion the discussion object
-     * @param file the file to attach
+     * @param sheetId     the sheet id
+     * @param discussion  the discussion object
+     * @param file        the file to attach
      * @param contentType the type of file
      * @return the created discussion
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
-     * @throws IOException is there is with file
+     * @throws SmartsheetException         if there is any other error during the operation
+     * @throws IOException                 is there is with file
      */
     public Discussion createDiscussionWithAttachment(
             long sheetId,
@@ -139,14 +139,14 @@ public class SheetDiscussionResourcesImpl extends AbstractResources implements S
      * rather than returning null).
      * <p>
      * Exceptions:
-     *   InvalidRequestException : if there is any problem with the REST API request
-     *   AuthorizationException : if there is any problem with the REST API authorization(access token)
-     *   ResourceNotFoundException : if the resource can not be found
-     *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-     *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
-     *   SmartsheetException : if there is any other error occurred during the operation
+     * InvalidRequestException : if there is any problem with the REST API request
+     * AuthorizationException : if there is any problem with the REST API authorization(access token)
+     * ResourceNotFoundException : if the resource can not be found
+     * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     * SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     * SmartsheetException : if there is any other error occurred during the operation
      *
-     * @param sheetId the sheetId
+     * @param sheetId      the sheetId
      * @param discussionId the discussionId
      * @return the discussion
      * @throws SmartsheetException the smartsheet exception
@@ -161,14 +161,14 @@ public class SheetDiscussionResourcesImpl extends AbstractResources implements S
      * It mirrors to the following Smartsheet REST API method: DELETE /sheets/{sheetId}/discussions/{discussionId}
      * <p>
      * Exceptions:
-     *   IllegalArgumentException : if any argument is null
-     *   InvalidRequestException : if there is any problem with the REST API request
-     *   AuthorizationException : if there is any problem with the REST API authorization(access token)
-     *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-     *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
-     *   SmartsheetException : if there is any other error occurred during the operation
+     * IllegalArgumentException : if any argument is null
+     * InvalidRequestException : if there is any problem with the REST API request
+     * AuthorizationException : if there is any problem with the REST API authorization(access token)
+     * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     * SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     * SmartsheetException : if there is any other error occurred during the operation
      *
-     * @param sheetId the sheet ID
+     * @param sheetId      the sheet ID
      * @param discussionId the discussion ID
      * @throws SmartsheetException the smartsheet exception
      */
@@ -182,16 +182,16 @@ public class SheetDiscussionResourcesImpl extends AbstractResources implements S
      * It mirrors to the following Smartsheet REST API method: GET /sheets/{sheetId}/discussions
      * <p>
      * Exceptions:
-     *   IllegalArgumentException : if any argument is null
-     *   InvalidRequestException : if there is any problem with the REST API request
-     *   AuthorizationException : if there is any problem with the REST API authorization(access token)
-     *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-     *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
-     *   SmartsheetException : if there is any other error occurred during the operation
+     * IllegalArgumentException : if any argument is null
+     * InvalidRequestException : if there is any problem with the REST API request
+     * AuthorizationException : if there is any problem with the REST API authorization(access token)
+     * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     * SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     * SmartsheetException : if there is any other error occurred during the operation
      *
-     * @param sheetId the sheet ID
+     * @param sheetId    the sheet ID
      * @param pagination the pagination pagination
-     * @param includes the optional include parameters
+     * @param includes   the optional include parameters
      * @return all the discussions
      * @throws SmartsheetException the smartsheet exception
      */

@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,6 +25,7 @@ public class RecipientGroup implements Recipient {
 
     /**
      * Get the group ID
+     *
      * @return the group ID
      */
     public Long getGroupId() {
@@ -33,6 +34,7 @@ public class RecipientGroup implements Recipient {
 
     /**
      * Set the group ID
+     *
      * @param groupId the group ID
      */
     public RecipientGroup setGroupId(Long groupId) {
@@ -51,6 +53,7 @@ public class RecipientGroup implements Recipient {
 
         /**
          * Get the group ID
+         *
          * @return the group ID
          */
         public Long getGroupId() {
@@ -59,8 +62,9 @@ public class RecipientGroup implements Recipient {
 
         /**
          * Set the group ID
+         *
          * @param groupId the group ID
-         * @return  the builder
+         * @return the builder
          */
         public AddRecipientGroupBuilder setGroupId(Long groupId) {
             this.groupId = groupId;

@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -122,7 +122,7 @@ public class Column extends IdentifiableModel<Long> {
 
     /**
      * The width of the cell.
-     * */
+     */
     private Integer width;
 
     /**
@@ -250,7 +250,6 @@ public class Column extends IdentifiableModel<Long> {
     }
 
     /**
-     *
      * @return the column formula
      */
     public String getFormula() {
@@ -305,6 +304,7 @@ public class Column extends IdentifiableModel<Long> {
 
     /**
      * Gets the locked flag
+     *
      * @return the locked flag
      */
     public Boolean isLocked() {
@@ -313,6 +313,7 @@ public class Column extends IdentifiableModel<Long> {
 
     /**
      * Sets the locked flag
+     *
      * @param locked the locked flag
      */
     public Column setLocked(Boolean locked) {
@@ -322,6 +323,7 @@ public class Column extends IdentifiableModel<Long> {
 
     /**
      * Gets the locked for user flag
+     *
      * @return the locked for user flag
      */
     public Boolean isLockedForUser() {
@@ -330,6 +332,7 @@ public class Column extends IdentifiableModel<Long> {
 
     /**
      * Sets the locked for user flag
+     *
      * @param lockedForUser the locked for user flag
      */
     public Column setLockedForUser(Boolean lockedForUser) {
@@ -434,6 +437,7 @@ public class Column extends IdentifiableModel<Long> {
 
     /**
      * Gets the value of the validation flag
+     *
      * @return the validation flag
      */
     public Boolean getValidation() {
@@ -442,6 +446,7 @@ public class Column extends IdentifiableModel<Long> {
 
     /**
      * Sets the value of the validation flag
+     *
      * @return the Column
      */
     public Column setValidation(Boolean validation) {
@@ -451,6 +456,7 @@ public class Column extends IdentifiableModel<Long> {
 
     /**
      * Gets the column compatibility version
+     *
      * @return version 0 for existing types, 1 for multi-assign, greater than 1 for future types.
      */
     public Integer getVersion() {
@@ -459,6 +465,7 @@ public class Column extends IdentifiableModel<Long> {
 
     /**
      * Sets the column compatibility version
+     *
      * @param version 0 for existing types, 1 for multi-assign, greater than 1 for future types.
      * @return the Column
      */
@@ -469,6 +476,7 @@ public class Column extends IdentifiableModel<Long> {
 
     /**
      * Gets the width
+     *
      * @return the width
      */
     public Integer getWidth() {
@@ -477,6 +485,7 @@ public class Column extends IdentifiableModel<Long> {
 
     /**
      * Sets the width
+     *
      * @param width the width
      */
     public Column setWidth(Integer width) {
@@ -488,37 +497,59 @@ public class Column extends IdentifiableModel<Long> {
      * A convenience class to help create a column object with the appropriate fields for adding to a sheet.
      */
     public static class AddColumnToSheetBuilder {
-        /** The title. */
+        /**
+         * The title.
+         */
         private String title;
 
-        /** The index **/
+        /**
+         * The index
+         **/
         private Integer index;
 
-        /** The type. */
+        /**
+         * The type.
+         */
         private ColumnType type;
 
-        /** The options. */
+        /**
+         * The options.
+         */
         private List<String> options;
 
-        /** The symbol. */
+        /**
+         * The symbol.
+         */
         private Symbol symbol;
 
-        /** The system column type. */
+        /**
+         * The system column type.
+         */
         private SystemColumnType systemColumnType;
 
-        /** The auto number format. */
+        /**
+         * The auto number format.
+         */
         private AutoNumberFormat autoNumberFormat;
 
-        /** The column width. */
+        /**
+         * The column width.
+         */
         private Integer width;
 
-        /**Represents the primary flag.*/
+        /**
+         * Represents the primary flag.
+         */
         private Boolean primary;
 
-        /** The column format */
+        /**
+         * The column format
+         */
         private Format format;
 
-        /** Flag indicating whether validation has been enabled for the column */
+        /**
+         * Flag indicating whether validation has been enabled for the column
+         */
         private Boolean validation;
 
         /**
@@ -574,6 +605,7 @@ public class Column extends IdentifiableModel<Long> {
 
         /**
          * Gets the title.
+         *
          * @return the title
          */
         public String getTitle() {
@@ -593,6 +625,7 @@ public class Column extends IdentifiableModel<Long> {
 
         /**
          * Gets the type for the column.
+         *
          * @return the type
          */
         public ColumnType getType() {
@@ -612,6 +645,7 @@ public class Column extends IdentifiableModel<Long> {
 
         /**
          * Gets the option for the column.
+         *
          * @return the option
          */
         public List<String> getOptions() {
@@ -631,6 +665,7 @@ public class Column extends IdentifiableModel<Long> {
 
         /**
          * Gets the symbol for the column.
+         *
          * @return the symbol
          */
         public Symbol getSymbol() {
@@ -650,6 +685,7 @@ public class Column extends IdentifiableModel<Long> {
 
         /**
          * Gets the system column type.
+         *
          * @return the system column type
          */
         public SystemColumnType getSystemColumnType() {
@@ -669,6 +705,7 @@ public class Column extends IdentifiableModel<Long> {
 
         /**
          * Gets the format for an auto number column.
+         *
          * @return the format for an auto number column
          */
         public AutoNumberFormat getAutoNumberFormat() {
@@ -677,6 +714,7 @@ public class Column extends IdentifiableModel<Long> {
 
         /**
          * Gets the index specified for the new column.
+         *
          * @return the index
          */
         public Integer getIndex() {
@@ -697,6 +735,7 @@ public class Column extends IdentifiableModel<Long> {
 
         /**
          * Gets the format for a column.
+         *
          * @return the format for a column
          */
         public Format getFormat() {
@@ -705,6 +744,7 @@ public class Column extends IdentifiableModel<Long> {
 
         /**
          * Sets the format for a column.
+         *
          * @param format the format.
          * @return the AddColumnToSheetBuilder.
          */
@@ -722,6 +762,7 @@ public class Column extends IdentifiableModel<Long> {
 
         /**
          * Sets the value of the validation flag
+         *
          * @return the AddColumn builder
          */
         public AddColumnToSheetBuilder setValidation(Boolean validation) {
@@ -760,40 +801,64 @@ public class Column extends IdentifiableModel<Long> {
      * The Class UpdateColumnBuilder.
      */
     public static class UpdateColumnBuilder {
-        /** The position of the column. */
+        /**
+         * The position of the column.
+         */
         private int index;
 
-        /** The title for the column. */
+        /**
+         * The title for the column.
+         */
         private String title;
 
-        /** The type of the column. */
+        /**
+         * The type of the column.
+         */
         private ColumnType type;
 
-        /** The options for the column. */
+        /**
+         * The options for the column.
+         */
         private List<String> options;
 
-        /** The symbol for the column. */
+        /**
+         * The symbol for the column.
+         */
         private Symbol symbol;
 
-        /** The system column type. */
+        /**
+         * The system column type.
+         */
         private SystemColumnType systemColumnType;
 
-        /** The format for an auto number column. */
+        /**
+         * The format for an auto number column.
+         */
         private AutoNumberFormat autoNumberFormat;
 
-        /** The sheet id. */
+        /**
+         * The sheet id.
+         */
         private Long sheetId;
 
-        /** The width */
+        /**
+         * The width
+         */
         private Integer width;
 
-        /** The format */
+        /**
+         * The format
+         */
         private Format format;
 
-        /** The column id */
+        /**
+         * The column id
+         */
         private Long id;
 
-        /** Flag indicating whether validation has been enabled for the column */
+        /**
+         * Flag indicating whether validation has been enabled for the column
+         */
         private Boolean validation;
 
         /**
@@ -906,6 +971,7 @@ public class Column extends IdentifiableModel<Long> {
 
         /**
          * Sets the format
+         *
          * @param format the format
          * @return the modify column builder
          */
@@ -916,6 +982,7 @@ public class Column extends IdentifiableModel<Long> {
 
         /**
          * Sets the width
+         *
          * @param width the width
          * @return the modify column builder
          */
@@ -926,6 +993,7 @@ public class Column extends IdentifiableModel<Long> {
 
         /**
          * Sets the value of the validation flag
+         *
          * @return the modify column builder
          */
         public UpdateColumnBuilder setValidation(Boolean validation) {
@@ -1007,6 +1075,7 @@ public class Column extends IdentifiableModel<Long> {
 
         /**
          * Gets the width
+         *
          * @return the width
          */
         public Integer getWidth() {
@@ -1015,6 +1084,7 @@ public class Column extends IdentifiableModel<Long> {
 
         /**
          * Gets the format
+         *
          * @return the format
          */
         public Format getFormat() {
@@ -1023,6 +1093,7 @@ public class Column extends IdentifiableModel<Long> {
 
         /**
          * Gets the value of the validation flag
+         *
          * @return the validation flag
          */
         public Boolean getValidation() {

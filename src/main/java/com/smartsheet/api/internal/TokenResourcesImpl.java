@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -45,10 +45,11 @@ public class TokenResourcesImpl extends AbstractResources implements TokenResour
      * Revoke access token used to make this request.
      * <p>
      * Exceptions:
-     * @throws OAuthTokenException the o auth token exception
+     *
+     * @throws OAuthTokenException     the o auth token exception
      * @throws JSONSerializerException the JSON serializer exception
-     * @throws HttpClientException the http client exception
-     * @throws URISyntaxException the URI syntax exception
+     * @throws HttpClientException     the http client exception
+     * @throws URISyntaxException      the URI syntax exception
      * @throws InvalidRequestException the invalid request exception
      */
     public void revokeAccessToken() throws OAuthTokenException, JSONSerializerException, HttpClientException,
@@ -60,7 +61,7 @@ public class TokenResourcesImpl extends AbstractResources implements TokenResour
      * Refresh token.
      *
      * @throws NoSuchMethodException exception that is always thrown
-    */
+     */
     public void refreshAccessToken() throws NoSuchMethodException {
         throw new NoSuchMethodException("Not implemented in TokenResources. Refer OAuthFlow.");
     }

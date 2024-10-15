@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -40,7 +40,9 @@ import java.util.concurrent.TimeUnit;
 
 public class AndroidHttpClient implements HttpClient {
 
-    /** logger for general errors, warnings, etc */
+    /**
+     * logger for general errors, warnings, etc
+     */
     protected static final Logger logger = LoggerFactory.getLogger(AndroidHttpClient.class);
 
     private static final MediaType MEDIA_TYPE_JSON = MediaType.parse("application/json");
@@ -55,7 +57,9 @@ public class AndroidHttpClient implements HttpClient {
      */
     private final OkHttpClient client;
 
-    /** The okhttp http response. */
+    /**
+     * The okhttp http response.
+     */
     private Response currentResponse;
 
     protected JsonSerializer jsonSerializer;
@@ -78,8 +82,8 @@ public class AndroidHttpClient implements HttpClient {
      * Log to the SLF4J logger (level based upon response status code). Override this function to add logging
      * or capture performance metrics.
      *
-     * @param request request
-     * @param response response
+     * @param request        request
+     * @param response       response
      * @param durationMillis response time in ms
      */
     public void logRequest(Request request, Response response, long durationMillis) {
@@ -250,6 +254,7 @@ public class AndroidHttpClient implements HttpClient {
     /**
      * The backoff calculation routine. Uses exponential backoff. If the maximum elapsed time
      * has expired, this calculation returns -1 causing the caller to fall out of the retry loop.
+     *
      * @return -1 to fall out of retry loop, positive number indicates backoff time
      */
     public long calcBackoff(int previousAttempts, long totalElapsedTimeMillis, Error error) {
@@ -268,9 +273,9 @@ public class AndroidHttpClient implements HttpClient {
      * Called when an API request fails to determine if it can retry the request.
      * Calls calcBackoff to determine the time to wait in between retries.
      *
-     * @param previousAttempts number of attempts (including this one) to execute request
+     * @param previousAttempts       number of attempts (including this one) to execute request
      * @param totalElapsedTimeMillis total time spent in millis for all previous (and this) attempt
-     * @param response the failed HttpResponse
+     * @param response               the failed HttpResponse
      * @return true if this request can be retried
      */
     public boolean shouldRetry(int previousAttempts, long totalElapsedTimeMillis, HttpResponse response) {
@@ -288,12 +293,12 @@ public class AndroidHttpClient implements HttpClient {
         switch (error.getErrorCode()) {
             // Smartsheet.com is currently offline for system maintenance. Please check back again shortly.
             case 4001:
-            // Server timeout exceeded. Request has failed
+                // Server timeout exceeded. Request has failed
             case 4002:
-            // Rate limit exceeded.
+                // Rate limit exceeded.
             case 4003:
-            // An unexpected error has occurred. Please retry your request.
-            // If you encounter this error repeatedly, please contact api@smartsheet.com for assistance.
+                // An unexpected error has occurred. Please retry your request.
+                // If you encounter this error repeatedly, please contact api@smartsheet.com for assistance.
             case 4004:
                 break;
             default:

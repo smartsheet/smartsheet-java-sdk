@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -61,14 +61,19 @@ import java.util.Set;
  * <p>
  * Thread Safety: This class is thread safe because it is immutable and the underlying Apache CloseableHttpClient is
  * thread safe.
+ *
  * @see <a href="http://hc.apache.org/httpcomponents-client-ga/index.html">Apache HttpClient</a>
  */
 public class DefaultHttpClient implements HttpClient {
 
-    /** logger for general errors, warnings, etc */
+    /**
+     * logger for general errors, warnings, etc
+     */
     protected static final Logger logger = LoggerFactory.getLogger(DefaultHttpClient.class);
 
-    /** used by default retry/timeout logic and available for overriders */
+    /**
+     * used by default retry/timeout logic and available for overriders
+     */
     protected static final String JSON_MIME_TYPE = ContentType.APPLICATION_JSON.getMimeType();
 
     protected JsonSerializer jsonSerializer;
@@ -82,10 +87,14 @@ public class DefaultHttpClient implements HttpClient {
      */
     private final CloseableHttpClient httpClient;
 
-    /** The apache http response. */
+    /**
+     * The apache http response.
+     */
     private CloseableHttpResponse apacheHttpResponse;
 
-    /** to avoid creating new sets for each call (we use Sets for practical and perf reasons) */
+    /**
+     * to avoid creating new sets for each call (we use Sets for practical and perf reasons)
+     */
     private static final Set<Trace> REQUEST_RESPONSE_SUMMARY = Set.of(
             Trace.RequestHeaders,
             Trace.RequestBodySummary,
@@ -93,13 +102,17 @@ public class DefaultHttpClient implements HttpClient {
             Trace.ResponseBodySummary
     );
 
-    /** default values for trace-logging extracted from system-properties (can still be overwritten at the instance level) */
+    /**
+     * default values for trace-logging extracted from system-properties (can still be overwritten at the instance level)
+     */
     private static final boolean TRACE_PRETTY_PRINT_DEFAULT = Boolean.parseBoolean(System.getProperty("Smartsheet.trace.pretty", "true"));
 
     // empty by default
     private static final Set<Trace> TRACE_DEFAULT_TRACE_SET = Trace.parse(System.getProperty("Smartsheet.trace.parts"));
 
-    /** where to send trace logs */
+    /**
+     * where to send trace logs
+     */
     private static PrintWriter traceWriter;
 
     private final Random random = new Random();
@@ -112,10 +125,14 @@ public class DefaultHttpClient implements HttpClient {
         }
     }
 
-    /** the set of Trace levels to use in trace-logging */
+    /**
+     * the set of Trace levels to use in trace-logging
+     */
     private final Set<Trace> traces = new HashSet<>(TRACE_DEFAULT_TRACE_SET);
 
-    /** whether to log pretty or compact */
+    /**
+     * whether to log pretty or compact
+     */
     private boolean tracePrettyPrint = TRACE_PRETTY_PRINT_DEFAULT;
 
     private static final String LOG_ARG = "{}";
@@ -146,9 +163,9 @@ public class DefaultHttpClient implements HttpClient {
      * Log to the SLF4J logger (level based upon response status code). Override this function to add logging
      * or capture performance metrics.
      *
-     * @param request request
-     * @param requestEntity request body
-     * @param response response
+     * @param request        request
+     * @param requestEntity  request body
+     * @param response       response
      * @param responseEntity response body
      * @param durationMillis response time in ms
      */
@@ -422,6 +439,7 @@ public class DefaultHttpClient implements HttpClient {
     /**
      * The backoff calculation routine. Uses exponential backoff. If the maximum elapsed time
      * has expired, this calculation returns -1 causing the caller to fall out of the retry loop.
+     *
      * @return -1 to fall out of retry loop, positive number indicates backoff time
      */
     public long calcBackoff(int previousAttempts, long totalElapsedTimeMillis, Error error) {
@@ -444,9 +462,9 @@ public class DefaultHttpClient implements HttpClient {
      * Called when an API request fails to determine if it can retry the request.
      * Calls calcBackoff to determine the time to wait in between retries.
      *
-     * @param previousAttempts number of attempts (including this one) to execute request
+     * @param previousAttempts       number of attempts (including this one) to execute request
      * @param totalElapsedTimeMillis total time spent in millis for all previous (and this) attempt
-     * @param response the failed HttpResponse
+     * @param response               the failed HttpResponse
      * @return true if this request can be retried
      */
     public boolean shouldRetry(int previousAttempts, long totalElapsedTimeMillis, HttpResponse response) {
@@ -518,6 +536,7 @@ public class DefaultHttpClient implements HttpClient {
 
     /**
      * set the traces for this client
+     *
      * @param traces the fields to include in trace-logging
      */
     public void setTraces(Trace... traces) {
@@ -531,13 +550,16 @@ public class DefaultHttpClient implements HttpClient {
 
     /**
      * set whether to use nicely-formatted JSON or more compact format JSON in trace logging
+     *
      * @param pretty whether to print JSON in a "pretty" format or compact
      */
     public void setTracePrettyPrint(boolean pretty) {
         tracePrettyPrint = pretty;
     }
 
-    /** only included for testing purposes */
+    /**
+     * only included for testing purposes
+     */
     public static void setTraceStream(OutputStream traceStream) {
         traceWriter = new PrintWriter(traceStream, true);
     }

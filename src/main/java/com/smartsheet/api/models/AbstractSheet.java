@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -528,6 +528,7 @@ public abstract class AbstractSheet<TRow extends AbstractRow<TColumn, TCell>, TC
 
     /**
      * version of setId that returns this type
+     *
      * @param id the new sheet ID
      * @return this
      */

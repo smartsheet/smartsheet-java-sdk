@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -43,8 +43,7 @@ public enum Currency {
     NORWAY_KRONER("NOK", "kr"),
     NEWZEALAND_DOLLAR("NZD", "$"),
     SWEDEN_KRONOR("SEK", "kr"),
-    SINGAPORE_DOLLAR("SGD", "$")
-    ;
+    SINGAPORE_DOLLAR("SGD", "$");
 
     /**
      * The default setting when the {@link Format} for {@link Currency} is null;

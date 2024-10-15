@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@ package com.smartsheet.api.models;
 
 /**
  * Represents the User object.
+ *
  * @see <a href="http://help.smartsheet.com/customer/portal/articles/795920-managing-users-team-enterprise-only-">Help
  * Managing Users</a>
  * @see <a href="http://help.smartsheet.com/customer/portal/articles/520100-user-types">User Types Help</a>
@@ -189,6 +190,7 @@ public class User extends UserModelWithName {
 
         /**
          * Get the id of the user
+         *
          * @return the id
          */
         public Long getUserId() {
@@ -197,6 +199,7 @@ public class User extends UserModelWithName {
 
         /**
          * Set the user id
+         *
          * @param userId the user id
          * @return the updateSheetBuilder object
          */
@@ -339,6 +342,7 @@ public class User extends UserModelWithName {
 
         /**
          * Get the email of the user
+         *
          * @return email the email
          */
         public String getEmail() {
@@ -347,6 +351,7 @@ public class User extends UserModelWithName {
 
         /**
          * Set the email id of the user
+         *
          * @param email the email
          * @return the builder
          */

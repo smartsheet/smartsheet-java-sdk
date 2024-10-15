@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,10 +29,10 @@ public interface SheetCommentResources {
      *
      * <p>It mirrors to the following Smartsheet REST API method: GET /sheets/{sheetId}/comments/{commentId}</p>
      *
-     * @param sheetId the ID of the sheet
+     * @param sheetId   the ID of the sheet
      * @param commentId the ID of the comment
      * @return the comment (note that if there is no such resource, this method will throw ResourceNotFoundException
-     *     rather than returning null).
+     * rather than returning null).
      * @throws SmartsheetException if there is any other error during the operation
      */
     Comment getComment(long sheetId, long commentId) throws SmartsheetException;
@@ -42,7 +42,7 @@ public interface SheetCommentResources {
      *
      * <p>It mirrors to the following Smartsheet REST API method: DELETE /sheets/{sheetId}/comments/{commentId}</p>
      *
-     * @param sheetId the ID of the sheet
+     * @param sheetId   the ID of the sheet
      * @param commentId the ID of the comment
      * @throws SmartsheetException if there is any other error during the operation
      */

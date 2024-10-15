@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,12 +18,14 @@ package com.smartsheet.api.integrationtest;
 
 import com.smartsheet.api.Smartsheet;
 import com.smartsheet.api.SmartsheetException;
+import com.smartsheet.api.models.Attachment;
 import com.smartsheet.api.models.Comment;
 import com.smartsheet.api.models.Discussion;
 import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.PaginationParameters;
 import com.smartsheet.api.models.Row;
 import com.smartsheet.api.models.Sheet;
+import com.smartsheet.api.models.enums.AttachmentType;
 import com.smartsheet.api.models.enums.DiscussionInclusion;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -31,6 +33,7 @@ import org.junit.jupiter.api.Test;
 import java.io.File;
 import java.io.IOException;
 import java.util.EnumSet;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -75,7 +78,8 @@ public class DiscussionResourcesIT extends ITResourcesImpl {
 
     public void testCreateDiscussionOnRow() throws SmartsheetException, IOException {
         //add rows
-        row = addRows(sheet.getId());
+        long sheetId = sheet.getId();
+        row = addRows(sheetId);
 
         //create comment to add to discussion
         Comment comment = new Comment.AddCommentBuilder().setText("This is a test comment").build();
@@ -86,8 +90,29 @@ public class DiscussionResourcesIT extends ITResourcesImpl {
                 .rowResources()
                 .discussionResources()
                 .createDiscussion(sheet.getId(), row.getId(), discussion);
-
         assertThat(newDiscussionWithAttachment).isNotNull();
+
+        List<Discussion> fetchedDiscussions = smartsheet
+                .sheetResources()
+                .rowResources()
+                .discussionResources()
+                .listDiscussions(sheetId, row.getId(), null, EnumSet.of(DiscussionInclusion.COMMENTS))
+                .getData();
+        assertThat(fetchedDiscussions.size()).isEqualTo(1);
+        Discussion fetchedDiscussion = fetchedDiscussions.get(0);
+        assertThat(fetchedDiscussion.getComments().size()).isEqualTo(1);
+
+        Comment nestedComment = new Comment.AddCommentBuilder().setText("This is a comment with an attachment").build();
+        Comment newComment = smartsheet
+                .sheetResources()
+                .discussionResources()
+                .commentResources()
+                .addComment(sheetId, newDiscussionWithAttachment.getId(), nestedComment);
+        Attachment attachment = new Attachment();
+        attachment.setUrl("http://www.smartsheet.com/sites/all/themes/blue_sky/logo.png");
+        attachment.setName("logo image");
+        attachment.setAttachmentType(AttachmentType.LINK);
+        smartsheet.sheetResources().commentResources().attachmentResources().attachUrl(sheetId, newComment.getId(), attachment);
     }
 
     public void testCreateDiscussionWithAttachmentOnRow() throws SmartsheetException, IOException {
@@ -127,6 +152,17 @@ public class DiscussionResourcesIT extends ITResourcesImpl {
                 .discussionResources()
                 .listDiscussions(sheet.getId(), row.getId(), parameters, discussionInclusions);
         assertThat(newDiscussion).isNotNull();
+
+        List<Discussion> discussionList = newDiscussion.getData();
+        assertThat(discussionList.size()).isEqualTo(1);
+        Discussion discussion = discussionList.get(0);
+        List<Comment> comments = discussion.getComments();
+        assertThat(comments.size()).isEqualTo(2);
+        Comment comment = comments.get(1);
+        List<Attachment> attachments = comment.getAttachments();
+        assertThat(attachments.size()).isEqualTo(1);
+        Attachment attachment = attachments.get(0);
+        assertThat(attachment.getUrl()).isEqualTo("http://www.smartsheet.com/sites/all/themes/blue_sky/logo.png");
     }
 
     public void testGetAllDiscussions() throws SmartsheetException {

@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -47,7 +47,8 @@ public class ImageUrl {
     /**
      * Constructor(s)
      */
-    public ImageUrl() { }
+    public ImageUrl() {
+    }
 
     public ImageUrl(String imageId) {
         setImageId(imageId);

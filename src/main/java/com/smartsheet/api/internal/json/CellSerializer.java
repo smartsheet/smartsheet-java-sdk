@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,7 +28,7 @@ import java.io.IOException;
 /**
  * Special case serializer to handle the linkInFromCell case. Normally we wouldn't serialize a null property,
  * but in this case we must serialize a null for 'value'.
- *
+ * <p>
  * We'll special case the linkInFromCell case but pass the rest along to the default serializer.
  */
 public class CellSerializer extends JsonSerializer<Cell> {

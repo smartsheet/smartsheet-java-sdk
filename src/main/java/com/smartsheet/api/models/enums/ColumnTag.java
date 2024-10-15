@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,36 +20,58 @@ package com.smartsheet.api.models.enums;
  * Represents the tags to indicate a special column.
  */
 public enum ColumnTag {
-    /** Represents CALENDAR_START_DATE tag. */
+    /**
+     * Represents CALENDAR_START_DATE tag.
+     */
     CALENDAR_START_DATE,
 
-    /** Represents CALENDAR_END_DATE tag. */
+    /**
+     * Represents CALENDAR_END_DATE tag.
+     */
     CALENDAR_END_DATE,
 
-    /** Represents CARD_DONE tag. */
+    /**
+     * Represents CARD_DONE tag.
+     */
     CARD_DONE,
 
-    /** Represents GANTT_START_DATE tag. */
+    /**
+     * Represents GANTT_START_DATE tag.
+     */
     GANTT_START_DATE,
 
-    /** Represents GANTT_END_DATE tag. */
+    /**
+     * Represents GANTT_END_DATE tag.
+     */
     GANTT_END_DATE,
 
-    /** Represents GANTT_PERCENT_COMPLETE tag. */
+    /**
+     * Represents GANTT_PERCENT_COMPLETE tag.
+     */
     GANTT_PERCENT_COMPLETE,
 
-    /** Represents GANTT_DISPLAY_LABEL tag. */
+    /**
+     * Represents GANTT_DISPLAY_LABEL tag.
+     */
     GANTT_DISPLAY_LABEL,
 
-    /** Represents GANTT_PREDECESSOR tag. */
+    /**
+     * Represents GANTT_PREDECESSOR tag.
+     */
     GANTT_PREDECESSOR,
 
-    /** Represents GANTT_DURATION tag. */
+    /**
+     * Represents GANTT_DURATION tag.
+     */
     GANTT_DURATION,
 
-    /** Represents GANTT_ASSIGNED_RESOURCE. */
+    /**
+     * Represents GANTT_ASSIGNED_RESOURCE.
+     */
     GANTT_ASSIGNED_RESOURCE,
 
-    /** used for the allocation percentage for the resource management feature. */
+    /**
+     * used for the allocation percentage for the resource management feature.
+     */
     GANTT_ALLOCATION
 }
