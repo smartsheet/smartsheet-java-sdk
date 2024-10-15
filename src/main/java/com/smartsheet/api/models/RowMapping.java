@@ -16,6 +16,17 @@
 
 package com.smartsheet.api.models;
 
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import lombok.extern.jackson.Jacksonized;
+
+@Getter
+@Setter
+@ToString
+@Jacksonized
+@Builder
 public class RowMapping {
     /**
      * Represents the Row ID in the source sheet.
@@ -26,42 +37,4 @@ public class RowMapping {
      * Represents the Row ID in the destination sheet.
      */
     private Long to;
-
-    /**
-     * Gets the Row ID in the source sheet.
-     *
-     * @return Row ID in the source sheet
-     */
-    public Long getFrom() {
-        return from;
-    }
-
-    /**
-     * Sets the Row ID in the source sheet.
-     *
-     * @param from the Row ID in the source sheet
-     */
-    public RowMapping setFrom(Long from) {
-        this.from = from;
-        return this;
-    }
-
-    /**
-     * Gets the Row ID in the destination sheet.
-     *
-     * @return the Row ID in the destination sheet
-     */
-    public Long getTo() {
-        return to;
-    }
-
-    /**
-     * Sets the Row ID in the destination sheet.
-     *
-     * @param to Row ID in the destination sheet
-     */
-    public RowMapping setTo(Long to) {
-        this.to = to;
-        return this;
-    }
 }
