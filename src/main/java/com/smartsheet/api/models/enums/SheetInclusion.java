@@ -16,9 +16,15 @@
 
 package com.smartsheet.api.models.enums;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
 /**
  * Represents specific objects that can be included in some responses.
  */
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@Getter
 public enum SheetInclusion {
     ATTACHMENTS("attachments"),
     COLUMN_TYPE("columnType"),
@@ -38,11 +44,7 @@ public enum SheetInclusion {
     WRITER_INFO("writerInfo"),
     ;
 
-    String inclusion;
-
-    SheetInclusion(String inclusion) {
-        this.inclusion = inclusion;
-    }
+    private final String inclusion;
 
     @Override
     public String toString() {

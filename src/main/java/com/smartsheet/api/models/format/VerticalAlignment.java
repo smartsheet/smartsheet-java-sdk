@@ -16,9 +16,15 @@
 
 package com.smartsheet.api.models.format;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
 /**
  * An enumeration representing the available vertical alignments within Smartsheet.
  */
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@Getter
 public enum VerticalAlignment {
     DEFAULT_ALIGNMENT(""),
     TOP("top"),
@@ -27,19 +33,8 @@ public enum VerticalAlignment {
     ;
     private final String position;
 
-    VerticalAlignment(String position) {
-        this.position = position;
-    }
-
     /**
      * The default setting when the {@link Format} for {@link VerticalAlignment} is null;
      */
     public static final VerticalAlignment DEFAULT = DEFAULT_ALIGNMENT;
-
-    /**
-     * @return the position
-     */
-    public String getPosition() {
-        return position;
-    }
 }

@@ -16,28 +16,23 @@
 
 package com.smartsheet.api.models.format;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
 /**
  * An enumeration representing the available Strikethrough state for a format.
  */
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@Getter
 public enum Strikethrough {
     NONE(false),
     ON(true),
     ;
     private final boolean striken;
 
-    Strikethrough(boolean striken) {
-        this.striken = striken;
-    }
-
     /**
      * The default setting when the {@link Format} for {@link Strikethrough} is null;
      */
     public static final Strikethrough DEFAULT = NONE;
-
-    /**
-     * @return the strikeThrough
-     */
-    public boolean isStricken() {
-        return striken;
-    }
 }

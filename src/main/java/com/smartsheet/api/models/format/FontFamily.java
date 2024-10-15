@@ -16,18 +16,22 @@
 
 package com.smartsheet.api.models.format;
 
-import java.util.HashSet;
-import java.util.List;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
 import java.util.Set;
 
 /**
  * An enumeration representing the available font families within Smartsheet.
  */
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@Getter
 public enum FontFamily {
-    ARIAL("Arial", List.of("sans-serif")),
-    TAHOMA("Tahoma", List.of("sans-serif")),
-    TIMES_NEW_ROMAN("Times New Roman", List.of("serif")),
-    VERDANA("Verdana", List.of("sans-serif")),
+    ARIAL("Arial", Set.of("sans-serif")),
+    TAHOMA("Tahoma", Set.of("sans-serif")),
+    TIMES_NEW_ROMAN("Times New Roman", Set.of("serif")),
+    VERDANA("Verdana", Set.of("sans-serif")),
     ;
     private final String fontName;
     private final Set<String> traits;
@@ -36,23 +40,4 @@ public enum FontFamily {
      * The default setting when the {@link Format} for {@link FontFamily} is null;
      */
     public static final FontFamily DEFAULT = ARIAL;
-
-    FontFamily(String name, List<String> traits) {
-        this.fontName = name;
-        this.traits = new HashSet<>(traits);
-    }
-
-    /**
-     * @return the fontName
-     */
-    public String getFontName() {
-        return fontName;
-    }
-
-    /**
-     * @return the traits
-     */
-    public Set<String> getTraits() {
-        return traits;
-    }
 }

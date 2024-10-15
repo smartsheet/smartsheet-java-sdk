@@ -16,18 +16,20 @@
 
 package com.smartsheet.api.models.enums;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
 /**
  * Represents specific objects that can be excluded in some responses.
  */
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@Getter
 public enum SourceExclusion {
     PERMALINKS("permalinks"),
     ;
 
-    String exclusion;
-
-    SourceExclusion(String exclusion) {
-        this.exclusion = exclusion;
-    }
+    private final String exclusion;
 
     @Override
     public String toString() {

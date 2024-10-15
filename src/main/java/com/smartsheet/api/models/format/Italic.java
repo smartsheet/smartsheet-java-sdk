@@ -16,28 +16,23 @@
 
 package com.smartsheet.api.models.format;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
 /**
  * An enumeration representing the available Italic state for a format.
  */
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@Getter
 public enum Italic {
     NONE(false),
     ON(true),
     ;
     private final boolean italic;
 
-    Italic(boolean italic) {
-        this.italic = italic;
-    }
-
     /**
      * The default setting when the {@link Format} for {@link Italic} is null;
      */
     public static final Italic DEFAULT = NONE;
-
-    /**
-     * @return the italic
-     */
-    public boolean isItalic() {
-        return italic;
-    }
 }
