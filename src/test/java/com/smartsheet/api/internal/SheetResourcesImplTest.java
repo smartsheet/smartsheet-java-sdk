@@ -460,14 +460,13 @@ class SheetResourcesImplTest extends ResourcesImplBase {
     @Test
     void testSortSheet() throws Exception {
         server.setResponseBody(new File("src/test/resources/getSheet.json"));
-        SortSpecifier specifier = new SortSpecifier();
         SortCriterion criterion = SortCriterion.builder()
                 .columnId(1234L)
                 .direction(SortDirection.DESCENDING)
                 .build();
         List<SortCriterion> criteria = new ArrayList<>();
         criteria.add(criterion);
-        specifier.setSortCriteria(criteria);
+        SortSpecifier specifier = SortSpecifier.builder().sortCriteria(criteria).build();
         Sheet sheet = sheetResource.sortSheet(123L, specifier);
         assertThat(sheet.getColumns()).hasSize(9);
         assertThat(sheet.getRows()).isEmpty();

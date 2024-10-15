@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2024 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,7 +32,7 @@ class WidgetTest {
             // Common Objects
             Format titleFormat = new Format();
             ImageWidgetContent contents = new ImageWidgetContent();
-            Error error = new Error();
+            Error error = Error.builder().build();
 
             // Act
             Widget widgetNoArg = Widget.builder().build();

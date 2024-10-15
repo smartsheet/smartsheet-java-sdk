@@ -16,47 +16,22 @@
 
 package com.smartsheet.api.models;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import lombok.experimental.SuperBuilder;
+import lombok.extern.jackson.Jacksonized;
+
 /**
- * Created by kskeem on 3/1/16.
+ * The BulkRowFailedItem model
  */
+@Getter
+@Setter
+@ToString
+@Jacksonized
+@SuperBuilder
 public class BulkRowFailedItem {
     private int index;
     private Error error;
     private Long rowId;
-
-    public int getIndex() {
-        return index;
-    }
-
-    /**
-     * Set the index
-     */
-    public BulkRowFailedItem setIndex(int index) {
-        this.index = index;
-        return this;
-    }
-
-    public Error getError() {
-        return error;
-    }
-
-    /**
-     * Set the Error
-     */
-    public BulkRowFailedItem setError(Error error) {
-        this.error = error;
-        return this;
-    }
-
-    public Long getRowId() {
-        return rowId;
-    }
-
-    /**
-     * Set the Row ID
-     */
-    public BulkRowFailedItem setRowId(Long rowId) {
-        this.rowId = rowId;
-        return this;
-    }
 }

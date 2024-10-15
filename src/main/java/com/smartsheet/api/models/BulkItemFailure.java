@@ -16,6 +16,17 @@
 
 package com.smartsheet.api.models;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import lombok.experimental.SuperBuilder;
+import lombok.extern.jackson.Jacksonized;
+
+@Getter
+@Setter
+@ToString
+@Jacksonized
+@SuperBuilder
 public class BulkItemFailure extends BulkRowFailedItem {
     // doing this just to create a more generic class name for bulk operations
 }

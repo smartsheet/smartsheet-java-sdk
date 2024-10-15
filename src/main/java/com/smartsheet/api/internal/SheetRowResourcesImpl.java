@@ -527,10 +527,11 @@ public class SheetRowResourcesImpl extends AbstractResources implements SheetRow
                 if (bulkItemResult.getFailedItems() != null) {
                     List<BulkRowFailedItem> failedItems = new ArrayList<>();
                     for (BulkItemFailure bulkItemFailure : bulkItemResult.getFailedItems()) {
-                        BulkRowFailedItem bulkRowFailedItem = new BulkRowFailedItem();
-                        bulkRowFailedItem.setError(bulkItemFailure.getError());
-                        bulkRowFailedItem.setIndex(bulkItemFailure.getIndex());
-                        bulkRowFailedItem.setRowId(bulkItemFailure.getRowId());
+                        BulkRowFailedItem bulkRowFailedItem = BulkRowFailedItem.builder()
+                                .error(bulkItemFailure.getError())
+                                .index(bulkItemFailure.getIndex())
+                                .rowId(bulkItemFailure.getRowId())
+                                .build();
                         failedItems.add(bulkRowFailedItem);
                     }
                     result.setFailedItems(failedItems);

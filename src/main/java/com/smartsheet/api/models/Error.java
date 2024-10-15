@@ -16,9 +16,20 @@
 
 package com.smartsheet.api.models;
 
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import lombok.extern.jackson.Jacksonized;
+
 /**
  * Represents Error object.
  */
+@Getter
+@Setter
+@ToString
+@Jacksonized
+@Builder
 public class Error {
     /**
      * Represents the error detail.
@@ -39,81 +50,4 @@ public class Error {
      * Reference ID
      */
     private String refId;
-
-    /**
-     * Gets the error detail.
-     *
-     * @return the error detail
-     */
-    public Object getDetail() {
-        return detail;
-    }
-
-    /**
-     * Sets the error detail.
-     *
-     * @param detail the error detail
-     */
-    public Error setDetail(Object detail) {
-        this.detail = detail;
-        return this;
-    }
-
-    /**
-     * Gets the message.
-     *
-     * @return the message
-     */
-    public String getMessage() {
-        return message;
-    }
-
-    /**
-     * Sets the message.
-     *
-     * @param message the new message
-     */
-    public Error setMessage(String message) {
-        this.message = message;
-        return this;
-    }
-
-    /**
-     * Gets the error code.
-     *
-     * @return the error code
-     */
-    public Integer getErrorCode() {
-        return errorCode;
-    }
-
-    /**
-     * Sets the error code.
-     *
-     * @param errorCode the new error code
-     */
-    public Error setErrorCode(Integer errorCode) {
-        this.errorCode = errorCode;
-        return this;
-    }
-
-    /**
-     * Get the reference ID
-     *
-     * @return the refId
-     */
-    public String getRefId() {
-        return refId;
-    }
-
-    /**
-     * Set the reference ID
-     *
-     * @param refId the reference ID
-     * @return the Error Object
-     */
-    public Error setRefId(String refId) {
-        this.refId = refId;
-        return this;
-    }
 }

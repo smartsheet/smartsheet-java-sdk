@@ -26,9 +26,10 @@ class ResourceNotFoundExceptionTest {
     @Test
     void testResourceNotFoundException() {
         try {
-            Error error = new Error();
-            error.setErrorCode(1);
-            error.setMessage("testing testing");
+            Error error = Error.builder()
+                    .errorCode(1)
+                    .message("testing testing")
+                    .build();
             throw new ResourceNotFoundException(error);
         } catch (ResourceNotFoundException e) {
             assertThat(e.getMessage()).isEqualTo("testing testing");

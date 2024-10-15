@@ -36,7 +36,7 @@ public class ErrorDeserializer extends JsonDeserializer<com.smartsheet.api.model
 
         ObjectMapper mapper = new ObjectMapper();
 
-        final com.smartsheet.api.models.Error error = new com.smartsheet.api.models.Error();
+        final com.smartsheet.api.models.Error error = com.smartsheet.api.models.Error.builder().build();
 
         if (jp.getCurrentToken() == JsonToken.START_OBJECT) {
             JsonNode node = jp.getCodec().readTree(jp);
