@@ -26,7 +26,7 @@ class AutoNumberFormatTest {
     class BuilderTests {
         @Test
         void autoNumberFormatBuilder() {
-           // Act
+            // Act
             AutoNumberFormat autoNumberFormatNoArg = AutoNumberFormat.builder().build();
             autoNumberFormatNoArg.setPrefix("prefix");
             autoNumberFormatNoArg.setSuffix("suffix");
