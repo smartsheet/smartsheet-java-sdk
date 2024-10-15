@@ -34,6 +34,7 @@ import com.smartsheet.api.internal.util.Util;
 import com.smartsheet.api.models.Attachment;
 import com.smartsheet.api.models.CopyOrMoveRowDirective;
 import com.smartsheet.api.models.CopyOrMoveRowResult;
+import com.smartsheet.api.models.Error;
 import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.Result;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -210,8 +211,7 @@ public abstract class AbstractResources {
         Util.throwIfNull(path, objectClass);
 
         if (path.isEmpty()) {
-            com.smartsheet.api.models.Error error = new com.smartsheet.api.models.Error();
-            error.setMessage("An empty path was provided.");
+            Error error = Error.builder().message("An empty path was provided.").build();
             throw new ResourceNotFoundException(error);
         }
 

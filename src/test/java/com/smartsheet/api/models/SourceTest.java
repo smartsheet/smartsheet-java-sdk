@@ -27,8 +27,6 @@ class SourceTest {
     class BuilderTests {
         @Test
         void sourceBuilder() {
-            // Arrange
-
             // Act
             Source sourceNoArg = Source.builder().build();
             sourceNoArg.setId(1L);

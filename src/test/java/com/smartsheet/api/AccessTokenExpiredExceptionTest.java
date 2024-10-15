@@ -26,9 +26,10 @@ class AccessTokenExpiredExceptionTest {
     @Test
     void testAccessTokenExpiredException() {
         try {
-            Error error = new Error();
-            error.setErrorCode(1);
-            error.setMessage("testing testing");
+            Error error = Error.builder()
+                    .errorCode(1)
+                    .message("testing testing")
+                    .build();
             throw new AccessTokenExpiredException(error);
         } catch (AccessTokenExpiredException e) {
             assertThat(e.getMessage()).isEqualTo("testing testing");
