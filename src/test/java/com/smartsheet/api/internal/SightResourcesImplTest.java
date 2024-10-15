@@ -151,7 +151,7 @@ class SightResourcesImplTest extends ResourcesImplBase {
     @Test
     void testSetPublishStatus() throws IOException, SmartsheetException {
         server.setResponseBody(new File("src/test/resources/setSightPublishStatus.json"));
-        SightPublish sightPublish = sightResourcesImpl.setPublishStatus(1234L, new SightPublish());
+        SightPublish sightPublish = sightResourcesImpl.setPublishStatus(1234L, SightPublish.builder().build());
         assertThat(sightPublish.getReadOnlyFullAccessibleBy()).isEqualTo(Boolean.FALSE.toString());
         assertThat(sightPublish.getReadOnlyFullEnabled()).isEqualTo(Boolean.FALSE);
         assertThat(sightPublish.getReadOnlyFullUrl()).isNotBlank();
