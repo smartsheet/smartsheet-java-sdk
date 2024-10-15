@@ -32,7 +32,7 @@ class WidgetTest {
             // Common Objects
             Format titleFormat = new Format();
             ImageWidgetContent contents = new ImageWidgetContent();
-            Error error = Error.builder().message("error").build();
+            Error error = Error.builder().build();
 
             // Act
             Widget widgetNoArg = Widget.builder().build();
