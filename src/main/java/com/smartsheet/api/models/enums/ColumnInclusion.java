@@ -16,18 +16,20 @@
 
 package com.smartsheet.api.models.enums;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
 /**
  * Represents specific objects that can be included in some responses.
  */
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@Getter
 public enum ColumnInclusion {
     FILTERS("filters"),
     FORMAT("format");
 
-    String inclusion;
-
-    ColumnInclusion(String inclusion) {
-        this.inclusion = inclusion;
-    }
+    private final String inclusion;
 
     @Override
     public String toString() {

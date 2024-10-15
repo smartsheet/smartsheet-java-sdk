@@ -16,9 +16,15 @@
 
 package com.smartsheet.api.models.format;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
 /**
  * An enumeration representing the available horizontal alignments within Smartsheet.
  */
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@Getter
 public enum HorizontalAlignment {
     DEFAULT_ALIGNMENT(""),
     LEFT("left"),
@@ -32,15 +38,4 @@ public enum HorizontalAlignment {
      * The default setting when the {@link Format} for {@link HorizontalAlignment} is null;
      */
     public static final HorizontalAlignment DEFAULT = DEFAULT_ALIGNMENT;
-
-    HorizontalAlignment(String position) {
-        this.position = position;
-    }
-
-    /**
-     * @return the position
-     */
-    public String getPosition() {
-        return position;
-    }
 }

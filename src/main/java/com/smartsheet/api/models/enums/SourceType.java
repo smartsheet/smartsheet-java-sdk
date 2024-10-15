@@ -16,17 +16,19 @@
 
 package com.smartsheet.api.models.enums;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@Getter
 public enum SourceType {
     REPORT("report"),
     SHEET("sheet"),
     SIGHT("sight"),
     TEMPLATE("template");
 
-    String type;
-
-    SourceType(String type) {
-        this.type = type;
-    }
+    private final String type;
 
     @Override
     public String toString() {

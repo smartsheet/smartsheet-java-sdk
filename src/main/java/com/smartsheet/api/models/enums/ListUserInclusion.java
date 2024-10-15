@@ -16,18 +16,20 @@
 
 package com.smartsheet.api.models.enums;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
 /**
  * Represents specific objects that can be included with the ListUsers request.
  */
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@Getter
 public enum ListUserInclusion {
     LAST_LOGIN("lastLogin"),
     ;
 
-    String inclusion;
-
-    ListUserInclusion(String inclusion) {
-        this.inclusion = inclusion;
-    }
+    private final String inclusion;
 
     @Override
     public String toString() {

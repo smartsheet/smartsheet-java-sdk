@@ -16,9 +16,15 @@
 
 package com.smartsheet.api.models.format;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
 /**
  * An enumeration representing the available font sizes within Smartsheet.
  */
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@Getter
 public enum FontSize {
     PT_8(8),
     PT_9(9),
@@ -39,15 +45,4 @@ public enum FontSize {
      * The default setting when the {@link Format} for {@link FontSize} is null;
      */
     public static final FontSize DEFAULT = PT_10;
-
-    FontSize(int pt) {
-        this.pt = pt;
-    }
-
-    /**
-     * @return the pt
-     */
-    public int getPt() {
-        return pt;
-    }
 }

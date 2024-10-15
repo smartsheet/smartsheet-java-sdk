@@ -16,6 +16,12 @@
 
 package com.smartsheet.api.models.enums;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@Getter
 public enum SearchScope {
     ATTACHMENTS("attachments"),
     CELL_DATA("cellData"),
@@ -29,11 +35,7 @@ public enum SearchScope {
     WORKSPACE_NAMES("workspaceNames"),
     ;
 
-    String scope;
-
-    SearchScope(String scope) {
-        this.scope = scope;
-    }
+    private final String scope;
 
     @Override
     public String toString() {
