@@ -41,6 +41,7 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.List;
@@ -162,15 +163,16 @@ class RowResourcesIT extends ITResourcesImpl {
         deleteSheet(sheet.getId());
     }
 
-    public void testCopyRow() throws SmartsheetException, IOException {
+    public void testCopyRow() throws SmartsheetException {
         //Create new sheet to copy to
         copyToSheet = smartsheet.sheetResources().createSheet(createSheetObject());
 
-        CopyOrMoveRowDestination destination = new CopyOrMoveRowDestination.InsertCopyOrMoveRowDestinationBuilder()
-                .setSheetId(copyToSheet.getId())
+        CopyOrMoveRowDestination destination = CopyOrMoveRowDestination.builder()
+                .sheetId(copyToSheet.getId())
                 .build();
-        CopyOrMoveRowDirective copyOrMoveRowDirective = new CopyOrMoveRowDirective.InsertCopyOrMoveRowDirectiveBuilder()
-                .setRowIds(Arrays.asList(newRows.get(0).getId())).setTo(destination)
+        CopyOrMoveRowDirective copyOrMoveRowDirective = CopyOrMoveRowDirective.builder()
+                .rowIds(Collections.singletonList(newRows.get(0).getId()))
+                .to(destination)
                 .build();
 
         smartsheet
@@ -183,16 +185,15 @@ class RowResourcesIT extends ITResourcesImpl {
                 .copyRows(sheet.getId(), EnumSet.of(RowCopyInclusion.CHILDREN), false, copyOrMoveRowDirective);
     }
 
-    public void testMoveRow() throws SmartsheetException, IOException {
-        List<Long> rowIds = new ArrayList<>();
-        rowIds.add(newRows.get(0).getId());
+    public void testMoveRow() throws SmartsheetException {
+        List<Long> rowIds = List.of(newRows.get(0).getId());
 
-        CopyOrMoveRowDestination destination = new CopyOrMoveRowDestination.InsertCopyOrMoveRowDestinationBuilder()
-                .setSheetId(copyToSheet.getId())
+        CopyOrMoveRowDestination destination = CopyOrMoveRowDestination.builder()
+                .sheetId(copyToSheet.getId())
                 .build();
-        CopyOrMoveRowDirective directive = new CopyOrMoveRowDirective.InsertCopyOrMoveRowDirectiveBuilder()
-                .setRowIds(rowIds)
-                .setTo(destination)
+        CopyOrMoveRowDirective directive = CopyOrMoveRowDirective.builder()
+                .rowIds(rowIds)
+                .to(destination)
                 .build();
 
         smartsheet

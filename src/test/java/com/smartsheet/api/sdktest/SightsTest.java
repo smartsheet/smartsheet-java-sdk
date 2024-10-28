@@ -67,9 +67,7 @@ class SightsTest {
     @Test
     void setPublishStatus() throws SmartsheetException {
         Smartsheet ss = HelperFunctions.SetupClient("Set Sight Publish Status");
-        SightPublish publish = new SightPublish();
-        publish.setReadOnlyFullEnabled(true);
-        publish.setReadOnlyFullAccessibleBy("ALL");
+        SightPublish publish = SightPublish.builder().readOnlyFullEnabled(true).readOnlyFullAccessibleBy("ALL").build();
         ss.sightResources().setPublishStatus(812, publish);
     }
 

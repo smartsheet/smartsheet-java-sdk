@@ -147,14 +147,12 @@ class SheetRowResourcesImplTest extends ResourcesImplBase {
     @Test
     void testMoveRows() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/moveRow.json"));
-        CopyOrMoveRowDirective copyOrMoveRowDirective = new CopyOrMoveRowDirective();
-        CopyOrMoveRowDestination copyOrMoveRowDestination = new CopyOrMoveRowDestination();
-        copyOrMoveRowDestination.setSheetId(2258256056870788L);
+        CopyOrMoveRowDestination copyOrMoveRowDestination = CopyOrMoveRowDestination.builder().sheetId(2258256056870788L).build();
 
-        copyOrMoveRowDirective.setTo(copyOrMoveRowDestination);
-        List<Long> rowIds = new ArrayList<>();
-        rowIds.add(145417762563972L);
-        copyOrMoveRowDirective.setRowIds(rowIds);
+        CopyOrMoveRowDirective copyOrMoveRowDirective = CopyOrMoveRowDirective.builder()
+                .to(copyOrMoveRowDestination)
+                .rowIds(List.of(145417762563972L))
+                .build();
         CopyOrMoveRowResult copyOrMoveRowResult = sheetRowResource.moveRows(
                 2258256056870788L,
                 EnumSet.of(RowMoveInclusion.ATTACHMENTS),
@@ -174,14 +172,12 @@ class SheetRowResourcesImplTest extends ResourcesImplBase {
     @Test
     void testCopyRows() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/moveRow.json"));
-        CopyOrMoveRowDirective copyOrMoveRowDirective = new CopyOrMoveRowDirective();
-        CopyOrMoveRowDestination copyOrMoveRowDestination = new CopyOrMoveRowDestination();
-        copyOrMoveRowDestination.setSheetId(2258256056870788L);
+        CopyOrMoveRowDestination copyOrMoveRowDestination = CopyOrMoveRowDestination.builder().sheetId(2258256056870788L).build();
 
-        copyOrMoveRowDirective.setTo(copyOrMoveRowDestination);
-        List<Long> rowIds = new ArrayList<>();
-        rowIds.add(145417762563972L);
-        copyOrMoveRowDirective.setRowIds(rowIds);
+        CopyOrMoveRowDirective copyOrMoveRowDirective = CopyOrMoveRowDirective.builder()
+                .to(copyOrMoveRowDestination)
+                .rowIds(List.of(145417762563972L))
+                .build();
         CopyOrMoveRowResult copyOrMoveRowResult = sheetRowResource.copyRows(
                 2258256056870788L,
                 EnumSet.of(RowCopyInclusion.ATTACHMENTS),
@@ -201,14 +197,11 @@ class SheetRowResourcesImplTest extends ResourcesImplBase {
     @Test
     void testCopyRows_IgnoreRowsNotFoundNull() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/moveRow.json"));
-        CopyOrMoveRowDirective copyOrMoveRowDirective = new CopyOrMoveRowDirective();
-        CopyOrMoveRowDestination copyOrMoveRowDestination = new CopyOrMoveRowDestination();
-        copyOrMoveRowDestination.setSheetId(2258256056870788L);
-
-        copyOrMoveRowDirective.setTo(copyOrMoveRowDestination);
-        List<Long> rowIds = new ArrayList<>();
-        rowIds.add(145417762563972L);
-        copyOrMoveRowDirective.setRowIds(rowIds);
+        CopyOrMoveRowDestination copyOrMoveRowDestination = CopyOrMoveRowDestination.builder().sheetId(2258256056870788L).build();
+        CopyOrMoveRowDirective copyOrMoveRowDirective = CopyOrMoveRowDirective.builder()
+                .to(copyOrMoveRowDestination)
+                .rowIds(List.of(145417762563972L))
+                .build();
         CopyOrMoveRowResult copyOrMoveRowResult = sheetRowResource.copyRows(
                 2258256056870788L,
                 EnumSet.of(RowCopyInclusion.ATTACHMENTS),

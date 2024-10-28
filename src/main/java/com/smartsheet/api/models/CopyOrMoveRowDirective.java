@@ -16,8 +16,19 @@
 
 package com.smartsheet.api.models;
 
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import lombok.extern.jackson.Jacksonized;
+
 import java.util.List;
 
+@Getter
+@Setter
+@ToString
+@Jacksonized
+@Builder
 public class CopyOrMoveRowDirective {
 
     /**
@@ -29,119 +40,4 @@ public class CopyOrMoveRowDirective {
      * Represents the CopyOrMoveRowDestination object that identifies the destination sheet
      */
     private CopyOrMoveRowDestination to;
-
-    /**
-     * Constructors
-     */
-    public CopyOrMoveRowDirective() {
-    }
-
-    public CopyOrMoveRowDirective(Long destinationSheetId) {
-        to.setSheetId(destinationSheetId);
-    }
-
-    /**
-     * Gets the IDs of the rows to move or copy from the source sheet..
-     *
-     * @return the IDs of the rows to move or copy from the source sheet.
-     */
-    public List<Long> getRowIds() {
-        return rowIds;
-    }
-
-    /**
-     * Sets the IDs of the rows to move or copy from the source sheet.
-     *
-     * @param rowIds ID of the destination sheet
-     */
-    public CopyOrMoveRowDirective setRowIds(List<Long> rowIds) {
-        this.rowIds = rowIds;
-        return this;
-    }
-
-    /**
-     * Gets the CopyOrMoveRowDestination object that identifies the destination sheet.
-     *
-     * @return the CopyOrMoveRowDestination object that identifies the destination sheet.
-     */
-    public CopyOrMoveRowDestination getTo() {
-        return to;
-    }
-
-    /**
-     * Sets the CopyOrMoveRowDestination object that identifies the destination sheet.
-     *
-     * @param to CopyOrMoveRowDestination object
-     */
-    public CopyOrMoveRowDirective setTo(CopyOrMoveRowDestination to) {
-        this.to = to;
-        return this;
-    }
-
-    /**
-     * A convenience class to help create a CopyOrMoveRowDestination object with the appropriate fields for adding to a sheet.
-     */
-    public static class InsertCopyOrMoveRowDirectiveBuilder {
-        /**
-         * Represents the IDs of the rows to move or copy from the source sheet.
-         */
-        private List<Long> rowIds;
-
-        /**
-         * Represents the CopyOrMoveRowDestination object that identifies the destination sheet
-         */
-        private CopyOrMoveRowDestination to;
-
-        /**
-         * Gets the IDs of the rows to move or copy from the source sheet..
-         *
-         * @return the IDs of the rows to move or copy from the source sheet.
-         */
-        public List<Long> getRowIds() {
-            return rowIds;
-        }
-
-        /**
-         * Sets the IDs of the rows to move or copy from the source sheet.
-         *
-         * @param rowIds ID of the destination sheet
-         * @return the builder
-         */
-        public InsertCopyOrMoveRowDirectiveBuilder setRowIds(List<Long> rowIds) {
-            this.rowIds = rowIds;
-            return this;
-        }
-
-        /**
-         * Gets the CopyOrMoveRowDestination object that identifies the destination sheet.
-         *
-         * @return the CopyOrMoveRowDestination object that identifies the destination sheet.
-         */
-        public CopyOrMoveRowDestination getTo() {
-            return to;
-        }
-
-        /**
-         * Sets the CopyOrMoveRowDestination object that identifies the destination sheet.
-         *
-         * @param to CopyOrMoveRowDestination object
-         * @return the builder
-         */
-        public InsertCopyOrMoveRowDirectiveBuilder setTo(CopyOrMoveRowDestination to) {
-            this.to = to;
-            return this;
-        }
-
-        /**
-         * Builds the CopyOrMoveRowDirective.
-         *
-         * @return the CopyOrMoveRowDirective
-         */
-        public CopyOrMoveRowDirective build() {
-            CopyOrMoveRowDirective copyOrMoveRowDirective = new CopyOrMoveRowDirective();
-            copyOrMoveRowDirective.rowIds = rowIds;
-            copyOrMoveRowDirective.to = to;
-            return copyOrMoveRowDirective;
-        }
-    }
 }
