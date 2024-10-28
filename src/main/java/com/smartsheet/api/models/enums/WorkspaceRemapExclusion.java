@@ -16,9 +16,15 @@
 
 package com.smartsheet.api.models.enums;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
 /**
  * Represents specific objects should be excluded in some responses.
  */
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@Getter
 public enum WorkspaceRemapExclusion {
     CELLLINKS("cellLinks"),
     REPORTS("reports"),
@@ -26,11 +32,7 @@ public enum WorkspaceRemapExclusion {
     SIGHTS("sights"),
     ;
 
-    String inclusion;
-
-    WorkspaceRemapExclusion(String inclusion) {
-        this.inclusion = inclusion;
-    }
+    private final String inclusion;
 
     @Override
     public String toString() {

@@ -16,15 +16,17 @@
 
 package com.smartsheet.api.models.enums;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@Getter
 public enum CopyExclusion {
     SHEET_HYPERLINKS("sheetHyperlinks"),
     ;
 
-    String excludes;
-
-    CopyExclusion(String excludes) {
-        this.excludes = excludes;
-    }
+    private final String excludes;
 
     @Override
     public String toString() {

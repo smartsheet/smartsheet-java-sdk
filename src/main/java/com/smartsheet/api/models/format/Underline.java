@@ -16,28 +16,23 @@
 
 package com.smartsheet.api.models.format;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
 /**
  * An enumeration representing the available Underline state for a format.
  */
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@Getter
 public enum Underline {
     NONE(false),
     ON(true),
     ;
     private final boolean underlined;
 
-    Underline(boolean underlined) {
-        this.underlined = underlined;
-    }
-
     /**
      * The default setting when the {@link Format} for {@link Underline} is null;
      */
     public static final Underline DEFAULT = NONE;
-
-    /**
-     * @return the separated
-     */
-    public boolean isUnderlined() {
-        return underlined;
-    }
 }

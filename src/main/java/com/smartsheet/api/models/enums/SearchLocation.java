@@ -16,15 +16,17 @@
 
 package com.smartsheet.api.models.enums;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@Getter
 public enum SearchLocation {
     PERSONAL_WORKSPACE("personalWorkspace"),
     ;
 
-    String location;
-
-    SearchLocation(String location) {
-        this.location = location;
-    }
+    private final String location;
 
     @Override
     public String toString() {

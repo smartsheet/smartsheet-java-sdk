@@ -16,28 +16,23 @@
 
 package com.smartsheet.api.models.format;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
 /**
  * An enumeration representing the available text wrap settings within Smartsheet.
  */
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@Getter
 public enum TextWrap {
     NONE(false),
     ON(true),
     ;
     private final boolean wrapped;
 
-    TextWrap(boolean wrapped) {
-        this.wrapped = wrapped;
-    }
-
     /**
      * The default setting when the {@link Format} for {@link TextWrap} is null;
      */
     public static final TextWrap DEFAULT = NONE;
-
-    /**
-     * @return the wrapped
-     */
-    public boolean isWrapped() {
-        return wrapped;
-    }
 }

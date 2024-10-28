@@ -16,9 +16,15 @@
 
 package com.smartsheet.api.models.format;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
 /**
  * An enumeration representing all the colors available for formatting within Smartsheet.
  */
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@Getter
 public enum Color {
     NONE(null),
     BLACK("000000"),
@@ -75,10 +81,6 @@ public enum Color {
      * The default setting when the {@link Format} for {@link Color} is null;
      */
     public static final Color DEFAULT = NONE;
-
-    Color(String hex) {
-        this.hex = hex;
-    }
 
     /**
      * @return the hex

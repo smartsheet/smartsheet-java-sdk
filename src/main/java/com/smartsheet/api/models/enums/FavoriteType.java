@@ -16,6 +16,12 @@
 
 package com.smartsheet.api.models.enums;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@Getter
 public enum FavoriteType {
     WORKSPACE("workspace"),
     TEMPLATE("template"),
@@ -24,11 +30,7 @@ public enum FavoriteType {
     REPORT("report"),
     SIGHT("sight");
 
-    String type;
-
-    FavoriteType(String type) {
-        this.type = type;
-    }
+    private final String type;
 
     @Override
     public String toString() {

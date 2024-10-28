@@ -16,9 +16,15 @@
 
 package com.smartsheet.api.models.format;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
 /**
  * An enumeration representing the Decimal count formats available in Smartsheet.
  */
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@Getter
 public enum DecimalCount {
     COUNT_0(0),
     COUNT_1(1),
@@ -34,15 +40,4 @@ public enum DecimalCount {
      * The default setting when the {@link Format} for {@link DecimalCount} is null;
      */
     public static final DecimalCount DEFAULT = COUNT_0;
-
-    DecimalCount(int count) {
-        this.decimalCount = count;
-    }
-
-    /**
-     * @return the decimalCount
-     */
-    public int getDecimalCount() {
-        return decimalCount;
-    }
 }

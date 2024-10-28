@@ -16,16 +16,18 @@
 
 package com.smartsheet.api.models.enums;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@Getter
 public enum SummaryFieldExclusion {
     DISPLAYVALUE("displayValue"),
     IMAGE("Image"),
     IMAGEALTTEXT("imageAltText");
 
-    String type;
-
-    SummaryFieldExclusion(String type) {
-        this.type = type;
-    }
+    private final String type;
 
     @Override
     public String toString() {

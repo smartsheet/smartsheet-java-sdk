@@ -16,28 +16,23 @@
 
 package com.smartsheet.api.models.format;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
 /**
  * An enumeration representing the state of the Thousands separator.
  */
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@Getter
 public enum ThousandsSeparator {
     NONE(false),
     ON(true),
     ;
     private final boolean separated;
 
-    ThousandsSeparator(boolean separated) {
-        this.separated = separated;
-    }
-
     /**
      * The default setting when the {@link Format} for {@link ThousandsSeparator} is null;
      */
     public static final ThousandsSeparator DEFAULT = NONE;
-
-    /**
-     * @return the separated
-     */
-    public boolean isSeparated() {
-        return separated;
-    }
 }

@@ -16,9 +16,15 @@
 
 package com.smartsheet.api.models.format;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
 /**
  * An enumeration representing the available Bold state for a format.
  */
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@Getter
 public enum Bold {
     NONE(false),
     ON(true),
@@ -29,16 +35,4 @@ public enum Bold {
      * The default setting when the {@link Format} for {@link Bold} is null;
      */
     public static final Bold DEFAULT = NONE;
-
-    Bold(boolean bold) {
-        this.bold = bold;
-    }
-
-    /**
-     * @return the bold
-     */
-    public boolean isBold() {
-        return bold;
-    }
-
 }

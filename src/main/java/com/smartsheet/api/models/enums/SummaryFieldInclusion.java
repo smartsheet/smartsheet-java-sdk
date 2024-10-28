@@ -16,15 +16,17 @@
 
 package com.smartsheet.api.models.enums;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@Getter
 public enum SummaryFieldInclusion {
     FORMAT("format"),
     WRITERINFO("writerInfo");
 
-    String type;
-
-    SummaryFieldInclusion(String type) {
-        this.type = type;
-    }
+    private final String type;
 
     @Override
     public String toString() {

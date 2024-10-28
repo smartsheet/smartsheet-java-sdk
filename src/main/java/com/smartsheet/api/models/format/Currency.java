@@ -16,9 +16,15 @@
 
 package com.smartsheet.api.models.format;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
 /**
  * An enum representing the available currency formats available in Smartsheet.
  */
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@Getter
 public enum Currency {
     NONE(null, ""),
     ARGENTINE_PESO("ARS", "$"),
@@ -52,23 +58,4 @@ public enum Currency {
 
     private final String code;
     private final String symbol;
-
-    Currency(String code, String symbol) {
-        this.code = code;
-        this.symbol = symbol;
-    }
-
-    /**
-     * @return the code
-     */
-    public String getCode() {
-        return code;
-    }
-
-    /**
-     * @return the symbol
-     */
-    public String getSymbol() {
-        return symbol;
-    }
 }
