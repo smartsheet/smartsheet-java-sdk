@@ -37,7 +37,7 @@ plugins {
 // The group name. This dictates the prefix our dependency will have once it's published.
 group = 'com.smartsheet'
 // The version. This will be added to the end of the Jar and all other resources that are created during the build.
-version = '3.2.1'
+version = '3.2.2'
 // The Java version:
 sourceCompatibility = '11'
 
