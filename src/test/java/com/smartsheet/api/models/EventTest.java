@@ -22,6 +22,7 @@ import com.smartsheet.api.models.enums.EventSource;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
+import java.util.Date;
 import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -32,12 +33,14 @@ class EventTest {
         @Test
         void eventBuilder() {
             // Act
+            Date date = new Date();
+
             Event eventNoArg = Event.builder().build();
             eventNoArg.setAccessTokenName("accessTokenName");
             eventNoArg.setAction(EventAction.CREATE);
             eventNoArg.setAdditionalDetails(Map.of("key", "value"));
             eventNoArg.setEventId("eventId");
-            eventNoArg.setEventTimestamp("2024-01-01T00:00:00Z");
+            eventNoArg.setEventTimestamp(date);
             eventNoArg.setObjectId("objectId");
             eventNoArg.setObjectType(EventObjectType.SHEET);
             eventNoArg.setRequestUserId(123L);
@@ -49,7 +52,7 @@ class EventTest {
                     .action(EventAction.CREATE)
                     .additionalDetails(Map.of("key", "value"))
                     .eventId("eventId")
-                    .eventTimestamp("2024-01-01T00:00:00Z")
+                    .eventTimestamp(date)
                     .objectId("objectId")
                     .objectType(EventObjectType.SHEET)
                     .requestUserId(123L)

@@ -25,9 +25,8 @@ import lombok.Setter;
 import lombok.ToString;
 import lombok.extern.jackson.Jacksonized;
 
-import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Map;
-import java.util.TimeZone;
 
 @Getter
 @Setter
@@ -59,7 +58,7 @@ public class Event {
     /**
      * Date and time of the event
      */
-    private Object eventTimestamp;
+    private Date eventTimestamp;
 
     /**
      * The identifier of the object impacted by the event
@@ -85,24 +84,4 @@ public class Event {
      * User assumed as the one who initiated the event.
      */
     private Long userId;
-
-    /**
-     * Sets an event timestamp
-     *
-     * @param eventTimestamp String if Date, Long if numericDate true on API call.
-     */
-    public Event setEventTimestamp(Object eventTimestamp) {
-        if (eventTimestamp instanceof String) {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
-            sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
-            try {
-                this.eventTimestamp = sdf.parse(eventTimestamp.toString());
-            } catch (Exception e) {
-                // Empty Catch Block
-            }
-        } else {
-            this.eventTimestamp = eventTimestamp;
-        }
-        return this;
-    }
 }
