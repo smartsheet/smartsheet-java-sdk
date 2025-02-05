@@ -55,7 +55,7 @@ ext {
     jUnitJupiterVersion = '5.5.1'
     mockitoCoreVersion = '5.12.0'
     mockitoJUnitJupiterVersion = '5.12.0'
-    okHttpVersion = '4.0.0'
+    okHttpVersion = '4.12.0'
     resilience4jVersion = "1.7.1"   // last version compatible with pre-17 JDKs
     slf4jSimpleVersion = '1.7.25'
     slf4jVersion = '1.7.25'
