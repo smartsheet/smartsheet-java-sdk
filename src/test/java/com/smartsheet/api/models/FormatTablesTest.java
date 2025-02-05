@@ -29,8 +29,8 @@ class FormatTablesTest {
         @Test
         void formatTablesBuilder() {
             // Arrange
-            List<Currency> currency = List.of(new Currency());
-            List<FontFamily> fontFamily = List.of(new FontFamily());
+            List<Currency> currency = List.of(Currency.builder().build());
+            List<FontFamily> fontFamily = List.of(FontFamily.builder().build());
 
             // Act
             FormatTables formatTablesNoArg = FormatTables.builder().build();

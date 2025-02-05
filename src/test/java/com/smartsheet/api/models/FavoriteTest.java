@@ -16,38 +16,32 @@
 
 package com.smartsheet.api.models;
 
+import com.smartsheet.api.models.enums.FavoriteType;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
-class EventResultTest {
+class FavoriteTest {
     @Nested
     class BuilderTests {
         @Test
-        void eventResultBuilder() {
-            // Arrange
-            List<Event> data = List.of(Event.builder().build());
-
+        void favoriteBuilder() {
             // Act
-            EventResult eventResultNoArg = EventResult.builder().build();
-            eventResultNoArg.setData(data);
-            eventResultNoArg.setMoreAvailable(true);
-            eventResultNoArg.setNextStreamPosition("nextStreamPosition");
+            Favorite favoriteNoArg = Favorite.builder().build();
+            favoriteNoArg.setType(FavoriteType.SHEET);
+            favoriteNoArg.setObjectId(123L);
 
-            EventResult eventResultAllArg = EventResult.builder()
-                    .data(data)
-                    .moreAvailable(true)
-                    .nextStreamPosition("nextStreamPosition")
+            Favorite favoriteAllArg = Favorite.builder()
+                    .type(FavoriteType.SHEET)
+                    .objectId(123L)
                     .build();
 
             // Assert
-            assertThat(eventResultNoArg)
+            assertThat(favoriteNoArg)
                     .hasNoNullFieldsOrProperties()
                     .usingRecursiveComparison()
-                    .isEqualTo(eventResultAllArg);
+                    .isEqualTo(favoriteAllArg);
         }
     }
 }

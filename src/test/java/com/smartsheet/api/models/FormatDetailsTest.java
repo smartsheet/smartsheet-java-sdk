@@ -16,38 +16,30 @@
 
 package com.smartsheet.api.models;
 
+import com.smartsheet.api.models.enums.PaperSize;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
-class EventResultTest {
+class FormatDetailsTest {
     @Nested
     class BuilderTests {
         @Test
-        void eventResultBuilder() {
-            // Arrange
-            List<Event> data = List.of(Event.builder().build());
-
+        void formatDetailsBuilder() {
             // Act
-            EventResult eventResultNoArg = EventResult.builder().build();
-            eventResultNoArg.setData(data);
-            eventResultNoArg.setMoreAvailable(true);
-            eventResultNoArg.setNextStreamPosition("nextStreamPosition");
+            FormatDetails formatDetailsNoArg = FormatDetails.builder().build();
+            formatDetailsNoArg.setPaperSize(PaperSize.A4);
 
-            EventResult eventResultAllArg = EventResult.builder()
-                    .data(data)
-                    .moreAvailable(true)
-                    .nextStreamPosition("nextStreamPosition")
+            FormatDetails formatDetailsAllArg = FormatDetails.builder()
+                    .paperSize(PaperSize.A4)
                     .build();
 
             // Assert
-            assertThat(eventResultNoArg)
+            assertThat(formatDetailsNoArg)
                     .hasNoNullFieldsOrProperties()
                     .usingRecursiveComparison()
-                    .isEqualTo(eventResultAllArg);
+                    .isEqualTo(formatDetailsAllArg);
         }
     }
 }

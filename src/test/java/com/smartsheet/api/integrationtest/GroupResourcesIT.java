@@ -64,10 +64,10 @@ public class GroupResourcesIT extends ITResourcesImpl {
         if (user.getGroupAdmin()) {
             GroupMember member = new GroupMember.AddGroupMemberBuilder().setEmail("aditi.nioding@gmail.com").build();
 
-            Group group = new Group.CreateGroupBuilder()
-                    .setName(GROUP_NAME)
-                    .setDescription("Test group")
-                    .setMembers(Arrays.asList(member))
+            Group group = Group.builder()
+                    .name(GROUP_NAME)
+                    .description("Test group")
+                    .members(List.of(member))
                     .build();
 
             group = smartsheet.groupResources().createGroup(group);
@@ -119,10 +119,10 @@ public class GroupResourcesIT extends ITResourcesImpl {
         UserProfile user = smartsheet.userResources().getCurrentUser();
 
         if (user.getGroupAdmin()) {
-            Group groupUpdated = new Group.UpdateGroupBuilder()
-                    .setName("Renamed Group")
-                    .setId(groupId)
-                    .setDescription("Some description")
+            Group groupUpdated = Group.builder()
+                    .name("Renamed Group")
+                    .id(groupId)
+                    .description("Some description")
                     .build();
             assertThat(smartsheet.groupResources().updateGroup(groupUpdated)).isNotNull();
         }

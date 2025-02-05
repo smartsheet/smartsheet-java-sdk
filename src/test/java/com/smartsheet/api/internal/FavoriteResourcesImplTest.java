@@ -43,9 +43,14 @@ class FavoriteResourcesImplTest extends ResourcesImplBase {
 
     @Test
     void testAddFavorites() throws Exception {
+        // Arrange
         server.setResponseBody(new File("src/test/resources/addFavorites.json"));
-        List<Favorite> favoritesToAdd = new Favorite.AddFavoriteBuilder().addFavorite(8400677765441412L, FavoriteType.SHEET).build();
+        List<Favorite> favoritesToAdd = List.of(Favorite.builder().objectId(8400677765441412L).type(FavoriteType.SHEET).build());
+
+        // Act
         List<Favorite> addedFavorites = favoriteResources.addFavorites(favoritesToAdd);
+
+        // Assert
         assertThat(addedFavorites).hasSize(1);
         assertThat(addedFavorites.get(0).getType()).isEqualTo(FavoriteType.SHEET);
         assertThat(addedFavorites.get(0).getObjectId()).isEqualTo(8400677765441412L);

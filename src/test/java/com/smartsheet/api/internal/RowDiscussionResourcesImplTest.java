@@ -36,39 +36,49 @@ class RowDiscussionResourcesImplTest extends ResourcesImplBase {
     private RowDiscussionResourcesImpl discussionRowResources;
 
     @BeforeEach
-    public void setUp() throws Exception {
+    public void setUp() {
         discussionRowResources = new RowDiscussionResourcesImpl(new SmartsheetImpl("http://localhost:9090/1.1/",
                 "accessToken", new DefaultHttpClient(), serializer));
     }
 
     @Test
     void testCreateDiscussion() throws Exception {
+        // Arrange
         server.setResponseBody(new File("src/test/resources/createDiscussionOnRow.json"));
 
-        Discussion discussion = new Discussion();
-        discussion.setTitle("new discussion");
+        Discussion discussion = Discussion.builder().title("new discussion").build();
+
+        // Act
         Discussion newDiscussion = discussionRowResources.createDiscussion(1234L, 5678L, discussion);
+
+        // Assert
         assertThat(newDiscussion.getTitle()).isEqualTo("This is a new discussion");
         assertThat(newDiscussion.getId()).isEqualTo(4583173393803140L);
     }
 
     @Test
     void testCreateDiscussionWithAttachment() throws Exception {
+        // Arrange
         server.setResponseBody(new File("src/test/resources/createDiscussionOnRow.json"));
         File file = new File("src/test/resources/large_sheet.pdf");
         Comment comment = new Comment.AddCommentBuilder().setText("New comment").build();
-        Discussion discussion = new Discussion.CreateDiscussionBuilder().setComment(comment).setTitle("Some title").build();
+        Discussion discussion = Discussion.builder().title("Some title").comment(comment).build();
 
+        // Act
         Discussion newDiscussion = discussionRowResources.createDiscussionWithAttachment(123L, 456L, discussion, file, "application/pdf");
+
+        // Assert
         assertThat(newDiscussion.getTitle()).isEqualTo("This is a new discussion");
     }
 
     @Test
     void testCreateDiscussionWithAttachment_InputValidation() {
+        // Arrange
         File file = new File("src/test/resources/large_sheet.pdf");
         Comment comment = new Comment.AddCommentBuilder().setText("New comment").build();
-        Discussion discussion = new Discussion.CreateDiscussionBuilder().setComment(comment).setTitle("Some title").build();
+        Discussion discussion = Discussion.builder().title("Some title").comment(comment).build();
 
+        // Act & Assert
         assertThatThrownBy(() -> discussionRowResources.createDiscussionWithAttachment(123L, 456L, null, file, "application/pdf"))
                 .isInstanceOf(IllegalArgumentException.class);
         assertThatThrownBy(() -> discussionRowResources.createDiscussionWithAttachment(123L, 456L, discussion, null, "application/pdf"))
@@ -79,17 +89,20 @@ class RowDiscussionResourcesImplTest extends ResourcesImplBase {
 
     @Test
     void testListDiscussions() throws Exception {
+        // Arrange
         server.setResponseBody(new File("src/test/resources/getRowDiscussions.json"));
 
-        Discussion discussion = new Discussion();
-        discussion.setTitle("new discussion");
         PaginationParameters parameters = new PaginationParameters(false, 1, 1);
+
+        // Act
         PagedResult<Discussion> newDiscussion = discussionRowResources.listDiscussions(
                 1234L,
                 5678L,
                 parameters,
                 EnumSet.of(DiscussionInclusion.COMMENTS)
         );
+
+        // Assert
         assertThat(newDiscussion.getData().get(0).getTitle()).isEqualTo("Lincoln");
         assertThat(newDiscussion.getData().get(0).getId()).isEqualTo(3138415114905476L);
         assertThat(newDiscussion.getData().get(0).getComments().get(0).getAttachments().get(0).getName()).isEqualTo("test.html");

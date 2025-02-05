@@ -64,17 +64,17 @@ public class FolderResourcesIT extends ITResourcesImpl {
     }
 
     public void testCreateFolderInHome() throws SmartsheetException {
-        Folder folder = new Folder.CreateFolderBuilder().setName("New Folder in Home By Aditi").build();
+        Folder folder = Folder.builder().name("New Folder in Home By Aditi").build();
 
         newFolderHome = smartsheet.homeResources().folderResources().createFolder(folder);
         assertThat(newFolderHome.getName()).isEqualTo("New Folder in Home By Aditi");
     }
 
     public void testCreateFolderInFolder() throws SmartsheetException {
-        Folder folder = new Folder.CreateFolderBuilder().setName("New Folder in Folder By Aditi").build();
+        Folder folder = Folder.builder().name("New Folder in Folder By Aditi").build();
         newFolder = smartsheet.folderResources().createFolder(newFolderHome.getId(), folder);
 
-        Folder folder1 = new Folder.CreateFolderBuilder().setName("New Folder 2 in Folder By Aditi").build();
+        Folder folder1 = Folder.builder().name("New Folder 2 in Folder By Aditi").build();
         smartsheet.folderResources().createFolder(newFolder.getId(), folder1);
 
         assertThat(newFolder.getName()).isEqualTo(folder.getName());
@@ -87,13 +87,13 @@ public class FolderResourcesIT extends ITResourcesImpl {
         //calling helper method
         workspace = createWorkspace("New Workspace By Aditi");
 
-        Folder folder = new Folder.CreateFolderBuilder().setName("New Folder in Workspace By Aditi").build();
+        Folder folder = Folder.builder().name("New Folder in Workspace By Aditi").build();
         newFolderWorkspace = smartsheet.workspaceResources().folderResources().createFolder(workspace.getId(), folder);
         assertThat(folder.getName()).isEqualTo("New Folder in Workspace By Aditi");
     }
 
     public void testUpdateFolder() throws SmartsheetException {
-        Folder folder = new Folder.UpdateFolderBuilder().setName("Updated Name By Aditi").setId(newFolderHome.getId()).build();
+        Folder folder = Folder.builder().name("Updated Name By Aditi").id(newFolderHome.getId()).build();
         Folder resultFolder = smartsheet.folderResources().updateFolder(folder);
 
         assertThat(resultFolder.getName()).isEqualTo(folder.getName());

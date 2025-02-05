@@ -19,35 +19,28 @@ package com.smartsheet.api.models;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
-class EventResultTest {
+class CurrencyTest {
     @Nested
     class BuilderTests {
         @Test
-        void eventResultBuilder() {
-            // Arrange
-            List<Event> data = List.of(Event.builder().build());
-
+        void currencyBuilder() {
             // Act
-            EventResult eventResultNoArg = EventResult.builder().build();
-            eventResultNoArg.setData(data);
-            eventResultNoArg.setMoreAvailable(true);
-            eventResultNoArg.setNextStreamPosition("nextStreamPosition");
+            Currency currencyNoArg = Currency.builder().build();
+            currencyNoArg.setCode("USD");
+            currencyNoArg.setSymbol("$");
 
-            EventResult eventResultAllArg = EventResult.builder()
-                    .data(data)
-                    .moreAvailable(true)
-                    .nextStreamPosition("nextStreamPosition")
+            Currency currencyAllArg = Currency.builder()
+                    .code("USD")
+                    .symbol("$")
                     .build();
 
             // Assert
-            assertThat(eventResultNoArg)
+            assertThat(currencyNoArg)
                     .hasNoNullFieldsOrProperties()
                     .usingRecursiveComparison()
-                    .isEqualTo(eventResultAllArg);
+                    .isEqualTo(currencyAllArg);
         }
     }
 }

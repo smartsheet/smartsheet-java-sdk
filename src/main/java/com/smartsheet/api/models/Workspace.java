@@ -32,16 +32,6 @@ public class Workspace extends Folder {
     private AccessLevel accessLevel;
 
     /**
-     * Represents the link .
-     */
-    private String permalink;
-
-    /**
-     * Represents if the workspace is marked as favorite
-     */
-    private Boolean favorite;
-
-    /**
      * Gets the user's permissions on a workspace.
      *
      * @return the access level
@@ -58,44 +48,6 @@ public class Workspace extends Folder {
     public Workspace setAccessLevel(AccessLevel accessLevel) {
         this.accessLevel = accessLevel;
         return this;
-    }
-
-    /**
-     * Gets the permalink to the workspace.
-     *
-     * @return the permalink
-     */
-    public String getPermalink() {
-        return permalink;
-    }
-
-    /**
-     * Sets the permalink to the workspace.
-     *
-     * @param permalink the new permalink
-     */
-    public Folder setPermalink(String permalink) {
-        this.permalink = permalink;
-        return null;
-    }
-
-    /**
-     * Gets the favorite
-     *
-     * @return the favorite
-     */
-    public Boolean getFavorite() {
-        return favorite;
-    }
-
-    /**
-     * Sets the favorite
-     *
-     * @param favorite the favorite
-     */
-    public Folder setFavorite(Boolean favorite) {
-        this.favorite = favorite;
-        return null;
     }
 
     /**

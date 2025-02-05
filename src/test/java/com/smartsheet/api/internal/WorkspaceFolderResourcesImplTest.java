@@ -58,7 +58,7 @@ class WorkspaceFolderResourcesImplTest extends ResourcesImplBase {
     void testCreateFolder() throws IOException, SmartsheetException {
         server.setResponseBody(new File("src/test/resources/newWorkspaceFolder.json"));
 
-        Folder folder = new Folder.CreateFolderBuilder().setName("New Folder").build();
+        Folder folder = Folder.builder().name("New Name").build();
         Folder newFolder = workspaceFolderResources.createFolder(1234L, folder);
         assertThat(newFolder.getId().longValue()).isEqualTo(8121709439018884L);
         assertThat(newFolder.getName()).isEqualTo("New Folder");

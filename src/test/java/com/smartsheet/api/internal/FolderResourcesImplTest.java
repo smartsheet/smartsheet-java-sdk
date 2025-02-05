@@ -62,7 +62,7 @@ class FolderResourcesImplTest extends ResourcesImplBase {
     void testUpdateFolder() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/updateFolder.json"));
 
-        Folder newFolder = new Folder.UpdateFolderBuilder().setName("New Name").build();
+        Folder newFolder = Folder.builder().name("New Name").build();
         Folder resultFolder = folderResource.updateFolder(newFolder);
 
         assertThat(resultFolder.getName()).isEqualTo(newFolder.getName());
@@ -91,7 +91,7 @@ class FolderResourcesImplTest extends ResourcesImplBase {
     void testCreateFolder() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/createFolder.json"));
 
-        Folder newFolder = new Folder.CreateFolderBuilder().setName("new folder by brett").build();
+        Folder newFolder = Folder.builder().name("new folder by brett").build();
         Folder createdFolder = folderResource.createFolder(123L, newFolder);
 
         assertThat(createdFolder.getName()).isEqualTo(newFolder.getName());

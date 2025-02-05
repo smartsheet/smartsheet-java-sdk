@@ -111,8 +111,7 @@ public class ReportResourcesIT extends ITResourcesImpl {
         recipients.add(recipientEmail);
         //recipients.add(recipientGroup);
 
-        FormatDetails formatDetails = new FormatDetails();
-        formatDetails.setPaperSize(PaperSize.A0);
+        FormatDetails formatDetails = FormatDetails.builder().paperSize(PaperSize.A0).build();
 
         SheetEmail email = new SheetEmail.AddSheetEmailBuilder()
                 .setFormat(SheetEmailFormat.PDF)

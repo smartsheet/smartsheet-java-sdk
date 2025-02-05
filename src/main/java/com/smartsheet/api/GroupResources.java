@@ -62,11 +62,11 @@ public interface GroupResources {
     Group getGroup(long groupId) throws SmartsheetException;
 
     /**
-     * <p>Create a {@link Group}. Use {@link Group.CreateGroupBuilder} to create the model for a new {@link Group}</p>
+     * <p>Create a {@link Group}.</p>
      *
      * <p>It mirrors to the following Smartsheet REST API method: POST /groups</p>
      *
-     * @param group the {@link Group} to create. Use {@link Group.CreateGroupBuilder} to create this model.
+     * @param group the {@link Group} to create
      * @return the newly created {@link Group}
      * @throws IllegalArgumentException    if any argument is null or empty string
      * @throws InvalidRequestException     if there is any problem with the REST API request
@@ -78,11 +78,11 @@ public interface GroupResources {
     Group createGroup(Group group) throws SmartsheetException;
 
     /**
-     * <p>Update a {@link Group}. Use {@link Group.CreateGroupBuilder} to create the model for a new {@link Group}</p>
+     * <p>Update a {@link Group}</p>
      *
      * <p>It mirrors to the following Smartsheet REST API method: PUT /group/{groupId}</p>
      *
-     * @param group the {@link Group} to create. Use {@link Group.CreateGroupBuilder} to create this model.
+     * @param group the {@link Group} to create
      * @return the newly created {@link Group}
      * @throws IllegalArgumentException    if any argument is null or empty string
      * @throws InvalidRequestException     if there is any problem with the REST API request

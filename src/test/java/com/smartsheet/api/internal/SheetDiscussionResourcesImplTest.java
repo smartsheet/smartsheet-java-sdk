@@ -42,13 +42,14 @@ class SheetDiscussionResourcesImplTest extends ResourcesImplBase {
     private SheetDiscussionResourcesImpl sheetDiscussionResources;
 
     @BeforeEach
-    public void setUp() throws Exception {
+    public void setUp() {
         sheetDiscussionResources = new SheetDiscussionResourcesImpl(new SmartsheetImpl("http://localhost:9090/1.1/",
                 "accessToken", new DefaultHttpClient(), serializer));
     }
 
     @Test
     void testCreateDiscussion() throws SmartsheetException, IOException {
+        // Arrange
         server.setResponseBody(new File("src/test/resources/createDiscussion.json"));
 
         // Test success
@@ -57,14 +58,18 @@ class SheetDiscussionResourcesImplTest extends ResourcesImplBase {
         comment.setText("This is a test.");
         comment.setAttachments(new ArrayList<>());
         comments.add(comment);
-        Discussion discussion = new Discussion();
-        discussion.setTitle("New Discussion");
-        discussion.setComments(comments);
-        discussion.setLastCommentedUser(new User());
-        discussion.setLastCommentedAt(new Date());
-        discussion.setCommentAttachments(new ArrayList<>());
+        Discussion discussion = Discussion.builder()
+                .title("New Discussion")
+                .comments(comments)
+                .lastCommentedUser(new User())
+                .lastCommentedAt(new Date())
+                .commentAttachments(new ArrayList<>())
+                .build();
+
+        // Act
         Discussion newDiscussion = sheetDiscussionResources.createDiscussion(1234L, discussion);
 
+        // Assert
         assertThat(newDiscussion.getComments()).isNotNull();
         assertThat(newDiscussion.getComments()).hasSize(1);
         assertThat(newDiscussion.getComments().get(0).getCreatedBy().getName()).isEqualTo("Brett Batie");
@@ -95,12 +100,15 @@ class SheetDiscussionResourcesImplTest extends ResourcesImplBase {
         comment.setText("This is a test.");
         comment.setAttachments(new ArrayList<>());
         comments.add(comment);
-        Discussion discussion = new Discussion();
-        discussion.setTitle("New Discussion");
-        discussion.setComments(comments);
-        discussion.setLastCommentedUser(new User());
-        discussion.setLastCommentedAt(new Date());
-        discussion.setCommentAttachments(new ArrayList<>());
+        Discussion discussion = Discussion.builder()
+                .title("New Discussion")
+                .comments(comments)
+                .lastCommentedUser(new User())
+                .lastCommentedAt(new Date())
+                .commentAttachments(new ArrayList<>())
+                .build();
+
+        // Act
         Discussion newDiscussion = sheetDiscussionResources.createDiscussionWithAttachment(1234L, discussion, file, "application/pdf");
 
         assertThat(newDiscussion.getComments()).isNotNull();

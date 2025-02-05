@@ -19,35 +19,26 @@ package com.smartsheet.api.models;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
-class EventResultTest {
+class FeatureInfoTest {
     @Nested
     class BuilderTests {
         @Test
-        void eventResultBuilder() {
-            // Arrange
-            List<Event> data = List.of(Event.builder().build());
-
+        void featureInfoBuilder() {
             // Act
-            EventResult eventResultNoArg = EventResult.builder().build();
-            eventResultNoArg.setData(data);
-            eventResultNoArg.setMoreAvailable(true);
-            eventResultNoArg.setNextStreamPosition("nextStreamPosition");
+            FeatureInfo featureInfoNoArg = FeatureInfo.builder().build();
+            featureInfoNoArg.setSymbolsVersion(1);
 
-            EventResult eventResultAllArg = EventResult.builder()
-                    .data(data)
-                    .moreAvailable(true)
-                    .nextStreamPosition("nextStreamPosition")
+            FeatureInfo featureInfoAllArg = FeatureInfo.builder()
+                    .symbolsVersion(1)
                     .build();
 
             // Assert
-            assertThat(eventResultNoArg)
+            assertThat(featureInfoNoArg)
                     .hasNoNullFieldsOrProperties()
                     .usingRecursiveComparison()
-                    .isEqualTo(eventResultAllArg);
+                    .isEqualTo(featureInfoAllArg);
         }
     }
 }

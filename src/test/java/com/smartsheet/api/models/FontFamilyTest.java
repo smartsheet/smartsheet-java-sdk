@@ -23,31 +23,26 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class EventResultTest {
+class FontFamilyTest {
     @Nested
     class BuilderTests {
         @Test
-        void eventResultBuilder() {
-            // Arrange
-            List<Event> data = List.of(Event.builder().build());
-
+        void fontFamilyBuilder() {
             // Act
-            EventResult eventResultNoArg = EventResult.builder().build();
-            eventResultNoArg.setData(data);
-            eventResultNoArg.setMoreAvailable(true);
-            eventResultNoArg.setNextStreamPosition("nextStreamPosition");
+            FontFamily fontFamilyNoArg = FontFamily.builder().build();
+            fontFamilyNoArg.setName("Arial");
+            fontFamilyNoArg.setTraits(List.of("Bold", "Italic"));
 
-            EventResult eventResultAllArg = EventResult.builder()
-                    .data(data)
-                    .moreAvailable(true)
-                    .nextStreamPosition("nextStreamPosition")
+            FontFamily fontFamilyAllArg = FontFamily.builder()
+                    .name("Arial")
+                    .traits(List.of("Bold", "Italic"))
                     .build();
 
             // Assert
-            assertThat(eventResultNoArg)
+            assertThat(fontFamilyNoArg)
                     .hasNoNullFieldsOrProperties()
                     .usingRecursiveComparison()
-                    .isEqualTo(eventResultAllArg);
+                    .isEqualTo(fontFamilyAllArg);
         }
     }
 }
