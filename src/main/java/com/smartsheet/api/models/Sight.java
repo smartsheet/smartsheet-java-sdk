@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2025 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -66,7 +66,10 @@ public class Sight {
 
     /**
      * Indicates whether the User has marked the Sight as a favorite
+     *
+     * @deprecated As of API 3.2.2. Please use the isFavorite method in FavoritesResources instead.
      */
+    @Deprecated(since = "3.2.2", forRemoval = true)
     private Boolean favorite;
 
     /**

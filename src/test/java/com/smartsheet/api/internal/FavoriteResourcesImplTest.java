@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2025 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -61,6 +61,14 @@ class FavoriteResourcesImplTest extends ResourcesImplBase {
         assertThat(favorites.getData().get(1).getType()).isNotNull();
         assertThat(favorites.getData().get(0).getObjectId()).isNotNull();
         assertThat(favorites.getData().get(1).getObjectId()).isNotNull();
+    }
+
+    @Test
+    void testIsFavorite() throws Exception {
+        server.setResponseBody(new File("src/test/resources/isFavorite.json"));
+        Favorite isFavorite = favoriteResources.isFavorite(FavoriteType.SHEET, 5897312590423940L);
+        assertThat(isFavorite.getObjectId()).isEqualTo(5897312590423940L);
+        assertThat(isFavorite.getType()).isEqualTo(FavoriteType.SHEET);
     }
 
     @Test

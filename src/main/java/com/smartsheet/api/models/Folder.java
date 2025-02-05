@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2025 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -50,7 +50,10 @@ public class Folder extends NamedModel<Long> {
 
     /**
      * Returns if the user has marked the Folder as a Favorite in their Home tab.
+     *
+     * @deprecated As of API 3.2.2. Please use the isFavorite method in FavoritesResources instead.
      */
+    @Deprecated(since = "3.2.2", forRemoval = true)
     private Boolean favorite;
 
     /**
@@ -106,7 +109,10 @@ public class Folder extends NamedModel<Long> {
      * Gets the favorite boolean value of folder in Home.
      *
      * @return the sheets
+     *
+     * @deprecated As of API 3.2.2. Please use the isFavorite method in FavoritesResources instead.
      */
+    @Deprecated(since = "3.2.2", forRemoval = true)
     public Boolean getFavorite() {
         return favorite;
     }
@@ -115,7 +121,10 @@ public class Folder extends NamedModel<Long> {
      * Sets the favorite boolean value of folder in Home.
      *
      * @param favorite the new sheets
+     *
+     * @deprecated As of API 3.2.2. Please use the isFavorite method in FavoritesResources instead.
      */
+    @Deprecated(since = "3.2.2", forRemoval = true)
     public Folder setFavorite(Boolean favorite) {
         this.favorite = favorite;
         return this;

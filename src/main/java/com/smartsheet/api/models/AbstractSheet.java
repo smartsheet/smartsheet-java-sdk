@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2025 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -88,7 +88,10 @@ public abstract class AbstractSheet<TRow extends AbstractRow<TColumn, TCell>, TC
 
     /**
      * Identifies if the sheet is marked as favorite.
+     *
+     * @deprecated As of API 3.2.2. Please use the isFavorite method in FavoritesResources instead.
      */
+    @Deprecated(since = "3.2.2", forRemoval = true)
     private Boolean favorite;
 
     /**
@@ -410,7 +413,10 @@ public abstract class AbstractSheet<TRow extends AbstractRow<TColumn, TCell>, TC
      * True if the sheet is a favorite sheet.
      *
      * @return the favorite
+     *
+     * @deprecated As of API 3.2.2. Please use the isFavorite method in FavoritesResources instead.
      */
+    @Deprecated(since = "3.2.2", forRemoval = true)
     public Boolean isFavorite() {
         return favorite;
     }
@@ -419,7 +425,10 @@ public abstract class AbstractSheet<TRow extends AbstractRow<TColumn, TCell>, TC
      * Sets the favorite sheet
      *
      * @param favorite the favorite
+     *
+     * @deprecated As of API 3.2.2. Please use the isFavorite method in FavoritesResources instead.
      */
+    @Deprecated(since = "3.2.2", forRemoval = true)
     @SuppressWarnings("unchecked")
     public <T extends AbstractSheet<TRow, TColumn, TCell>> T setFavorite(Boolean favorite) {
         this.favorite = favorite;
