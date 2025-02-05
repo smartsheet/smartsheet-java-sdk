@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2025 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,6 +36,8 @@ import java.util.Set;
  */
 public class FavoriteResourcesImpl extends AbstractResources implements FavoriteResources {
 
+    private static final String FAVORITES = "favorites";
+
     /**
      * Constructor.
      * <p>
@@ -67,7 +69,7 @@ public class FavoriteResourcesImpl extends AbstractResources implements Favorite
      * @throws SmartsheetException the smartsheet exception
      */
     public List<Favorite> addFavorites(List<Favorite> favorites) throws SmartsheetException {
-        return this.postAndReceiveList("favorites/", favorites, Favorite.class);
+        return this.postAndReceiveList(FAVORITES + "/", favorites, Favorite.class);
     }
 
     /**
@@ -89,13 +91,37 @@ public class FavoriteResourcesImpl extends AbstractResources implements Favorite
      * @throws SmartsheetException the smartsheet exception
      */
     public PagedResult<Favorite> listFavorites(PaginationParameters parameters) throws SmartsheetException {
-        String path = "favorites";
+        String path = FAVORITES;
 
         if (parameters != null) {
             path += parameters.toQueryString();
         }
 
         return this.listResourcesWithWrapper(path, Favorite.class);
+    }
+
+    /**
+     * Gets a single Favorite item by type and objectId. If the object is not a favorite, a 404 status will be returned.
+     * <p>
+     * It mirrors to the following Smartsheet REST API method: GET /favorites/{favoriteType}/{objectId}
+     * </p>
+     * Exceptions:
+     * IllegalArgumentException : if any argument is null
+     * InvalidRequestException : if there is any problem with the REST API request
+     * AuthorizationException : if there is any problem with the REST API authorization(access token)
+     * ResourceNotFoundException : if the resource can not be found or the object is not a favorite
+     * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     * SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     * SmartsheetException : if there is any other error occurred during the operation
+     *
+     * @param favoriteType the favoriteType
+     * @param objectId a single favorite objectId
+     * @return a single Favorite object
+     * @throws SmartsheetException the smartsheet exception
+     */
+    public Favorite isFavorite(FavoriteType favoriteType, Long objectId) throws SmartsheetException {
+        String path = FAVORITES + "/" + favoriteType.toString() + "/" + objectId;
+        return this.getResource(path, Favorite.class);
     }
 
     /**
@@ -117,7 +143,7 @@ public class FavoriteResourcesImpl extends AbstractResources implements Favorite
      * @throws SmartsheetException the smartsheet exception
      */
     public void removeFavorites(FavoriteType favoriteType, Set<Long> objectIds) throws SmartsheetException {
-        String path = "favorites/" + favoriteType.toString();
+        String path = FAVORITES + "/" + favoriteType.toString();
         Map<String, Object> parameters = new HashMap<>();
 
         if (objectIds != null) {

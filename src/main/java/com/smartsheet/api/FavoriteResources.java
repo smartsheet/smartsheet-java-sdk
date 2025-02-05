@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2025 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -64,6 +64,27 @@ public interface FavoriteResources {
      * @throws SmartsheetException the smartsheet exception
      */
     PagedResult<Favorite> listFavorites(PaginationParameters parameters) throws SmartsheetException;
+
+    /**
+     * Gets a single Favorite item by type and objectId. If the object is not a favorite, a 404 status will be returned.
+     * <p>
+     * It mirrors to the following Smartsheet REST API method: GET /favorites/{favoriteType}/{objectId}
+     * </p>
+     * Exceptions:
+     * IllegalArgumentException : if any argument is null
+     * InvalidRequestException : if there is any problem with the REST API request
+     * AuthorizationException : if there is any problem with the REST API authorization(access token)
+     * ResourceNotFoundException : if the resource can not be found or the object is not a favorite
+     * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     * SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     * SmartsheetException : if there is any other error occurred during the operation
+     *
+     * @param favoriteType the favoriteType
+     * @param objectId a single favorite objectId
+     * @return a single Favorite object
+     * @throws SmartsheetException the smartsheet exception
+     */
+    Favorite isFavorite(FavoriteType favoriteType, Long objectId) throws SmartsheetException;
 
     /**
      * <p>Deletes a list of favorites (all of the same type)</p>

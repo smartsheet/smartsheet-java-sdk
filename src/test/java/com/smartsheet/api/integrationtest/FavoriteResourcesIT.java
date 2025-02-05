@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2025 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -68,6 +68,21 @@ public class FavoriteResourcesIT extends ITResourcesImpl {
         PaginationParameters parameters = new PaginationParameters.PaginationParametersBuilder().setIncludeAll(true).build();
         PagedResult<Favorite> favorites = smartsheet.favoriteResources().listFavorites(parameters);
         assertThat(favorites).isNotNull();
+    }
+
+    @Test
+    void testIsFavorite() throws SmartsheetException, IOException {
+        Sheet sheet = smartsheet.sheetResources().createSheet(createSheetObject());
+        List<Favorite> favoriteToAdd = new Favorite.AddFavoriteBuilder()
+                .addFavorite(sheet.getId(), FavoriteType.SHEET)
+                .build();
+        smartsheet.favoriteResources().addFavorites(favoriteToAdd);
+        Favorite isFavorite = smartsheet.favoriteResources().isFavorite(FavoriteType.SHEET, sheet.getId());
+        assertThat(isFavorite).isNotNull();
+        assertThat(isFavorite).isInstanceOf(Favorite.class);
+        assertThat(isFavorite.getType()).isEqualTo(FavoriteType.SHEET);
+        assertThat(isFavorite.getObjectId()).isEqualTo(sheet.getId());
+        deleteSheet(sheet.getId());
     }
 
     @Test
