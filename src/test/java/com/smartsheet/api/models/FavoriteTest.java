@@ -16,31 +16,32 @@
 
 package com.smartsheet.api.models;
 
+import com.smartsheet.api.models.enums.FavoriteType;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class RowMappingTest {
+class FavoriteTest {
     @Nested
     class BuilderTests {
         @Test
-        void rowMappingBuilder() {
+        void favoriteBuilder() {
             // Act
-            RowMapping rowMappingNoArg = RowMapping.builder().build();
-            rowMappingNoArg.setFrom(1L);
-            rowMappingNoArg.setTo(2L);
+            Favorite favoriteNoArg = Favorite.builder().build();
+            favoriteNoArg.setType(FavoriteType.SHEET);
+            favoriteNoArg.setObjectId(123L);
 
-            RowMapping rowMappingAllArg = RowMapping.builder()
-                    .from(1L)
-                    .to(2L)
+            Favorite favoriteAllArg = Favorite.builder()
+                    .type(FavoriteType.SHEET)
+                    .objectId(123L)
                     .build();
 
             // Assert
-            assertThat(rowMappingNoArg)
+            assertThat(favoriteNoArg)
                     .hasNoNullFieldsOrProperties()
                     .usingRecursiveComparison()
-                    .isEqualTo(rowMappingAllArg);
+                    .isEqualTo(favoriteAllArg);
         }
     }
 }

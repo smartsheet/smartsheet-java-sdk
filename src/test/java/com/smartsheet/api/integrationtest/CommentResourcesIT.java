@@ -56,7 +56,7 @@ public class CommentResourcesIT extends ITResourcesImpl {
         //create comment to add to discussion
         Comment comment = new Comment.AddCommentBuilder().setText("This is a new comment.").build();
 
-        Discussion discussion = new Discussion.CreateDiscussionBuilder().setTitle("New Discussion").setComment(comment).build();
+        Discussion discussion = Discussion.builder().title("New Discussion").comment(comment).build();
         newDiscussion = smartsheet.sheetResources().discussionResources().createDiscussion(newSheet.getId(), discussion);
 
         Comment newComment1 = new Comment.AddCommentBuilder().setText("This is a test comment").build();

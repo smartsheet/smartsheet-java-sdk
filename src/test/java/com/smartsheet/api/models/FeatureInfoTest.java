@@ -21,26 +21,24 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class RowMappingTest {
+class FeatureInfoTest {
     @Nested
     class BuilderTests {
         @Test
-        void rowMappingBuilder() {
+        void featureInfoBuilder() {
             // Act
-            RowMapping rowMappingNoArg = RowMapping.builder().build();
-            rowMappingNoArg.setFrom(1L);
-            rowMappingNoArg.setTo(2L);
+            FeatureInfo featureInfoNoArg = FeatureInfo.builder().build();
+            featureInfoNoArg.setSymbolsVersion(1);
 
-            RowMapping rowMappingAllArg = RowMapping.builder()
-                    .from(1L)
-                    .to(2L)
+            FeatureInfo featureInfoAllArg = FeatureInfo.builder()
+                    .symbolsVersion(1)
                     .build();
 
             // Assert
-            assertThat(rowMappingNoArg)
+            assertThat(featureInfoNoArg)
                     .hasNoNullFieldsOrProperties()
                     .usingRecursiveComparison()
-                    .isEqualTo(rowMappingAllArg);
+                    .isEqualTo(featureInfoAllArg);
         }
     }
 }

@@ -16,31 +16,30 @@
 
 package com.smartsheet.api.models;
 
+import com.smartsheet.api.models.enums.PaperSize;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class RowMappingTest {
+class FormatDetailsTest {
     @Nested
     class BuilderTests {
         @Test
-        void rowMappingBuilder() {
+        void formatDetailsBuilder() {
             // Act
-            RowMapping rowMappingNoArg = RowMapping.builder().build();
-            rowMappingNoArg.setFrom(1L);
-            rowMappingNoArg.setTo(2L);
+            FormatDetails formatDetailsNoArg = FormatDetails.builder().build();
+            formatDetailsNoArg.setPaperSize(PaperSize.A4);
 
-            RowMapping rowMappingAllArg = RowMapping.builder()
-                    .from(1L)
-                    .to(2L)
+            FormatDetails formatDetailsAllArg = FormatDetails.builder()
+                    .paperSize(PaperSize.A4)
                     .build();
 
             // Assert
-            assertThat(rowMappingNoArg)
+            assertThat(formatDetailsNoArg)
                     .hasNoNullFieldsOrProperties()
                     .usingRecursiveComparison()
-                    .isEqualTo(rowMappingAllArg);
+                    .isEqualTo(formatDetailsAllArg);
         }
     }
 }

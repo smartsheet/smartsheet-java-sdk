@@ -17,10 +17,17 @@
 package com.smartsheet.api.models;
 
 import com.smartsheet.api.models.enums.FavoriteType;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import lombok.extern.jackson.Jacksonized;
 
-import java.util.ArrayList;
-import java.util.List;
-
+@Getter
+@Setter
+@ToString
+@Jacksonized
+@Builder
 public class Favorite {
 
     /**
@@ -32,66 +39,5 @@ public class Favorite {
      * Represents ID of the favorited item.
      */
     private Long objectId;
-
-    /**
-     * Gets the ID of the favorited item.
-     *
-     * @return the objectId
-     */
-    public Long getObjectId() {
-        return objectId;
-    }
-
-    /**
-     * Sets the ID of the favorited item.
-     *
-     * @param objectId ID of the favorited item.
-     */
-    public Favorite setObjectId(Long objectId) {
-        this.objectId = objectId;
-        return this;
-    }
-
-    /**
-     * Gets the type of favorite (workspace, folder, sheet, report, template).
-     *
-     * @return the type
-     */
-    public FavoriteType getType() {
-        return type;
-    }
-
-    /**
-     * Sets the type of favorite (workspace, folder, sheet, report, template).
-     *
-     * @param type the new dependencies enabled
-     */
-    public Favorite setType(FavoriteType type) {
-        this.type = type;
-        return this;
-    }
-
-    /**
-     * A convenience class for making a {@link Favorite} object with the appropriate fields for adding to a {@link Favorite}.
-     */
-    public static class AddFavoriteBuilder {
-
-        List<Favorite> favorites = new ArrayList<>();
-
-        /**
-         * Add a favorite
-         */
-        public AddFavoriteBuilder addFavorite(long objectId, FavoriteType type) {
-            Favorite favorite = new Favorite();
-            favorite.setObjectId(objectId);
-            favorite.setType(type);
-            favorites.add(favorite);
-            return this;
-        }
-
-        public List<Favorite> build() {
-            return favorites;
-        }
-    }
 }
 

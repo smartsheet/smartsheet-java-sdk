@@ -45,13 +45,19 @@ public class FavoriteResourcesIT extends ITResourcesImpl {
 
     @Test
     void testAddFavorites() throws SmartsheetException, IOException {
+        // Arrange
         Sheet sheet = smartsheet.sheetResources().createSheet(createSheetObject());
         Folder folder = createFolder();
 
-        List<Favorite> favoritesToAdd = new Favorite.AddFavoriteBuilder()
-                .addFavorite(sheet.getId(), FavoriteType.SHEET).addFavorite(folder.getId(), FavoriteType.FOLDER)
-                .build();
+        List<Favorite> favoritesToAdd = List.of(
+                Favorite.builder().objectId(sheet.getId()).type(FavoriteType.SHEET).build(),
+                Favorite.builder().objectId(folder.getId()).type(FavoriteType.FOLDER).build()
+        );
+
+        // Act
         List<Favorite> addedfavorites = smartsheet.favoriteResources().addFavorites(favoritesToAdd);
+
+        // Assert
         assertThat(addedfavorites).hasSize(2);
         deleteFolder(folder.getId());
         deleteSheet(sheet.getId());
@@ -67,11 +73,14 @@ public class FavoriteResourcesIT extends ITResourcesImpl {
     @Test
     void testIsFavorite() throws SmartsheetException, IOException {
         Sheet sheet = smartsheet.sheetResources().createSheet(createSheetObject());
-        List<Favorite> favoriteToAdd = new Favorite.AddFavoriteBuilder()
-                .addFavorite(sheet.getId(), FavoriteType.SHEET)
-                .build();
+        List<Favorite> favoriteToAdd = List.of(Favorite.builder().objectId(sheet.getId()).type(FavoriteType.SHEET).build());
+
         smartsheet.favoriteResources().addFavorites(favoriteToAdd);
+
+        // Act
         Favorite isFavorite = smartsheet.favoriteResources().isFavorite(FavoriteType.SHEET, sheet.getId());
+
+        // Assert
         assertThat(isFavorite).isNotNull();
         assertThat(isFavorite).isInstanceOf(Favorite.class);
         assertThat(isFavorite.getType()).isEqualTo(FavoriteType.SHEET);
@@ -85,10 +94,10 @@ public class FavoriteResourcesIT extends ITResourcesImpl {
         Folder folder1 = createFolder();
         Folder folder2 = createFolder();
 
-        List<Favorite> favoriteList = new Favorite.AddFavoriteBuilder()
-                .addFavorite(folder1.getId(), FavoriteType.FOLDER)
-                .addFavorite(folder2.getId(), FavoriteType.FOLDER)
-                .build();
+        List<Favorite> favoriteList = List.of(
+                Favorite.builder().objectId(folder1.getId()).type(FavoriteType.FOLDER).build(),
+                Favorite.builder().objectId(folder2.getId()).type(FavoriteType.FOLDER).build()
+        );
 
         smartsheet
                 .favoriteResources()

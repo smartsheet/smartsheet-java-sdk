@@ -19,8 +19,6 @@ package com.smartsheet.api.internal;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
 import com.smartsheet.api.models.Group;
-import com.smartsheet.api.models.Group.CreateGroupBuilder;
-import com.smartsheet.api.models.Group.UpdateGroupBuilder;
 import com.smartsheet.api.models.GroupMember;
 import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.PaginationParameters;
@@ -85,18 +83,25 @@ class GroupResourcesImplTest extends ResourcesImplBase {
 
     @Test
     void testCreateGroup() throws SmartsheetException, IOException {
+        // Arrange
         server.setResponseBody(new File("src/test/resources/createGroup.json"));
 
-        CreateGroupBuilder builder = new CreateGroupBuilder();
-        builder.setName("My Test Group")
-                .setDescription("My awesome group")
-                .setMembers(new ArrayList<>());
+        List<GroupMember> members = List.of(
+                new GroupMember.AddGroupMemberBuilder().setEmail("test@test.com").build(),
+                new GroupMember.AddGroupMemberBuilder().setEmail("test2@test.com").build(),
+                new GroupMember.AddGroupMemberBuilder().setEmail("test3@test.com").build()
+        );
 
-        builder.getMembers().add(new GroupMember.AddGroupMemberBuilder().setEmail("test@test.com").build());
-        builder.getMembers().add(new GroupMember.AddGroupMemberBuilder().setEmail("test2@test.com").build());
-        builder.getMembers().add(new GroupMember.AddGroupMemberBuilder().setEmail("test3@test.com").build());
+        Group groupToCreate = Group.builder()
+                .name("My Test Group")
+                .description("My awesome group")
+                .members(members)
+                .build();
 
-        Group group = groupResources.createGroup(builder.build());
+        // Act
+        Group group = groupResources.createGroup(groupToCreate);
+
+        // Assert
         assertThat(group.getId()).isNotNull();
         assertThat(group.getName()).isNotNull();
         assertThat(group.getOwner()).isNotNull();
@@ -118,12 +123,16 @@ class GroupResourcesImplTest extends ResourcesImplBase {
     void testUpdateGroup() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/updateGroup.json"));
 
-        UpdateGroupBuilder builder = new UpdateGroupBuilder();
-        builder.setName("My Test Group - renamed ")
-                .setDescription("My awesome group- redecribed")
-                .setId(123L);
+        Group groupToUpdate = Group.builder()
+                .id(123L)
+                .name("My Test Group - renamed ")
+                .description("My awesome group- redecribed")
+                .build();
 
-        Group group = groupResources.updateGroup(builder.build());
+        // Act
+        Group group = groupResources.updateGroup(groupToUpdate);
+
+        // Assert
         assertThat(group.getId()).isNotNull();
         assertThat(group.getName()).isNotNull();
         assertThat(group.getOwner()).isNotNull();

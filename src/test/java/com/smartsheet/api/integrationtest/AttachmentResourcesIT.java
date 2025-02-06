@@ -111,7 +111,7 @@ public class AttachmentResourcesIT extends ITResourcesImpl {
         //create comment to add to discussion
         Comment comment = new Comment.AddCommentBuilder().setText("This is a test comment").build();
 
-        Discussion discussion = new Discussion.CreateDiscussionBuilder().setTitle("New Discussion").setComment(comment).build();
+        Discussion discussion = Discussion.builder().title("New Discussion").comment(comment).build();
         discussion = smartsheet.sheetResources().discussionResources().createDiscussion(sheetId, discussion);
 
         //comment = smartsheet.sheetResources().discussionResources().comments().addComment(sheetId,discussion.getId(), comment);

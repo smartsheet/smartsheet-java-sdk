@@ -16,28 +16,20 @@
 
 package com.smartsheet.api.models;
 
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import lombok.extern.jackson.Jacksonized;
+
+@Getter
+@Setter
+@ToString
+@Jacksonized
+@Builder
 public class FeatureInfo {
     /**
      * Represents the symbols version
      */
     private Integer symbolsVersion;
-
-    /**
-     * Gets the symbols version.
-     *
-     * @return the symbols version
-     */
-    public Integer getSymbolsVersion() {
-        return symbolsVersion;
-    }
-
-    /**
-     * Sets the symbols version.
-     *
-     * @param symbolsVersion the symbols version
-     */
-    public FeatureInfo setSymbolsVersion(Integer symbolsVersion) {
-        this.symbolsVersion = symbolsVersion;
-        return this;
-    }
 }

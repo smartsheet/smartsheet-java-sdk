@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2025 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,7 +29,7 @@ class EventResultTest {
         @Test
         void eventResultBuilder() {
             // Arrange
-            List<Event> data = List.of(new Event());
+            List<Event> data = List.of(Event.builder().build());
 
             // Act
             EventResult eventResultNoArg = EventResult.builder().build();

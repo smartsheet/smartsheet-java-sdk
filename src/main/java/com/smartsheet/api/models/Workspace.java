@@ -32,19 +32,6 @@ public class Workspace extends Folder {
     private AccessLevel accessLevel;
 
     /**
-     * Represents the link .
-     */
-    private String permalink;
-
-    /**
-     * Represents if the workspace is marked as favorite
-     *
-     * @deprecated As of API 3.2.2. Please use the isFavorite method in FavoritesResources instead.
-     */
-    @Deprecated(since = "3.2.2", forRemoval = true)
-    private Boolean favorite;
-
-    /**
      * Gets the user's permissions on a workspace.
      *
      * @return the access level
@@ -61,50 +48,6 @@ public class Workspace extends Folder {
     public Workspace setAccessLevel(AccessLevel accessLevel) {
         this.accessLevel = accessLevel;
         return this;
-    }
-
-    /**
-     * Gets the permalink to the workspace.
-     *
-     * @return the permalink
-     */
-    public String getPermalink() {
-        return permalink;
-    }
-
-    /**
-     * Sets the permalink to the workspace.
-     *
-     * @param permalink the new permalink
-     */
-    public Folder setPermalink(String permalink) {
-        this.permalink = permalink;
-        return null;
-    }
-
-    /**
-     * Gets the favorite
-     *
-     * @return the favorite
-     *
-     * @deprecated As of API 3.2.2. Please use the isFavorite method in FavoritesResources instead.
-     */
-    @Deprecated(since = "3.2.2", forRemoval = true)
-    public Boolean getFavorite() {
-        return favorite;
-    }
-
-    /**
-     * Sets the favorite
-     *
-     * @param favorite the favorite
-     *
-     * @deprecated As of API 3.2.2. Please use the isFavorite method in FavoritesResources instead.
-     */
-    @Deprecated(since = "3.2.2", forRemoval = true)
-    public Folder setFavorite(Boolean favorite) {
-        this.favorite = favorite;
-        return null;
     }
 
     /**

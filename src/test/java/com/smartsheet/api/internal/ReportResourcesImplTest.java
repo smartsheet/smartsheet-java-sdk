@@ -80,8 +80,7 @@ class ReportResourcesImplTest extends ResourcesImplBase {
 
         SheetEmail email = new SheetEmail();
         email.setFormat(SheetEmailFormat.PDF);
-        FormatDetails format = new FormatDetails();
-        format.setPaperSize(PaperSize.A0);
+        FormatDetails format = FormatDetails.builder().paperSize(PaperSize.A0).build();
         email.setFormatDetails(format);
         email.setSendTo(recipients);
         assertThatCode(() -> reportResources.sendReport(1234L, email)).doesNotThrowAnyException();

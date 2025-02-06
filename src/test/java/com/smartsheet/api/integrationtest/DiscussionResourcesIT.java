@@ -70,7 +70,7 @@ public class DiscussionResourcesIT extends ITResourcesImpl {
 
         File file = new File("src/test/resources/small-text.txt");
 
-        Discussion discussion = new Discussion.CreateDiscussionBuilder().setTitle("New Discussion").setComment(comment).build();
+        Discussion discussion = Discussion.builder().title("New Discussion").comment(comment).build();
         newDiscussionSheet = smartsheet.sheetResources().discussionResources().createDiscussion(sheet.getId(), discussion);
 
         assertThat(newDiscussionSheet).isNotNull();
@@ -84,7 +84,7 @@ public class DiscussionResourcesIT extends ITResourcesImpl {
         //create comment to add to discussion
         Comment comment = new Comment.AddCommentBuilder().setText("This is a test comment").build();
 
-        Discussion discussion = new Discussion.CreateDiscussionBuilder().setTitle("New Discussion").setComment(comment).build();
+        Discussion discussion = Discussion.builder().title("New Discussion").comment(comment).build();
         Discussion newDiscussionWithAttachment = smartsheet
                 .sheetResources()
                 .rowResources()
@@ -126,7 +126,7 @@ public class DiscussionResourcesIT extends ITResourcesImpl {
         //create comment to add to discussion
         Comment comment = new Comment.AddCommentBuilder().setText("This is a test comment").build();
 
-        Discussion discussion = new Discussion.CreateDiscussionBuilder().setTitle("New Discussion").setComment(comment).build();
+        Discussion discussion = Discussion.builder().title("New Discussion").comment(comment).build();
         File file = new File("src/test/resources/small-text.txt");
         newDiscussionRow = smartsheet
                 .sheetResources()

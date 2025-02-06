@@ -16,8 +16,19 @@
 
 package com.smartsheet.api.models;
 
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import lombok.extern.jackson.Jacksonized;
+
 import java.util.List;
 
+@Getter
+@Setter
+@ToString
+@Jacksonized
+@Builder
 public class FontFamily {
 
     /**
@@ -29,42 +40,4 @@ public class FontFamily {
      * Represents the traits of the font family.
      */
     private List<String> traits;
-
-    /**
-     * Gets the name of the font family.
-     *
-     * @return the name of the font family.
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * Sets the name of the font family.
-     *
-     * @param name the new name of the font family.
-     */
-    public FontFamily setName(String name) {
-        this.name = name;
-        return this;
-    }
-
-    /**
-     * Gets the traits of the font family.
-     *
-     * @return the traits of the font family.
-     */
-    public List<String> getTraits() {
-        return traits;
-    }
-
-    /**
-     * Sets the traits of the font family.
-     *
-     * @param traits the new traits of the font family.
-     */
-    public FontFamily setTraits(List<String> traits) {
-        this.traits = traits;
-        return this;
-    }
 }

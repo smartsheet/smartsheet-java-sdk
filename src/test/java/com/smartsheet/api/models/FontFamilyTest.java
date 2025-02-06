@@ -19,28 +19,30 @@ package com.smartsheet.api.models;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
-class RowMappingTest {
+class FontFamilyTest {
     @Nested
     class BuilderTests {
         @Test
-        void rowMappingBuilder() {
+        void fontFamilyBuilder() {
             // Act
-            RowMapping rowMappingNoArg = RowMapping.builder().build();
-            rowMappingNoArg.setFrom(1L);
-            rowMappingNoArg.setTo(2L);
+            FontFamily fontFamilyNoArg = FontFamily.builder().build();
+            fontFamilyNoArg.setName("Arial");
+            fontFamilyNoArg.setTraits(List.of("Bold", "Italic"));
 
-            RowMapping rowMappingAllArg = RowMapping.builder()
-                    .from(1L)
-                    .to(2L)
+            FontFamily fontFamilyAllArg = FontFamily.builder()
+                    .name("Arial")
+                    .traits(List.of("Bold", "Italic"))
                     .build();
 
             // Assert
-            assertThat(rowMappingNoArg)
+            assertThat(fontFamilyNoArg)
                     .hasNoNullFieldsOrProperties()
                     .usingRecursiveComparison()
-                    .isEqualTo(rowMappingAllArg);
+                    .isEqualTo(fontFamilyAllArg);
         }
     }
 }

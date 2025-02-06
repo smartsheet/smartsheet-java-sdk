@@ -404,8 +404,7 @@ class SheetResourcesIT extends ITResourcesImpl {
         RecipientEmail recipientEmail = new RecipientEmail.AddRecipientEmailBuilder().setEmail("test.user@smartsheet.com").build();
 
         recipients.add(recipientEmail);
-        FormatDetails formatDetails = new FormatDetails();
-        formatDetails.setPaperSize(PaperSize.A0);
+        FormatDetails formatDetails = FormatDetails.builder().paperSize(PaperSize.A0).build();
 
         SheetEmail email = new SheetEmail.AddSheetEmailBuilder().setFormat(SheetEmailFormat.PDF).setFormatDetails(formatDetails).build();
         email.setSendTo(recipients);

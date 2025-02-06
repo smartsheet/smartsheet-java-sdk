@@ -120,8 +120,8 @@ public class ITResourcesImpl {
     }
 
     //method to create test folder for createSheetInFolder
-    public Folder createFolder() throws IOException, SmartsheetException {
-        Folder folder = new Folder.CreateFolderBuilder().setName("New Folder By Aditi").build();
+    public Folder createFolder() throws SmartsheetException {
+        Folder folder = Folder.builder().name("New Folder By Aditi").build();
 
         Folder newFolderHome = smartsheet.homeResources().folderResources().createFolder(folder);
         return newFolderHome;

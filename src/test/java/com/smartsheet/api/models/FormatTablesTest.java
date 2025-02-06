@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024 Smartsheet
+ * Copyright (C) 2025 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,8 +29,8 @@ class FormatTablesTest {
         @Test
         void formatTablesBuilder() {
             // Arrange
-            List<Currency> currency = List.of(new Currency());
-            List<FontFamily> fontFamily = List.of(new FontFamily());
+            List<Currency> currency = List.of(Currency.builder().build());
+            List<FontFamily> fontFamily = List.of(FontFamily.builder().build());
 
             // Act
             FormatTables formatTablesNoArg = FormatTables.builder().build();

@@ -21,26 +21,26 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class RowMappingTest {
+class CurrencyTest {
     @Nested
     class BuilderTests {
         @Test
-        void rowMappingBuilder() {
+        void currencyBuilder() {
             // Act
-            RowMapping rowMappingNoArg = RowMapping.builder().build();
-            rowMappingNoArg.setFrom(1L);
-            rowMappingNoArg.setTo(2L);
+            Currency currencyNoArg = Currency.builder().build();
+            currencyNoArg.setCode("USD");
+            currencyNoArg.setSymbol("$");
 
-            RowMapping rowMappingAllArg = RowMapping.builder()
-                    .from(1L)
-                    .to(2L)
+            Currency currencyAllArg = Currency.builder()
+                    .code("USD")
+                    .symbol("$")
                     .build();
 
             // Assert
-            assertThat(rowMappingNoArg)
+            assertThat(currencyNoArg)
                     .hasNoNullFieldsOrProperties()
                     .usingRecursiveComparison()
-                    .isEqualTo(rowMappingAllArg);
+                    .isEqualTo(currencyAllArg);
         }
     }
 }
