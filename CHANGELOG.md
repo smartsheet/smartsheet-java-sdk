@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [x.x.x] - unreleased
 ### Changed
 - Update the copyright year to 2025
+- Marked the modifiedDate field as deprecated in the Comment model.
 
 
 ## [3.2.2] - 2024-12-10

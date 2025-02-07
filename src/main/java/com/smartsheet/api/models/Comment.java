@@ -36,7 +36,10 @@ public class Comment extends IdentifiableModel<Long> {
 
     /**
      * Represents the date the comment was modified.
+     *
+     * @deprecated use modifiedAt instead.
      */
+    @Deprecated(since = "3.2.3", forRemoval = true)
     private Date modifiedDate;
 
     /**
@@ -111,7 +114,9 @@ public class Comment extends IdentifiableModel<Long> {
      * Gets the date the comment was last modified.
      *
      * @return the modified date
+     * @deprecated use getModifiedAt instead.
      */
+    @Deprecated(since = "3.2.3", forRemoval = true)
     public Date getModifiedDate() {
         return modifiedDate;
     }
@@ -120,7 +125,9 @@ public class Comment extends IdentifiableModel<Long> {
      * Sets the date the comment was last modified.
      *
      * @param modifiedDate the new modified date
+     * @deprecated use setModifiedAt instead.
      */
+    @Deprecated(since = "3.2.3", forRemoval = true)
     public Comment setModifiedDate(Date modifiedDate) {
         this.modifiedDate = modifiedDate;
         return this;
