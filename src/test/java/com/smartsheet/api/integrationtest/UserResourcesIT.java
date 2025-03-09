@@ -57,7 +57,7 @@ public class UserResourcesIT extends ITResourcesImpl {
 
     @Test
     void testListUsers() throws SmartsheetException {
-        PaginationParameters parameters = new PaginationParameters.PaginationParametersBuilder().setIncludeAll(true).build();
+        PaginationParameters parameters = PaginationParameters.builder().includeAll(true).build();
 
         PagedResult<User> userWrapper = smartsheet
                 .userResources()

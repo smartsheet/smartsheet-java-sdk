@@ -48,7 +48,7 @@ class WebhookResourcesImplTest extends ResourcesImplBase {
     @Test
     void testListWebhooks() throws IOException, SmartsheetException {
         server.setResponseBody(new File("src/test/resources/listWebhooks.json"));
-        PaginationParameters parameters = new PaginationParameters(false, 1, 1);
+        PaginationParameters parameters = PaginationParameters.builder().includeAll(false).pageSize(1).page(1).build();
 
         PagedResult<Webhook> webhookPagedResults = webhookResources.listWebhooks(parameters);
 

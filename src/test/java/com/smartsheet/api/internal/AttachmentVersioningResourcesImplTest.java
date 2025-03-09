@@ -58,7 +58,7 @@ class AttachmentVersioningResourcesImplTest extends ResourcesImplBase {
     void testListAllVersions() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/listAttachmentVersions.json"));
 
-        PaginationParameters parameters = new PaginationParameters(false, 1, 1);
+        PaginationParameters parameters = PaginationParameters.builder().includeAll(false).page(1).pageSize(1).build();
         PagedResult<Attachment> attachments = attachmentVersioningResources.listAllVersions(1234L, 456L, parameters);
         assertThat(attachments.getData().get(0).getName()).isNotNull();
         assertThat(attachments.getData().get(0).getId().longValue()).isEqualTo(4583173393803140L);

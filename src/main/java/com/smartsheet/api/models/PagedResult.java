@@ -16,6 +16,12 @@
 
 package com.smartsheet.api.models;
 
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import lombok.extern.jackson.Jacksonized;
+
 import java.util.List;
 
 /**
@@ -24,50 +30,15 @@ import java.util.List;
  *
  * @param <T> object
  */
+@Getter
+@Setter
+@ToString
+@Jacksonized
+@Builder
 public class PagedResult<T> {
-    Integer pageNumber;
-    Integer pageSize;
-    Integer totalCount;
-    Integer totalPages;
-    List<T> data;
-
-    public List<T> getData() {
-        return data;
-    }
-
-    public void setData(List<T> data) {
-        this.data = data;
-    }
-
-    public Integer getPageNumber() {
-        return pageNumber;
-    }
-
-    public void setPageNumber(Integer pageNumber) {
-        this.pageNumber = pageNumber;
-    }
-
-    public Integer getPageSize() {
-        return pageSize;
-    }
-
-    public void setPageSize(Integer pageSize) {
-        this.pageSize = pageSize;
-    }
-
-    public Integer getTotalCount() {
-        return totalCount;
-    }
-
-    public void setTotalCount(Integer totalCount) {
-        this.totalCount = totalCount;
-    }
-
-    public Integer getTotalPages() {
-        return totalPages;
-    }
-
-    public void setTotalPages(Integer totalPages) {
-        this.totalPages = totalPages;
-    }
+    private Integer pageNumber;
+    private Integer pageSize;
+    private Integer totalCount;
+    private Integer totalPages;
+    private List<T> data;
 }

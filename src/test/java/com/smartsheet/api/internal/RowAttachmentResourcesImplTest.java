@@ -63,8 +63,7 @@ class RowAttachmentResourcesImplTest extends ResourcesImplBase {
     @Test
     void testGetAttachments() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/listAssociatedAttachments.json"));
-        PaginationParameters parameters = new PaginationParameters(false, 1, 1);
-
+        PaginationParameters parameters = PaginationParameters.builder().includeAll(false).pageSize(1).page(1).build();
         PagedResult<Attachment> attachments = rowAttachmentResources.getAttachments(1234L, 456L, parameters);
         assertThat(attachments.getTotalCount()).isEqualTo(2);
         assertThat(attachments.getData().get(0).getId()).isEqualTo(4583173393803140L);

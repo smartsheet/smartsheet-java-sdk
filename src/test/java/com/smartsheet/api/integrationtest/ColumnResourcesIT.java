@@ -62,18 +62,18 @@ class ColumnResourcesIT extends ITResourcesImpl {
         List<String> options = Arrays.asList("Hello", "World!", "How", "Are", "You");
 
         //create columns
-        Column column1 = new Column.AddColumnToSheetBuilder()
-                .setTitle("New Picklist Column 1")
-                .setType(ColumnType.PICKLIST)
-                .setIndex(4)
-                .setOptions(Arrays.asList("First", "Second", "Third"))
+        Column column1 = Column.builder()
+                .title("New Picklist Column 1")
+                .type(ColumnType.PICKLIST)
+                .index(4)
+                .options(Arrays.asList("First", "Second", "Third"))
                 .build();
-        Column column2 = new Column.AddColumnToSheetBuilder().setTitle("New Date Column").setType(ColumnType.DATE).setIndex(4).build();
-        Column column3 = new Column.AddColumnToSheetBuilder()
-                .setTitle("New Picklist Column 2")
-                .setType(ColumnType.PICKLIST)
-                .setIndex(4)
-                .setOptions(Arrays.asList("1", "2", "3"))
+        Column column2 = Column.builder().title("New Date Column").type(ColumnType.DATE).index(4).build();
+        Column column3 = Column.builder()
+                .title("New Picklist Column 2")
+                .type(ColumnType.PICKLIST)
+                .index(4)
+                .options(Arrays.asList("1", "2", "3"))
                 .build();
 
         //add columns
@@ -94,7 +94,7 @@ class ColumnResourcesIT extends ITResourcesImpl {
     }
 
     public void testListColumns() throws SmartsheetException {
-        PaginationParameters parameters = new PaginationParameters.PaginationParametersBuilder().setIncludeAll(true).build();
+        PaginationParameters parameters = PaginationParameters.builder().includeAll(true).build();
         PagedResult<Column> wrapper = smartsheet
                 .sheetResources()
                 .columnResources()
@@ -108,12 +108,12 @@ class ColumnResourcesIT extends ITResourcesImpl {
     }
 
     public void testUpdateColumn() throws SmartsheetException {
-        Column column1 = new Column.UpdateColumnBuilder()
-                .setColumnId(addedColumn.getId())
-                .setTitle("First Column")
-                .setIndex(0)
-                .setType(ColumnType.PICKLIST)
-                .setOptions(Arrays.asList("One", "Two"))
+        Column column1 = Column.builder()
+                .id(addedColumn.getId())
+                .title("First Column")
+                .index(0)
+                .type(ColumnType.PICKLIST)
+                .options(Arrays.asList("One", "Two"))
                 .build();
         Column updatedColumn = smartsheet.sheetResources().columnResources().updateColumn(newSheet.getId(), column1);
 
@@ -121,7 +121,7 @@ class ColumnResourcesIT extends ITResourcesImpl {
     }
 
     public void testColumnFormula() throws SmartsheetException {
-        Column col = new Column.AddColumnToSheetBuilder().setIndex(0).setTitle("colFormula").setType(ColumnType.DATE).build();
+        Column col = Column.builder().index(0).title("colFormula").type(ColumnType.DATE).build();
         col.setFormula("=TODAY()");
         List<Column> cols = smartsheet.sheetResources().columnResources().addColumns(newSheet.getId(), Arrays.asList(col));
         assertThat(cols).hasSize(1);

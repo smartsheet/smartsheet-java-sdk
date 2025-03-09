@@ -109,8 +109,9 @@ class SheetRowResourcesImplTest extends ResourcesImplBase {
     void testSendRows_NoExceptionThrown() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/sendRow.json"));
 
-        RecipientEmail recipient = new RecipientEmail();
-        recipient.setEmail("johndoe@smartsheet.com");
+        RecipientEmail recipient = RecipientEmail.builder()
+                .email("johndoe@smartsheet.com")
+                .build();
 
         MultiRowEmail email = new MultiRowEmail();
 

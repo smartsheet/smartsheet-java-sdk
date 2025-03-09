@@ -66,7 +66,7 @@ public class DiscussionResourcesIT extends ITResourcesImpl {
         sheet = smartsheet.sheetResources().createSheet(createSheetObject());
 
         //create comment to add to discussion
-        Comment comment = new Comment.AddCommentBuilder().setText("This is a test comment").build();
+        Comment comment = Comment.builder().text("This is a test comment").build();
 
         File file = new File("src/test/resources/small-text.txt");
 
@@ -82,7 +82,7 @@ public class DiscussionResourcesIT extends ITResourcesImpl {
         row = addRows(sheetId);
 
         //create comment to add to discussion
-        Comment comment = new Comment.AddCommentBuilder().setText("This is a test comment").build();
+        Comment comment = Comment.builder().text("This is a test comment").build();
 
         Discussion discussion = Discussion.builder().title("New Discussion").comment(comment).build();
         Discussion newDiscussionWithAttachment = smartsheet
@@ -102,7 +102,7 @@ public class DiscussionResourcesIT extends ITResourcesImpl {
         Discussion fetchedDiscussion = fetchedDiscussions.get(0);
         assertThat(fetchedDiscussion.getComments().size()).isEqualTo(1);
 
-        Comment nestedComment = new Comment.AddCommentBuilder().setText("This is a comment with an attachment").build();
+        Comment nestedComment = Comment.builder().text("This is a comment with an attachment").build();
         Comment newComment = smartsheet
                 .sheetResources()
                 .discussionResources()
@@ -124,7 +124,7 @@ public class DiscussionResourcesIT extends ITResourcesImpl {
         row = addRows(sheet.getId());
 
         //create comment to add to discussion
-        Comment comment = new Comment.AddCommentBuilder().setText("This is a test comment").build();
+        Comment comment = Comment.builder().text("This is a test comment").build();
 
         Discussion discussion = Discussion.builder().title("New Discussion").comment(comment).build();
         File file = new File("src/test/resources/small-text.txt");
@@ -138,7 +138,7 @@ public class DiscussionResourcesIT extends ITResourcesImpl {
     }
 
     public void testGetRowDiscussions() throws SmartsheetException, IOException {
-        PaginationParameters parameters = new PaginationParameters.PaginationParametersBuilder().setIncludeAll(true).build();
+        PaginationParameters parameters = PaginationParameters.builder().includeAll(true).build();
 
         // Get all discussions (omit 'include' parameter and pagination parameters).
         smartsheet.sheetResources().rowResources().discussionResources().listDiscussions(sheet.getId(), row.getId(), null, null);
@@ -166,7 +166,7 @@ public class DiscussionResourcesIT extends ITResourcesImpl {
     }
 
     public void testGetAllDiscussions() throws SmartsheetException {
-        PaginationParameters parameters = new PaginationParameters.PaginationParametersBuilder().setIncludeAll(true).build();
+        PaginationParameters parameters = PaginationParameters.builder().includeAll(true).build();
         PagedResult<Discussion> newDiscussion = smartsheet
                 .sheetResources()
                 .discussionResources()

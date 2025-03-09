@@ -77,7 +77,7 @@ public class GroupResourcesIT extends ITResourcesImpl {
 
     private void removeExistingGroup() throws SmartsheetException, IOException {
         // Make sure group doesn't exist before trying to create it
-        PaginationParameters parameters = new PaginationParameters.PaginationParametersBuilder().setIncludeAll(true).build();
+        PaginationParameters parameters = PaginationParameters.builder().includeAll(true).build();
         groups = smartsheet.groupResources().listGroups(parameters);
 
         for (Group group : groups.getData()) {
@@ -95,7 +95,7 @@ public class GroupResourcesIT extends ITResourcesImpl {
 
     public void testListGroups() throws SmartsheetException, IOException {
 
-        PaginationParameters parameters = new PaginationParameters.PaginationParametersBuilder().setIncludeAll(true).build();
+        PaginationParameters parameters = PaginationParameters.builder().includeAll(true).build();
         groups = smartsheet.groupResources().listGroups(parameters);
 
         assertThat(groups).isNotNull();

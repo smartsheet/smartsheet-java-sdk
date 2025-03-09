@@ -79,7 +79,7 @@ class RowResourcesIT extends ITResourcesImpl {
         sheet = smartsheet.sheetResources().createSheet(createSheetObject());
 
         //get column
-        PaginationParameters parameters = new PaginationParameters.PaginationParametersBuilder().setIncludeAll(true).build();
+        PaginationParameters parameters = PaginationParameters.builder().includeAll(true).build();
         PagedResult<Column> wrapper = smartsheet
                 .sheetResources()
                 .columnResources()
@@ -89,19 +89,19 @@ class RowResourcesIT extends ITResourcesImpl {
         Column addedColumn2 = wrapper.getData().get(1);
 
         // Specify cell values for first row.
-        List<Cell> cellsA = new Cell.AddRowCellsBuilder()
-                .addCell(addedColumn1.getId(), true)
-                .addCell(addedColumn2.getId(), "New status")
-                .build();
+        List<Cell> cellsA = List.of(
+                Cell.builder().columnId(addedColumn1.getId()).value(true).build(),
+                Cell.builder().columnId(addedColumn2.getId()).value("New status").build()
+        );
 
         // Specify contents of first row.
         row = new Row.AddRowBuilder().setCells(cellsA).setToBottom(true).build();
 
         // Specify cell values for second row.
-        List<Cell> cellsB = new Cell.AddRowCellsBuilder()
-                .addCell(addedColumn1.getId(), true)
-                .addCell(addedColumn2.getId(), "New status")
-                .build();
+        List<Cell> cellsB = List.of(
+                Cell.builder().columnId(addedColumn1.getId()).value(true).build(),
+                Cell.builder().columnId(addedColumn2.getId()).value("New status").build()
+        );
 
         // Specify contents of first row.
         Row rowA = new Row.AddRowBuilder().setCells(cellsB).setToBottom(true).build();
@@ -130,7 +130,7 @@ class RowResourcesIT extends ITResourcesImpl {
     void testUpdateRows() throws SmartsheetException, IOException {
         // create sheet
         Sheet sheet = smartsheet.sheetResources().createSheet(createSheetObject());
-        PaginationParameters parameters = new PaginationParameters.PaginationParametersBuilder().setIncludeAll(true).build();
+        PaginationParameters parameters = PaginationParameters.builder().includeAll(true).build();
         PagedResult<Column> wrapper = smartsheet
                 .sheetResources()
                 .columnResources()
@@ -140,20 +140,20 @@ class RowResourcesIT extends ITResourcesImpl {
         Column addedColumn2 = wrapper.getData().get(1);
 
         // Specify cell values for first row.
-        List<Cell> cellsA = new Cell.AddRowCellsBuilder()
-                .addCell(addedColumn1.getId(), true)
-                .addCell(addedColumn2.getId(), "New status")
-                .build();
+        List<Cell> cellsA = List.of(
+                Cell.builder().columnId(addedColumn1.getId()).value(true).build(),
+                Cell.builder().columnId(addedColumn2.getId()).value("New status").build()
+        );
 
         // Specify contents of first row.
         Row row = new Row.AddRowBuilder().setCells(cellsA).setToBottom(true).build();
         List<Row> newRows = smartsheet.sheetResources().rowResources().addRows(sheet.getId(), Arrays.asList(row));
 
         //Updated cells //correct
-        List<Cell> cellsB = new Cell.UpdateRowCellsBuilder()
-                .addCell(addedColumn1.getId(), true)
-                .addCell(addedColumn2.getId(), "Updtaed status")
-                .build();
+        List<Cell> cellsB = List.of(
+                Cell.builder().columnId(addedColumn1.getId()).value(true).build(),
+                Cell.builder().columnId(addedColumn2.getId()).value("Updated status").build()
+        );
 
         Row rowB = new Row.UpdateRowBuilder().setCells(cellsB).setRowId(newRows.get(0).getId()).build();
 
@@ -209,7 +209,7 @@ class RowResourcesIT extends ITResourcesImpl {
 
     public void testSendRows() throws SmartsheetException {
         // Specify individual recipient.
-        RecipientEmail recipientEmail = new RecipientEmail.AddRecipientEmailBuilder().setEmail("john.doe@smartsheet.com").build();
+        RecipientEmail recipientEmail = RecipientEmail.builder().email("john.doe@smartsheet.com").build();
 
         List<Recipient> recipients = new ArrayList<>();
         recipients.add(recipientEmail);
@@ -232,7 +232,7 @@ class RowResourcesIT extends ITResourcesImpl {
     void testPartialInsertRows() throws SmartsheetException, IOException {
         Sheet sheet = smartsheet.sheetResources().createSheet(createSheetObjectWithAutoNumberColumn());
 
-        PaginationParameters parameters = new PaginationParameters.PaginationParametersBuilder().setIncludeAll(true).build();
+        PaginationParameters parameters = PaginationParameters.builder().includeAll(true).build();
         PagedResult<Column> wrapper = smartsheet
                 .sheetResources()
                 .columnResources()
@@ -245,8 +245,8 @@ class RowResourcesIT extends ITResourcesImpl {
         // AutoNumber column
         Column autoNumberColumn = wrapper.getData().get(3);
 
-        List<Cell> cellsSucceed = new Cell.UpdateRowCellsBuilder().addCell(textNumberColumn.getId(), "Updated status").build();
-        List<Cell> cellsFail = new Cell.UpdateRowCellsBuilder().addCell(autoNumberColumn.getId(), "Updated status").build();
+        List<Cell> cellsSucceed = List.of(Cell.builder().columnId(textNumberColumn.getId()).value("Updated status").build());
+        List<Cell> cellsFail = List.of(Cell.builder().columnId(autoNumberColumn.getId()).value("Updated status").build());
 
         Row row = new Row.AddRowBuilder().setCells(cellsSucceed).setToBottom(true).build();
         Row row2 = new Row.AddRowBuilder().setCells(cellsFail).setToBottom(true).build();
@@ -281,7 +281,7 @@ class RowResourcesIT extends ITResourcesImpl {
     void testPartialUpdateRows() throws SmartsheetException, IOException {
         Sheet sheet = smartsheet.sheetResources().createSheet(createSheetObjectWithAutoNumberColumn());
 
-        PaginationParameters parameters = new PaginationParameters.PaginationParametersBuilder().setIncludeAll(true).build();
+        PaginationParameters parameters = PaginationParameters.builder().includeAll(true).build();
         PagedResult<Column> wrapper = smartsheet
                 .sheetResources()
                 .columnResources()
@@ -295,9 +295,10 @@ class RowResourcesIT extends ITResourcesImpl {
         Column autoNumberColumn = wrapper.getData().get(3);
 
         // Specify cell values for first row.
-        List<Cell> cellsCreate = new Cell.AddRowCellsBuilder()
-                .addCell(addedColumn1.getId(), true)
-                .addCell(textNumberColumn.getId(), "New status").build();
+        List<Cell> cellsCreate = List.of(
+                Cell.builder().columnId(addedColumn1.getId()).value(true).build(),
+                Cell.builder().columnId(textNumberColumn.getId()).value("New status").build()
+        );
 
         // Specify contents of first row.
         Row row = new Row.AddRowBuilder().setCells(cellsCreate).setToBottom(true).build();
@@ -305,8 +306,8 @@ class RowResourcesIT extends ITResourcesImpl {
         List<Row> newRows = smartsheet.sheetResources().rowResources().addRows(sheet.getId(), Arrays.asList(row, row2));
 
         //Updated cells
-        List<Cell> cellUpdateSucceed = new Cell.UpdateRowCellsBuilder().addCell(textNumberColumn.getId(), "Updated status").build();
-        List<Cell> cellUpdateFail = new Cell.UpdateRowCellsBuilder().addCell(autoNumberColumn.getId(), "Updated status").build();
+        List<Cell> cellUpdateSucceed = List.of(Cell.builder().columnId(textNumberColumn.getId()).value("Updated status").build());
+        List<Cell> cellUpdateFail = List.of(Cell.builder().columnId(autoNumberColumn.getId()).value("Updated status").build());
 
         Row rowSucceeds = new Row.UpdateRowBuilder().setCells(cellUpdateSucceed).setRowId(newRows.get(0).getId()).build();
         Row rowFails = new Row.UpdateRowBuilder().setCells(cellUpdateFail).setRowId(newRows.get(1).getId()).build();

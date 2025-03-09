@@ -47,7 +47,7 @@ class ShareResourcesImplTest extends ResourcesImplBase {
     void testListShares_IncludeWorkspacesFalse() throws SmartsheetException, IOException {
 
         server.setResponseBody(new File("src/test/resources/listShares.json"));
-        PaginationParameters parameters = new PaginationParameters(false, 1, 1);
+        PaginationParameters parameters = PaginationParameters.builder().includeAll(false).pageSize(1).page(1).build();
         PagedResult<Share> shares = shareResourcesImpl.listShares(2906571706525572L, parameters, Boolean.FALSE);
         assertThat(shares.getTotalCount()).isEqualTo(2);
 
@@ -59,7 +59,7 @@ class ShareResourcesImplTest extends ResourcesImplBase {
     void testListShares_IncludeWorkspacesNull() throws SmartsheetException, IOException {
 
         server.setResponseBody(new File("src/test/resources/listShares.json"));
-        PaginationParameters parameters = new PaginationParameters(false, 1, 1);
+        PaginationParameters parameters = PaginationParameters.builder().includeAll(false).pageSize(1).page(1).build();
         PagedResult<Share> shares = shareResourcesImpl.listShares(2906571706525572L, parameters, null);
         assertThat(shares.getTotalCount()).isEqualTo(2);
 
@@ -71,7 +71,7 @@ class ShareResourcesImplTest extends ResourcesImplBase {
     void testListShares_IncludeWorkspacesTrue() throws SmartsheetException, IOException {
 
         server.setResponseBody(new File("src/test/resources/listShares.json"));
-        PaginationParameters parameters = new PaginationParameters(false, 1, 1);
+        PaginationParameters parameters = PaginationParameters.builder().includeAll(false).pageSize(1).page(1).build();
         PagedResult<Share> shares = shareResourcesImpl.listShares(2906571706525572L, parameters, Boolean.TRUE);
         assertThat(shares.getTotalCount()).isEqualTo(2);
 
@@ -83,7 +83,7 @@ class ShareResourcesImplTest extends ResourcesImplBase {
     void testListShares_DefaultIncludeWorkspacesFalse() throws SmartsheetException, IOException {
 
         server.setResponseBody(new File("src/test/resources/listShares.json"));
-        PaginationParameters parameters = new PaginationParameters(false, 1, 1);
+        PaginationParameters parameters = PaginationParameters.builder().includeAll(false).pageSize(1).page(1).build();
         PagedResult<Share> shares = shareResourcesImpl.listShares(2906571706525572L, parameters);
         assertThat(shares.getTotalCount()).isEqualTo(2);
 

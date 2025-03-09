@@ -49,7 +49,7 @@ class SheetColumnResourcesImplTest extends ResourcesImplBase {
     void testListColumns() throws SmartsheetException, IOException {
 
         server.setResponseBody(new File("src/test/resources/listColumns.json"));
-        PaginationParameters paginationParameters = new PaginationParameters(true, 1, 1);
+        PaginationParameters paginationParameters = PaginationParameters.builder().includeAll(true).pageSize(1).page(1).build();
         PagedResult<Column> wrapper = sheetColumnResourcesImpl.listColumns(
                 1234L,
                 EnumSet.allOf(ColumnInclusion.class),
@@ -59,8 +59,8 @@ class SheetColumnResourcesImplTest extends ResourcesImplBase {
         assertThat(columns).hasSize(3);
         assertThat(columns.get(0).getType()).hasToString("CHECKBOX");
         assertThat(columns.get(0).getSymbol()).hasToString("STAR");
-        assertThat(columns.get(0).isLocked()).isTrue();
-        assertThat(columns.get(0).isLockedForUser()).isFalse();
+        assertThat(columns.get(0).getLocked()).isTrue();
+        assertThat(columns.get(0).getLockedForUser()).isFalse();
         assertThat(columns.get(2).getTitle()).isEqualTo("Status");
     }
 

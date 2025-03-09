@@ -23,8 +23,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class RecipientGroupTest {
     @Test
     void testRecipientGroup() {
-        RecipientGroup recipient = new RecipientGroup();
-        recipient.setGroupId(123456789L);
+        RecipientGroup recipient = RecipientGroup.builder().groupId(123456789L).build();
 
         assertThat(recipient.getGroupId()).isNotNull();
     }

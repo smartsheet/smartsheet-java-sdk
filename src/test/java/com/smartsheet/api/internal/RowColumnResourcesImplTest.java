@@ -43,7 +43,7 @@ class RowColumnResourcesImplTest extends ResourcesImplBase {
     @Test
     void testGetCellHistory_happyPath() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/getCellHistory.json"));
-        PaginationParameters parameters = new PaginationParameters(false, 1, 1);
+        PaginationParameters parameters = PaginationParameters.builder().includeAll(false).pageSize(1).page(1).build();
         PagedResult<CellHistory> cellHistory = rowColumnResources.getCellHistory(123L, 123L, 123L, parameters);
 
         assertThat(cellHistory.getTotalPages()).isEqualTo(1);
@@ -52,7 +52,7 @@ class RowColumnResourcesImplTest extends ResourcesImplBase {
 
     @Test
     void testGetCellHistory_exception() {
-        PaginationParameters parameters = new PaginationParameters(false, 1, 1);
+        PaginationParameters parameters = PaginationParameters.builder().includeAll(false).pageSize(1).page(1).build();
         server.setStatus(400);
         server.setResponseBody("{\"errorCode\":1032,\"message\":\"Something went wrong\"}");
         assertThatThrownBy(() -> {

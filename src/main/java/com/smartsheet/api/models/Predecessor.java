@@ -16,8 +16,18 @@
 
 package com.smartsheet.api.models;
 
-public class Predecessor {
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import lombok.extern.jackson.Jacksonized;
 
+@Getter
+@Setter
+@ToString
+@Jacksonized
+@Builder
+public class Predecessor {
     /**
      * The Id of the predecessor row
      */
@@ -47,109 +57,5 @@ public class Predecessor {
      * True if this predecessor is in the critical path
      */
     private Boolean inCriticalPath;
-
-    /**
-     * Get the Id of the predecessor row
-     *
-     * @return rowId
-     */
-    public Long getRowId() {
-        return rowId;
-    }
-
-    /**
-     * Set the Id of the predecessor row
-     */
-    public Predecessor setRowId(Long rowId) {
-        this.rowId = rowId;
-        return this;
-    }
-
-    /**
-     * Get the number of the predecessor row
-     *
-     * @return rowNumber
-     */
-    public Integer getRowNumber() {
-        return rowNumber;
-    }
-
-    /**
-     * Set the number of the predecessor row
-     */
-    public Predecessor setRowNumber(Integer rowNumber) {
-        this.rowNumber = rowNumber;
-        return this;
-    }
-
-    /**
-     * Get the type of the predecessor
-     *
-     * @return type (FS, FF, SS, or SF)
-     */
-    public String getType() {
-        return type;
-    }
-
-    /**
-     * Set the type of the predecessor
-     */
-    public Predecessor setType(String type) {
-        this.type = type;
-        return this;
-    }
-
-    /**
-     * Get the lag value of this predecessor
-     *
-     * @return lag
-     */
-    public Duration getLag() {
-        return lag;
-    }
-
-    /**
-     * Set the lag value of this predecessor
-     */
-    public Predecessor setLag(Duration lag) {
-        this.lag = lag;
-        return this;
-    }
-
-    /**
-     * Get flag indicating if the row referenced by rowId is not a valid row in this sheet,
-     * or if there is a circular reference
-     *
-     * @return invalid
-     */
-    public Boolean isInvalid() {
-        return invalid;
-    }
-
-    /**
-     * Set flag indicating if the row referenced by rowId is not a valid row in this sheet,
-     * or if there is a circular reference
-     */
-    public Predecessor setInvalid(Boolean invalid) {
-        this.invalid = invalid;
-        return this;
-    }
-
-    /**
-     * Get flag indicating if this predecessor is in the critical path
-     *
-     * @return inCriticalPath
-     */
-    public Boolean isInCriticalPath() {
-        return inCriticalPath;
-    }
-
-    /**
-     * Set flag indicating if this predecessor is in the critical path
-     */
-    public Predecessor setInCriticalPath(Boolean inCriticalPath) {
-        this.inCriticalPath = inCriticalPath;
-        return this;
-    }
 }
 

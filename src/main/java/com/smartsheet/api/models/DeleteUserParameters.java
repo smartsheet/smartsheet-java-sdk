@@ -17,10 +17,20 @@
 package com.smartsheet.api.models;
 
 import com.smartsheet.api.internal.util.QueryUtil;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import lombok.extern.jackson.Jacksonized;
 
 import java.util.HashMap;
 import java.util.Map;
 
+@Getter
+@Setter
+@ToString
+@Jacksonized
+@Builder
 public class DeleteUserParameters {
     /**
      * Represents the ID of the user to transfer ownership to
@@ -36,82 +46,6 @@ public class DeleteUserParameters {
      * Determines to remove the user from sharing for all sheets/workspaces in the organization
      */
     private Boolean removeFromSharing;
-
-    /**
-     * Constructor for creating the DeleteUserParameters object
-     */
-    public DeleteUserParameters() {
-    }
-
-    /**
-     * Constructor for creating the DeleteUserParameters object
-     *
-     * @param transferToId      the transferToId
-     * @param transferSheets    the transferSheets flag
-     * @param removeFromSharing the removeFromSharing flag
-     */
-    public DeleteUserParameters(Long transferToId, Boolean transferSheets, Boolean removeFromSharing) {
-        this.transferToId = transferToId;
-        this.transferSheets = transferSheets;
-        this.removeFromSharing = removeFromSharing;
-    }
-
-    /**
-     * Gets the id of the user to transfer ownership to
-     *
-     * @return the user id
-     */
-    public Long getTransferToId() {
-        return transferToId;
-    }
-
-    /**
-     * Sets the id of the user to transfer ownership to
-     *
-     * @param transferToId the user id
-     */
-    public DeleteUserParameters setTransferToId(Long transferToId) {
-        this.transferToId = transferToId;
-        return this;
-    }
-
-    /**
-     * Gets transfer sheets flag
-     *
-     * @return the transfer sheets flag
-     */
-    public Boolean isTransferSheets() {
-        return transferSheets;
-    }
-
-    /**
-     * Sets the transfer sheets flag
-     *
-     * @param transferSheets the transfer sheets flag
-     */
-    public DeleteUserParameters setTransferSheets(boolean transferSheets) {
-        this.transferSheets = transferSheets;
-        return this;
-    }
-
-    /**
-     * Gets whether or not the user is removed from sharing
-     *
-     * @return the remove sharing flag
-     */
-    public Boolean isRemoveFromSharing() {
-        return removeFromSharing;
-    }
-
-    /**
-     * Sets the remove from sharing flag
-     *
-     * @param removeFromSharing the remove from sharing flag
-     */
-    public DeleteUserParameters setRemoveFromSharing(boolean removeFromSharing) {
-        this.removeFromSharing = removeFromSharing;
-        return this;
-    }
 
     /**
      * Convert to a query string

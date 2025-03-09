@@ -18,7 +18,17 @@ package com.smartsheet.api.models;
 
 import com.smartsheet.api.models.enums.WidgetType;
 import com.smartsheet.api.models.format.Format;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import lombok.extern.jackson.Jacksonized;
 
+@Getter
+@Setter
+@ToString
+@Jacksonized
+@Builder
 public class ImageWidgetContent implements WidgetContent {
 
     /**
@@ -61,107 +71,5 @@ public class ImageWidgetContent implements WidgetContent {
     @Override
     public WidgetType getWidgetType() {
         return WidgetType.IMAGE;
-    }
-
-    /**
-     * Gets the image private ID
-     *
-     * @return the private ID
-     */
-    public String getPrivateId() {
-        return privateId;
-    }
-
-    /**
-     * Sets the image private ID
-     */
-    public ImageWidgetContent setPrivateId(String privateId) {
-        this.privateId = privateId;
-        return this;
-    }
-
-    /**
-     * Gets the name of the image file
-     *
-     * @return the name of the image file
-     */
-    public String getFileName() {
-        return fileName;
-    }
-
-    /**
-     * Sets the name of the image file
-     */
-    public ImageWidgetContent setFileName(String fileName) {
-        this.fileName = fileName;
-        return this;
-    }
-
-    /**
-     * Gets the formatDescriptor for the image file
-     *
-     * @return the formatDescriptor
-     */
-    public Format getFormat() {
-        return format;
-    }
-
-    /**
-     * Sets the formatDescriptor for the image file
-     */
-    public ImageWidgetContent setFormat(Format format) {
-        this.format = format;
-        return this;
-    }
-
-    /**
-     * Gets the original height of the image in pixels
-     *
-     * @return the image height
-     */
-    public Integer getHeight() {
-        return height;
-    }
-
-    /**
-     * Sets the original height of the image in pixels
-     */
-    public ImageWidgetContent setHeight(Integer height) {
-        this.height = height;
-        return this;
-    }
-
-    /**
-     * Gets the hyperlink associated with this Widget
-     *
-     * @return the hyperlink
-     */
-    public WidgetHyperlink getHyperlink() {
-        return hyperlink;
-    }
-
-    /**
-     * Sets the hyperlink associated with this Widget
-     */
-    public ImageWidgetContent setHyperlink(WidgetHyperlink hyperlink) {
-        this.hyperlink = hyperlink;
-        return this;
-    }
-
-    /**
-     * Gets the original width of the image in pixels
-     *
-     * @return the image width
-     */
-    public Integer getWidth() {
-        return width;
-    }
-
-    /**
-     * Sets the original width of the image in pixels
-     */
-    public ImageWidgetContent setWidth(Integer width) {
-        this.width = width;
-        return this;
     }
 }

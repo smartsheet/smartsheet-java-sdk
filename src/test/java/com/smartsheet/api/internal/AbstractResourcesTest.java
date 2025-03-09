@@ -58,7 +58,7 @@ class AbstractResourcesTest {
         );
         AbstractResources resources = new AbstractResources(smartsheetImpl) {
         };
-        Home home = new Home();
+        Home home = Home.builder().build();
 
         assertThatThrownBy(() -> resources.createResource("someValidPath", null, home))
                 .isInstanceOf(IllegalArgumentException.class);

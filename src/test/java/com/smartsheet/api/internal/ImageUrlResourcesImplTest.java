@@ -53,9 +53,9 @@ class ImageUrlResourcesImplTest extends ResourcesImplBase {
         // Set a fake response
         server.setResponseBody(new File("src/test/resources/getImageUrls.json"));
 
-        ImageUrl imageUrl1 = new ImageUrl("imageId1");
+        ImageUrl imageUrl1 = ImageUrl.builder().imageId("imageId1").build();
         imageUrl1.setUrl("https://foo.com/imageId1-url.png");
-        ImageUrl imageUrl2 = new ImageUrl("imageId2");
+        ImageUrl imageUrl2 = ImageUrl.builder().imageId("imageId2").build();
         imageUrl2.setUrl("https://foo.com/imageId2-url.png");
 
         List<ImageUrl> requestUrls = Lists.newArrayList(imageUrl1, imageUrl2);

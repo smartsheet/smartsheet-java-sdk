@@ -58,26 +58,26 @@ public class ITResourcesImpl {
 
     public Sheet createSheetObject() {
         //set the sheet parameters
-        Column columnA = new Column.AddColumnToSheetBuilder()
-                .setTitle("Favorite")
-                .setType(ColumnType.CHECKBOX)
-                .setSymbol(Symbol.STAR)
+        Column columnA = Column.builder()
+                .title("Favorite")
+                .type(ColumnType.CHECKBOX)
+                .symbol(Symbol.STAR)
                 .build();
-        Column columnB = new Column.AddColumnToSheetBuilder()
-                .setTitle("Primary Column")
-                .setType(ColumnType.TEXT_NUMBER)
-                .setPrimary(true)
+        Column columnB = Column.builder()
+                .title("Primary Column")
+                .type(ColumnType.TEXT_NUMBER)
+                .primary(true)
                 .build();
-        Column columnC = new Column.AddColumnToSheetBuilder()
-                .setTitle("col 3")
-                .setType(ColumnType.PICKLIST)
-                .setOptions(Arrays.asList("Not Started", "Started", "Completed"))
-                .setPrimary(false)
+        Column columnC = Column.builder()
+                .title("col 3")
+                .type(ColumnType.PICKLIST)
+                .options(Arrays.asList("Not Started", "Started", "Completed"))
+                .primary(false)
                 .build();
-        Column columnD = new Column.AddColumnToSheetBuilder()
-                .setTitle("Date Column")
-                .setType(ColumnType.DATE)
-                .setPrimary(false)
+        Column columnD = Column.builder()
+                .title("Date Column")
+                .type(ColumnType.DATE)
+                .primary(false)
                 .build();
 
         Sheet sheet = new Sheet.CreateSheetBuilder()
@@ -89,27 +89,27 @@ public class ITResourcesImpl {
 
     public Sheet createSheetObjectWithAutoNumberColumn() {
         //set the sheet parameters
-        Column columnA = new Column.AddColumnToSheetBuilder()
-                .setTitle("Favorite")
-                .setType(ColumnType.CHECKBOX)
-                .setSymbol(Symbol.STAR)
+        Column columnA = Column.builder()
+                .title("Favorite")
+                .type(ColumnType.CHECKBOX)
+                .symbol(Symbol.STAR)
                 .build();
-        Column columnB = new Column.AddColumnToSheetBuilder()
-                .setTitle("Primary Column")
-                .setType(ColumnType.TEXT_NUMBER)
-                .setPrimary(true)
+        Column columnB = Column.builder()
+                .title("Primary Column")
+                .type(ColumnType.TEXT_NUMBER)
+                .primary(true)
                 .build();
-        Column columnC = new Column.AddColumnToSheetBuilder()
-                .setTitle("col 3")
-                .setType(ColumnType.PICKLIST)
-                .setOptions(Arrays.asList("Not Started", "Started", "Completed"))
-                .setPrimary(false)
+        Column columnC = Column.builder()
+                .title("col 3")
+                .type(ColumnType.PICKLIST)
+                .options(Arrays.asList("Not Started", "Started", "Completed"))
+                .primary(false)
                 .build();
-        Column columnD = new Column.AddColumnToSheetBuilder()
-                .setTitle("AutoNumber")
-                .setType(ColumnType.TEXT_NUMBER)
-                .setSystemColumnType(SystemColumnType.AUTO_NUMBER)
-                .setPrimary(false)
+        Column columnD = Column.builder()
+                .title("AutoNumber")
+                .type(ColumnType.TEXT_NUMBER)
+                .systemColumnType(SystemColumnType.AUTO_NUMBER)
+                .primary(false)
                 .build();
 
         Sheet sheet = new Sheet.CreateSheetBuilder()
@@ -141,14 +141,14 @@ public class ITResourcesImpl {
 
     public Row addRows(long sheetId) throws SmartsheetException, IOException {
 
-        PaginationParameters parameters = new PaginationParameters.PaginationParametersBuilder().setIncludeAll(true).build();
+        PaginationParameters parameters = PaginationParameters.builder().includeAll(true).build();
         PagedResult<Column> wrapper = smartsheet
                 .sheetResources()
                 .columnResources()
                 .listColumns(sheetId, EnumSet.allOf(ColumnInclusion.class), parameters);
 
         // Create a set of cells
-        List<Cell> cells = new Cell.UpdateRowCellsBuilder().addCell(wrapper.getData().get(1).getId(), "test value").build();
+        List<Cell> cells = List.of(Cell.builder().columnId(wrapper.getData().get(1).getId()).value("test value").build());
 
         // Create a row and add the cells to it.
         Row row = new Row.AddRowBuilder().setCells(cells).setToBottom(true).build();

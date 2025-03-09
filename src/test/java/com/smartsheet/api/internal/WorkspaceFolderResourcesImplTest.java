@@ -43,7 +43,7 @@ class WorkspaceFolderResourcesImplTest extends ResourcesImplBase {
     void testListFolders() throws IOException, SmartsheetException {
         server.setResponseBody(new File("src/test/resources/listWorkspaceFolders.json"));
 
-        PaginationParameters parameters = new PaginationParameters(true, null, null);
+        PaginationParameters parameters = PaginationParameters.builder().includeAll(true).pageSize(null).page(null).build();
         PagedResult<Folder> foldersWrapper = workspaceFolderResources.listFolders(1234L, parameters);
         assertThat(foldersWrapper.getData()).hasSize(2);
         assertThat(foldersWrapper.getData().get(0).getId().longValue()).isEqualTo(7116448184199044L);

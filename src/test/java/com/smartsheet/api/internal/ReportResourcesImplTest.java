@@ -69,11 +69,10 @@ class ReportResourcesImplTest extends ResourcesImplBase {
         server.setResponseBody(new File("src/test/resources/sendEmails.json"));
 
         List<Recipient> recipients = new ArrayList<>();
-        RecipientEmail recipientEmail = new RecipientEmail();
+        RecipientEmail recipientEmail = RecipientEmail.builder().email("johndoe@smartsheet.com").build();
         recipientEmail.setEmail("johndoe@smartsheet.com");
 
-        RecipientGroup recipientGroup = new RecipientGroup();
-        recipientGroup.setGroupId(123456789L);
+        RecipientGroup recipientGroup = RecipientGroup.builder().groupId(123456789L).build();
 
         recipients.add(recipientGroup);
         recipients.add(recipientEmail);
@@ -90,7 +89,7 @@ class ReportResourcesImplTest extends ResourcesImplBase {
     @Test
     void testListReports() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/listReports.json"));
-        PaginationParameters pagination = new PaginationParameters(true, null, null);
+        PaginationParameters pagination = PaginationParameters.builder().includeAll(true).pageSize(null).page(null).build();
         PagedResult<Report> reportsWrapper = reportResources.listReports(pagination, null);
 
         assertThat(reportsWrapper.getTotalPages()).isEqualTo(1);

@@ -519,11 +519,12 @@ public class SheetRowResourcesImpl extends AbstractResources implements SheetRow
                 BulkItemResult<Row> bulkItemResult;
                 bulkItemResult = this.smartsheet.getJsonSerializer().deserializeBulkItemResult(Row.class,
                         response.getEntity().getContent());
-                result = new PartialRowUpdateResult();
-                result.setResult(bulkItemResult.getResult());
-                result.setResultCode(bulkItemResult.getResultCode());
-                result.setMessage(bulkItemResult.getMessage());
-                result.setVersion(bulkItemResult.getVersion());
+                result = PartialRowUpdateResult.builder()
+                        .result(bulkItemResult.getResult())
+                        .resultCode(bulkItemResult.getResultCode())
+                        .message(bulkItemResult.getMessage())
+                        .version(bulkItemResult.getVersion())
+                        .build();
                 if (bulkItemResult.getFailedItems() != null) {
                     List<BulkRowFailedItem> failedItems = new ArrayList<>();
                     for (BulkItemFailure bulkItemFailure : bulkItemResult.getFailedItems()) {

@@ -44,7 +44,7 @@ class TemplateResourcesImplTest extends ResourcesImplBase {
     void testListTemplates() throws IOException, SmartsheetException {
         server.setResponseBody(new File("src/test/resources/listTemplates.json"));
 
-        PaginationParameters parameters = new PaginationParameters(false, 1, 1);
+        PaginationParameters parameters = PaginationParameters.builder().includeAll(false).pageSize(1).page(1).build();
         PagedResult<Template> templates = templateResources.listUserCreatedTemplates(parameters);
 
         assertThat(templates).isNotNull();
@@ -58,7 +58,7 @@ class TemplateResourcesImplTest extends ResourcesImplBase {
     void testListPublicTemplates() throws IOException, SmartsheetException {
         server.setResponseBody(new File("src/test/resources/listTemplates.json"));
 
-        PaginationParameters parameters = new PaginationParameters(false, 1, 1);
+        PaginationParameters parameters = PaginationParameters.builder().includeAll(false).pageSize(1).page(1).build();
         PagedResult<Template> templates = templateResources.listPublicTemplates(parameters);
 
         assertThat(templates).isNotNull();

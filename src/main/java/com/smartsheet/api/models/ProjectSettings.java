@@ -17,11 +17,20 @@
 package com.smartsheet.api.models;
 
 import com.smartsheet.api.models.enums.DayOfWeek;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import lombok.extern.jackson.Jacksonized;
 
 import java.util.List;
 
+@Getter
+@Setter
+@ToString
+@Jacksonized
+@Builder
 public class ProjectSettings {
-
     /**
      * Working days of a week for a project sheet.
      */
@@ -36,61 +45,4 @@ public class ProjectSettings {
      * Length of a workday in hours for a project sheet. Valid value must be above or equal to 1 hour, and less than or equal to 24 hours.
      */
     private Float lengthOfDay;
-
-    /**
-     * Get working days of a week for a project sheet.
-     *
-     * @return the list of working days
-     */
-    public List<DayOfWeek> getWorkingDays() {
-        return workingDays;
-    }
-
-    /**
-     * Set the working days of a week for a project sheet.
-     *
-     * @param workingDays the list of {@link DayOfWeek}s to set
-     */
-    public ProjectSettings setWorkingDays(List<DayOfWeek> workingDays) {
-        this.workingDays = workingDays;
-        return this;
-    }
-
-    /**
-     * Get non-working days of a week for a project sheet.
-     *
-     * @return the list of non-working days
-     */
-    public List<String> getNonWorkingDays() {
-        return nonWorkingDays;
-    }
-
-    /**
-     * Set the non-working days of a week for a project sheet.
-     *
-     * @param nonWorkingDays the list of days to set. Must be an array of strings that are valid ISO-8601 dates ('YYYY-MM-DD’)
-     */
-    public ProjectSettings setNonWorkingDays(List<String> nonWorkingDays) {
-        this.nonWorkingDays = nonWorkingDays;
-        return this;
-    }
-
-    /**
-     * Get length of workday for a project sheet, in hours.
-     *
-     * @return length of day
-     */
-    public Float getLengthOfDay() {
-        return lengthOfDay;
-    }
-
-    /**
-     * Set length of a workday for a project sheet in hours.
-     * Valid value must be above or equal to 1 hour, and less than or equal to 24 hours.
-     */
-    public ProjectSettings setLengthOfDay(Float lengthOfDay) {
-        this.lengthOfDay = lengthOfDay;
-        return this;
-    }
-
 }

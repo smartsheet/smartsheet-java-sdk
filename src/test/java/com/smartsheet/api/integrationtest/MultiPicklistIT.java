@@ -71,9 +71,12 @@ public class MultiPicklistIT extends ITResourcesImpl {
     }
 
     public void testAddMultiPicklistColumn() throws SmartsheetException {
-        Column mpl = new Column();
-        mpl.setTitle("This is a multi-picklist column").setIndex(0).setType(ColumnType.MULTI_PICKLIST)
-                .setOptions(Arrays.asList("Cat", "Rat", "Bat"));
+        Column mpl = Column.builder()
+                .title("This is a multi-picklist column")
+                .index(0)
+                .type(ColumnType.MULTI_PICKLIST)
+                .options(Arrays.asList("Cat", "Rat", "Bat"))
+                .build();
         addCols = smartsheet.sheetResources().columnResources().addColumns(sheet.getId(), Arrays.asList(mpl));
         assertThat(addCols).hasSize(1);
     }
@@ -92,8 +95,9 @@ public class MultiPicklistIT extends ITResourcesImpl {
     }
 
     public void testAddMultiPicklistRow() throws SmartsheetException {
-        List<Cell> insertCells = Arrays.asList(new Cell().setColumnId(addCols.get(0).getId()).setObjectValue(
-                new MultiPicklistObjectValue(Arrays.asList("Bat", "Cat"))));
+        List<Cell> insertCells = List.of(
+                Cell.builder().columnId(addCols.get(0).getId()).objectValue(new MultiPicklistObjectValue(List.of("Bat", "Cat"))).build()
+        );
         Row insertRow = new Row();
         insertRow.setToTop(true).setCells(insertCells);
         List<Row> insertRows = smartsheet.sheetResources().rowResources().addRows(sheet.getId(),

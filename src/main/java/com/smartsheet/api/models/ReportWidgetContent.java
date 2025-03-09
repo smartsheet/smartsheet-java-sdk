@@ -17,9 +17,18 @@
 package com.smartsheet.api.models;
 
 import com.smartsheet.api.models.enums.WidgetType;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import lombok.extern.jackson.Jacksonized;
 
+@Getter
+@Setter
+@ToString
+@Jacksonized
+@Builder
 public class ReportWidgetContent implements WidgetContent {
-
     /**
      * Report ID denoting container source
      */
@@ -44,56 +53,5 @@ public class ReportWidgetContent implements WidgetContent {
     @Override
     public WidgetType getWidgetType() {
         return WidgetType.GRIDGANTT;
-    }
-
-    /**
-     * Gets the report ID denoting container source
-     *
-     * @return report ID
-     */
-    public Long getReportId() {
-        return reportId;
-    }
-
-    /**
-     * Sets the report ID denoting container source
-     */
-    public ReportWidgetContent setReportId(Long reportId) {
-        this.reportId = reportId;
-        return this;
-    }
-
-    /**
-     * Gets the HTML snippet used to render report
-     *
-     * @return HTML content
-     */
-    public String getHtmlContent() {
-        return htmlContent;
-    }
-
-    /**
-     * Sets the HTML snippet used to render report
-     */
-    public ReportWidgetContent setHtmlContent(String htmlContent) {
-        this.htmlContent = htmlContent;
-        return this;
-    }
-
-    /**
-     * Gets the hyperlink associated with this Widget
-     *
-     * @return the hyperlink
-     */
-    public WidgetHyperlink getHyperlink() {
-        return hyperlink;
-    }
-
-    /**
-     * Sets the hyperlink associated with this Widget
-     */
-    public ReportWidgetContent setHyperlink(WidgetHyperlink hyperlink) {
-        this.hyperlink = hyperlink;
-        return this;
     }
 }

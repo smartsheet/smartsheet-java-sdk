@@ -17,10 +17,20 @@
 package com.smartsheet.api.models;
 
 import com.smartsheet.api.internal.util.QueryUtil;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import lombok.extern.jackson.Jacksonized;
 
 import java.util.HashMap;
 import java.util.Map;
 
+@Getter
+@Setter
+@ToString
+@Jacksonized
+@Builder
 public class PaginationParameters {
     /**
      * Represents the includeAll option
@@ -36,75 +46,6 @@ public class PaginationParameters {
      * Represents the page
      */
     private Integer page;
-
-    public PaginationParameters() {
-    }
-
-    /**
-     * Constructor
-     */
-    public PaginationParameters(boolean includeAll, Integer pageSize, Integer page) {
-        this.includeAll = includeAll;
-        this.pageSize = pageSize;
-        this.page = page;
-    }
-
-    /**
-     * Gets includeAll
-     *
-     * @return includeAll
-     */
-    public boolean isIncludeAll() {
-        return includeAll;
-    }
-
-    /**
-     * Sets includeAll
-     *
-     * @param includeAll include all parameter
-     */
-    public PaginationParameters setIncludeAll(boolean includeAll) {
-        this.includeAll = includeAll;
-        return this;
-    }
-
-    /**
-     * Gets the page size
-     *
-     * @return page size
-     */
-    public Integer getPageSize() {
-        return pageSize;
-    }
-
-    /**
-     * Sets the page size
-     *
-     * @param pageSize the page size
-     */
-    public PaginationParameters setPageSize(Integer pageSize) {
-        this.pageSize = pageSize;
-        return this;
-    }
-
-    /**
-     * Gets the page
-     *
-     * @return page the page number
-     */
-    public Integer getPage() {
-        return page;
-    }
-
-    /**
-     * Sets the page
-     *
-     * @param page the page number
-     */
-    public PaginationParameters setPage(Integer page) {
-        this.page = page;
-        return this;
-    }
 
     /**
      * Convert to a query string
@@ -127,89 +68,6 @@ public class PaginationParameters {
             parameters.put("pageSize", pageSize);
             parameters.put("page", page);
             return parameters;
-        }
-    }
-
-    /**
-     * A convenience class for creating a PaginationParameters object
-     */
-    public static class PaginationParametersBuilder {
-        private boolean includeAll;
-        private Integer pageSize;
-        private Integer page;
-
-        /**
-         * Gets the include all flag
-         *
-         * @return the include all flag
-         */
-        public boolean isIncludeAll() {
-            return includeAll;
-        }
-
-        /**
-         * Sets the include All Flag
-         *
-         * @param includeAll the include all flag
-         * @return the builder
-         */
-        public PaginationParametersBuilder setIncludeAll(boolean includeAll) {
-            this.includeAll = includeAll;
-            return this;
-        }
-
-        /**
-         * Gets the page
-         *
-         * @return the page
-         */
-        public Integer getPage() {
-            return page;
-        }
-
-        /**
-         * Sets the page
-         *
-         * @param page the page
-         * @return the builder
-         */
-        public PaginationParametersBuilder setPage(Integer page) {
-            this.page = page;
-            return this;
-        }
-
-        /**
-         * Gets the page size
-         *
-         * @return the page size
-         */
-        public Integer getPageSize() {
-            return pageSize;
-        }
-
-        /**
-         * Sets the page size
-         *
-         * @param pageSize the page size
-         * @return the builder
-         */
-        public PaginationParametersBuilder setPageSize(Integer pageSize) {
-            this.pageSize = pageSize;
-            return this;
-        }
-
-        /**
-         * Builds the PaginationParameters object
-         *
-         * @return pagination parameter object
-         */
-        public PaginationParameters build() {
-            PaginationParameters pagination = new PaginationParameters();
-            pagination.setIncludeAll(includeAll);
-            pagination.setPageSize(pageSize);
-            pagination.setPage(page);
-
-            return pagination;
         }
     }
 }
