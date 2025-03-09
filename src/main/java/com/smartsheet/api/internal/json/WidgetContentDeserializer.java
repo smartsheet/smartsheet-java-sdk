@@ -82,40 +82,45 @@ public class WidgetContentDeserializer extends JsonDeserializer<WidgetContent> {
 
         switch (parsedType) {
             case CHART:
-                ChartWidgetContent chartWidgetContent = new ChartWidgetContent();
-                chartWidgetContent.setReportId(superset.reportId);
-                chartWidgetContent.setSheetId(superset.sheetId);
-                chartWidgetContent.setAxes(superset.axes);
-                chartWidgetContent.setHyperlink(superset.hyperlink);
-                chartWidgetContent.setIncludedColumnIds(superset.includedColumnIds);
-                chartWidgetContent.setLegend(superset.legend);
-                chartWidgetContent.setSelectionRanges(superset.selectionRanges);
-                chartWidgetContent.setSeries(superset.series);
+                ChartWidgetContent chartWidgetContent = ChartWidgetContent.builder()
+                        .reportId(superset.reportId)
+                        .sheetId(superset.sheetId)
+                        .axes(superset.axes)
+                        .hyperlink(superset.hyperlink)
+                        .includedColumnIds(superset.includedColumnIds)
+                        .legend(superset.legend)
+                        .selectionRanges(superset.selectionRanges)
+                        .series(superset.series)
+                        .build();
                 widgetContent = chartWidgetContent;
                 break;
 
             case IMAGE:
-                ImageWidgetContent imageWidgetContent = new ImageWidgetContent();
-                imageWidgetContent.setPrivateId(superset.privateId);
-                imageWidgetContent.setFileName(superset.fileName);
-                imageWidgetContent.setFormat(superset.format);
-                imageWidgetContent.setHeight(superset.height);
-                imageWidgetContent.setHyperlink(superset.hyperlink);
-                imageWidgetContent.setWidth(superset.width);
+                ImageWidgetContent imageWidgetContent = ImageWidgetContent.builder()
+                        .privateId(superset.privateId)
+                        .fileName(superset.fileName)
+                        .format(superset.format)
+                        .height(superset.height)
+                        .hyperlink(superset.hyperlink)
+                        .width(superset.width)
+                        .build();
                 widgetContent = imageWidgetContent;
                 break;
 
             case METRIC:
-                CellLinkWidgetContent cellLinkWidgetContent = new CellLinkWidgetContent();
-                cellLinkWidgetContent.setSheetId(superset.sheetId);
-                cellLinkWidgetContent.setCellData(superset.cellData);
-                cellLinkWidgetContent.setColumns(superset.columns);
-                cellLinkWidgetContent.setHyperlink(superset.hyperlink);
+                CellLinkWidgetContent cellLinkWidgetContent = CellLinkWidgetContent.builder()
+                        .sheetId(superset.sheetId)
+                        .cellData(superset.cellData)
+                        .columns(superset.columns)
+                        .hyperlink(superset.hyperlink)
+                        .build();
                 widgetContent = cellLinkWidgetContent;
                 break;
 
             case GRIDGANTT:
-                ReportWidgetContent reportWidgetContent = new ReportWidgetContent();
+                ReportWidgetContent reportWidgetContent = ReportWidgetContent.builder()
+                        .reportId(superset.reportId)
+                        .build();
                 reportWidgetContent.setReportId(superset.reportId);
                 reportWidgetContent.setHtmlContent(superset.htmlContent);
                 reportWidgetContent.setHyperlink(superset.hyperlink);

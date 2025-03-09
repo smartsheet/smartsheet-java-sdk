@@ -47,7 +47,7 @@ class GroupResourcesImplTest extends ResourcesImplBase {
     void testGetGroups() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/listGroups.json"));
 
-        PaginationParameters parameters = new PaginationParameters(false, 1, 1);
+        PaginationParameters parameters = PaginationParameters.builder().includeAll(false).pageSize(1).page(1).build();
         PagedResult<Group> groups = groupResources.listGroups(parameters);
 
         assertThat(groups.getData().get(0).getId()).isNotNull();

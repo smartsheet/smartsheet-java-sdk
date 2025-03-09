@@ -17,9 +17,19 @@
 package com.smartsheet.api.models;
 
 import com.smartsheet.api.models.enums.WidgetType;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import lombok.extern.jackson.Jacksonized;
 
 import java.util.List;
 
+@Getter
+@Setter
+@ToString
+@Jacksonized
+@Builder
 public class ChartWidgetContent implements WidgetContent {
 
     /**
@@ -70,141 +80,5 @@ public class ChartWidgetContent implements WidgetContent {
     @Override
     public WidgetType getWidgetType() {
         return WidgetType.CHART;
-    }
-
-    /**
-     * Gets the report ID denoting container source, if applicable
-     *
-     * @return the report ID
-     */
-    public Long getReportId() {
-        return reportId;
-    }
-
-    /**
-     * Sets the report ID denoting container source, if applicable
-     */
-    public ChartWidgetContent setReportId(Long reportId) {
-        this.reportId = reportId;
-        return this;
-    }
-
-    /**
-     * Gets the sheet ID denoting container source, if applicable
-     *
-     * @return the sheet ID
-     */
-    public Long getSheetId() {
-        return sheetId;
-    }
-
-    /**
-     * Sets the sheet ID denoting container source, if applicable
-     */
-    public ChartWidgetContent setSheetId(Long sheetId) {
-        this.sheetId = sheetId;
-        return this;
-    }
-
-    /**
-     * Gets the array of axes
-     *
-     * @return the axes
-     */
-    public List<Object> getAxes() {
-        return axes;
-    }
-
-    /**
-     * Sets the array of axes
-     */
-    public ChartWidgetContent setAxes(List<Object> axes) {
-        this.axes = axes;
-        return this;
-    }
-
-    /**
-     * Gets the hyperlink associated with this Widget
-     *
-     * @return the hyperlink
-     */
-    public WidgetHyperlink getHyperlink() {
-        return hyperlink;
-    }
-
-    /**
-     * Sets the hyperlink associated with this Widget
-     */
-    public ChartWidgetContent setHyperlink(WidgetHyperlink hyperlink) {
-        this.hyperlink = hyperlink;
-        return this;
-    }
-
-    /**
-     * Gets the array of column IDs if the range was selected through the UI
-     *
-     * @return the array of column IDs
-     */
-    public List<Long> getIncludedColumnIds() {
-        return includedColumnIds;
-    }
-
-    /**
-     * Sets the array of column IDs if the range was selected through the UI
-     */
-    public ChartWidgetContent setIncludedColumnIds(List<Long> includedColumnIds) {
-        this.includedColumnIds = includedColumnIds;
-        return this;
-    }
-
-    /**
-     * Gets the location in the widget where Smartsheet renders the legend
-     *
-     * @return the legend
-     */
-    public Object getLegend() {
-        return legend;
-    }
-
-    /**
-     * Sets the location in the widget where Smartsheet renders the legend
-     */
-    public ChartWidgetContent setLegend(Object legend) {
-        this.legend = legend;
-        return this;
-    }
-
-    /**
-     * Gets the selection range if the source is a sheet
-     *
-     * @return the selection range
-     */
-    public List<SelectionRange> getSelectionRanges() {
-        return selectionRanges;
-    }
-
-    /**
-     * Sets the selection range if the source is a sheet
-     */
-    public ChartWidgetContent setSelectionRanges(List<SelectionRange> selectionRanges) {
-        this.selectionRanges = selectionRanges;
-        return this;
-    }
-
-    /**
-     * Gets the array os series objects
-     *
-     * @return the array of series objects
-     */
-    public List<Object> getSeries() {
-        return series;
-    }
-
-    /**
-     * Sets the array of series objects
-     */
-    public ChartWidgetContent setSeries(List<Object> series) {
-        this.series = series;
-        return this;
     }
 }

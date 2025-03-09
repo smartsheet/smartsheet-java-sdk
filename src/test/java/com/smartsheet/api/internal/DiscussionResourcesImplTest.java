@@ -41,8 +41,7 @@ class DiscussionResourcesImplTest extends ResourcesImplBase {
     void testAddDiscussionComment() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/addDiscussionComment.json"));
 
-        Comment comment = new Comment();
-        comment.setText("Some new Text");
+        Comment comment = Comment.builder().text("Some new Text").build();
 
         Comment newComment = discussionResources.addDiscussionComment(1234L, comment);
 

@@ -141,7 +141,7 @@ public class ITResourcesImpl {
 
     public Row addRows(long sheetId) throws SmartsheetException, IOException {
 
-        PaginationParameters parameters = new PaginationParameters.PaginationParametersBuilder().setIncludeAll(true).build();
+        PaginationParameters parameters = PaginationParameters.builder().includeAll(true).build();
         PagedResult<Column> wrapper = smartsheet
                 .sheetResources()
                 .columnResources()

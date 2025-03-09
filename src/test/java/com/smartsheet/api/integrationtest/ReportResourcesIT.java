@@ -20,7 +20,6 @@ import com.smartsheet.api.Smartsheet;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.models.FormatDetails;
 import com.smartsheet.api.models.PagedResult;
-import com.smartsheet.api.models.PaginationParameters;
 import com.smartsheet.api.models.Recipient;
 import com.smartsheet.api.models.RecipientEmail;
 import com.smartsheet.api.models.Report;
@@ -74,9 +73,6 @@ public class ReportResourcesIT extends ITResourcesImpl {
     }
 
     public void testListReports() throws SmartsheetException, IOException {
-        PaginationParameters parameters = new PaginationParameters.PaginationParametersBuilder()
-                .setIncludeAll(true).build();
-
         PagedResult<Report> reports = smartsheet.reportResources().listReports(null, null);
         assertThat(reports).isNotNull();
         assertThat(reports.getData()).isNotEmpty();
@@ -103,8 +99,7 @@ public class ReportResourcesIT extends ITResourcesImpl {
 
     public void testSendSheet() throws SmartsheetException, IOException {
         List<Recipient> recipients = new ArrayList<>();
-        RecipientEmail recipientEmail = new RecipientEmail.AddRecipientEmailBuilder()
-                .setEmail("aditi.nioding@smartsheet.com").build();
+        RecipientEmail recipientEmail = RecipientEmail.builder().email("aditi.nioding@smartsheet.com").build();
         //RecipientGroup recipientGroup = new RecipientGroup.AddRecipientGroupBuilder().setGroupId(1234L).build();
 
         //List<Recipient> recipients = Arrays.asList(recipientEmail, recipientGroup);

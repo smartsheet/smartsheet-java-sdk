@@ -68,7 +68,7 @@ public class ShareResourcesIT extends ITResourcesImpl {
     }
 
     public void testReportShareTo() throws SmartsheetException, IOException {
-        PaginationParameters parameters = new PaginationParameters.PaginationParametersBuilder().setIncludeAll(true).build();
+        PaginationParameters parameters = PaginationParameters.builder().includeAll(true).build();
         reportsWrapper = smartsheet.reportResources().listReports(parameters);
 
         if (reportsWrapper != null) {
@@ -154,7 +154,7 @@ public class ShareResourcesIT extends ITResourcesImpl {
     }
 
     public void testListShares() throws SmartsheetException, IOException {
-        PaginationParameters parameters = new PaginationParameters.PaginationParametersBuilder().setIncludeAll(true).build();
+        PaginationParameters parameters = PaginationParameters.builder().includeAll(true).build();
 
         //PagedResult<Share> reportShares = smartsheet.reportResources().shareResources().listShares(8623082916079492L, parameters);
         PagedResult<Share> sheetShares = smartsheet.sheetResources().shareResources().listShares(sheetId, parameters);

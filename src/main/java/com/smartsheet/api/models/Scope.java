@@ -16,8 +16,19 @@
 
 package com.smartsheet.api.models;
 
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import lombok.extern.jackson.Jacksonized;
+
 import java.util.List;
 
+@Getter
+@Setter
+@ToString
+@Jacksonized
+@Builder
 public class Scope {
     /**
      * Array of Sheet objects (containing just the sheet ID) of any sheets that the
@@ -30,42 +41,4 @@ public class Scope {
      * that make up the report
      */
     private List<Workspace> workspaces;
-
-    /**
-     * Gets the array of any sheets the requester has access to that make up the report
-     *
-     * @return the array of sheets
-     */
-    public List<Sheet> getSheets() {
-        return sheets;
-    }
-
-    /**
-     * Sets the array of sheets the requester has access to that make up the report
-     *
-     * @param sheets the array of sheets
-     */
-    public Scope setSheets(List<Sheet> sheets) {
-        this.sheets = sheets;
-        return this;
-    }
-
-    /**
-     * Gets the array of any workspaces the requester has access to that make up the report
-     *
-     * @return the array of workspaces
-     */
-    public List<Workspace> getWorkspaces() {
-        return workspaces;
-    }
-
-    /**
-     * Sets the array of any workspaces the requester has access to that make up the report
-     *
-     * @param workspaces the array of workspaces
-     */
-    public Scope setWorkspaces(List<Workspace> workspaces) {
-        this.workspaces = workspaces;
-        return this;
-    }
 }

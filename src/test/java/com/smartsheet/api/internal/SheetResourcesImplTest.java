@@ -76,10 +76,10 @@ class SheetResourcesImplTest extends ResourcesImplBase {
     void testListSheets() throws SmartsheetException, IOException {
 
         server.setResponseBody(new File("src/test/resources/listSheets.json"));
-        PaginationParameters parameters = new PaginationParameters.PaginationParametersBuilder()
-                .setIncludeAll(false)
-                .setPageSize(1)
-                .setPage(1)
+        PaginationParameters parameters = PaginationParameters.builder()
+                .includeAll(false)
+                .pageSize(1)
+                .page(1)
                 .build();
         PagedResult<Sheet> sheets = sheetResource.listSheets(EnumSet.of(SourceInclusion.SOURCE), parameters, null);
 
@@ -96,7 +96,7 @@ class SheetResourcesImplTest extends ResourcesImplBase {
     void testListOrganizationSheets() throws SmartsheetException, IOException {
 
         server.setResponseBody(new File("src/test/resources/listSheets.json"));
-        PaginationParameters parameters = new PaginationParameters.PaginationParametersBuilder().setIncludeAll(true).build();
+        PaginationParameters parameters = PaginationParameters.builder().includeAll(true).build();
         PagedResult<Sheet> sheets = sheetResource.listOrganizationSheets(parameters);
         assertThat(sheets.getData()).hasSize(2);
     }
@@ -332,11 +332,9 @@ class SheetResourcesImplTest extends ResourcesImplBase {
         server.setResponseBody(new File("src/test/resources/sendEmails.json"));
 
         List<Recipient> recipients = new ArrayList<>();
-        RecipientEmail recipientEmail = new RecipientEmail();
-        recipientEmail.setEmail("johndoe@smartsheet.com");
+        RecipientEmail recipientEmail = RecipientEmail.builder().email("johndoe@smartsheet.com").build();
 
-        RecipientGroup recipientGroup = new RecipientGroup();
-        recipientGroup.setGroupId(123456789L);
+        RecipientGroup recipientGroup = RecipientGroup.builder().groupId(123456789L).build();
 
         recipients.add(recipientGroup);
         recipients.add(recipientEmail);
@@ -408,8 +406,7 @@ class SheetResourcesImplTest extends ResourcesImplBase {
     @Test
     void testCopySheet() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/copySheet.json"));
-        ContainerDestination containerDestination = new ContainerDestination();
-        containerDestination.setDestinationType(DestinationType.FOLDER);
+        ContainerDestination containerDestination = ContainerDestination.builder().destinationType(DestinationType.FOLDER).build();
 
         Sheet sheet = sheetResource.copySheet(123L, containerDestination, null);
         assertThat(sheet.getName()).isEqualTo("newSheetName");
@@ -418,8 +415,7 @@ class SheetResourcesImplTest extends ResourcesImplBase {
     @Test
     void testMoveSheet() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/moveSheet.json"));
-        ContainerDestination containerDestination = new ContainerDestination();
-        containerDestination.setDestinationType(DestinationType.FOLDER);
+        ContainerDestination containerDestination = ContainerDestination.builder().destinationType(DestinationType.FOLDER).build();
 
         Sheet sheet = sheetResource.moveSheet(123L, containerDestination);
         assertThat(sheet.getId().longValue()).isEqualTo(4583173393803140L);

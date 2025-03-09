@@ -17,9 +17,19 @@
 package com.smartsheet.api.models;
 
 import com.smartsheet.api.models.enums.WidgetType;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import lombok.extern.jackson.Jacksonized;
 
 import java.util.List;
 
+@Getter
+@Setter
+@ToString
+@Jacksonized
+@Builder
 public class CellLinkWidgetContent implements WidgetContent {
 
     /**
@@ -50,69 +60,5 @@ public class CellLinkWidgetContent implements WidgetContent {
     @Override
     public WidgetType getWidgetType() {
         return WidgetType.METRIC;
-    }
-
-    /**
-     * Get the ID of the sheet from which the cell data originates
-     *
-     * @return the sheet ID
-     */
-    public Long getSheetId() {
-        return sheetId;
-    }
-
-    /**
-     * Set the ID of the sheet from which the cell data originates
-     */
-    public CellLinkWidgetContent setSheetId(Long sheetId) {
-        this.sheetId = sheetId;
-        return this;
-    }
-
-    /**
-     * Gets the array of cell data items
-     */
-    public List<CellDataItem> getCellData() {
-        return cellData;
-    }
-
-    /**
-     * Sets the array of cell data items
-     */
-    public CellLinkWidgetContent setCellData(List<CellDataItem> cellData) {
-        this.cellData = cellData;
-        return this;
-    }
-
-    /**
-     * Gets the array of columns
-     */
-    public List<Column> getColumns() {
-        return columns;
-    }
-
-    /**
-     * Sets the array of columns
-     */
-    public CellLinkWidgetContent setColumns(List<Column> columns) {
-        this.columns = columns;
-        return this;
-    }
-
-    /**
-     * Gets the widget hyperlink
-     *
-     * @return hyperlink
-     */
-    public WidgetHyperlink getHyperlink() {
-        return hyperlink;
-    }
-
-    /**
-     * Sets the widget hyperlink
-     */
-    public CellLinkWidgetContent setHyperlink(WidgetHyperlink hyperlink) {
-        this.hyperlink = hyperlink;
-        return this;
     }
 }

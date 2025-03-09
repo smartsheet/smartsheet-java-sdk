@@ -151,8 +151,8 @@ class RowTest {
     void addRows_AssignValues_Hyperlink() throws SmartsheetException {
         Smartsheet ss = HelperFunctions.SetupClient("Add Rows - Assign Values - Hyperlink");
 
-        Cell cell1 = new Cell().setColumnId(101L).setValue("Google").setHyperlink(new Hyperlink().setUrl("http://google.com"));
-        Cell cell2 = new Cell().setColumnId(102L).setValue("Bing").setHyperlink(new Hyperlink().setUrl("http://bing.com"));
+        Cell cell1 = new Cell().setColumnId(101L).setValue("Google").setHyperlink(Hyperlink.builder().url("http://google.com").build());
+        Cell cell2 = new Cell().setColumnId(102L).setValue("Bing").setHyperlink(Hyperlink.builder().url("http://bing.com").build());
         Row rowA = new Row().setCells(Arrays.asList(cell1, cell2));
 
         // Update rows in sheet
@@ -167,8 +167,8 @@ class RowTest {
     void addRows_AssignValues_HyperlinkSheetID() throws SmartsheetException {
         Smartsheet ss = HelperFunctions.SetupClient("Add Rows - Assign Values - Hyperlink SheetID");
 
-        Cell cell1 = new Cell().setColumnId(101L).setValue("Sheet2").setHyperlink(new Hyperlink().setSheetId(2L));
-        Cell cell2 = new Cell().setColumnId(102L).setValue("Sheet3").setHyperlink(new Hyperlink().setSheetId(3L));
+        Cell cell1 = new Cell().setColumnId(101L).setValue("Sheet2").setHyperlink(Hyperlink.builder().sheetId(2L).build());
+        Cell cell2 = new Cell().setColumnId(102L).setValue("Sheet3").setHyperlink(Hyperlink.builder().sheetId(3L).build());
         Row rowA = new Row().setCells(Arrays.asList(cell1, cell2));
 
         // Update rows in sheet
@@ -183,8 +183,8 @@ class RowTest {
     void addRows_AssignValues_HyperlinkReportID() throws SmartsheetException {
         Smartsheet ss = HelperFunctions.SetupClient("Add Rows - Assign Values - Hyperlink ReportID");
 
-        Cell cell1 = new Cell().setColumnId(101L).setValue("Report9").setHyperlink(new Hyperlink().setReportId(9L));
-        Cell cell2 = new Cell().setColumnId(102L).setValue("Report8").setHyperlink(new Hyperlink().setReportId(8L));
+        Cell cell1 = new Cell().setColumnId(101L).setValue("Report9").setHyperlink(Hyperlink.builder().reportId(9L).build());
+        Cell cell2 = new Cell().setColumnId(102L).setValue("Report8").setHyperlink(Hyperlink.builder().reportId(8L).build());
         Row rowA = new Row().setCells(Arrays.asList(cell1, cell2));
 
         // Update rows in sheet
@@ -202,8 +202,8 @@ class RowTest {
         Cell cell1 = new Cell()
                 .setColumnId(101L)
                 .setValue("Google")
-                .setHyperlink(new Hyperlink().setUrl("http://google.com").setSheetId(2L));
-        Cell cell2 = new Cell().setColumnId(102L).setValue("Bing").setHyperlink(new Hyperlink().setUrl("http://bing.com"));
+                .setHyperlink(Hyperlink.builder().url("http://google.com").sheetId(2L).build());
+        Cell cell2 = new Cell().setColumnId(102L).setValue("Bing").setHyperlink(Hyperlink.builder().url("http://bing.com").build());
         Row rowA = new Row().setCells(Arrays.asList(cell1, cell2));
 
         // Update rows in sheet
@@ -233,7 +233,7 @@ class RowTest {
         Smartsheet ss = HelperFunctions.SetupClient("Add Rows - Assign Object Value - Predecessor List (using floats)");
 
         Duration duration = new Duration().setDays(2.5);
-        Predecessor predecessor = new Predecessor().setRowId(10L).setType("FS").setLag(duration);
+        Predecessor predecessor = Predecessor.builder().rowId(10L).type("FS").lag(duration).build();
         PredecessorList predecessorList = new PredecessorList().setPredecessors(List.of(predecessor));
         Cell cell1 = new Cell().setColumnId(101L).setObjectValue(predecessorList);
         Row rowA = new Row().setCells(List.of(cell1));
@@ -320,9 +320,9 @@ class RowTest {
     void updateRows_AssignValues_Hyperlink() throws SmartsheetException {
         Smartsheet ss = HelperFunctions.SetupClient("Update Rows - Assign Values - Hyperlink");
 
-        Hyperlink hyperlink1 = new Hyperlink().setUrl("http://google.com");
+        Hyperlink hyperlink1 = Hyperlink.builder().url("http://google.com").build();
         Cell cell1 = new Cell().setColumnId(101L).setValue("Google").setHyperlink(hyperlink1);
-        Hyperlink hyperlink2 = new Hyperlink().setUrl("http://bing.com");
+        Hyperlink hyperlink2 = Hyperlink.builder().url("http://bing.com").build();
         Cell cell2 = new Cell().setColumnId(102L).setValue("Bing").setHyperlink(hyperlink2);
         Row rowA = new Row().setRowId(10L).setCells(Arrays.asList(cell1, cell2));
 
@@ -338,9 +338,9 @@ class RowTest {
     void updateRows_AssignValues_HyperlinkSheetID() throws SmartsheetException {
         Smartsheet ss = HelperFunctions.SetupClient("Update Rows - Assign Values - Hyperlink SheetID");
 
-        Hyperlink hyperlink1 = new Hyperlink().setSheetId(2L);
+        Hyperlink hyperlink1 = Hyperlink.builder().sheetId(2L).build();
         Cell cell1 = new Cell().setColumnId(101L).setValue("Sheet2").setHyperlink(hyperlink1);
-        Hyperlink hyperlink2 = new Hyperlink().setSheetId(3L);
+        Hyperlink hyperlink2 = Hyperlink.builder().sheetId(3L).build();
         Cell cell2 = new Cell().setColumnId(102L).setValue("Sheet3").setHyperlink(hyperlink2);
         Row rowA = new Row().setRowId(10L).setCells(Arrays.asList(cell1, cell2));
 
@@ -356,9 +356,9 @@ class RowTest {
     void updateRows_AssignValues_HyperlinkReportID() throws SmartsheetException {
         Smartsheet ss = HelperFunctions.SetupClient("Update Rows - Assign Values - Hyperlink ReportID");
 
-        Hyperlink hyperlink1 = new Hyperlink().setReportId(9L);
+        Hyperlink hyperlink1 = Hyperlink.builder().reportId(9L).build();
         Cell cell1 = new Cell().setColumnId(101L).setValue("Report9").setHyperlink(hyperlink1);
-        Hyperlink hyperlink2 = new Hyperlink().setReportId(8L);
+        Hyperlink hyperlink2 = Hyperlink.builder().reportId(8L).build();
         Cell cell2 = new Cell().setColumnId(102L).setValue("Report8").setHyperlink(hyperlink2);
         Row rowA = new Row().setRowId(10L).setCells(Arrays.asList(cell1, cell2));
 
@@ -374,9 +374,9 @@ class RowTest {
     void updateRows_Invalid_AssignHyperlinkUrlAndSheetId() {
         Smartsheet ss = HelperFunctions.SetupClient("Update Rows - Invalid - Assign Hyperlink URL and SheetId");
 
-        Hyperlink hyperlink1 = new Hyperlink().setUrl("http://google.com").setSheetId(2L);
+        Hyperlink hyperlink1 = Hyperlink.builder().url("http://google.com").sheetId(2L).build();
         Cell cell1 = new Cell().setColumnId(101L).setValue("Google").setHyperlink(hyperlink1);
-        Hyperlink hyperlink2 = new Hyperlink().setUrl("http://bing.com");
+        Hyperlink hyperlink2 = Hyperlink.builder().url("http://bing.com").build();
         Cell cell2 = new Cell().setColumnId(102L).setValue("Bing").setHyperlink(hyperlink2);
         Row rowA = new Row().setRowId(10L).setCells(Arrays.asList(cell1, cell2));
 
@@ -446,7 +446,7 @@ class RowTest {
     void updateRows_ClearValue_CellLink() throws SmartsheetException {
         Smartsheet ss = HelperFunctions.SetupClient("Update Rows - Clear Value - Cell Link");
 
-        Cell cell1 = new Cell().setColumnId(101L).setValue("").setLinkInFromCell(new CellLink());
+        Cell cell1 = new Cell().setColumnId(101L).setValue("").setLinkInFromCell(CellLink.builder().build());
         Row rowA = new Row().setRowId(10L).setCells(List.of(cell1));
 
         List<Row> updatedRows = ss.sheetResources().rowResources().updateRows(1, List.of(rowA));
@@ -460,8 +460,8 @@ class RowTest {
     void updateRows_Invalid_AssignHyperlinkAndCellLink() {
         Smartsheet ss = HelperFunctions.SetupClient("Update Rows - Invalid - Assign Hyperlink and Cell Link");
 
-        Hyperlink hyperlink = new Hyperlink().setUrl("www.google.com");
-        CellLink cellLink = new CellLink().setRowId(20L).setSheetId(2L).setColumnId(201L);
+        Hyperlink hyperlink = Hyperlink.builder().url("www.google.com").build();
+        CellLink cellLink = CellLink.builder().rowId(20L).sheetId(2L).columnId(201L).build();
         Cell cell1 = new Cell().setColumnId(101L).setValue("").setHyperlink(hyperlink).setLinkInFromCell(cellLink);
         Row rowA = new Row().setRowId(10L).setCells(List.of(cell1));
 

@@ -45,7 +45,7 @@ class DiscussionAttachmentResourcesImplTest extends ResourcesImplBase {
         @Test
         void getAttachments_withParameters() throws SmartsheetException, IOException {
             server.setResponseBody(new File("src/test/resources/listAssociatedAttachments.json"));
-            PaginationParameters parameters = new PaginationParameters(false, 1, 1);
+            PaginationParameters parameters = PaginationParameters.builder().includeAll(false).pageSize(1).page(1).build();
 
             PagedResult<Attachment> attachments = discussionAttachmentResources.getAttachments(1234L, 456L, parameters);
             assertThat(attachments.getTotalCount()).isEqualTo(2);

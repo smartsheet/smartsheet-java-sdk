@@ -16,20 +16,20 @@
 
 package com.smartsheet.api.models;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import lombok.experimental.SuperBuilder;
+import lombok.extern.jackson.Jacksonized;
+
 import java.util.List;
 
-/**
- * Created by kskeem on 3/1/16.
- */
+@Getter
+@Setter
+@ToString
+@Jacksonized
+@SuperBuilder
 public class PartialRowUpdateResult extends Result<List<Row>> {
 
     private List<BulkRowFailedItem> failedItems;
-
-    public List<BulkRowFailedItem> getFailedItems() {
-        return failedItems;
-    }
-
-    public void setFailedItems(List<BulkRowFailedItem> failedItems) {
-        this.failedItems = failedItems;
-    }
 }

@@ -28,7 +28,6 @@ import com.smartsheet.api.models.enums.AutomationActionType;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -54,10 +53,10 @@ class AutomationRulesTest {
     void updateAutomationRule() throws SmartsheetException {
         Smartsheet ss = HelperFunctions.SetupClient("Update Automation Rule");
         AutomationAction autoRuleAction = new AutomationAction();
-        RecipientEmail recipient = new RecipientEmail();
-        recipient.setEmail("jane@example.com");
-        List<Recipient> recipients = new ArrayList<>();
-        recipients.add(recipient);
+        RecipientEmail recipient = RecipientEmail.builder()
+                .email("jane@example.com")
+                .build();
+        List<Recipient> recipients = List.of(recipient);
         autoRuleAction.setRecipients(recipients);
         autoRuleAction.setType(AutomationActionType.NOTIFICATION_ACTION);
         autoRuleAction.setFrequency(AutomationActionFrequency.WEEKLY);

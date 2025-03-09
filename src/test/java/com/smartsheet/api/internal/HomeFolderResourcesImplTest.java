@@ -46,7 +46,7 @@ class HomeFolderResourcesImplTest extends ResourcesImplBase {
         void listFolders_withParameters() throws SmartsheetException, IOException {
             server.setResponseBody(new File("src/test/resources/listFolders.json"));
 
-            PaginationParameters parameters = new PaginationParameters(true, null, null);
+            PaginationParameters parameters = PaginationParameters.builder().includeAll(true).pageSize(null).page(null).build();
             PagedResult<Folder> foldersWrapper = homeFolderResources.listFolders(parameters);
 
             assertThat(foldersWrapper.getPageSize()).isEqualTo(100);

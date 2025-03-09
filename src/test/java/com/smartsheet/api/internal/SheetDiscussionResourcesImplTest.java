@@ -54,9 +54,7 @@ class SheetDiscussionResourcesImplTest extends ResourcesImplBase {
 
         // Test success
         List<Comment> comments = new ArrayList<>();
-        Comment comment = new Comment();
-        comment.setText("This is a test.");
-        comment.setAttachments(new ArrayList<>());
+        Comment comment = Comment.builder().text("This is a test.").attachments(new ArrayList<>()).build();
         comments.add(comment);
         Discussion discussion = Discussion.builder()
                 .title("New Discussion")
@@ -78,12 +76,10 @@ class SheetDiscussionResourcesImplTest extends ResourcesImplBase {
         // Test failure - CreatedBy not allowed & only one comment can be added when creating a discussion.
         server.setStatus(400);
         server.setResponseBody(new File("src/test/resources/createDiscussion_1032.json"));
-        comment = new Comment();
         User user = new User();
         user.setName("John Doe");
         user.setEmail("email@email.com");
-        comment.setCreatedBy(user);
-        comment.setText("This is a test.");
+        comment = Comment.builder().createdBy(user).text("This is a test.").build();
         comments.add(comment);
         discussion.setComments(comments);
         assertThatThrownBy(() -> sheetDiscussionResources.createDiscussion(1234L, discussion))
@@ -96,9 +92,7 @@ class SheetDiscussionResourcesImplTest extends ResourcesImplBase {
         File file = new File("src/test/resources/large_sheet.pdf");
         // Test success
         List<Comment> comments = new ArrayList<>();
-        Comment comment = new Comment();
-        comment.setText("This is a test.");
-        comment.setAttachments(new ArrayList<>());
+        Comment comment = Comment.builder().text("This is a test.").attachments(new ArrayList<>()).build();
         comments.add(comment);
         Discussion discussion = Discussion.builder()
                 .title("New Discussion")
@@ -119,12 +113,10 @@ class SheetDiscussionResourcesImplTest extends ResourcesImplBase {
         // Test failure - CreatedBy not allowed & only one comment can be added when creating a discussion.
         server.setStatus(400);
         server.setResponseBody(new File("src/test/resources/createDiscussion_1032.json"));
-        comment = new Comment();
         User user = new User();
         user.setName("John Doe");
         user.setEmail("email@email.com");
-        comment.setCreatedBy(user);
-        comment.setText("This is a test.");
+        comment = Comment.builder().createdBy(user).text("This is a test.").build();
         comments.add(comment);
         discussion.setComments(comments);
         assertThatThrownBy(() -> sheetDiscussionResources.createDiscussion(1234L, discussion))
@@ -156,7 +148,7 @@ class SheetDiscussionResourcesImplTest extends ResourcesImplBase {
     @Test
     void testGetAllDiscussions() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/getAllDiscussions.json"));
-        PaginationParameters parameters = new PaginationParameters(false, 1, 1);
+        PaginationParameters parameters = PaginationParameters.builder().includeAll(false).pageSize(1).page(1).build();
 
         PagedResult<Discussion> newDiscussion = sheetDiscussionResources.listDiscussions(
                 123L,

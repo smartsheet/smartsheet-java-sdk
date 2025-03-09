@@ -113,10 +113,10 @@ class SheetResourcesIT extends ITResourcesImpl {
     public void testCopySheet() throws SmartsheetException, IOException {
         Folder folder = createFolder();
 
-        ContainerDestination destination = new ContainerDestination.AddContainerDestinationBuilder()
-                .setDestinationType(DestinationType.FOLDER)
-                .setDestinationId(folder.getId())
-                .setNewName("New Copied sheet")
+        ContainerDestination destination = ContainerDestination.builder()
+                .destinationType(DestinationType.FOLDER)
+                .destinationId(folder.getId())
+                .newName("New Copied sheet")
                 .build();
 
         Sheet sheet = smartsheet.sheetResources().copySheet(newSheetHome.getId(), destination, EnumSet.of(SheetCopyInclusion.ALL));
@@ -128,9 +128,9 @@ class SheetResourcesIT extends ITResourcesImpl {
         Folder folder = createFolder();
         Sheet sheet = smartsheet.sheetResources().createSheet(createSheetObject());
 
-        ContainerDestination destination = new ContainerDestination.AddContainerDestinationBuilder()
-                .setDestinationType(DestinationType.FOLDER)
-                .setDestinationId(folder.getId())
+        ContainerDestination destination = ContainerDestination.builder()
+                .destinationType(DestinationType.FOLDER)
+                .destinationId(folder.getId())
                 .build();
 
         Sheet movedSheet = smartsheet.sheetResources().moveSheet(sheet.getId(), destination);
@@ -145,7 +145,7 @@ class SheetResourcesIT extends ITResourcesImpl {
         Sheet sheet = smartsheet.sheetResources().createSheet(createSheetObject());
 
         //get column
-        PaginationParameters parameters = new PaginationParameters.PaginationParametersBuilder().setIncludeAll(true).build();
+        PaginationParameters parameters = PaginationParameters.builder().includeAll(true).build();
         PagedResult<Column> wrapper = smartsheet
                 .sheetResources()
                 .columnResources()
@@ -178,10 +178,7 @@ class SheetResourcesIT extends ITResourcesImpl {
         Column addedColumn = columns.get(1);
         //
 
-        RecipientEmail recipientEmail = new RecipientEmail.AddRecipientEmailBuilder()
-                .setEmail("aditi.nioding@smartsheet.com")
-                .setEmail("john.doe@smartsheet.com")
-                .build();
+        RecipientEmail recipientEmail = RecipientEmail.builder().email("john.doe@smartsheet.com").build();
 
         List<Recipient> recipients = new ArrayList<>();
         recipients.add(recipientEmail);
@@ -363,11 +360,7 @@ class SheetResourcesIT extends ITResourcesImpl {
     }
 
     public void testListSheets() throws SmartsheetException, IOException {
-        PaginationParameters parameters = new PaginationParameters.PaginationParametersBuilder()
-                .setIncludeAll(false)
-                .setPageSize(1)
-                .setPage(1)
-                .build();
+        PaginationParameters parameters = PaginationParameters.builder().includeAll(false).pageSize(1).page(1).build();
         PagedResult<Sheet> sheets = smartsheet.sheetResources().listSheets(EnumSet.of(SourceInclusion.SOURCE), parameters);
         smartsheet.sheetResources().listSheets();
 
@@ -401,7 +394,7 @@ class SheetResourcesIT extends ITResourcesImpl {
 
     public void testSendSheet() throws SmartsheetException, IOException {
         List<Recipient> recipients = new ArrayList<>();
-        RecipientEmail recipientEmail = new RecipientEmail.AddRecipientEmailBuilder().setEmail("test.user@smartsheet.com").build();
+        RecipientEmail recipientEmail = RecipientEmail.builder().email("test.user@smartsheet.com").build();
 
         recipients.add(recipientEmail);
         FormatDetails formatDetails = FormatDetails.builder().paperSize(PaperSize.A0).build();

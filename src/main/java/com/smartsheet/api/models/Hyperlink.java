@@ -17,7 +17,22 @@
 package com.smartsheet.api.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
+@Getter
+@Setter
+@ToString
+// We need to have a constructor with no arguments for the subclasses of this class to work
+@NoArgsConstructor
+// We need to have a constructor with all arguments for Lombok Builder to work
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@Builder
 public class Hyperlink {
     /**
      * When the hyperlink is a URL link, this property will contain the URL value.
@@ -40,98 +55,17 @@ public class Hyperlink {
      * If non-null, this hyperlink is a link to the Sort with this ID.
      */
     private Long sightId;
-    /**
-     * If true, update will serialize a null to reset the hyperlink
-     */
-    private boolean isNull = true;
 
     /**
-     * Gets the url
+     * Checks if the url, reportId, sightId and sheetId ID in the Hyperlink are all null
      *
-     * @return the url
-     */
-    public String getUrl() {
-        return url;
-    }
-
-    /**
-     * Sets the url
-     *
-     * @param url the urk
-     */
-    public Hyperlink setUrl(String url) {
-        this.isNull = false;
-        this.url = url;
-        return this;
-    }
-
-    /**
-     * Gets the link to the Sheet with this ID.
-     *
-     * @return the sheet id
-     */
-    public Long getSheetId() {
-        return sheetId;
-    }
-
-    /**
-     * Sets the link to the Sheet with this ID.
-     *
-     * @param sheetId the sheet Id
-     */
-    public Hyperlink setSheetId(Long sheetId) {
-        this.isNull = false;
-        this.sheetId = sheetId;
-        return this;
-    }
-
-    /**
-     * Gets a link to the Report with this ID.
-     *
-     * @return the report Id
-     */
-    public Long getReportId() {
-        return reportId;
-    }
-
-    /**
-     * Sets a link to the Report with this ID.
-     *
-     * @param reportId the report Id
-     */
-    public Hyperlink setReportId(Long reportId) {
-        this.isNull = false;
-        this.reportId = reportId;
-        return this;
-    }
-
-    /**
-     * Gets the link to the Sight with this ID.
-     *
-     * @return the sight id
-     */
-    public Long getSightId() {
-        return sightId;
-    }
-
-    /**
-     * Sets the link to the Sight with this ID.
-     *
-     * @param sightId the sight Id
-     */
-    public Hyperlink setSightId(Long sightId) {
-        this.isNull = false;
-        this.sightId = sightId;
-        return this;
-    }
-
-    /**
-     * Get the value of the isNull flag
-     *
-     * @return value of isNull flag
+     * @return boolean based on whether the fields in the cell link are null or not
      */
     @JsonIgnore
     public boolean isNull() {
-        return this.isNull;
+        return this.sightId == null &&
+                this.url == null &&
+                this.reportId == null &&
+                this.sheetId == null;
     }
 }

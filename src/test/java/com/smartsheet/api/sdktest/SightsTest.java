@@ -48,10 +48,11 @@ class SightsTest {
     @Test
     void copySight() throws SmartsheetException {
         Smartsheet ss = HelperFunctions.SetupClient("Copy Sight");
-        ContainerDestination dest = new ContainerDestination();
-        dest.setDestinationType(DestinationType.FOLDER);
-        dest.setDestinationId(484L);
-        dest.setNewName("new sight");
+        ContainerDestination dest = ContainerDestination.builder()
+                .destinationType(DestinationType.FOLDER)
+                .destinationId(484L)
+                .newName("new sight")
+                .build();
         Sight sight = ss.sightResources().copySight(52, dest);
     }
 

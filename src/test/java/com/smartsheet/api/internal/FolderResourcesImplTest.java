@@ -78,7 +78,7 @@ class FolderResourcesImplTest extends ResourcesImplBase {
     void testListFolders() throws SmartsheetException, IOException {
 
         server.setResponseBody(new File("src/test/resources/listFolders.json"));
-        PaginationParameters parameters = new PaginationParameters(true, 1, 1);
+        PaginationParameters parameters = PaginationParameters.builder().includeAll(true).pageSize(1).page(1).build();
         PagedResult<Folder> foldersWrapper = folderResource.listFolders(12345L, parameters);
 
         assertThat(foldersWrapper.getPageSize()).isEqualTo(100);
@@ -100,8 +100,7 @@ class FolderResourcesImplTest extends ResourcesImplBase {
     @Test
     void testCopyFolder() throws Exception {
         server.setResponseBody(new File("src/test/resources/copyFolder.json"));
-        ContainerDestination containerDestination = new ContainerDestination();
-        containerDestination.setDestinationType(DestinationType.FOLDER);
+        ContainerDestination containerDestination = ContainerDestination.builder().destinationType(DestinationType.FOLDER).build();
 
         Folder folder = folderResource.copyFolder(123L, containerDestination, null, null);
         assertThat(folder.getPermalink()).isEqualTo("https://{base_url}?lx=lB0JaOh6AX1wGwqxsQIMaA");
@@ -110,8 +109,7 @@ class FolderResourcesImplTest extends ResourcesImplBase {
     @Test
     void testMoveFolder() throws Exception {
         server.setResponseBody(new File("src/test/resources/moveFolder.json"));
-        ContainerDestination containerDestination = new ContainerDestination();
-        containerDestination.setDestinationType(DestinationType.FOLDER);
+        ContainerDestination containerDestination = ContainerDestination.builder().destinationType(DestinationType.FOLDER).build();
 
         Folder folder = folderResource.moveFolder(123L, containerDestination);
         assertThat(folder.getId()).isEqualTo(4509918431602564L);

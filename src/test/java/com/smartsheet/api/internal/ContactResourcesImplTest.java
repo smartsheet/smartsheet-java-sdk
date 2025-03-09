@@ -60,7 +60,7 @@ class ContactResourcesImplTest extends ResourcesImplBase {
         void listContacts_withParameters() throws SmartsheetException, IOException {
             // Arrange
             server.setResponseBody(new File("src/test/resources/listContacts.json"));
-            PaginationParameters paginationParameters = new PaginationParameters.PaginationParametersBuilder().setIncludeAll(true).build();
+            PaginationParameters paginationParameters = PaginationParameters.builder().includeAll(true).build();
 
             // Act
             PagedResult<Contact> contacts = contactResources.listContacts(paginationParameters);

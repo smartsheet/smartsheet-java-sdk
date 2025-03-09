@@ -37,13 +37,9 @@ public class RecipientDeserializer extends JsonDeserializer<Recipient> {
         if (jp.getCurrentToken() == JsonToken.START_OBJECT) {
             JsonNode node = jp.getCodec().readTree(jp);
             if (node.get("email") != null) {
-                RecipientEmail email = new
-                        RecipientEmail.AddRecipientEmailBuilder().setEmail(node.get("email").asText()).build();
-                return email;
+                return RecipientEmail.builder().email(node.get("email").asText()).build();
             } else if (node.get("groupId") != null) {
-                RecipientGroup group = new
-                        RecipientGroup.AddRecipientGroupBuilder().setGroupId(node.get("groupId").asLong()).build();
-                return group;
+                return RecipientGroup.builder().groupId(node.get("groupId").asLong()).build();
             }
         }
         return null;

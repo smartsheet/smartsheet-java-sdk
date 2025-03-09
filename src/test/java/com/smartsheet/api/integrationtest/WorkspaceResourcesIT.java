@@ -69,9 +69,7 @@ public class WorkspaceResourcesIT extends ITResourcesImpl {
 
     public void testCopyWorkspace() throws SmartsheetException, IOException {
 
-        ContainerDestination destination = new ContainerDestination.AddContainerDestinationBuilder()
-                .setNewName("New Copied workspace")
-                .build();
+        ContainerDestination destination = ContainerDestination.builder().newName("New Copied workspace").build();
 
         Workspace workspace = smartsheet.workspaceResources()
                 .copyWorkspace(
@@ -104,7 +102,7 @@ public class WorkspaceResourcesIT extends ITResourcesImpl {
     }
 
     public void testListWorkspaces() throws SmartsheetException {
-        PaginationParameters parameters = new PaginationParameters(true, 10, 10);
+        PaginationParameters parameters = PaginationParameters.builder().includeAll(true).pageSize(10).page(10).build();
         PagedResult<Workspace> workspace = smartsheet.workspaceResources().listWorkspaces(parameters);
         assertThat(workspace).isNotNull();
     }

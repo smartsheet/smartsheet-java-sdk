@@ -29,7 +29,7 @@ class SheetFilterTest {
         void sheetFilterBuilder() {
             // Arrange
             // Common Objects
-            SheetFilterDetails sheetFilterDetails = new SheetFilterDetails();
+            SheetFilterDetails sheetFilterDetails = SheetFilterDetails.builder().build();
 
             // Act
             SheetFilter sheetFilterNoArg = SheetFilter.builder().build();
