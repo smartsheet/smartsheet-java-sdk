@@ -26,7 +26,7 @@ class PaginationParametersTest {
 
     @Test
     void testPaginationParameters() {
-        PaginationParameters parameters = new PaginationParameters(true, 1, 1);
+        PaginationParameters parameters = PaginationParameters.builder().includeAll(true).pageSize(1).page(1).build();
 
         assertThat(parameters.isIncludeAll()).isTrue();
         assertThat(parameters.getPageSize().longValue()).isEqualTo(1);
@@ -35,13 +35,13 @@ class PaginationParametersTest {
 
     @Test
     void testToQueryString() {
-        PaginationParameters parameters1 = new PaginationParameters(true, null, null);
+        PaginationParameters parameters1 = PaginationParameters.builder().includeAll(true).pageSize(null).page(null).build();
         assertThat(parameters1.toQueryString()).isEqualTo("?includeAll=true");
 
-        PaginationParameters parameters2 = new PaginationParameters(true, 1, 1);
+        PaginationParameters parameters2 = PaginationParameters.builder().includeAll(true).pageSize(1).page(1).build();
         assertThat(parameters2.toQueryString()).isEqualTo("?includeAll=true");
 
-        PaginationParameters parameters3 = new PaginationParameters(false, 1, 1);
+        PaginationParameters parameters3 = PaginationParameters.builder().includeAll(false).pageSize(1).page(1).build();
         String[] matches1 = new String[]{"pageSize=1", "includeAll=false", "page=1"};
         for (String s : matches1) {
             assertThat(parameters3.toQueryString()).contains(s);
@@ -50,21 +50,21 @@ class PaginationParametersTest {
 
     @Test
     void testToHashMap() {
-        PaginationParameters parameters1 = new PaginationParameters(true, null, null);
+        PaginationParameters parameters1 = PaginationParameters.builder().includeAll(true).pageSize(null).page(null).build();
         Map<String, Object> map = parameters1.toHashMap();
         assertThat(map)
                 .containsEntry("includeAll", "true")
                 .doesNotContainKey("pageSize")
                 .doesNotContainKey("page");
 
-        PaginationParameters parameters2 = new PaginationParameters(true, 1, 1);
+        PaginationParameters parameters2 = PaginationParameters.builder().includeAll(true).pageSize(1).page(1).build();
         map = parameters2.toHashMap();
         assertThat(map)
                 .containsEntry("includeAll", "true")
                 .doesNotContainKey("pageSize")
                 .doesNotContainKey("page");
 
-        PaginationParameters parameters3 = new PaginationParameters(false, 1, 1);
+        PaginationParameters parameters3 = PaginationParameters.builder().includeAll(false).pageSize(1).page(1).build();
         map = parameters3.toHashMap();
         assertThat(map)
                 .containsEntry("includeAll", "false")
@@ -74,11 +74,7 @@ class PaginationParametersTest {
 
     @Test
     void testBuilder() {
-        PaginationParameters pagination = new PaginationParameters.PaginationParametersBuilder()
-                .setIncludeAll(true)
-                .setPageSize(2)
-                .setPage(1)
-                .build();
+        PaginationParameters pagination = PaginationParameters.builder().includeAll(true).pageSize(2).page(1).build();
         assertThat(pagination.isIncludeAll()).isTrue();
         assertThat(pagination.getPageSize().longValue()).isEqualTo(2);
         assertThat(pagination.getPage().longValue()).isEqualTo(1);

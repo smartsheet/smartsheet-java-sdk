@@ -31,7 +31,7 @@ class WidgetTest {
             // Arrange
             // Common Objects
             Format titleFormat = new Format();
-            ImageWidgetContent contents = new ImageWidgetContent();
+            ImageWidgetContent contents = ImageWidgetContent.builder().build();
             Error error = Error.builder().build();
 
             // Act

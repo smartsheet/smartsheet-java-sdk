@@ -24,8 +24,7 @@ class RecipientEmailTest {
 
     @Test
     void testRecipientEmail() {
-        RecipientEmail recipient = new RecipientEmail();
-        recipient.setEmail("johndoe@smartsheet.com");
+        RecipientEmail recipient = RecipientEmail.builder().email("johndoe@smartsheet.com").build();
 
         assertThat(recipient.getEmail()).isNotNull();
     }

@@ -31,8 +31,8 @@ class DiscussionTest {
         @Test
         void discussionBuilder() {
             // Act
-            List<Comment> comments = List.of(new Comment());
-            Comment comment = new Comment();
+            List<Comment> comments = List.of(Comment.builder().build());
+            Comment comment = Comment.builder().build();
             List<Attachment> commentAttachments = List.of(new Attachment());
             Date lastCommentedAt = new Date();
             User lastCommentedUser = new User();
@@ -57,7 +57,7 @@ class DiscussionTest {
                     .id(1L)
                     .title("Title")
                     .comments(comments)
-                    .comment(new Comment())
+                    .comment(Comment.builder().build())
                     .commentAttachments(commentAttachments)
                     .commentCount(5)
                     .lastCommentedAt(lastCommentedAt)

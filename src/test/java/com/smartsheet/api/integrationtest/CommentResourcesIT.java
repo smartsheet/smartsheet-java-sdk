@@ -54,12 +54,12 @@ public class CommentResourcesIT extends ITResourcesImpl {
         newSheet = smartsheet.sheetResources().createSheet(createSheetObject());
 
         //create comment to add to discussion
-        Comment comment = new Comment.AddCommentBuilder().setText("This is a new comment.").build();
+        Comment comment = Comment.builder().text("This is a new comment.").build();
 
         Discussion discussion = Discussion.builder().title("New Discussion").comment(comment).build();
         newDiscussion = smartsheet.sheetResources().discussionResources().createDiscussion(newSheet.getId(), discussion);
 
-        Comment newComment1 = new Comment.AddCommentBuilder().setText("This is a test comment").build();
+        Comment newComment1 = Comment.builder().text("This is a test comment").build();
         newComment = smartsheet
                 .sheetResources()
                 .discussionResources()
@@ -69,7 +69,7 @@ public class CommentResourcesIT extends ITResourcesImpl {
 
     public void testAddCommentWithAttachment() throws SmartsheetException, IOException {
         //create comment to add to discussion
-        Comment comment = new Comment.AddCommentBuilder().setText("This is a test comment").build();
+        Comment comment = Comment.builder().text("This is a test comment").build();
         File file = new File("src/test/resources/small-text.txt");
 
         Comment comment1 = smartsheet

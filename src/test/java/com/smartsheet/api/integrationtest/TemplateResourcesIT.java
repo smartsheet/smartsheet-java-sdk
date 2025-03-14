@@ -36,7 +36,7 @@ public class TemplateResourcesIT extends ITResourcesImpl {
 
     @Test
     void testListPublicTemplates() throws SmartsheetException {
-        PaginationParameters parameters = new PaginationParameters.PaginationParametersBuilder().setIncludeAll(true).build();
+        PaginationParameters parameters = PaginationParameters.builder().includeAll(true).build();
         PagedResult<Template> templates = smartsheet.templateResources().listPublicTemplates(null);
 
         assertThat(templates).isNotNull();
@@ -44,7 +44,7 @@ public class TemplateResourcesIT extends ITResourcesImpl {
 
     @Test
     void testListTemplates() throws SmartsheetException {
-        PaginationParameters parameters = new PaginationParameters.PaginationParametersBuilder().setIncludeAll(true).build();
+        PaginationParameters parameters = PaginationParameters.builder().includeAll(true).build();
         PagedResult<Template> templates = smartsheet.templateResources().listUserCreatedTemplates(parameters);
 
         assertThat(templates).isNotNull();

@@ -98,7 +98,7 @@ public class AttachmentResourcesIT extends ITResourcesImpl {
     }
 
     public void testGetAttachmentRow() throws SmartsheetException {
-        PaginationParameters parameters = new PaginationParameters.PaginationParametersBuilder().setIncludeAll(true).build();
+        PaginationParameters parameters = PaginationParameters.builder().includeAll(true).build();
         PagedResult<Attachment> attachments = smartsheet
                 .sheetResources()
                 .rowResources()
@@ -109,7 +109,7 @@ public class AttachmentResourcesIT extends ITResourcesImpl {
 
     public void testattachFileComment() throws SmartsheetException, IOException {
         //create comment to add to discussion
-        Comment comment = new Comment.AddCommentBuilder().setText("This is a test comment").build();
+        Comment comment = Comment.builder().text("This is a test comment").build();
 
         Discussion discussion = Discussion.builder().title("New Discussion").comment(comment).build();
         discussion = smartsheet.sheetResources().discussionResources().createDiscussion(sheetId, discussion);
@@ -127,7 +127,7 @@ public class AttachmentResourcesIT extends ITResourcesImpl {
     }
 
     public void testGetAttachmentComment(long attachmentId) throws SmartsheetException, IOException {
-        PaginationParameters parameters = new PaginationParameters.PaginationParametersBuilder().setIncludeAll(true).build();
+        PaginationParameters parameters = PaginationParameters.builder().includeAll(true).build();
         PagedResult<Attachment> attachments = smartsheet
                 .sheetResources()
                 .discussionResources()
@@ -159,7 +159,7 @@ public class AttachmentResourcesIT extends ITResourcesImpl {
     }
 
     public void testListAttachments() throws SmartsheetException {
-        PaginationParameters parameters = new PaginationParameters.PaginationParametersBuilder().setIncludeAll(true).build();
+        PaginationParameters parameters = PaginationParameters.builder().includeAll(true).build();
 
         PagedResult<Attachment> attachments = smartsheet.sheetResources().attachmentResources().listAttachments(sheetId, parameters);
         assertThat(attachments).isNotNull();
@@ -180,7 +180,7 @@ public class AttachmentResourcesIT extends ITResourcesImpl {
     }
 
     public void testListAllVersions() throws SmartsheetException, IOException {
-        PaginationParameters parameters = new PaginationParameters.PaginationParametersBuilder().setIncludeAll(true).build();
+        PaginationParameters parameters = PaginationParameters.builder().includeAll(true).build();
         PagedResult<Attachment> attachments = smartsheet
                 .sheetResources()
                 .attachmentResources()

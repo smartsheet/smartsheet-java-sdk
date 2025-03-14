@@ -79,7 +79,7 @@ class RowResourcesIT extends ITResourcesImpl {
         sheet = smartsheet.sheetResources().createSheet(createSheetObject());
 
         //get column
-        PaginationParameters parameters = new PaginationParameters.PaginationParametersBuilder().setIncludeAll(true).build();
+        PaginationParameters parameters = PaginationParameters.builder().includeAll(true).build();
         PagedResult<Column> wrapper = smartsheet
                 .sheetResources()
                 .columnResources()
@@ -130,7 +130,7 @@ class RowResourcesIT extends ITResourcesImpl {
     void testUpdateRows() throws SmartsheetException, IOException {
         // create sheet
         Sheet sheet = smartsheet.sheetResources().createSheet(createSheetObject());
-        PaginationParameters parameters = new PaginationParameters.PaginationParametersBuilder().setIncludeAll(true).build();
+        PaginationParameters parameters = PaginationParameters.builder().includeAll(true).build();
         PagedResult<Column> wrapper = smartsheet
                 .sheetResources()
                 .columnResources()
@@ -209,7 +209,7 @@ class RowResourcesIT extends ITResourcesImpl {
 
     public void testSendRows() throws SmartsheetException {
         // Specify individual recipient.
-        RecipientEmail recipientEmail = new RecipientEmail.AddRecipientEmailBuilder().setEmail("john.doe@smartsheet.com").build();
+        RecipientEmail recipientEmail = RecipientEmail.builder().email("john.doe@smartsheet.com").build();
 
         List<Recipient> recipients = new ArrayList<>();
         recipients.add(recipientEmail);
@@ -232,7 +232,7 @@ class RowResourcesIT extends ITResourcesImpl {
     void testPartialInsertRows() throws SmartsheetException, IOException {
         Sheet sheet = smartsheet.sheetResources().createSheet(createSheetObjectWithAutoNumberColumn());
 
-        PaginationParameters parameters = new PaginationParameters.PaginationParametersBuilder().setIncludeAll(true).build();
+        PaginationParameters parameters = PaginationParameters.builder().includeAll(true).build();
         PagedResult<Column> wrapper = smartsheet
                 .sheetResources()
                 .columnResources()
@@ -281,7 +281,7 @@ class RowResourcesIT extends ITResourcesImpl {
     void testPartialUpdateRows() throws SmartsheetException, IOException {
         Sheet sheet = smartsheet.sheetResources().createSheet(createSheetObjectWithAutoNumberColumn());
 
-        PaginationParameters parameters = new PaginationParameters.PaginationParametersBuilder().setIncludeAll(true).build();
+        PaginationParameters parameters = PaginationParameters.builder().includeAll(true).build();
         PagedResult<Column> wrapper = smartsheet
                 .sheetResources()
                 .columnResources()

@@ -17,7 +17,17 @@
 package com.smartsheet.api.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import lombok.extern.jackson.Jacksonized;
 
+@Getter
+@Setter
+@ToString
+@Jacksonized
+@Builder
 public class CellLink {
 
     /**
@@ -50,115 +60,12 @@ public class CellLink {
     private String sheetName;
 
     /**
-     * If true, update will serialize a null to reset the linkInFromCell
-     */
-    private boolean isNull = true;
-
-    /**
-     * Gets the status.
+     * Checks if the sheet, row, and column ID in the CellLink are all null
      *
-     * @return status
-     */
-    public String getStatus() {
-        return status;
-    }
-
-    /**
-     * Sets the status
-     *
-     * @param status the status
-     */
-    public CellLink setStatus(String status) {
-        this.status = status;
-        return this;
-    }
-
-    /**
-     * Gets the Sheet ID of the sheet that the linked cell belongs to.
-     *
-     * @return sheet ID
-     */
-    public Long getSheetId() {
-        return sheetId;
-    }
-
-    /**
-     * Sets the Sheet ID of the sheet that the linked cell belongs to
-     *
-     * @param sheetId the sheetId
-     */
-    public CellLink setSheetId(Long sheetId) {
-        this.isNull = false;
-        this.sheetId = sheetId;
-        return this;
-    }
-
-    /**
-     * Gets Row ID of the linked cell.
-     *
-     * @return rowI the row id
-     */
-    public Long getRowId() {
-        return rowId;
-    }
-
-    /**
-     * Sets
-     *
-     * @param rowId the row Id
-     */
-    public CellLink setRowId(Long rowId) {
-        this.isNull = false;
-        this.rowId = rowId;
-        return this;
-    }
-
-    /**
-     * Gets Column ID of the linked cell.
-     *
-     * @return column ID
-     */
-    public Long getColumnId() {
-        return columnId;
-    }
-
-    /**
-     * Sets Column ID of the linked cell
-     *
-     * @param columnId the column ID
-     */
-    public CellLink setColumnId(Long columnId) {
-        this.isNull = false;
-        this.columnId = columnId;
-        return this;
-    }
-
-    /**
-     * Gets Sheet name of the linked cell.
-     *
-     * @return sheet name
-     */
-    public String getSheetName() {
-        return sheetName;
-    }
-
-    /**
-     * Sets Sheet name of the linked cell
-     *
-     * @param sheetName the sheet name
-     */
-    public CellLink setSheetName(String sheetName) {
-        this.sheetName = sheetName;
-        return this;
-    }
-
-    /**
-     * Get the value of the isNull flag
-     *
-     * @return value of isNull flag
+     * @return boolean based on whether the IDs in the cell link are null or not
      */
     @JsonIgnore
     public boolean isNull() {
-        return this.isNull;
+        return this.columnId == null && this.rowId == null && this.sheetId == null;
     }
 }

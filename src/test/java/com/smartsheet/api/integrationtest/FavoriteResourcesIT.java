@@ -65,7 +65,7 @@ public class FavoriteResourcesIT extends ITResourcesImpl {
 
     @Test
     void testListFavorites() throws SmartsheetException {
-        PaginationParameters parameters = new PaginationParameters.PaginationParametersBuilder().setIncludeAll(true).build();
+        PaginationParameters parameters = PaginationParameters.builder().includeAll(true).build();
         PagedResult<Favorite> favorites = smartsheet.favoriteResources().listFavorites(parameters);
         assertThat(favorites).isNotNull();
     }
@@ -113,6 +113,10 @@ public class FavoriteResourcesIT extends ITResourcesImpl {
 
     @Test
     void testDeleteUser() {
-        DeleteUserParameters parameters = new DeleteUserParameters(12345L, true, true);
+        DeleteUserParameters parameters = DeleteUserParameters.builder()
+                .transferToId(12345L)
+                .transferSheets(true)
+                .removeFromSharing(true)
+                .build();
     }
 }

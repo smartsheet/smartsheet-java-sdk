@@ -67,7 +67,7 @@ class HomeResourcesImplTest extends ResourcesImplBase {
         server.setResponseBody(new File("src/test/resources/getHomeFolders.json"));
 
         HomeFolderResources folders = homeResources.folderResources();
-        PaginationParameters parameters = new PaginationParameters(true, 1, 1);
+        PaginationParameters parameters = PaginationParameters.builder().includeAll(true).pageSize(1).page(1).build();
         assertThat(folders.listFolders(parameters)).isNotNull();
         assertThat(folders.listFolders(parameters).getTotalPages()).isEqualTo(1);
     }

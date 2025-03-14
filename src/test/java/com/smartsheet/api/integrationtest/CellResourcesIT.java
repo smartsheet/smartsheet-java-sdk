@@ -48,7 +48,7 @@ public class CellResourcesIT extends ITResourcesImpl {
         //create sheet
         Sheet sheet = smartsheet.sheetResources().createSheet(createSheetObject());
 
-        PaginationParameters parameters = new PaginationParameters.PaginationParametersBuilder().setIncludeAll(true).build();
+        PaginationParameters parameters = PaginationParameters.builder().includeAll(true).build();
 
         //get columns
         PagedResult<Column> columns = RetryUtil.callWithRetry(
@@ -70,7 +70,7 @@ public class CellResourcesIT extends ITResourcesImpl {
     @Test
     void testAddCellImage() throws SmartsheetException, IOException {
         Sheet sheet = smartsheet.sheetResources().createSheet(createSheetObject());
-        PaginationParameters parameters = new PaginationParameters.PaginationParametersBuilder().setIncludeAll(true).build();
+        PaginationParameters parameters = PaginationParameters.builder().includeAll(true).build();
 
         //get columns
         PagedResult<Column> columns = RetryUtil.callWithRetry(

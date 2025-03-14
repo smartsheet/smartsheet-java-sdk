@@ -62,10 +62,7 @@ class UserResourcesImplTest extends ResourcesImplBase {
         server.setResponseBody(new File("src/test/resources/listUsers.json"));
         Set<String> email = new HashSet<>();
         email.add("test@example.com");
-        PaginationParameters pagination = new PaginationParameters();
-        pagination.setIncludeAll(true);
-        pagination.setPageSize(1);
-        pagination.setPage(1);
+        PaginationParameters pagination = PaginationParameters.builder().includeAll(true).pageSize(1).page(1).build();
         EnumSet<ListUserInclusion> includes = EnumSet.of(ListUserInclusion.LAST_LOGIN);
 
         PagedResult<User> userWrapper1 = userResources.listUsers();
@@ -217,7 +214,11 @@ class UserResourcesImplTest extends ResourcesImplBase {
     @Test
     void testDeleteUser() throws IOException {
         server.setResponseBody(new File("src/test/resources/deleteUser.json"));
-        DeleteUserParameters parameters = new DeleteUserParameters(12345L, true, true);
+        DeleteUserParameters parameters = DeleteUserParameters.builder()
+                .transferToId(12345L)
+                .transferSheets(true)
+                .removeFromSharing(true)
+                .build();
         assertThatCode(() -> userResources.deleteUser(1234L, parameters)).doesNotThrowAnyException();
     }
 
@@ -225,10 +226,7 @@ class UserResourcesImplTest extends ResourcesImplBase {
     void testListOrgSheets() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/listOrgSheets.json"));
 
-        PaginationParameters pagination = new PaginationParameters();
-        pagination.setIncludeAll(true);
-        pagination.setPageSize(1);
-        pagination.setPage(1);
+        PaginationParameters pagination = PaginationParameters.builder().includeAll(false).pageSize(1).page(1).build();
 
         PagedResult<Sheet> sheets = userResources.listOrgSheets(pagination, null);
         assertThat(sheets.getData()).isNotNull().isNotEmpty();
@@ -241,10 +239,7 @@ class UserResourcesImplTest extends ResourcesImplBase {
     void testListAlternateEmails() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/listAlternateEmails.json"));
 
-        PaginationParameters pagination = new PaginationParameters();
-        pagination.setIncludeAll(true);
-        pagination.setPageSize(1);
-        pagination.setPage(1);
+        PaginationParameters pagination = PaginationParameters.builder().includeAll(false).pageSize(1).page(1).build();
 
         PagedResult<AlternateEmail> alternateEmailPagedResult = userResources.listAlternateEmails(1234L, pagination);
         assertThat(alternateEmailPagedResult.getData()).isNotNull().isNotEmpty();
@@ -263,10 +258,7 @@ class UserResourcesImplTest extends ResourcesImplBase {
     void testGetAlternateEmail() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/getAlternateEmail.json"));
 
-        PaginationParameters pagination = new PaginationParameters();
-        pagination.setIncludeAll(true);
-        pagination.setPageSize(1);
-        pagination.setPage(1);
+        PaginationParameters pagination = PaginationParameters.builder().includeAll(false).pageSize(1).page(1).build();
 
         AlternateEmail alternateEmail = userResources.getAlternateEmail(1234L, 7845112L);
         assertThat(alternateEmail).isNotNull();
@@ -280,10 +272,7 @@ class UserResourcesImplTest extends ResourcesImplBase {
     void testAddAlternateEmail() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/addAlternateEmail.json"));
 
-        PaginationParameters pagination = new PaginationParameters();
-        pagination.setIncludeAll(true);
-        pagination.setPageSize(1);
-        pagination.setPage(1);
+        PaginationParameters pagination = PaginationParameters.builder().includeAll(false).pageSize(1).page(1).build();
 
         AlternateEmail alternateEmail = new AlternateEmail();
         alternateEmail.setEmail("foo.bar@smartsheet.com");
@@ -299,10 +288,7 @@ class UserResourcesImplTest extends ResourcesImplBase {
     void testAddAlternateEmail_AlternateEmailNull() throws IOException {
         server.setResponseBody(new File("src/test/resources/addAlternateEmail.json"));
 
-        PaginationParameters pagination = new PaginationParameters();
-        pagination.setIncludeAll(true);
-        pagination.setPageSize(1);
-        pagination.setPage(1);
+        PaginationParameters pagination = PaginationParameters.builder().includeAll(false).pageSize(1).page(1).build();
 
         assertThatThrownBy(() -> userResources.addAlternateEmail(1234L, null)).isInstanceOf(IllegalArgumentException.class);
     }
@@ -311,10 +297,7 @@ class UserResourcesImplTest extends ResourcesImplBase {
     void testAddAlternateEmail_NoEmailSupplied() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/addAlternateEmail.json"));
 
-        PaginationParameters pagination = new PaginationParameters();
-        pagination.setIncludeAll(true);
-        pagination.setPageSize(1);
-        pagination.setPage(1);
+        PaginationParameters pagination = PaginationParameters.builder().includeAll(false).pageSize(1).page(1).build();
 
         List<AlternateEmail> alternateEmailList = Lists.newArrayList();
 
@@ -334,10 +317,7 @@ class UserResourcesImplTest extends ResourcesImplBase {
     void testPromoteAlternateEmail() throws IOException, SmartsheetException {
         server.setResponseBody(new File("src/test/resources/promoteAlternateEmail.json"));
 
-        PaginationParameters pagination = new PaginationParameters();
-        pagination.setIncludeAll(true);
-        pagination.setPageSize(1);
-        pagination.setPage(1);
+        PaginationParameters pagination = PaginationParameters.builder().includeAll(false).pageSize(1).page(1).build();
 
         AlternateEmail alternateEmail = userResources.promoteAlternateEmail(1234L, 7878L);
         assertThat(alternateEmail).isNotNull();

@@ -16,8 +16,19 @@
 
 package com.smartsheet.api.models;
 
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import lombok.extern.jackson.Jacksonized;
+
 import java.util.List;
 
+@Getter
+@Setter
+@ToString
+@Jacksonized
+@Builder
 public class ServerInfo {
 
     /**
@@ -34,58 +45,4 @@ public class ServerInfo {
      * Represents feature info object.
      */
     private FeatureInfo featureInfo;
-
-    /**
-     * Gets the Smartsheet-supported locales.
-     *
-     * @return the supported locales
-     */
-    public List<String> getSupportedLocales() {
-        return supportedLocales;
-    }
-
-    /**
-     * Sets the Smartsheet-supported locales.
-     *
-     * @param supportedLocales the supported locales
-     */
-    public void setSupportedLocales(List<String> supportedLocales) {
-        this.supportedLocales = supportedLocales;
-    }
-
-    /**
-     * Gets the format tables.
-     *
-     * @return the format tables
-     */
-    public FormatTables getFormats() {
-        return formats;
-    }
-
-    /**
-     * Sets the format tables.
-     *
-     * @param formats the format tables
-     */
-    public void setFormats(FormatTables formats) {
-        this.formats = formats;
-    }
-
-    /**
-     * Gets the feature info.
-     *
-     * @return the feature info
-     */
-    public FeatureInfo getFeatureInfo() {
-        return featureInfo;
-    }
-
-    /**
-     * Sets the feature info.
-     *
-     * @param featureInfo the feature info
-     */
-    public void setFeatureInfo(FeatureInfo featureInfo) {
-        this.featureInfo = featureInfo;
-    }
 }

@@ -49,7 +49,7 @@ public class ContactResourcesIT extends ITResourcesImpl {
     public void testListContacts() throws SmartsheetException {
         PagedResult<Contact> contacts = smartsheet
                 .contactResources()
-                .listContacts(new PaginationParameters.PaginationParametersBuilder().setIncludeAll(true).build());
+                .listContacts(PaginationParameters.builder().includeAll(true).build());
         //assertEquals(contacts.getData().get(0).getName(), "David Davidson");
         assertThat(contacts.getTotalCount()).isPositive();
         contactId = contacts.getData().get(0).getId();

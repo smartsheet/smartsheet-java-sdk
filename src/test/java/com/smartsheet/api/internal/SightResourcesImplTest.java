@@ -54,10 +54,7 @@ class SightResourcesImplTest extends ResourcesImplBase {
     void testListSights() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/listSights.json"));
 
-        PaginationParameters pagination = new PaginationParameters();
-        pagination.setIncludeAll(true);
-        pagination.setPageSize(1);
-        pagination.setPage(1);
+        PaginationParameters pagination = PaginationParameters.builder().includeAll(true).pageSize(1).page(1).build();
 
         PagedResult<Sight> sightPagedResult = sightResourcesImpl.listSights(pagination, null);
         assertThat(sightPagedResult.getData()).isNotNull();
@@ -122,10 +119,7 @@ class SightResourcesImplTest extends ResourcesImplBase {
     void testUpdateSight() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/updateSight.json"));
 
-        PaginationParameters pagination = new PaginationParameters();
-        pagination.setIncludeAll(true);
-        pagination.setPageSize(1);
-        pagination.setPage(1);
+        PaginationParameters pagination = PaginationParameters.builder().includeAll(true).pageSize(1).page(1).build();
 
         Sight sight = sightResourcesImpl.updateSight(Sight.builder().build());
         assertThat(sight).isNotNull();
@@ -170,7 +164,7 @@ class SightResourcesImplTest extends ResourcesImplBase {
     void testCopySight() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/updateSight.json"));
 
-        Sight sight = sightResourcesImpl.copySight(12345L, new ContainerDestination());
+        Sight sight = sightResourcesImpl.copySight(12345L, ContainerDestination.builder().build());
         assertThat(sight).isNotNull();
         assertThat(sight.getAccessLevel()).isEqualTo(AccessLevel.VIEWER);
         assertThat(sight.getFavorite()).isFalse();
@@ -183,7 +177,7 @@ class SightResourcesImplTest extends ResourcesImplBase {
     void testMoveSight() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/updateSight.json"));
 
-        Sight sight = sightResourcesImpl.moveSight(12345L, new ContainerDestination());
+        Sight sight = sightResourcesImpl.moveSight(12345L, ContainerDestination.builder().build());
         assertThat(sight).isNotNull();
         assertThat(sight.getAccessLevel()).isEqualTo(AccessLevel.VIEWER);
         assertThat(sight.getFavorite()).isFalse();

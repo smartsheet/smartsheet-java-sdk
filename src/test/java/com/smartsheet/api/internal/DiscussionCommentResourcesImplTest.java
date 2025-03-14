@@ -41,8 +41,7 @@ class DiscussionCommentResourcesImplTest extends ResourcesImplBase {
     void testAddComment() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/addDiscussionComment.json"));
 
-        Comment comment = new Comment();
-        comment.setText("Some new Text");
+        Comment comment = Comment.builder().text("Some new Text").build();
 
         Comment newComment = discussionCommentResources.addComment(1234L, 456L, comment);
 
@@ -55,7 +54,7 @@ class DiscussionCommentResourcesImplTest extends ResourcesImplBase {
     void testAddCommentWithAttachment() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/addDiscussionCommentWithAttachment.json"));
         File file = new File("src/test/resources/large_sheet.pdf");
-        Comment comment = new Comment.AddCommentBuilder().setText("new comment with attachment.").build();
+        Comment comment = Comment.builder().text("new comment with attachment.").build();
         comment.setId(345L);
 
         Comment newComment = discussionCommentResources.addCommentWithAttachment(1234L, 456L, comment, file, "application/pdf");
@@ -68,9 +67,10 @@ class DiscussionCommentResourcesImplTest extends ResourcesImplBase {
     @Test
     void testUpdateComment() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/addDiscussionComment.json"));
-        Comment comment = new Comment();
-        comment.setId(345L);
-        comment.setText("This is a new comment.");
+        Comment comment = Comment.builder()
+                .id(345L)
+                .text("This is a new comment.")
+                .build();
 
         Comment newComment = discussionCommentResources.updateComment(1234L, comment);
         assertThat(newComment.getText()).isEqualTo("This is a new comment.");

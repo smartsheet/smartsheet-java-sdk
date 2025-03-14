@@ -51,7 +51,7 @@ class WorkspaceResourcesImplTest extends ResourcesImplBase {
     @Test
     void testListWorkspaces() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/listWorkspaces.json"));
-        PaginationParameters parameters = new PaginationParameters(false, 1, 1);
+        PaginationParameters parameters = PaginationParameters.builder().includeAll(false).pageSize(1).page(1).build();
         PagedResult<Workspace> workspace = workspaceResources.listWorkspaces(parameters);
         assertThat(workspace.getPageNumber().longValue()).isEqualTo(1);
         assertThat(workspace.getPageSize().longValue()).isEqualTo(100);
@@ -121,8 +121,7 @@ class WorkspaceResourcesImplTest extends ResourcesImplBase {
     @Test
     void testCopyWorkspace() throws IOException, SmartsheetException {
         server.setResponseBody(new File("src/test/resources/copyWorkspace.json"));
-        ContainerDestination containerDestination = new ContainerDestination();
-        containerDestination.setDestinationType(DestinationType.WORKSPACE);
+        ContainerDestination containerDestination = ContainerDestination.builder().destinationType(DestinationType.WORKSPACE).build();
 
         Folder folder = workspaceResources.copyWorkspace(123L, containerDestination, null, null);
         assertThat(folder.getPermalink()).isEqualTo("https://{url}?lx=VL4YlIUnyYgASeX02grbLQ");

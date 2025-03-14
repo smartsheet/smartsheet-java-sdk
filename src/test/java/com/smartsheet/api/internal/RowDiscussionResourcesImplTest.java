@@ -61,7 +61,7 @@ class RowDiscussionResourcesImplTest extends ResourcesImplBase {
         // Arrange
         server.setResponseBody(new File("src/test/resources/createDiscussionOnRow.json"));
         File file = new File("src/test/resources/large_sheet.pdf");
-        Comment comment = new Comment.AddCommentBuilder().setText("New comment").build();
+        Comment comment = Comment.builder().text("New comment").build();
         Discussion discussion = Discussion.builder().title("Some title").comment(comment).build();
 
         // Act
@@ -75,7 +75,7 @@ class RowDiscussionResourcesImplTest extends ResourcesImplBase {
     void testCreateDiscussionWithAttachment_InputValidation() {
         // Arrange
         File file = new File("src/test/resources/large_sheet.pdf");
-        Comment comment = new Comment.AddCommentBuilder().setText("New comment").build();
+        Comment comment = Comment.builder().text("New comment").build();
         Discussion discussion = Discussion.builder().title("Some title").comment(comment).build();
 
         // Act & Assert
@@ -92,7 +92,7 @@ class RowDiscussionResourcesImplTest extends ResourcesImplBase {
         // Arrange
         server.setResponseBody(new File("src/test/resources/getRowDiscussions.json"));
 
-        PaginationParameters parameters = new PaginationParameters(false, 1, 1);
+        PaginationParameters parameters = PaginationParameters.builder().includeAll(false).pageSize(1).page(1).build();
 
         // Act
         PagedResult<Discussion> newDiscussion = discussionRowResources.listDiscussions(

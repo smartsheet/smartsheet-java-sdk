@@ -49,7 +49,7 @@ class SheetColumnResourcesImplTest extends ResourcesImplBase {
     void testListColumns() throws SmartsheetException, IOException {
 
         server.setResponseBody(new File("src/test/resources/listColumns.json"));
-        PaginationParameters paginationParameters = new PaginationParameters(true, 1, 1);
+        PaginationParameters paginationParameters = PaginationParameters.builder().includeAll(true).pageSize(1).page(1).build();
         PagedResult<Column> wrapper = sheetColumnResourcesImpl.listColumns(
                 1234L,
                 EnumSet.allOf(ColumnInclusion.class),

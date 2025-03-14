@@ -47,8 +47,7 @@ class SheetCommentResourcesImplTest extends ResourcesImplBase {
         assertThat(comment.getCreatedBy().getEmail()).isEqualTo("email@email.com");
 
         // Test equals method
-        Comment newComment = new Comment();
-        newComment.setId(3831661625403268L);
+        Comment newComment = Comment.builder().id(3831661625403268L).build();
         assertThat(newComment).hasSameHashCodeAs(comment);
     }
 

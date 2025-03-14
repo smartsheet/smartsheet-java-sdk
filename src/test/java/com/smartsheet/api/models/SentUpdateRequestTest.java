@@ -34,7 +34,7 @@ class SentUpdateRequestTest {
             // Common Objects
             Date sentAt = new Date();
             User sentBy = new User();
-            RecipientEmail recipientEmail = new RecipientEmail();
+            RecipientEmail recipientEmail = RecipientEmail.builder().build();
 
             // Act
             SentUpdateRequest sentUpdateRequestNoArg = SentUpdateRequest.builder().build();

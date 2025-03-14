@@ -100,7 +100,7 @@ public class FolderResourcesIT extends ITResourcesImpl {
     }
 
     public void testListFoldersInFolder() throws SmartsheetException {
-        PaginationParameters parameters = new PaginationParameters(true, 1, 1);
+        PaginationParameters parameters = PaginationParameters.builder().includeAll(true).pageSize(1).page(1).build();
         PagedResult<Folder> foldersWrapper = RetryUtil.callWithRetry(
                 () -> smartsheet.folderResources().listFolders(newFolder.getId(), parameters));
 
@@ -108,14 +108,14 @@ public class FolderResourcesIT extends ITResourcesImpl {
     }
 
     public void testListFoldersInHome() throws SmartsheetException {
-        PaginationParameters parameters = new PaginationParameters(true, 1, 1);
+        PaginationParameters parameters = PaginationParameters.builder().includeAll(true).pageSize(1).page(1).build();
         PagedResult<Folder> foldersWrapper = smartsheet.homeResources().folderResources().listFolders(parameters);
 
         assertThat(foldersWrapper.getTotalCount()).isNotNull();
     }
 
     public void testListFoldersInWorkspace() throws SmartsheetException {
-        PaginationParameters parameters = new PaginationParameters(true, 1, 1);
+        PaginationParameters parameters = PaginationParameters.builder().includeAll(true).pageSize(1).page(1).build();
         PagedResult<Folder> foldersWrapper = smartsheet.workspaceResources().folderResources().listFolders(workspace.getId(), parameters);
 
         assertThat(foldersWrapper.getTotalCount()).isNotNull();
@@ -130,10 +130,10 @@ public class FolderResourcesIT extends ITResourcesImpl {
     }
 
     public void testCopyFolder() throws SmartsheetException {
-        ContainerDestination destination = new ContainerDestination.AddContainerDestinationBuilder()
-                .setDestinationType(DestinationType.FOLDER)
-                .setDestinationId(newFolderWorkspace.getId())
-                .setNewName("New Copied folder")
+        ContainerDestination destination = ContainerDestination.builder()
+                .destinationType(DestinationType.FOLDER)
+                .destinationId(newFolderWorkspace.getId())
+                .newName("New Copied folder")
                 .build();
         Folder folder1 = smartsheet.folderResources().copyFolder(newFolderHome.getId(), destination, null, null);
         Folder folder2 = smartsheet
@@ -149,9 +149,9 @@ public class FolderResourcesIT extends ITResourcesImpl {
     }
 
     public void testMoveFolder() throws SmartsheetException {
-        ContainerDestination destination = new ContainerDestination.AddContainerDestinationBuilder()
-                .setDestinationType(DestinationType.FOLDER)
-                .setDestinationId(newFolderWorkspace.getId())
+        ContainerDestination destination = ContainerDestination.builder()
+                .destinationType(DestinationType.FOLDER)
+                .destinationId(newFolderWorkspace.getId())
                 .build();
         Folder folder1 = smartsheet.folderResources().moveFolder(newFolderHome.getId(), destination);
         smartsheet.folderResources().deleteFolder(folder1.getId());

@@ -59,7 +59,7 @@ class FavoriteResourcesImplTest extends ResourcesImplBase {
     @Test
     void testListFavorites() throws Exception {
         server.setResponseBody(new File("src/test/resources/listFavorites.json"));
-        PaginationParameters parameters = new PaginationParameters(false, 1, 1);
+        PaginationParameters parameters = PaginationParameters.builder().includeAll(false).pageSize(1).page(1).build();
         PagedResult<Favorite> favorites = favoriteResources.listFavorites(parameters);
         assertThat(favorites.getData().size()).isEqualTo(2);
         assertThat(favorites.getData().get(0).getType()).isNotNull();
