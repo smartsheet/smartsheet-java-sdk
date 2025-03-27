@@ -12,8 +12,7 @@
 <!-- Checklist must be completed before maintainer can review -->
 
 * [ ] Have you included a summary of your changes
-* [ ] Have you read the contribution guide
-* [ ] Have you followed the style guide
+* [ ] Have you read the **[contribution guide](https://github.com/smartsheet/smartsheet-java-sdk/blob/mainline/ADVANCED.md)**
 
 ## Validating changes
 
