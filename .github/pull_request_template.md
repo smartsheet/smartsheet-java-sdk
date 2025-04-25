@@ -16,4 +16,3 @@
 * [ ] Include a title that clearly describes your changes and references relevant issues / backlog items
 * [ ] Include a summary of your changes
 * [ ] Include tests for your changes where possible
-* [ ] Have changes reviewed by project maintainer

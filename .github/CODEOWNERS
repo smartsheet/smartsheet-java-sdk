@@ -1,5 +1,0 @@
-# File protection
-/.github/CODEOWNERS @smartsheet/java-sdk
-
-# Core Team
-* @smartsheet/java-sdk
