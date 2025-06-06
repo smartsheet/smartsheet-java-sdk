@@ -10,7 +10,11 @@
 
 #### **Did you write a patch that fixes a bug?**
 
-* Open a new GitHub pull request with the patch.
+* Open a new GitHub pull request with the patch, see our [pull request template](https://github.com/smartsheet/smartsheet-java-sdk/blob/mainline/.github/pull_request_template.md)
+
+* We recommend two styles of branch naming:
+  * The `<SEMANTIC_TYPE>/<CHANGE_TITLE>` pattern
+  * The `personal/<USER_NAME>/<CHANGE_TITLE>` pattern
 
 * Ensure the PR description clearly describes the problem and solution. Include the relevant issue number if applicable.
 
