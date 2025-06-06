@@ -68,7 +68,9 @@ public abstract class UserModel extends IdentifiableModel<Long> {
     private List<AlternateEmail> alternateEmails;
 
     /**
-     * The number of sheets owned by the current user within the organization
+     * The number of sheets owned by the current user within the organization.
+     * Note: As of 5-12-2025, this behavior will be discontinued and sheetCount will hold a value of -1 only if the user's status is ACTIVE.
+     * For more information, see the <a href="https://developers.smartsheet.com/api/smartsheet/changelog#2025-04-22">API Changelog</a>.
      */
     private Integer sheetCount;
 
@@ -285,7 +287,9 @@ public abstract class UserModel extends IdentifiableModel<Long> {
 
     /**
      * Gets the sheetCount.
-     *
+     * The number of sheets owned by the current user within the organization.
+     * Note: As of 5-12-2025, this behavior will be discontinued and sheetCount will hold a value of -1 only if the user's status is ACTIVE.
+     * For more information, see the <a href="https://developers.smartsheet.com/api/smartsheet/changelog#2025-04-22">API Changelog</a>.
      * @return sheetCount
      */
     public Integer getSheetCount() {
