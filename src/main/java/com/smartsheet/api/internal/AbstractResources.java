@@ -648,6 +648,58 @@ public abstract class AbstractResources {
     }
 
     /**
+     * Partially update a resource using Smartsheet REST API with PATCH method.
+     * <p>
+     * Exceptions:
+     * IllegalArgumentException : if any argument is null, or path is empty string
+     * InvalidRequestException : if there is any problem with the REST API request
+     * AuthorizationException : if there is any problem with the REST API authorization(access token)
+     * ResourceNotFoundException : if the resource can not be found
+     * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     * SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     * SmartsheetException : if there is any other error occurred during the operation
+     *
+     * @param <T>         the generic type
+     * @param path        the relative path of the resource
+     * @param objectClass the resource object class
+     * @param object      the object to patch
+     * @return the updated resource
+     * @throws SmartsheetException the smartsheet exception
+     */
+    protected <T> T patchResource(String path, Class<T> objectClass, Object object) throws SmartsheetException {
+        Util.throwIfNull(path, object);
+        Util.throwIfEmpty(path);
+
+        HttpRequest request;
+        request = createHttpRequest(smartsheet.getBaseURI().resolve(path), HttpMethod.PATCH);
+
+        ByteArrayOutputStream objectBytesStream = new ByteArrayOutputStream();
+        this.smartsheet.getJsonSerializer().serialize(object, objectBytesStream);
+        HttpEntity entity = new HttpEntity();
+        entity.setContentType(JSON_CONTENT_TYPE);
+        entity.setContent(new ByteArrayInputStream(objectBytesStream.toByteArray()));
+        entity.setContentLength(objectBytesStream.size());
+        request.setEntity(entity);
+
+        T obj = null;
+        try {
+            HttpResponse response = this.smartsheet.getHttpClient().request(request);
+            if (response.getStatusCode() == 200) {
+                obj = this.smartsheet.getJsonSerializer().deserialize(objectClass,
+                        response.getEntity().getContent());
+            } else {
+                handleError(response);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } finally {
+            smartsheet.getHttpClient().releaseConnection();
+        }
+
+        return obj;
+    }
+
+    /**
      * Post an object to Smartsheet REST API and receive a CopyOrMoveRowResult object from response.
      * <p>
      * Parameters: - path : the relative path of the resource collections - objectToPost : the object to post -
@@ -868,10 +920,6 @@ public abstract class AbstractResources {
         try {
             error = this.smartsheet.getJsonSerializer().deserialize(
                     com.smartsheet.api.models.Error.class, response.getEntity().getContent());
-        } catch (JsonParseException e) {
-            throw new SmartsheetException(e);
-        } catch (JsonMappingException e) {
-            throw new SmartsheetException(e);
         } catch (IOException e) {
             throw new SmartsheetException(e);
         }

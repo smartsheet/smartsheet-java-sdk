@@ -202,4 +202,11 @@ public interface Smartsheet {
      * @return the event resources instance
      */
     EventResources eventResources();
+
+    /**
+     * Returns the AssetShareResources instance that provides access to Asset Share resources
+     *
+     * @return the asset share resources instance
+     */
+    AssetShareResources assetShareResources();
 }

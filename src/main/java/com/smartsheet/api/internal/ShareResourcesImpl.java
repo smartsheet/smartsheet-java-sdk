@@ -36,7 +36,10 @@ import java.util.Map;
  * This is the implementation of the ShareResources.
  * <p>
  * Thread Safety: This class is thread safe because it is immutable and its base class is thread safe.
+ *
+ * @deprecated As of release 2.0. Please use {@link AssetShareResourcesImpl} instead.
  */
+@Deprecated(since = "2.0.0", forRemoval = true)
 public class ShareResourcesImpl extends AbstractAssociatedResources implements ShareResources {
     private static final String SHARES_PATH = "/shares/";
 
@@ -74,6 +77,8 @@ public class ShareResourcesImpl extends AbstractAssociatedResources implements S
      * @return the shares (note that empty list will be returned if there is none)
      * @throws SmartsheetException the smartsheet exception
      */
+    @Override
+    @Deprecated(since = "2.0.0", forRemoval = true)
     public PagedResult<Share> listShares(long objectId, PaginationParameters pagination) throws SmartsheetException {
         return this.listShares(objectId, pagination, false);
     }
@@ -81,6 +86,8 @@ public class ShareResourcesImpl extends AbstractAssociatedResources implements S
     /**
      * List shares of a given object.
      */
+    @Override
+    @Deprecated(since = "2.0.0", forRemoval = true)
     public PagedResult<Share> listShares(
             long objectId,
             PaginationParameters pagination,
@@ -123,6 +130,8 @@ public class ShareResourcesImpl extends AbstractAssociatedResources implements S
      * rather than returning null).
      * @throws SmartsheetException the smartsheet exception
      */
+    @Override
+    @Deprecated(since = "2.0.0", forRemoval = true)
     public Share getShare(long objectId, String shareId) throws SmartsheetException {
         return this.getResource(getMasterResourceType() + "/" + objectId + SHARES_PATH + shareId, Share.class);
     }
@@ -151,6 +160,8 @@ public class ShareResourcesImpl extends AbstractAssociatedResources implements S
      * @return the created shares
      * @throws SmartsheetException the smartsheet exception
      */
+    @Override
+    @Deprecated(since = "2.0.0", forRemoval = true)
     public List<Share> shareTo(long objectId, List<Share> shares, Boolean sendEmail) throws SmartsheetException {
         String path = getMasterResourceType() + "/" + objectId + "/shares";
         if (sendEmail != null) {
@@ -179,6 +190,8 @@ public class ShareResourcesImpl extends AbstractAssociatedResources implements S
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException         if there is any other error during the operation
      */
+    @Override
+    @Deprecated(since = "2.0.0", forRemoval = true)
     public Share updateShare(long objectId, Share share) throws SmartsheetException {
         Util.throwIfNull(share);
         return this.updateResource(getMasterResourceType() + "/" + objectId + SHARES_PATH + share.getId(), Share.class, share);
@@ -205,6 +218,8 @@ public class ShareResourcesImpl extends AbstractAssociatedResources implements S
      * @param shareId  the ID of the share to delete
      * @throws SmartsheetException the smartsheet exception
      */
+    @Override
+    @Deprecated(since = "2.0.0", forRemoval = true)
     public void deleteShare(long objectId, String shareId) throws SmartsheetException {
         this.deleteResource(getMasterResourceType() + "/" + objectId + SHARES_PATH + shareId, Share.class);
     }

@@ -16,6 +16,7 @@
 
 package com.smartsheet.api.internal;
 
+import com.smartsheet.api.AssetShareResources;
 import com.smartsheet.api.ContactResources;
 import com.smartsheet.api.EventResources;
 import com.smartsheet.api.FavoriteResources;
@@ -272,6 +273,15 @@ public class SmartsheetImpl implements Smartsheet {
      */
     private final AtomicReference<EventResources> events;
 
+    /**
+     * Represents the AtomicReference for AssetShareResources.
+     * <p>
+     * It will be initialized in constructor and will not change afterward. The underlying value will be initially set
+     * as null, and will be initialized to non-null at the first time it is accessed via corresponding getter, therefore
+     * effectively the underlying value is lazily created in a thread safe manner.
+     */
+    private final AtomicReference<AssetShareResources> assetShares;
+
     private static final String INVALID_OPERATION_FOR_CLASS = "Invalid operation for class ";
 
     /**
@@ -330,6 +340,7 @@ public class SmartsheetImpl implements Smartsheet {
         this.webhooks = new AtomicReference<>();
         this.passthrough = new AtomicReference<>();
         this.events = new AtomicReference<>();
+        this.assetShares = new AtomicReference<>();
     }
 
     /**
@@ -687,6 +698,18 @@ public class SmartsheetImpl implements Smartsheet {
             events.compareAndSet(null, new EventResourcesImpl(this));
         }
         return events.get();
+    }
+
+    /**
+     * Returns the AssetShareResources instance that provides access to Asset Share resources.
+     *
+     * @return the asset share resources
+     */
+    public AssetShareResources assetShareResources() {
+        if (assetShares.get() == null) {
+            assetShares.compareAndSet(null, new AssetShareResourcesImpl(this));
+        }
+        return assetShares.get();
     }
 
     /**
