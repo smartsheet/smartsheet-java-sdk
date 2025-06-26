@@ -16,32 +16,20 @@
 
 package com.smartsheet.api.models;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
+
 /**
  * Represents the User Model object with name.
  */
+@Data
+@NoArgsConstructor
+@SuperBuilder
 public class UserModelWithName extends UserModel {
 
     /**
      * Represents the user's Name
      */
     private String name;
-
-    /**
-     * Gets the user's name
-     *
-     * @return the user name
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * Sets the user's name
-     *
-     * @param name the user name
-     */
-    public UserModelWithName setName(String name) {
-        this.name = name;
-        return this;
-    }
 }

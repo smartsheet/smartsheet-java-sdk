@@ -18,11 +18,20 @@ package com.smartsheet.api.models;
 
 import java.util.List;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
 /**
  * A report object that is a filtered view of the data from one or more Sheets.
  *
  * @see <a href="http://help.smartsheet.com/customer/portal/articles/522214-creating-reports">Creating Reports Help</a>
  */
+@Data
+@NoArgsConstructor
+@EqualsAndHashCode(callSuper = true)
+@ToString(callSuper = true)
 public class Report extends AbstractSheet<ReportRow, ReportColumn, ReportCell> {
 
     /**
@@ -34,40 +43,4 @@ public class Report extends AbstractSheet<ReportRow, ReportColumn, ReportCell> {
      * Represents the sheets that rows in the report originated from.
      */
     private List<Sheet> sourceSheets;
-
-    /**
-     * Gets the scope of the report
-     *
-     * @return the scope
-     */
-    public Scope getScope() {
-        return scope;
-    }
-
-    /**
-     * Sets the scope of the report
-     */
-    public Report setScope(Scope scope) {
-        this.scope = scope;
-        return this;
-    }
-
-    /**
-     * Gets the sheet array.
-     *
-     * @return the sourceSheets
-     */
-    public List<Sheet> getSourceSheets() {
-        return sourceSheets;
-    }
-
-    /**
-     * Sets the sheet array.
-     *
-     * @param sourceSheets the new index
-     */
-    public Report setSourceSheets(List<Sheet> sourceSheets) {
-        this.sourceSheets = sourceSheets;
-        return this;
-    }
 }

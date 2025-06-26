@@ -16,10 +16,10 @@
 
 package com.smartsheet.api.models;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.extern.jackson.Jacksonized;
 
 /**
@@ -28,9 +28,9 @@ import lombok.extern.jackson.Jacksonized;
  * @see <a href="https://smartsheet.redoc.ly/tag/commonObjects/#section/AutoNumberFormat-Object">Auto Number Format API Documentation</a>
  * @see <a href="http://help.smartsheet.com/customer/portal/articles/1108408-auto-numbering">Auto Number Format Help</a>
  */
-@Getter
-@Setter
-@ToString
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Jacksonized
 @Builder
 public class AutoNumberFormat {

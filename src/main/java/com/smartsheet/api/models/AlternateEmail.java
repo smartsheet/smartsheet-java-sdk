@@ -16,10 +16,21 @@
 
 package com.smartsheet.api.models;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.extern.jackson.Jacksonized;
+
 /**
  * The AlternateEmail object, retruned by endpoints like
  * the <a href="https://smartsheet.redoc.ly/tag/alternateEmailAddress#operation/get-alternate-email">Get Alternate Email endpoint</a>
  */
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder(builderClassName = "AlternateEmailBuilder")
+@Jacksonized
 public class AlternateEmail {
 
     /**
@@ -28,37 +39,9 @@ public class AlternateEmail {
     private Long id;
 
     /**
-     * Get the alternate email id.
-     *
-     * @return the alternate email id
-     */
-    public Long getId() {
-        return id;
-    }
-
-    /**
      * The user's alternate email address (user@example.com)
      */
     private String email;
-
-    /**
-     * Get the user's alternate email address.
-     *
-     * @return String containing the alternate email address
-     */
-    public String getEmail() {
-        return email;
-    }
-
-    /**
-     * Set the user's alternate email address.
-     *
-     * @param email the  email
-     */
-    public AlternateEmail setEmail(String email) {
-        this.email = email;
-        return this;
-    }
 
     /**
      * Flag indicating whether the alternate email address has been confirmed
@@ -66,52 +49,27 @@ public class AlternateEmail {
     private Boolean confirmed;
 
     /**
-     * Get flag indicating whether the alternate email address is confirmed.
+     * A convenience method for creating an AlternateEmail with just an email address
      *
-     * @return true if the alternate email address has been confirmed
+     * @param email the email address
+     * @return a new AlternateEmail
      */
-    public Boolean getConfirmed() {
-        return confirmed;
+    public static AlternateEmail createAlternateEmail(String email) {
+        if (email == null) {
+            throw new InstantiationError("An email address must be set.");
+        }
+        return builder().email(email).build();
     }
-
+    
     /**
-     * A convenience class for making a {@link AlternateEmail} object with the appropriate fields for adding to a {@link User}.
+     * Custom builder implementation to validate email
      */
-    public static class AddAlternateEmailBuilder {
-        private String email;
-
-        /**
-         * Get the alt email address
-         *
-         * @return the email
-         */
-        public String getEmail() {
-            return email;
-        }
-
-        /**
-         * Set the alt email address
-         *
-         * @param email the email
-         * @return the builder
-         */
-        public AddAlternateEmailBuilder setEmail(String email) {
-            this.email = email;
-            return this;
-        }
-
-        /**
-         * Build
-         */
+    public static class AlternateEmailBuilder {
         public AlternateEmail build() {
-            if (email == null) {
+            if (this.email == null) {
                 throw new InstantiationError("An email address must be set.");
             }
-
-            AlternateEmail altEmail = new AlternateEmail();
-            altEmail.setEmail(email);
-            return altEmail;
+            return new AlternateEmail(this.id, this.email, this.confirmed);
         }
     }
-
 }

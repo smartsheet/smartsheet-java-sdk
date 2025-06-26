@@ -16,71 +16,19 @@
 
 package com.smartsheet.api.models;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
+
 /**
  * Represents an object with an ID.
  */
+@Data
+@NoArgsConstructor
+@SuperBuilder
 public abstract class IdentifiableModel<T> {
     /**
      * Represents the ID.
      */
     private T id;
-
-    /**
-     * Gets the id.
-     *
-     * @return the id
-     */
-    public T getId() {
-        return id;
-    }
-
-    /**
-     * Sets the id.
-     *
-     * @param id the new id
-     */
-    public IdentifiableModel<T> setId(T id) {
-        this.id = id;
-        return this;
-    }
-
-    /**
-     * Check if the given object equals to this object.
-     *
-     * @param object the object to compare
-     * @return true if given object equals to this object, false otherwise
-     */
-    @Override
-    public boolean equals(Object object) {
-        boolean result = false;
-
-        if (object == this) {
-            result = true;
-        } else if (object != null && object.getClass() == this.getClass() &&
-                // If they are both null
-                (((IdentifiableModel<?>) object).getId() == this.getId() ||
-                        // If they are not null but are equal objects.
-                        ((IdentifiableModel<?>) object).getId() != null && this.getId() != null &&
-                                ((IdentifiableModel<?>) object).getId().equals(this.getId()))) {
-            result = true;
-        }
-
-        return result;
-    }
-
-    /**
-     * Return the hash code of this object.
-     *
-     * @return the hash code
-     */
-    @Override
-    public int hashCode() {
-        int result = 17;
-        if (this.id == null) {
-            result = super.hashCode();
-        } else {
-            result = id.toString().hashCode();
-        }
-        return result;
-    }
 }

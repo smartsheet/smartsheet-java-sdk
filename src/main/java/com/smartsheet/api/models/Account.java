@@ -16,5 +16,16 @@
 
 package com.smartsheet.api.models;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+import lombok.experimental.SuperBuilder;
+
+@Data
+@NoArgsConstructor
+@SuperBuilder
+@EqualsAndHashCode(callSuper = true)
+@ToString(callSuper = true)
 public class Account extends NamedModel<Long> {
 }

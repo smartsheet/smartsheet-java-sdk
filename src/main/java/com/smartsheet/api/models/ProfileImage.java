@@ -16,6 +16,18 @@
 
 package com.smartsheet.api.models;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+/**
+ * Represents a user's profile image.
+ */
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class ProfileImage {
 
     /**
@@ -34,53 +46,11 @@ public class ProfileImage {
     private Long height;
 
     /**
-     * gets the image ID
+     * Gets the image ID (maintains backward compatibility)
      *
      * @return the id
      */
     public String getImageId() {
         return id;
-    }
-
-    /**
-     * sets the image ID
-     *
-     * @param id the id
-     */
-    public ProfileImage setImageId(String id) {
-        this.id = id;
-        return this;
-    }
-
-    /**
-     * gets the width (in pixels) of the image
-     */
-    public Long getWidth() {
-        return width;
-    }
-
-    /**
-     * sets the width (in pixels)
-     */
-    public ProfileImage setWidth(Long width) {
-        this.width = width;
-        return this;
-    }
-
-    /**
-     * gets the height (in pixels) of the image
-     *
-     * @return the height
-     */
-    public Long getHeight() {
-        return height;
-    }
-
-    /**
-     * sets the width (in pixels) of the image
-     */
-    public ProfileImage setHeight(Long height) {
-        this.height = height;
-        return this;
     }
 }

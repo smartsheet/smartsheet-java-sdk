@@ -18,9 +18,22 @@ package com.smartsheet.api.models;
 
 import com.smartsheet.api.models.enums.WebhookStatus;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+import lombok.extern.jackson.Jacksonized;
+
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Represents a Webhook object.
+ */
+@Data
+@NoArgsConstructor
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
 public class Webhook extends NamedModel<Long> {
 
     /**
@@ -100,106 +113,6 @@ public class Webhook extends NamedModel<Long> {
     private Integer version;
 
     /**
-     * Get the API client ID corresponding to third-party app that created the webhook.
-     *
-     * @return apiClientId
-     */
-    public String getApiClientId() {
-        return apiClientId;
-    }
-
-    /**
-     * Set the API client ID corresponding to third-party app that created the webhook.
-     */
-    public Webhook setApiClientId(String apiClientId) {
-        this.apiClientId = apiClientId;
-        return this;
-    }
-
-    /**
-     * Get the ID of the object that is subscripted to
-     *
-     * @return scopeObjectId
-     */
-    public Long getScopeObjectId() {
-        return scopeObjectId;
-    }
-
-    /**
-     * Set the ID of the object that is subscribed to
-     */
-    public Webhook setScopeObjectId(Long scopeObjectId) {
-        this.scopeObjectId = scopeObjectId;
-        return this;
-    }
-
-    /**
-     * Get the API client name corresponding to third-party app that created the webhook.
-     *
-     * @return apiClientName;
-     */
-    public String getApiClientName() {
-        return apiClientName;
-    }
-
-    /**
-     * Set the API client name corresponding to third-party app that created the webhook.
-     */
-    public Webhook setApiClientName(String apiClientName) {
-        this.apiClientName = apiClientName;
-        return this;
-    }
-
-    /**
-     * Get the HTTPS URL where callbacks will be sent
-     */
-    public String getCallbackUrl() {
-        return callbackUrl;
-    }
-
-    /**
-     * Set the HTTPS URL where callbacks will be sent
-     */
-    public Webhook setCallbackUrl(String callbackUrl) {
-        this.callbackUrl = callbackUrl;
-        return this;
-    }
-
-    /**
-     * Gets the time that the webhook was created.
-     *
-     * @return createdAt
-     */
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    /**
-     * Set the time the webhook was created.
-     */
-    public Webhook setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-        return this;
-    }
-
-    /**
-     * Get the details about the reason the webhook was disabled.
-     *
-     * @return disabledDetails
-     */
-    public String getDisabledDetails() {
-        return disabledDetails;
-    }
-
-    /**
-     * Set the details about the reason the webhook was disabled.
-     */
-    public Webhook setDisabledDetails(String disabledDetails) {
-        this.disabledDetails = disabledDetails;
-        return this;
-    }
-
-    /**
      * Get flag indicating whether the webhook is on(true) or off(false)
      *
      * @return enabled
@@ -207,158 +120,143 @@ public class Webhook extends NamedModel<Long> {
     public Boolean isEnabled() {
         return enabled;
     }
-
+    
     /**
-     * Set flag indicating whether the webhook is on or off.
+     * Builder for creating Webhook instances
      */
-    public Webhook setEnabled(Boolean enabled) {
-        this.enabled = enabled;
-        return this;
+    public static class WebhookBuilder {
+        private Long id;
+        private String name;
+        private String apiClientId;
+        private Long scopeObjectId;
+        private String apiClientName;
+        private String callbackUrl;
+        private Date createdAt;
+        private String disabledDetails;
+        private Boolean enabled;
+        private List<String> events;
+        private Date modifiedAt;
+        private String scope;
+        private String sharedSecret;
+        private WebhookStats stats;
+        private WebhookStatus status;
+        private WebhookSubscope subscope;
+        private Integer version;
+        
+        public WebhookBuilder id(Long id) {
+            this.id = id;
+            return this;
+        }
+        
+        public WebhookBuilder name(String name) {
+            this.name = name;
+            return this;
+        }
+        
+        public WebhookBuilder apiClientId(String apiClientId) {
+            this.apiClientId = apiClientId;
+            return this;
+        }
+        
+        public WebhookBuilder scopeObjectId(Long scopeObjectId) {
+            this.scopeObjectId = scopeObjectId;
+            return this;
+        }
+        
+        public WebhookBuilder apiClientName(String apiClientName) {
+            this.apiClientName = apiClientName;
+            return this;
+        }
+        
+        public WebhookBuilder callbackUrl(String callbackUrl) {
+            this.callbackUrl = callbackUrl;
+            return this;
+        }
+        
+        public WebhookBuilder createdAt(Date createdAt) {
+            this.createdAt = createdAt;
+            return this;
+        }
+        
+        public WebhookBuilder disabledDetails(String disabledDetails) {
+            this.disabledDetails = disabledDetails;
+            return this;
+        }
+        
+        public WebhookBuilder enabled(Boolean enabled) {
+            this.enabled = enabled;
+            return this;
+        }
+        
+        public WebhookBuilder events(List<String> events) {
+            this.events = events;
+            return this;
+        }
+        
+        public WebhookBuilder modifiedAt(Date modifiedAt) {
+            this.modifiedAt = modifiedAt;
+            return this;
+        }
+        
+        public WebhookBuilder scope(String scope) {
+            this.scope = scope;
+            return this;
+        }
+        
+        public WebhookBuilder sharedSecret(String sharedSecret) {
+            this.sharedSecret = sharedSecret;
+            return this;
+        }
+        
+        public WebhookBuilder stats(WebhookStats stats) {
+            this.stats = stats;
+            return this;
+        }
+        
+        public WebhookBuilder status(WebhookStatus status) {
+            this.status = status;
+            return this;
+        }
+        
+        public WebhookBuilder subscope(WebhookSubscope subscope) {
+            this.subscope = subscope;
+            return this;
+        }
+        
+        public WebhookBuilder version(Integer version) {
+            this.version = version;
+            return this;
+        }
+        
+        public Webhook build() {
+            Webhook webhook = new Webhook();
+            webhook.setId(id);
+            webhook.setName(name);
+            webhook.apiClientId = apiClientId;
+            webhook.scopeObjectId = scopeObjectId;
+            webhook.apiClientName = apiClientName;
+            webhook.callbackUrl = callbackUrl;
+            webhook.createdAt = createdAt;
+            webhook.disabledDetails = disabledDetails;
+            webhook.enabled = enabled;
+            webhook.events = events;
+            webhook.modifiedAt = modifiedAt;
+            webhook.scope = scope;
+            webhook.sharedSecret = sharedSecret;
+            webhook.stats = stats;
+            webhook.status = status;
+            webhook.subscope = subscope;
+            webhook.version = version;
+            return webhook;
+        }
     }
-
+    
     /**
-     * Get the array of events that are subscribed to
+     * Creates a new builder for Webhook
      *
-     * @return events
+     * @return a new WebhookBuilder
      */
-    public List<String> getEvents() {
-        return events;
-    }
-
-    /**
-     * Set the array of events that are subscribed to
-     */
-    public Webhook setEvents(List<String> events) {
-        this.events = events;
-        return this;
-    }
-
-    /**
-     * Get the time that the webhook was last modified.
-     *
-     * @return modifiedAt
-     */
-    public Date getModifiedAt() {
-        return modifiedAt;
-    }
-
-    /**
-     * Set the time that the webhook was last modified.
-     */
-    public Webhook setModifiedAt(Date modifiedAt) {
-        this.modifiedAt = modifiedAt;
-        return this;
-    }
-
-    /**
-     * Provide an 'override' of setName (returns Webhook not NamedModel)
-     *
-     * @param name the new name
-     */
-    public Webhook setName(String name) {
-        super.setName(name);
-        return this;
-    }
-
-    /**
-     * Get the scope of the subscription.
-     *
-     * @return scope
-     */
-    public String getScope() {
-        return scope;
-    }
-
-    /**
-     * Set the scope of the subscription
-     */
-    public Webhook setScope(String scope) {
-        this.scope = scope;
-        return this;
-    }
-
-    /**
-     * Get the shared secret for this webhook, randomly generated by Smartsheet
-     *
-     * @return sharedSecret
-     */
-    public String getSharedSecret() {
-        return sharedSecret;
-    }
-
-    /**
-     * Set the shared secret for this webhook
-     */
-    public Webhook setSharedSecret(String sharedSecret) {
-        this.sharedSecret = sharedSecret;
-        return this;
-    }
-
-    /**
-     * Get the statistics for this webhook.
-     *
-     * @return stats
-     */
-    public WebhookStats getStats() {
-        return stats;
-    }
-
-    /**
-     * Set the statistics for this webhook.
-     */
-    public Webhook setStats(WebhookStats stats) {
-        this.stats = stats;
-        return this;
-    }
-
-    /**
-     * Get the webhook status
-     *
-     * @return status
-     */
-    public WebhookStatus getStatus() {
-        return status;
-    }
-
-    /**
-     * Set the webhook status
-     */
-    public Webhook setStatus(WebhookStatus status) {
-        this.status = status;
-        return this;
-    }
-
-    /**
-     * Get the webhook subscope
-     *
-     * @return subscope
-     */
-    public WebhookSubscope getSubscope() {
-        return subscope;
-    }
-
-    /**
-     * Set the Webhook subscope
-     */
-    public Webhook setSubscope(WebhookSubscope subscope) {
-        this.subscope = subscope;
-        return this;
-    }
-
-    /**
-     * Get the webhook version.
-     *
-     * @return version
-     */
-    public Integer getVersion() {
-        return version;
-    }
-
-    /**
-     * Set the webhook version
-     */
-    public Webhook setVersion(Integer version) {
-        this.version = version;
-        return this;
+    public static WebhookBuilder builder() {
+        return new WebhookBuilder();
     }
 }
