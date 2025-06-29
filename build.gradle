@@ -4,7 +4,7 @@ plugins {
     // Allows us to use Java
     id 'java'
     // Allows us to use Lombok helper annotations
-    id 'io.freefair.lombok' version '6.6.3'
+    id 'io.freefair.lombok' version '8.14'
 
     // ** CODE QUALITY PLUGINS **
     // Allows us to do code coverage
