@@ -24,6 +24,10 @@ import com.smartsheet.api.models.enums.CopyExclusion;
 import com.smartsheet.api.models.enums.SourceInclusion;
 import com.smartsheet.api.models.enums.WorkspaceCopyInclusion;
 import com.smartsheet.api.models.enums.WorkspaceRemapExclusion;
+import com.smartsheet.api.models.enums.GetWorkspaceMetadataInclusion;
+import com.smartsheet.api.models.enums.GetWorkspaceChildrenInclusion;
+import com.smartsheet.api.models.enums.ChildrenResourceType;
+import com.smartsheet.api.models.TokenPaginatedResult;
 
 import java.util.EnumSet;
 
@@ -67,6 +71,7 @@ public interface WorkspaceResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException         if there is any other error during the operation
      */
+    @Deprecated(since = "3.4.0", forRemoval = true)
     Workspace getWorkspace(long id, Boolean loadAll, EnumSet<SourceInclusion> includes) throws SmartsheetException;
 
     /**
@@ -185,4 +190,44 @@ public interface WorkspaceResources {
      * @return the share resources object
      */
     ShareResources shareResources();
+
+    /**
+     * <p>Get metadata of a workspace.</p>
+     *
+     * <p>It mirrors to the following Smartsheet REST API method: GET /workspaces/{workspaceId}/metadata</p>
+     *
+     * @param workspaceId the workspace id
+     * @param includes    the include parameters
+     * @return the workspace metadata (note that if there is no such resource, this method will throw ResourceNotFoundException
+     * rather than returning null)
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetException         if there is any other error during the operation
+     */
+    Workspace getWorkspaceMetadata(long workspaceId, EnumSet<GetWorkspaceMetadataInclusion> includes) throws SmartsheetException;
+
+    /**
+     * <p>Get children of a workspace.</p>
+     *
+     * <p>It mirrors to the following Smartsheet REST API method: GET /workspaces/{workspaceId}/children</p>
+     *
+     * @param workspaceId           the workspace id
+     * @param childrenResourceTypes the resource types to filter by (optional)
+     * @param includes              the include parameters (optional)
+     * @param lastKey               the last key for pagination (optional)
+     * @param maxItems              the maximum number of items to return (optional)
+     * @return the paginated children response
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetException         if there is any other error during the operation
+     */
+    TokenPaginatedResult<Object> getWorkspaceChildren(long workspaceId, EnumSet<ChildrenResourceType> childrenResourceTypes,
+                                                   EnumSet<GetWorkspaceChildrenInclusion> includes,
+                                                   String lastKey, Integer maxItems) throws SmartsheetException;
 }
