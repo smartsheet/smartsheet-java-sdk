@@ -29,7 +29,7 @@ import java.util.List;
  *
  * @deprecated As of release 2.0. Please use {@link AssetShareResources} instead.
  */
-@Deprecated(since = "2.0.0", forRemoval = true)
+@Deprecated(since = "3.3.0", forRemoval = true)
 public interface ShareResources {
 
     /**
@@ -50,7 +50,7 @@ public interface ShareResources {
      * @throws SmartsheetException         if there is any other error during the operation
      * @deprecated As of release 2.0. Please use the other listShares method in this class and pass `includeWorkspaceShares` as `false`
      */
-    @Deprecated(since = "2.0.0", forRemoval = true)
+    @Deprecated(since = "3.3.0", forRemoval = true)
     PagedResult<Share> listShares(long objectId, PaginationParameters parameters) throws SmartsheetException;
 
     /**
@@ -73,7 +73,7 @@ public interface ShareResources {
      *
      * @deprecated As of release 2.0. Please use {@link AssetShareResources#listShares} instead.
      */
-    @Deprecated(since = "2.0.0", forRemoval = true)
+    @Deprecated(since = "3.3.0", forRemoval = true)
     PagedResult<Share> listShares(
             long objectId,
             PaginationParameters parameters,
@@ -104,7 +104,7 @@ public interface ShareResources {
      *
      * @deprecated As of release 2.0. Please use {@link AssetShareResources#getShare} instead.
      */
-    @Deprecated(since = "2.0.0", forRemoval = true)
+    @Deprecated(since = "3.3.0", forRemoval = true)
     Share getShare(long objectId, String shareId) throws SmartsheetException;
 
     /**
@@ -132,7 +132,7 @@ public interface ShareResources {
      *
      * @deprecated As of release 2.0. Please use {@link AssetShareResources#shareTo} instead.
      */
-    @Deprecated(since = "2.0.0", forRemoval = true)
+    @Deprecated(since = "3.3.0", forRemoval = true)
     List<Share> shareTo(long objectId, List<Share> shares, Boolean sendEmail) throws SmartsheetException;
 
     /**
@@ -156,7 +156,7 @@ public interface ShareResources {
      *
      * @deprecated As of release 2.0. Please use {@link AssetShareResources#updateShare} instead.
      */
-    @Deprecated(since = "2.0.0", forRemoval = true)
+    @Deprecated(since = "3.3.0", forRemoval = true)
     Share updateShare(long objectId, Share share) throws SmartsheetException;
 
     /**
@@ -181,6 +181,6 @@ public interface ShareResources {
      *
      * @deprecated As of release 2.0. Please use {@link AssetShareResources#deleteShare} instead.
      */
-    @Deprecated(since = "2.0.0", forRemoval = true)
+    @Deprecated(since = "3.3.0", forRemoval = true)
     void deleteShare(long objectId, String shareId) throws SmartsheetException;
 }
