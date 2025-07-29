@@ -57,7 +57,7 @@ public class AssetShareResourcesImpl extends AbstractResources implements AssetS
      * List shares of a given asset.
      * <p>
      * It mirrors to the following Smartsheet REST API method:
-     * GET /shares?assetId={assetId}&assetType={assetType}
+     * GET /shares?assetId={assetId}&amp;assetType={assetType}
      * <p>
      * Exceptions:
      * InvalidRequestException : if there is any problem with the REST API request
@@ -109,7 +109,7 @@ public class AssetShareResourcesImpl extends AbstractResources implements AssetS
      * Get a Share.
      * <p>
      * It mirrors to the following Smartsheet REST API method:
-     * GET /shares/{shareId}?assetId={assetId}&assetType={assetType}
+     * GET /shares/{shareId}?assetId={assetId}&amp;assetType={assetType}
      * <p>
      * Exceptions:
      * InvalidRequestException : if there is any problem with the REST API request
@@ -140,7 +140,7 @@ public class AssetShareResourcesImpl extends AbstractResources implements AssetS
      * Shares the asset with the specified Users and Groups.
      * <p>
      * It mirrors to the following Smartsheet REST API method:
-     * POST /shares?assetId={assetId}&assetType={assetType}
+     * POST /shares?assetId={assetId}&amp;assetType={assetType}
      * <p>
      * Exceptions:
      * IllegalArgumentException : if shareRequests is null
@@ -181,7 +181,7 @@ public class AssetShareResourcesImpl extends AbstractResources implements AssetS
      * Update a share.
      * <p>
      * It mirrors to the following Smartsheet REST API method:
-     * PATCH /shares/{shareId}?assetId={assetId}&assetType={assetType}
+     * PATCH /shares/{shareId}?assetId={assetId}&amp;assetType={assetType}
      *
      * @param shareId the ID of the share
      * @param assetId the ID of the asset
@@ -216,7 +216,7 @@ public class AssetShareResourcesImpl extends AbstractResources implements AssetS
      * Delete a share.
      * <p>
      * It mirrors to the following Smartsheet REST API method:
-     * DELETE /shares/{shareId}?assetId={assetId}&assetType={assetType}
+     * DELETE /shares/{shareId}?assetId={assetId}&amp;assetType={assetType}
      * <p>
      * Exceptions:
      * InvalidRequestException : if there is any problem with the REST API request

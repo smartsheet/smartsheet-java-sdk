@@ -35,7 +35,7 @@ public interface AssetShareResources {
      * <p>List shares of a given asset.</p>
      *
      * <p>It mirrors to the following Smartsheet REST API method:</p>
-     * <p>    GET /shares?assetId={assetId}&assetType={assetType}</p>
+     * <p>    GET /shares?assetId={assetId}&amp;assetType={assetType}</p>
      *
      * @param assetId the asset id
      * @param assetType the asset type (e.g. "sheet", "workspace", "report", "sight", "file", "collection")
@@ -60,7 +60,7 @@ public interface AssetShareResources {
      * <p>Get a Share.</p>
      *
      * <p>It mirrors to the following Smartsheet REST API method:</p>
-     * <p>    GET /shares/{shareId}?assetId={assetId}&assetType={assetType}</p>
+     * <p>    GET /shares/{shareId}?assetId={assetId}&amp;assetType={assetType}</p>
      *
      * @param shareId the ID of the share
      * @param assetId the ID of the asset
@@ -75,7 +75,7 @@ public interface AssetShareResources {
      * <p>Shares the asset with the specified Users and Groups.</p>
      *
      * <p>It mirrors to the following Smartsheet REST API method:</p>
-     * <p>    POST /shares?assetId={assetId}&assetType={assetType}</p>
+     * <p>    POST /shares?assetId={assetId}&amp;assetType={assetType}</p>
      *
      * @param assetId the ID of the asset to share
      * @param assetType the type of the asset (e.g. "sheet", "workspace", "report", "sight", "file", "collection")
@@ -95,7 +95,7 @@ public interface AssetShareResources {
      * <p>Update a share.</p>
      *
      * <p>It mirrors to the following Smartsheet REST API method:</p>
-     * <p>    PATCH /shares/{shareId}?assetId={assetId}&assetType={assetType}</p>
+     * <p>    PATCH /shares/{shareId}?assetId={assetId}&amp;assetType={assetType}</p>
      *
      * @param shareId the ID of the share
      * @param assetId the ID of the asset
@@ -116,7 +116,7 @@ public interface AssetShareResources {
      * <p>Delete a share.</p>
      *
      * <p>It mirrors to the following Smartsheet REST API method:</p>
-     * <p>    DELETE /shares/{shareId}?assetId={assetId}&assetType={assetType}</p>
+     * <p>    DELETE /shares/{shareId}?assetId={assetId}&amp;assetType={assetType}</p>
      *
      * @param shareId the ID of the share to delete
      * @param assetId the ID of the asset
