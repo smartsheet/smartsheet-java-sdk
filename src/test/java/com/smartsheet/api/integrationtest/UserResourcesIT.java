@@ -45,7 +45,7 @@ public class UserResourcesIT extends ITResourcesImpl {
     @Test
     void testGetCurrentUser() throws SmartsheetException, IOException {
         UserProfile user = smartsheet.userResources().getCurrentUser();
-        System.out.println("Current User: " + user.getEmail());
+        Account account = user.getAccount();
         assertThat(user).isNotNull();
     }
 
