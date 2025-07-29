@@ -26,7 +26,10 @@ import java.util.List;
  * <p>This interface provides methods to access Share resources.</p>
  *
  * <p>Thread Safety: Implementation of this interface must be thread safe.</p>
+ *
+ * @deprecated As of release 2.0. Please use {@link AssetShareResources} instead.
  */
+@Deprecated(since = "3.3.0", forRemoval = true)
 public interface ShareResources {
 
     /**
@@ -47,7 +50,7 @@ public interface ShareResources {
      * @throws SmartsheetException         if there is any other error during the operation
      * @deprecated As of release 2.0. Please use the other listShares method in this class and pass `includeWorkspaceShares` as `false`
      */
-    @Deprecated(since = "2.0.0", forRemoval = true)
+    @Deprecated(since = "3.3.0", forRemoval = true)
     PagedResult<Share> listShares(long objectId, PaginationParameters parameters) throws SmartsheetException;
 
     /**
@@ -67,7 +70,10 @@ public interface ShareResources {
      * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException         if there is any other error during the operation
+     *
+     * @deprecated As of release 2.0. Please use {@link AssetShareResources#listShares} instead.
      */
+    @Deprecated(since = "3.3.0", forRemoval = true)
     PagedResult<Share> listShares(
             long objectId,
             PaginationParameters parameters,
@@ -95,7 +101,10 @@ public interface ShareResources {
      * @return the share (note that if there is no such resource, this method will throw ResourceNotFoundException
      * rather than returning null).
      * @throws SmartsheetException the smartsheet exception
+     *
+     * @deprecated As of release 2.0. Please use {@link AssetShareResources#getShare} instead.
      */
+    @Deprecated(since = "3.3.0", forRemoval = true)
     Share getShare(long objectId, String shareId) throws SmartsheetException;
 
     /**
@@ -120,7 +129,10 @@ public interface ShareResources {
      * @param sendEmail whether to send email
      * @return the created shares
      * @throws SmartsheetException the smartsheet exception
+     *
+     * @deprecated As of release 2.0. Please use {@link AssetShareResources#shareTo} instead.
      */
+    @Deprecated(since = "3.3.0", forRemoval = true)
     List<Share> shareTo(long objectId, List<Share> shares, Boolean sendEmail) throws SmartsheetException;
 
     /**
@@ -141,7 +153,10 @@ public interface ShareResources {
      * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException         if there is any other error during the operation
+     *
+     * @deprecated As of release 2.0. Please use {@link AssetShareResources#updateShare} instead.
      */
+    @Deprecated(since = "3.3.0", forRemoval = true)
     Share updateShare(long objectId, Share share) throws SmartsheetException;
 
     /**
@@ -163,6 +178,9 @@ public interface ShareResources {
      * @param objectId the ID of the object to share
      * @param shareId  the ID of the share to delete
      * @throws SmartsheetException the smartsheet exception
+     *
+     * @deprecated As of release 2.0. Please use {@link AssetShareResources#deleteShare} instead.
      */
+    @Deprecated(since = "3.3.0", forRemoval = true)
     void deleteShare(long objectId, String shareId) throws SmartsheetException;
 }

@@ -309,10 +309,12 @@ public class DefaultHttpClient implements HttpClient {
                 logger.warn(LOG_ARG, RequestAndResponseData.of(apacheHttpRequest, requestEntityCopy, smartsheetResponse,
                         responseEntityCopy, REQUEST_RESPONSE_SUMMARY));
                 try {
-                    // check to see if the response was empty and this was a POST. All other HTTP methods
+                    // check to see if the response was empty and this was a POST or PATCH. All other HTTP methods
                     // will be automatically retried by the http client.
-                    // (POST is non-idempotent and is not retried automatically, but is safe for us to retry)
-                    if (canRetryRequest && smartsheetRequest.getMethod() == HttpMethod.POST) {
+                    // (POST and PATCH are non-idempotent and are not retried automatically, but are safe for us to retry)
+                    if (canRetryRequest &&
+                            (smartsheetRequest.getMethod() == HttpMethod.POST ||
+                             smartsheetRequest.getMethod() == HttpMethod.PATCH)) {
                         if (smartsheetRequest.getEntity() != null) {
                             smartsheetRequest.getEntity().getContent().reset();
                         }
@@ -363,6 +365,7 @@ public class DefaultHttpClient implements HttpClient {
                 case POST:
                 case PUT:
                 case DELETE:
+                case PATCH:
                     apacheHttpRequest.setHeaders(actualRequest.getAllHeaders());
                     break;
                 default:
@@ -414,6 +417,9 @@ public class DefaultHttpClient implements HttpClient {
                 break;
             case DELETE:
                 apacheHttpRequest = new HttpDelete(smartsheetRequest.getUri());
+                break;
+            case PATCH:
+                apacheHttpRequest = new HttpPatch(smartsheetRequest.getUri());
                 break;
             default:
                 throw new UnsupportedOperationException("Request method " + smartsheetRequest.getMethod() + " is not supported!");

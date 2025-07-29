@@ -6,6 +6,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [x.x.x] - unreleased
 
+## [3.3.0] - 2025-06-30
+### Added
+- Added `AssetShareResources` interface and `AssetShareResourcesImpl` implementation for sharing various asset types
+- Deprecated old sharing endpoints.
+
+### Changed
+- Deprecated `ShareResources` interface and `ShareResourcesImpl` implementation in favor of `AssetShareResources`
+- All methods in `ShareResources` and `ShareResourcesImpl` are now marked with `@Deprecated(since = "2.0.0", forRemoval = true)`
+
 ## [3.2.3] - 2025-02-14 
 ### Changed
 - Update the copyright year to 2025
