@@ -59,7 +59,7 @@ class WorkspaceResourcesImplTest extends ResourcesImplBase {
         assertThat(workspace.getTotalCount().longValue()).isEqualTo(2);
 
         assertThat(workspace.getData()).hasSize(2);
-        assertThat(workspace.getData().get(0).getAccessLevel()).isEqualTo(AccessLevel.OWNER);
+        assertThat(workspace.getData().get(0).getAccessLevel()).isEqualTo(AccessLevel.ADMIN);
         assertThat(workspace.getData().get(0).getId().longValue()).isEqualTo(3457273486960516L);
         assertThat(workspace.getData().get(0).getName()).isEqualTo("workspace 1");
         assertThat(workspace.getData().get(0).getPermalink()).isEqualTo("https://app.smartsheet.com/b/home?lx=JNL0bgXtXc0pzni9tzAc4g");
@@ -78,7 +78,7 @@ class WorkspaceResourcesImplTest extends ResourcesImplBase {
         assertThat(workspace.getTotalCount().longValue()).isEqualTo(2);
 
         assertThat(workspace.getData()).hasSize(2);
-        assertThat(workspace.getData().get(0).getAccessLevel()).isEqualTo(AccessLevel.OWNER);
+        assertThat(workspace.getData().get(0).getAccessLevel()).isEqualTo(AccessLevel.ADMIN);
         assertThat(workspace.getData().get(0).getId().longValue()).isEqualTo(3457273486960516L);
         assertThat(workspace.getData().get(0).getName()).isEqualTo("workspace 1");
         assertThat(workspace.getData().get(0).getPermalink()).isEqualTo("https://app.smartsheet.com/b/home?lx=JNL0bgXtXc0pzni9tzAc4g");
@@ -93,7 +93,7 @@ class WorkspaceResourcesImplTest extends ResourcesImplBase {
         PagedResult<Workspace> workspace = workspaceResources.listWorkspaces(parameters);
         assertThat(workspace.getLastKey()).isEqualTo("nextToken456");
         assertThat(workspace.getData()).hasSize(2);
-        assertThat(workspace.getData().get(0).getAccessLevel()).isEqualTo(AccessLevel.OWNER);
+        assertThat(workspace.getData().get(0).getAccessLevel()).isEqualTo(AccessLevel.ADMIN);
         assertThat(workspace.getData().get(0).getId().longValue()).isEqualTo(3457273486960516L);
         assertThat(workspace.getData().get(0).getName()).isEqualTo("workspace 1");
         assertThat(workspace.getData().get(0).getPermalink()).isEqualTo("https://app.smartsheet.com/b/home?lx=JNL0bgXtXc0pzni9tzAc4g");
