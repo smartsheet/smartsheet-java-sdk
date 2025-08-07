@@ -154,4 +154,22 @@ class FolderTest {
         assertThat(report.getSource().getId()).isEqualTo(111L);
         assertThat(report.getSource().getType()).isEqualTo(SourceType.REPORT);
     }
+
+    @Test
+    void getFolderChildren_MaxItemsAndLastKey() throws SmartsheetException {
+        Smartsheet ss = HelperFunctions.SetupClient("Get Folder Children - MaxItems and LastKey");
+        TokenPaginatedResult<Object> response = ss.folderResources().getFolderChildren(456L, null, null,
+                "aslkjf4wlkta4n4900sjfklf499sjwlk4356lkj", 100);
+        assertThat(response.getData()).hasSize(1);
+        assertThat(response.getLastKey()).isEqualTo("xvmnw4mnx8v9wriot20574xvnjoqt4iuhnow490");
+        assertThat(response.hasMorePages()).isTrue();
+
+        // Verify the returned item
+        Object firstItem = response.getData().get(0);
+        assertThat(firstItem).isInstanceOf(Sight.class);
+        Sight sight = (Sight) firstItem;
+        assertThat(sight.getName()).isEqualTo("Project Dashboard");
+        assertThat(sight.getId()).isEqualTo(567L);
+        assertThat(sight.getPermalink()).isEqualTo("https://app.smartsheet.com/b/home?lx=*****************");
+    }
 }

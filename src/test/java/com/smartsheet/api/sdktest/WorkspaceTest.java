@@ -175,4 +175,23 @@ class WorkspaceTest {
         assertThat(report.getSource().getId()).isEqualTo(555L);
         assertThat(report.getSource().getType()).isEqualTo(SourceType.REPORT);
     }
+
+    @Test
+    void getWorkspaceChildren_MaxItemsAndLastKey() throws SmartsheetException {
+        Smartsheet ss = HelperFunctions.SetupClient("Get Workspace Children - MaxItems and LastKey");
+        TokenPaginatedResult<Object> response = ss.workspaceResources().getWorkspaceChildren(123L, null, null,
+                "aslkjf4wlkta4n4900sjfklf499sjwlk4356lkj", 1000);
+        assertThat(response.getData()).hasSize(1);
+        assertThat(response.getLastKey()).isEqualTo("xvmnw4mnx8v9wriot20574xvnjoqt4iuhnow490");
+        assertThat(response.hasMorePages()).isTrue();
+
+        // Verify the returned item
+        Object firstItem = response.getData().get(0);
+        assertThat(firstItem).isInstanceOf(Sheet.class);
+        Sheet sheet = (Sheet) firstItem;
+        assertThat(sheet.getName()).isEqualTo("Budget Sheet");
+        assertThat(sheet.getId()).isEqualTo(789L);
+        assertThat(sheet.getPermalink()).isEqualTo("https://app.smartsheet.com/b/home?lx=*****************");
+        assertThat(sheet.getAccessLevel()).isEqualTo(AccessLevel.EDITOR);
+    }
 }
