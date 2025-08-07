@@ -36,6 +36,8 @@ import com.smartsheet.api.models.CopyOrMoveRowDirective;
 import com.smartsheet.api.models.CopyOrMoveRowResult;
 import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.Result;
+import com.smartsheet.api.models.TokenPaginatedResult;
+import com.fasterxml.jackson.databind.JsonDeserializer;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.ContentType;
@@ -499,6 +501,45 @@ public abstract class AbstractResources {
             switch (response.getStatusCode()) {
                 case 200:
                     obj = this.smartsheet.getJsonSerializer().deserializeDataWrapper(objectClass,
+                            response.getEntity().getContent());
+                    break;
+                default:
+                    handleError(response);
+            }
+        } finally {
+            smartsheet.getHttpClient().releaseConnection();
+        }
+
+        return obj;
+    }
+
+    /**
+     * List resources with token-based pagination using a custom deserializer.
+     * This generic method allows for flexible deserialization of paginated results.
+     *
+     * @param <T> the generic type of the data items
+     * @param path the relative path of the resource collections
+     * @param deserializer the custom deserializer for the data items
+     * @return the token paginated result
+     * @throws IllegalArgumentException : if any argument is null, or path is empty string
+     * @throws InvalidRequestException : if there is any problem with the REST API request
+     * @throws AuthorizationException : if there is any problem with the REST API authorization(access token)
+     * @throws ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     * @throws SmartsheetException : if there is any other error occurred during the operation
+     */
+    protected <T> TokenPaginatedResult<T> listResourcesWithTokenPagination(String path, JsonDeserializer<List<T>> deserializer) throws SmartsheetException {
+        Util.throwIfNull(path, deserializer);
+        Util.throwIfEmpty(path);
+
+        HttpRequest request = createHttpRequest(smartsheet.getBaseURI().resolve(path), HttpMethod.GET);
+
+        TokenPaginatedResult<T> obj = null;
+        try {
+            HttpResponse response = this.smartsheet.getHttpClient().request(request);
+            switch (response.getStatusCode()) {
+                case 200:
+                    obj = this.smartsheet.getJsonSerializer().deserializeTokenPaginatedResult(deserializer,
                             response.getEntity().getContent());
                     break;
                 default:

@@ -488,7 +488,9 @@ public class SmartsheetImpl implements Smartsheet {
      * Returns the HomeResources instance that provides access to Home resources.
      *
      * @return the home resources
+     * @deprecated Home resources have been deprecated and will be removed in a future version.
      */
+    @Deprecated(since = "3.4.0", forRemoval = true)
     public HomeResources homeResources() {
         if (home.get() == null) {
             home.compareAndSet(null, new HomeResourcesImpl(this));

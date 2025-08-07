@@ -22,6 +22,7 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.Version;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -38,6 +39,7 @@ import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.PrimitiveObjectValue;
 import com.smartsheet.api.models.Recipient;
 import com.smartsheet.api.models.Result;
+import com.smartsheet.api.models.TokenPaginatedResult;
 import com.smartsheet.api.models.WidgetContent;
 import com.smartsheet.api.models.format.Format;
 
@@ -439,5 +441,42 @@ public class JacksonJsonSerializer implements JsonSerializer {
         }
 
         return rw;
+    }
+
+    /**
+     * De-serialize json to TokenPaginatedResult using a custom deserializer.
+     *
+     * @param <T> the generic type of the data items
+     * @param deserializer the custom deserializer for the data items
+     * @param inputStream the input stream
+     * @return the TokenPaginatedResult containing a list of type T
+     * @throws JSONSerializerException the JSON serializer exception
+     */
+    @Override
+    public <T> TokenPaginatedResult<T> deserializeTokenPaginatedResult(JsonDeserializer<List<T>> deserializer, InputStream inputStream)
+            throws JSONSerializerException {
+        Util.throwIfNull(deserializer, inputStream);
+
+        TokenPaginatedResult<T> result = null;
+
+        try {
+            // Create a temporary ObjectMapper with the custom deserializer
+            ObjectMapper tempMapper = OBJECT_MAPPER.copy();
+            SimpleModule module = new SimpleModule("TokenPaginatedResultDeserializerModule", Version.unknownVersion());
+            module.addDeserializer(List.class, deserializer);
+            tempMapper.registerModule(module);
+
+            // Deserialize using the temporary mapper with custom deserializer
+            result = tempMapper.readValue(inputStream,
+                    tempMapper.getTypeFactory().constructParametrizedType(TokenPaginatedResult.class, TokenPaginatedResult.class, Object.class));
+        } catch (JsonParseException e) {
+            throw new JSONSerializerException(e);
+        } catch (JsonMappingException e) {
+            throw new JSONSerializerException(e);
+        } catch (IOException e) {
+            throw new JSONSerializerException(e);
+        }
+
+        return result;
     }
 }
