@@ -29,6 +29,7 @@ public class PagedResult<T> {
     Integer pageSize;
     Integer totalCount;
     Integer totalPages;
+    String lastKey;
     List<T> data;
 
     public List<T> getData() {
@@ -69,5 +70,13 @@ public class PagedResult<T> {
 
     public void setTotalPages(Integer totalPages) {
         this.totalPages = totalPages;
+    }
+
+    public String getLastKey() {
+        return lastKey;
+    }
+
+    public void setLastKey(String lastKey) {
+        this.lastKey = lastKey;
     }
 }

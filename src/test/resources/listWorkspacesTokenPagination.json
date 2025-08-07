@@ -1,0 +1,17 @@
+{
+   "lastKey": "nextToken456",
+   "data": [
+      {
+         "accessLevel": "OWNER",
+         "id": 3457273486960516,
+         "name": "workspace 1",
+         "permalink": "https://app.smartsheet.com/b/home?lx=JNL0bgXtXc0pzni9tzAc4g"
+      },
+      {
+         "accessLevel": "OWNER",
+         "id": 7960873114331012,
+         "name": "workspace 2",
+         "permalink": "https://app.smartsheet.com/b/home?lx=JLiJbgXtXc0pzni9tzAKiR"
+      }
+   ]
+}

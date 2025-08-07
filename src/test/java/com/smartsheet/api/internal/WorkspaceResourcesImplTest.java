@@ -63,6 +63,42 @@ class WorkspaceResourcesImplTest extends ResourcesImplBase {
         assertThat(workspace.getData().get(0).getId().longValue()).isEqualTo(3457273486960516L);
         assertThat(workspace.getData().get(0).getName()).isEqualTo("workspace 1");
         assertThat(workspace.getData().get(0).getPermalink()).isEqualTo("https://app.smartsheet.com/b/home?lx=JNL0bgXtXc0pzni9tzAc4g");
+        assertThat(server.getLastRequestUrl())
+                .isEqualTo("/1.1/workspaces?pageSize=1&page=1");
+    }
+
+    @Test
+    void testListWorkspacesWithIncludeAll() throws SmartsheetException, IOException {
+        server.setResponseBody(new File("src/test/resources/listWorkspaces.json"));
+        PaginationParameters parameters = new PaginationParameters(true, 1, 1);
+        PagedResult<Workspace> workspace = workspaceResources.listWorkspaces(parameters);
+        assertThat(workspace.getPageNumber().longValue()).isEqualTo(1);
+        assertThat(workspace.getPageSize().longValue()).isEqualTo(100);
+        assertThat(workspace.getTotalPages().longValue()).isEqualTo(1);
+        assertThat(workspace.getTotalCount().longValue()).isEqualTo(2);
+
+        assertThat(workspace.getData()).hasSize(2);
+        assertThat(workspace.getData().get(0).getAccessLevel()).isEqualTo(AccessLevel.OWNER);
+        assertThat(workspace.getData().get(0).getId().longValue()).isEqualTo(3457273486960516L);
+        assertThat(workspace.getData().get(0).getName()).isEqualTo("workspace 1");
+        assertThat(workspace.getData().get(0).getPermalink()).isEqualTo("https://app.smartsheet.com/b/home?lx=JNL0bgXtXc0pzni9tzAc4g");
+        assertThat(server.getLastRequestUrl())
+                .isEqualTo("/1.1/workspaces?includeAll=true");
+    }
+
+    @Test
+    void testListWorkspacesWithTokenPagination() throws SmartsheetException, IOException {
+        server.setResponseBody(new File("src/test/resources/listWorkspacesTokenPagination.json"));
+        PaginationParameters parameters = new PaginationParameters("token", "token123", 500);
+        PagedResult<Workspace> workspace = workspaceResources.listWorkspaces(parameters);
+        assertThat(workspace.getLastKey()).isEqualTo("nextToken456");
+        assertThat(workspace.getData()).hasSize(2);
+        assertThat(workspace.getData().get(0).getAccessLevel()).isEqualTo(AccessLevel.OWNER);
+        assertThat(workspace.getData().get(0).getId().longValue()).isEqualTo(3457273486960516L);
+        assertThat(workspace.getData().get(0).getName()).isEqualTo("workspace 1");
+        assertThat(workspace.getData().get(0).getPermalink()).isEqualTo("https://app.smartsheet.com/b/home?lx=JNL0bgXtXc0pzni9tzAc4g");
+        assertThat(server.getLastRequestUrl())
+                .isEqualTo("/1.1/workspaces?maxItems=500&paginationType=token&lastKey=token123");
     }
 
     @Test
