@@ -27,6 +27,11 @@ import com.smartsheet.api.models.enums.CopyExclusion;
 import com.smartsheet.api.models.enums.FolderCopyInclusion;
 import com.smartsheet.api.models.enums.FolderRemapExclusion;
 import com.smartsheet.api.models.enums.SourceInclusion;
+import com.smartsheet.api.models.enums.GetFolderMetadataInclusion;
+import com.smartsheet.api.models.enums.GetFolderChildrenInclusion;
+import com.smartsheet.api.models.enums.ChildrenResourceType;
+import com.smartsheet.api.models.TokenPaginatedResult;
+import com.smartsheet.api.internal.json.ChildrenResourceDeserializer;
 
 import java.util.EnumSet;
 import java.util.HashMap;
@@ -39,6 +44,7 @@ import java.util.Map;
  */
 public class FolderResourcesImpl extends AbstractResources implements FolderResources {
     private static final String FOLDERS_PATH = "folders/";
+    private static final String INCLUDE_PARAM = "include";
 
     /**
      * Constructor.
@@ -72,10 +78,12 @@ public class FolderResourcesImpl extends AbstractResources implements FolderReso
      * rather than returning null)
      * @throws SmartsheetException the smartsheet exception
      */
+    @Override
+    @Deprecated(since = "3.4.0", forRemoval = true)
     public Folder getFolder(long folderId, EnumSet<SourceInclusion> includes) throws SmartsheetException {
         String path = FOLDERS_PATH + folderId;
         Map<String, Object> parameters = new HashMap<>();
-        parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
+        parameters.put(INCLUDE_PARAM, QueryUtil.generateCommaSeparatedList(includes));
         path += QueryUtil.generateUrl(null, parameters);
 
         return this.getResource(path, Folder.class);
@@ -146,6 +154,7 @@ public class FolderResourcesImpl extends AbstractResources implements FolderReso
      * @return the child folders (note that empty list will be returned if no child folder found)
      * @throws SmartsheetException the smartsheet exception
      */
+    @Deprecated(since = "3.4.0", forRemoval = true)
     public PagedResult<Folder> listFolders(long parentFolderId, PaginationParameters parameters) throws SmartsheetException {
         String path = FOLDERS_PATH + parentFolderId + "/folders";
 
@@ -235,7 +244,7 @@ public class FolderResourcesImpl extends AbstractResources implements FolderReso
         String path = FOLDERS_PATH + folderId + "/copy";
         Map<String, Object> parameters = new HashMap<>();
 
-        parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
+        parameters.put(INCLUDE_PARAM, QueryUtil.generateCommaSeparatedList(includes));
         parameters.put("skipRemap", QueryUtil.generateCommaSeparatedList(skipRemap));
         parameters.put("exclude", QueryUtil.generateCommaSeparatedList(excludes));
 
@@ -266,5 +275,80 @@ public class FolderResourcesImpl extends AbstractResources implements FolderReso
 
         String path = FOLDERS_PATH + folderId + "/move";
         return this.createResource(path, Folder.class, containerDestination);
+    }
+
+    /**
+     * Get metadata of a folder.
+     * <p>
+     * It mirrors to the following Smartsheet REST API method: GET /folders/{folderId}/metadata
+     * <p>
+     * Exceptions:
+     * - InvalidRequestException : if there is any problem with the REST API request
+     * - AuthorizationException : if there is any problem with the REST API authorization(access token)
+     * - ResourceNotFoundException : if the resource can not be found
+     * - ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     * - SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     * - SmartsheetException : if there is any other error occurred during the operation
+     *
+     * @param folderId the folder id
+     * @param includes used to specify the optional objects to include
+     * @return the folder metadata (note that if there is no such resource, this method will throw ResourceNotFoundException
+     * rather than returning null).
+     * @throws SmartsheetException the smartsheet exception
+     */
+    @Override
+    public Folder getFolderMetadata(long folderId, EnumSet<GetFolderMetadataInclusion> includes) throws SmartsheetException {
+        String path = FOLDERS_PATH + folderId + "/metadata";
+
+        // Add the parameters to a map and build the query string at the end
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put(INCLUDE_PARAM, QueryUtil.generateCommaSeparatedList(includes));
+        path += QueryUtil.generateUrl(null, parameters);
+
+        return this.getResource(path, Folder.class);
+    }
+
+    /**
+     * Get children of a folder.
+     * <p>
+     * It mirrors to the following Smartsheet REST API method: GET /folders/{folderId}/children
+     * <p>
+     * Exceptions:
+     * - InvalidRequestException : if there is any problem with the REST API request
+     * - AuthorizationException : if there is any problem with the REST API authorization(access token)
+     * - ResourceNotFoundException : if the resource can not be found
+     * - ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     * - SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     * - SmartsheetException : if there is any other error occurred during the operation
+     *
+     * @param folderId              the folder id
+     * @param childrenResourceTypes the resource types to filter by (optional)
+     * @param includes              used to specify the optional objects to include
+     * @param lastKey               the last key for pagination (optional)
+     * @param maxItems              the maximum number of items to return (optional)
+     * @return the paginated children response
+     * @throws SmartsheetException the smartsheet exception
+     */
+    @Override
+    public TokenPaginatedResult<Object> getFolderChildren(long folderId, EnumSet<ChildrenResourceType> childrenResourceTypes,
+                                                       EnumSet<GetFolderChildrenInclusion> includes,
+                                                       String lastKey, Integer maxItems) throws SmartsheetException {
+        String path = FOLDERS_PATH + folderId + "/children";
+
+        // Add the parameters to a map and build the query string at the end
+        Map<String, Object> parameters = new HashMap<>();
+        if (childrenResourceTypes != null && !childrenResourceTypes.isEmpty()) {
+            parameters.put("childrenResourceTypes", QueryUtil.generateCommaSeparatedList(childrenResourceTypes));
+        }
+        parameters.put(INCLUDE_PARAM, QueryUtil.generateCommaSeparatedList(includes));
+        if (lastKey != null) {
+            parameters.put("lastKey", lastKey);
+        }
+        if (maxItems != null) {
+            parameters.put("maxItems", maxItems);
+        }
+        path += QueryUtil.generateUrl(null, parameters);
+
+        return this.listResourcesWithTokenPagination(path, new ChildrenResourceDeserializer());
     }
 }

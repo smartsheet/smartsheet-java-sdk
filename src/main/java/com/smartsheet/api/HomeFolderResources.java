@@ -24,7 +24,10 @@ import com.smartsheet.api.models.PaginationParameters;
  * <p>This interface provides methods to access Folder resources under home.</p>
  *
  * <p>Thread Safety: Implementation of this interface must be thread safe.</p>
+ *
+ * @deprecated Home resources have been deprecated and will be removed in a future version.
  */
+@Deprecated(since = "3.4.0", forRemoval = true)
 public interface HomeFolderResources {
 
     /**
@@ -40,7 +43,9 @@ public interface HomeFolderResources {
      * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException         if there is any other error during the operation
+     * @deprecated Home resources have been deprecated and will be removed in a future version.
      */
+    @Deprecated(since = "3.4.0", forRemoval = true)
     PagedResult<Folder> listFolders(PaginationParameters parameters) throws SmartsheetException;
 
     /**
@@ -56,6 +61,8 @@ public interface HomeFolderResources {
      * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException         if there is any other error during the operation
+     * @deprecated Home resources have been deprecated and will be removed in a future version.
      */
+    @Deprecated(since = "3.4.0", forRemoval = true)
     Folder createFolder(Folder folder) throws SmartsheetException;
 }

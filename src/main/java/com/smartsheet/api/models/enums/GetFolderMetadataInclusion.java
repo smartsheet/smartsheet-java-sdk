@@ -14,17 +14,22 @@
  * limitations under the License.
  */
 
-package com.smartsheet.api.internal.http;
+package com.smartsheet.api.models.enums;
 
 /**
- * Represents HTTP methods.
- * <p>
- * Thread Safety: This enumeration is thread safe as it is immutable.
+ * Represents specific objects that can be included in GetFolderMetadata responses.
  */
-public enum HttpMethod {
-    GET,
-    POST,
-    PUT,
-    DELETE,
-    PATCH
+public enum GetFolderMetadataInclusion {
+    SOURCE("source");
+
+    String inclusion;
+
+    GetFolderMetadataInclusion(String inclusion) {
+        this.inclusion = inclusion;
+    }
+
+    @Override
+    public String toString() {
+        return inclusion;
+    }
 }

@@ -14,17 +14,25 @@
  * limitations under the License.
  */
 
-package com.smartsheet.api.internal.http;
+package com.smartsheet.api.models.enums;
 
 /**
- * Represents HTTP methods.
- * <p>
- * Thread Safety: This enumeration is thread safe as it is immutable.
+ * Represents the resource types that can be filtered when getting children of workspaces or folders.
  */
-public enum HttpMethod {
-    GET,
-    POST,
-    PUT,
-    DELETE,
-    PATCH
+public enum ChildrenResourceType {
+    FOLDERS("folders"),
+    REPORTS("reports"),
+    SHEETS("sheets"),
+    SIGHTS("sights");
+
+    final String resourceType;
+
+    ChildrenResourceType(String resourceType) {
+        this.resourceType = resourceType;
+    }
+
+    @Override
+    public String toString() {
+        return resourceType;
+    }
 }

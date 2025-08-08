@@ -20,10 +20,14 @@ import com.smartsheet.api.models.ContainerDestination;
 import com.smartsheet.api.models.Folder;
 import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.PaginationParameters;
+import com.smartsheet.api.models.TokenPaginatedResult;
 import com.smartsheet.api.models.enums.CopyExclusion;
 import com.smartsheet.api.models.enums.FolderCopyInclusion;
 import com.smartsheet.api.models.enums.FolderRemapExclusion;
 import com.smartsheet.api.models.enums.SourceInclusion;
+import com.smartsheet.api.models.enums.GetFolderMetadataInclusion;
+import com.smartsheet.api.models.enums.GetFolderChildrenInclusion;
+import com.smartsheet.api.models.enums.ChildrenResourceType;
 
 import java.util.EnumSet;
 
@@ -50,6 +54,7 @@ public interface FolderResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException         if there is any other error during the operation
      */
+    @Deprecated(since = "3.4.0", forRemoval = true)
     Folder getFolder(long folderId, EnumSet<SourceInclusion> includes) throws SmartsheetException;
 
     /**
@@ -97,6 +102,7 @@ public interface FolderResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException         if there is any other error during the operation
      */
+    @Deprecated(since = "3.4.0", forRemoval = true)
     PagedResult<Folder> listFolders(long parentFolderId, PaginationParameters parameters) throws SmartsheetException;
 
     /**
@@ -191,4 +197,44 @@ public interface FolderResources {
      * @throws SmartsheetException the smartsheet exception
      */
     Folder moveFolder(long folderId, ContainerDestination containerDestination) throws SmartsheetException;
+
+    /**
+     * <p>Get metadata of a folder.</p>
+     *
+     * <p>It mirrors to the following Smartsheet REST API method: GET /folders/{folderId}/metadata</p>
+     *
+     * @param folderId the folder id
+     * @param includes the include parameters (optional)
+     * @return the folder metadata (note that if there is no such resource, this method will throw ResourceNotFoundException
+     * rather than returning null)
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetException         if there is any other error during the operation
+     */
+    Folder getFolderMetadata(long folderId, EnumSet<GetFolderMetadataInclusion> includes) throws SmartsheetException;
+
+    /**
+     * <p>Get children of a folder.</p>
+     *
+     * <p>It mirrors to the following Smartsheet REST API method: GET /folders/{folderId}/children</p>
+     *
+     * @param folderId              the folder id
+     * @param childrenResourceTypes the resource type to filter by (optional)
+     * @param includes              the include parameters (optional)
+     * @param lastKey               the last key for pagination (optional)
+     * @param maxItems              the maximum number of items to return (optional)
+     * @return the paginated children response
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetException         if there is any other error during the operation
+     */
+    TokenPaginatedResult<Object> getFolderChildren(long folderId, EnumSet<ChildrenResourceType> childrenResourceTypes,
+                                                EnumSet<GetFolderChildrenInclusion> includes,
+                                                String lastKey, Integer maxItems) throws SmartsheetException;
 }

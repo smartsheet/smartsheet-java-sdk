@@ -17,12 +17,14 @@
 package com.smartsheet.api.internal.json;
 
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.smartsheet.api.models.BulkItemResult;
 import com.smartsheet.api.models.CopyOrMoveRowResult;
 import com.smartsheet.api.models.EventResult;
 import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.Result;
+import com.smartsheet.api.models.TokenPaginatedResult;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -216,6 +218,18 @@ public interface JsonSerializer {
      * @return the EventResult containing a list of Event
      */
     EventResult deserializeEventResult(java.io.InputStream inputStream)
+            throws JSONSerializerException;
+
+    /**
+     * De-serialize json to TokenPaginatedResult using a custom deserializer.
+     *
+     * @param <T> the generic type of the data items
+     * @param deserializer the custom deserializer for the data items
+     * @param inputStream the input stream
+     * @return the TokenPaginatedResult containing a list of type T
+     * @throws JSONSerializerException the JSON serializer exception
+     */
+    <T> TokenPaginatedResult<T> deserializeTokenPaginatedResult(JsonDeserializer<List<T>> deserializer, java.io.InputStream inputStream)
             throws JSONSerializerException;
 
 }

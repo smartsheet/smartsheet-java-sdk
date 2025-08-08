@@ -6,7 +6,34 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [x.x.x] - unreleased
 
-## [3.2.3] - 2025-02-14 
+## [3.4.0] - 2025-08-05
+### Added
+- New SDK methods for workspace and folder metadata and children endpoints:
+  - `getWorkspaceMetadata()` - Get metadata for a workspace including access level, permalink, and dates
+  - `getWorkspaceChildren()` - Get children of a workspace with filtering by resource type and pagination support
+  - `getFolderMetadata()` - Get metadata for a folder including basic properties and optional source information
+  - `getFolderChildren()` - Get children of a folder with filtering by resource type and pagination support
+### Updated
+- Updated Folder class to support the 'source' property. The property is thus also supported for Workspace.
+### Deprecated
+- `WorkspaceResources.getWorkspace()` method - replaced by `getWorkspaceMetadata()` and `getWorkspaceChildren()`
+- `FolderResources.getFolder()` method - replaced by `getFolderMetadata()` and `getFolderChildren()`
+- `FolderResources.listFolders()` method - use `getFolderChildren()` with resource type filtering
+- `WorkspaceFolderResources.listFolders()` method - use `getWorkspaceChildren()` with resource type filtering
+- All Home-related functions marked for removal in future version:
+  - `HomeResources` interface and its methods and implementations (`getHome()`, `folderResources()`)
+  - `HomeFolderResources` interface and its methods and implementations (`listFolders()`, `createFolder()`)
+
+## [3.3.0] - 2025-06-30
+### Added
+- Added `AssetShareResources` interface and `AssetShareResourcesImpl` implementation for sharing various asset types
+- Deprecated old sharing endpoints.
+
+### Changed
+- Deprecated `ShareResources` interface and `ShareResourcesImpl` implementation in favor of `AssetShareResources`
+- All methods in `ShareResources` and `ShareResourcesImpl` are now marked with `@Deprecated(since = "2.0.0", forRemoval = true)`
+
+## [3.2.3] - 2025-02-14
 ### Changed
 - Update the copyright year to 2025
 - Marked the modifiedDate field as deprecated in the Comment model.
@@ -43,13 +70,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [3.2.0] - 2023-11-15
 ### Added
-- Added latest Checkstyle version, 
-  - for violations in `src/main/` the build WILL fail if we exceed 20 violations since we haven't fixed all existing ones yet  
-  - for violations in `src/test/` the build WILL fail if there is a single violation  
+- Added latest Checkstyle version,
+  - for violations in `src/main/` the build WILL fail if we exceed 20 violations since we haven't fixed all existing ones yet
+  - for violations in `src/test/` the build WILL fail if there is a single violation
 - Added more test coverage
 - Marked several deprecated features for removal
 ### Updated
-- When we get a non 200 response from Smartsheet, we won't log the entire response to prevent logging PII. Clients can enable debug logging 
+- When we get a non 200 response from Smartsheet, we won't log the entire response to prevent logging PII. Clients can enable debug logging
   if they need more details
 
 ## [3.1.2] - 2023-07-25
@@ -65,7 +92,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [3.1.0] - 2023-06-16
 ### Added
 - `AbstractRow::setRowId` so it can return a type that matches the child-type
-  - `AbstractRow::getRowId` added for symmetry 
+  - `AbstractRow::getRowId` added for symmetry
 - `AbstractSheet::setSheetName` and `AbstractSheet:setSheetId` return a type that can be implicitly cast to the child type
 - Added `source` to `Sight` model
 
@@ -204,8 +231,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Updated versions of Jetty and Jackson in the POM to resolve security vulnerabilities
 
 ## [2.2.6] - 2018-09-07
-### Added 
-- Multi-contact list 
+### Added
+- Multi-contact list
 
 ## [2.2.5] - 2018-05-30
 ### Added
@@ -213,7 +240,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Limited support for CHART widget types
 
 ### Changed
-- Removed old Link model which was replaced by Hyperlink and CellLink   
+- Removed old Link model which was replaced by Hyperlink and CellLink
 
 ### Fixed
 - Hyperlink and HyperlinkSerializer were missing the sightId property
@@ -228,7 +255,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Row sort feature
 - User profile properties (including profileImage) to UserModel
 - Scope, location and favoriteFlag inclusion to search
-- getSheet() ifVersionAfter parameter 
+- getSheet() ifVersionAfter parameter
 - Client method to modify HTTP User-Agent header
 - Bulk access to sheet version through sheetVersion inclusion
 - Missing title widget for Sights
@@ -236,21 +263,21 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Logging examples for SimpleLogger and Log4j
 
 ### Changed
-- HttpClient interface to allow SDK users to inject HTTP headers or implement an HTTP proxy by extending 
+- HttpClient interface to allow SDK users to inject HTTP headers or implement an HTTP proxy by extending
 DefaultHttpClient (a proxy sample is provided in the README)
-- Removed ShouldRetry and CalcBackoff interfaces and replaced with HttpClient interface methods. You can now customize 
+- Removed ShouldRetry and CalcBackoff interfaces and replaced with HttpClient interface methods. You can now customize
 shouldRetry or calcBackoff using the same method as proxy or request header injection (i.e. extend DefaultHttpClient).
 
 ### Fixed
 - Several deserialization issues with Sights
 - Share builders were improperly setting share type
-- The rate-limit/backoff retry scenario did not work if the request contained a body because the body stream had not 
-been reset prior to the retry (PUT/POST).  The Apache HttpClient will raise a NonRepeatableRequestException that is now 
+- The rate-limit/backoff retry scenario did not work if the request contained a body because the body stream had not
+been reset prior to the retry (PUT/POST).  The Apache HttpClient will raise a NonRepeatableRequestException that is now
 handled by the SDK (which resets the body content stream).
-- There is a keep-alive race condition that exists when the server disconnects idle connections. If a request is made 
-in the window in between when the server has disconnected, but before the client has detected the disconnect, it looks 
-to the client as if the server returned a blank HTTP status line. Idempotent methods (PUT, DELETE, GET) are retried 
-automatically. A POST request will not be retried automatically by the Apache HttpClient. This fix will handle 
+- There is a keep-alive race condition that exists when the server disconnects idle connections. If a request is made
+in the window in between when the server has disconnected, but before the client has detected the disconnect, it looks
+to the client as if the server returned a blank HTTP status line. Idempotent methods (PUT, DELETE, GET) are retried
+automatically. A POST request will not be retried automatically by the Apache HttpClient. This fix will handle
 NoHttpResponseException exceptions and retry POSTs automatically after resetting the body content stream.
 
 
@@ -276,7 +303,7 @@ NoHttpResponseException exceptions and retry POSTs automatically after resetting
 - First class support for `PredecessorList` as an implementation of `ObjectValue`
 
     This is a breaking change if you use PredecessorList
-    
+
     This code sample shows how to update PredecessorList after updating to 2.2.0:
     ```Java
       Predecessor predecessor = new Predecessor();
@@ -296,6 +323,6 @@ NoHttpResponseException exceptions and retry POSTs automatically after resetting
 
       smartsheet.sheetResources().rowResources().updateRows(3102146867554180L, rows);  // Id of sheet
     ```
-    
+
 ## Earlier releases
 - Documented in [Github releases page](https://github.com/smartsheet-platform/smartsheet-java-sdk/releases)

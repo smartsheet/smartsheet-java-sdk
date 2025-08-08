@@ -17,10 +17,12 @@
 package com.smartsheet.api.models.enums;
 
 public enum SourceType {
+    FOLDER("folder"),
     REPORT("report"),
     SHEET("sheet"),
     SIGHT("sight"),
-    TEMPLATE("template");
+    TEMPLATE("template"),
+    WORKSPACE("workspace");
 
     String type;
 

@@ -81,7 +81,9 @@ public interface Smartsheet {
      * <p>Returns the HomeResources instance that provides access to Home resources.</p>
      *
      * @return the home resources instance
+     * @deprecated Home resources have been deprecated and will be removed in a future version.
      */
+    @Deprecated(since = "3.4.0", forRemoval = true)
     HomeResources homeResources();
 
     /**
@@ -202,4 +204,11 @@ public interface Smartsheet {
      * @return the event resources instance
      */
     EventResources eventResources();
+
+    /**
+     * Returns the AssetShareResources instance that provides access to Asset Share resources
+     *
+     * @return the asset share resources instance
+     */
+    AssetShareResources assetShareResources();
 }
