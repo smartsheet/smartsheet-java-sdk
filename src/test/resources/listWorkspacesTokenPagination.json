@@ -1,8 +1,5 @@
 {
-   "pageNumber": 1,
-   "pageSize": 100,
-   "totalPages": 1,
-   "totalCount": 2,
+   "lastKey": "nextToken456",
    "data": [
       {
          "accessLevel": "ADMIN",

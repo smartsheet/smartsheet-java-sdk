@@ -6,6 +6,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [x.x.x] - unreleased
 
+## [3.5.0] - 2025-08-08
+### Added
+  - Added support for token-based pagination in WorkspaceResources.listWorkspaces() method
+  - PaginationParameters now accepts `paginationType`, `lastKey` and `maxItems` parameters for token-based pagination
+  - PagedResult now includes `lastKey` field in response for token-based pagination
+  - Maintains backward compatibility with existing page-based pagination
+
 ## [3.4.0] - 2025-08-05
 ### Added
 - New SDK methods for workspace and folder metadata and children endpoints:
