@@ -201,7 +201,7 @@ public class PaginationParameters {
     public Map<String, Object> toHashMap() {
         Map<String, Object> parameters = new HashMap<>();
 
-        if (paginationType != null && paginationType.equals("token")) {
+        if (paginationType != null && "token".equals(paginationType)) {
             parameters.put("paginationType", paginationType);
             if (lastKey != null) {
                 parameters.put("lastKey", lastKey);
@@ -209,7 +209,7 @@ public class PaginationParameters {
             if (maxItems != null) {
                 parameters.put("maxItems", maxItems);
             }
-            return  parameters;
+            return parameters;
         }
 
         if (includeAll) {

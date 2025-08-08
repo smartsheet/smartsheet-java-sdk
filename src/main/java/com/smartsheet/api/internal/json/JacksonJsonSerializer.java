@@ -468,7 +468,8 @@ public class JacksonJsonSerializer implements JsonSerializer {
 
             // Deserialize using the temporary mapper with custom deserializer
             result = tempMapper.readValue(inputStream,
-                    tempMapper.getTypeFactory().constructParametrizedType(TokenPaginatedResult.class, TokenPaginatedResult.class, Object.class));
+                    tempMapper.getTypeFactory().constructParametrizedType(TokenPaginatedResult.class,
+                            TokenPaginatedResult.class, Object.class));
         } catch (JsonParseException e) {
             throw new JSONSerializerException(e);
         } catch (JsonMappingException e) {
