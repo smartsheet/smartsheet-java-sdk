@@ -215,6 +215,20 @@ class UserResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
+    void testUpgradeUser() throws SmartsheetException, IOException {
+        server.setResponseBody(new File("src/test/resources/upgradeUser.json"));
+        long userId = 1234L;
+        long planId = 123L;
+        String seatType = "LICENSED";
+
+        User upgradedUser = userResources.upgradeUser(userId, planId, seatType);
+
+        assertThat(upgradedUser.getId()).isEqualTo(userId);
+        assertThat(upgradedUser.getLicensedSheetCreator()).isTrue();
+        assertThat(upgradedUser.getStatus()).isEqualTo(UserStatus.ACTIVE);
+    }
+
+    @Test
     void testDeleteUser() throws IOException {
         server.setResponseBody(new File("src/test/resources/deleteUser.json"));
         DeleteUserParameters parameters = new DeleteUserParameters(12345L, true, true);

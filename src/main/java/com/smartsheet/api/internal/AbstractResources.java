@@ -383,6 +383,51 @@ public abstract class AbstractResources {
     }
 
     /**
+     * Post to a resource and expect a resource object in return.
+     * @param path the resource path
+     * @param object the object to post
+     * @param objectClass the class of the resource to be returned
+     * @param <T> the returned resource type
+     * @param <S> the posted object type
+     * @return the resource
+     * @throws SmartsheetException if there is an error
+     */
+    protected <T, S> T upgradeResource(String path, S object, Class<T> objectClass) throws SmartsheetException {
+        Util.throwIfNull(path, object, objectClass);
+        Util.throwIfEmpty(path);
+
+        HttpRequest request = createHttpRequest(smartsheet.getBaseURI().resolve(path), HttpMethod.POST);
+
+        ByteArrayOutputStream objectBytesStream = new ByteArrayOutputStream();
+        this.smartsheet.getJsonSerializer().serialize(object, objectBytesStream);
+
+        HttpEntity entity = new HttpEntity();
+        entity.setContentType(JSON_CONTENT_TYPE);
+        entity.setContent(new ByteArrayInputStream(objectBytesStream.toByteArray()));
+        entity.setContentLength(objectBytesStream.size());
+        request.setEntity(entity);
+
+        T obj = null;
+        try {
+            HttpResponse response = this.smartsheet.getHttpClient().request(request);
+            switch (response.getStatusCode()) {
+                case 200:
+                    obj = this.smartsheet.getJsonSerializer().deserializeResult(
+                            objectClass,
+                            response.getEntity().getContent()
+                    ).getResult();
+                    break;
+                default:
+                    handleError(response);
+            }
+        } finally {
+            smartsheet.getHttpClient().releaseConnection();
+        }
+
+        return obj;
+    }
+
+    /**
      * Update a resource using Smartsheet REST API.
      * <p>
      * Exceptions:

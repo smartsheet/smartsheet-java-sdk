@@ -1,0 +1,9 @@
+{
+  "message": "SUCCESS",
+  "resultCode": 0,
+  "result": {
+    "id": 1234,
+    "licensedSheetCreator": true,
+    "status": "ACTIVE"
+  }
+}

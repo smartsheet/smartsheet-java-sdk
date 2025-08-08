@@ -521,6 +521,18 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
     }
 
     @Override
+    public User upgradeUser(long userId, long planId, String seatType) throws SmartsheetException {
+        Util.throwIfEmpty(seatType);
+
+        String path = USERS + "/" + userId + "/plans/" + planId + "/upgrade";
+
+        Map<String, String> body = new HashMap<>();
+        body.put("seatType", seatType);
+
+        return this.upgradeResource(path, body, User.class);
+    }
+
+    @Override
     public void deleteUser(long userId, DeleteUserParameters parameters) throws SmartsheetException {
         String path = USERS + "/" + userId;
 
