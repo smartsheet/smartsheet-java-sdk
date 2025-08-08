@@ -20,7 +20,7 @@ plugins {
     // Allows us to publish our artifact
     id 'maven-publish'
     // Allows us to publish to Maven Central using JReleaser
-    id 'org.jreleaser' version '1.11.0'
+    id 'org.jreleaser' version '1.19.0'
 
     // ** MAINTENANCE PLUGINS **
     // Allows us to run `./gradlew dependencyUpdates` to check for dependency updates
