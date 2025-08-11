@@ -198,6 +198,25 @@ public interface UserResources {
     Result<?> upgradeUser(long userId, long planId, String seatType) throws SmartsheetException;
 
     /**
+     * <p>Upgrades a user's seat type.</p>
+     *
+     * <p>It mirrors to the following Smartsheet REST API method: POST /users/{userId}/plans/{planId}/downgrade</p>
+     * @param userId the ID of the user to downgrade
+     * @param planId the ID of the plan to downgrade to
+     * @param seatType the new seat type for the user
+     * @return the json response as a string
+     * @throws IllegalArgumentException if any argument is null or empty string
+     * @throws InvalidRequestException if there is any problem with the REST API request
+     * @throws AuthorizationException if there is any problem with the REST API authorization
+     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available
+     * @throws SmartsheetException if there is any other error during the operation
+     */
+    Result<?> downgradeUser(long userId, long planId, String seatType,
+                            Boolean notifyUser, Boolean removeAdminStatus) throws SmartsheetException;
+    Result<?> downgradeUser(long userId, long planId, String seatType) throws SmartsheetException;
+
+    /**
      * <p>Delete a user in the organization.</p>
      *
      * <p>It mirrors to the following Smartsheet REST API method: DELETE /user/{id}</p>

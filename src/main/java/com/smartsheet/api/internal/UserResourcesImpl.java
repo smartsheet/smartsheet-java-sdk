@@ -520,10 +520,30 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
 
         String path = USERS + "/" + userId + "/plans/" + planId + "/upgrade";
 
-        Map<String, String> body = new HashMap<>();
+        Map<String, Object> body = new HashMap<>();
         body.put("seatType", seatType);
 
         return this.upgradeResource(path, body, Object.class);
+    }
+
+    @Override
+    public Result<?> downgradeUser(long userId, long planId, String seatType,
+                                   Boolean notifyUser, Boolean removeAdminStatus) throws SmartsheetException {
+        Util.throwIfEmpty(seatType);
+
+        String path = USERS + "/" + userId + "/plans/" + planId + "/downgrade";
+
+        Map<String, Object> body = new HashMap<>();
+        body.put("seatType", seatType);
+        body.put("notifyUser", notifyUser);
+        body.put("removeAdminStatus", removeAdminStatus);
+
+        return this.upgradeResource(path, body, Object.class);
+    }
+
+    @Override
+    public Result<?> downgradeUser(long userId, long planId, String seatType) throws SmartsheetException {
+        return downgradeUser(userId, planId, seatType, false, false);
     }
 
     @Override

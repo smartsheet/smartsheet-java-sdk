@@ -228,6 +228,18 @@ class UserResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
+    void testDowngradeUser() throws SmartsheetException, IOException {
+        server.setResponseBody(new File("src/test/resources/downgradeUser.json"));
+        long userId = 123L;
+        long planId = 123L;
+        String seatType = "MEMBER";
+
+        Result<?> result = userResources.upgradeUser(userId, planId, seatType);
+        assertThat(result).isNotNull();
+        assertThat(result.getMessage()).isEqualTo("SUCCESS");
+    }
+
+    @Test
     void testDeleteUser() throws IOException {
         server.setResponseBody(new File("src/test/resources/deleteUser.json"));
         DeleteUserParameters parameters = new DeleteUserParameters(12345L, true, true);

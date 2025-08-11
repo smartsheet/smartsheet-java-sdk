@@ -390,7 +390,7 @@ public abstract class AbstractResources {
      * @return the resource
      * @throws SmartsheetException if there is an error
      */
-    protected <T> Result<T> upgradeResource(String path, Map<String, String> requestBody, Class<T> objectClass) throws SmartsheetException {
+    protected <T> Result<T> upgradeResource(String path, Map<String, Object> requestBody, Class<T> objectClass) throws SmartsheetException {
         Util.throwIfNull(path, requestBody);
         Util.throwIfEmpty(path);
 
