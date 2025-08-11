@@ -23,6 +23,7 @@ import com.smartsheet.api.models.User;
 import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.UserProfile;
 import com.smartsheet.api.models.Account;
+import com.smartsheet.api.models.Result;
 import com.smartsheet.api.models.DeleteUserParameters;
 import com.smartsheet.api.models.Sheet;
 import com.smartsheet.api.models.AlternateEmail;
@@ -217,15 +218,13 @@ class UserResourcesImplTest extends ResourcesImplBase {
     @Test
     void testUpgradeUser() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/upgradeUser.json"));
-        long userId = 1234L;
+        long userId = 123L;
         long planId = 123L;
-        String seatType = "LICENSED";
+        String seatType = "MEMBER";
 
-        User upgradedUser = userResources.upgradeUser(userId, planId, seatType);
-
-        assertThat(upgradedUser.getId()).isEqualTo(userId);
-        assertThat(upgradedUser.getLicensedSheetCreator()).isTrue();
-        assertThat(upgradedUser.getStatus()).isEqualTo(UserStatus.ACTIVE);
+        Result<?> result = userResources.upgradeUser(userId, planId, seatType);
+        assertThat(result).isNotNull();
+        assertThat(result.getMessage()).isEqualTo("SUCCESS");
     }
 
     @Test
