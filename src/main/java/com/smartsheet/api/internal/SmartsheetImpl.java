@@ -493,8 +493,7 @@ public class SmartsheetImpl implements Smartsheet {
     /**
      * Gets the custom integration source identifier.
      *
-     * This value is intended to be sent as a header in API requests for tracking and analytics purposes,
-     * helping to identify which specific integration or application is making the API call.
+     * This value is intended to be sent as a header in API requests for integration purposes
      *
      * @return the integration source string, or null if it has not been set.
      */
