@@ -1076,6 +1076,9 @@ public abstract class AbstractResources {
         if (smartsheet.getUserAgent() != null) {
             headers.put("User-Agent", smartsheet.getUserAgent());
         }
+        if (smartsheet.getSmartsheetIntegrationSource() != null) {
+            headers.put("Smartsheet-Integration-Source", smartsheet.getSmartsheetIntegrationSource());
+        }
         return headers;
     }
 

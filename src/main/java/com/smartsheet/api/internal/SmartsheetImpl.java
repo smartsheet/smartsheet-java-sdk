@@ -282,6 +282,11 @@ public class SmartsheetImpl implements Smartsheet {
      */
     private final AtomicReference<AssetShareResources> assetShares;
 
+    /**
+     * Represents the AtomicReference for the smartsheet integration source header
+     */
+    private final AtomicReference<String> smartsheetIntegrationSource;
+
     private static final String INVALID_OPERATION_FOR_CLASS = "Invalid operation for class ";
 
     /**
@@ -341,6 +346,7 @@ public class SmartsheetImpl implements Smartsheet {
         this.passthrough = new AtomicReference<>();
         this.events = new AtomicReference<>();
         this.assetShares = new AtomicReference<>();
+        this.smartsheetIntegrationSource = new AtomicReference<>();
     }
 
     /**
@@ -482,6 +488,22 @@ public class SmartsheetImpl implements Smartsheet {
         } else {
             throw new UnsupportedOperationException(INVALID_OPERATION_FOR_CLASS + this.httpClient.getClass());
         }
+    }
+
+    /**
+     * Gets the custom integration source identifier.
+     *
+     * This value is intended to be sent as a header in API requests for tracking and analytics purposes,
+     * helping to identify which specific integration or application is making the API call.
+     *
+     * @return the integration source string, or null if it has not been set.
+     */
+    public String getSmartsheetIntegrationSource() {
+        return smartsheetIntegrationSource.get();
+    }
+
+    public void setSmartsheetIntegrationSource(String smartsheetIntegrationSource) {
+        this.smartsheetIntegrationSource.set(smartsheetIntegrationSource);
     }
 
     /**

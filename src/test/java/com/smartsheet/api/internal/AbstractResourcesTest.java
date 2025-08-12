@@ -33,18 +33,21 @@ class AbstractResourcesTest {
 
     private final String tokenValue = "somevalue";
     private final String changeAgent = "mychangeagent";
+    private final String smartsheetIntegrationSource = "integrationsourcevalue";
 
     @Test
     void testHeaders() {
 
         SmartsheetImpl smartsheet = new SmartsheetImpl("doesnt/matter", tokenValue, new DefaultHttpClient(), null);
         smartsheet.setChangeAgent(changeAgent);
+        smartsheet.setSmartsheetIntegrationSource(smartsheetIntegrationSource);
         AbstractResources resources = new AbstractResources(smartsheet) {
         };
 
         Map<String, String> headers = resources.createHeaders();
         assertThat(headers)
                 .containsEntry("Authorization", "Bearer " + tokenValue)
+                .containsEntry("Smartsheet-Integration-Source", smartsheetIntegrationSource)
                 .containsEntry("Smartsheet-Change-Agent", changeAgent);
     }
 

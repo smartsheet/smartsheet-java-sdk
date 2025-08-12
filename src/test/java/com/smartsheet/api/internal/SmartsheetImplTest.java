@@ -121,4 +121,8 @@ class SmartsheetImplTest extends ResourcesImplBase {
         assertThat(smartsheet.sightResources()).isNotNull();
     }
 
+    @Test
+    void testGetSmartsheetIntegrationSource() {
+        assertThat(smartsheet.getSmartsheetIntegrationSource()).isNull();
+    }
 }
