@@ -42,6 +42,7 @@ public interface WorkspaceFolderResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException         if there is any other error during the operation
      */
+    @Deprecated(since = "3.4.0", forRemoval = true)
     PagedResult<Folder> listFolders(long workspaceId, PaginationParameters parameters) throws SmartsheetException;
 
     /**

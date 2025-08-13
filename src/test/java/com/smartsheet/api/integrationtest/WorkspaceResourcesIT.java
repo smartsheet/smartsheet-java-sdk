@@ -109,6 +109,19 @@ public class WorkspaceResourcesIT extends ITResourcesImpl {
         assertThat(workspace).isNotNull();
     }
 
+    @Test
+    void testListWorkspacesWithTokenPagination() throws SmartsheetException {
+        PaginationParameters parameters = new PaginationParameters("token", null, 100);
+        PagedResult<Workspace> workspace = smartsheet.workspaceResources().listWorkspaces(parameters);
+        assertThat(workspace).isNotNull();
+        assertThat(workspace.getData()).isNotNull();
+        if (workspace.getLastKey() != null) {
+            PaginationParameters nextParameters = new PaginationParameters("token", workspace.getLastKey(), 100);
+            PagedResult<Workspace> nextPage = smartsheet.workspaceResources().listWorkspaces(nextParameters);
+            assertThat(nextPage).isNotNull();
+        }
+    }
+
     public void testUpdateWorkspace() throws SmartsheetException {
         Workspace workspace = new Workspace.UpdateWorkspaceBuilder().setName("Updated workspace").setId(workspaceId).build();
         Workspace newWorkspace = smartsheet.workspaceResources().updateWorkspace(workspace);

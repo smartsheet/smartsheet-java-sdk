@@ -16,22 +16,20 @@
 
 package com.smartsheet.api.models.enums;
 
-public enum SourceType {
-    FOLDER("folder"),
-    REPORT("report"),
-    SHEET("sheet"),
-    SIGHT("sight"),
-    TEMPLATE("template"),
-    WORKSPACE("workspace");
+/**
+ * Represents specific objects that can be included in GetFolderMetadata responses.
+ */
+public enum GetFolderMetadataInclusion {
+    SOURCE("source");
 
-    String type;
+    String inclusion;
 
-    SourceType(String type) {
-        this.type = type;
+    GetFolderMetadataInclusion(String inclusion) {
+        this.inclusion = inclusion;
     }
 
     @Override
     public String toString() {
-        return type;
+        return inclusion;
     }
 }

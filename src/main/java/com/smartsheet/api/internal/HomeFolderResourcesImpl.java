@@ -26,7 +26,10 @@ import com.smartsheet.api.models.PaginationParameters;
  * This is the implementation of the HomeFolderResources.
  * <p>
  * Thread Safety: This class is thread safe because it is immutable and its base class is thread safe.
+ *
+ * @deprecated Home resources have been deprecated and will be removed in a future version.
  */
+@Deprecated(since = "3.4.0", forRemoval = true)
 public class HomeFolderResourcesImpl extends AbstractResources implements HomeFolderResources {
 
     /**
@@ -57,6 +60,7 @@ public class HomeFolderResourcesImpl extends AbstractResources implements HomeFo
      * @return the folders (note that empty list will be returned if there is none)
      * @throws SmartsheetException the smartsheet exception
      */
+    @Deprecated(since = "3.4.0", forRemoval = true)
     public PagedResult<Folder> listFolders(PaginationParameters parameters) throws SmartsheetException {
 
         String path = "home/folders";
@@ -84,6 +88,7 @@ public class HomeFolderResourcesImpl extends AbstractResources implements HomeFo
      * @return the created folder
      * @throws SmartsheetException the smartsheet exception
      */
+    @Deprecated(since = "3.4.0", forRemoval = true)
     public Folder createFolder(Folder folder) throws SmartsheetException {
         return this.createResource("home/folders", Folder.class, folder);
     }

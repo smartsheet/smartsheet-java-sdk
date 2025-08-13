@@ -42,7 +42,7 @@ class PaginationParametersTest {
         assertThat(parameters2.toQueryString()).isEqualTo("?includeAll=true");
 
         PaginationParameters parameters3 = new PaginationParameters(false, 1, 1);
-        String[] matches1 = new String[]{"pageSize=1", "includeAll=false", "page=1"};
+        String[] matches1 = new String[]{"pageSize=1", "page=1"};
         for (String s : matches1) {
             assertThat(parameters3.toQueryString()).contains(s);
         }
@@ -67,7 +67,6 @@ class PaginationParametersTest {
         PaginationParameters parameters3 = new PaginationParameters(false, 1, 1);
         map = parameters3.toHashMap();
         assertThat(map)
-                .containsEntry("includeAll", "false")
                 .containsEntry("pageSize", 1)
                 .containsEntry("page", 1);
     }

@@ -16,22 +16,23 @@
 
 package com.smartsheet.api.models.enums;
 
-public enum SourceType {
-    FOLDER("folder"),
-    REPORT("report"),
-    SHEET("sheet"),
-    SIGHT("sight"),
-    TEMPLATE("template"),
-    WORKSPACE("workspace");
+/**
+ * Represents the resource types that can be filtered when getting children of workspaces or folders.
+ */
+public enum ChildrenResourceType {
+    FOLDERS("folders"),
+    REPORTS("reports"),
+    SHEETS("sheets"),
+    SIGHTS("sights");
 
-    String type;
+    final String resourceType;
 
-    SourceType(String type) {
-        this.type = type;
+    ChildrenResourceType(String resourceType) {
+        this.resourceType = resourceType;
     }
 
     @Override
     public String toString() {
-        return type;
+        return resourceType;
     }
 }
