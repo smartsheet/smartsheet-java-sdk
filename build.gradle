@@ -241,6 +241,11 @@ publishing {
 
 // Configuration for JReleaser to publish to Maven Central
 jreleaser {
+    release {
+        github {
+            enabled = false
+        }
+    }
     signing {
         active = 'ALWAYS'
         armored = true
