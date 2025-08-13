@@ -284,6 +284,13 @@ public class SmartsheetImpl implements Smartsheet {
 
     /**
      * Represents the AtomicReference for the smartsheet integration source header
+     *
+     * Format: $TYPE,$ORG_NAME,$INTEGRATOR_NAME
+     * (NB: Comma is used as a delimiter and is required if value is missing)
+     *
+     * $INTEGRATION-TYPE - Required, the type of the integrator (e.g. AI, SCRIPT, APPLICATION)
+     * $SMAR-ORGANIZATION-NAME - Optional (but COMMA is required), organization name (e.g. Microsoft, Google, OpenAI, etc.)
+     * $INTEGRATOR-NAME - Required, the name of the integrator (e.g. Claude, Copilot, ChatGPT, DeepSeek, etc.)
      */
     private final AtomicReference<String> smartsheetIntegrationSource;
 
