@@ -16,7 +16,14 @@
 
 package com.smartsheet.api;
 
-import com.smartsheet.api.models.*;
+import com.smartsheet.api.models.PagedResult;
+import com.smartsheet.api.models.PaginationParameters;
+import com.smartsheet.api.models.User;
+import com.smartsheet.api.models.Sheet;
+import com.smartsheet.api.models.DeleteUserParameters;
+import com.smartsheet.api.models.AlternateEmail;
+import com.smartsheet.api.models.Result;
+import com.smartsheet.api.models.UserProfile;
 import com.smartsheet.api.models.enums.ListUserInclusion;
 import com.smartsheet.api.models.enums.UserInclusion;
 
@@ -212,8 +219,6 @@ public interface UserResources {
      * @throws ServiceUnavailableException if the REST API service is not available
      * @throws SmartsheetException if there is any other error during the operation
      */
-    Result<?> downgradeUser(long userId, long planId, String seatType,
-                            Boolean notifyUser, Boolean removeAdminStatus) throws SmartsheetException;
     Result<?> downgradeUser(long userId, long planId, String seatType) throws SmartsheetException;
 
     /**

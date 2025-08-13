@@ -28,7 +28,14 @@ import com.smartsheet.api.internal.http.HttpRequest;
 import com.smartsheet.api.internal.http.HttpResponse;
 import com.smartsheet.api.internal.util.QueryUtil;
 import com.smartsheet.api.internal.util.Util;
-import com.smartsheet.api.models.*;
+import com.smartsheet.api.models.PagedResult;
+import com.smartsheet.api.models.PaginationParameters;
+import com.smartsheet.api.models.User;
+import com.smartsheet.api.models.DeleteUserParameters;
+import com.smartsheet.api.models.AlternateEmail;
+import com.smartsheet.api.models.Sheet;
+import com.smartsheet.api.models.Result;
+import com.smartsheet.api.models.UserProfile;
 import com.smartsheet.api.models.enums.ListUserInclusion;
 import com.smartsheet.api.models.enums.UserInclusion;
 
@@ -527,23 +534,15 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
     }
 
     @Override
-    public Result<?> downgradeUser(long userId, long planId, String seatType,
-                                   Boolean notifyUser, Boolean removeAdminStatus) throws SmartsheetException {
+    public Result<?> downgradeUser(long userId, long planId, String seatType) throws SmartsheetException {
         Util.throwIfEmpty(seatType);
 
         String path = USERS + "/" + userId + "/plans/" + planId + "/downgrade";
 
         Map<String, Object> body = new HashMap<>();
         body.put("seatType", seatType);
-        body.put("notifyUser", notifyUser);
-        body.put("removeAdminStatus", removeAdminStatus);
 
         return this.upgradeResource(path, body, Object.class);
-    }
-
-    @Override
-    public Result<?> downgradeUser(long userId, long planId, String seatType) throws SmartsheetException {
-        return downgradeUser(userId, planId, seatType, false, false);
     }
 
     @Override

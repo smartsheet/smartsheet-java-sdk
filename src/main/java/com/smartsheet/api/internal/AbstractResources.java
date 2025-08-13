@@ -37,6 +37,7 @@ import com.smartsheet.api.models.CopyOrMoveRowResult;
 import com.smartsheet.api.models.Error;
 import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.Result;
+import org.apache.http.HttpStatus;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.ContentType;
@@ -408,17 +409,15 @@ public abstract class AbstractResources {
         Result<T> result = null;
         try {
             HttpResponse response = this.smartsheet.getHttpClient().request(request);
-            switch (response.getStatusCode()) {
-                case 200:
-                    result = this.smartsheet.getJsonSerializer().deserializeResult(objectClass, response.getEntity().getContent());
-                    break;
-                default:
-                    try {
-                        Error error = this.smartsheet.getJsonSerializer().deserialize(Error.class, response.getEntity().getContent());
-                        throw new SmartsheetRestException(error);
-                    } catch (IOException e) {
-                        throw new SmartsheetException("Error deserializing error response", e);
-                    }
+            if (response.getStatusCode() == HttpStatus.SC_OK) {
+                result = this.smartsheet.getJsonSerializer().deserializeResult(objectClass, response.getEntity().getContent());
+            } else {
+                try {
+                    Error error = this.smartsheet.getJsonSerializer().deserialize(Error.class, response.getEntity().getContent());
+                    throw new SmartsheetRestException(error);
+                } catch (IOException e) {
+                    throw new SmartsheetException("Error deserializing error response", e);
+                }
             }
         } finally {
             smartsheet.getHttpClient().releaseConnection();
