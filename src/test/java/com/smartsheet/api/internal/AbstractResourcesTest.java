@@ -33,7 +33,7 @@ class AbstractResourcesTest {
 
     private final String tokenValue = "somevalue";
     private final String changeAgent = "mychangeagent";
-    private final String smartsheetIntegrationSource = "AI,OpenAI,ChatGPT";
+    private final String smartsheetIntegrationSource = "AI,MyCompany,MyGPT";
 
     @Test
     void testHeaders() {
