@@ -76,6 +76,14 @@ public class SmartsheetBuilder {
      */
     private String changeAgent;
 
+    /**
+     * <p>Represents the smartsheet integration source.</p>
+     *
+     * <p>It can be set using corresponding setter.</p>
+     */
+    private String smartsheetIntegrationSource;
+
+
     /** URI to prod-us API endpoints */
     public static final String US_BASE_URI = "https://api.smartsheet.com/2.0/";
     /** URI to prod-eu API endpoints */
@@ -180,6 +188,11 @@ public class SmartsheetBuilder {
         return this;
     }
 
+    public SmartsheetBuilder setSmartsheetIntegrationSource(String smartsheetIntegrationSource) {
+        this.smartsheetIntegrationSource = smartsheetIntegrationSource;
+        return this;
+    }
+
     /**
      * <p>Gets the http client.</p>
      *
@@ -244,6 +257,15 @@ public class SmartsheetBuilder {
     }
 
     /**
+     * <p>Gets the Smartsheet-Integration-Source</p>
+     *
+     * @return the smartsheet integration source
+     */
+    public String getSmartsheetIntegrationSource() {
+        return smartsheetIntegrationSource;
+    }
+
+    /**
      * <p>Build the Smartsheet instance.</p>
      *
      * @return the Smartsheet instance
@@ -262,6 +284,9 @@ public class SmartsheetBuilder {
 
         if (changeAgent != null) {
             smartsheet.setChangeAgent(changeAgent);
+        }
+        if (smartsheetIntegrationSource != null) {
+            smartsheet.setSmartsheetIntegrationSource(smartsheetIntegrationSource);
         }
         if (assumedUser != null) {
             smartsheet.setAssumedUser(assumedUser);
