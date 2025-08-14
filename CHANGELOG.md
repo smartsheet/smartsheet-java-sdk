@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [x.x.x] - unreleased
 
+## [3.6.0] - 2025-08-14
+### Added
+  - Added support for the `Smartsheet-Integration-Source` header. This can be configured using the `SmartsheetBuilder` or set directly on the `Smartsheet` client.
+
 ## [3.5.0] - 2025-08-08
 ### Added
   - Added support for token-based pagination in WorkspaceResources.listWorkspaces() method
