@@ -39,8 +39,7 @@ class ShareResourcesImplTest extends ResourcesImplBase {
 
     @BeforeEach
     public void setUp() throws Exception {
-        shareResourcesImpl = new ShareResourcesImpl(new SmartsheetImpl("http://localhost:9090/1.1/", "accessToken",
-                new DefaultHttpClient(), serializer), "sheets");
+        shareResourcesImpl = new ShareResourcesImpl(smartsheetImpl, "sheets");
     }
 
     @Test

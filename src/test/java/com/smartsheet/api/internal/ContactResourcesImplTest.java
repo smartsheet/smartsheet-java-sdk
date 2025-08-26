@@ -35,8 +35,7 @@ class ContactResourcesImplTest extends ResourcesImplBase {
 
     @BeforeEach
     public void setUp() throws Exception {
-        contactResources = new ContactResourcesImpl(new SmartsheetImpl("http://localhost:9090/1.1/", "accessToken",
-                new DefaultHttpClient(), serializer));
+        contactResources = new ContactResourcesImpl(smartsheetImpl);
     }
 
     @Nested

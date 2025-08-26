@@ -39,8 +39,7 @@ class FolderResourcesImplTest extends ResourcesImplBase {
     @BeforeEach
     public void setUp() {
         // Create a folder resource
-        folderResource = new FolderResourcesImpl(new SmartsheetImpl("http://localhost:9090/1.1/", "accessToken",
-                new DefaultHttpClient(), serializer));
+        folderResource = new FolderResourcesImpl(smartsheetImpl);
     }
 
     @Test

@@ -36,8 +36,7 @@ class DiscussionAttachmentResourcesImplTest extends ResourcesImplBase {
 
     @BeforeEach
     public void setUp() throws Exception {
-        discussionAttachmentResources = new DiscussionAttachmentResourcesImpl(new SmartsheetImpl("http://localhost:9090/1.1/",
-                "accessToken", new DefaultHttpClient(), serializer));
+        discussionAttachmentResources = new DiscussionAttachmentResourcesImpl(smartsheetImpl);
     }
 
     @Nested

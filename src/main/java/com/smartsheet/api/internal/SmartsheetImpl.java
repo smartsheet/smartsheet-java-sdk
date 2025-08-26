@@ -16,27 +16,7 @@
 
 package com.smartsheet.api.internal;
 
-import com.smartsheet.api.AssetShareResources;
-import com.smartsheet.api.ContactResources;
-import com.smartsheet.api.EventResources;
-import com.smartsheet.api.FavoriteResources;
-import com.smartsheet.api.FolderResources;
-import com.smartsheet.api.GroupResources;
-import com.smartsheet.api.HomeResources;
-import com.smartsheet.api.ImageUrlResources;
-import com.smartsheet.api.PassthroughResources;
-import com.smartsheet.api.ReportResources;
-import com.smartsheet.api.SearchResources;
-import com.smartsheet.api.ServerInfoResources;
-import com.smartsheet.api.SheetResources;
-import com.smartsheet.api.SightResources;
-import com.smartsheet.api.Smartsheet;
-import com.smartsheet.api.TemplateResources;
-import com.smartsheet.api.TokenResources;
-import com.smartsheet.api.Trace;
-import com.smartsheet.api.UserResources;
-import com.smartsheet.api.WebhookResources;
-import com.smartsheet.api.WorkspaceResources;
+import com.smartsheet.api.*;
 import com.smartsheet.api.internal.http.AndroidHttpClient;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
 import com.smartsheet.api.internal.http.HttpClient;
@@ -44,6 +24,7 @@ import com.smartsheet.api.internal.json.JacksonJsonSerializer;
 import com.smartsheet.api.internal.json.JsonSerializer;
 import com.smartsheet.api.internal.util.CleanerUtil;
 import com.smartsheet.api.internal.util.Util;
+import com.smartsheet.api.internal.util.SmartsheetIntegrationSourceValidator;
 import org.apache.http.impl.client.HttpClients;
 
 import java.io.IOException;
@@ -502,14 +483,16 @@ public class SmartsheetImpl implements Smartsheet {
      *
      * This value is intended to be sent as a header in API requests for integration purposes
      *
-     * @return the integration source string, or null if it has not been set.
+     * @return the integration source string.
      */
-    public String getSmartsheetIntegrationSource() {
+    String getSmartsheetIntegrationSource() {
         return smartsheetIntegrationSource.get();
     }
 
-    public void setSmartsheetIntegrationSource(String smartsheetIntegrationSource) {
-        this.smartsheetIntegrationSource.set(smartsheetIntegrationSource);
+    public void setSmartsheetIntegrationSource(String smartsheetIntegrationSource) throws SmartsheetException {
+        if (SmartsheetIntegrationSourceValidator.isValidFormat(smartsheetIntegrationSource)) {
+            this.smartsheetIntegrationSource.set(smartsheetIntegrationSource);
+        }
     }
 
     /**

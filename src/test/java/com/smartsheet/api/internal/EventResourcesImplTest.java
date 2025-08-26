@@ -37,8 +37,7 @@ class EventResourcesImplTest extends ResourcesImplBase {
 
     @BeforeEach
     public void setUp() throws Exception {
-        eventResources = new EventResourcesImpl(new SmartsheetImpl("http://localhost:9090/1.1/",
-                "accessToken", new DefaultHttpClient(), serializer));
+        eventResources = new EventResourcesImpl(smartsheetImpl);
     }
 
     @Test

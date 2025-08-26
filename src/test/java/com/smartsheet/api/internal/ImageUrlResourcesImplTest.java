@@ -38,8 +38,7 @@ class ImageUrlResourcesImplTest extends ResourcesImplBase {
     @BeforeEach
     public void setUp() {
         // Create a folder resource
-        imageUrlResources = new ImageUrlResourcesImpl(new SmartsheetImpl("http://localhost:9090/1.1/", "accessToken",
-                new DefaultHttpClient(), serializer));
+        imageUrlResources = new ImageUrlResourcesImpl(smartsheetImpl);
     }
 
     @Test

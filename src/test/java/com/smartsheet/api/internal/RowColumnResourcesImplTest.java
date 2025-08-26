@@ -36,8 +36,7 @@ class RowColumnResourcesImplTest extends ResourcesImplBase {
 
     @BeforeEach
     public void setUp() throws Exception {
-        rowColumnResources = new RowColumnResourcesImpl(new SmartsheetImpl("http://localhost:9090/1.1/", "accessToken",
-                new DefaultHttpClient(), serializer));
+        rowColumnResources = new RowColumnResourcesImpl(smartsheetImpl);
     }
 
     @Test

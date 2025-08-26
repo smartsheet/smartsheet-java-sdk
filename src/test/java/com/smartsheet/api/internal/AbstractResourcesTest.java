@@ -17,6 +17,7 @@
 package com.smartsheet.api.internal;
 
 import com.smartsheet.api.SmartsheetBuilder;
+import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
 import com.smartsheet.api.models.Home;
 import org.junit.jupiter.api.Test;
@@ -36,7 +37,7 @@ class AbstractResourcesTest {
     private final String smartsheetIntegrationSource = "AI,MyCompany,MyGPT";
 
     @Test
-    void testHeaders() {
+    void testHeaders() throws SmartsheetException {
 
         SmartsheetImpl smartsheet = new SmartsheetImpl("doesnt/matter", tokenValue, new DefaultHttpClient(), null);
         smartsheet.setChangeAgent(changeAgent);

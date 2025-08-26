@@ -41,8 +41,7 @@ class AssetShareResourcesImplTest extends ResourcesImplBase {
 
     @BeforeEach
     public void setUp() throws Exception {
-        assetShareResourcesImpl = new AssetShareResourcesImpl(new SmartsheetImpl("http://localhost:9090/1.1/", "accessToken",
-                new DefaultHttpClient(), serializer));
+        assetShareResourcesImpl = new AssetShareResourcesImpl(smartsheetImpl);
     }
 
     @Test

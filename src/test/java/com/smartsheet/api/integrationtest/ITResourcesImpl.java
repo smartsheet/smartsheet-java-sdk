@@ -44,7 +44,7 @@ public class ITResourcesImpl {
     public Smartsheet createAuthentication() throws SmartsheetException {
 
         // will pull the access token from the environment SMARTSHEET_ACCESS_TOKEN since not provided here.
-        smartsheet = new SmartsheetBuilder().build();
+        smartsheet = new SmartsheetBuilder().setSmartsheetIntegrationSource("AI,MyCompany,MyGPT").build();
         return smartsheet;
     }
 

@@ -31,10 +31,10 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 // Note this is an IT test because at least one of the tests requires an internet connection
 class LoggingIT {
     @Test
-    void testConsoleLogging() {
+    void testConsoleLogging() throws SmartsheetException {
         ByteArrayOutputStream traceStream = new ByteArrayOutputStream();
         DefaultHttpClient.setTraceStream(traceStream);
-        Smartsheet client = new SmartsheetBuilder().setAccessToken("null").build();
+        Smartsheet client = new SmartsheetBuilder().setAccessToken("null").setSmartsheetIntegrationSource("AI,MyCompany,MyGPT").build();
         // should log entire request and response
         client.setTraces(Trace.Request, Trace.Response);
 
@@ -51,11 +51,11 @@ class LoggingIT {
     }
 
     @Test
-    void testCustomLogging() {
+    void testCustomLogging() throws SmartsheetException {
         ByteArrayOutputStream traceStream = new ByteArrayOutputStream();
         DefaultHttpClient.setTraceStream(traceStream);
         // using "null" as token results in NPE
-        Smartsheet client = new SmartsheetBuilder().setAccessToken("just_a_random_dummy_token").build();
+        Smartsheet client = new SmartsheetBuilder().setAccessToken("just_a_random_dummy_token").setSmartsheetIntegrationSource("AI,MyCompany,MyGPT").build();
         // should log entire request and response
         client.setTraces(Trace.Request, Trace.Response);
 

@@ -34,8 +34,7 @@ class PassthroughResourcesImplTest extends ResourcesImplBase {
 
     @BeforeEach
     public void setUp() throws Exception {
-        passthroughResources = new PassthroughResourcesImpl(new SmartsheetImpl("http://localhost:9090/1.1/",
-                "accessToken", new DefaultHttpClient(), serializer));
+        passthroughResources = new PassthroughResourcesImpl(smartsheetImpl);
     }
 
     @Test

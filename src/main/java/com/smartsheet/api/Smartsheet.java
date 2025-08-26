@@ -82,7 +82,7 @@ public interface Smartsheet {
      *
      * @param smartsheetIntegrationSource the integration source header value
      */
-    void setSmartsheetIntegrationSource(String smartsheetIntegrationSource);
+    void setSmartsheetIntegrationSource(String smartsheetIntegrationSource) throws SmartsheetException;
 
     /**
      * <p>Returns the HomeResources instance that provides access to Home resources.</p>

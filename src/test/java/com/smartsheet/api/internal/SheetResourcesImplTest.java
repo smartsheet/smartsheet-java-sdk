@@ -68,8 +68,7 @@ class SheetResourcesImplTest extends ResourcesImplBase {
     @BeforeEach
     public void setUp() throws Exception {
         // Create a folder resource
-        sheetResource = new SheetResourcesImpl(new SmartsheetImpl("http://localhost:9090/1.1/", "accessToken",
-                new DefaultHttpClient(), serializer));
+        sheetResource = new SheetResourcesImpl(smartsheetImpl);
     }
 
     @Test

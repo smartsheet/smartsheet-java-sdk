@@ -850,7 +850,7 @@ public abstract class AbstractResources {
      * @param method the HttpMethod
      * @return the http request
      */
-    protected HttpRequest createHttpRequest(URI uri, HttpMethod method) {
+    protected HttpRequest createHttpRequest(URI uri, HttpMethod method) throws SmartsheetException {
         HttpRequest request = new HttpRequest();
         request.setUri(uri);
         request.setMethod(method);
@@ -861,7 +861,7 @@ public abstract class AbstractResources {
         return request;
     }
 
-    protected HttpPost createHttpPost(URI uri) {
+    protected HttpPost createHttpPost(URI uri) throws SmartsheetException {
         HttpPost httpPost = new HttpPost(uri);
         Map<String, String> headers = createHeaders();
         for (Map.Entry<String, String> entry : headers.entrySet()) {
@@ -1061,7 +1061,7 @@ public abstract class AbstractResources {
     /**
      * @return a map of headers to be used when making requests.
      */
-    Map<String, String> createHeaders() {
+    Map<String, String> createHeaders() throws SmartsheetException {
         Map<String, String> headers = new HashMap<>();
         headers.put("Authorization", "Bearer " + smartsheet.getAccessToken());
         headers.put(HEADER_CONTENT_TYPE, JSON_CONTENT_TYPE);
@@ -1078,6 +1078,8 @@ public abstract class AbstractResources {
         }
         if (smartsheet.getSmartsheetIntegrationSource() != null) {
             headers.put("Smartsheet-Integration-Source", smartsheet.getSmartsheetIntegrationSource());
+        } else {
+            throw new SmartsheetException("Smartsheet integration source cannot be null");
         }
         return headers;
     }

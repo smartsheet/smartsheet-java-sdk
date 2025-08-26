@@ -26,13 +26,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 class SmartsheetBuilderTest {
 
     @Test
-    void testBuild() {
-        Smartsheet smartsheet = new SmartsheetBuilder().build();
+    void testBuild() throws SmartsheetException {
+        Smartsheet smartsheet = new SmartsheetBuilder().setBaseURI("a").setAccessToken("b").setHttpClient(
+                new DefaultHttpClient()).setJsonSerializer(new JacksonJsonSerializer()).setAssumedUser("user")
+                .setSmartsheetIntegrationSource("AI,MyCompany,MyGPT").build();
         assertThat(smartsheet).isInstanceOf(SmartsheetImpl.class);
-
-        Smartsheet ss = new SmartsheetBuilder().setBaseURI("a").setAccessToken("b").setHttpClient(
-                new DefaultHttpClient()).setJsonSerializer(new JacksonJsonSerializer()).setAssumedUser("user").build();
-        ss.getClass();
     }
-
 }

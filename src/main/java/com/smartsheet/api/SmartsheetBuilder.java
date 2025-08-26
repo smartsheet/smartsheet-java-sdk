@@ -19,6 +19,7 @@ package com.smartsheet.api;
 import com.smartsheet.api.internal.SmartsheetImpl;
 import com.smartsheet.api.internal.http.HttpClient;
 import com.smartsheet.api.internal.json.JsonSerializer;
+import com.smartsheet.api.internal.util.SmartsheetIntegrationSourceValidator;
 
 /**
  * <p>A convenience class to help create a {@link Smartsheet} instance with the appropriate fields.</p>
@@ -188,8 +189,23 @@ public class SmartsheetBuilder {
         return this;
     }
 
-    public SmartsheetBuilder setSmartsheetIntegrationSource(String smartsheetIntegrationSource) {
-        this.smartsheetIntegrationSource = smartsheetIntegrationSource;
+    /**
+     * <p>Set the smartsheet integration source.</p>
+     *
+     * Format: $TYPE,$ORG_NAME,$INTEGRATOR_NAME
+     * (NB: Comma is used as a delimiter and is required if the value is missing)
+     *
+     * $INTEGRATION-TYPE - Required, the type of the integrator (e.g. AI, SCRIPT, APPLICATION)
+     * $SMAR-ORGANIZATION-NAME - Optional (but COMMA is required), organization name (e.g. Microsoft, Google, OpenAI, etc.)
+     * $INTEGRATOR-NAME - Required, the name of the integrator (e.g. Claude, Copilot, ChatGPT, DeepSeek, etc.)
+     *
+     * @param smartsheetIntegrationSource the identifier to include in requests to determine the source of request maker
+     * @return the smartsheet builder
+     */
+    public SmartsheetBuilder setSmartsheetIntegrationSource(String smartsheetIntegrationSource) throws SmartsheetException {
+        if (SmartsheetIntegrationSourceValidator.isValidFormat(smartsheetIntegrationSource)) {
+            this.smartsheetIntegrationSource = smartsheetIntegrationSource;
+        }
         return this;
     }
 
@@ -271,7 +287,7 @@ public class SmartsheetBuilder {
      * @return the Smartsheet instance
      * @throws IllegalStateException if accessToken isn't set yet.
      */
-    public Smartsheet build() {
+    public Smartsheet build() throws SmartsheetException {
         if (baseURI == null) {
             baseURI = DEFAULT_BASE_URI;
         }
@@ -285,7 +301,10 @@ public class SmartsheetBuilder {
         if (changeAgent != null) {
             smartsheet.setChangeAgent(changeAgent);
         }
-        if (smartsheetIntegrationSource != null) {
+        if (smartsheetIntegrationSource == null) {
+            throw new SmartsheetException("SmartsheetIntegrationSource cannot be null");
+        }
+        else {
             smartsheet.setSmartsheetIntegrationSource(smartsheetIntegrationSource);
         }
         if (assumedUser != null) {

@@ -43,8 +43,7 @@ class SheetDiscussionResourcesImplTest extends ResourcesImplBase {
 
     @BeforeEach
     public void setUp() throws Exception {
-        sheetDiscussionResources = new SheetDiscussionResourcesImpl(new SmartsheetImpl("http://localhost:9090/1.1/",
-                "accessToken", new DefaultHttpClient(), serializer));
+        sheetDiscussionResources = new SheetDiscussionResourcesImpl(smartsheetImpl);
     }
 
     @Test

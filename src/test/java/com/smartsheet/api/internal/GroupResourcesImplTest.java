@@ -41,8 +41,7 @@ class GroupResourcesImplTest extends ResourcesImplBase {
 
     @BeforeEach
     public void setUp() throws Exception {
-        groupResources = new GroupResourcesImpl(new SmartsheetImpl("http://localhost:9090/1.1/",
-                "accessToken", new DefaultHttpClient(), serializer));
+        groupResources = new GroupResourcesImpl(smartsheetImpl);
     }
 
     @Test

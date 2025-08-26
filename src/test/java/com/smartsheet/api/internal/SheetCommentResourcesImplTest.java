@@ -32,8 +32,7 @@ class SheetCommentResourcesImplTest extends ResourcesImplBase {
 
     @BeforeEach
     public void setUp() throws Exception {
-        sheetCommentResources = new SheetCommentResourcesImpl(new SmartsheetImpl("http://localhost:9090/1.1/",
-                "accessToken", new DefaultHttpClient(), serializer));
+        sheetCommentResources = new SheetCommentResourcesImpl(smartsheetImpl);
     }
 
     @Test

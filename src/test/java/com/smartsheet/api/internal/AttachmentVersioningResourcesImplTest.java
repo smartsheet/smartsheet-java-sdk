@@ -37,12 +37,6 @@ class AttachmentVersioningResourcesImplTest extends ResourcesImplBase {
 
     @BeforeEach
     public void setUp() throws Exception {
-        SmartsheetImpl smartsheetImpl = new SmartsheetImpl(
-                "http://localhost:9090/1.1/",
-                "accessToken",
-                new DefaultHttpClient(),
-                serializer
-        );
         attachmentVersioningResources = new AttachmentVersioningResourcesImpl(smartsheetImpl);
 
     }
