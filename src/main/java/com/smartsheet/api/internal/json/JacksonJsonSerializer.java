@@ -27,6 +27,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.module.SimpleModule;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.smartsheet.api.internal.util.Util;
 import com.smartsheet.api.models.BulkItemResult;
 import com.smartsheet.api.models.CopyOrMoveRowResult;
@@ -119,6 +120,9 @@ public class JacksonJsonSerializer implements JsonSerializer {
         module = new SimpleModule("ErrorDetailDeserializerModule", Version.unknownVersion());
         module.addDeserializer(com.smartsheet.api.models.Error.class, new ErrorDeserializer());
         OBJECT_MAPPER.registerModule(module);
+
+        // Java 8 Time module
+        OBJECT_MAPPER.registerModule(new JavaTimeModule());
     }
 
     /**
