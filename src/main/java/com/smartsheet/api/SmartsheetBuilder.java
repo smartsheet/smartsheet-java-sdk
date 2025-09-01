@@ -296,10 +296,6 @@ public class SmartsheetBuilder {
             accessToken = System.getenv("SMARTSHEET_ACCESS_TOKEN");
         }
 
-        if (smartsheetIntegrationSource == null) {
-            throw new SmartsheetException("SmartsheetIntegrationSource cannot be null");
-        }
-
         SmartsheetImpl smartsheet = new SmartsheetImpl(baseURI, accessToken, httpClient, jsonSerializer, smartsheetIntegrationSource);
 
         if (changeAgent != null) {
