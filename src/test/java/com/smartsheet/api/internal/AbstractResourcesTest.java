@@ -39,9 +39,8 @@ class AbstractResourcesTest {
     @Test
     void testHeaders() throws SmartsheetException {
 
-        SmartsheetImpl smartsheet = new SmartsheetImpl("doesnt/matter", tokenValue, new DefaultHttpClient(), null);
+        SmartsheetImpl smartsheet = new SmartsheetImpl("doesnt/matter", tokenValue, new DefaultHttpClient(), null, smartsheetIntegrationSource);
         smartsheet.setChangeAgent(changeAgent);
-        smartsheet.setSmartsheetIntegrationSource(smartsheetIntegrationSource);
         AbstractResources resources = new AbstractResources(smartsheet) {
         };
 
@@ -53,12 +52,13 @@ class AbstractResourcesTest {
     }
 
     @Test
-    void createResourceWithObjectClassNull() {
+    void createResourceWithObjectClassNull() throws SmartsheetException {
         SmartsheetImpl smartsheetImpl = new SmartsheetImpl(
                 SmartsheetBuilder.DEFAULT_BASE_URI,
                 tokenValue,
                 new DefaultHttpClient(),
-                null
+                null,
+                smartsheetIntegrationSource
         );
         AbstractResources resources = new AbstractResources(smartsheetImpl) {
         };

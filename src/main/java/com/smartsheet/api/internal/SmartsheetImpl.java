@@ -284,9 +284,10 @@ public class SmartsheetImpl implements Smartsheet {
      *
      * @param baseURI     the server uri
      * @param accessToken the access token
+     * @param smartsheetIntegrationSource integration source identifier
      */
-    public SmartsheetImpl(String baseURI, String accessToken) {
-        this(baseURI, accessToken, null, null);
+    public SmartsheetImpl(String baseURI, String accessToken, String smartsheetIntegrationSource) throws SmartsheetException {
+        this(baseURI, accessToken, null, null, smartsheetIntegrationSource);
     }
 
     /**
@@ -299,7 +300,8 @@ public class SmartsheetImpl implements Smartsheet {
      * @param httpClient     the http client (optional)
      * @param jsonSerializer the json serializer (optional)
      */
-    public SmartsheetImpl(String baseURI, String accessToken, HttpClient httpClient, JsonSerializer jsonSerializer) {
+    public SmartsheetImpl(String baseURI, String accessToken, HttpClient httpClient, JsonSerializer jsonSerializer,
+                          String smartsheetIntegrationSource) throws SmartsheetException {
         Util.throwIfNull(baseURI);
         Util.throwIfEmpty(baseURI);
 
@@ -334,7 +336,8 @@ public class SmartsheetImpl implements Smartsheet {
         this.passthrough = new AtomicReference<>();
         this.events = new AtomicReference<>();
         this.assetShares = new AtomicReference<>();
-        this.smartsheetIntegrationSource = new AtomicReference<>();
+        SmartsheetIntegrationSourceValidator.isValidFormat(smartsheetIntegrationSource);
+        this.smartsheetIntegrationSource = new AtomicReference<>(smartsheetIntegrationSource);
     }
 
     /**

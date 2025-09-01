@@ -296,16 +296,14 @@ public class SmartsheetBuilder {
             accessToken = System.getenv("SMARTSHEET_ACCESS_TOKEN");
         }
 
-        SmartsheetImpl smartsheet = new SmartsheetImpl(baseURI, accessToken, httpClient, jsonSerializer);
-
-        if (changeAgent != null) {
-            smartsheet.setChangeAgent(changeAgent);
-        }
         if (smartsheetIntegrationSource == null) {
             throw new SmartsheetException("SmartsheetIntegrationSource cannot be null");
         }
-        else {
-            smartsheet.setSmartsheetIntegrationSource(smartsheetIntegrationSource);
+
+        SmartsheetImpl smartsheet = new SmartsheetImpl(baseURI, accessToken, httpClient, jsonSerializer, smartsheetIntegrationSource);
+
+        if (changeAgent != null) {
+            smartsheet.setChangeAgent(changeAgent);
         }
         if (assumedUser != null) {
             smartsheet.setAssumedUser(assumedUser);

@@ -28,6 +28,7 @@ public class ResourcesImplBase {
     FolderResourcesImpl folderResource;
     JacksonJsonSerializer serializer;
     SmartsheetImpl smartsheetImpl;
+    String smartsheetIntegrationSource = "AI,MyCompany,MyGPT";
 
     @BeforeEach
     public void baseSetUp() throws Exception {
@@ -42,9 +43,9 @@ public class ResourcesImplBase {
                 "http://localhost:9090/1.1/",
                 "accessToken",
                 new DefaultHttpClient(),
-                serializer
+                serializer,
+                smartsheetIntegrationSource
         );
-        smartsheetImpl.setSmartsheetIntegrationSource("AI,MyCompany,MyGPT");
     }
 
     @AfterEach

@@ -39,9 +39,10 @@ public class SmartsheetFactory {
      *
      * @return the Smartsheet client
      */
-    public static Smartsheet createDefaultClient() {
+    public static Smartsheet createDefaultClient() throws SmartsheetException {
         String accessToken = System.getenv("SMARTSHEET_ACCESS_TOKEN");
-        SmartsheetImpl smartsheet = new SmartsheetImpl(DEFAULT_BASE_URI, accessToken);
+        String smartsheetIntegrationSource = System.getenv("SMARTSHEET_INTEGRATION_SOURCE");
+        SmartsheetImpl smartsheet = new SmartsheetImpl(DEFAULT_BASE_URI, accessToken, smartsheetIntegrationSource);
         return smartsheet;
     }
 
@@ -50,8 +51,8 @@ public class SmartsheetFactory {
      *
      * @return the Smartsheet client
      */
-    public static Smartsheet createDefaultClient(String accessToken) {
-        SmartsheetImpl smartsheet = new SmartsheetImpl(DEFAULT_BASE_URI, accessToken);
+    public static Smartsheet createDefaultClient(String accessToken, String smartsheetIntegrationSource) throws SmartsheetException {
+        SmartsheetImpl smartsheet = new SmartsheetImpl(DEFAULT_BASE_URI, accessToken, smartsheetIntegrationSource);
         return smartsheet;
     }
 
@@ -61,9 +62,10 @@ public class SmartsheetFactory {
      *
      * @return the Smartsheet client
      */
-    public static Smartsheet createDefaultGovAccountClient() {
+    public static Smartsheet createDefaultGovAccountClient() throws SmartsheetException {
         String accessToken = System.getenv("SMARTSHEET_ACCESS_TOKEN");
-        SmartsheetImpl smartsheet = new SmartsheetImpl(GOV_BASE_URI, accessToken);
+        String smartsheetIntegrationSource = System.getenv("SMARTSHEET_INTEGRATION_SOURCE");
+        SmartsheetImpl smartsheet = new SmartsheetImpl(GOV_BASE_URI, accessToken, smartsheetIntegrationSource);
         return smartsheet;
     }
 
@@ -72,8 +74,8 @@ public class SmartsheetFactory {
      *
      * @return the Smartsheet client
      */
-    public static Smartsheet createDefaultGovAccountClient(String accessToken) {
-        SmartsheetImpl smartsheet = new SmartsheetImpl(GOV_BASE_URI, accessToken);
+    public static Smartsheet createDefaultGovAccountClient(String accessToken, String smartsheetIntegrationSource) throws SmartsheetException {
+        SmartsheetImpl smartsheet = new SmartsheetImpl(GOV_BASE_URI, accessToken, smartsheetIntegrationSource);
         return smartsheet;
     }
 
