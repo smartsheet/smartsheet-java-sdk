@@ -35,6 +35,7 @@ public class SmartsheetFactory {
 
     /**
      * <p>Creates a Smartsheet client with default parameters. SMARTSHEET_ACCESS_TOKEN
+     * and SMARTSHEET_INTEGRATION_SOURCE
      * must be set in the environment.</p>
      *
      * @return the Smartsheet client
@@ -58,7 +59,7 @@ public class SmartsheetFactory {
 
     /**
      * <p>Creates a Smartsheet client with default parameters using the Smartsheetgov URI.
-     * SMARTSHEET_ACCESS_TOKEN must be set in the environment.</p>
+     * SMARTSHEET_ACCESS_TOKEN and SMARTSHEET_INTEGRATION_SOURCE must be set in the environment.</p>
      *
      * @return the Smartsheet client
      */
