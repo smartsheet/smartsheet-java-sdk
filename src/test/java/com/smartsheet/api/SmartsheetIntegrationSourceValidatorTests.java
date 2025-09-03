@@ -10,6 +10,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class SmartsheetIntegrationSourceValidatorTests {
 
+    private static final String documentationLink = "https://developers.smartsheet.com/api/smartsheet/guides/basics/http-and-rest#http-headers";
+
     @Test
     void testBuildWithSmartsheetIntegrationSource_allThreeStrings_success() throws SmartsheetException {
         String smartsheetIntegrationSource = "AI,MyOrg,MyGPT";
@@ -22,7 +24,8 @@ public class SmartsheetIntegrationSourceValidatorTests {
         String smartsheetIntegrationSource = "AI,MyGPT";
 
         Exception exception = assertThrows(SmartsheetException.class, () -> SmartsheetIntegrationSourceValidator.isValidFormat(smartsheetIntegrationSource));
-        assertEquals("Invalid smartsheet integration source format", exception.getMessage());
+        assertEquals("Invalid smartsheet integration source format. " +
+                "Expected format: 'TYPE,ORGANIZATION,INTEGRATOR. " + documentationLink, exception.getMessage());
     }
 
     @Test
@@ -37,7 +40,8 @@ public class SmartsheetIntegrationSourceValidatorTests {
         String smartsheetIntegrationSource = "AI,MyOrg,MyGPT,MyDivision";
 
         Exception exception = assertThrows(SmartsheetException.class, () -> SmartsheetIntegrationSourceValidator.isValidFormat(smartsheetIntegrationSource));
-        assertEquals("Invalid smartsheet integration source format", exception.getMessage());
+        assertEquals("Invalid smartsheet integration source format. " +
+                "Expected format: 'TYPE,ORGANIZATION,INTEGRATOR. " + documentationLink, exception.getMessage());
     }
 
     @Test
@@ -45,7 +49,8 @@ public class SmartsheetIntegrationSourceValidatorTests {
         String smartsheetIntegrationSource = "AI,MyOrg,,,MyGPT";
 
         Exception exception = assertThrows(SmartsheetException.class, () -> SmartsheetIntegrationSourceValidator.isValidFormat(smartsheetIntegrationSource));
-        assertEquals("Invalid smartsheet integration source format", exception.getMessage());
+        assertEquals("Invalid smartsheet integration source format. " +
+                "Expected format: 'TYPE,ORGANIZATION,INTEGRATOR. " + documentationLink, exception.getMessage());
     }
 
     @Test
@@ -54,7 +59,9 @@ public class SmartsheetIntegrationSourceValidatorTests {
 
         Exception exception = assertThrows(SmartsheetException.class, () -> SmartsheetIntegrationSourceValidator.isValidFormat(smartsheetIntegrationSource));
         assertEquals("Invalid smartsheet integration source format. " +
-                "The integration type has to be one of the following: " + Arrays.toString(SmartsheetIntegrationSourceType.values()), exception.getMessage());
+                "The integration type has to be one of the following: "
+                + Arrays.toString(SmartsheetIntegrationSourceType.values())
+                + ". Invalid integration type: " + "MyInvalidIntegratorType" + " " + documentationLink, exception.getMessage());
     }
 
     @Test

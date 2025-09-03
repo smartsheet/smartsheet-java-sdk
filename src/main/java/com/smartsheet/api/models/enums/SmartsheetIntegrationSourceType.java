@@ -15,5 +15,9 @@ public enum SmartsheetIntegrationSourceType {
     /**
      * Represents the APPLICATION integration source type.
      */
-    APPLICATION;
+    APPLICATION,
+    /**
+     * Represents the PERSONAL_ACCOUNT integration source type.
+     */
+    PERSONAL_ACCOUNT
 }

@@ -299,6 +299,7 @@ public class SmartsheetImpl implements Smartsheet {
      * @param accessToken    the access token
      * @param httpClient     the http client (optional)
      * @param jsonSerializer the json serializer (optional)
+     * @param smartsheetIntegrationSource integration source identifier
      */
     public SmartsheetImpl(String baseURI, String accessToken, HttpClient httpClient, JsonSerializer jsonSerializer,
                           String smartsheetIntegrationSource) throws SmartsheetException {
