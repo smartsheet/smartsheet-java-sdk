@@ -23,6 +23,9 @@ import com.smartsheet.api.models.PaginationParameters;
 import com.smartsheet.api.models.Sheet;
 import com.smartsheet.api.models.User;
 import com.smartsheet.api.models.UserProfile;
+import com.smartsheet.api.models.UserPlansResponse;
+import com.smartsheet.api.models.Result;
+import com.smartsheet.api.models.ListUsersWithFilters;
 import com.smartsheet.api.models.enums.ListUserInclusion;
 import com.smartsheet.api.models.enums.UserInclusion;
 
@@ -185,6 +188,14 @@ public interface UserResources {
      * @throws SmartsheetException         if there is any other error during the operation
      */
     User updateUser(User user) throws SmartsheetException;
+
+    UserPlansResponse getUserPlans(long userId) throws SmartsheetException;
+
+    Result<?> deleteUserFromPlan(long userId, long planId) throws SmartsheetException;
+
+    PagedResult<ListUsersWithFilters> listUsersWithFilters(Long planId, String seatType, List<String> emails,
+                                           PaginationParameters pagination, Boolean numericDates)
+            throws SmartsheetException;
 
     /**
      * <p>Delete a user in the organization.</p>

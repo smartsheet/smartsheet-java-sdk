@@ -35,6 +35,9 @@ import com.smartsheet.api.models.PaginationParameters;
 import com.smartsheet.api.models.Sheet;
 import com.smartsheet.api.models.User;
 import com.smartsheet.api.models.UserProfile;
+import com.smartsheet.api.models.UserPlansResponse;
+import com.smartsheet.api.models.Result;
+import com.smartsheet.api.models.ListUsersWithFilters;
 import com.smartsheet.api.models.enums.ListUserInclusion;
 import com.smartsheet.api.models.enums.UserInclusion;
 
@@ -518,6 +521,44 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
     @Override
     public User updateUser(User user) throws SmartsheetException {
         return this.updateResource(USERS + "/" + user.getId(), User.class, user);
+    }
+
+    @Override
+    public UserPlansResponse getUserPlans(long userId) throws SmartsheetException {
+        return this.getResource("/2.0/users/" + userId + "/plans", UserPlansResponse.class);
+    }
+
+    @Override
+    public Result<?> deleteUserFromPlan(long userId, long planId) throws SmartsheetException {
+        return this.deleteResourceWithResult("/2.0/users/" + userId + "/plans/" + planId, Object.class);
+    }
+
+    @Override
+    public PagedResult<ListUsersWithFilters> listUsersWithFilters(Long planId, String seatType, List<String> emails,
+                                           PaginationParameters pagination, Boolean numericDates)
+            throws SmartsheetException {
+        String path = "/2.0/users";
+        Map<String, Object> parameters = new HashMap<>();
+
+        if (planId != null) {
+            parameters.put("planId", planId);
+        }
+        if (seatType != null) {
+            parameters.put("seatType", seatType);
+        }
+        if (emails != null && !emails.isEmpty()) {
+            parameters.put("emails", QueryUtil.generateCommaSeparatedList(emails));
+        }
+        if (pagination != null) {
+            parameters.putAll(pagination.toHashMap());
+        }
+        if (numericDates != null) {
+            parameters.put("numericDates", numericDates);
+        }
+
+        path += QueryUtil.generateUrl(null, parameters);
+
+        return this.listResourcesWithWrapper(path, ListUsersWithFilters.class);
     }
 
     @Override

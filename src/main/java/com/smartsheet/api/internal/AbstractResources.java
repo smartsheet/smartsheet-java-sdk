@@ -593,6 +593,30 @@ public abstract class AbstractResources {
         }
     }
 
+    protected <T> Result<T> deleteResourceWithResult(String path, Class<T> objectClass) throws SmartsheetException {
+        Util.throwIfNull(path, objectClass);
+        Util.throwIfEmpty(path);
+
+        HttpRequest request = createHttpRequest(smartsheet.getBaseURI().resolve(path), HttpMethod.DELETE);
+
+        Result<T> result = null;
+        try {
+            HttpResponse response = this.smartsheet.getHttpClient().request(request);
+            switch (response.getStatusCode()) {
+                case 200:
+                    result = this.smartsheet.getJsonSerializer().deserializeResult(objectClass,
+                            response.getEntity().getContent());
+                    break;
+                default:
+                    handleError(response);
+            }
+        } finally {
+            smartsheet.getHttpClient().releaseConnection();
+        }
+
+        return result;
+    }
+
     /**
      * Delete resources and return a list from Smartsheet REST API.
      * <p>

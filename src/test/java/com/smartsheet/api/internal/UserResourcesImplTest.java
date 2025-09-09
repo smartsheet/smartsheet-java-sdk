@@ -26,6 +26,9 @@ import com.smartsheet.api.models.Account;
 import com.smartsheet.api.models.DeleteUserParameters;
 import com.smartsheet.api.models.Sheet;
 import com.smartsheet.api.models.AlternateEmail;
+import com.smartsheet.api.models.Result;
+import com.smartsheet.api.models.UserPlansResponse;
+import com.smartsheet.api.models.ListUsersWithFilters;
 import com.smartsheet.api.models.enums.ListUserInclusion;
 import com.smartsheet.api.models.enums.UserInclusion;
 import com.smartsheet.api.models.enums.UserStatus;
@@ -212,6 +215,52 @@ class UserResourcesImplTest extends ResourcesImplBase {
         assertThat(updatedUser.getLicensedSheetCreator()).isTrue();
         assertThat(updatedUser.getId().longValue()).isEqualTo(8166691168380804L);
         assertThat(updatedUser.getStatus()).isEqualTo(UserStatus.ACTIVE);
+    }
+
+    @Test
+    void testDeleteUserFromPlan() throws SmartsheetException, IOException {
+        server.setResponseBody(new File("src/test/resources/deleteUserFromPlan.json"));
+
+        long userId = 123L;
+        long planId = 123L;
+
+        Result<?> result = userResources.deleteUserFromPlan(userId, planId);
+        assertThat(result).isNotNull();
+        assertThat(result.getMessage()).isEqualTo("SUCCESS");
+    }
+
+    @Test
+    void testGetUserPlans() throws SmartsheetException, IOException {
+        server.setResponseBody(new File("src/test/resources/getUserPlansResponse.json"));
+
+        UserPlansResponse response = userResources.getUserPlans(123L);
+
+        assertThat(response).isNotNull();
+        assertThat(response.getData()).hasSize(2);
+        assertThat(response.getData().get(0).getPlanId()).isEqualTo("123");
+        assertThat(response.getLastKey()).isEqualTo("123");
+    }
+
+    @Test
+    void testListUsersWithFilters() throws SmartsheetException, IOException {
+        server.setResponseBody(new File("src/test/resources/listUsersWithFilters.json"));
+
+        Long planId = 123L;
+        String seatType = "ADMIN";
+        List<String> emails = Lists.newArrayList("user1@example.com", "user2@example.com");
+        PaginationParameters pagination = new PaginationParameters();
+        pagination.setPage(1);
+        pagination.setPageSize(100);
+        Boolean numericDates = true;
+
+        PagedResult<ListUsersWithFilters> result = userResources.listUsersWithFilters(planId, seatType, emails, pagination, numericDates);
+
+        assertThat(result).isNotNull();
+        assertThat(result.getData()).isNotEmpty();
+        assertThat(result.getPageNumber()).isEqualTo(1);
+        assertThat(result.getPageSize()).isEqualTo(100);
+        assertThat(result.getData().get(0).getEmail()).isEqualTo("user1@example.com");
+        assertThat(result.getData().get(1).getEmail()).isEqualTo("user2@example.com");
     }
 
     @Test
