@@ -189,10 +189,54 @@ public interface UserResources {
      */
     User updateUser(User user) throws SmartsheetException;
 
+    /**
+     * <p>Fetch all user's plans.</p>
+     *
+     * <p>It mirrors to the following Smartsheet REST API method: GET /users/{userId}/plans</p>
+     *
+     * @param userId the id of the user whose plans to fetch
+     * @return UserPlansResponse json response
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetException         if there is any other error during the operation
+     */
     UserPlansResponse getUserPlans(long userId) throws SmartsheetException;
 
+    /**
+     * <p>Remove's a user from a plan.</p>
+     *
+     * <p>It mirrors to the following Smartsheet REST API method: DELETE /2.0/users/{userId}/plans/{planId}</p>
+     *
+     * @param userId the id of the user whose plans to fetch
+     * @param planId the id of the plan from which to remove the user
+     * @return the json response as a string
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetException         if there is any other error during the operation
+     */
     Result<?> deleteUserFromPlan(long userId, long planId) throws SmartsheetException;
 
+    /**
+     * <p>List of users.</p>
+     *
+     * <p>It mirrors to the following Smartsheet REST API method: GET /2.0/users/{userId}/plans/{planId}</p>
+     *
+     * @param seatType the seat type of the user for a plan
+     * @param planId the id of the plan from which to remove the user
+     * @return ListUsersWithFilters json response
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetException         if there is any other error during the operation
+     */
     PagedResult<ListUsersWithFilters> listUsersWithFilters(Long planId, String seatType, List<String> emails,
                                            PaginationParameters pagination, Boolean numericDates)
             throws SmartsheetException;
