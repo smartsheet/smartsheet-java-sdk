@@ -229,6 +229,9 @@ public interface UserResources {
      *
      * @param seatType the seat type of the user for a plan
      * @param planId the id of the plan from which to remove the user
+     * @param emails the list of email addresses to filter users by
+     * @param pagination the object containing pagination query parameters
+     * @param numericDates whether to use numeric timestamps for date fields in the response
      * @return ListUsersWithFilters json response
      * @throws IllegalArgumentException    if any argument is null or empty string
      * @throws InvalidRequestException     if there is any problem with the REST API request
