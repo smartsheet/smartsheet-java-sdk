@@ -16,6 +16,7 @@
 
 package com.smartsheet.api.models;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -60,6 +61,21 @@ public class Folder extends NamedModel<Long> {
      * Represents the Direct URL to Folder.
      */
     private String permalink;
+
+    /**
+     * Represents the source of the folder.
+     */
+    private Source source;
+
+    /**
+     * Represents the folder creation date.
+     */
+    private Date createdAt;
+
+    /**
+     * Represents the folder last modified date.
+     */
+    private Date modifiedAt;
 
     /**
      * Default constructor
@@ -220,6 +236,63 @@ public class Folder extends NamedModel<Long> {
      */
     public Folder setSights(List<Sight> sights) {
         this.sights = sights;
+        return this;
+    }
+
+    /**
+     * Gets the source.
+     *
+     * @return the source
+     */
+    public Source getSource() {
+        return source;
+    }
+
+    /**
+     * Sets the source.
+     *
+     * @param source the source
+     */
+    public Folder setSource(Source source) {
+        this.source = source;
+        return this;
+    }
+
+    /**
+     * Gets the folder creation date.
+     *
+     * @return the creation date
+     */
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    /**
+     * Sets the folder creation date.
+     *
+     * @param createdAt the creation date
+     */
+    public Folder setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+        return this;
+    }
+
+    /**
+     * Gets the folder last modified date.
+     *
+     * @return the last modified date
+     */
+    public Date getModifiedAt() {
+        return modifiedAt;
+    }
+
+    /**
+     * Sets the folder last modified date.
+     *
+     * @param modifiedAt the last modified date
+     */
+    public Folder setModifiedAt(Date modifiedAt) {
+        this.modifiedAt = modifiedAt;
         return this;
     }
 

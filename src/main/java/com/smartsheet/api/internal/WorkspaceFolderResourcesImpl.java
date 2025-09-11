@@ -58,6 +58,7 @@ public class WorkspaceFolderResourcesImpl extends AbstractResources implements W
      * @return the folders (note that empty list will be returned if there is none)
      * @throws SmartsheetException the smartsheet exception
      */
+    @Deprecated(since = "3.4.0", forRemoval = true)
     public PagedResult<Folder> listFolders(long workspaceId, PaginationParameters parameters) throws SmartsheetException {
         String path = "workspaces/" + workspaceId + "/folders";
 

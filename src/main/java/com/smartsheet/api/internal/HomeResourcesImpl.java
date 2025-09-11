@@ -32,7 +32,10 @@ import java.util.Map;
  * This is the implementation of the HomeResources.
  * <p>
  * Thread Safety: This class is thread safe because it is immutable and its base class is thread safe.
+ *
+ * @deprecated Home resources have been deprecated and will be removed in a future version.
  */
+@Deprecated(since = "3.4.0", forRemoval = true)
 public class HomeResourcesImpl extends AbstractResources implements HomeResources {
     /**
      * Represents the HomeFolderResources.
@@ -72,6 +75,7 @@ public class HomeResourcesImpl extends AbstractResources implements HomeResource
      * rather than returning null).
      * @throws SmartsheetException the smartsheet exception
      */
+    @Deprecated(since = "3.4.0", forRemoval = true)
     public Home getHome(EnumSet<SourceInclusion> includes) throws SmartsheetException {
         return getHome(includes, null);
     }
@@ -95,6 +99,7 @@ public class HomeResourcesImpl extends AbstractResources implements HomeResource
      * rather than returning null).
      * @throws SmartsheetException the smartsheet exception
      */
+    @Deprecated(since = "3.4.0", forRemoval = true)
     public Home getHome(EnumSet<SourceInclusion> includes, EnumSet<SourceExclusion> excludes) throws SmartsheetException {
         Map<String, Object> parameters = new HashMap<>();
 
@@ -111,6 +116,7 @@ public class HomeResourcesImpl extends AbstractResources implements HomeResource
      *
      * @return the home folder resources
      */
+    @Deprecated(since = "3.4.0", forRemoval = true)
     public HomeFolderResources folderResources() {
         return this.folders;
     }
