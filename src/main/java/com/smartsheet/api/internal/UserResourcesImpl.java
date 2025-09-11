@@ -537,7 +537,7 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
     public PagedResult<ListUsersWithFilters> listUsersWithFilters(Long planId, String seatType, List<String> emails,
                                            PaginationParameters pagination, Boolean numericDates)
             throws SmartsheetException {
-        String path = "/2.0/users";
+        String path = USERS;
         Map<String, Object> parameters = new HashMap<>();
 
         if (planId != null) {
