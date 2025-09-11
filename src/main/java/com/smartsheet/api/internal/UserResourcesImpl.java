@@ -525,12 +525,12 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
 
     @Override
     public UserPlansResponse getUserPlans(long userId) throws SmartsheetException {
-        return this.getResource("/2.0/users/" + userId + "/plans", UserPlansResponse.class);
+        return this.getResource(USERS + "/" + userId + "/plans", UserPlansResponse.class);
     }
 
     @Override
     public Result<?> deleteUserFromPlan(long userId, long planId) throws SmartsheetException {
-        return this.deleteResourceWithResult("/2.0/users/" + userId + "/plans/" + planId, Object.class);
+        return this.deleteResourceWithResult(USERS + "/" + userId + "/plans/" + planId, Object.class);
     }
 
     @Override

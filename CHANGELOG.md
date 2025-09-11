@@ -8,9 +8,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [3.6.0] - 2025-09-05
 ### Added
-- Support for GET /users/{userId}/plans
+- Support for GET /2.0/users/{userId}/plans
 - Support for GET /2.0/users
-- Support for DELETE /users/{userId}/plans/{planId}
+- Support for DELETE /2.0/users/{userId}/plans/{planId}
 
 ## [3.5.0] - 2025-08-08
 ### Added
