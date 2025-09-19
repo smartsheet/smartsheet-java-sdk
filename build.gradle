@@ -236,7 +236,11 @@ publishing {
             }
         }
     }
-
+ repositories {
+        maven {
+            url = layout.buildDirectory.dir('staging-deploy')
+        }
+    }
 }
 
 // Configuration for JReleaser to publish to Maven Central
@@ -251,7 +255,7 @@ jreleaser {
                 sonatype {
                     active = 'ALWAYS'
                     url = 'https://central.sonatype.com/api/v1/publisher'
-                    stagingRepository('build/maven')
+                    stagingRepository('build/staging-deploy')
                 }
             }
         }
