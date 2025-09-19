@@ -266,7 +266,7 @@ jreleaser {
 		          snapshotSupported = true
 		          closeRepository = true
 		          releaseRepository = true
-		          stagingRepository('target/staging-deploy')
+		          stagingRepository('build/staging-deploy')
 		      }
 		    }
         }
