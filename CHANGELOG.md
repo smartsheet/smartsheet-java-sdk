@@ -12,6 +12,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
   - PaginationParameters now accepts `paginationType`, `lastKey` and `maxItems` parameters for token-based pagination
   - PagedResult now includes `lastKey` field in response for token-based pagination
   - Maintains backward compatibility with existing page-based pagination
+### Updated
+  - Updated the deploy process to use JReleaser Gradle plugin and will no longer publish to Nexus2
 
 ## [3.4.0] - 2025-08-05
 ### Added
