@@ -236,7 +236,11 @@ publishing {
             }
         }
     }
-
+ repositories {
+        maven {
+            url = layout.buildDirectory.dir('staging-deploy')
+        }
+    }
 }
 
 // Configuration for JReleaser to publish to Maven Central
@@ -251,9 +255,20 @@ jreleaser {
                 sonatype {
                     active = 'ALWAYS'
                     url = 'https://central.sonatype.com/api/v1/publisher'
-                    stagingRepository('target/staging-deploy')
+                    stagingRepository('build/staging-deploy')
                 }
             }
+		   nexus2 {
+		        'snapshot-deploy' {
+		          active = 'SNAPSHOT'
+		          snapshotUrl = 'https://central.sonatype.com/repository/maven-snapshots/'
+		          applyMavenCentralRules = true
+		          snapshotSupported = true
+		          closeRepository = true
+		          releaseRepository = true
+		          stagingRepository('build/staging-deploy')
+		      }
+		    }
         }
     }
 }
