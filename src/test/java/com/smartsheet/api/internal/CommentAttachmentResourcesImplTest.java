@@ -38,8 +38,7 @@ class CommentAttachmentResourcesImplTest extends ResourcesImplBase {
 
     @BeforeEach
     public void setUp() throws Exception {
-        commentAttachmentResources = new CommentAttachmentResourcesImpl(new SmartsheetImpl("http://localhost:9090/1.1/",
-                "accessToken", new DefaultHttpClient(), serializer));
+        commentAttachmentResources = new CommentAttachmentResourcesImpl(smartsheetImpl);
     }
 
     @Test

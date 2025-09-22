@@ -39,8 +39,7 @@ class HomeResourcesImplTest extends ResourcesImplBase {
 
     @BeforeEach
     public void setUp() throws Exception {
-        homeResources = new HomeResourcesImpl(new SmartsheetImpl("http://localhost:9090/1.1/",
-                "accessToken", new DefaultHttpClient(), serializer));
+        homeResources = new HomeResourcesImpl(smartsheetImpl);
     }
 
     @Test

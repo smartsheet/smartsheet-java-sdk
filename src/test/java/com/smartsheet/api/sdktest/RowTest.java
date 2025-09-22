@@ -196,7 +196,7 @@ class RowTest {
     }
 
     @Test
-    void addRows_Invalid_AssignHyperlinkUrlAndSheetId() {
+    void addRows_Invalid_AssignHyperlinkUrlAndSheetId() throws SmartsheetException {
         Smartsheet ss = HelperFunctions.SetupClient("Add Rows - Invalid - Assign Hyperlink URL and SheetId");
 
         Cell cell1 = new Cell()
@@ -213,7 +213,7 @@ class RowTest {
     }
 
     @Test
-    void addRows_Invalid_AssignValueAndFormulae() {
+    void addRows_Invalid_AssignValueAndFormulae() throws SmartsheetException {
         Smartsheet ss = HelperFunctions.SetupClient("Add Rows - Invalid - Assign Value and Formulae");
 
         Cell cell1 = new Cell().setColumnId(101L).setFormula("=SUM([Column2]3, [Column2]4)*2").setValue("20");
@@ -371,7 +371,7 @@ class RowTest {
     }
 
     @Test
-    void updateRows_Invalid_AssignHyperlinkUrlAndSheetId() {
+    void updateRows_Invalid_AssignHyperlinkUrlAndSheetId() throws SmartsheetException {
         Smartsheet ss = HelperFunctions.SetupClient("Update Rows - Invalid - Assign Hyperlink URL and SheetId");
 
         Hyperlink hyperlink1 = new Hyperlink().setUrl("http://google.com").setSheetId(2L);
@@ -387,7 +387,7 @@ class RowTest {
     }
 
     @Test
-    void updateRows_Invalid_AssignValueAndFormulae() {
+    void updateRows_Invalid_AssignValueAndFormulae() throws SmartsheetException {
         Smartsheet ss = HelperFunctions.SetupClient("Update Rows - Invalid - Assign Value and Formulae");
 
         Cell cell1 = new Cell().setColumnId(101L).setFormula("=SUM([Column2]3, [Column2]4)*2").setValue("20");
@@ -457,7 +457,7 @@ class RowTest {
     }
 
     @Test
-    void updateRows_Invalid_AssignHyperlinkAndCellLink() {
+    void updateRows_Invalid_AssignHyperlinkAndCellLink() throws SmartsheetException {
         Smartsheet ss = HelperFunctions.SetupClient("Update Rows - Invalid - Assign Hyperlink and Cell Link");
 
         Hyperlink hyperlink = new Hyperlink().setUrl("www.google.com");

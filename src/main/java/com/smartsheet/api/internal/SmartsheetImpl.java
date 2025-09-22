@@ -16,27 +16,7 @@
 
 package com.smartsheet.api.internal;
 
-import com.smartsheet.api.AssetShareResources;
-import com.smartsheet.api.ContactResources;
-import com.smartsheet.api.EventResources;
-import com.smartsheet.api.FavoriteResources;
-import com.smartsheet.api.FolderResources;
-import com.smartsheet.api.GroupResources;
-import com.smartsheet.api.HomeResources;
-import com.smartsheet.api.ImageUrlResources;
-import com.smartsheet.api.PassthroughResources;
-import com.smartsheet.api.ReportResources;
-import com.smartsheet.api.SearchResources;
-import com.smartsheet.api.ServerInfoResources;
-import com.smartsheet.api.SheetResources;
-import com.smartsheet.api.SightResources;
-import com.smartsheet.api.Smartsheet;
-import com.smartsheet.api.TemplateResources;
-import com.smartsheet.api.TokenResources;
-import com.smartsheet.api.Trace;
-import com.smartsheet.api.UserResources;
-import com.smartsheet.api.WebhookResources;
-import com.smartsheet.api.WorkspaceResources;
+import com.smartsheet.api.*;
 import com.smartsheet.api.internal.http.AndroidHttpClient;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
 import com.smartsheet.api.internal.http.HttpClient;
@@ -44,6 +24,7 @@ import com.smartsheet.api.internal.json.JacksonJsonSerializer;
 import com.smartsheet.api.internal.json.JsonSerializer;
 import com.smartsheet.api.internal.util.CleanerUtil;
 import com.smartsheet.api.internal.util.Util;
+import com.smartsheet.api.internal.util.SmartsheetIntegrationSourceValidator;
 import org.apache.http.impl.client.HttpClients;
 
 import java.io.IOException;
@@ -282,6 +263,18 @@ public class SmartsheetImpl implements Smartsheet {
      */
     private final AtomicReference<AssetShareResources> assetShares;
 
+    /**
+     * Represents the AtomicReference for the smartsheet integration source header
+     *
+     * Format: $TYPE,$ORG_NAME,$INTEGRATOR_NAME
+     * (NB: Comma is used as a delimiter and is required if value is missing)
+     *
+     * $INTEGRATION-TYPE - Required, the type of the integrator (e.g. AI, SCRIPT, APPLICATION)
+     * $SMAR-ORGANIZATION-NAME - Optional (but COMMA is required), organization name (e.g. Microsoft, Google, OpenAI, etc.)
+     * $INTEGRATOR-NAME - Required, the name of the integrator (e.g. Claude, Copilot, ChatGPT, DeepSeek, etc.)
+     */
+    private final AtomicReference<String> smartsheetIntegrationSource;
+
     private static final String INVALID_OPERATION_FOR_CLASS = "Invalid operation for class ";
 
     /**
@@ -291,9 +284,10 @@ public class SmartsheetImpl implements Smartsheet {
      *
      * @param baseURI     the server uri
      * @param accessToken the access token
+     * @param smartsheetIntegrationSource integration source identifier
      */
-    public SmartsheetImpl(String baseURI, String accessToken) {
-        this(baseURI, accessToken, null, null);
+    public SmartsheetImpl(String baseURI, String accessToken, String smartsheetIntegrationSource) throws SmartsheetException {
+        this(baseURI, accessToken, null, null, smartsheetIntegrationSource);
     }
 
     /**
@@ -305,8 +299,10 @@ public class SmartsheetImpl implements Smartsheet {
      * @param accessToken    the access token
      * @param httpClient     the http client (optional)
      * @param jsonSerializer the json serializer (optional)
+     * @param smartsheetIntegrationSource integration source identifier
      */
-    public SmartsheetImpl(String baseURI, String accessToken, HttpClient httpClient, JsonSerializer jsonSerializer) {
+    public SmartsheetImpl(String baseURI, String accessToken, HttpClient httpClient, JsonSerializer jsonSerializer,
+                          String smartsheetIntegrationSource) throws SmartsheetException {
         Util.throwIfNull(baseURI);
         Util.throwIfEmpty(baseURI);
 
@@ -341,6 +337,8 @@ public class SmartsheetImpl implements Smartsheet {
         this.passthrough = new AtomicReference<>();
         this.events = new AtomicReference<>();
         this.assetShares = new AtomicReference<>();
+        SmartsheetIntegrationSourceValidator.isValidFormat(smartsheetIntegrationSource);
+        this.smartsheetIntegrationSource = new AtomicReference<>(smartsheetIntegrationSource);
     }
 
     /**
@@ -481,6 +479,23 @@ public class SmartsheetImpl implements Smartsheet {
             ((DefaultHttpClient) this.httpClient).setTracePrettyPrint(pretty);
         } else {
             throw new UnsupportedOperationException(INVALID_OPERATION_FOR_CLASS + this.httpClient.getClass());
+        }
+    }
+
+    /**
+     * Gets the custom integration source identifier.
+     *
+     * This value is intended to be sent as a header in API requests for integration purposes
+     *
+     * @return the integration source string.
+     */
+    String getSmartsheetIntegrationSource() {
+        return smartsheetIntegrationSource.get();
+    }
+
+    public void setSmartsheetIntegrationSource(String smartsheetIntegrationSource) throws SmartsheetException {
+        if (SmartsheetIntegrationSourceValidator.isValidFormat(smartsheetIntegrationSource)) {
+            this.smartsheetIntegrationSource.set(smartsheetIntegrationSource);
         }
     }
 

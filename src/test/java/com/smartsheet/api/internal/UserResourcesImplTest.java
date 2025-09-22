@@ -53,8 +53,7 @@ class UserResourcesImplTest extends ResourcesImplBase {
 
     @BeforeEach
     public void setUp() throws Exception {
-        userResources = new UserResourcesImpl(new SmartsheetImpl("http://localhost:9090/1.1/",
-                "accessToken", new DefaultHttpClient(), serializer));
+        userResources = new UserResourcesImpl(smartsheetImpl);
     }
 
     @Test

@@ -36,8 +36,7 @@ class SearchResourcesImplTest extends ResourcesImplBase {
 
     @BeforeEach
     public void setUp() throws Exception {
-        searchResources = new SearchResourcesImpl(new SmartsheetImpl("http://localhost:9090/1.1/",
-                "accessToken", new DefaultHttpClient(), serializer));
+        searchResources = new SearchResourcesImpl(smartsheetImpl);
     }
 
     @Test

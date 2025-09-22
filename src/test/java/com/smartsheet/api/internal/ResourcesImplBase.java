@@ -17,6 +17,7 @@
 package com.smartsheet.api.internal;
 
 import com.smartsheet.api.HttpTestServer;
+import com.smartsheet.api.internal.http.DefaultHttpClient;
 import com.smartsheet.api.internal.json.JacksonJsonSerializer;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -26,6 +27,8 @@ public class ResourcesImplBase {
     HttpTestServer server;
     FolderResourcesImpl folderResource;
     JacksonJsonSerializer serializer;
+    SmartsheetImpl smartsheetImpl;
+    String smartsheetIntegrationSource = "AI,MyCompany,MyGPT";
 
     @BeforeEach
     public void baseSetUp() throws Exception {
@@ -36,6 +39,13 @@ public class ResourcesImplBase {
 
         // Setup the serializer
         JacksonJsonSerializer.setFailOnUnknownProperties(true);
+        smartsheetImpl = new SmartsheetImpl(
+                "http://localhost:9090/1.1/",
+                "accessToken",
+                new DefaultHttpClient(),
+                serializer,
+                smartsheetIntegrationSource
+        );
     }
 
     @AfterEach

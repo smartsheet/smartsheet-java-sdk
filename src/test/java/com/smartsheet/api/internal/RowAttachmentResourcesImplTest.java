@@ -41,8 +41,7 @@ class RowAttachmentResourcesImplTest extends ResourcesImplBase {
 
     @BeforeEach
     public void setUp() throws Exception {
-        rowAttachmentResources = new RowAttachmentResourcesImpl(new SmartsheetImpl("http://localhost:9090/1.1/",
-                "accessToken", new DefaultHttpClient(), serializer));
+        rowAttachmentResources = new RowAttachmentResourcesImpl(smartsheetImpl);
     }
 
     @Test

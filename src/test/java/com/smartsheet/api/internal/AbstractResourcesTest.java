@@ -17,6 +17,7 @@
 package com.smartsheet.api.internal;
 
 import com.smartsheet.api.SmartsheetBuilder;
+import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
 import com.smartsheet.api.models.Home;
 import org.junit.jupiter.api.Test;
@@ -33,11 +34,12 @@ class AbstractResourcesTest {
 
     private final String tokenValue = "somevalue";
     private final String changeAgent = "mychangeagent";
+    private final String smartsheetIntegrationSource = "AI,MyCompany,MyGPT";
 
     @Test
-    void testHeaders() {
+    void testHeaders() throws SmartsheetException {
 
-        SmartsheetImpl smartsheet = new SmartsheetImpl("doesnt/matter", tokenValue, new DefaultHttpClient(), null);
+        SmartsheetImpl smartsheet = new SmartsheetImpl("doesnt/matter", tokenValue, new DefaultHttpClient(), null, smartsheetIntegrationSource);
         smartsheet.setChangeAgent(changeAgent);
         AbstractResources resources = new AbstractResources(smartsheet) {
         };
@@ -45,16 +47,18 @@ class AbstractResourcesTest {
         Map<String, String> headers = resources.createHeaders();
         assertThat(headers)
                 .containsEntry("Authorization", "Bearer " + tokenValue)
+                .containsEntry("Smartsheet-Integration-Source", smartsheetIntegrationSource)
                 .containsEntry("Smartsheet-Change-Agent", changeAgent);
     }
 
     @Test
-    void createResourceWithObjectClassNull() {
+    void createResourceWithObjectClassNull() throws SmartsheetException {
         SmartsheetImpl smartsheetImpl = new SmartsheetImpl(
                 SmartsheetBuilder.DEFAULT_BASE_URI,
                 tokenValue,
                 new DefaultHttpClient(),
-                null
+                null,
+                smartsheetIntegrationSource
         );
         AbstractResources resources = new AbstractResources(smartsheetImpl) {
         };

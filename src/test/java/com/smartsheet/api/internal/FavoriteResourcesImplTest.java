@@ -37,8 +37,7 @@ class FavoriteResourcesImplTest extends ResourcesImplBase {
 
     @BeforeEach
     public void setUp() throws Exception {
-        favoriteResources = new FavoriteResourcesImpl(new SmartsheetImpl("http://localhost:9090/1.1/",
-                "accessToken", new DefaultHttpClient(), serializer));
+        favoriteResources = new FavoriteResourcesImpl(smartsheetImpl);
     }
 
     @Test

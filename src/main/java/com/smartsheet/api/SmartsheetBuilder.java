@@ -19,6 +19,7 @@ package com.smartsheet.api;
 import com.smartsheet.api.internal.SmartsheetImpl;
 import com.smartsheet.api.internal.http.HttpClient;
 import com.smartsheet.api.internal.json.JsonSerializer;
+import com.smartsheet.api.internal.util.SmartsheetIntegrationSourceValidator;
 
 /**
  * <p>A convenience class to help create a {@link Smartsheet} instance with the appropriate fields.</p>
@@ -75,6 +76,14 @@ public class SmartsheetBuilder {
      * <p>It can be set using corresponding setter.</p>
      */
     private String changeAgent;
+
+    /**
+     * <p>Represents the smartsheet integration source.</p>
+     *
+     * <p>It can be set using corresponding setter.</p>
+     */
+    private String smartsheetIntegrationSource;
+
 
     /** URI to prod-us API endpoints */
     public static final String US_BASE_URI = "https://api.smartsheet.com/2.0/";
@@ -181,6 +190,26 @@ public class SmartsheetBuilder {
     }
 
     /**
+     * <p>Set the smartsheet integration source.</p>
+     *
+     * Format: $TYPE,$ORG_NAME,$INTEGRATOR_NAME
+     * (NB: Comma is used as a delimiter and is required if the value is missing)
+     *
+     * $INTEGRATION-TYPE - Required, the type of the integrator (e.g. AI, SCRIPT, APPLICATION)
+     * $SMAR-ORGANIZATION-NAME - Optional (but COMMA is required), organization name (e.g. Microsoft, Google, OpenAI, etc.)
+     * $INTEGRATOR-NAME - Required, the name of the integrator (e.g. Claude, Copilot, ChatGPT, DeepSeek, etc.)
+     *
+     * @param smartsheetIntegrationSource the identifier to include in requests to determine the source of request maker
+     * @return the smartsheet builder
+     */
+    public SmartsheetBuilder setSmartsheetIntegrationSource(String smartsheetIntegrationSource) throws SmartsheetException {
+        if (SmartsheetIntegrationSourceValidator.isValidFormat(smartsheetIntegrationSource)) {
+            this.smartsheetIntegrationSource = smartsheetIntegrationSource;
+        }
+        return this;
+    }
+
+    /**
      * <p>Gets the http client.</p>
      *
      * @return the http client
@@ -244,12 +273,21 @@ public class SmartsheetBuilder {
     }
 
     /**
+     * <p>Gets the Smartsheet-Integration-Source</p>
+     *
+     * @return the smartsheet integration source
+     */
+    public String getSmartsheetIntegrationSource() {
+        return smartsheetIntegrationSource;
+    }
+
+    /**
      * <p>Build the Smartsheet instance.</p>
      *
      * @return the Smartsheet instance
      * @throws IllegalStateException if accessToken isn't set yet.
      */
-    public Smartsheet build() {
+    public Smartsheet build() throws SmartsheetException {
         if (baseURI == null) {
             baseURI = DEFAULT_BASE_URI;
         }
@@ -258,7 +296,7 @@ public class SmartsheetBuilder {
             accessToken = System.getenv("SMARTSHEET_ACCESS_TOKEN");
         }
 
-        SmartsheetImpl smartsheet = new SmartsheetImpl(baseURI, accessToken, httpClient, jsonSerializer);
+        SmartsheetImpl smartsheet = new SmartsheetImpl(baseURI, accessToken, httpClient, jsonSerializer, smartsheetIntegrationSource);
 
         if (changeAgent != null) {
             smartsheet.setChangeAgent(changeAgent);

@@ -18,13 +18,15 @@ package com.smartsheet.api.sdktest;
 
 import com.smartsheet.api.Smartsheet;
 import com.smartsheet.api.SmartsheetBuilder;
+import com.smartsheet.api.SmartsheetException;
 
 class HelperFunctions {
-    public static Smartsheet SetupClient(String apiScenario) {
+    public static Smartsheet SetupClient(String apiScenario) throws SmartsheetException {
         TestHttpClient testHttpClient = new TestHttpClient(apiScenario);
         Smartsheet ss = new SmartsheetBuilder()
                 .setBaseURI("http://localhost:8082/")
                 .setAccessToken("aaaaaaaaaaaaaaaaaaaaaaaaaa")
+                .setSmartsheetIntegrationSource("AI,MyCompany,MyGPT")
                 .setHttpClient(testHttpClient)
                 .build();
 

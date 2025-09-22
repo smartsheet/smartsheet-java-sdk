@@ -6,6 +6,20 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [x.x.x] - unreleased
 
+## [3.6.0] - 2025-08-14
+### Added
+  - Added support for the `Smartsheet-Integration-Source` header. This can be configured using the `SmartsheetBuilder` or set directly on the `Smartsheet` client.
+    This header is mandatory and has to follow the format:
+    
+    `INTEGRATION-TYPE, ORGANIZATION_NAME, INTEGRATOR_NAME`
+    (NB: Comma is used as a delimiter and is required if the value is missing)
+    
+    `INTEGRATION-TYPE - Required, the type of the integrator (e.g. AI, SCRIPT, APPLICATION)`
+
+    `ORGANIZATION_NAME - Optional (but COMMA is required), organization name (e.g. Microsoft, Google, OpenAI, etc.)`
+
+    `INTEGRATOR-NAME - Required, the name of the integrator (e.g. Claude, Copilot, ChatGPT, DeepSeek, etc.)`
+
 ## [3.5.0] - 2025-08-08
 ### Added
   - Added support for token-based pagination in WorkspaceResources.listWorkspaces() method

@@ -52,8 +52,7 @@ class SheetRowResourcesImplTest extends ResourcesImplBase {
 
     @BeforeEach
     public void setUp() throws Exception {
-        sheetRowResource = new SheetRowResourcesImpl(new SmartsheetImpl("http://localhost:9090/1.1/", "accessToken",
-                new DefaultHttpClient(), serializer));
+        sheetRowResource = new SheetRowResourcesImpl(smartsheetImpl);
     }
 
     @Test

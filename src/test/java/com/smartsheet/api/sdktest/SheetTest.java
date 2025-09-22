@@ -46,7 +46,7 @@ class SheetTest {
     }
 
     @Test
-    void createSheet__Invalid_NoColumns() {
+    void createSheet__Invalid_NoColumns() throws SmartsheetException {
         Smartsheet ss = HelperFunctions.SetupClient("Create Sheet - Invalid - No Columns");
 
         Sheet sheetA = new Sheet().setSheetName("New Sheet").setColumns(new ArrayList<>());

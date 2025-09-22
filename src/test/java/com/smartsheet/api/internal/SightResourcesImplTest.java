@@ -41,12 +41,6 @@ class SightResourcesImplTest extends ResourcesImplBase {
 
     @BeforeEach
     public void before() {
-        SmartsheetImpl smartsheetImpl = new SmartsheetImpl(
-                "http://localhost:9090/1.1/",
-                "accessToken",
-                new DefaultHttpClient(),
-                serializer
-        );
         sightResourcesImpl = new SightResourcesImpl(smartsheetImpl);
     }
 

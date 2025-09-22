@@ -78,6 +78,13 @@ public interface Smartsheet {
     void setMaxRetryTimeMillis(long maxRetryTimeMillis);
 
     /**
+     * <p>Sets the custom integration source identifier.</p>
+     *
+     * @param smartsheetIntegrationSource the integration source header value
+     */
+    void setSmartsheetIntegrationSource(String smartsheetIntegrationSource) throws SmartsheetException;
+
+    /**
      * <p>Returns the HomeResources instance that provides access to Home resources.</p>
      *
      * @return the home resources instance

@@ -32,7 +32,7 @@ class DiscussionAttachmentResourcesTest extends ResourcesImplBase {
     @BeforeEach
     public void setUp() throws Exception {
         discussionAttachmentResources = new DiscussionAttachmentResources(new SmartsheetImpl("http://localhost:9090/1.1/",
-                "accessToken", new DefaultHttpClient(), serializer));
+                "accessToken", new DefaultHttpClient(), serializer, smartsheetIntegrationSource));
     }
 
     @Test

@@ -33,7 +33,7 @@ class SmartsheetImplTest extends ResourcesImplBase {
     @BeforeEach
     public void setUp() throws Exception {
         httpClient = new DefaultHttpClient();
-        smartsheet = new SmartsheetImpl(baseURI, accessToken, httpClient, serializer);
+        smartsheet = new SmartsheetImpl(baseURI, accessToken, httpClient, serializer, smartsheetIntegrationSource);
     }
 
     @Test
@@ -121,4 +121,8 @@ class SmartsheetImplTest extends ResourcesImplBase {
         assertThat(smartsheet.sightResources()).isNotNull();
     }
 
+    @Test
+    void testGetSmartsheetIntegrationSource() {
+        assertThat(smartsheet.getSmartsheetIntegrationSource()).isNotNull();
+    }
 }

@@ -41,8 +41,7 @@ class WebhookResourcesImplTest extends ResourcesImplBase {
 
     @BeforeEach
     public void setUp() throws Exception {
-        webhookResources = new WebhookResourcesImpl(new SmartsheetImpl("http://localhost:9090/1.1/",
-                "accessToken", new DefaultHttpClient(), serializer));
+        webhookResources = new WebhookResourcesImpl(smartsheetImpl);
     }
 
     @Test

@@ -37,8 +37,7 @@ class RowDiscussionResourcesImplTest extends ResourcesImplBase {
 
     @BeforeEach
     public void setUp() throws Exception {
-        discussionRowResources = new RowDiscussionResourcesImpl(new SmartsheetImpl("http://localhost:9090/1.1/",
-                "accessToken", new DefaultHttpClient(), serializer));
+        discussionRowResources = new RowDiscussionResourcesImpl(smartsheetImpl);
     }
 
     @Test

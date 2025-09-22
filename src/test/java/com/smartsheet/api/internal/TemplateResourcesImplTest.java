@@ -36,8 +36,7 @@ class TemplateResourcesImplTest extends ResourcesImplBase {
 
     @BeforeEach
     public void setUp() throws Exception {
-        templateResources = new TemplateResourcesImpl(new SmartsheetImpl("http://localhost:9090/1.1/",
-                "accessToken", new DefaultHttpClient(), serializer));
+        templateResources = new TemplateResourcesImpl(smartsheetImpl);
     }
 
     @Test

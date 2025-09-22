@@ -44,8 +44,7 @@ class WorkspaceResourcesImplTest extends ResourcesImplBase {
 
     @BeforeEach
     public void setUp() throws Exception {
-        workspaceResources = new WorkspaceResourcesImpl(new SmartsheetImpl("http://localhost:9090/1.1/",
-                "accessToken", new DefaultHttpClient(), serializer));
+        workspaceResources = new WorkspaceResourcesImpl(smartsheetImpl);
     }
 
     @Test

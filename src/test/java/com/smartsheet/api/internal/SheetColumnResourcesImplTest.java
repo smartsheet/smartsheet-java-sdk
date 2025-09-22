@@ -41,8 +41,7 @@ class SheetColumnResourcesImplTest extends ResourcesImplBase {
 
     @BeforeEach
     public void setUp() throws Exception {
-        sheetColumnResourcesImpl = new SheetColumnResourcesImpl(new SmartsheetImpl("http://localhost:9090/1.1/",
-                "accessToken", new DefaultHttpClient(), serializer));
+        sheetColumnResourcesImpl = new SheetColumnResourcesImpl(smartsheetImpl);
     }
 
     @Test

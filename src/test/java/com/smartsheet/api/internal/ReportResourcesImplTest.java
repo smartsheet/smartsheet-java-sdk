@@ -50,8 +50,7 @@ class ReportResourcesImplTest extends ResourcesImplBase {
 
     @BeforeEach
     public void setUp() throws Exception {
-        reportResources = new ReportResourcesImpl(new SmartsheetImpl("http://localhost:9090/2.0/",
-                "accessToken", new DefaultHttpClient(), serializer));
+        reportResources = new ReportResourcesImpl(smartsheetImpl);
 
     }
 
