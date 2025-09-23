@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [x.x.x] - unreleased
 
-## [3.6.0] - 2025-08-08
+## [3.6.0] - 2025-09-23
 ### Added
 - Support for POST /users/{userId}/plans/{planId}/downgrade
 - Support for POST /users/{userId}/plans/{planId}/upgrade
