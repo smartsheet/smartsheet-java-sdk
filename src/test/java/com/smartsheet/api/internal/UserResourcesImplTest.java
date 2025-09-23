@@ -23,7 +23,6 @@ import com.smartsheet.api.models.User;
 import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.UserProfile;
 import com.smartsheet.api.models.Account;
-import com.smartsheet.api.models.Result;
 import com.smartsheet.api.models.DeleteUserParameters;
 import com.smartsheet.api.models.Sheet;
 import com.smartsheet.api.models.AlternateEmail;
