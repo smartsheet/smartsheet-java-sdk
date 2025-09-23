@@ -37,6 +37,7 @@ import com.smartsheet.api.models.Sheet;
 import com.smartsheet.api.models.Result;
 import com.smartsheet.api.models.UserProfile;
 import com.smartsheet.api.models.enums.ListUserInclusion;
+import com.smartsheet.api.models.enums.SeatType;
 import com.smartsheet.api.models.enums.UserInclusion;
 
 import java.io.File;
@@ -522,27 +523,19 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
     }
 
     @Override
-    public Result<?> upgradeUser(long userId, long planId, String seatType) throws SmartsheetException {
-        Util.throwIfEmpty(seatType);
-
-        String path = USERS + "/" + userId + "/plans/" + planId + "/upgrade";
-
-        Map<String, Object> body = new HashMap<>();
-        body.put("seatType", seatType);
-
-        return this.upgradeResource(path, body, Object.class);
+    public void upgradeUser(long userId, long planId, SeatType.UpgradeSeatType seatType) throws SmartsheetException {
+        changeSeatType(seatType.name(), USERS + "/" + userId + "/plans/" + planId + "/upgrade");
     }
 
     @Override
-    public Result<?> downgradeUser(long userId, long planId, String seatType) throws SmartsheetException {
-        Util.throwIfEmpty(seatType);
+    public void downgradeUser(long userId, long planId, SeatType.DowngradeSeatType seatType) throws SmartsheetException {
+        changeSeatType(seatType.name(), USERS + "/" + userId + "/plans/" + planId + "/downgrade");
+    }
 
-        String path = USERS + "/" + userId + "/plans/" + planId + "/downgrade";
-
-        Map<String, Object> body = new HashMap<>();
-        body.put("seatType", seatType);
-
-        return this.upgradeResource(path, body, Object.class);
+    private void changeSeatType(String seatType, String path) throws SmartsheetException {
+        Util.throwIfNull(seatType);
+        Map<String, String> body = Map.of("seatType", seatType);
+        createResource(path, Result.class, body);
     }
 
     @Override

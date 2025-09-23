@@ -294,28 +294,25 @@ public abstract class AbstractResources {
         T obj = null;
         try {
             HttpResponse response = this.smartsheet.getHttpClient().request(request);
-            switch (response.getStatusCode()) {
-                case 200: {
-                    InputStream inputStream = response.getEntity().getContent();
-                    String content = null;
-                    try {
-                        if (log.isInfoEnabled()) {
-                            ByteArrayOutputStream contentCopyStream = new ByteArrayOutputStream();
-                            inputStream = StreamUtil.cloneContent(inputStream, response.getEntity().getContentLength(), contentCopyStream);
-                            content = StreamUtil.toUtf8StringOrHex(contentCopyStream, getResponseLogLength());
-                        }
-                        obj = this.smartsheet.getJsonSerializer().deserializeResult(objectClass, inputStream).getResult();
-                    } catch (JSONSerializerException e) {
-                        log.info("failure parsing '{}'", content, e);
-                        throw new SmartsheetException(e);
-                    } catch (IOException e) {
-                        log.info("failure cloning content from inputStream '{}'", inputStream, e);
-                        throw new SmartsheetException(e);
+            if (response.getStatusCode() == HttpStatus.SC_OK) {
+                InputStream inputStream = response.getEntity().getContent();
+                String content = null;
+                try {
+                    if (log.isInfoEnabled()) {
+                        ByteArrayOutputStream contentCopyStream = new ByteArrayOutputStream();
+                        inputStream = StreamUtil.cloneContent(inputStream, response.getEntity().getContentLength(), contentCopyStream);
+                        content = StreamUtil.toUtf8StringOrHex(contentCopyStream, getResponseLogLength());
                     }
-                    break;
+                    obj = this.smartsheet.getJsonSerializer().deserializeResult(objectClass, inputStream).getResult();
+                } catch (JSONSerializerException e) {
+                    log.info("failure parsing '{}'", content, e);
+                    throw new SmartsheetException(e);
+                } catch (IOException e) {
+                    log.info("failure cloning content from inputStream '{}'", inputStream, e);
+                    throw new SmartsheetException(e);
                 }
-                default:
-                    handleError(response);
+            } else {
+                handleError(response);
             }
         } finally {
             smartsheet.getHttpClient().releaseConnection();
@@ -384,47 +381,6 @@ public abstract class AbstractResources {
             throw new RuntimeException(e);
         }
         return obj;
-    }
-
-    /**
-     * Post to a resource and expect a resource object in return.
-     * @param path the resource path
-     * @param requestBody the object to post
-     * @return the resource
-     * @throws SmartsheetException if there is an error
-     */
-    protected <T> Result<T> upgradeResource(String path, Map<String, Object> requestBody, Class<T> objectClass) throws SmartsheetException {
-        Util.throwIfNull(path, requestBody);
-        Util.throwIfEmpty(path);
-
-        HttpRequest request = createHttpRequest(smartsheet.getBaseURI().resolve(path), HttpMethod.POST);
-
-        ByteArrayOutputStream objectBytesStream = new ByteArrayOutputStream();
-        this.smartsheet.getJsonSerializer().serialize(requestBody, objectBytesStream);
-
-        HttpEntity entity = new HttpEntity();
-        entity.setContentType(JSON_CONTENT_TYPE);
-        entity.setContent(new ByteArrayInputStream(objectBytesStream.toByteArray()));
-        entity.setContentLength(objectBytesStream.size());
-        request.setEntity(entity);
-
-        Result<T> result = null;
-        try {
-            HttpResponse response = this.smartsheet.getHttpClient().request(request);
-            if (response.getStatusCode() == HttpStatus.SC_OK) {
-                result = this.smartsheet.getJsonSerializer().deserializeResult(objectClass, response.getEntity().getContent());
-            } else {
-                try {
-                    Error error = this.smartsheet.getJsonSerializer().deserialize(Error.class, response.getEntity().getContent());
-                    throw new SmartsheetRestException(error);
-                } catch (IOException e) {
-                    throw new SmartsheetException("Error deserializing error response", e);
-                }
-            }
-        } finally {
-            smartsheet.getHttpClient().releaseConnection();
-        }
-        return result;
     }
 
     /**

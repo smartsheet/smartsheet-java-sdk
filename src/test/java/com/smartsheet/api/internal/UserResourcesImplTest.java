@@ -28,9 +28,11 @@ import com.smartsheet.api.models.DeleteUserParameters;
 import com.smartsheet.api.models.Sheet;
 import com.smartsheet.api.models.AlternateEmail;
 import com.smartsheet.api.models.enums.ListUserInclusion;
+import com.smartsheet.api.models.enums.SeatType;
 import com.smartsheet.api.models.enums.UserInclusion;
 import com.smartsheet.api.models.enums.UserStatus;
 import org.assertj.core.util.Lists;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -216,27 +218,20 @@ class UserResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    void testUpgradeUser() throws SmartsheetException, IOException {
+    void testUpgradeUser() throws IOException {
         server.setResponseBody(new File("src/test/resources/upgradeUser.json"));
         long userId = 123L;
         long planId = 123L;
-        String seatType = "MEMBER";
-
-        Result<?> result = userResources.upgradeUser(userId, planId, seatType);
-        assertThat(result).isNotNull();
-        assertThat(result.getMessage()).isEqualTo("SUCCESS");
+        Assertions.assertDoesNotThrow(() -> userResources.upgradeUser(userId, planId, SeatType.UpgradeSeatType.MEMBER));
     }
 
     @Test
-    void testDowngradeUser() throws SmartsheetException, IOException {
+    void testDowngradeUser() throws IOException {
         server.setResponseBody(new File("src/test/resources/downgradeUser.json"));
         long userId = 123L;
         long planId = 123L;
-        String seatType = "MEMBER";
 
-        Result<?> result = userResources.upgradeUser(userId, planId, seatType);
-        assertThat(result).isNotNull();
-        assertThat(result.getMessage()).isEqualTo("SUCCESS");
+        Assertions.assertDoesNotThrow(() -> userResources.downgradeUser(userId, planId, SeatType.DowngradeSeatType.VIEWER));
     }
 
     @Test
