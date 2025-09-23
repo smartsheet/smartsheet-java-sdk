@@ -292,28 +292,25 @@ public abstract class AbstractResources {
         T obj = null;
         try {
             HttpResponse response = this.smartsheet.getHttpClient().request(request);
-            switch (response.getStatusCode()) {
-                case 200: {
-                    InputStream inputStream = response.getEntity().getContent();
-                    String content = null;
-                    try {
-                        if (log.isInfoEnabled()) {
-                            ByteArrayOutputStream contentCopyStream = new ByteArrayOutputStream();
-                            inputStream = StreamUtil.cloneContent(inputStream, response.getEntity().getContentLength(), contentCopyStream);
-                            content = StreamUtil.toUtf8StringOrHex(contentCopyStream, getResponseLogLength());
-                        }
-                        obj = this.smartsheet.getJsonSerializer().deserializeResult(objectClass, inputStream).getResult();
-                    } catch (JSONSerializerException e) {
-                        log.info("failure parsing '{}'", content, e);
-                        throw new SmartsheetException(e);
-                    } catch (IOException e) {
-                        log.info("failure cloning content from inputStream '{}'", inputStream, e);
-                        throw new SmartsheetException(e);
+            if (response.getStatusCode() == HttpStatus.SC_OK) {
+                InputStream inputStream = response.getEntity().getContent();
+                String content = null;
+                try {
+                    if (log.isInfoEnabled()) {
+                        ByteArrayOutputStream contentCopyStream = new ByteArrayOutputStream();
+                        inputStream = StreamUtil.cloneContent(inputStream, response.getEntity().getContentLength(), contentCopyStream);
+                        content = StreamUtil.toUtf8StringOrHex(contentCopyStream, getResponseLogLength());
                     }
-                    break;
+                    obj = this.smartsheet.getJsonSerializer().deserializeResult(objectClass, inputStream).getResult();
+                } catch (JSONSerializerException e) {
+                    log.info("failure parsing '{}'", content, e);
+                    throw new SmartsheetException(e);
+                } catch (IOException e) {
+                    log.info("failure cloning content from inputStream '{}'", inputStream, e);
+                    throw new SmartsheetException(e);
                 }
-                default:
-                    handleError(response);
+            } else {
+                handleError(response);
             }
         } finally {
             smartsheet.getHttpClient().releaseConnection();
