@@ -34,10 +34,8 @@ import com.smartsheet.api.internal.util.Util;
 import com.smartsheet.api.models.Attachment;
 import com.smartsheet.api.models.CopyOrMoveRowDirective;
 import com.smartsheet.api.models.CopyOrMoveRowResult;
-import com.smartsheet.api.models.Error;
 import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.Result;
-import org.apache.http.HttpStatus;
 import com.smartsheet.api.models.TokenPaginatedResult;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -384,47 +382,6 @@ public abstract class AbstractResources {
             throw new RuntimeException(e);
         }
         return obj;
-    }
-
-    /**
-     * Post to a resource and expect a resource object in return.
-     * @param path the resource path
-     * @param requestBody the object to post
-     * @return the resource
-     * @throws SmartsheetException if there is an error
-     */
-    protected <T> Result<T> upgradeResource(String path, Map<String, Object> requestBody, Class<T> objectClass) throws SmartsheetException {
-        Util.throwIfNull(path, requestBody);
-        Util.throwIfEmpty(path);
-
-        HttpRequest request = createHttpRequest(smartsheet.getBaseURI().resolve(path), HttpMethod.POST);
-
-        ByteArrayOutputStream objectBytesStream = new ByteArrayOutputStream();
-        this.smartsheet.getJsonSerializer().serialize(requestBody, objectBytesStream);
-
-        HttpEntity entity = new HttpEntity();
-        entity.setContentType(JSON_CONTENT_TYPE);
-        entity.setContent(new ByteArrayInputStream(objectBytesStream.toByteArray()));
-        entity.setContentLength(objectBytesStream.size());
-        request.setEntity(entity);
-
-        Result<T> result = null;
-        try {
-            HttpResponse response = this.smartsheet.getHttpClient().request(request);
-            if (response.getStatusCode() == HttpStatus.SC_OK) {
-                result = this.smartsheet.getJsonSerializer().deserializeResult(objectClass, response.getEntity().getContent());
-            } else {
-                try {
-                    Error error = this.smartsheet.getJsonSerializer().deserialize(Error.class, response.getEntity().getContent());
-                    throw new SmartsheetRestException(error);
-                } catch (IOException e) {
-                    throw new SmartsheetException("Error deserializing error response", e);
-                }
-            }
-        } finally {
-            smartsheet.getHttpClient().releaseConnection();
-        }
-        return result;
     }
 
     /**

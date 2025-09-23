@@ -325,21 +325,12 @@ public class JacksonJsonSerializer implements JsonSerializer {
     public <T> Result<T> deserializeResult(Class<T> objectClass, java.io.InputStream inputStream)
             throws JSONSerializerException {
         Util.throwIfNull(objectClass, inputStream);
-
-        Result<T> result = null;
-
         try {
-            result = OBJECT_MAPPER.readValue(inputStream,
-                    OBJECT_MAPPER.getTypeFactory().constructParametrizedType(Result.class, Result.class, objectClass));
-        } catch (JsonParseException e) {
-            throw new JSONSerializerException(e);
-        } catch (JsonMappingException e) {
-            throw new JSONSerializerException(e);
+            return OBJECT_MAPPER.readValue(inputStream,
+                    OBJECT_MAPPER.getTypeFactory().constructParametricType(Result.class, objectClass));
         } catch (IOException e) {
             throw new JSONSerializerException(e);
         }
-
-        return result;
     }
 
     /**

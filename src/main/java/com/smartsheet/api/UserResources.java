@@ -25,6 +25,7 @@ import com.smartsheet.api.models.AlternateEmail;
 import com.smartsheet.api.models.Result;
 import com.smartsheet.api.models.UserProfile;
 import com.smartsheet.api.models.enums.ListUserInclusion;
+import com.smartsheet.api.models.enums.SeatType;
 import com.smartsheet.api.models.enums.UserInclusion;
 
 import java.io.FileNotFoundException;
@@ -194,7 +195,6 @@ public interface UserResources {
      * @param userId the ID of the user to upgrade
      * @param planId the ID of the plan to upgrade to
      * @param seatType the new seat type for the user
-     * @return the json response as a string
      * @throws IllegalArgumentException if any argument is null or empty string
      * @throws InvalidRequestException if there is any problem with the REST API request
      * @throws AuthorizationException if there is any problem with the REST API authorization
@@ -202,7 +202,7 @@ public interface UserResources {
      * @throws ServiceUnavailableException if the REST API service is not available
      * @throws SmartsheetException if there is any other error during the operation
      */
-    Result<?> upgradeUser(long userId, long planId, String seatType) throws SmartsheetException;
+    void upgradeUser(long userId, long planId, SeatType.UpgradeSeatType seatType) throws SmartsheetException;
 
     /**
      * <p>Upgrades a user's seat type.</p>
@@ -211,7 +211,6 @@ public interface UserResources {
      * @param userId the ID of the user to downgrade
      * @param planId the ID of the plan to downgrade to
      * @param seatType the new seat type for the user
-     * @return the json response as a string
      * @throws IllegalArgumentException if any argument is null or empty string
      * @throws InvalidRequestException if there is any problem with the REST API request
      * @throws AuthorizationException if there is any problem with the REST API authorization
@@ -219,7 +218,7 @@ public interface UserResources {
      * @throws ServiceUnavailableException if the REST API service is not available
      * @throws SmartsheetException if there is any other error during the operation
      */
-    Result<?> downgradeUser(long userId, long planId, String seatType) throws SmartsheetException;
+    void downgradeUser(long userId, long planId, SeatType.DowngradeSeatType seatType) throws SmartsheetException;
 
     /**
      * <p>Delete a user in the organization.</p>
