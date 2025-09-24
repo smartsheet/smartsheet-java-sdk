@@ -18,17 +18,7 @@ package com.smartsheet.api.internal;
 
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
-import com.smartsheet.api.models.PaginationParameters;
-import com.smartsheet.api.models.User;
-import com.smartsheet.api.models.PagedResult;
-import com.smartsheet.api.models.UserProfile;
-import com.smartsheet.api.models.Account;
-import com.smartsheet.api.models.DeleteUserParameters;
-import com.smartsheet.api.models.Sheet;
-import com.smartsheet.api.models.AlternateEmail;
-import com.smartsheet.api.models.Result;
-import com.smartsheet.api.models.UserPlansResponse;
-import com.smartsheet.api.models.ListUsersWithFilters;
+import com.smartsheet.api.models.*;
 import com.smartsheet.api.models.enums.ListUserInclusion;
 import com.smartsheet.api.models.enums.SeatType;
 import com.smartsheet.api.models.enums.UserInclusion;
@@ -237,22 +227,20 @@ class UserResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    void testDeleteUserFromPlan() throws SmartsheetException, IOException {
+    void testRemoveUserFromPlan() throws IOException {
         server.setResponseBody(new File("src/test/resources/deleteUserFromPlan.json"));
 
         long userId = 123L;
         long planId = 123L;
 
-        Result<?> result = userResources.deleteUserFromPlan(userId, planId);
-        assertThat(result).isNotNull();
-        assertThat(result.getMessage()).isEqualTo("SUCCESS");
+        Assertions.assertDoesNotThrow(() -> userResources.removeUserFromPlan(userId, planId));
     }
 
     @Test
-    void testGetUserPlans() throws SmartsheetException, IOException {
+    void testListUserPlans() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/getUserPlansResponse.json"));
 
-        UserPlansResponse response = userResources.getUserPlans(123L);
+        TokenPaginatedResult<UserPlan> response = userResources.listUserPlans(123L);
 
         assertThat(response).isNotNull();
         assertThat(response.getData()).hasSize(2);
@@ -265,14 +253,13 @@ class UserResourcesImplTest extends ResourcesImplBase {
         server.setResponseBody(new File("src/test/resources/listUsersWithFilters.json"));
 
         Long planId = 123L;
-        String seatType = "ADMIN";
         List<String> emails = Lists.newArrayList("user1@example.com", "user2@example.com");
         PaginationParameters pagination = new PaginationParameters();
         pagination.setPage(1);
         pagination.setPageSize(100);
         Boolean numericDates = true;
 
-        PagedResult<ListUsersWithFilters> result = userResources.listUsersWithFilters(planId, seatType, emails, pagination, numericDates);
+        PagedResult<User> result = userResources.listUsers(null, null, planId, SeatType.ListUsers.GUEST, numericDates, pagination);
 
         assertThat(result).isNotNull();
         assertThat(result.getData()).isNotEmpty();

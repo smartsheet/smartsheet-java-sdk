@@ -16,6 +16,8 @@
 
 package com.smartsheet.api.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * Represents the User object.
  *
@@ -24,7 +26,46 @@ package com.smartsheet.api.models;
  * @see <a href="http://help.smartsheet.com/customer/portal/articles/520100-user-types">User Types Help</a>
  */
 public class User extends UserModelWithName {
+    private String planId;
+    private String seatType;
+    private String seatTypeLastChangedAt;
+    private Boolean isInternal;
 
+    @JsonProperty("planId")
+    public String getPlanId() {
+        return planId;
+    }
+
+    public void setPlanId(String planId) {
+        this.planId = planId;
+    }
+
+    @JsonProperty("seatType")
+    public String getSeatType() {
+        return seatType;
+    }
+
+    public void setSeatType(String seatType) {
+        this.seatType = seatType;
+    }
+
+    @JsonProperty("seatTypeLastChangedAt")
+    public String getSeatTypeLastChangedAt() {
+        return seatTypeLastChangedAt;
+    }
+
+    public void setSeatTypeLastChangedAt(String seatTypeLastChangedAt) {
+        this.seatTypeLastChangedAt = seatTypeLastChangedAt;
+    }
+
+    @JsonProperty("isInternal")
+    public Boolean isInternal() {
+        return isInternal;
+    }
+
+    public void setInternal(Boolean internal) {
+        isInternal = internal;
+    }
     /**
      * A convenience class for making a {@link User} object with the appropriate fields for adding the user.
      */
