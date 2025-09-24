@@ -16,17 +16,7 @@
 
 package com.smartsheet.api;
 
-import com.smartsheet.api.models.PagedResult;
-import com.smartsheet.api.models.PaginationParameters;
-import com.smartsheet.api.models.User;
-import com.smartsheet.api.models.Sheet;
-import com.smartsheet.api.models.DeleteUserParameters;
-import com.smartsheet.api.models.AlternateEmail;
-import com.smartsheet.api.models.Result;
-import com.smartsheet.api.models.UserProfile;
-import com.smartsheet.api.models.UserPlansResponse;
-import com.smartsheet.api.models.Result;
-import com.smartsheet.api.models.ListUsersWithFilters;
+import com.smartsheet.api.models.*;
 import com.smartsheet.api.models.enums.ListUserInclusion;
 import com.smartsheet.api.models.enums.SeatType;
 import com.smartsheet.api.models.enums.UserInclusion;
@@ -94,6 +84,31 @@ public interface UserResources {
      */
     PagedResult<User> listUsers(Set<String> email, EnumSet<ListUserInclusion> includes,
                                 PaginationParameters pagination) throws SmartsheetException;
+
+    /**
+     * List all users.
+     * <p>
+     * It mirrors to the following Smartsheet REST API method: GET /users
+     * <p>
+     * Exceptions:
+     *   - InvalidRequestException : if there is any problem with the REST API request
+     *   - AuthorizationException : if there is any problem with the REST API authorization(access token)
+     *   - ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     *   - SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     *   - SmartsheetException : if there is any other error occurred during the operation
+     *
+     * @param email the list of email addresses
+     * @param includes elements to include in the response
+     * @param pagination the object containing the pagination query parameters
+     * @param planId filtering all users part of the specific plan
+     * @param seatType filter users by seat type
+     * @param numericDates return dates in epoch format
+     * @return all users (note that empty list will be returned if there is none)
+     * @throws SmartsheetException the smartsheet exception
+     */
+    PagedResult<User> listUsers(Set<String> email, EnumSet<ListUserInclusion> includes,
+                                       Long planId, SeatType.ListUsers seatType, Boolean numericDates,
+                                       PaginationParameters pagination) throws SmartsheetException;
 
     /**
      * <p>Add a user to the organization, without sending email.</p>
@@ -205,7 +220,7 @@ public interface UserResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException         if there is any other error during the operation
      */
-    UserPlansResponse getUserPlans(long userId) throws SmartsheetException;
+    TokenPaginatedResult<UserPlan> listUserPlans(long userId, String lastKey) throws SmartsheetException;
 
     /**
      * <p>Remove's a user from a plan.</p>
@@ -214,7 +229,6 @@ public interface UserResources {
      *
      * @param userId the id of the user whose plans to fetch
      * @param planId the id of the plan from which to remove the user
-     * @return the json response as a string
      * @throws IllegalArgumentException    if any argument is null or empty string
      * @throws InvalidRequestException     if there is any problem with the REST API request
      * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
@@ -222,29 +236,7 @@ public interface UserResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException         if there is any other error during the operation
      */
-    Result<?> deleteUserFromPlan(long userId, long planId) throws SmartsheetException;
-
-    /**
-     * <p>List of users.</p>
-     *
-     * <p>It mirrors to the following Smartsheet REST API method: GET /2.0/users/{userId}/plans/{planId}</p>
-     *
-     * @param seatType the seat type of the user for a plan
-     * @param planId the id of the plan from which to remove the user
-     * @param emails the list of email addresses to filter users by
-     * @param pagination the object containing pagination query parameters
-     * @param numericDates whether to use numeric timestamps for date fields in the response
-     * @return ListUsersWithFilters json response
-     * @throws IllegalArgumentException    if any argument is null or empty string
-     * @throws InvalidRequestException     if there is any problem with the REST API request
-     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException   if the resource cannot be found
-     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException         if there is any other error during the operation
-     */
-    PagedResult<ListUsersWithFilters> listUsersWithFilters(Long planId, String seatType, List<String> emails,
-                                           PaginationParameters pagination, Boolean numericDates)
-            throws SmartsheetException;
+    void removeUserFromPlan(long userId, long planId) throws SmartsheetException;
 
     /**
      * <p>Upgrades a user's seat type.</p>

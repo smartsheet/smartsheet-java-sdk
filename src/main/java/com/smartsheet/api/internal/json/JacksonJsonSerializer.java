@@ -28,19 +28,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.smartsheet.api.internal.util.Util;
-import com.smartsheet.api.models.BulkItemResult;
-import com.smartsheet.api.models.CopyOrMoveRowResult;
-import com.smartsheet.api.models.EventResult;
-import com.smartsheet.api.models.Hyperlink;
-import com.smartsheet.api.models.IdentifiableModel;
-import com.smartsheet.api.models.IdentifiableModelMixin;
-import com.smartsheet.api.models.ObjectValue;
-import com.smartsheet.api.models.PagedResult;
-import com.smartsheet.api.models.PrimitiveObjectValue;
-import com.smartsheet.api.models.Recipient;
-import com.smartsheet.api.models.Result;
-import com.smartsheet.api.models.TokenPaginatedResult;
-import com.smartsheet.api.models.WidgetContent;
+import com.smartsheet.api.models.*;
 import com.smartsheet.api.models.format.Format;
 
 import java.io.IOException;
@@ -468,12 +456,32 @@ public class JacksonJsonSerializer implements JsonSerializer {
 
             // Deserialize using the temporary mapper with custom deserializer
             result = tempMapper.readValue(inputStream,
-                    tempMapper.getTypeFactory().constructParametrizedType(TokenPaginatedResult.class,
-                            TokenPaginatedResult.class, Object.class));
-        } catch (JsonParseException e) {
+                    tempMapper.getTypeFactory().constructParametricType(TokenPaginatedResult.class, Object.class));
+        } catch (IOException e) {
             throw new JSONSerializerException(e);
-        } catch (JsonMappingException e) {
-            throw new JSONSerializerException(e);
+        }
+
+        return result;
+    }
+
+    /**
+     * De-serialize json to TokenPaginatedResult using a custom deserializer.
+     *
+     * @param <T> the generic type of the data items
+     * @param objectClass actual data type wrapped in TokenPaginatedResult
+     * @param inputStream the input stream
+     * @return the TokenPaginatedResult containing a list of type T
+     * @throws JSONSerializerException the JSON serializer exception
+     */
+    @Override
+    public <T> TokenPaginatedResult<T> deserializeTokenPaginatedResult(Class<T> objectClass, InputStream inputStream)
+            throws JSONSerializerException {
+        Util.throwIfNull(inputStream);
+
+        TokenPaginatedResult<T> result = null;
+        try {
+            result = OBJECT_MAPPER.readValue(inputStream,
+                    OBJECT_MAPPER.getTypeFactory().constructParametricType(TokenPaginatedResult.class, objectClass));
         } catch (IOException e) {
             throw new JSONSerializerException(e);
         }
