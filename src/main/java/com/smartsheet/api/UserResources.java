@@ -16,17 +16,19 @@
 
 package com.smartsheet.api;
 
-import com.smartsheet.api.models.AlternateEmail;
-import com.smartsheet.api.models.DeleteUserParameters;
 import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.PaginationParameters;
-import com.smartsheet.api.models.Sheet;
 import com.smartsheet.api.models.User;
+import com.smartsheet.api.models.Sheet;
+import com.smartsheet.api.models.DeleteUserParameters;
+import com.smartsheet.api.models.AlternateEmail;
+import com.smartsheet.api.models.Result;
 import com.smartsheet.api.models.UserProfile;
 import com.smartsheet.api.models.UserPlansResponse;
 import com.smartsheet.api.models.Result;
 import com.smartsheet.api.models.ListUsersWithFilters;
 import com.smartsheet.api.models.enums.ListUserInclusion;
+import com.smartsheet.api.models.enums.SeatType;
 import com.smartsheet.api.models.enums.UserInclusion;
 
 import java.io.FileNotFoundException;
@@ -243,6 +245,38 @@ public interface UserResources {
     PagedResult<ListUsersWithFilters> listUsersWithFilters(Long planId, String seatType, List<String> emails,
                                            PaginationParameters pagination, Boolean numericDates)
             throws SmartsheetException;
+
+    /**
+     * <p>Upgrades a user's seat type.</p>
+     *
+     * <p>It mirrors to the following Smartsheet REST API method: POST /users/{userId}/plans/{planId}/upgrade</p>
+     * @param userId the ID of the user to upgrade
+     * @param planId the ID of the plan to upgrade to
+     * @param seatType the new seat type for the user
+     * @throws IllegalArgumentException if any argument is null or empty string
+     * @throws InvalidRequestException if there is any problem with the REST API request
+     * @throws AuthorizationException if there is any problem with the REST API authorization
+     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available
+     * @throws SmartsheetException if there is any other error during the operation
+     */
+    void upgradeUser(long userId, long planId, SeatType.UpgradeSeatType seatType) throws SmartsheetException;
+
+    /**
+     * <p>Upgrades a user's seat type.</p>
+     *
+     * <p>It mirrors to the following Smartsheet REST API method: POST /users/{userId}/plans/{planId}/downgrade</p>
+     * @param userId the ID of the user to downgrade
+     * @param planId the ID of the plan to downgrade to
+     * @param seatType the new seat type for the user
+     * @throws IllegalArgumentException if any argument is null or empty string
+     * @throws InvalidRequestException if there is any problem with the REST API request
+     * @throws AuthorizationException if there is any problem with the REST API authorization
+     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available
+     * @throws SmartsheetException if there is any other error during the operation
+     */
+    void downgradeUser(long userId, long planId, SeatType.DowngradeSeatType seatType) throws SmartsheetException;
 
     /**
      * <p>Delete a user in the organization.</p>

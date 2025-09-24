@@ -6,11 +6,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [x.x.x] - unreleased
 
-## [3.6.0] - 2025-09-05
+## [3.7.0] - 2025-09-25
 ### Added
 - Support for GET /2.0/users/{userId}/plans
 - Support for GET /2.0/users
 - Support for DELETE /2.0/users/{userId}/plans/{planId}
+
+## [3.6.0] - 2025-09-23
+### Added
+- Support for POST /users/{userId}/plans/{planId}/downgrade
+- Support for POST /users/{userId}/plans/{planId}/upgrade
 
 ## [3.5.0] - 2025-08-08
 ### Added
@@ -18,6 +23,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
   - PaginationParameters now accepts `paginationType`, `lastKey` and `maxItems` parameters for token-based pagination
   - PagedResult now includes `lastKey` field in response for token-based pagination
   - Maintains backward compatibility with existing page-based pagination
+### Updated
+  - Updated the deploy process to use JReleaser Gradle plugin and will no longer publish to Nexus2
 
 ## [3.4.0] - 2025-08-05
 ### Added

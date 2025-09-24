@@ -28,17 +28,19 @@ import com.smartsheet.api.internal.http.HttpRequest;
 import com.smartsheet.api.internal.http.HttpResponse;
 import com.smartsheet.api.internal.util.QueryUtil;
 import com.smartsheet.api.internal.util.Util;
-import com.smartsheet.api.models.AlternateEmail;
-import com.smartsheet.api.models.DeleteUserParameters;
 import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.PaginationParameters;
-import com.smartsheet.api.models.Sheet;
 import com.smartsheet.api.models.User;
+import com.smartsheet.api.models.DeleteUserParameters;
+import com.smartsheet.api.models.AlternateEmail;
+import com.smartsheet.api.models.Sheet;
+import com.smartsheet.api.models.Result;
 import com.smartsheet.api.models.UserProfile;
 import com.smartsheet.api.models.UserPlansResponse;
 import com.smartsheet.api.models.Result;
 import com.smartsheet.api.models.ListUsersWithFilters;
 import com.smartsheet.api.models.enums.ListUserInclusion;
+import com.smartsheet.api.models.enums.SeatType;
 import com.smartsheet.api.models.enums.UserInclusion;
 
 import java.io.File;
@@ -559,6 +561,22 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
         path += QueryUtil.generateUrl(null, parameters);
 
         return this.listResourcesWithWrapper(path, ListUsersWithFilters.class);
+    }
+
+    @Override
+    public void upgradeUser(long userId, long planId, SeatType.UpgradeSeatType seatType) throws SmartsheetException {
+        changeSeatType(seatType.name(), USERS + "/" + userId + "/plans/" + planId + "/upgrade");
+    }
+
+    @Override
+    public void downgradeUser(long userId, long planId, SeatType.DowngradeSeatType seatType) throws SmartsheetException {
+        changeSeatType(seatType.name(), USERS + "/" + userId + "/plans/" + planId + "/downgrade");
+    }
+
+    private void changeSeatType(String seatType, String path) throws SmartsheetException {
+        Util.throwIfNull(seatType);
+        Map<String, String> body = Map.of("seatType", seatType);
+        createResource(path, Result.class, body);
     }
 
     @Override
