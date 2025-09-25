@@ -523,8 +523,7 @@ public abstract class AbstractResources {
      * @throws SmartsheetRestException : if there is any other REST API related error occurred during the operation
      * @throws SmartsheetException : if there is any other error occurred during the operation
      */
-    protected <T> TokenPaginatedResult<T> listResourcesWithTokenPagination(String path,
-                                                                           JsonDeserializer<List<T>> deserializer)
+    protected <T> TokenPaginatedResult<T> listResourcesWithTokenPagination(String path, JsonDeserializer<List<T>> deserializer)
             throws SmartsheetException {
         return listResourcesWithTokenPagination(path, null, deserializer);
     }

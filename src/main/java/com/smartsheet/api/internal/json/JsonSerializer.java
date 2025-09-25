@@ -227,6 +227,15 @@ public interface JsonSerializer {
     <T> TokenPaginatedResult<T> deserializeTokenPaginatedResult(JsonDeserializer<List<T>> deserializer, java.io.InputStream inputStream)
             throws JSONSerializerException;
 
+    /**
+     * De-serialize json to TokenPaginatedResult using a custom deserializer.
+     *
+     * @param <T> the generic type of the data items
+     * @param objectClass the result class type
+     * @param inputStream the input stream
+     * @return the TokenPaginatedResult containing a list of type T
+     * @throws JSONSerializerException the JSON serializer exception
+     */
     <T> TokenPaginatedResult<T> deserializeTokenPaginatedResult(Class<T> objectClass, InputStream inputStream)
             throws JSONSerializerException;
 }

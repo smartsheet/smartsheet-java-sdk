@@ -26,6 +26,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * @see <a href="http://help.smartsheet.com/customer/portal/articles/520100-user-types">User Types Help</a>
  */
 public class User extends UserModelWithName {
+
+    /**
+     * Seat type support fields
+     */
     private String planId;
     private String seatType;
     private String seatTypeLastChangedAt;

@@ -212,6 +212,7 @@ public interface UserResources {
      * <p>It mirrors to the following Smartsheet REST API method: GET /users/{userId}/plans</p>
      *
      * @param userId the id of the user whose plans to fetch
+       @param lastKey lastKey from previous response to get next page of results
      * @return UserPlansResponse json response
      * @throws IllegalArgumentException    if any argument is null or empty string
      * @throws InvalidRequestException     if there is any problem with the REST API request

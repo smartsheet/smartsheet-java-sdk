@@ -465,7 +465,7 @@ public class JacksonJsonSerializer implements JsonSerializer {
     }
 
     /**
-     * De-serialize json to TokenPaginatedResult using a custom deserializer.
+     * De-serialize json to TokenPaginatedResult using object class type
      *
      * @param <T> the generic type of the data items
      * @param objectClass actual data type wrapped in TokenPaginatedResult

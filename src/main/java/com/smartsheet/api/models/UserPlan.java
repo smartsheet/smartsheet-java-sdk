@@ -2,6 +2,9 @@ package com.smartsheet.api.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/**
+ * Represents the UserPlan object.
+ */
 public class UserPlan {
     private String planId;
     private String seatType;

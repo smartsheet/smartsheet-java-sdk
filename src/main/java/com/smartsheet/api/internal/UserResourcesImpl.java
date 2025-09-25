@@ -147,7 +147,8 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
     }
 
     /**
-     * List all users.
+     * List all users with support for Seat Type and Plan ID. If planID or seatType is provided, then the response
+     * will contain  planId, seatType, seatTypeLastChangedAt, isInternal, otherwise - not
      * <p>
      * It mirrors to the following Smartsheet REST API method: GET /users
      * <p>
@@ -175,7 +176,8 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
     }
 
     /**
-     * List all users.
+     * List all users with support for Seat Type and Plan ID. If planID or seatType is provided, then the response
+     * will contain  planId, seatType, seatTypeLastChangedAt, isInternal, otherwise - not
      * <p>
      * It mirrors to the following Smartsheet REST API method: GET /users
      * <p>
@@ -552,11 +554,40 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
         return obj;
     }
 
+    /**
+     * <p>Update a user.</p>
+     *
+     * <p>It mirrors to the following Smartsheet REST API method: PUT /user/{id}</p>
+     *
+     * @param user the user to update
+     * @return the updated user
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetException         if there is any other error during the operation
+     */
     @Override
     public User updateUser(User user) throws SmartsheetException {
         return this.updateResource(USERS + "/" + user.getId(), User.class, user);
     }
 
+    /**
+     * <p>Fetch all user's plans.</p>
+     *
+     * <p>It mirrors to the following Smartsheet REST API method: GET /users/{userId}/plans</p>
+     *
+     * @param userId the id of the user whose plans to fetch
+     * @param lastKey lastKey from previous response to get next page of results
+     * @return UserPlansResponse json response
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetException         if there is any other error during the operation
+     */
     @Override
     public TokenPaginatedResult<UserPlan> listUserPlans(long userId, String lastKey) throws SmartsheetException {
 
@@ -567,16 +598,58 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
         return this.listResourcesWithTokenPagination(path, UserPlan.class);
     }
 
+    /**
+     * <p>Remove's a user from a plan.</p>
+     *
+     * <p>It mirrors to the following Smartsheet REST API method: DELETE /2.0/users/{userId}/plans/{planId}</p>
+     *
+     * @param userId the id of the user whose plans to fetch
+     * @param planId the id of the plan from which to remove the user
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetException         if there is any other error during the operation
+     */
     @Override
     public void removeUserFromPlan(long userId, long planId) throws SmartsheetException {
         deleteResource(USERS + "/" + userId + "/plans/" + planId, Object.class);
     }
 
+    /**
+     * <p>Upgrades a user's seat type.</p>
+     *
+     * <p>It mirrors to the following Smartsheet REST API method: POST /users/{userId}/plans/{planId}/upgrade</p>
+     * @param userId the ID of the user to upgrade
+     * @param planId the ID of the plan to upgrade to
+     * @param seatType the new seat type for the user
+     * @throws IllegalArgumentException if any argument is null or empty string
+     * @throws InvalidRequestException if there is any problem with the REST API request
+     * @throws AuthorizationException if there is any problem with the REST API authorization
+     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available
+     * @throws SmartsheetException if there is any other error during the operation
+     */
     @Override
     public void upgradeUser(long userId, long planId, SeatType.UpgradeSeatType seatType) throws SmartsheetException {
         changeSeatType(seatType.name(), USERS + "/" + userId + "/plans/" + planId + "/upgrade");
     }
 
+    /**
+     * <p>Upgrades a user's seat type.</p>
+     *
+     * <p>It mirrors to the following Smartsheet REST API method: POST /users/{userId}/plans/{planId}/downgrade</p>
+     * @param userId the ID of the user to downgrade
+     * @param planId the ID of the plan to downgrade to
+     * @param seatType the new seat type for the user
+     * @throws IllegalArgumentException if any argument is null or empty string
+     * @throws InvalidRequestException if there is any problem with the REST API request
+     * @throws AuthorizationException if there is any problem with the REST API authorization
+     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available
+     * @throws SmartsheetException if there is any other error during the operation
+     */
     @Override
     public void downgradeUser(long userId, long planId, SeatType.DowngradeSeatType seatType) throws SmartsheetException {
         changeSeatType(seatType.name(), USERS + "/" + userId + "/plans/" + planId + "/downgrade");
