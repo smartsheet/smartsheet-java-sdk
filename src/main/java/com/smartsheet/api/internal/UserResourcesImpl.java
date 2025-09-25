@@ -28,14 +28,26 @@ import com.smartsheet.api.internal.http.HttpRequest;
 import com.smartsheet.api.internal.http.HttpResponse;
 import com.smartsheet.api.internal.util.QueryUtil;
 import com.smartsheet.api.internal.util.Util;
-import com.smartsheet.api.models.*;
+import com.smartsheet.api.models.AlternateEmail;
+import com.smartsheet.api.models.DeleteUserParameters;
+import com.smartsheet.api.models.PagedResult;
+import com.smartsheet.api.models.PaginationParameters;
+import com.smartsheet.api.models.Result;
+import com.smartsheet.api.models.Sheet;
+import com.smartsheet.api.models.TokenPaginatedResult;
+import com.smartsheet.api.models.User;
+import com.smartsheet.api.models.UserPlan;
+import com.smartsheet.api.models.UserProfile;
 import com.smartsheet.api.models.enums.ListUserInclusion;
 import com.smartsheet.api.models.enums.SeatType;
 import com.smartsheet.api.models.enums.UpgradeSeatType;
 import com.smartsheet.api.models.enums.DowngradeSeatType;
 import com.smartsheet.api.models.enums.UserInclusion;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
@@ -55,6 +67,7 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
 
     private static final String USERS = "users";
     private static final String ALTERNATE_EMAILS = "alternateemails";
+    public static final String PLANS = "/plans/";
 
     /**
      * Constructor.
@@ -162,7 +175,6 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
      *   - SmartsheetException : if there is any other error occurred during the operation
      *
      * @param email the list of email addresses
-     * @param includes elements to include in the response
      * @param pagination the object containing the pagination query parameters
      * @param planId filtering all users part of the specific plan
      * @param seatType filter users by seat type
@@ -170,10 +182,10 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
      * @throws SmartsheetException the smartsheet exception
      */
     @Override
-    public PagedResult<User> listUsers(Set<String> email, EnumSet<ListUserInclusion> includes,
-                                       Long planId, SeatType seatType, PaginationParameters pagination
+    public PagedResult<User> listUsers(Set<String> email, Long planId,
+                                       SeatType seatType, PaginationParameters pagination
                                        ) throws SmartsheetException {
-        return this.listUsersInternal(email, includes, planId, seatType, pagination);
+        return this.listUsersInternal(email, null, planId, seatType, pagination);
     }
 
     /**
@@ -588,9 +600,16 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
     public TokenPaginatedResult<UserPlan> listUserPlans(long userId, String lastKey, Long maxItems) throws SmartsheetException {
 
         String path = USERS + "/" + userId + "/plans";
+        Map<String, Object> parameters = new HashMap<>();
+
         if (lastKey != null) {
-            path += QueryUtil.generateUrl(null, Map.of("lastKey", lastKey, "maxItems", maxItems));
+            parameters.put("lastKey", lastKey);
         }
+
+        if (maxItems != null) {
+            parameters.put("maxItems", maxItems);
+        }
+        path += QueryUtil.generateUrl(null, parameters);
         return this.listResourcesWithTokenPagination(path, UserPlan.class);
     }
 
@@ -610,7 +629,7 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
      */
     @Override
     public void removeUserFromPlan(long userId, long planId) throws SmartsheetException {
-        deleteResource(USERS + "/" + userId + "/plans/" + planId, Object.class);
+        deleteResource(USERS + "/" + userId + PLANS + planId, Object.class);
     }
 
     /**
@@ -629,7 +648,7 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
      */
     @Override
     public void upgradeUser(long userId, long planId, UpgradeSeatType seatType) throws SmartsheetException {
-        changeSeatType(seatType.name(), USERS + "/" + userId + "/plans/" + planId + "/upgrade");
+        changeSeatType(seatType.name(), USERS + "/" + userId + PLANS + planId + "/upgrade");
     }
 
     /**
@@ -648,7 +667,7 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
      */
     @Override
     public void downgradeUser(long userId, long planId, DowngradeSeatType seatType) throws SmartsheetException {
-        changeSeatType(seatType.name(), USERS + "/" + userId + "/plans/" + planId + "/downgrade");
+        changeSeatType(seatType.name(), USERS + "/" + userId + PLANS + planId + "/downgrade");
     }
 
     private void changeSeatType(String seatType, String path) throws SmartsheetException {

@@ -18,7 +18,16 @@ package com.smartsheet.api.internal;
 
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
-import com.smartsheet.api.models.*;
+import com.smartsheet.api.models.Account;
+import com.smartsheet.api.models.AlternateEmail;
+import com.smartsheet.api.models.DeleteUserParameters;
+import com.smartsheet.api.models.PagedResult;
+import com.smartsheet.api.models.PaginationParameters;
+import com.smartsheet.api.models.Sheet;
+import com.smartsheet.api.models.TokenPaginatedResult;
+import com.smartsheet.api.models.User;
+import com.smartsheet.api.models.UserPlan;
+import com.smartsheet.api.models.UserProfile;
 import com.smartsheet.api.models.enums.ListUserInclusion;
 import com.smartsheet.api.models.enums.SeatType;
 import com.smartsheet.api.models.enums.DowngradeSeatType;
@@ -246,7 +255,7 @@ class UserResourcesImplTest extends ResourcesImplBase {
 
         assertThat(response).isNotNull();
         assertThat(response.getData()).hasSize(2);
-        assertThat(response.getData().get(0).getPlanId()).isEqualTo("123");
+        assertThat(response.getData().get(0).getPlanId()).isEqualTo(123L);
         assertThat(response.getLastKey()).isEqualTo("123");
     }
 
@@ -258,7 +267,7 @@ class UserResourcesImplTest extends ResourcesImplBase {
 
         assertThat(response).isNotNull();
         assertThat(response.getData()).hasSize(2);
-        assertThat(response.getData().get(0).getPlanId()).isEqualTo("123");
+        assertThat(response.getData().get(0).getPlanId()).isEqualTo(123L);
         assertThat(response.getLastKey()).isEqualTo("123");
         assertThat(server.getLastRequestUrl()).contains("lastKey");
     }
@@ -271,7 +280,7 @@ class UserResourcesImplTest extends ResourcesImplBase {
 
         assertThat(response).isNotNull();
         assertThat(response.getData()).hasSize(2);
-        assertThat(response.getData().get(0).getPlanId()).isEqualTo("123");
+        assertThat(response.getData().get(0).getPlanId()).isEqualTo(123L);
         assertThat(response.getLastKey()).isEqualTo("123");
         assertThat(server.getLastRequestUrl()).contains("maxItems");
     }
@@ -286,7 +295,7 @@ class UserResourcesImplTest extends ResourcesImplBase {
         pagination.setPage(1);
         pagination.setPageSize(100);
 
-        PagedResult<User> result = userResources.listUsers(null, null, planId, SeatType.GUEST, pagination);
+        PagedResult<User> result = userResources.listUsers(null, planId, SeatType.GUEST, pagination);
 
         assertThat(result).isNotNull();
         assertThat(result.getData()).isNotEmpty();

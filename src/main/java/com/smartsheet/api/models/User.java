@@ -16,7 +16,7 @@
 
 package com.smartsheet.api.models;
 
-import java.util.Date;
+import java.time.ZonedDateTime;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.smartsheet.api.models.enums.SeatType;
 
@@ -34,7 +34,9 @@ public class User extends UserModelWithName {
      */
     private long planId;
     private SeatType seatType;
-    private Date seatTypeLastChangedAt;
+
+    @JsonProperty("seatTypeLastChangedAt")
+    private ZonedDateTime seatTypeLastChangedAt;
     private Boolean isInternal;
 
     @JsonProperty("planId")
@@ -55,12 +57,11 @@ public class User extends UserModelWithName {
         this.seatType = seatType;
     }
 
-    @JsonProperty("seatTypeLastChangedAt")
-    public Date getSeatTypeLastChangedAt() {
+    public ZonedDateTime getSeatTypeLastChangedAt() {
         return seatTypeLastChangedAt;
     }
 
-    public void setSeatTypeLastChangedAt(Date seatTypeLastChangedAt) {
+    public void setSeatTypeLastChangedAt(ZonedDateTime seatTypeLastChangedAt) {
         this.seatTypeLastChangedAt = seatTypeLastChangedAt;
     }
 
@@ -72,9 +73,11 @@ public class User extends UserModelWithName {
     public void setInternal(Boolean internal) {
         isInternal = internal;
     }
+
     /**
      * A convenience class for making a {@link User} object with the appropriate fields for adding the user.
      */
+
     public static class AddUserBuilder {
         private Boolean admin;
         private String emailAddress;

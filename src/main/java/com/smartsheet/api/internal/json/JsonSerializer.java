@@ -19,7 +19,12 @@ package com.smartsheet.api.internal.json;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonMappingException;
-import com.smartsheet.api.models.*;
+import com.smartsheet.api.models.BulkItemResult;
+import com.smartsheet.api.models.CopyOrMoveRowResult;
+import com.smartsheet.api.models.EventResult;
+import com.smartsheet.api.models.PagedResult;
+import com.smartsheet.api.models.Result;
+import com.smartsheet.api.models.TokenPaginatedResult;
 
 import java.io.IOException;
 import java.io.InputStream;

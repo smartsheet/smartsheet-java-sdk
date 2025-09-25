@@ -31,8 +31,13 @@ import com.smartsheet.api.internal.http.HttpResponse;
 import com.smartsheet.api.internal.json.JSONSerializerException;
 import com.smartsheet.api.internal.util.StreamUtil;
 import com.smartsheet.api.internal.util.Util;
-import com.smartsheet.api.models.*;
 import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.smartsheet.api.models.Attachment;
+import com.smartsheet.api.models.CopyOrMoveRowDirective;
+import com.smartsheet.api.models.CopyOrMoveRowResult;
+import com.smartsheet.api.models.PagedResult;
+import com.smartsheet.api.models.Result;
+import com.smartsheet.api.models.TokenPaginatedResult;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.ContentType;
@@ -561,9 +566,11 @@ public abstract class AbstractResources {
             HttpResponse response = this.smartsheet.getHttpClient().request(request);
             if (response.getStatusCode() == 200) {
                 if (deserializer != null) {
-                    obj = this.smartsheet.getJsonSerializer().deserializeTokenPaginatedResult(deserializer, response.getEntity().getContent());
+                    obj = this.smartsheet.getJsonSerializer()
+                            .deserializeTokenPaginatedResult(deserializer, response.getEntity().getContent());
                 } else {
-                    obj = this.smartsheet.getJsonSerializer().deserializeTokenPaginatedResult(objectClass, response.getEntity().getContent());
+                    obj = this.smartsheet.getJsonSerializer()
+                            .deserializeTokenPaginatedResult(objectClass, response.getEntity().getContent());
                 }
             } else {
                 handleError(response);
@@ -631,6 +638,7 @@ public abstract class AbstractResources {
      * @return List of ids deleted
      * @throws SmartsheetException the smartsheet exception
      */
+
     protected <T> List<T> deleteListResources(String path, Class<T> objectClass) throws SmartsheetException {
         Util.throwIfNull(path, objectClass);
         Util.throwIfEmpty(path);

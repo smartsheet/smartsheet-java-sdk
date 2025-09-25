@@ -16,7 +16,15 @@
 
 package com.smartsheet.api;
 
-import com.smartsheet.api.models.*;
+import com.smartsheet.api.models.AlternateEmail;
+import com.smartsheet.api.models.DeleteUserParameters;
+import com.smartsheet.api.models.PagedResult;
+import com.smartsheet.api.models.PaginationParameters;
+import com.smartsheet.api.models.Sheet;
+import com.smartsheet.api.models.TokenPaginatedResult;
+import com.smartsheet.api.models.User;
+import com.smartsheet.api.models.UserPlan;
+import com.smartsheet.api.models.UserProfile;
 import com.smartsheet.api.models.enums.ListUserInclusion;
 import com.smartsheet.api.models.enums.SeatType;
 import com.smartsheet.api.models.enums.UpgradeSeatType;
@@ -100,16 +108,14 @@ public interface UserResources {
      *   - SmartsheetException : if there is any other error occurred during the operation
      *
      * @param email the list of email addresses
-     * @param includes elements to include in the response
      * @param pagination the object containing the pagination query parameters
      * @param planId filtering all users part of the specific plan
      * @param seatType filter users by seat type
      * @return all users (note that empty list will be returned if there is none)
      * @throws SmartsheetException the smartsheet exception
      */
-    PagedResult<User> listUsers(Set<String> email, EnumSet<ListUserInclusion> includes,
-                                       Long planId, SeatType seatType, PaginationParameters pagination
-                                       ) throws SmartsheetException;
+    PagedResult<User> listUsers(Set<String> email, Long planId,
+                                SeatType seatType, PaginationParameters pagination) throws SmartsheetException;
 
     /**
      * <p>Add a user to the organization, without sending email.</p>

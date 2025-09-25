@@ -23,6 +23,7 @@ import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.smartsheet.api.models.BooleanObjectValue;
 import com.smartsheet.api.models.ContactObjectValue;
 import com.smartsheet.api.models.DateObjectValue;
@@ -54,6 +55,7 @@ public class ObjectValueDeserializer extends JsonDeserializer<ObjectValue> {
             mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
             ObjectValueAttributeSuperset superset = mapper.readValue(jp, ObjectValueAttributeSuperset.class);
+            mapper.registerModule(new JavaTimeModule());
 
             ObjectValueType parsedObjectType;
             try {

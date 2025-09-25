@@ -76,6 +76,9 @@ dependencies {
     implementation "org.apache.httpcomponents:httpmime:${httpMimeVersion}"
     implementation "org.slf4j:slf4j-api:${slf4jVersion}"
 
+    implementation "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.20.0"
+
+
     // Test Dependencies
     testImplementation "commons-io:commons-io:${commonsIoVersion}"
     testImplementation "org.assertj:assertj-core:${assertJVersion}"

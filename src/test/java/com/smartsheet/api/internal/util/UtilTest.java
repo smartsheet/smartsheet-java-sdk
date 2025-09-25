@@ -205,14 +205,14 @@ class UtilTest {
 
             @Test
             void throwIfBothNotNullOrNull_all() {
-                assertThatThrownBy(() ->  Util.throwIfBothNotNullOrNull(null, null))
+                assertThatThrownBy(() -> Util.throwIfBothNotNullOrNull(null, null))
                         .isInstanceOf(IllegalArgumentException.class);
 
-                assertThatThrownBy(() ->  Util.throwIfBothNotNullOrNull(new Object(), 1L))
+                assertThatThrownBy(() -> Util.throwIfBothNotNullOrNull(new Object(), 1L))
                         .isInstanceOf(IllegalArgumentException.class);
 
-                assertThatNoException().isThrownBy(() ->  Util.throwIfBothNotNullOrNull(new Object(), null));
-                assertThatNoException().isThrownBy(() ->  Util.throwIfBothNotNullOrNull(null, "  "));
+                assertThatNoException().isThrownBy(() -> Util.throwIfBothNotNullOrNull(new Object(), null));
+                assertThatNoException().isThrownBy(() -> Util.throwIfBothNotNullOrNull(null, "  "));
             }
         }
     }

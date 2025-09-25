@@ -27,8 +27,21 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.module.SimpleModule;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.smartsheet.api.internal.util.Util;
-import com.smartsheet.api.models.*;
+import com.smartsheet.api.models.BulkItemResult;
+import com.smartsheet.api.models.CopyOrMoveRowResult;
+import com.smartsheet.api.models.EventResult;
+import com.smartsheet.api.models.Hyperlink;
+import com.smartsheet.api.models.IdentifiableModel;
+import com.smartsheet.api.models.IdentifiableModelMixin;
+import com.smartsheet.api.models.ObjectValue;
+import com.smartsheet.api.models.PagedResult;
+import com.smartsheet.api.models.PrimitiveObjectValue;
+import com.smartsheet.api.models.Recipient;
+import com.smartsheet.api.models.Result;
+import com.smartsheet.api.models.TokenPaginatedResult;
+import com.smartsheet.api.models.WidgetContent;
 import com.smartsheet.api.models.format.Format;
 
 import java.io.IOException;
@@ -107,6 +120,8 @@ public class JacksonJsonSerializer implements JsonSerializer {
         module = new SimpleModule("ErrorDetailDeserializerModule", Version.unknownVersion());
         module.addDeserializer(com.smartsheet.api.models.Error.class, new ErrorDeserializer());
         OBJECT_MAPPER.registerModule(module);
+
+        OBJECT_MAPPER.registerModule(new JavaTimeModule());
     }
 
     /**
