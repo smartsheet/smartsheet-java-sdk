@@ -1,38 +1,40 @@
 package com.smartsheet.api.models;
 
+import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.smartsheet.api.models.enums.SeatType;
 
 /**
  * Represents the UserPlan object.
  */
 public class UserPlan {
-    private String planId;
-    private String seatType;
+    private long planId;
+    private SeatType seatType;
     @JsonProperty
-    private String seatTypeLastChangedAt;
+    private Date seatTypeLastChangedAt;
     private boolean isInternal;
 
-    public String getPlanId() {
+    public long getPlanId() {
         return planId;
     }
 
-    public void setPlanId(String planId) {
+    public void setPlanId(long planId) {
         this.planId = planId;
     }
 
-    public String getSeatType() {
+    public SeatType getSeatType() {
         return seatType;
     }
 
-    public void setSeatType(String seatType) {
+    public void setSeatType(SeatType seatType) {
         this.seatType = seatType;
     }
 
-    public String seatTypeLastChangedAt() {
+    public Date seatTypeLastChangedAt() {
         return seatTypeLastChangedAt;
     }
 
-    public void seatTypeLastChangedAt(String seatTypeLastChangedAt) {
+    public void seatTypeLastChangedAt(Date seatTypeLastChangedAt) {
         this.seatTypeLastChangedAt = seatTypeLastChangedAt;
     }
 

@@ -228,7 +228,7 @@ public interface JsonSerializer {
             throws JSONSerializerException;
 
     /**
-     * De-serialize json to TokenPaginatedResult using a custom deserializer.
+     * De-serialize json to TokenPaginatedResult using object class type.
      *
      * @param <T> the generic type of the data items
      * @param objectClass the result class type

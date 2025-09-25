@@ -1,13 +1,13 @@
 {
   "data": [
     {
-      "planId": "123",
+      "planId": 123,
       "seatType": "VIEWER",
       "seatTypeLastChangedAt": "2025-01-01T00:00:00Z",
       "isInternal": false
     },
     {
-      "planId": "124",
+      "planId": 124,
       "seatType": "MEMBER",
       "seatTypeLastChangedAt": "2025-01-02T00:00:00Z",
       "isInternal": true

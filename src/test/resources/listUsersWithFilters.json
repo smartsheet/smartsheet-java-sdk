@@ -1,8 +1,8 @@
 {
   "data": [
     {
-      "id": "123",
-      "planId": "123",
+      "id": 123,
+      "planId": 123,
       "admin": true,
       "email": "user1@example.com",
       "groupAdmin": true,
@@ -10,13 +10,13 @@
       "resourceViewer": true,
       "sheetCount": -1,
       "status": "ACTIVE",
-      "seatType": "LICENSED",
+      "seatType": "MEMBER",
       "seatTypeLastChangedAt": "2025-07-23T00:32:06.756026Z",
       "isInternal": true
     },
     {
-      "id": "124",
-      "planId": "124",
+      "id": 124,
+      "planId": 124,
       "admin": false,
       "email": "user2@example.com",
       "groupAdmin": false,

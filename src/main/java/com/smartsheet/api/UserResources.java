@@ -19,6 +19,8 @@ package com.smartsheet.api;
 import com.smartsheet.api.models.*;
 import com.smartsheet.api.models.enums.ListUserInclusion;
 import com.smartsheet.api.models.enums.SeatType;
+import com.smartsheet.api.models.enums.UpgradeSeatType;
+import com.smartsheet.api.models.enums.DowngradeSeatType;
 import com.smartsheet.api.models.enums.UserInclusion;
 
 import java.io.FileNotFoundException;
@@ -102,13 +104,12 @@ public interface UserResources {
      * @param pagination the object containing the pagination query parameters
      * @param planId filtering all users part of the specific plan
      * @param seatType filter users by seat type
-     * @param numericDates return dates in epoch format
      * @return all users (note that empty list will be returned if there is none)
      * @throws SmartsheetException the smartsheet exception
      */
     PagedResult<User> listUsers(Set<String> email, EnumSet<ListUserInclusion> includes,
-                                       Long planId, SeatType.ListUsers seatType, Boolean numericDates,
-                                       PaginationParameters pagination) throws SmartsheetException;
+                                       Long planId, SeatType seatType, PaginationParameters pagination
+                                       ) throws SmartsheetException;
 
     /**
      * <p>Add a user to the organization, without sending email.</p>
@@ -221,7 +222,7 @@ public interface UserResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException         if there is any other error during the operation
      */
-    TokenPaginatedResult<UserPlan> listUserPlans(long userId, String lastKey) throws SmartsheetException;
+    TokenPaginatedResult<UserPlan> listUserPlans(long userId, String lastKey, Long maxItems) throws SmartsheetException;
 
     /**
      * <p>Remove's a user from a plan.</p>
@@ -253,7 +254,7 @@ public interface UserResources {
      * @throws ServiceUnavailableException if the REST API service is not available
      * @throws SmartsheetException if there is any other error during the operation
      */
-    void upgradeUser(long userId, long planId, SeatType.UpgradeSeatType seatType) throws SmartsheetException;
+    void upgradeUser(long userId, long planId, UpgradeSeatType seatType) throws SmartsheetException;
 
     /**
      * <p>Upgrades a user's seat type.</p>
@@ -269,7 +270,7 @@ public interface UserResources {
      * @throws ServiceUnavailableException if the REST API service is not available
      * @throws SmartsheetException if there is any other error during the operation
      */
-    void downgradeUser(long userId, long planId, SeatType.DowngradeSeatType seatType) throws SmartsheetException;
+    void downgradeUser(long userId, long planId, DowngradeSeatType seatType) throws SmartsheetException;
 
     /**
      * <p>Delete a user in the organization.</p>

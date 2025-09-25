@@ -73,6 +73,10 @@ public class Util {
         }
     }
 
+    /**
+     * Throw an exception if both parameters are null or both parameters are non-null.
+     * Use it to enforce that exactly one of two parameters is set.
+     */
     public static <T> void throwIfBothNotNullOrNull(Object o1, Object o2) {
         if (o1 == null && o2 == null) {
             throw new IllegalArgumentException();
