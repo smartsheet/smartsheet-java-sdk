@@ -23,6 +23,7 @@ jobs:
           java-version: 11
           target-folder: apidocs # url will be https://<username>.github.io/<repo>/javadoc
           project: gradle
+          custom-command: ./gradlew javadoc
 
   publish:
     runs-on: ubuntu-latest
