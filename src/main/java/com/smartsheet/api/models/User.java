@@ -17,7 +17,6 @@
 package com.smartsheet.api.models;
 
 import java.time.ZonedDateTime;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.smartsheet.api.models.enums.SeatType;
 
 /**
@@ -32,23 +31,19 @@ public class User extends UserModelWithName {
     /**
      * Seat type support fields
      */
-    private long planId;
+    private Long planId;
     private SeatType seatType;
-
-    @JsonProperty("seatTypeLastChangedAt")
     private ZonedDateTime seatTypeLastChangedAt;
     private Boolean isInternal;
 
-    @JsonProperty("planId")
-    public long getPlanId() {
+    public Long getPlanId() {
         return planId;
     }
 
-    public void setPlanId(long planId) {
+    public void setPlanId(Long planId) {
         this.planId = planId;
     }
 
-    @JsonProperty("seatType")
     public SeatType getSeatType() {
         return seatType;
     }
@@ -65,13 +60,12 @@ public class User extends UserModelWithName {
         this.seatTypeLastChangedAt = seatTypeLastChangedAt;
     }
 
-    @JsonProperty("isInternal")
-    public Boolean isInternal() {
+    public Boolean getIsInternal() {
         return isInternal;
     }
 
-    public void setInternal(Boolean internal) {
-        isInternal = internal;
+    public void setIsInternal(Boolean isInternal) {
+        this.isInternal = isInternal;
     }
 
     /**
