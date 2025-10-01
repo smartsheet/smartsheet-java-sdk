@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [x.x.x] - unreleased
 
+## [3.7.0] - 2025-09-25
+### Added
+- Support for GET /2.0/users/{userId}/plans
+- Support for GET /2.0/users
+- Support for DELETE /2.0/users/{userId}/plans/{planId}
+
 ## [3.6.0] - 2025-09-23
 ### Added
 - Support for POST /users/{userId}/plans/{planId}/downgrade

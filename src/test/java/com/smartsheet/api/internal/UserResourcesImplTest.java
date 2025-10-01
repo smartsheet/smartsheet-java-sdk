@@ -18,16 +18,20 @@ package com.smartsheet.api.internal;
 
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
-import com.smartsheet.api.models.PaginationParameters;
-import com.smartsheet.api.models.User;
-import com.smartsheet.api.models.PagedResult;
-import com.smartsheet.api.models.UserProfile;
 import com.smartsheet.api.models.Account;
-import com.smartsheet.api.models.DeleteUserParameters;
-import com.smartsheet.api.models.Sheet;
 import com.smartsheet.api.models.AlternateEmail;
+import com.smartsheet.api.models.DeleteUserParameters;
+import com.smartsheet.api.models.PagedResult;
+import com.smartsheet.api.models.PaginationParameters;
+import com.smartsheet.api.models.Sheet;
+import com.smartsheet.api.models.TokenPaginatedResult;
+import com.smartsheet.api.models.User;
+import com.smartsheet.api.models.UserPlan;
+import com.smartsheet.api.models.UserProfile;
 import com.smartsheet.api.models.enums.ListUserInclusion;
 import com.smartsheet.api.models.enums.SeatType;
+import com.smartsheet.api.models.enums.DowngradeSeatType;
+import com.smartsheet.api.models.enums.UpgradeSeatType;
 import com.smartsheet.api.models.enums.UserInclusion;
 import com.smartsheet.api.models.enums.UserStatus;
 import org.assertj.core.util.Lists;
@@ -221,7 +225,7 @@ class UserResourcesImplTest extends ResourcesImplBase {
         server.setResponseBody(new File("src/test/resources/upgradeUser.json"));
         long userId = 123L;
         long planId = 123L;
-        Assertions.assertDoesNotThrow(() -> userResources.upgradeUser(userId, planId, SeatType.UpgradeSeatType.MEMBER));
+        Assertions.assertDoesNotThrow(() -> userResources.upgradeUser(userId, planId, UpgradeSeatType.MEMBER));
     }
 
     @Test
@@ -230,7 +234,75 @@ class UserResourcesImplTest extends ResourcesImplBase {
         long userId = 123L;
         long planId = 123L;
 
-        Assertions.assertDoesNotThrow(() -> userResources.downgradeUser(userId, planId, SeatType.DowngradeSeatType.VIEWER));
+        Assertions.assertDoesNotThrow(() -> userResources.downgradeUser(userId, planId, DowngradeSeatType.VIEWER));
+    }
+
+    @Test
+    void testRemoveUserFromPlan() throws IOException {
+        server.setResponseBody(new File("src/test/resources/deleteUserFromPlan.json"));
+
+        long userId = 123L;
+        long planId = 123L;
+
+        Assertions.assertDoesNotThrow(() -> userResources.removeUserFromPlan(userId, planId));
+    }
+
+    @Test
+    void testListUserPlans() throws SmartsheetException, IOException {
+        server.setResponseBody(new File("src/test/resources/getUserPlansResponse.json"));
+
+        TokenPaginatedResult<UserPlan> response = userResources.listUserPlans(123L, null, null);
+
+        assertThat(response).isNotNull();
+        assertThat(response.getData()).hasSize(2);
+        assertThat(response.getData().get(0).getPlanId()).isEqualTo(123L);
+        assertThat(response.getLastKey()).isEqualTo("123");
+    }
+
+    @Test
+    void testListUserPlans_lastKey() throws SmartsheetException, IOException {
+        server.setResponseBody(new File("src/test/resources/getUserPlansResponse.json"));
+
+        TokenPaginatedResult<UserPlan> response = userResources.listUserPlans(123L, "lastKey", null);
+
+        assertThat(response).isNotNull();
+        assertThat(response.getData()).hasSize(2);
+        assertThat(response.getData().get(0).getPlanId()).isEqualTo(123L);
+        assertThat(response.getLastKey()).isEqualTo("123");
+        assertThat(server.getLastRequestUrl()).contains("lastKey");
+    }
+
+    @Test
+    void testListUserPlans_maxItems() throws SmartsheetException, IOException {
+        server.setResponseBody(new File("src/test/resources/getUserPlansResponse.json"));
+
+        TokenPaginatedResult<UserPlan> response = userResources.listUserPlans(123L, null, 100L);
+
+        assertThat(response).isNotNull();
+        assertThat(response.getData()).hasSize(2);
+        assertThat(response.getData().get(0).getPlanId()).isEqualTo(123L);
+        assertThat(response.getLastKey()).isEqualTo("123");
+        assertThat(server.getLastRequestUrl()).contains("maxItems");
+    }
+
+    @Test
+    void testListUsersWithFilters() throws SmartsheetException, IOException {
+        server.setResponseBody(new File("src/test/resources/listUsersWithFilters.json"));
+
+        Long planId = 123L;
+        List<String> emails = Lists.newArrayList("user1@example.com", "user2@example.com");
+        PaginationParameters pagination = new PaginationParameters();
+        pagination.setPage(1);
+        pagination.setPageSize(100);
+
+        PagedResult<User> result = userResources.listUsers(null, planId, SeatType.GUEST, pagination);
+
+        assertThat(result).isNotNull();
+        assertThat(result.getData()).isNotEmpty();
+        assertThat(result.getPageNumber()).isEqualTo(1);
+        assertThat(result.getPageSize()).isEqualTo(100);
+        assertThat(result.getData().get(0).getEmail()).isEqualTo("user1@example.com");
+        assertThat(result.getData().get(1).getEmail()).isEqualTo("user2@example.com");
     }
 
     @Test

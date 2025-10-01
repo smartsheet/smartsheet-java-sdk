@@ -16,6 +16,9 @@
 
 package com.smartsheet.api.models;
 
+import java.time.ZonedDateTime;
+import com.smartsheet.api.models.enums.SeatType;
+
 /**
  * Represents the User object.
  *
@@ -26,8 +29,49 @@ package com.smartsheet.api.models;
 public class User extends UserModelWithName {
 
     /**
+     * Seat type support fields
+     */
+    private Long planId;
+    private SeatType seatType;
+    private ZonedDateTime seatTypeLastChangedAt;
+    private Boolean isInternal;
+
+    public Long getPlanId() {
+        return planId;
+    }
+
+    public void setPlanId(Long planId) {
+        this.planId = planId;
+    }
+
+    public SeatType getSeatType() {
+        return seatType;
+    }
+
+    public void setSeatType(SeatType seatType) {
+        this.seatType = seatType;
+    }
+
+    public ZonedDateTime getSeatTypeLastChangedAt() {
+        return seatTypeLastChangedAt;
+    }
+
+    public void setSeatTypeLastChangedAt(ZonedDateTime seatTypeLastChangedAt) {
+        this.seatTypeLastChangedAt = seatTypeLastChangedAt;
+    }
+
+    public Boolean getIsInternal() {
+        return isInternal;
+    }
+
+    public void setIsInternal(Boolean isInternal) {
+        this.isInternal = isInternal;
+    }
+
+    /**
      * A convenience class for making a {@link User} object with the appropriate fields for adding the user.
      */
+
     public static class AddUserBuilder {
         private Boolean admin;
         private String emailAddress;

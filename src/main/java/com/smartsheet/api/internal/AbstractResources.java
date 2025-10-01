@@ -31,13 +31,13 @@ import com.smartsheet.api.internal.http.HttpResponse;
 import com.smartsheet.api.internal.json.JSONSerializerException;
 import com.smartsheet.api.internal.util.StreamUtil;
 import com.smartsheet.api.internal.util.Util;
+import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.smartsheet.api.models.Attachment;
 import com.smartsheet.api.models.CopyOrMoveRowDirective;
 import com.smartsheet.api.models.CopyOrMoveRowResult;
 import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.Result;
 import com.smartsheet.api.models.TokenPaginatedResult;
-import com.fasterxml.jackson.databind.JsonDeserializer;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.ContentType;
@@ -528,24 +528,52 @@ public abstract class AbstractResources {
      * @throws SmartsheetRestException : if there is any other REST API related error occurred during the operation
      * @throws SmartsheetException : if there is any other error occurred during the operation
      */
-    protected <T> TokenPaginatedResult<T> listResourcesWithTokenPagination(String path,
-                                                                            JsonDeserializer<List<T>> deserializer)
+    protected <T> TokenPaginatedResult<T> listResourcesWithTokenPagination(String path, JsonDeserializer<List<T>> deserializer)
             throws SmartsheetException {
-        Util.throwIfNull(path, deserializer);
+        return listResourcesWithTokenPagination(path, null, deserializer);
+    }
+
+    /**
+     * List resources with token-based pagination based on data type class type reference
+     *
+     * @param <T> the generic type of the data items
+     * @param path the relative path of the resource collections
+     * @param objectClass actual data type wrapped in TokenPaginatedResult
+     * @return the token paginated result
+     * @throws IllegalArgumentException : if any argument is null, or path is empty string
+     * @throws InvalidRequestException : if there is any problem with the REST API request
+     * @throws AuthorizationException : if there is any problem with the REST API authorization(access token)
+     * @throws ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     * @throws SmartsheetException : if there is any other error occurred during the operation
+     */
+    protected <T> TokenPaginatedResult<T> listResourcesWithTokenPagination(String path, Class<T> objectClass)
+            throws SmartsheetException {
+        return listResourcesWithTokenPagination(path, objectClass, null);
+    }
+
+    private <T> TokenPaginatedResult<T> listResourcesWithTokenPagination(String path, Class<T> objectClass,
+                                                                         JsonDeserializer<List<T>> deserializer)
+            throws SmartsheetException {
+        Util.throwIfNull(path);
         Util.throwIfEmpty(path);
+        Util.throwIfBothNotNullOrNull(objectClass, deserializer);
 
         HttpRequest request = createHttpRequest(smartsheet.getBaseURI().resolve(path), HttpMethod.GET);
 
         TokenPaginatedResult<T> obj = null;
         try {
             HttpResponse response = this.smartsheet.getHttpClient().request(request);
-            switch (response.getStatusCode()) {
-                case 200:
-                    obj = this.smartsheet.getJsonSerializer().deserializeTokenPaginatedResult(deserializer,
-                            response.getEntity().getContent());
-                    break;
-                default:
-                    handleError(response);
+            if (response.getStatusCode() == 200) {
+                if (deserializer != null) {
+                    obj = this.smartsheet.getJsonSerializer()
+                            .deserializeTokenPaginatedResult(deserializer, response.getEntity().getContent());
+                } else {
+                    obj = this.smartsheet.getJsonSerializer()
+                            .deserializeTokenPaginatedResult(objectClass, response.getEntity().getContent());
+                }
+            } else {
+                handleError(response);
             }
         } finally {
             smartsheet.getHttpClient().releaseConnection();
@@ -592,7 +620,6 @@ public abstract class AbstractResources {
             smartsheet.getHttpClient().releaseConnection();
         }
     }
-
     /**
      * Delete resources and return a list from Smartsheet REST API.
      * <p>
@@ -611,6 +638,7 @@ public abstract class AbstractResources {
      * @return List of ids deleted
      * @throws SmartsheetException the smartsheet exception
      */
+
     protected <T> List<T> deleteListResources(String path, Class<T> objectClass) throws SmartsheetException {
         Util.throwIfNull(path, objectClass);
         Util.throwIfEmpty(path);
