@@ -41,6 +41,7 @@ import com.smartsheet.api.models.PrimitiveObjectValue;
 import com.smartsheet.api.models.Recipient;
 import com.smartsheet.api.models.Result;
 import com.smartsheet.api.models.TokenPaginatedResult;
+import com.smartsheet.api.models.ListAssetSharesResponse;
 import com.smartsheet.api.models.WidgetContent;
 import com.smartsheet.api.models.format.Format;
 
@@ -497,6 +498,64 @@ public class JacksonJsonSerializer implements JsonSerializer {
         try {
             result = OBJECT_MAPPER.readValue(inputStream,
                     OBJECT_MAPPER.getTypeFactory().constructParametricType(TokenPaginatedResult.class, objectClass));
+        } catch (IOException e) {
+            throw new JSONSerializerException(e);
+        }
+
+        return result;
+    }
+
+    /**
+     * De-serialize json to ListAssetSharesResponse using a custom deserializer.
+     *
+     * @param <T> the generic type of the data items
+     * @param deserializer the custom deserializer for the data items
+     * @param inputStream the input stream
+     * @return the ListAssetSharesResponse containing a list of type T
+     * @throws JSONSerializerException the JSON serializer exception
+     */
+    @Override
+    public <T> ListAssetSharesResponse<T> listAssetSharesTokenPaginatedResult(JsonDeserializer<List<T>> deserializer, InputStream inputStream)
+            throws JSONSerializerException {
+        Util.throwIfNull(deserializer, inputStream);
+
+        ListAssetSharesResponse<T> result = null;
+
+        try {
+            // Create a temporary ObjectMapper with the custom deserializer
+            ObjectMapper tempMapper = OBJECT_MAPPER.copy();
+            SimpleModule module = new SimpleModule("TokenPaginatedResultDeserializerModule", Version.unknownVersion());
+            module.addDeserializer(List.class, deserializer);
+            tempMapper.registerModule(module);
+
+            // Deserialize using the temporary mapper with custom deserializer
+            result = tempMapper.readValue(inputStream,
+                    tempMapper.getTypeFactory().constructParametricType(TokenPaginatedResult.class, Object.class));
+        } catch (IOException e) {
+            throw new JSONSerializerException(e);
+        }
+
+        return result;
+    }
+
+    /**
+     * De-serialize json to ListAssetSharesResponse using object class type
+     *
+     * @param <T> the generic type of the data items
+     * @param objectClass actual data type wrapped in ListAssetSharesResponse
+     * @param inputStream the input stream
+     * @return the ListAssetSharesResponse containing a list of type T
+     * @throws JSONSerializerException the JSON serializer exception
+     */
+    @Override
+    public <T> ListAssetSharesResponse<T> listAssetSharesTokenPaginatedResult(Class<T> objectClass, InputStream inputStream)
+            throws JSONSerializerException {
+        Util.throwIfNull(inputStream);
+
+        ListAssetSharesResponse<T> result = null;
+        try {
+            result = OBJECT_MAPPER.readValue(inputStream,
+                    OBJECT_MAPPER.getTypeFactory().constructParametricType(ListAssetSharesResponse.class, objectClass));
         } catch (IOException e) {
             throw new JSONSerializerException(e);
         }

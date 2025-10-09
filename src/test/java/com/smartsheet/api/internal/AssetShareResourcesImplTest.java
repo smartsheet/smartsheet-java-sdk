@@ -19,10 +19,9 @@ package com.smartsheet.api.internal;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
 import com.smartsheet.api.models.CreateShareRequest;
-import com.smartsheet.api.models.PagedResult;
-import com.smartsheet.api.models.PaginationParameters;
 import com.smartsheet.api.models.ShareResponse;
 import com.smartsheet.api.models.UpdateShareRequest;
+import com.smartsheet.api.models.ListAssetSharesResponse;
 import com.smartsheet.api.models.enums.AccessLevel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -47,35 +46,32 @@ class AssetShareResourcesImplTest extends ResourcesImplBase {
 
     @Test
     void testListShares_IncludeWorkspacesFalse() throws SmartsheetException, IOException {
-        server.setResponseBody(new File("src/test/resources/listShares.json"));
-        PaginationParameters parameters = new PaginationParameters(false, 1, 1);
-        PagedResult<ShareResponse> shares = assetShareResourcesImpl.listShares("2906571706525572", "sheet", parameters, Boolean.FALSE);
-        assertThat(shares.getTotalCount()).isEqualTo(2);
+        server.setResponseBody(new File("src/test/resources/listSharesUpdated.json"));
+        ListAssetSharesResponse<ShareResponse> shares = assetShareResourcesImpl.listShares("2906571706525572", "sheet", null, 3L, "ITEM");
+        assertThat(shares.getItems().size()).isEqualTo(2);
 
-        assertThat(shares.getData().get(0).getEmail()).isEqualTo("john.doe@smartsheet.com");
-        assertThat(shares.getData().get(1).getEmail()).isNull();
+        assertThat(shares.getItems().get(0).getEmail()).isEqualTo("john.doe@smartsheet.com");
+        assertThat(shares.getItems().get(1).getEmail()).isNull();
     }
 
     @Test
     void testListShares_IncludeWorkspacesNull() throws SmartsheetException, IOException {
-        server.setResponseBody(new File("src/test/resources/listShares.json"));
-        PaginationParameters parameters = new PaginationParameters(false, 1, 1);
-        PagedResult<ShareResponse> shares = assetShareResourcesImpl.listShares("2906571706525572", "sheet", parameters, null);
-        assertThat(shares.getTotalCount()).isEqualTo(2);
+        server.setResponseBody(new File("src/test/resources/listSharesUpdated.json"));
+        ListAssetSharesResponse<ShareResponse> shares = assetShareResourcesImpl.listShares("2906571706525572", "sheet", null, 3L, "ITEM");
+        assertThat(shares.getItems().size()).isEqualTo(2);
 
-        assertThat(shares.getData().get(0).getEmail()).isEqualTo("john.doe@smartsheet.com");
-        assertThat(shares.getData().get(1).getEmail()).isNull();
+        assertThat(shares.getItems().get(0).getEmail()).isEqualTo("john.doe@smartsheet.com");
+        assertThat(shares.getItems().get(1).getEmail()).isNull();
     }
 
     @Test
     void testListShares_IncludeWorkspacesTrue() throws SmartsheetException, IOException {
-        server.setResponseBody(new File("src/test/resources/listShares.json"));
-        PaginationParameters parameters = new PaginationParameters(false, 1, 1);
-        PagedResult<ShareResponse> shares = assetShareResourcesImpl.listShares("2906571706525572", "sheet", parameters, Boolean.TRUE);
-        assertThat(shares.getTotalCount()).isEqualTo(2);
+        server.setResponseBody(new File("src/test/resources/listSharesUpdated.json"));
+        ListAssetSharesResponse<ShareResponse> shares = assetShareResourcesImpl.listShares("2906571706525572", "sheet", null, 3L, "ITEM");
+        assertThat(shares.getItems().size()).isEqualTo(2);
 
-        assertThat(shares.getData().get(0).getEmail()).isEqualTo("john.doe@smartsheet.com");
-        assertThat(shares.getData().get(1).getEmail()).isNull();
+        assertThat(shares.getItems().get(0).getEmail()).isEqualTo("john.doe@smartsheet.com");
+        assertThat(shares.getItems().get(1).getEmail()).isNull();
     }
 
     @Test
