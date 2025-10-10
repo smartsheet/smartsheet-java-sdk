@@ -599,15 +599,8 @@ public abstract class AbstractResources {
      */
     protected <T> ListAssetSharesResponse<T> listAssetSharesWithTokenPagination(String path, Class<T> objectClass)
             throws SmartsheetException {
-        return listAssetSharesWithTokenPagination(path, objectClass, null);
-    }
-
-    private <T> ListAssetSharesResponse<T> listAssetSharesWithTokenPagination(String path, Class<T> objectClass,
-                                                                         JsonDeserializer<List<T>> deserializer)
-            throws SmartsheetException {
-        Util.throwIfNull(path);
+        Util.throwIfNull(path, objectClass);
         Util.throwIfEmpty(path);
-        Util.throwIfBothNotNullOrNull(objectClass, deserializer);
 
         HttpRequest request = createHttpRequest(smartsheet.getBaseURI().resolve(path), HttpMethod.GET);
 
@@ -615,13 +608,8 @@ public abstract class AbstractResources {
         try {
             HttpResponse response = this.smartsheet.getHttpClient().request(request);
             if (response.getStatusCode() == 200) {
-                if (deserializer != null) {
-                    obj = this.smartsheet.getJsonSerializer()
-                            .listAssetSharesTokenPaginatedResult(deserializer, response.getEntity().getContent());
-                } else {
-                    obj = this.smartsheet.getJsonSerializer()
-                            .listAssetSharesTokenPaginatedResult(objectClass, response.getEntity().getContent());
-                }
+                obj = this.smartsheet.getJsonSerializer()
+                        .listAssetSharesTokenPaginatedResult(objectClass, response.getEntity().getContent());
             } else {
                 handleError(response);
             }

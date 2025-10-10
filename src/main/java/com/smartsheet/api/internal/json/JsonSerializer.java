@@ -246,18 +246,6 @@ public interface JsonSerializer {
             throws JSONSerializerException;
 
     /**
-     * De-serialize json to ListAssetSharesResponse using a custom deserializer.
-     *
-     * @param <T> the generic type of the data items
-     * @param deserializer the custom deserializer for the data items
-     * @param inputStream the input stream
-     * @return the ListAssetSharesResponse containing a list of type T
-     * @throws JSONSerializerException the JSON serializer exception
-     */
-    <T> ListAssetSharesResponse<T> listAssetSharesTokenPaginatedResult(JsonDeserializer<List<T>> deserializer, java.io.InputStream inputStream)
-            throws JSONSerializerException;
-
-    /**
      * De-serialize json to ListAssetSharesResponse using object class type.
      *
      * @param <T> the generic type of the data items

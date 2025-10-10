@@ -506,39 +506,6 @@ public class JacksonJsonSerializer implements JsonSerializer {
     }
 
     /**
-     * De-serialize json to ListAssetSharesResponse using a custom deserializer.
-     *
-     * @param <T> the generic type of the data items
-     * @param deserializer the custom deserializer for the data items
-     * @param inputStream the input stream
-     * @return the ListAssetSharesResponse containing a list of type T
-     * @throws JSONSerializerException the JSON serializer exception
-     */
-    @Override
-    public <T> ListAssetSharesResponse<T> listAssetSharesTokenPaginatedResult(JsonDeserializer<List<T>> deserializer, InputStream inputStream)
-            throws JSONSerializerException {
-        Util.throwIfNull(deserializer, inputStream);
-
-        ListAssetSharesResponse<T> result = null;
-
-        try {
-            // Create a temporary ObjectMapper with the custom deserializer
-            ObjectMapper tempMapper = OBJECT_MAPPER.copy();
-            SimpleModule module = new SimpleModule("TokenPaginatedResultDeserializerModule", Version.unknownVersion());
-            module.addDeserializer(List.class, deserializer);
-            tempMapper.registerModule(module);
-
-            // Deserialize using the temporary mapper with custom deserializer
-            result = tempMapper.readValue(inputStream,
-                    tempMapper.getTypeFactory().constructParametricType(TokenPaginatedResult.class, Object.class));
-        } catch (IOException e) {
-            throw new JSONSerializerException(e);
-        }
-
-        return result;
-    }
-
-    /**
      * De-serialize json to ListAssetSharesResponse using object class type
      *
      * @param <T> the generic type of the data items
