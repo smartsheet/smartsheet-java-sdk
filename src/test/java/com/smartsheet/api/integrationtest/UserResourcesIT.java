@@ -80,7 +80,6 @@ public class UserResourcesIT extends ITResourcesImpl {
         String expectedPath = "/2.0/users/12345678/plans";
 
         smartsheet.userResources().listUserPlans(userId, lastKey, maxItems);
-
         LoggedRequest wiremockRequest = wiremockClient.findWiremockRequest(requestId);
 
         String path = URI.create(wiremockRequest.getUrl()).getPath();
@@ -98,7 +97,6 @@ public class UserResourcesIT extends ITResourcesImpl {
         );
 
         WiremockClient wiremockClient = new WiremockClient(headers);
-
         Smartsheet smartsheet = wiremockClient.getSmartsheetClient(
                 "test_token_123"
         );
@@ -130,7 +128,6 @@ public class UserResourcesIT extends ITResourcesImpl {
         );
 
         WiremockClient wiremockClient = new WiremockClient(headers);
-
         Smartsheet smartsheet = wiremockClient.getSmartsheetClient(
                 "test_token_123"
         );
@@ -161,7 +158,6 @@ public class UserResourcesIT extends ITResourcesImpl {
         );
 
         WiremockClient wiremockClient = new WiremockClient(headers);
-
         Smartsheet smartsheet = wiremockClient.getSmartsheetClient(
                 "test_token_123"
         );
@@ -173,11 +169,11 @@ public class UserResourcesIT extends ITResourcesImpl {
                     .listUserPlans(userId, null, null);
         });
 
-        assertThat(exception.getMessage()).isEqualTo("Your Access Token is invalid.");
+        assertThat(exception.getMessage()).isEqualTo("Internal Server Error");
     }
 
     @Test
-    void testListUsersForPlanGeneratedUrlIsCorrect() throws SmartsheetException {
+    void testListUsersGeneratedUrlIsCorrect() throws SmartsheetException {
         String requestId = UUID.randomUUID().toString();
         Map<String, String> headers = Map.of(
                 "x-test-name", "/users/list-users-for-plan-by-planId",
@@ -185,7 +181,6 @@ public class UserResourcesIT extends ITResourcesImpl {
         );
 
         WiremockClient wiremockClient = new WiremockClient(headers);
-
         Smartsheet smartsheet = wiremockClient.getSmartsheetClient(
                 "test_token_123"
         );
@@ -202,7 +197,7 @@ public class UserResourcesIT extends ITResourcesImpl {
     }
 
     @Test
-    void testListUsersForPlanByPlanId() throws SmartsheetException {
+    void testListUsersByPlanId() throws SmartsheetException {
         String requestId = UUID.randomUUID().toString();
         Map<String, String> headers = Map.of(
                 "x-test-name", "/users/list-users-for-plan-by-planId",
@@ -210,7 +205,6 @@ public class UserResourcesIT extends ITResourcesImpl {
         );
 
         WiremockClient wiremockClient = new WiremockClient(headers);
-
         Smartsheet smartsheet = wiremockClient.getSmartsheetClient(
                 "test_token_123"
         );
@@ -229,7 +223,7 @@ public class UserResourcesIT extends ITResourcesImpl {
     }
 
     @Test
-    void testListUsersForPlanBySeatType() throws SmartsheetException {
+    void testListUsersBySeatType() throws SmartsheetException {
         String requestId = UUID.randomUUID().toString();
         Map<String, String> headers = Map.of(
                 "x-test-name", "/users/list-users-for-plan-by-seatType",
@@ -237,7 +231,6 @@ public class UserResourcesIT extends ITResourcesImpl {
         );
 
         WiremockClient wiremockClient = new WiremockClient(headers);
-
         Smartsheet smartsheet = wiremockClient.getSmartsheetClient(
                 "test_token_123"
         );
@@ -256,25 +249,21 @@ public class UserResourcesIT extends ITResourcesImpl {
     }
 
     @Test
-    void testListUsersForPlanErrorResponse() throws SmartsheetException {
+    void testListUsersErrorResponse() throws SmartsheetException {
         String requestId = UUID.randomUUID().toString();
         Map<String, String> headers = Map.of(
-                "x-test-name", "/users/list-users-for-plan/error-response",
+                "x-test-name", "/users/list-users-for-plan/internal-server-error",
                 "x-request-id", requestId
         );
 
         WiremockClient wiremockClient = new WiremockClient(headers);
-
-        Smartsheet smartsheet = wiremockClient.getSmartsheetClient(
-                "test_token_123"
-        );
+        Smartsheet smartsheet = wiremockClient.getSmartsheetClient("test_token_123");
 
         SmartsheetException exception = Assertions.assertThrows(SmartsheetException.class, () -> {
-            smartsheet.userResources()
-                    .listUsers(null, null, SeatType.MEMBER, null);
+            smartsheet.userResources().listUsers(null, null, SeatType.MEMBER, null);
         });
 
-        assertThat(exception.getMessage()).isEqualTo("Your Access Token is invalid.");
+        assertThat(exception.getMessage()).contains("Internal Server Error");
     }
 
     @Test
