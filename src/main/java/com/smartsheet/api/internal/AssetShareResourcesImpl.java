@@ -25,10 +25,9 @@ import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.util.QueryUtil;
 import com.smartsheet.api.internal.util.Util;
 import com.smartsheet.api.models.CreateShareRequest;
-import com.smartsheet.api.models.PagedResult;
-import com.smartsheet.api.models.PaginationParameters;
 import com.smartsheet.api.models.ShareResponse;
 import com.smartsheet.api.models.UpdateShareRequest;
+import com.smartsheet.api.models.ListAssetSharesResponse;
 
 import java.util.HashMap;
 import java.util.List;
@@ -40,7 +39,7 @@ import java.util.Map;
  * Thread Safety: This class is thread safe because it is immutable and its base class is thread safe.
  */
 public class AssetShareResourcesImpl extends AbstractResources implements AssetShareResources {
-    private static final String SHARES_PATH = "shares/";
+    private static final String SHARES_PATH = "shares";
     private static final String ASSET_ID_PARAM = "assetId";
     private static final String ASSET_TYPE_PARAM = "assetType";
 
@@ -69,17 +68,19 @@ public class AssetShareResourcesImpl extends AbstractResources implements AssetS
      *
      * @param assetId the asset id
      * @param assetType the asset type (e.g. "sheet", "workspace", "report", "sight", "file", "collection")
-     * @param parameters the pagination parameters
-     * @param includeWorkspaceShares include workspace shares in enumeration
+     * @param lastKey lastKey from previous response to get next page of results
+     * @param maxItems The maximum amount of items to return in the response. The default and minimum are 100.
+     * @param sharingInclude defines the scope of the share. Possible values are ITEM or WORKSPACE.
      * @return the shares (note that empty list will be returned if there is none)
      * @throws SmartsheetException the smartsheet exception
      */
     @Override
-    public PagedResult<ShareResponse> listShares(
+    public ListAssetSharesResponse<ShareResponse> listShares(
             String assetId,
             String assetType,
-            PaginationParameters parameters,
-            Boolean includeWorkspaceShares
+            String lastKey,
+            Long maxItems,
+            String sharingInclude
     ) throws SmartsheetException {
         String path = SHARES_PATH;
 
@@ -87,22 +88,21 @@ public class AssetShareResourcesImpl extends AbstractResources implements AssetS
         queryParameters.put(ASSET_ID_PARAM, assetId);
         queryParameters.put(ASSET_TYPE_PARAM, assetType);
 
-        if (parameters != null) {
-            if (parameters.getPageSize() != null) {
-                queryParameters.put("maxItems", parameters.getPageSize());
-            }
-            if (parameters.getPage() != null) {
-                queryParameters.put("lastKey", parameters.getPage());
-            }
+        if (lastKey != null) {
+            queryParameters.put("lastKey", lastKey);
         }
 
-        if (includeWorkspaceShares != null && includeWorkspaceShares) {
-            queryParameters.put("sharingInclude", "WORKSPACE");
+        if (maxItems != null) {
+            queryParameters.put("maxItems", maxItems);
+        }
+
+        if (sharingInclude != null) {
+            queryParameters.put("sharingInclude", sharingInclude);
         }
 
         path += QueryUtil.generateUrl(null, queryParameters);
 
-        return this.listResourcesWithWrapper(path, ShareResponse.class);
+        return this.listAssetSharesWithTokenPagination(path, ShareResponse.class);
     }
 
     /**
@@ -128,7 +128,7 @@ public class AssetShareResourcesImpl extends AbstractResources implements AssetS
      */
     @Override
     public ShareResponse getShare(String shareId, String assetId, String assetType) throws SmartsheetException {
-        String path = SHARES_PATH + shareId;
+        String path = SHARES_PATH + "/" + shareId;
         Map<String, Object> queryParameters = new HashMap<>();
         queryParameters.put(ASSET_ID_PARAM, assetId);
         queryParameters.put(ASSET_TYPE_PARAM, assetType);
@@ -204,7 +204,7 @@ public class AssetShareResourcesImpl extends AbstractResources implements AssetS
             UpdateShareRequest shareRequest
     ) throws SmartsheetException {
         Util.throwIfNull(shareRequest);
-        String path = SHARES_PATH + shareId;
+        String path = SHARES_PATH + "/" + shareId;
         Map<String, Object> queryParameters = new HashMap<>();
         queryParameters.put(ASSET_ID_PARAM, assetId);
         queryParameters.put(ASSET_TYPE_PARAM, assetType);
@@ -233,7 +233,7 @@ public class AssetShareResourcesImpl extends AbstractResources implements AssetS
      */
     @Override
     public void deleteShare(String shareId, String assetId, String assetType) throws SmartsheetException {
-        String path = SHARES_PATH + shareId;
+        String path = SHARES_PATH + "/" + shareId;
         Map<String, Object> queryParameters = new HashMap<>();
         queryParameters.put(ASSET_ID_PARAM, assetId);
         queryParameters.put(ASSET_TYPE_PARAM, assetType);

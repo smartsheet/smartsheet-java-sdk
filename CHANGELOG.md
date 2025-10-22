@@ -11,6 +11,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Add wiremock dependency for testing
 - Add tests for listUsers and listUserPlans methods
 
+## [3.8.0] - 2025-10-14
+### Added
+- Added ListAssetSharesResponse class
+- Added new deserialization methods
+### Updated
+- Updated listShares method for token pagination
+- Fixed tests
+
 ## [3.7.0] - 2025-09-25
 ### Added
 - Support for GET /2.0/users/{userId}/plans
