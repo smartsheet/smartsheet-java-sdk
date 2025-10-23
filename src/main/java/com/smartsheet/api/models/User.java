@@ -35,6 +35,7 @@ public class User extends UserModelWithName {
     private SeatType seatType;
     private ZonedDateTime seatTypeLastChangedAt;
     private Boolean isInternal;
+    private ZonedDateTime provisionalExpirationDate;
 
     public Long getPlanId() {
         return planId;
@@ -58,6 +59,12 @@ public class User extends UserModelWithName {
 
     public void setSeatTypeLastChangedAt(ZonedDateTime seatTypeLastChangedAt) {
         this.seatTypeLastChangedAt = seatTypeLastChangedAt;
+    }
+
+    public ZonedDateTime getProvisionalExpirationDate() { return provisionalExpirationDate; }
+
+    public void setProvisionalExpirationDate(ZonedDateTime provisionalExpirationDate) {
+        this.provisionalExpirationDate = provisionalExpirationDate;
     }
 
     public Boolean getIsInternal() {
