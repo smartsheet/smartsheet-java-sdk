@@ -16,33 +16,20 @@
 
 package com.smartsheet.api.integrationtest;
 
-import com.github.tomakehurst.wiremock.http.QueryParameter;
-import com.github.tomakehurst.wiremock.verification.LoggedRequest;
 import com.smartsheet.api.Smartsheet;
 import com.smartsheet.api.SmartsheetException;
-import com.smartsheet.api.WiremockClient;
-import com.smartsheet.api.WiremockClientWrapper;
 import com.smartsheet.api.models.User;
 import com.smartsheet.api.models.UserProfile;
 import com.smartsheet.api.models.Account;
-import com.smartsheet.api.models.UserPlan;
-import com.smartsheet.api.models.TokenPaginatedResult;
 import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.PaginationParameters;
-import com.smartsheet.api.models.enums.SeatType;
-import com.smartsheet.api.models.enums.UserStatus;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-import java.net.URI;
-import java.util.Map;
-import java.util.UUID;
 import java.util.HashSet;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
