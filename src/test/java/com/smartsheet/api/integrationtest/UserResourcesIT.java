@@ -16,6 +16,7 @@
 
 package com.smartsheet.api.integrationtest;
 
+import com.github.tomakehurst.wiremock.http.QueryParameter;
 import com.github.tomakehurst.wiremock.verification.LoggedRequest;
 import com.smartsheet.api.Smartsheet;
 import com.smartsheet.api.SmartsheetException;
@@ -36,11 +37,8 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.net.URI;
-import java.util.Map;
-import java.util.UUID;
-import java.util.HashSet;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -83,11 +81,12 @@ public class UserResourcesIT extends ITResourcesImpl {
 
         smartsheet.userResources().listUserPlans(userId, lastKey, maxItems);
         LoggedRequest wiremockRequest = wiremockClient.findWiremockRequest(requestId);
-
         String path = URI.create(wiremockRequest.getUrl()).getPath();
-        String queryParams = URI.create(wiremockRequest.getAbsoluteUrl()).getQuery();
+        Map<String, QueryParameter> receivedQueryParams = wiremockRequest.getQueryParams();
+
         assertThat(path).isEqualTo("/2.0/users/12345678/plans");
-        assertThat(queryParams).isEqualTo("maxItems=100&lastKey=abcDefGhIjKlMnOpQrStUvWxYz");
+        assertThat(receivedQueryParams.get("maxItems").getValues()).isEqualTo(List.of(Long.toString(maxItems)));
+        assertThat(receivedQueryParams.get("lastKey").getValues()).isEqualTo(List.of(lastKey));
     }
 
     @Test
@@ -132,7 +131,7 @@ public class UserResourcesIT extends ITResourcesImpl {
     @Test
     void testListUserPlansError500Response() throws SmartsheetException {
         String requestId = UUID.randomUUID().toString();
-        WiremockClientWrapper wrapper = createWiremockSmartsheetClient("/users/error-500-response", requestId);
+        WiremockClientWrapper wrapper = createWiremockSmartsheetClient("/errors/500-response", requestId);
         Smartsheet smartsheet = wrapper.getSmartsheet();
 
         long userId = 1234567890123456L;
@@ -148,7 +147,7 @@ public class UserResourcesIT extends ITResourcesImpl {
     @Test
     void testListUserPlansError400Response() throws SmartsheetException {
         String requestId = UUID.randomUUID().toString();
-        WiremockClientWrapper wrapper = createWiremockSmartsheetClient("/users/error-400-response", requestId);
+        WiremockClientWrapper wrapper = createWiremockSmartsheetClient("/errors/400-response", requestId);
         Smartsheet smartsheet = wrapper.getSmartsheet();
 
         long userId = 1234567890123456L;
@@ -162,29 +161,74 @@ public class UserResourcesIT extends ITResourcesImpl {
     }
 
     @Test
-    void testListUsersGeneratedUrlIsCorrect() throws SmartsheetException {
+    void testListUsersGeneratedUrlIsCorrectIncludeAllTrue() throws SmartsheetException {
         String requestId = UUID.randomUUID().toString();
-        WiremockClientWrapper wrapper = createWiremockSmartsheetClient("/users/list-users-for-plan/required-response-body-properties", requestId);
+        WiremockClientWrapper wrapper = createWiremockSmartsheetClient("/users/list-users/required-response-body-properties", requestId);
         Smartsheet smartsheet = wrapper.getSmartsheet();
         WiremockClient wiremockClient = wrapper.getWiremockClient();
 
+        Set<String> emails = Set.of("test.user@smartsheet.com");
         long planId = 1234567890123456L;
+        SeatType seatType = SeatType.MEMBER;
+        boolean includeAll = true;
 
-        smartsheet.userResources().listUsers(null, planId, null, null);
+        PaginationParameters pagination = new PaginationParameters()
+                .setIncludeAll(includeAll);
+
+        smartsheet.userResources().listUsers(emails, planId, seatType, pagination);
 
         LoggedRequest wiremockRequest = wiremockClient.findWiremockRequest(requestId);
-
         String path = URI.create(wiremockRequest.getUrl()).getPath();
-        String queryParams = URI.create(wiremockRequest.getAbsoluteUrl()).getQuery();
+        Map<String, QueryParameter> receivedQueryParams = wiremockRequest.getQueryParams();
+
         assertThat(path).isEqualTo("/2.0/users");
-        assertThat(queryParams).isEqualTo("planId=" + planId);
+        assertThat(receivedQueryParams.get("seatType").getValues()).isEqualTo(List.of(seatType.toString()));
+        assertThat(receivedQueryParams.get("page")).isNull();
+        assertThat(receivedQueryParams.get("pageSize")).isNull();
+        assertThat(receivedQueryParams.get("includeAll").getValues()).isEqualTo(List.of(Boolean.toString(includeAll)));
+        assertThat(receivedQueryParams.get("email").getValues().size()).isEqualTo(emails.size());
+        assertThat(receivedQueryParams.get("email").getValues().containsAll(emails)).isEqualTo(true);
+    }
+
+    @Test
+    void testListUsersGeneratedUrlIsCorrectIncludeAllFalse() throws SmartsheetException {
+        String requestId = UUID.randomUUID().toString();
+        WiremockClientWrapper wrapper = createWiremockSmartsheetClient("/users/list-users/required-response-body-properties", requestId);
+        Smartsheet smartsheet = wrapper.getSmartsheet();
+        WiremockClient wiremockClient = wrapper.getWiremockClient();
+
+        Set<String> emails = Set.of("test.user@smartsheet.com");
+        long planId = 1234567890123456L;
+        SeatType seatType = SeatType.MEMBER;
+        int page = 1;
+        int pageSize = 100;
+        boolean includeAll = false;
+
+        PaginationParameters pagination = new PaginationParameters()
+                .setPage(page)
+                .setPageSize(pageSize)
+                .setIncludeAll(includeAll);
+
+        smartsheet.userResources().listUsers(emails, planId, seatType, pagination);
+
+        LoggedRequest wiremockRequest = wiremockClient.findWiremockRequest(requestId);
+        String path = URI.create(wiremockRequest.getUrl()).getPath();
+        Map<String, QueryParameter> receivedQueryParams = wiremockRequest.getQueryParams();
+
+        assertThat(path).isEqualTo("/2.0/users");
+        assertThat(receivedQueryParams.get("seatType").getValues()).isEqualTo(List.of(seatType.toString()));
+        assertThat(receivedQueryParams.get("page").getValues()).isEqualTo(List.of(Integer.toString(page)));
+        assertThat(receivedQueryParams.get("pageSize").getValues()).isEqualTo(List.of(Integer.toString(pageSize)));
+        assertThat(receivedQueryParams.get("includeAll")).isNull();
+        assertThat(receivedQueryParams.get("email").getValues().size()).isEqualTo(emails.size());
+        assertThat(receivedQueryParams.get("email").getValues().containsAll(emails)).isEqualTo(true);
     }
 
     @Test
     void testListUsersAllResponseBodyProperties() throws SmartsheetException {
         String requestId = UUID.randomUUID().toString();
         WiremockClientWrapper wrapper = createWiremockSmartsheetClient(
-                "/users/list-users-for-plan/all-response-body-properties",
+                "/users/list-users/all-response-body-properties",
                 requestId
         );
         Smartsheet smartsheet = wrapper.getSmartsheet();
@@ -217,7 +261,7 @@ public class UserResourcesIT extends ITResourcesImpl {
     void testListUsersRequiredResponseBodyProperties() throws SmartsheetException {
         String requestId = UUID.randomUUID().toString();
         WiremockClientWrapper wrapper = createWiremockSmartsheetClient(
-                "/users/list-users-for-plan/required-response-body-properties",
+                "/users/list-users/required-response-body-properties",
                 requestId
         );
         Smartsheet smartsheet = wrapper.getSmartsheet();
@@ -247,7 +291,7 @@ public class UserResourcesIT extends ITResourcesImpl {
     @Test
     void testListUsersError500Response() throws SmartsheetException {
         String requestId = UUID.randomUUID().toString();
-        WiremockClientWrapper wrapper = createWiremockSmartsheetClient("/users/error-500-response", requestId);
+        WiremockClientWrapper wrapper = createWiremockSmartsheetClient("/errors/500-response", requestId);
         Smartsheet smartsheet = wrapper.getSmartsheet();
 
         SmartsheetException exception = Assertions.assertThrows(SmartsheetException.class, () -> {
@@ -260,7 +304,7 @@ public class UserResourcesIT extends ITResourcesImpl {
     @Test
     void testListUsersError400Response() throws SmartsheetException {
         String requestId = UUID.randomUUID().toString();
-        WiremockClientWrapper wrapper = createWiremockSmartsheetClient("/users/error-400-response", requestId);
+        WiremockClientWrapper wrapper = createWiremockSmartsheetClient("/errors/400-response", requestId);
         Smartsheet smartsheet = wrapper.getSmartsheet();
 
         SmartsheetException exception = Assertions.assertThrows(SmartsheetException.class, () -> {
