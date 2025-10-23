@@ -117,7 +117,10 @@ public class UserResourcesIT extends ITResourcesImpl {
     @Test
     void testListUserPlansRequiredResponseBodyProperties() throws SmartsheetException {
         String requestId = UUID.randomUUID().toString();
-        WiremockClientWrapper wrapper = createWiremockSmartsheetClient("/users/list-user-plans/required-response-body-properties", requestId);
+        WiremockClientWrapper wrapper = createWiremockSmartsheetClient(
+                "/users/list-user-plans/required-response-body-properties",
+                requestId
+        );
         Smartsheet smartsheet = wrapper.getSmartsheet();
 
         long userId = 12345678L;
