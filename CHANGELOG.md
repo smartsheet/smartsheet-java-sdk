@@ -6,10 +6,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [x.x.x] - unreleased
 
-## [3.9.0] - 2025-10-21
+## [3.9.0] - unreleased
 ### Added
 - Add wiremock dependency for testing
 - Add tests for listUsers and listUserPlans methods
+- Add provisionalExpirationDate field to the User model
 
 ## [3.8.0] - 2025-10-14
 ### Added
