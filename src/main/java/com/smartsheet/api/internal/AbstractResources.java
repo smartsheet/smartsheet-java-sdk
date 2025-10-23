@@ -38,6 +38,7 @@ import com.smartsheet.api.models.CopyOrMoveRowResult;
 import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.Result;
 import com.smartsheet.api.models.TokenPaginatedResult;
+import com.smartsheet.api.models.ListAssetSharesResponse;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.ContentType;
@@ -572,6 +573,43 @@ public abstract class AbstractResources {
                     obj = this.smartsheet.getJsonSerializer()
                             .deserializeTokenPaginatedResult(objectClass, response.getEntity().getContent());
                 }
+            } else {
+                handleError(response);
+            }
+        } finally {
+            smartsheet.getHttpClient().releaseConnection();
+        }
+
+        return obj;
+    }
+
+    /**
+     * List resources with token-based pagination based on data type class type reference
+     *
+     * @param <T> the generic type of the data items
+     * @param path the relative path of the resource collections
+     * @param objectClass actual data type wrapped in ListAssetSharesResponse
+     * @return the token paginated result
+     * @throws IllegalArgumentException : if any argument is null, or path is empty string
+     * @throws InvalidRequestException : if there is any problem with the REST API request
+     * @throws AuthorizationException : if there is any problem with the REST API authorization(access token)
+     * @throws ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     * @throws SmartsheetException : if there is any other error occurred during the operation
+     */
+    protected <T> ListAssetSharesResponse<T> listAssetSharesWithTokenPagination(String path, Class<T> objectClass)
+            throws SmartsheetException {
+        Util.throwIfNull(path, objectClass);
+        Util.throwIfEmpty(path);
+
+        HttpRequest request = createHttpRequest(smartsheet.getBaseURI().resolve(path), HttpMethod.GET);
+
+        ListAssetSharesResponse<T> obj = null;
+        try {
+            HttpResponse response = this.smartsheet.getHttpClient().request(request);
+            if (response.getStatusCode() == 200) {
+                obj = this.smartsheet.getJsonSerializer()
+                        .listAssetSharesTokenPaginatedResult(objectClass, response.getEntity().getContent());
             } else {
                 handleError(response);
             }

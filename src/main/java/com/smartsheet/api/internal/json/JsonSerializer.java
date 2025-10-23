@@ -25,6 +25,7 @@ import com.smartsheet.api.models.EventResult;
 import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.Result;
 import com.smartsheet.api.models.TokenPaginatedResult;
+import com.smartsheet.api.models.ListAssetSharesResponse;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -242,5 +243,17 @@ public interface JsonSerializer {
      * @throws JSONSerializerException the JSON serializer exception
      */
     <T> TokenPaginatedResult<T> deserializeTokenPaginatedResult(Class<T> objectClass, InputStream inputStream)
+            throws JSONSerializerException;
+
+    /**
+     * De-serialize json to ListAssetSharesResponse using object class type.
+     *
+     * @param <T> the generic type of the data items
+     * @param objectClass the result class type
+     * @param inputStream the input stream
+     * @return the ListAssetSharesResponse containing a list of type T
+     * @throws JSONSerializerException the JSON serializer exception
+     */
+    <T> ListAssetSharesResponse<T> listAssetSharesTokenPaginatedResult(Class<T> objectClass, InputStream inputStream)
             throws JSONSerializerException;
 }
