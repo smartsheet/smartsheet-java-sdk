@@ -26,6 +26,7 @@ public class UserPlan {
     private Long planId;
     private SeatType seatType;
     private ZonedDateTime seatTypeLastChangedAt;
+    private ZonedDateTime provisionalExpirationDate;
     private Boolean isInternal;
 
     public Long getPlanId() {
@@ -50,6 +51,14 @@ public class UserPlan {
 
     public void setSeatTypeLastChangedAt(ZonedDateTime seatTypeLastChangedAt) {
         this.seatTypeLastChangedAt = seatTypeLastChangedAt;
+    }
+
+    public ZonedDateTime getProvisionalExpirationDate() {
+        return provisionalExpirationDate;
+    }
+
+    public void setProvisionalExpirationDate(ZonedDateTime provisionalExpirationDate) {
+        this.provisionalExpirationDate = provisionalExpirationDate;
     }
 
     public Boolean getIsInternal() {
