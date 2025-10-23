@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Add provisionalExpirationDate field to the User model
 - Add wiremock dependency for testing
 - Add tests for listUsers and listUserPlans methods
+- Add provisionalExpirationDate field to the User model
 
 ## [3.8.0] - 2025-10-14
 ### Added
