@@ -31,7 +31,7 @@ import java.util.stream.Collectors;
 
 public class WiremockClient {
     private final DefaultHttpClient client;
-    private static final String BASE_URI = "http://localhost:8080/2.0/";
+    private static final String BASE_URI = "http://localhost:8082/2.0/";
 
     public WiremockClient(Map<String, String> customClientHeaders) {
         List<BasicHeader> headers = customClientHeaders.entrySet().stream()
