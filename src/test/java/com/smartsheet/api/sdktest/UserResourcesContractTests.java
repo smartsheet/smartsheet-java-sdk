@@ -90,6 +90,7 @@ public class UserResourcesContractTests {
         assertThat(response.getData().get(0).getPlanId()).isEqualTo(1234567890123456L);
         assertThat(response.getData().get(0).getSeatType()).isEqualTo(SeatType.MEMBER);
         assertThat(response.getData().get(0).getSeatTypeLastChangedAt()).isEqualTo("2025-01-01T00:00:00.123456789Z");
+        assertThat(response.getData().get(0).getProvisionalExpirationDate()).isEqualTo("2026-12-13T12:17:52.525696Z");
         assertThat(response.getData().get(0).getIsInternal()).isFalse();
     }
 
@@ -227,6 +228,7 @@ public class UserResourcesContractTests {
         assertThat(response).isNotNull();
         assertThat(response.getData().get(0).getSeatType()).isEqualTo(SeatType.MEMBER);
         assertThat(response.getData().get(0).getSeatTypeLastChangedAt()).isEqualTo("2025-06-14T09:55:30Z");
+        assertThat(response.getData().get(0).getProvisionalExpirationDate()).isEqualTo("2026-12-13T12:17:52.525696Z");
         assertThat(response.getData().get(0).getIsInternal()).isEqualTo(true);
         assertThat(response.getData().get(0).getName()).isEqualTo("Test User");
         assertThat(response.getData().get(0).getEmail()).isEqualTo("test.user@smartsheet.com");
