@@ -50,13 +50,6 @@ jobs:
   shared-mock-api-sdk-test:
     runs-on: ubuntu-latest
     timeout-minutes: 5
-    services:
-      wiremock:
-        image: wiremock/wiremock:latest
-        ports:
-          - 8080:8080
-        volumes:
-          - ./smartsheet-sdk-tests/sdk_tests_package/mappings:/home/wiremock/mappings
     steps:
       - uses: actions/checkout@v3
       - name: Set up JDK 11
@@ -69,5 +62,16 @@ jobs:
         with:
           owner: 'smartsheet'
           repository: 'smartsheet-sdk-tests'
+      - name: Copy WireMock mappings
+        run: |
+          mkdir -p /tmp/wiremock-mappings
+          cp -r ./smartsheet-sdk-tests/sdk_tests_package/mappings/* /tmp/wiremock-mappings/
       - name: Run Mock API SDK Tests
         run: ./gradlew clean sdkTest
+    services:
+      wiremock:
+        image: wiremock/wiremock:latest
+        ports:
+          - 8082:8082
+        volumes:
+          - /tmp/wiremock-mappings:/home/wiremock/mappings
