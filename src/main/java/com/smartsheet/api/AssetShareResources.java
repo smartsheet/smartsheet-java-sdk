@@ -17,10 +17,9 @@
 package com.smartsheet.api;
 
 import com.smartsheet.api.models.CreateShareRequest;
-import com.smartsheet.api.models.PagedResult;
-import com.smartsheet.api.models.PaginationParameters;
 import com.smartsheet.api.models.ShareResponse;
 import com.smartsheet.api.models.UpdateShareRequest;
+import com.smartsheet.api.models.ListAssetSharesResponse;
 
 import java.util.List;
 
@@ -39,8 +38,9 @@ public interface AssetShareResources {
      *
      * @param assetId the asset id
      * @param assetType the asset type (e.g. "sheet", "workspace", "report", "sight", "file", "collection")
-     * @param parameters the pagination parameters
-     * @param includeWorkspaceShares include workspace shares in enumeration
+     * @param lastKey lastKey from previous response to get next page of results
+     * @param maxItems The maximum amount of items to return in the response. The default and minimum are 100.
+     * @param sharingInclude defines the scope of the share. Possible values are ITEM or WORKSPACE.
      * @return the list of ShareResponse objects (note that an empty list will be returned if there is none).
      * @throws IllegalArgumentException    if any argument is null or empty string
      * @throws InvalidRequestException     if there is any problem with the REST API request
@@ -49,11 +49,12 @@ public interface AssetShareResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException         if there is any other error during the operation
      */
-    PagedResult<ShareResponse> listShares(
+    ListAssetSharesResponse<ShareResponse> listShares(
             String assetId,
             String assetType,
-            PaginationParameters parameters,
-            Boolean includeWorkspaceShares
+            String lastKey,
+            Long maxItems,
+            String sharingInclude
     ) throws SmartsheetException;
 
     /**

@@ -290,7 +290,6 @@ class UserResourcesImplTest extends ResourcesImplBase {
         server.setResponseBody(new File("src/test/resources/listUsersWithFilters.json"));
 
         Long planId = 123L;
-        List<String> emails = Lists.newArrayList("user1@example.com", "user2@example.com");
         PaginationParameters pagination = new PaginationParameters();
         pagination.setPage(1);
         pagination.setPageSize(100);
