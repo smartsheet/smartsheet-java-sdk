@@ -62,16 +62,9 @@ jobs:
         with:
           owner: 'smartsheet'
           repository: 'smartsheet-sdk-tests'
-      - name: Copy WireMock mappings
+      - name: Setup Mock API
         run: |
-          mkdir -p /tmp/wiremock-mappings
-          cp -r ./smartsheet-sdk-tests/sdk_tests_package/mappings/* /tmp/wiremock-mappings/
+          docker-compose -f smartsheet-sdk-tests/docker-compose.yml up -d
+          sleep 5
       - name: Run Mock API SDK Tests
         run: ./gradlew clean sdkTest
-    services:
-      wiremock:
-        image: wiremock/wiremock:latest
-        ports:
-          - 8082:8082
-        volumes:
-          - /tmp/wiremock-mappings:/home/wiremock/mappings
