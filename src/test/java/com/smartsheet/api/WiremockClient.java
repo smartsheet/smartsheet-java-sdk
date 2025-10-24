@@ -63,6 +63,7 @@ public class WiremockClient {
      * @throws IllegalArgumentException if more than one request is found
      */
     public LoggedRequest findWiremockRequest(String requestId) {
+        WireMock.configureFor(8082);
         List<LoggedRequest> requests = WireMock.findAll(
                 RequestPatternBuilder.newRequestPattern()
                         .withHeader("x-request-id", WireMock.equalTo(requestId))
