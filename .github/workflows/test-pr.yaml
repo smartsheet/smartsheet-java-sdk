@@ -64,7 +64,7 @@ jobs:
           repository: 'smartsheet-sdk-tests'
       - name: Setup Mock API
         run: |
-          docker-compose -f smartsheet-sdk-tests/docker-compose.yml up -d
+          docker compose -f smartsheet-sdk-tests/docker-compose.yml up -d
           sleep 5
       - name: Run Mock API SDK Tests
         run: ./gradlew clean sdkTest
