@@ -40,7 +40,7 @@ import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class WiremockTest {
+public class UserResourcesContractTests {
     private WiremockClientWrapper createWiremockSmartsheetClient(String testName, String requestId) {
         Map<String, String> headers = Map.of(
                 "x-test-name", testName,
