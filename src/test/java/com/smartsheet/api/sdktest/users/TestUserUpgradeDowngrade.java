@@ -34,7 +34,7 @@ import static com.smartsheet.api.sdktest.users.CommonTestConstants.TEST_PLAN_ID;
 import static com.smartsheet.api.sdktest.users.CommonTestConstants.TEST_USER_ID;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class TestListUserUpgradeDowngrade {
+public class TestUserUpgradeDowngrade {
     private WiremockClientWrapper createWiremockSmartsheetClient(String testName, String requestId) {
         Map<String, String> headers = Map.of(
                 "x-test-name", testName,
