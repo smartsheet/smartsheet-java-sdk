@@ -667,11 +667,11 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
      */
     @Override
     public void downgradeUser(long userId, long planId, DowngradeSeatType seatType) throws SmartsheetException {
+        Util.throwIfNull(seatType);
         changeSeatType(seatType.name(), USERS + "/" + userId + PLANS + planId + "/downgrade");
     }
 
     private void changeSeatType(String seatType, String path) throws SmartsheetException {
-        Util.throwIfNull(seatType);
         Map<String, String> body = Map.of("seatType", seatType);
         createResource(path, Result.class, body);
     }
