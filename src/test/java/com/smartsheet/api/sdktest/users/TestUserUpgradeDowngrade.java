@@ -81,6 +81,20 @@ public class TestUserUpgradeDowngrade {
     }
 
     @Test
+    void testUpgradeUserNoSeatType() throws SmartsheetException {
+        String requestId = UUID.randomUUID().toString();
+        WiremockClientWrapper wrapper = createWiremockSmartsheetClient(
+                "/users/upgrade-user/all-response-body-properties",
+                requestId
+        );
+        Smartsheet smartsheet = wrapper.getSmartsheet();
+
+        Assertions.assertDoesNotThrow(() -> {
+            smartsheet.userResources().upgradeUser(TEST_USER_ID, TEST_PLAN_ID, null);
+        });
+    }
+
+    @Test
     void testUpgradeUserError500Response() {
         String requestId = UUID.randomUUID().toString();
         WiremockClientWrapper wrapper = createWiremockSmartsheetClient("/errors/500-response", requestId);
@@ -135,6 +149,20 @@ public class TestUserUpgradeDowngrade {
 
         Assertions.assertDoesNotThrow(() -> {
             smartsheet.userResources().downgradeUser(TEST_USER_ID, TEST_PLAN_ID, TEST_DOWNGRADE_SEAT_TYPE);
+        });
+    }
+
+    @Test
+    void testDowngradeUserNoSeatType() throws SmartsheetException {
+        String requestId = UUID.randomUUID().toString();
+        WiremockClientWrapper wrapper = createWiremockSmartsheetClient(
+                "/users/downgrade-user/all-response-body-properties",
+                requestId
+        );
+        Smartsheet smartsheet = wrapper.getSmartsheet();
+
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            smartsheet.userResources().downgradeUser(TEST_USER_ID, TEST_PLAN_ID, null);
         });
     }
 

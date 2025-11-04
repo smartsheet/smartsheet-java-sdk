@@ -57,6 +57,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.Collections;
 
 /**
  * This is the implementation of the UserResources.
@@ -648,7 +649,10 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
      */
     @Override
     public void upgradeUser(long userId, long planId, UpgradeSeatType seatType) throws SmartsheetException {
-        changeSeatType(seatType.name(), USERS + "/" + userId + PLANS + planId + "/upgrade");
+        if (seatType != null) {
+            changeSeatType(seatType.name(), USERS + "/" + userId + PLANS + planId + "/upgrade");
+        }
+        changeSeatType(null, USERS + "/" + userId + PLANS + planId + "/upgrade");
     }
 
     /**
@@ -672,7 +676,11 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
     }
 
     private void changeSeatType(String seatType, String path) throws SmartsheetException {
-        Map<String, String> body = Map.of("seatType", seatType);
+        Map<String, String> body;
+        if (seatType != null) {
+            body = Map.of("seatType", seatType);
+        }
+        body = Collections.emptyMap();
         createResource(path, Result.class, body);
     }
 
