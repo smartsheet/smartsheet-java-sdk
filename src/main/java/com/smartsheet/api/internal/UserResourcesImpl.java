@@ -651,6 +651,7 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
     public void upgradeUser(long userId, long planId, UpgradeSeatType seatType) throws SmartsheetException {
         if (seatType != null) {
             changeSeatType(seatType.name(), USERS + "/" + userId + PLANS + planId + "/upgrade");
+            return;
         }
         changeSeatType(null, USERS + "/" + userId + PLANS + planId + "/upgrade");
     }
@@ -676,11 +677,10 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
     }
 
     private void changeSeatType(String seatType, String path) throws SmartsheetException {
-        Map<String, String> body;
+        Map<String, String> body = Collections.emptyMap();
         if (seatType != null) {
             body = Map.of("seatType", seatType);
         }
-        body = Collections.emptyMap();
         createResource(path, Result.class, body);
     }
 
