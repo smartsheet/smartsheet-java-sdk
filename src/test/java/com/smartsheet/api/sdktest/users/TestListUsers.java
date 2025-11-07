@@ -40,16 +40,6 @@ import static com.smartsheet.api.sdktest.users.CommonTestConstants.TEST_PLAN_ID;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class TestListUsers {
-    private WiremockClientWrapper createWiremockSmartsheetClient(String testName, String requestId) {
-        Map<String, String> headers = Map.of(
-                "x-test-name", testName,
-                "x-request-id", requestId
-        );
-        WiremockClient wiremockClient = new WiremockClient(headers);
-        Smartsheet smartsheet = wiremockClient.getSmartsheetClient("test_token_123");
-        return new WiremockClientWrapper(smartsheet, wiremockClient);
-    }
-
     private static final Set<String> TEST_EMAILS = Set.of("test.user@smartsheet.com");
     private static final SeatType TEST_SEAT_TYPE = SeatType.MEMBER;
     private static final int TEST_PAGE = 1;
@@ -73,7 +63,7 @@ public class TestListUsers {
     @Test
     void testListUsersGeneratedUrlIsCorrect() throws SmartsheetException {
         String requestId = UUID.randomUUID().toString();
-        WiremockClientWrapper wrapper = createWiremockSmartsheetClient("/users/list-users/required-response-body-properties", requestId);
+        WiremockClientWrapper wrapper = Utils.createWiremockSmartsheetClient("/users/list-users/required-response-body-properties", requestId);
         Smartsheet smartsheet = wrapper.getSmartsheet();
         WiremockClient wiremockClient = wrapper.getWiremockClient();
 
@@ -100,7 +90,7 @@ public class TestListUsers {
     @Test
     void testListUsersAllResponseBodyProperties() throws SmartsheetException {
         String requestId = UUID.randomUUID().toString();
-        WiremockClientWrapper wrapper = createWiremockSmartsheetClient(
+        WiremockClientWrapper wrapper = Utils.createWiremockSmartsheetClient(
                 "/users/list-users/all-response-body-properties",
                 requestId
         );
@@ -132,7 +122,7 @@ public class TestListUsers {
     @Test
     void testListUsersRequiredResponseBodyProperties() throws SmartsheetException {
         String requestId = UUID.randomUUID().toString();
-        WiremockClientWrapper wrapper = createWiremockSmartsheetClient(
+        WiremockClientWrapper wrapper = Utils.createWiremockSmartsheetClient(
                 "/users/list-users/required-response-body-properties",
                 requestId
         );
@@ -161,7 +151,7 @@ public class TestListUsers {
     @Test
     void testListUsersError500Response() throws SmartsheetException {
         String requestId = UUID.randomUUID().toString();
-        WiremockClientWrapper wrapper = createWiremockSmartsheetClient("/errors/500-response", requestId);
+        WiremockClientWrapper wrapper = Utils.createWiremockSmartsheetClient("/errors/500-response", requestId);
         Smartsheet smartsheet = wrapper.getSmartsheet();
 
         SmartsheetException exception = Assertions.assertThrows(SmartsheetException.class, () -> {
@@ -174,7 +164,7 @@ public class TestListUsers {
     @Test
     void testListUsersError400Response() throws SmartsheetException {
         String requestId = UUID.randomUUID().toString();
-        WiremockClientWrapper wrapper = createWiremockSmartsheetClient("/errors/400-response", requestId);
+        WiremockClientWrapper wrapper = Utils.createWiremockSmartsheetClient("/errors/400-response", requestId);
         Smartsheet smartsheet = wrapper.getSmartsheet();
 
         SmartsheetException exception = Assertions.assertThrows(SmartsheetException.class, () -> {

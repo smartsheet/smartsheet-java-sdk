@@ -27,7 +27,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.net.URI;
-import java.util.Map;
 import java.util.UUID;
 
 import static com.smartsheet.api.sdktest.users.CommonTestConstants.TEST_PLAN_ID;
@@ -35,23 +34,15 @@ import static com.smartsheet.api.sdktest.users.CommonTestConstants.TEST_USER_ID;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class TestUserUpgradeDowngrade {
-    private WiremockClientWrapper createWiremockSmartsheetClient(String testName, String requestId) {
-        Map<String, String> headers = Map.of(
-                "x-test-name", testName,
-                "x-request-id", requestId
-        );
-        WiremockClient wiremockClient = new WiremockClient(headers);
-        Smartsheet smartsheet = wiremockClient.getSmartsheetClient("test_token_123");
-        return new WiremockClientWrapper(smartsheet, wiremockClient);
-    }
-
     private static final UpgradeSeatType TEST_UPGRADE_SEAT_TYPE = UpgradeSeatType.MEMBER;
     private static final DowngradeSeatType TEST_DOWNGRADE_SEAT_TYPE = DowngradeSeatType.VIEWER;
+    private static final String TEST_UPGRADE_BODY = "\"seatType\":\"" + TEST_UPGRADE_SEAT_TYPE.name() + "\"";
+    private static final String TEST_DOWNGRADE_BODY = "\"seatType\":\"" + TEST_DOWNGRADE_SEAT_TYPE.name() + "\"";
 
     @Test
     void testUpgradeUserGeneratedUrlIsCorrect() throws SmartsheetException {
         String requestId = UUID.randomUUID().toString();
-        WiremockClientWrapper wrapper = createWiremockSmartsheetClient(
+        WiremockClientWrapper wrapper = Utils.createWiremockSmartsheetClient(
                 "/users/upgrade-user/all-response-body-properties",
                 requestId
         );
@@ -61,29 +52,36 @@ public class TestUserUpgradeDowngrade {
         smartsheet.userResources().upgradeUser(TEST_USER_ID, TEST_PLAN_ID, TEST_UPGRADE_SEAT_TYPE);
         LoggedRequest wiremockRequest = wiremockClient.findWiremockRequest(requestId);
         String path = URI.create(wiremockRequest.getUrl()).getPath();
+        String requestBody = wiremockRequest.getBodyAsString();
 
         assertThat(path).isEqualTo("/2.0/users/" + TEST_USER_ID + "/plans/" + TEST_PLAN_ID + "/upgrade");
         assertThat(wiremockRequest.getMethod().getName()).isEqualTo("POST");
+        assertThat(requestBody).contains(TEST_UPGRADE_BODY);
     }
 
     @Test
     void testUpgradeUserAllResponseBodyProperties() throws SmartsheetException {
         String requestId = UUID.randomUUID().toString();
-        WiremockClientWrapper wrapper = createWiremockSmartsheetClient(
+        WiremockClientWrapper wrapper = Utils.createWiremockSmartsheetClient(
                 "/users/upgrade-user/all-response-body-properties",
                 requestId
         );
         Smartsheet smartsheet = wrapper.getSmartsheet();
+        WiremockClient wiremockClient = wrapper.getWiremockClient();
 
         Assertions.assertDoesNotThrow(() -> {
             smartsheet.userResources().upgradeUser(TEST_USER_ID, TEST_PLAN_ID, TEST_UPGRADE_SEAT_TYPE);
         });
+
+        LoggedRequest wiremockRequest = wiremockClient.findWiremockRequest(requestId);
+        String requestBody = wiremockRequest.getBodyAsString();
+        assertThat(requestBody).contains(TEST_UPGRADE_BODY);
     }
 
     @Test
     void testUpgradeUserNoSeatType() throws SmartsheetException {
         String requestId = UUID.randomUUID().toString();
-        WiremockClientWrapper wrapper = createWiremockSmartsheetClient(
+        WiremockClientWrapper wrapper = Utils.createWiremockSmartsheetClient(
                 "/users/upgrade-user/all-response-body-properties",
                 requestId
         );
@@ -97,7 +95,7 @@ public class TestUserUpgradeDowngrade {
     @Test
     void testUpgradeUserError500Response() {
         String requestId = UUID.randomUUID().toString();
-        WiremockClientWrapper wrapper = createWiremockSmartsheetClient("/errors/500-response", requestId);
+        WiremockClientWrapper wrapper = Utils.createWiremockSmartsheetClient("/errors/500-response", requestId);
         Smartsheet smartsheet = wrapper.getSmartsheet();
 
         SmartsheetException exception = Assertions.assertThrows(SmartsheetException.class, () -> {
@@ -110,7 +108,7 @@ public class TestUserUpgradeDowngrade {
     @Test
     void testUpgradeUserError400Response() {
         String requestId = UUID.randomUUID().toString();
-        WiremockClientWrapper wrapper = createWiremockSmartsheetClient("/errors/400-response", requestId);
+        WiremockClientWrapper wrapper = Utils.createWiremockSmartsheetClient("/errors/400-response", requestId);
         Smartsheet smartsheet = wrapper.getSmartsheet();
 
         SmartsheetException exception = Assertions.assertThrows(SmartsheetException.class, () -> {
@@ -123,7 +121,7 @@ public class TestUserUpgradeDowngrade {
     @Test
     void testDowngradeUserGeneratedUrlIsCorrect() throws SmartsheetException {
         String requestId = UUID.randomUUID().toString();
-        WiremockClientWrapper wrapper = createWiremockSmartsheetClient(
+        WiremockClientWrapper wrapper = Utils.createWiremockSmartsheetClient(
                 "/users/downgrade-user/all-response-body-properties",
                 requestId
         );
@@ -133,29 +131,36 @@ public class TestUserUpgradeDowngrade {
         smartsheet.userResources().downgradeUser(TEST_USER_ID, TEST_PLAN_ID, TEST_DOWNGRADE_SEAT_TYPE);
         LoggedRequest wiremockRequest = wiremockClient.findWiremockRequest(requestId);
         String path = URI.create(wiremockRequest.getUrl()).getPath();
+        String requestBody = wiremockRequest.getBodyAsString();
 
         assertThat(path).isEqualTo("/2.0/users/" + TEST_USER_ID + "/plans/" + TEST_PLAN_ID + "/downgrade");
         assertThat(wiremockRequest.getMethod().getName()).isEqualTo("POST");
+        assertThat(requestBody).contains(TEST_DOWNGRADE_BODY);
     }
 
     @Test
     void testDowngradeUserAllResponseBodyProperties() throws SmartsheetException {
         String requestId = UUID.randomUUID().toString();
-        WiremockClientWrapper wrapper = createWiremockSmartsheetClient(
+        WiremockClientWrapper wrapper = Utils.createWiremockSmartsheetClient(
                 "/users/downgrade-user/all-response-body-properties",
                 requestId
         );
         Smartsheet smartsheet = wrapper.getSmartsheet();
+        WiremockClient wiremockClient = wrapper.getWiremockClient();
 
         Assertions.assertDoesNotThrow(() -> {
             smartsheet.userResources().downgradeUser(TEST_USER_ID, TEST_PLAN_ID, TEST_DOWNGRADE_SEAT_TYPE);
         });
+
+        LoggedRequest wiremockRequest = wiremockClient.findWiremockRequest(requestId);
+        String requestBody = wiremockRequest.getBodyAsString();
+        assertThat(requestBody).contains(TEST_DOWNGRADE_BODY);
     }
 
     @Test
     void testDowngradeUserNoSeatType() throws SmartsheetException {
         String requestId = UUID.randomUUID().toString();
-        WiremockClientWrapper wrapper = createWiremockSmartsheetClient(
+        WiremockClientWrapper wrapper = Utils.createWiremockSmartsheetClient(
                 "/users/downgrade-user/all-response-body-properties",
                 requestId
         );
@@ -169,7 +174,7 @@ public class TestUserUpgradeDowngrade {
     @Test
     void testDowngradeUserError500Response() {
         String requestId = UUID.randomUUID().toString();
-        WiremockClientWrapper wrapper = createWiremockSmartsheetClient("/errors/500-response", requestId);
+        WiremockClientWrapper wrapper = Utils.createWiremockSmartsheetClient("/errors/500-response", requestId);
         Smartsheet smartsheet = wrapper.getSmartsheet();
 
         SmartsheetException exception = Assertions.assertThrows(SmartsheetException.class, () -> {
@@ -182,7 +187,7 @@ public class TestUserUpgradeDowngrade {
     @Test
     void testDowngradeUserError400Response() {
         String requestId = UUID.randomUUID().toString();
-        WiremockClientWrapper wrapper = createWiremockSmartsheetClient("/errors/400-response", requestId);
+        WiremockClientWrapper wrapper = Utils.createWiremockSmartsheetClient("/errors/400-response", requestId);
         Smartsheet smartsheet = wrapper.getSmartsheet();
 
         SmartsheetException exception = Assertions.assertThrows(SmartsheetException.class, () -> {
