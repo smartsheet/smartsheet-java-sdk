@@ -16,6 +16,8 @@
 
 package com.smartsheet.api.sdktest.users;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.tomakehurst.wiremock.verification.LoggedRequest;
 import com.smartsheet.api.Smartsheet;
 import com.smartsheet.api.SmartsheetException;
@@ -27,6 +29,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.net.URI;
+import java.util.Map;
 import java.util.UUID;
 
 import static com.smartsheet.api.sdktest.users.CommonTestConstants.TEST_PLAN_ID;
@@ -36,11 +39,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class TestUserUpgradeDowngrade {
     private static final UpgradeSeatType TEST_UPGRADE_SEAT_TYPE = UpgradeSeatType.MEMBER;
     private static final DowngradeSeatType TEST_DOWNGRADE_SEAT_TYPE = DowngradeSeatType.VIEWER;
-    private static final String TEST_UPGRADE_BODY = "\"seatType\":\"" + TEST_UPGRADE_SEAT_TYPE.name() + "\"";
-    private static final String TEST_DOWNGRADE_BODY = "\"seatType\":\"" + TEST_DOWNGRADE_SEAT_TYPE.name() + "\"";
+    private static final Map<String, Object> TEST_UPGRADE_BODY = Map.of("seatType", TEST_UPGRADE_SEAT_TYPE.name());
+    private static final Map<String, Object> TEST_DOWNGRADE_BODY = Map.of("seatType", TEST_DOWNGRADE_SEAT_TYPE.name());
 
     @Test
-    void testUpgradeUserGeneratedUrlIsCorrect() throws SmartsheetException {
+    void testUpgradeUserGeneratedUrlIsCorrect() throws SmartsheetException, JsonProcessingException {
         String requestId = UUID.randomUUID().toString();
         WiremockClientWrapper wrapper = Utils.createWiremockSmartsheetClient(
                 "/users/upgrade-user/all-response-body-properties",
@@ -54,13 +57,16 @@ public class TestUserUpgradeDowngrade {
         String path = URI.create(wiremockRequest.getUrl()).getPath();
         String requestBody = wiremockRequest.getBodyAsString();
 
+        ObjectMapper objectMapper = new ObjectMapper();
+        Map<String, Object> requestBodyMap = objectMapper.readValue(requestBody, Map.class);
+
         assertThat(path).isEqualTo("/2.0/users/" + TEST_USER_ID + "/plans/" + TEST_PLAN_ID + "/upgrade");
         assertThat(wiremockRequest.getMethod().getName()).isEqualTo("POST");
-        assertThat(requestBody).contains(TEST_UPGRADE_BODY);
+        assertThat(requestBodyMap).isEqualTo(TEST_UPGRADE_BODY);
     }
 
     @Test
-    void testUpgradeUserAllResponseBodyProperties() throws SmartsheetException {
+    void testUpgradeUserAllResponseBodyProperties() throws SmartsheetException, JsonProcessingException {
         String requestId = UUID.randomUUID().toString();
         WiremockClientWrapper wrapper = Utils.createWiremockSmartsheetClient(
                 "/users/upgrade-user/all-response-body-properties",
@@ -75,7 +81,10 @@ public class TestUserUpgradeDowngrade {
 
         LoggedRequest wiremockRequest = wiremockClient.findWiremockRequest(requestId);
         String requestBody = wiremockRequest.getBodyAsString();
-        assertThat(requestBody).contains(TEST_UPGRADE_BODY);
+        ObjectMapper objectMapper = new ObjectMapper();
+        Map<String, Object> requestBodyMap = objectMapper.readValue(requestBody, Map.class);
+
+        assertThat(requestBodyMap).isEqualTo(TEST_UPGRADE_BODY);
     }
 
     @Test
@@ -102,7 +111,7 @@ public class TestUserUpgradeDowngrade {
             smartsheet.userResources().upgradeUser(TEST_USER_ID, TEST_PLAN_ID, TEST_UPGRADE_SEAT_TYPE);
         });
 
-        assertThat(exception.getMessage()).contains("Internal Server Error");
+        assertThat(exception.getMessage()).isEqualTo("Internal Server Error");
     }
 
     @Test
@@ -115,11 +124,11 @@ public class TestUserUpgradeDowngrade {
             smartsheet.userResources().upgradeUser(TEST_USER_ID, TEST_PLAN_ID, TEST_UPGRADE_SEAT_TYPE);
         });
 
-        assertThat(exception.getMessage()).contains("Malformed Request");
+        assertThat(exception.getMessage()).isEqualTo("Malformed Request");
     }
 
     @Test
-    void testDowngradeUserGeneratedUrlIsCorrect() throws SmartsheetException {
+    void testDowngradeUserGeneratedUrlIsCorrect() throws SmartsheetException, JsonProcessingException {
         String requestId = UUID.randomUUID().toString();
         WiremockClientWrapper wrapper = Utils.createWiremockSmartsheetClient(
                 "/users/downgrade-user/all-response-body-properties",
@@ -132,14 +141,17 @@ public class TestUserUpgradeDowngrade {
         LoggedRequest wiremockRequest = wiremockClient.findWiremockRequest(requestId);
         String path = URI.create(wiremockRequest.getUrl()).getPath();
         String requestBody = wiremockRequest.getBodyAsString();
+        ObjectMapper objectMapper = new ObjectMapper();
+        Map<String, Object> requestBodyMap = objectMapper.readValue(requestBody, Map.class);
 
         assertThat(path).isEqualTo("/2.0/users/" + TEST_USER_ID + "/plans/" + TEST_PLAN_ID + "/downgrade");
         assertThat(wiremockRequest.getMethod().getName()).isEqualTo("POST");
-        assertThat(requestBody).contains(TEST_DOWNGRADE_BODY);
+
+        assertThat(requestBodyMap).isEqualTo(TEST_DOWNGRADE_BODY);
     }
 
     @Test
-    void testDowngradeUserAllResponseBodyProperties() throws SmartsheetException {
+    void testDowngradeUserAllResponseBodyProperties() throws SmartsheetException, JsonProcessingException {
         String requestId = UUID.randomUUID().toString();
         WiremockClientWrapper wrapper = Utils.createWiremockSmartsheetClient(
                 "/users/downgrade-user/all-response-body-properties",
@@ -154,7 +166,10 @@ public class TestUserUpgradeDowngrade {
 
         LoggedRequest wiremockRequest = wiremockClient.findWiremockRequest(requestId);
         String requestBody = wiremockRequest.getBodyAsString();
-        assertThat(requestBody).contains(TEST_DOWNGRADE_BODY);
+        ObjectMapper objectMapper = new ObjectMapper();
+        Map<String, Object> requestBodyMap = objectMapper.readValue(requestBody, Map.class);
+
+        assertThat(requestBodyMap).isEqualTo(TEST_DOWNGRADE_BODY);
     }
 
     @Test
@@ -181,7 +196,7 @@ public class TestUserUpgradeDowngrade {
             smartsheet.userResources().downgradeUser(TEST_USER_ID, TEST_PLAN_ID, TEST_DOWNGRADE_SEAT_TYPE);
         });
 
-        assertThat(exception.getMessage()).contains("Internal Server Error");
+        assertThat(exception.getMessage()).isEqualTo("Internal Server Error");
     }
 
     @Test
@@ -194,6 +209,6 @@ public class TestUserUpgradeDowngrade {
             smartsheet.userResources().downgradeUser(TEST_USER_ID, TEST_PLAN_ID, TEST_DOWNGRADE_SEAT_TYPE);
         });
 
-        assertThat(exception.getMessage()).contains("Malformed Request");
+        assertThat(exception.getMessage()).isEqualTo("Malformed Request");
     }
 }
