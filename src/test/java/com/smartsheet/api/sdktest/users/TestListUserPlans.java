@@ -47,7 +47,10 @@ public class TestListUserPlans {
     @Test
     void testListUserPlansGeneratedUrlIsCorrect() throws SmartsheetException {
         String requestId = UUID.randomUUID().toString();
-        WiremockClientWrapper wrapper = Utils.createWiremockSmartsheetClient("/users/list-user-plans/all-response-body-properties", requestId);
+        WiremockClientWrapper wrapper = Utils.createWiremockSmartsheetClient(
+                "/users/list-user-plans/all-response-body-properties",
+                requestId
+        );
         Smartsheet smartsheet = wrapper.getSmartsheet();
         WiremockClient wiremockClient = wrapper.getWiremockClient();
 
@@ -64,7 +67,10 @@ public class TestListUserPlans {
     @Test
     void testListUserPlansAllResponseBodyProperties() throws SmartsheetException {
         String requestId = UUID.randomUUID().toString();
-        WiremockClientWrapper wrapper = Utils.createWiremockSmartsheetClient("/users/list-user-plans/all-response-body-properties", requestId);
+        WiremockClientWrapper wrapper = Utils.createWiremockSmartsheetClient(
+                "/users/list-user-plans/all-response-body-properties",
+                requestId
+        );
         Smartsheet smartsheet = wrapper.getSmartsheet();
 
         TokenPaginatedResult<UserPlan> response = smartsheet.userResources()

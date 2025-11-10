@@ -63,7 +63,10 @@ public class TestListUsers {
     @Test
     void testListUsersGeneratedUrlIsCorrect() throws SmartsheetException {
         String requestId = UUID.randomUUID().toString();
-        WiremockClientWrapper wrapper = Utils.createWiremockSmartsheetClient("/users/list-users/required-response-body-properties", requestId);
+        WiremockClientWrapper wrapper = Utils.createWiremockSmartsheetClient(
+                "/users/list-users/required-response-body-properties",
+                requestId
+        );
         Smartsheet smartsheet = wrapper.getSmartsheet();
         WiremockClient wiremockClient = wrapper.getWiremockClient();
 
