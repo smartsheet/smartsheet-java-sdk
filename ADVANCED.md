@@ -94,11 +94,9 @@ Common test cases use catch-all path patterns (e.g., /errors/500-response).
 
 We use two custom headers:
 
-x-test-name:
-Used for exact mapping match, allowing different mock responses for the same HTTP method and endpoint.
+- x-test-name: Used for exact mapping match, allowing different mock responses for the same HTTP method and endpoint.
 
-x-request-id:
-A UUID generated for each request, used to verify request URLs and search for requests in WireMock admin history.
+- x-request-id: A UUID generated for each request, used to verify request URLs and search for requests in WireMock admin history.
 
 To run the mock API tests:
 1. Clone the [smartsheet-sdk-tests](https://github.com/smartsheet/smartsheet-sdk-tests) repo and follow the 
@@ -107,7 +105,7 @@ instructions from the readme to start the mock server.
 
 To add new mock API tests:
 
-1. Add a WireMock Mapping (JSON) in the smartsheet-sdk-tests repo:
+1. Add a WireMock Mapping (JSON) in the [smartsheet-sdk-tests](https://github.com/smartsheet/smartsheet-sdk-tests):
 ```json
 {
   "request": {
@@ -148,9 +146,9 @@ To add new mock API tests:
 ```
 2. Write a Test in the SDK:
 
-Always use x-test-name to target specific mock responses.
-Use x-request-id for traceability in WireMock admin.
-Keep mappings in the smartsheet-sdk-tests repository organized and descriptive
+- Always use x-test-name to target specific mock responses.
+- Use x-request-id for traceability in WireMock admin.
+- Keep mappings in the smartsheet-sdk-tests repository organized and descriptive
 
 ```java
 @Test
