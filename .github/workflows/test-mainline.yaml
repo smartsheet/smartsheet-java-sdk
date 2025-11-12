@@ -39,7 +39,6 @@ jobs:
           repository: 'smartsheet-sdk-tests'
       - name: Setup Mock API
         run: |
-          smartsheet-sdk-tests/ci_scripts/install_wiremock.sh
-          smartsheet-sdk-tests/ci_scripts/start_wiremock.sh
+          docker compose -f smartsheet-sdk-tests/docker-compose.yml up -d --wait
       - name: Run Mock API SDK Tests
         run: ./gradlew clean sdkTest
