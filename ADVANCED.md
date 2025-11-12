@@ -108,7 +108,7 @@ instructions from the readme to start the mock server.
 To add new mock API tests:
 
 1. Add a WireMock Mapping (JSON) in the smartsheet-sdk-tests repo:
-```
+```json
 {
   "request": {
     "urlPathTemplate": "/2.0/users/{userId}/plans",
@@ -152,7 +152,7 @@ Always use x-test-name to target specific mock responses.
 Use x-request-id for traceability in WireMock admin.
 Keep mappings in the smartsheet-sdk-tests repository organized and descriptive
 
-```
+```java
 @Test
     void testListUserPlansAllResponseBodyProperties() throws SmartsheetException {
         String requestId = UUID.randomUUID().toString();
