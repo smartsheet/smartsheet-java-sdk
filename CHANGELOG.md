@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - WireMock integration tests for contract testing for DELETE /2.0/users/{userId}/plans/{planId} endpoint
 - Add provisionalExpirationDate field to the User model
 - Add provisionalExpirationDate field to the UserPlan model
+- Remove integration tests from the sdk test suite and workflows
 ### Updated
 - Folder structure for the Users related WireMock tests
 
