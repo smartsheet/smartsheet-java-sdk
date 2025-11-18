@@ -61,7 +61,9 @@ public class User extends UserModelWithName {
         this.seatTypeLastChangedAt = seatTypeLastChangedAt;
     }
 
-    public ZonedDateTime getProvisionalExpirationDate() { return provisionalExpirationDate; }
+    public ZonedDateTime getProvisionalExpirationDate() {
+        return provisionalExpirationDate;
+    }
 
     public void setProvisionalExpirationDate(ZonedDateTime provisionalExpirationDate) {
         this.provisionalExpirationDate = provisionalExpirationDate;

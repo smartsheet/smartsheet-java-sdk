@@ -54,7 +54,7 @@ public class TestListUsers {
     private static final boolean TEST_GROUP_ADMIN = true;
     private static final UserStatus TEST_STATUS = UserStatus.ACTIVE;
     private static final int TEST_SHEET_COUNT = -1;
-    private static final String TEST_SEAT_TYPE_LAST_CHANGED_AT = "2025-06-14T09:55:30Z";
+    private static final String TEST_SEAT_TYPE_LAST_CHANGED_AT = "2025-01-01T00:00:00.123456789Z";
     private static final String TEST_PROVISIONAL_EXPIRATION_DATE = "2026-12-13T12:17:52.525696Z";
     private static final boolean TEST_IS_INTERNAL_TRUE = true;
     private static final String TEST_LAST_LOGIN = "2020-10-04T18:32:47Z";
