@@ -295,6 +295,44 @@ public interface UserResources {
     void deleteUser(long id, DeleteUserParameters parameters) throws SmartsheetException;
 
     /**
+     * <p>Reactivates a user.</p>
+     *
+     * <p>Reactivates the user associated with the current Smartsheet plan, restoring the user's access to
+     * Smartsheet, owned items, and shared items.</p>
+     *
+     * <p>Important: You can reactivate the user only if that user has been deactivated for less than thirty (30) days.</p>
+     *
+     * <p>It mirrors to the following Smartsheet REST API method: POST /users/{userId}/reactivate</p>
+     *
+     * @param id the id of the user to reactivate
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request (e.g., user email belongs to ISP domain)
+     * @throws AuthorizationException      if there is any problem with the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetException         if there is any other error during the operation
+     */
+    void reactivateUser(long id) throws SmartsheetException;
+
+    /**
+     * <p>Deactivates a user.</p>
+     *
+     * <p>Deactivates the user associated with the current Smartsheet plan, blocking the user from using Smartsheet in any way.
+     * Deactivating a user does not affect their existing permissions on owned or shared items.</p>
+     *
+     * <p>It mirrors to the following Smartsheet REST API method: POST /users/{userId}/deactivate</p>
+     *
+     * @param id the id of the user to deactivate
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request (e.g., user email belongs to ISP domain or user is managed by external source)
+     * @throws AuthorizationException      if there is any problem with the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetException         if there is any other error during the operation
+     */
+    void deactivateUser(long id) throws SmartsheetException;
+
+    /**
      * <p>List all organisation sheets.</p>
      *
      * <p>It mirrors to the following Smartsheet REST API method: GET /users/sheets</p>

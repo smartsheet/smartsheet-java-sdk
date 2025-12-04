@@ -12,6 +12,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Add provisionalExpirationDate field to the User model
 - Add provisionalExpirationDate field to the UserPlan model
 - Remove integration tests from the sdk test suite and workflows
+- Support for POST /2.0/users/{userId}/reactivate endpoint
+- Support for POST /2.0/users/{userId}/deactivate endpoint
 ### Updated
 - Folder structure for the Users related WireMock tests
 
