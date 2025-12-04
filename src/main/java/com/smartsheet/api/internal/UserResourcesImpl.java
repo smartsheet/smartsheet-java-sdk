@@ -695,7 +695,6 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
      * <p>It mirrors to the following Smartsheet REST API method: POST /users/{userId}/reactivate</p>
      *
      * @param userId the id of the user to reactivate
-     * @return the result object
      * @throws IllegalArgumentException    if any argument is null or empty string
      * @throws InvalidRequestException     if there is any problem with the REST API request (e.g., user email belongs to ISP domain)
      * @throws AuthorizationException      if there is any problem with the REST API authorization (access token)
@@ -717,7 +716,6 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
      * <p>It mirrors to the following Smartsheet REST API method: POST /users/{userId}/deactivate</p>
      *
      * @param userId the id of the user to deactivate
-     * @return the result object
      * @throws IllegalArgumentException    if any argument is null or empty string
      * @throws InvalidRequestException     if there is any problem with the REST API request (e.g., user email belongs to ISP domain or user is managed by external source)
      * @throws AuthorizationException      if there is any problem with the REST API authorization (access token)
