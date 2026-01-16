@@ -313,4 +313,8 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
     public ShareResources shareResources() {
         return this.shares;
     }
+
+    public void deleteReport(long id) throws SmartsheetException {
+        this.deleteResource(REPORTS_PATH + id, Report.class);
+    }
 }
