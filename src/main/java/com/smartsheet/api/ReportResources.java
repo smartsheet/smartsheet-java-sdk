@@ -220,15 +220,11 @@ public interface ReportResources {
     ShareResources shareResources();
 
     /**
-     * <p>Delete a report.</p>
+     * <p>Deletes a report.</p>
      *
-     * <p>It mirrors to the following Smartsheet REST API method: DELETE /report{id}</p>
-     * <p>
-     * Parameters: - id : the ID of the report
-     * <p>
-     * Returns: None
+     * <p>Mirrors the following Smartsheet REST API method: DELETE /reports/{reportId}</p>
      *
-     * @param id the id
+     * @param id the id of the report
      * @throws IllegalArgumentException    if any argument is null or empty string
      * @throws InvalidRequestException     if there is any problem with the REST API request
      * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
