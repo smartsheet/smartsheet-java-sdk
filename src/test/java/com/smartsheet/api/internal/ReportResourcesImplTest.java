@@ -133,7 +133,7 @@ class ReportResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    void testDeleteReport() throws ShartsheetException, IOException {
+    void testDeleteReport() throws IOException {
         server.setResponseBody(new File("src/test/resources/deleteReport.json"));
         assertThatCode(() -> reportResources.deleteReport(1122334L)).doesNotThrowAnyException();
     }
