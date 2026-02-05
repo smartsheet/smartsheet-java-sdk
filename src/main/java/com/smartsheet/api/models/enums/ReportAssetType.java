@@ -14,12 +14,19 @@
  * limitations under the License.
  */
 
-package com.smartsheet.api.sdktest.users;
+package com.smartsheet.api.models.enums;
 
-public class CommonTestConstants {
-    public static final long TEST_USER_ID = 1234567890L;
-    public static final long TEST_PLAN_ID = 1234567890123456L;
-    public static final long TEST_SHEET_ID = 9876543210L;
-    public static final long TEST_WORKSPACE_ID = 1122334455L;
-    public static final long TEST_REPORT_ID = 2233445566L;
+/**
+ * Represents the type of asset that is included in the report.
+ */
+public enum ReportAssetType {
+    /**
+     * A sheet that is included in the report.
+     */
+    SHEET,
+
+    /**
+     * A workspace that is included in the report.
+     */
+    WORKSPACE,
 }
