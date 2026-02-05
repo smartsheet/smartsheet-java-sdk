@@ -28,5 +28,5 @@ public enum ReportAssetType {
     /**
      * A workspace that is included in the report.
      */
-    WORKSPACE,
+    WORKSPACE
 }

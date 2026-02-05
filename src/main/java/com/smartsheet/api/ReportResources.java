@@ -225,7 +225,8 @@ public interface ReportResources {
      * <p>Adds one or more specified sheet or workspace to the report scope.</p>
      *
      * @param id            the ID of the report
-     * @param scopes   A list of one or more objects denoting the sheets or workspaces associated with the report to be added to the report scope.
+     * @param scopes   A list of one or more objects denoting the sheets or workspaces associated with
+     *                 the report to be added to the report scope.
      *
      * @throws IllegalArgumentException    if any argument is null or empty string
      * @throws InvalidRequestException     if there is any problem with the REST API request
@@ -234,13 +235,14 @@ public interface ReportResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException         if there is any other error during the operation
      */
-    void AddReportScope(long id, List<ReportScopeInclusion> scopes) throws SmartsheetException;
+    void addReportScope(long id, List<ReportScopeInclusion> scopes) throws SmartsheetException;
 
     /**
      * <p>Removes one or more specified sheet or workspace from the report scope.</p>
      *
      * @param id                the ID of the report
-     * @param scopes    A list of one or more objects denoting the sheets or workspaces associated with the report to be removed from the report scope.
+     * @param scopes    A list of one or more objects denoting the sheets or workspaces associated with
+     *                  the report to be removed from the report scope.
      *
      * @throws IllegalArgumentException    if any argument is null or empty string
      * @throws InvalidRequestException     if there is any problem with the REST API request
@@ -249,5 +251,5 @@ public interface ReportResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException         if there is any other error during the operation
      */
-    void RemoveReportScope(long id, List<ReportScopeInclusion> scopes) throws SmartsheetException;
+    void removeReportScope(long id, List<ReportScopeInclusion> scopes) throws SmartsheetException;
 }

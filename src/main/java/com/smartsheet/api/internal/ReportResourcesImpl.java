@@ -338,7 +338,7 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
      * @throws SmartsheetException         if there is any other error during the operation
      */
     @Override
-    public void AddReportScope(long id, List<ReportScopeInclusion> scopes) throws SmartsheetException {
+    public void addReportScope(long id, List<ReportScopeInclusion> scopes) throws SmartsheetException {
         Util.throwIfNull(scopes);
 
         if (scopes.isEmpty()) {
@@ -372,7 +372,7 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
      * @throws SmartsheetException         if there is any other error during the operation
      */
     @Override
-    public void RemoveReportScope(long id, List<ReportScopeInclusion> scopes) throws SmartsheetException {
+    public void removeReportScope(long id, List<ReportScopeInclusion> scopes) throws SmartsheetException {
         Util.throwIfNull(scopes);
 
         if (scopes.isEmpty()) {

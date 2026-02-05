@@ -46,7 +46,7 @@ public class TestRemoveReportScope {
         Smartsheet smartsheet = wrapper.getSmartsheet();
         WiremockClient wiremockClient = wrapper.getWiremockClient();
 
-        smartsheet.reportResources().RemoveReportScope(TEST_REPORT_ID, testScopes);
+        smartsheet.reportResources().removeReportScope(TEST_REPORT_ID, testScopes);
         LoggedRequest wiremockRequest = wiremockClient.findWiremockRequest(requestId);
         String path = URI.create(wiremockRequest.getUrl()).getPath();
 
@@ -64,7 +64,7 @@ public class TestRemoveReportScope {
         Smartsheet smartsheet = wrapper.getSmartsheet();
 
         Assertions.assertDoesNotThrow(() -> {
-            smartsheet.reportResources().RemoveReportScope(TEST_REPORT_ID, testScopes);
+            smartsheet.reportResources().removeReportScope(TEST_REPORT_ID, testScopes);
         });
     }
 
@@ -78,11 +78,11 @@ public class TestRemoveReportScope {
         Smartsheet smartsheet = wrapper.getSmartsheet();
 
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            smartsheet.reportResources().RemoveReportScope(TEST_REPORT_ID, null);
+            smartsheet.reportResources().removeReportScope(TEST_REPORT_ID, null);
         });
 
         IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            smartsheet.reportResources().RemoveReportScope(TEST_REPORT_ID, new ArrayList<>());
+            smartsheet.reportResources().removeReportScope(TEST_REPORT_ID, new ArrayList<>());
         });
         assertThat(exception.getMessage()).isEqualTo("scopes should not be empty.");
     }
@@ -94,7 +94,7 @@ public class TestRemoveReportScope {
         Smartsheet smartsheet = wrapper.getSmartsheet();
 
         SmartsheetException exception = Assertions.assertThrows(SmartsheetException.class, () -> {
-            smartsheet.reportResources().RemoveReportScope(TEST_REPORT_ID, testScopes);
+            smartsheet.reportResources().removeReportScope(TEST_REPORT_ID, testScopes);
         });
 
         assertThat(exception.getMessage()).isEqualTo("Internal Server Error");
@@ -107,7 +107,7 @@ public class TestRemoveReportScope {
         Smartsheet smartsheet = wrapper.getSmartsheet();
 
         SmartsheetException exception = Assertions.assertThrows(SmartsheetException.class, () -> {
-            smartsheet.reportResources().RemoveReportScope(TEST_REPORT_ID, testScopes);
+            smartsheet.reportResources().removeReportScope(TEST_REPORT_ID, testScopes);
         });
 
         assertThat(exception.getMessage()).isEqualTo("Malformed Request");
