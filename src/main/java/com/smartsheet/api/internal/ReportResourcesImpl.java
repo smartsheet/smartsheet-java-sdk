@@ -329,7 +329,8 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
      * <p>Adds one or more specified sheet or workspace to the report scope.</p>
      *
      * @param id          the ID of the report
-     * @param scopes A list of one or more objects denoting the sheets or workspaces associated with the report to be added to the report scope.
+     * @param scopes A list of one or more objects denoting the sheets or workspaces associated with
+     *               the report to be added to the report scope.
      * @throws IllegalArgumentException    if any argument is null or empty
      * @throws InvalidRequestException     if there is any problem with the REST API request
      * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
@@ -345,7 +346,7 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
             throw new IllegalArgumentException("scopes should not be empty.");
         }
 
-        String path = "reports/" + id + "/scope";
+        String path = REPORTS_PATH + id + "/scope";
         HttpRequest request = createHttpRequest(smartsheet.getBaseURI().resolve(path), HttpMethod.POST);
         setRequestEntity(request, scopes);
 
@@ -363,7 +364,8 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
      * <p>Removes one or more specified sheet or workspace from the report scope.</p>
      *
      * @param id             the ID of the report
-     * @param scopes A list of one or more objects denoting the sheets or workspaces associated with the report to be removed from the report scope.
+     * @param scopes A list of one or more objects denoting the sheets or workspaces associated with
+     *               the report to be removed from the report scope.
      * @throws IllegalArgumentException    if any argument is null or empty
      * @throws InvalidRequestException     if there is any problem with the REST API request
      * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
@@ -379,7 +381,7 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
             throw new IllegalArgumentException("scopes should not be empty.");
         }
 
-        String path = "reports/" + id + "/scope";
+        String path = REPORTS_PATH + id + "/scope";
         HttpRequest request = createHttpRequest(smartsheet.getBaseURI().resolve(path), HttpMethod.DELETE);
         setRequestEntity(request, scopes);
 
