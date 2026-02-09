@@ -56,10 +56,8 @@ public class TestAddReportScope {
         testScopes = new ArrayList<>();
         testScopes.add(scope);
 
-
         ByteArrayOutputStream objectBytesStream = new ByteArrayOutputStream();
-        JsonSerializer jsonSerializer = new JacksonJsonSerializer();
-        jsonSerializer.serialize(testScopes, objectBytesStream);
+        new JacksonJsonSerializer().serialize(testScopes, objectBytesStream);
         testScopesJson = objectBytesStream.toString();
     }
 
