@@ -20,9 +20,17 @@ import org.apache.http.client.methods.HttpEntityEnclosingRequestBase;
 
 import java.net.URI;
 
+/**
+ * This class is used to send HTTP DELETE requests with a body.
+ */
 public class HttpDeleteWithBody extends HttpEntityEnclosingRequestBase {
     public static final String METHOD_NAME = "DELETE";
 
+    /**
+     * Creates a new HttpDeleteWithBody with the specified URI.
+     *
+     * @param uri the URI of the request
+     */
     public HttpDeleteWithBody(final URI uri) {
         super();
         setURI(uri);
