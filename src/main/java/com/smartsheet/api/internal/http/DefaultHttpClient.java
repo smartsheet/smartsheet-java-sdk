@@ -416,7 +416,7 @@ public class DefaultHttpClient implements HttpClient {
                 apacheHttpRequest = new HttpPut(smartsheetRequest.getUri());
                 break;
             case DELETE:
-                apacheHttpRequest = new HttpDelete(smartsheetRequest.getUri());
+                apacheHttpRequest = new HttpDeleteWithBody(smartsheetRequest.getUri());
                 break;
             case PATCH:
                 apacheHttpRequest = new HttpPatch(smartsheetRequest.getUri());

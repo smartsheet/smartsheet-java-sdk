@@ -22,6 +22,9 @@ import com.smartsheet.api.Smartsheet;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.WiremockClient;
 import com.smartsheet.api.WiremockClientWrapper;
+import com.smartsheet.api.internal.json.JSONSerializerException;
+import com.smartsheet.api.internal.json.JacksonJsonSerializer;
+import com.smartsheet.api.internal.json.JsonSerializer;
 import com.smartsheet.api.models.ReportScopeInclusion;
 import com.smartsheet.api.models.enums.ReportAssetType;
 import com.smartsheet.api.sdktest.users.Utils;
@@ -29,6 +32,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.ByteArrayOutputStream;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,15 +45,22 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class TestAddReportScope {
 
     private List<ReportScopeInclusion> testScopes;
+    private String testScopesJson;
 
     @BeforeEach
-    void setUp() {
+    void setUp() throws JSONSerializerException {
         ReportScopeInclusion scope = new ReportScopeInclusion();
         scope.setAssetType(ReportAssetType.SHEET);
         scope.setAssetId(TEST_SHEET_ID);
 
         testScopes = new ArrayList<>();
         testScopes.add(scope);
+
+
+        ByteArrayOutputStream objectBytesStream = new ByteArrayOutputStream();
+        JsonSerializer jsonSerializer = new JacksonJsonSerializer();
+        jsonSerializer.serialize(testScopes, objectBytesStream);
+        testScopesJson = objectBytesStream.toString();
     }
 
     @Test
@@ -68,6 +79,9 @@ public class TestAddReportScope {
 
         assertThat(path).isEqualTo("/2.0/reports/" + TEST_REPORT_ID + "/scope");
         assertThat(wiremockRequest.getMethod()).isEqualTo(RequestMethod.POST);
+
+        String requestBody = wiremockRequest.getBodyAsString();
+        assertThat(requestBody).isEqualTo(testScopesJson);
     }
 
     @Test

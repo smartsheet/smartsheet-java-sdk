@@ -16,12 +16,16 @@
 
 package com.smartsheet.api.sdktest.reports;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.tomakehurst.wiremock.http.RequestMethod;
 import com.github.tomakehurst.wiremock.verification.LoggedRequest;
 import com.smartsheet.api.Smartsheet;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.WiremockClient;
 import com.smartsheet.api.WiremockClientWrapper;
+import com.smartsheet.api.internal.json.JSONSerializerException;
+import com.smartsheet.api.internal.json.JacksonJsonSerializer;
+import com.smartsheet.api.internal.json.JsonSerializer;
 import com.smartsheet.api.models.ReportScopeInclusion;
 import com.smartsheet.api.models.enums.ReportAssetType;
 import com.smartsheet.api.sdktest.users.Utils;
@@ -29,6 +33,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.ByteArrayOutputStream;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,15 +46,21 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class TestRemoveReportScope {
 
     private List<ReportScopeInclusion> testScopes;
+    private String testScopesJson;
 
     @BeforeEach
-    void setUp() {
+    void setUp() throws JSONSerializerException {
         ReportScopeInclusion scope = new ReportScopeInclusion();
         scope.setAssetType(ReportAssetType.SHEET);
         scope.setAssetId(TEST_SHEET_ID);
 
         testScopes = new ArrayList<>();
         testScopes.add(scope);
+
+        ByteArrayOutputStream objectBytesStream = new ByteArrayOutputStream();
+        JsonSerializer jsonSerializer = new JacksonJsonSerializer();
+        jsonSerializer.serialize(testScopes, objectBytesStream);
+        testScopesJson = objectBytesStream.toString();
     }
 
     @Test
@@ -82,6 +93,12 @@ public class TestRemoveReportScope {
         Assertions.assertDoesNotThrow(() -> {
             smartsheet.reportResources().removeReportScope(TEST_REPORT_ID, testScopes);
         });
+
+        WiremockClient wiremockClient = wrapper.getWiremockClient();
+        LoggedRequest wiremockRequest = wiremockClient.findWiremockRequest(requestId);
+        String requestBody = wiremockRequest.getBodyAsString();
+
+        assertThat(requestBody).isEqualTo(testScopesJson);
     }
 
     @Test
