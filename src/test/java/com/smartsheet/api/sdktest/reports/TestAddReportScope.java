@@ -24,7 +24,6 @@ import com.smartsheet.api.WiremockClient;
 import com.smartsheet.api.WiremockClientWrapper;
 import com.smartsheet.api.internal.json.JSONSerializerException;
 import com.smartsheet.api.internal.json.JacksonJsonSerializer;
-import com.smartsheet.api.internal.json.JsonSerializer;
 import com.smartsheet.api.models.ReportScopeInclusion;
 import com.smartsheet.api.models.enums.ReportAssetType;
 import com.smartsheet.api.sdktest.users.Utils;
