@@ -1,3 +1,19 @@
+/*
+ * Copyright (C) 2025 Smartsheet
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.smartsheet.api.sdktest.reports;
 
 import com.github.tomakehurst.wiremock.http.RequestMethod;
@@ -7,8 +23,6 @@ import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.WiremockClient;
 import com.smartsheet.api.WiremockClientWrapper;
 import com.smartsheet.api.internal.json.JSONSerializerException;
-import com.smartsheet.api.internal.json.JacksonJsonSerializer;
-import com.smartsheet.api.internal.json.JsonSerializer;
 import com.smartsheet.api.models.ReportColumnIdentifier;
 import com.smartsheet.api.models.ReportDefinition;
 import com.smartsheet.api.models.ReportFilterCriterion;
@@ -37,28 +51,27 @@ public class TestUpdateReportDefinition {
     void setUp() throws JSONSerializerException {
         testReportDefinition = new ReportDefinition();
         testReportDefinition.setFilters(
-                new ReportFilterExpression()
-                        .setOperator(ReportFilterExpressionOperator.AND)
-                        .setCriteria(new ArrayList<>() {{
-                             add(
-                                new ReportFilterCriterion()
-                                        .setOperator(ReportFilterOperator.EQUAL)
-                                        .setColumn(
-                                                new ReportColumnIdentifier()
-                                                        .setPrimary(true)
-                                                        .setTitle("Primary")
-                                                        .setType(ColumnType.TEXT_NUMBER)
-                                        )
-
-                            );
-                        }})
+            new ReportFilterExpression()
+                .setOperator(ReportFilterExpressionOperator.AND)
+                .setCriteria(new ArrayList<>() {{
+                        add(
+                            new ReportFilterCriterion()
+                                    .setOperator(ReportFilterOperator.EQUAL)
+                                    .setColumn(
+                                            new ReportColumnIdentifier()
+                                                    .setPrimary(true)
+                                                    .setTitle("Primary")
+                                                    .setType(ColumnType.TEXT_NUMBER)
+                                    )
+                        );
+                    }})
         );
 
-        testReportDefinitionJson = "{\"filters\":"
-                +"{\"operator\":\"AND\","
-                +"\"criteria\":[{\"column\":"
-                +"{\"title\":\"Primary\",\"type\":\"TEXT_NUMBER\",\"primary\":true},"
-                +"\"operator\":\"EQUAL\"}]}}";
+        testReportDefinitionJson = "{\"filters\":" +
+                "{\"operator\":\"AND\"," +
+                "\"criteria\":[{\"column\":" +
+                "{\"title\":\"Primary\",\"type\":\"TEXT_NUMBER\",\"primary\":true}," +
+                "\"operator\":\"EQUAL\"}]}}";
     }
 
     @Test

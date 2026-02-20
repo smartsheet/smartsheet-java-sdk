@@ -21,7 +21,6 @@ import com.smartsheet.api.models.PaginationParameters;
 import com.smartsheet.api.models.Report;
 import com.smartsheet.api.models.ReportDefinition;
 import com.smartsheet.api.models.ReportPublish;
-import com.smartsheet.api.models.Result;
 import com.smartsheet.api.models.SheetEmail;
 import com.smartsheet.api.models.enums.ReportInclusion;
 

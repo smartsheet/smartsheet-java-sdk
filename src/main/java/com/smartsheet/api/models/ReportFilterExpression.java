@@ -25,7 +25,8 @@ import java.util.List;
  * <p>
  * At least one of {@code criteria} or {@code nestedCriteria} has to be provided in addition to {@code operator}.
  * <p>
- * Example: A filter that matches rows where (Price > 11 AND Primary CONTAINS "PROJ-1") OR (Quantity < 12 AND "Sold Out" IS_CHECKED)
+ * Example: A filter that matches rows where
+ * (Price greater than 11 AND Primary CONTAINS "PROJ-1") OR (Quantity less than 12 AND "Sold Out" IS_CHECKED)
  */
 public class ReportFilterExpression {
 
