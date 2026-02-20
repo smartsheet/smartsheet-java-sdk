@@ -27,7 +27,9 @@ import com.smartsheet.api.internal.util.QueryUtil;
 import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.PaginationParameters;
 import com.smartsheet.api.models.Report;
+import com.smartsheet.api.models.ReportDefinition;
 import com.smartsheet.api.models.ReportPublish;
+import com.smartsheet.api.models.Result;
 import com.smartsheet.api.models.SheetEmail;
 import com.smartsheet.api.models.enums.ReportInclusion;
 
@@ -303,6 +305,38 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
      */
     public ReportPublish updatePublishStatus(long id, ReportPublish reportPublish) throws SmartsheetException {
         return this.updateResource(REPORTS_PATH + id + "/publish", ReportPublish.class, reportPublish);
+    }
+
+    /**
+     * Updates a report's definition (filters, grouping, aggregation, and sorting).
+     * <p>
+     * It mirrors to the following Smartsheet REST API method: PATCH /reports/{id}/definition
+     * <p>
+     * This endpoint supports partial updates only on root level properties of the report definition,
+     * such as filters, groupingCriteria, and aggregationCriteria. For example, you can update the
+     * report's filters without affecting its grouping criteria. However, nested properties within
+     * these objects, such as a specific filter or grouping criterion, cannot be updated individually
+     * and require a full replacement of the respective section.
+     * <p>
+     * Exceptions:
+     * - InvalidRequestException : if there is any problem with the REST API request
+     * - AuthorizationException : if there is any problem with the REST API authorization(access token)
+     * - ResourceNotFoundException : if the resource can not be found
+     * - ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     * - SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     * - SmartsheetException : if there is any other error occurred during the operation
+     *
+     * @param id         the ID of the report
+     * @param definition the ReportDefinition object containing the updated definition
+     * @throws IllegalArgumentException    if any argument is null
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetException         if there is any other error during the operation
+     */
+    public void updateReportDefinition(long id, ReportDefinition definition) throws SmartsheetException {
+        this.patchResource(REPORTS_PATH + id + "/definition", Result.class, definition);
     }
 
     /**
