@@ -24,11 +24,6 @@ import com.smartsheet.api.models.enums.SortDirection;
 public class ReportGroupingCriterion {
 
     /**
-     * Grouping criteria id (read-only).
-     */
-    private String id;
-
-    /**
      * The column to group by.
      */
     private ReportColumnIdentifier column;
@@ -42,25 +37,6 @@ public class ReportGroupingCriterion {
      * Indicates whether the group is expanded in the UI (default: true).
      */
     private Boolean isExpanded;
-
-    /**
-     * Gets the grouping criteria id.
-     *
-     * @return the id
-     */
-    public String getId() {
-        return id;
-    }
-
-    /**
-     * Sets the grouping criteria id.
-     *
-     * @param id the grouping criteria id
-     */
-    public ReportGroupingCriterion setId(String id) {
-        this.id = id;
-        return this;
-    }
 
     /**
      * Gets the column to group by.
