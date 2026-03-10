@@ -34,11 +34,6 @@ public class ReportSortingCriterion {
     private SortDirection sortingDirection;
 
     /**
-     * Force null values to the bottom of the sorted list (default: true).
-     */
-    private Boolean forceNullsToBottom;
-
-    /**
      * Gets the column to sort by.
      *
      * @return the column
@@ -73,25 +68,6 @@ public class ReportSortingCriterion {
      */
     public ReportSortingCriterion setSortingDirection(SortDirection sortingDirection) {
         this.sortingDirection = sortingDirection;
-        return this;
-    }
-
-    /**
-     * Gets whether to force null values to the bottom.
-     *
-     * @return true if nulls forced to bottom, false otherwise
-     */
-    public Boolean getForceNullsToBottom() {
-        return forceNullsToBottom;
-    }
-
-    /**
-     * Sets whether to force null values to the bottom.
-     *
-     * @param forceNullsToBottom true to force nulls to bottom, false otherwise
-     */
-    public ReportSortingCriterion setForceNullsToBottom(Boolean forceNullsToBottom) {
-        this.forceNullsToBottom = forceNullsToBottom;
         return this;
     }
 }

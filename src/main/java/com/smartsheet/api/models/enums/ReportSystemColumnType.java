@@ -22,10 +22,6 @@ package com.smartsheet.api.models.enums;
  * @see <a href="http://help.smartsheet.com/customer/portal/articles/504619-column-types">Column Types Help</a>
  */
 public enum ReportSystemColumnType {
-    /**
-     * Represents the AUTO_NUMBER system column type.
-     */
-    AUTO_NUMBER,
 
     /**
      * Represents the MODIFIED_DATE system column type.
