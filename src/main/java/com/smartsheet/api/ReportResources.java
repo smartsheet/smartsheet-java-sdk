@@ -222,10 +222,13 @@ public interface ReportResources {
      * such as {@code filters}, {@code groupingCriteria}, and {@code aggregationCriteria}. For example,
      * you can update the report's filters without affecting its grouping criteria. However, nested
      * properties within these objects, such as a specific filter or grouping criterion, cannot be
-     * updated individually and require a full replacement of the respective section.</p>
+     * updated individually and require a full replacement of the respective section.
+     * In order for `filters` to be updated, `updateFilters` must be set to `true`.
+     * </p>
      *
      * @param id         the ID of the report
      * @param definition the ReportDefinition object containing the updated definition
+     * @param updateFilters Whether the `filters` property should be updated.
      * @throws IllegalArgumentException    if any argument is null
      * @throws InvalidRequestException     if there is any problem with the REST API request
      * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
@@ -233,7 +236,7 @@ public interface ReportResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException         if there is any other error during the operation
      */
-    void updateReportDefinition(long id, ReportDefinition definition) throws SmartsheetException;
+    void updateReportDefinition(long id, ReportDefinition definition, Boolean updateFilters) throws SmartsheetException;
 
     /**
      * <p>Creates an object of ShareResources.</p>

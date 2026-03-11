@@ -84,9 +84,12 @@ public class TestUpdateReportDefinition {
         Smartsheet smartsheet = wrapper.getSmartsheet();
         WiremockClient wiremockClient = wrapper.getWiremockClient();
 
-        smartsheet.reportResources().updateReportDefinition(TEST_REPORT_ID, testReportDefinition);
+        smartsheet.reportResources().updateReportDefinition(TEST_REPORT_ID, testReportDefinition, true);
         LoggedRequest wiremockRequest = wiremockClient.findWiremockRequest(requestId);
         String path = URI.create(wiremockRequest.getUrl()).getPath();
+
+        String queryParams = URI.create(wiremockRequest.getUrl()).getQuery();
+        assertThat(queryParams).isEqualTo("updateFilters=true");
 
         assertThat(path).isEqualTo("/2.0/reports/" + TEST_REPORT_ID + "/definition");
         assertThat(wiremockRequest.getMethod()).isEqualTo(RequestMethod.PATCH);
@@ -105,7 +108,7 @@ public class TestUpdateReportDefinition {
         Smartsheet smartsheet = wrapper.getSmartsheet();
 
         Assertions.assertDoesNotThrow(() -> {
-            smartsheet.reportResources().updateReportDefinition(TEST_REPORT_ID, testReportDefinition);
+            smartsheet.reportResources().updateReportDefinition(TEST_REPORT_ID, testReportDefinition, true);
         });
     }
 
@@ -119,7 +122,7 @@ public class TestUpdateReportDefinition {
         Smartsheet smartsheet = wrapper.getSmartsheet();
 
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            smartsheet.reportResources().updateReportDefinition(TEST_REPORT_ID, null);
+            smartsheet.reportResources().updateReportDefinition(TEST_REPORT_ID, null, true);
         });
     }
 
@@ -130,7 +133,7 @@ public class TestUpdateReportDefinition {
         Smartsheet smartsheet = wrapper.getSmartsheet();
 
         SmartsheetException exception = Assertions.assertThrows(SmartsheetException.class, () -> {
-            smartsheet.reportResources().updateReportDefinition(TEST_REPORT_ID, testReportDefinition);
+            smartsheet.reportResources().updateReportDefinition(TEST_REPORT_ID, testReportDefinition, true);
         });
 
         assertThat(exception.getMessage()).isEqualTo("Internal Server Error");
@@ -143,7 +146,7 @@ public class TestUpdateReportDefinition {
         Smartsheet smartsheet = wrapper.getSmartsheet();
 
         SmartsheetException exception = Assertions.assertThrows(SmartsheetException.class, () -> {
-            smartsheet.reportResources().updateReportDefinition(TEST_REPORT_ID, testReportDefinition);
+            smartsheet.reportResources().updateReportDefinition(TEST_REPORT_ID, testReportDefinition, true);
         });
 
         assertThat(exception.getMessage()).isEqualTo("Malformed Request");

@@ -55,6 +55,7 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
      */
     private ShareResources shares;
 
+    private static final String QUERY_PARAM_UPDATE_FILTERS = "updateFilters";
     private static final String REPORTS_PATH = "reports/";
 
     /**
@@ -317,6 +318,7 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
      * report's filters without affecting its grouping criteria. However, nested properties within
      * these objects, such as a specific filter or grouping criterion, cannot be updated individually
      * and require a full replacement of the respective section.
+     * In order for `filters` to be updated, `updateFilters` must be set to `true`.
      * <p>
      * Exceptions:
      * - InvalidRequestException : if there is any problem with the REST API request
@@ -335,8 +337,14 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException         if there is any other error during the operation
      */
-    public void updateReportDefinition(long id, ReportDefinition definition) throws SmartsheetException {
-        this.patchResource(REPORTS_PATH + id + "/definition", Result.class, definition);
+    public void updateReportDefinition(long id, ReportDefinition definition, Boolean updateFilters) throws SmartsheetException {
+        String path = REPORTS_PATH + id + "/definition";
+
+        Map<String, Object> queryParameters = new HashMap<>();
+        queryParameters.put(QUERY_PARAM_UPDATE_FILTERS, updateFilters);
+        path += QueryUtil.generateUrl(null, queryParameters);
+
+        this.patchResource(path, Result.class, definition);
     }
 
     /**
