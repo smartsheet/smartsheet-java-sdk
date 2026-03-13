@@ -309,12 +309,12 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
     }
 
     /**
-     * Updates a report's definition (filters, grouping, aggregation, and sorting).
+     * Updates a report's definition (filters, grouping, summarizing, and sorting).
      * <p>
      * It mirrors to the following Smartsheet REST API method: PATCH /reports/{id}/definition
      * <p>
      * This endpoint supports partial updates only on root level properties of the report definition,
-     * such as filters, groupingCriteria, and aggregationCriteria. For example, you can update the
+     * such as filters, groupingCriteria, and summarizingCriteria. For example, you can update the
      * report's filters without affecting its grouping criteria. However, nested properties within
      * these objects, such as a specific filter or grouping criterion, cannot be updated individually
      * and require a full replacement of the respective section.
@@ -330,6 +330,7 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
      *
      * @param id         the ID of the report
      * @param definition the ReportDefinition object containing the updated definition
+     * @return The updated ReportDefinition
      * @throws IllegalArgumentException    if any argument is null
      * @throws InvalidRequestException     if there is any problem with the REST API request
      * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
@@ -337,14 +338,15 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException         if there is any other error during the operation
      */
-    public void updateReportDefinition(long id, ReportDefinition definition, Boolean updateFilters) throws SmartsheetException {
+    public ReportDefinition updateReportDefinition(long id, ReportDefinition definition, Boolean updateFilters) throws SmartsheetException {
         String path = REPORTS_PATH + id + "/definition";
 
         Map<String, Object> queryParameters = new HashMap<>();
         queryParameters.put(QUERY_PARAM_UPDATE_FILTERS, updateFilters);
         path += QueryUtil.generateUrl(null, queryParameters);
 
-        this.patchResource(path, Result.class, definition);
+        ReportDefinitionResult response = this.patchResource(path, ReportDefinitionResult.class, definition);
+        return response.getResult();
     }
 
     /**
@@ -355,4 +357,6 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
     public ShareResources shareResources() {
         return this.shares;
     }
+
+    private static class ReportDefinitionResult extends Result<ReportDefinition> {}
 }

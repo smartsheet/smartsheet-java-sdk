@@ -37,9 +37,9 @@ public class ReportDefinition {
     private List<ReportGroupingCriterion> groupingCriteria;
 
     /**
-     * Represents the list of report aggregation criteria.
+     * Represents the list of report summarizing criteria.
      */
-    private List<ReportAggregationCriterion> aggregationCriteria;
+    private List<ReportSummarizingCriterion> summarizingCriteria;
 
     /**
      * Represents the list of report sorting criteria.
@@ -85,21 +85,21 @@ public class ReportDefinition {
     }
 
     /**
-     * Gets the list of report aggregation criteria.
+     * Gets the list of report summarizing criteria.
      *
-     * @return the aggregation criteria
+     * @return the summarizing criteria
      */
-    public List<ReportAggregationCriterion> getAggregationCriteria() {
-        return aggregationCriteria;
+    public List<ReportSummarizingCriterion> getSummarizingCriteria() {
+        return summarizingCriteria;
     }
 
     /**
-     * Sets the list of report aggregation criteria.
+     * Sets the list of report summarizing criteria.
      *
-     * @param aggregationCriteria the aggregation criteria
+     * @param summarizingCriteria the summarizing criteria
      */
-    public ReportDefinition setAggregationCriteria(List<ReportAggregationCriterion> aggregationCriteria) {
-        this.aggregationCriteria = aggregationCriteria;
+    public ReportDefinition setSummarizingCriteria(List<ReportSummarizingCriterion> summarizingCriteria) {
+        this.summarizingCriteria = summarizingCriteria;
         return this;
     }
 

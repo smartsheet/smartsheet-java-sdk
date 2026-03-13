@@ -214,21 +214,22 @@ public interface ReportResources {
     ReportPublish updatePublishStatus(long id, ReportPublish reportPublish) throws SmartsheetException;
 
     /**
-     * <p>Updates a report's definition (filters, grouping, aggregation, and sorting).</p>
+     * <p>Updates a report's definition (filters, grouping, summarize, and sorting).</p>
      *
      * <p>It mirrors to the following Smartsheet REST API method: PATCH /reports/{id}/definition</p>
      *
      * <p>This endpoint supports partial updates only on root level properties of the report definition,
-     * such as {@code filters}, {@code groupingCriteria}, and {@code aggregationCriteria}. For example,
+     * such as {@code filters}, {@code groupingCriteria}, and {@code summarizingCriteria}. For example,
      * you can update the report's filters without affecting its grouping criteria. However, nested
      * properties within these objects, such as a specific filter or grouping criterion, cannot be
      * updated individually and require a full replacement of the respective section.
      * In order for `filters` to be updated, `updateFilters` must be set to `true`.
      * </p>
      *
-     * @param id         the ID of the report
-     * @param definition the ReportDefinition object containing the updated definition
+     * @param id            the ID of the report
+     * @param definition    the ReportDefinition object containing the updated definition
      * @param updateFilters Whether the `filters` property should be updated.
+     * @return The updated ReportDefinition
      * @throws IllegalArgumentException    if any argument is null
      * @throws InvalidRequestException     if there is any problem with the REST API request
      * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
@@ -236,7 +237,7 @@ public interface ReportResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException         if there is any other error during the operation
      */
-    void updateReportDefinition(long id, ReportDefinition definition, Boolean updateFilters) throws SmartsheetException;
+    ReportDefinition updateReportDefinition(long id, ReportDefinition definition, Boolean updateFilters) throws SmartsheetException;
 
     /**
      * <p>Creates an object of ShareResources.</p>

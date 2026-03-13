@@ -19,12 +19,12 @@ package com.smartsheet.api.models;
 import com.smartsheet.api.models.enums.ReportAggregationType;
 
 /**
- * Represents an aggregation criterion for a report.
+ * Represents an summarizing criterion for a report.
  */
-public class ReportAggregationCriterion {
+public class ReportSummarizingCriterion {
 
     /**
-     * The column to aggregate.
+     * The column to summarize.
      */
     private ReportColumnIdentifier column;
 
@@ -39,7 +39,7 @@ public class ReportAggregationCriterion {
     private Boolean isExpanded;
 
     /**
-     * Gets the column to aggregate.
+     * Gets the column to summarize.
      *
      * @return the column
      */
@@ -48,11 +48,11 @@ public class ReportAggregationCriterion {
     }
 
     /**
-     * Sets the column to aggregate.
+     * Sets the column to summarize.
      *
      * @param column the column
      */
-    public ReportAggregationCriterion setColumn(ReportColumnIdentifier column) {
+    public ReportSummarizingCriterion setColumn(ReportColumnIdentifier column) {
         this.column = column;
         return this;
     }
@@ -71,7 +71,7 @@ public class ReportAggregationCriterion {
      *
      * @param aggregationType the aggregation type
      */
-    public ReportAggregationCriterion setAggregationType(ReportAggregationType aggregationType) {
+    public ReportSummarizingCriterion setAggregationType(ReportAggregationType aggregationType) {
         this.aggregationType = aggregationType;
         return this;
     }
@@ -90,7 +90,7 @@ public class ReportAggregationCriterion {
      *
      * @param isExpanded true if expanded, false otherwise
      */
-    public ReportAggregationCriterion setIsExpanded(Boolean isExpanded) {
+    public ReportSummarizingCriterion setIsExpanded(Boolean isExpanded) {
         this.isExpanded = isExpanded;
         return this;
     }

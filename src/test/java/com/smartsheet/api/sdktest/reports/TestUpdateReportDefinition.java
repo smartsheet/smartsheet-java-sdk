@@ -16,6 +16,7 @@
 
 package com.smartsheet.api.sdktest.reports;
 
+import com.github.tomakehurst.wiremock.http.QueryParameter;
 import com.github.tomakehurst.wiremock.http.RequestMethod;
 import com.github.tomakehurst.wiremock.verification.LoggedRequest;
 import com.smartsheet.api.Smartsheet;
@@ -37,6 +38,8 @@ import org.junit.jupiter.api.Test;
 
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import static com.smartsheet.api.sdktest.users.CommonTestConstants.TEST_REPORT_ID;
@@ -88,8 +91,8 @@ public class TestUpdateReportDefinition {
         LoggedRequest wiremockRequest = wiremockClient.findWiremockRequest(requestId);
         String path = URI.create(wiremockRequest.getUrl()).getPath();
 
-        String queryParams = URI.create(wiremockRequest.getUrl()).getQuery();
-        assertThat(queryParams).isEqualTo("updateFilters=true");
+        Map<String, QueryParameter> receivedQueryParams = wiremockRequest.getQueryParams();
+        assertThat(receivedQueryParams.get("updateFilters").getValues()).isEqualTo(List.of("true"));
 
         assertThat(path).isEqualTo("/2.0/reports/" + TEST_REPORT_ID + "/definition");
         assertThat(wiremockRequest.getMethod()).isEqualTo(RequestMethod.PATCH);
@@ -99,7 +102,7 @@ public class TestUpdateReportDefinition {
     }
 
     @Test
-    void testUpdateReportDefinitionAllResponseBodyProperties() {
+    void testUpdateReportDefinitionAllResponseBodyProperties() throws SmartsheetException {
         String requestId = UUID.randomUUID().toString();
         WiremockClientWrapper wrapper = Utils.createWiremockSmartsheetClient(
                 "/reports/update-report-definition/all-response-body-properties",
@@ -107,9 +110,13 @@ public class TestUpdateReportDefinition {
         );
         Smartsheet smartsheet = wrapper.getSmartsheet();
 
-        Assertions.assertDoesNotThrow(() -> {
-            smartsheet.reportResources().updateReportDefinition(TEST_REPORT_ID, testReportDefinition, true);
-        });
+        ReportDefinition response = smartsheet.reportResources().updateReportDefinition(TEST_REPORT_ID, testReportDefinition, true);
+
+        assertThat(response).isNotNull();
+        assertThat(response.getFilters()).isNotNull();
+        assertThat(response.getSummarizingCriteria()).isNotNull();
+        assertThat(response.getGroupingCriteria()).isNotNull();
+        assertThat(response.getSortingCriteria()).isNotNull();
     }
 
     @Test
