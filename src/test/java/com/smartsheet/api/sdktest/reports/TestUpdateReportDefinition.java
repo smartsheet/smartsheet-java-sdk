@@ -16,14 +16,12 @@
 
 package com.smartsheet.api.sdktest.reports;
 
-import com.github.tomakehurst.wiremock.http.QueryParameter;
 import com.github.tomakehurst.wiremock.http.RequestMethod;
 import com.github.tomakehurst.wiremock.verification.LoggedRequest;
 import com.smartsheet.api.Smartsheet;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.WiremockClient;
 import com.smartsheet.api.WiremockClientWrapper;
-import com.smartsheet.api.internal.json.JSONSerializerException;
 import com.smartsheet.api.models.ReportColumnIdentifier;
 import com.smartsheet.api.models.ReportDefinition;
 import com.smartsheet.api.models.ReportFilterCriterion;
@@ -38,12 +36,11 @@ import org.junit.jupiter.api.Test;
 
 import java.net.URI;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 import static com.smartsheet.api.sdktest.users.CommonTestConstants.TEST_REPORT_ID;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatNoException;
 
 public class TestUpdateReportDefinition {
 
@@ -51,7 +48,7 @@ public class TestUpdateReportDefinition {
     private String testReportDefinitionJson;
 
     @BeforeEach
-    void setUp() throws JSONSerializerException {
+    void setUp() {
         testReportDefinition = new ReportDefinition();
         testReportDefinition.setFilters(
             new ReportFilterExpression()
@@ -87,22 +84,19 @@ public class TestUpdateReportDefinition {
         Smartsheet smartsheet = wrapper.getSmartsheet();
         WiremockClient wiremockClient = wrapper.getWiremockClient();
 
-        smartsheet.reportResources().updateReportDefinition(TEST_REPORT_ID, testReportDefinition, true);
+        smartsheet.reportResources().updateReportDefinition(TEST_REPORT_ID, testReportDefinition);
         LoggedRequest wiremockRequest = wiremockClient.findWiremockRequest(requestId);
         String path = URI.create(wiremockRequest.getUrl()).getPath();
 
-        Map<String, QueryParameter> receivedQueryParams = wiremockRequest.getQueryParams();
-        assertThat(receivedQueryParams.get("updateFilters").getValues()).isEqualTo(List.of("true"));
-
         assertThat(path).isEqualTo("/2.0/reports/" + TEST_REPORT_ID + "/definition");
-        assertThat(wiremockRequest.getMethod()).isEqualTo(RequestMethod.PATCH);
+        assertThat(wiremockRequest.getMethod()).isEqualTo(RequestMethod.PUT);
 
         String requestBody = wiremockRequest.getBodyAsString();
         assertThat(requestBody).isEqualTo(testReportDefinitionJson);
     }
 
     @Test
-    void testUpdateReportDefinitionAllResponseBodyProperties() throws SmartsheetException {
+    void testUpdateReportDefinitionAllResponseBodyProperties() {
         String requestId = UUID.randomUUID().toString();
         WiremockClientWrapper wrapper = Utils.createWiremockSmartsheetClient(
                 "/reports/update-report-definition/all-response-body-properties",
@@ -110,13 +104,7 @@ public class TestUpdateReportDefinition {
         );
         Smartsheet smartsheet = wrapper.getSmartsheet();
 
-        ReportDefinition response = smartsheet.reportResources().updateReportDefinition(TEST_REPORT_ID, testReportDefinition, true);
-
-        assertThat(response).isNotNull();
-        assertThat(response.getFilters()).isNotNull();
-        assertThat(response.getSummarizingCriteria()).isNotNull();
-        assertThat(response.getGroupingCriteria()).isNotNull();
-        assertThat(response.getSortingCriteria()).isNotNull();
+        assertThatNoException().isThrownBy(() -> smartsheet.reportResources().updateReportDefinition(TEST_REPORT_ID, testReportDefinition));
     }
 
     @Test
@@ -129,7 +117,7 @@ public class TestUpdateReportDefinition {
         Smartsheet smartsheet = wrapper.getSmartsheet();
 
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            smartsheet.reportResources().updateReportDefinition(TEST_REPORT_ID, null, true);
+            smartsheet.reportResources().updateReportDefinition(TEST_REPORT_ID, null);
         });
     }
 
@@ -140,7 +128,7 @@ public class TestUpdateReportDefinition {
         Smartsheet smartsheet = wrapper.getSmartsheet();
 
         SmartsheetException exception = Assertions.assertThrows(SmartsheetException.class, () -> {
-            smartsheet.reportResources().updateReportDefinition(TEST_REPORT_ID, testReportDefinition, true);
+            smartsheet.reportResources().updateReportDefinition(TEST_REPORT_ID, testReportDefinition);
         });
 
         assertThat(exception.getMessage()).isEqualTo("Internal Server Error");
@@ -153,7 +141,7 @@ public class TestUpdateReportDefinition {
         Smartsheet smartsheet = wrapper.getSmartsheet();
 
         SmartsheetException exception = Assertions.assertThrows(SmartsheetException.class, () -> {
-            smartsheet.reportResources().updateReportDefinition(TEST_REPORT_ID, testReportDefinition, true);
+            smartsheet.reportResources().updateReportDefinition(TEST_REPORT_ID, testReportDefinition);
         });
 
         assertThat(exception.getMessage()).isEqualTo("Malformed Request");
