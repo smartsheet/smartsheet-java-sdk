@@ -216,7 +216,7 @@ public interface ReportResources {
     /**
      * <p>Updates a report's definition (filters, grouping, summarize, and sorting).</p>
      *
-     * <p>It mirrors to the following Smartsheet REST API method: PATCH /reports/{id}/definition</p>
+     * <p>It mirrors to the following Smartsheet REST API method: PUT /reports/{id}/definition</p>
      *
      * <p>This endpoint supports partial updates only on root level properties of the report definition,
      * such as {@code filters}, {@code groupingCriteria}, and {@code summarizingCriteria}. For example,
