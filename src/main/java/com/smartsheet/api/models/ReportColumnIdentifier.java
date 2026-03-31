@@ -22,19 +22,20 @@ import com.smartsheet.api.models.enums.ReportSystemColumnType;
 /**
  * Object used to match a sheet column for a report.
  * <p>
- * One of [{@code type}, {@code systemColumnType}] or [{@code primary=true}] is required.
+ * Requires one of:
+ * <ul>
+ * <li>[{@code type}, {@code title}] for <b>regular columns</b></li>
+ * <li>[{@code type}, {@code systemColumnType}] for <b>system columns</b></li>
+ * <li>[{@code type=TEXT_NUMBER}, {@code primary=true}] for the <b>primary column</b></li>
+ * <li>[{@code type=TEXT_NUMBER}, {@code sheetNameColumn=true}] for the special <b>sheet name report column</b></li>
+ * </ul>
  * <p>
- * {@code systemColumnType} should be specified if you want to match a system column. Use {@code primary=true}
- * to match primary columns. When matching primary columns, {@code title} can be used to customize the primary
- * column name in the rendered report.
+ * <b>Note:</b> You can combine multiple {@code CHECKBOX} columns or multiple {@code PICKLIST} columns from
+ * different sheets into a single report column, even if their underlying symbols differ. However, you can't
+ * combine a {@code CHECKBOX} column with a {@code PICKLIST} column, because they're different types.
  * <p>
- * <b>Note:</b> Columns in the report are matched by the combination of {@code title} and {@code type}
- * (and {@code systemColumnType} if specified).
- * <p>
- * <b>Note:</b> {@code symbol} is not used for matching and as a result {@code CHECKBOX} or {@code PICKLIST}
- * columns with different symbols (from different sheets) can be combined into the same column in the report.
- * You cannot combine {@code CHECKBOX} with {@code PICKLIST} into the same column in the report because they
- * are different types.
+ * <b>Note:</b> The system column type {@code AUTO_NUMBER} is matched together with columns having the same
+ * {@code title} and {@code type=TEXT_NUMBER}. Therefore, {@code title} is a required property in this case.
  */
 public class ReportColumnIdentifier {
 
@@ -59,6 +60,11 @@ public class ReportColumnIdentifier {
      * Indicates if the matched column is primary (default: false).
      */
     private Boolean primary;
+
+    /**
+     * Indicates if this is the special sheet name report column (default: false).
+     */
+    private Boolean sheetNameColumn;
 
     /**
      * Gets the column title.
@@ -135,6 +141,25 @@ public class ReportColumnIdentifier {
      */
     public ReportColumnIdentifier setPrimary(Boolean primary) {
         this.primary = primary;
+        return this;
+    }
+
+    /**
+     * Gets whether this identifies the sheet name report column.
+     *
+     * @return true if this is the sheet name column, false otherwise
+     */
+    public Boolean getSheetNameColumn() {
+        return sheetNameColumn;
+    }
+
+    /**
+     * Sets whether this identifies the sheet name report column.
+     *
+     * @param sheetNameColumn true if this is the sheet name column, false otherwise
+     */
+    public ReportColumnIdentifier setSheetNameColumn(Boolean sheetNameColumn) {
+        this.sheetNameColumn = sheetNameColumn;
         return this;
     }
 }

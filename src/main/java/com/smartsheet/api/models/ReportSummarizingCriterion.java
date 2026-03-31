@@ -34,11 +34,6 @@ public class ReportSummarizingCriterion {
     private ReportAggregationType aggregationType;
 
     /**
-     * Indicates whether the group is expanded in the UI (default: true).
-     */
-    private Boolean isExpanded;
-
-    /**
      * Gets the column to summarize.
      *
      * @return the column
@@ -73,25 +68,6 @@ public class ReportSummarizingCriterion {
      */
     public ReportSummarizingCriterion setAggregationType(ReportAggregationType aggregationType) {
         this.aggregationType = aggregationType;
-        return this;
-    }
-
-    /**
-     * Gets whether the group is expanded in the UI.
-     *
-     * @return true if expanded, false otherwise
-     */
-    public Boolean getIsExpanded() {
-        return isExpanded;
-    }
-
-    /**
-     * Sets whether the group is expanded in the UI.
-     *
-     * @param isExpanded true if expanded, false otherwise
-     */
-    public ReportSummarizingCriterion setIsExpanded(Boolean isExpanded) {
-        this.isExpanded = isExpanded;
         return this;
     }
 }
