@@ -90,7 +90,7 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
     private static final String FOLDERS = "folders";
     private static final String INCLUDE = "include";
     private static final String IMPORT = "import";
-    private static final String WORKSPACES = "WORKSPACES";
+    private static final String WORKSPACES = "workspaces";
     private static final String XLSX_CONTENT_TYPE = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
 
     /**
