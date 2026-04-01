@@ -27,10 +27,24 @@
       "seatType": "VIEWER",
       "seatTypeLastChangedAt": "2025-09-02T12:44:28.270183Z",
       "isInternal": true
+    },
+    {
+      "id": 125,
+      "planId": 125,
+      "admin": false,
+      "email": "user3@example.com",
+      "groupAdmin": false,
+      "licensedSheetCreator": false,
+      "resourceViewer": false,
+      "sheetCount": 5,
+      "status": "ACTIVE",
+      "seatType": "CONTRIBUTOR",
+      "seatTypeLastChangedAt": "2025-10-15T08:22:13.456789Z",
+      "isInternal": true
     }
   ],
   "pageNumber": 1,
   "pageSize": 100,
   "totalPages": 1,
-  "totalCount": 2
+  "totalCount": 3
 }
