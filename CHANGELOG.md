@@ -5,6 +5,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [x.x.x] - unreleased
+- Support for the POST /2.0/reports/{id}/scope endpoint
+- Support for the DELETE /2.0/reports/{id}/scope endpoint
+- WireMock integration tests for contract testing for POST /2.0/reports/{id}/scope and DELETE /2.0/reports/{id}/scope endpoints
+
+## [3.10.1] - 2026-03-31
+### Fixed
+- Fixed WORKSPACES endpoint constant in SheetResourcesImpl to use lowercase "workspaces" instead of uppercase "WORKSPACES", resolving 404 errors when creating sheets in workspaces
 
 ## [3.10.0] - 2025-12-04
 ### Added
