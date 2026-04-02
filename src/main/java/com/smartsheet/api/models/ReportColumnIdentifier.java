@@ -33,9 +33,6 @@ import com.smartsheet.api.models.enums.ReportSystemColumnType;
  * <b>Note:</b> You can combine multiple {@code CHECKBOX} columns or multiple {@code PICKLIST} columns from
  * different sheets into a single report column, even if their underlying symbols differ. However, you can't
  * combine a {@code CHECKBOX} column with a {@code PICKLIST} column, because they're different types.
- * <p>
- * <b>Note:</b> The system column type {@code AUTO_NUMBER} is matched together with columns having the same
- * {@code title} and {@code type=TEXT_NUMBER}. Therefore, {@code title} is a required property in this case.
  */
 public class ReportColumnIdentifier {
 
