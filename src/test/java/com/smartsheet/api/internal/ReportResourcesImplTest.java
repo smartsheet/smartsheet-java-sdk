@@ -131,4 +131,10 @@ class ReportResourcesImplTest extends ResourcesImplBase {
         byte[] data = Files.readAllBytes(Paths.get(file.getPath()));
         assertThat(output.toByteArray()).hasSameSizeAs(data);
     }
+
+    @Test
+    void testDeleteReport() throws IOException {
+        server.setResponseBody(new File("src/test/resources/deleteReport.json"));
+        assertThatCode(() -> reportResources.deleteReport(1122334L)).doesNotThrowAnyException();
+    }
 }
