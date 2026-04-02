@@ -8,6 +8,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - Added support for PATCH /reports/{reportId}/definition endpoint, Update Report Definition
 
+## [3.10.1] - 2026-03-31
+### Fixed
+- Fixed WORKSPACES endpoint constant in SheetResourcesImpl to use lowercase "workspaces" instead of uppercase "WORKSPACES", resolving 404 errors when creating sheets in workspaces
+
 ## [3.10.0] - 2025-12-04
 ### Added
 - WireMock integration tests for contract testing for GET /2.0/users/{userId}/plans and GET /2.0/users endpoints
