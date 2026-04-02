@@ -6,7 +6,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [x.x.x] - unreleased
 ### Added
-- Added support for PATCH /reports/{reportId}/definition endpoint, Update Report Definition
+- Added support for PUT /reports/{reportId}/definition endpoint, Update Report Definition
+- Support for the POST /2.0/reports/{id}/scope endpoint
+- Support for the DELETE /2.0/reports/{id}/scope endpoint
+- Support for the DELETE /2.0/reports/{id} endpoint
+- WireMock integration tests for contract testing for POST /2.0/reports/{id}/scope and DELETE /2.0/reports/{id}/scope endpoints
 
 ## [3.10.1] - 2026-03-31
 ### Fixed

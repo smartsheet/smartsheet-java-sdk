@@ -28,7 +28,6 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.NonRepeatableRequestException;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpEntityEnclosingRequestBase;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
@@ -416,7 +415,7 @@ public class DefaultHttpClient implements HttpClient {
                 apacheHttpRequest = new HttpPut(smartsheetRequest.getUri());
                 break;
             case DELETE:
-                apacheHttpRequest = new HttpDelete(smartsheetRequest.getUri());
+                apacheHttpRequest = new HttpDeleteWithBody(smartsheetRequest.getUri());
                 break;
             case PATCH:
                 apacheHttpRequest = new HttpPatch(smartsheetRequest.getUri());

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.smartsheet.api.sdktest.users;
+package com.smartsheet.api.sdktest;
 
 import com.smartsheet.api.Smartsheet;
 import com.smartsheet.api.WiremockClient;
