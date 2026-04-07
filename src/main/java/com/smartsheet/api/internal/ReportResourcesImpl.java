@@ -65,7 +65,6 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
      */
     private ShareResources shares;
 
-    private static final String QUERY_PARAM_UPDATE_FILTERS = "updateFilters";
     private static final String JSON_CONTENT_TYPE = "application/json";
     private static final String REPORTS_PATH = "reports/";
 

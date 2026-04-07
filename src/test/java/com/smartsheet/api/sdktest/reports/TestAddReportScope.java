@@ -26,7 +26,7 @@ import com.smartsheet.api.internal.json.JSONSerializerException;
 import com.smartsheet.api.internal.json.JacksonJsonSerializer;
 import com.smartsheet.api.models.ReportScopeInclusion;
 import com.smartsheet.api.models.enums.ReportAssetType;
-import com.smartsheet.api.sdktest.users.Utils;
+import com.smartsheet.api.sdktest.Utils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

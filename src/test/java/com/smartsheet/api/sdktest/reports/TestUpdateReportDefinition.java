@@ -16,6 +16,9 @@
 
 package com.smartsheet.api.sdktest.reports;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.tomakehurst.wiremock.http.RequestMethod;
 import com.github.tomakehurst.wiremock.verification.LoggedRequest;
 import com.smartsheet.api.Smartsheet;
@@ -26,16 +29,23 @@ import com.smartsheet.api.models.ReportColumnIdentifier;
 import com.smartsheet.api.models.ReportDefinition;
 import com.smartsheet.api.models.ReportFilterCriterion;
 import com.smartsheet.api.models.ReportFilterExpression;
+import com.smartsheet.api.models.ReportGroupingCriterion;
+import com.smartsheet.api.models.ReportSortingCriterion;
+import com.smartsheet.api.models.ReportSummarizingCriterion;
 import com.smartsheet.api.models.enums.ColumnType;
+import com.smartsheet.api.models.enums.ReportAggregationType;
 import com.smartsheet.api.models.enums.ReportFilterExpressionOperator;
 import com.smartsheet.api.models.enums.ReportFilterOperator;
-import com.smartsheet.api.sdktest.users.Utils;
+import com.smartsheet.api.models.enums.SortDirection;
+import com.smartsheet.api.sdktest.Utils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import static com.smartsheet.api.sdktest.users.CommonTestConstants.TEST_REPORT_ID;
@@ -50,6 +60,8 @@ public class TestUpdateReportDefinition {
     @BeforeEach
     void setUp() {
         testReportDefinition = new ReportDefinition();
+
+        // Set filters
         testReportDefinition.setFilters(
             new ReportFilterExpression()
                 .setOperator(ReportFilterExpressionOperator.AND)
@@ -67,11 +79,60 @@ public class TestUpdateReportDefinition {
                     }})
         );
 
+        // Set grouping criteria
+        testReportDefinition.setGroupingCriteria(new ArrayList<>() {{
+            add(
+                new ReportGroupingCriterion()
+                        .setColumn(
+                                new ReportColumnIdentifier()
+                                        .setTitle("Status")
+                                        .setType(ColumnType.PICKLIST)
+                        )
+                        .setSortingDirection(SortDirection.ASCENDING)
+                        .setIsExpanded(true)
+            );
+        }});
+
+        // Set summarizing criteria
+        testReportDefinition.setSummarizingCriteria(new ArrayList<>() {{
+            add(
+                new ReportSummarizingCriterion()
+                        .setColumn(
+                                new ReportColumnIdentifier()
+                                        .setTitle("Amount")
+                                        .setType(ColumnType.TEXT_NUMBER)
+                        )
+                        .setAggregationType(ReportAggregationType.SUM)
+            );
+        }});
+
+        // Set sorting criteria
+        testReportDefinition.setSortingCriteria(new ArrayList<>() {{
+            add(
+                new ReportSortingCriterion()
+                        .setColumn(
+                                new ReportColumnIdentifier()
+                                        .setTitle("Date")
+                                        .setType(ColumnType.DATE)
+                        )
+                        .setSortingDirection(SortDirection.DESCENDING)
+            );
+        }});
+
         testReportDefinitionJson = "{\"filters\":" +
                 "{\"operator\":\"AND\"," +
                 "\"criteria\":[{\"column\":" +
                 "{\"title\":\"Primary\",\"type\":\"TEXT_NUMBER\",\"primary\":true}," +
-                "\"operator\":\"EQUAL\"}]}}";
+                "\"operator\":\"EQUAL\"}]}," +
+                "\"groupingCriteria\":[{\"column\":" +
+                "{\"title\":\"Status\",\"type\":\"PICKLIST\"}," +
+                "\"sortingDirection\":\"ASCENDING\",\"isExpanded\":true}]," +
+                "\"summarizingCriteria\":[{\"column\":" +
+                "{\"title\":\"Amount\",\"type\":\"TEXT_NUMBER\"}," +
+                "\"aggregationType\":\"SUM\"}]," +
+                "\"sortingCriteria\":[{\"column\":" +
+                "{\"title\":\"Date\",\"type\":\"DATE\"}," +
+                "\"sortingDirection\":\"DESCENDING\"}]}";
     }
 
     @Test
@@ -145,5 +206,72 @@ public class TestUpdateReportDefinition {
         });
 
         assertThat(exception.getMessage()).isEqualTo("Malformed Request");
+    }
+
+    @Test
+    void testReportDefinitionSerializesToExpectedMap() throws JsonProcessingException {
+        // Marshal the ReportDefinition to JSON using the same ObjectMapper configuration as the SDK
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+
+        String json = objectMapper.writeValueAsString(testReportDefinition);
+        Map<String, Object> actualMap = objectMapper.readValue(json, Map.class);
+
+        // Expected structure - this will catch if fields are added or removed
+
+        // Expected filters
+        Map<String, Object> expectedFilterColumn = Map.of(
+                "title", "Primary",
+                "type", "TEXT_NUMBER",
+                "primary", true
+        );
+        Map<String, Object> expectedFilterCriterion = Map.of(
+                "column", expectedFilterColumn,
+                "operator", "EQUAL"
+        );
+        Map<String, Object> expectedFilters = Map.of(
+                "operator", "AND",
+                "criteria", List.of(expectedFilterCriterion)
+        );
+
+        // Expected grouping criteria
+        Map<String, Object> expectedGroupingColumn = Map.of(
+                "title", "Status",
+                "type", "PICKLIST"
+        );
+        Map<String, Object> expectedGroupingCriterion = Map.of(
+                "column", expectedGroupingColumn,
+                "sortingDirection", "ASCENDING",
+                "isExpanded", true
+        );
+
+        // Expected summarizing criteria
+        Map<String, Object> expectedSummarizingColumn = Map.of(
+                "title", "Amount",
+                "type", "TEXT_NUMBER"
+        );
+        Map<String, Object> expectedSummarizingCriterion = Map.of(
+                "column", expectedSummarizingColumn,
+                "aggregationType", "SUM"
+        );
+
+        // Expected sorting criteria
+        Map<String, Object> expectedSortingColumn = Map.of(
+                "title", "Date",
+                "type", "DATE"
+        );
+        Map<String, Object> expectedSortingCriterion = Map.of(
+                "column", expectedSortingColumn,
+                "sortingDirection", "DESCENDING"
+        );
+
+        Map<String, Object> expectedBody = Map.of(
+                "filters", expectedFilters,
+                "groupingCriteria", List.of(expectedGroupingCriterion),
+                "summarizingCriteria", List.of(expectedSummarizingCriterion),
+                "sortingCriteria", List.of(expectedSortingCriterion)
+        );
+
+        assertThat(actualMap).isEqualTo(expectedBody);
     }
 }
