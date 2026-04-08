@@ -53,7 +53,11 @@ public class ReportFilterValueTest {
     @Test
     void testCurrentUserValue() {
         ObjectValue value = ReportFilterValue.currentUser();
-        assertThat(value).isInstanceOf(ReportFilterValue.CurrentUserObjectValue.class);
+        assertThat(value).isInstanceOf(CurrentUserObjectValue.class);
+
+        CurrentUserObjectValue currentUserValue = (CurrentUserObjectValue) value;
+        assertThat(currentUserValue.getObjectTypeString()).isEqualTo("CURRENT_USER");
+        assertThat(currentUserValue.getValue()).isEqualTo("");
     }
 
     @Test
@@ -75,5 +79,43 @@ public class ReportFilterValueTest {
         assertThat(json).contains("42");
         assertThat(json).contains("\"objectType\"");
         assertThat(json).contains("\"DATE\"");
+    }
+
+    @Test
+    void testCurrentUserSerialization() throws JsonProcessingException {
+        CurrentUserObjectValue currentUser = new CurrentUserObjectValue();
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+
+        String json = objectMapper.writeValueAsString(currentUser);
+
+        // Verify CURRENT_USER serializes with correct objectType
+        assertThat(json).contains("\"objectType\"");
+        assertThat(json).contains("\"CURRENT_USER\"");
+        assertThat(json).contains("\"value\"");
+
+        // Verify it does NOT serialize as null
+        assertThat(json).doesNotContain("\"objectType\":null");
+
+        // Verify exact structure
+        assertThat(json).isEqualTo("{\"objectType\":\"CURRENT_USER\",\"value\":\"\"}");
+    }
+
+    @Test
+    void testCurrentUserInFilterCriterion() throws JsonProcessingException {
+        ReportFilterCriterion criterion = new ReportFilterCriterion();
+        criterion.setValues(Arrays.asList(
+                ReportFilterValue.currentUser()
+        ));
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+
+        String json = objectMapper.writeValueAsString(criterion.getValues());
+
+        // Verify CURRENT_USER serializes correctly in a list context
+        assertThat(json).contains("\"objectType\":\"CURRENT_USER\"");
+        assertThat(json).doesNotContain("\"objectType\":null");
     }
 }

@@ -95,29 +95,4 @@ public class ReportFilterValue {
     public static ObjectValue currentUser() {
         return new CurrentUserObjectValue();
     }
-
-    /**
-     * Special ObjectValue implementation for CURRENT_USER filter type.
-     * <p>
-     * This is used in report filters to match against the current authenticated user.
-     */
-    public static class CurrentUserObjectValue implements ObjectValue {
-        private final String objectType = "CURRENT_USER";
-        private final String value = "";
-
-        @Override
-        public ObjectValueType getObjectType() {
-            // Return null since CURRENT_USER is not in the standard ObjectValueType enum
-            // The custom serialization will use the objectType field directly
-            return null;
-        }
-
-        public String getObjectTypeString() {
-            return objectType;
-        }
-
-        public String getValue() {
-            return value;
-        }
-    }
 }
