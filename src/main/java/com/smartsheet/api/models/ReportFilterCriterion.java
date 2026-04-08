@@ -37,8 +37,19 @@ public class ReportFilterCriterion {
 
     /**
      * List of filter values.
+     * <p>
+     * Valid value types for report filters:
+     * <ul>
+     * <li>{@link StringObjectValue} - for string values</li>
+     * <li>{@link NumberObjectValue} - for numeric values</li>
+     * <li>{@link DateObjectValue} - for DATE objectType</li>
+     * <li>null values are supported</li>
+     * </ul>
+     * <p>
+     * Note: The ObjectValue implementations handle serialization correctly, with primitives
+     * serialized as raw values and objects (like DATE) serialized with objectType structure.
      */
-    private List<String> values;
+    private List<ObjectValue> values;
 
     /**
      * Gets the column identifier.
@@ -80,19 +91,44 @@ public class ReportFilterCriterion {
 
     /**
      * Gets the filter values.
+     * <p>
+     * Values are ObjectValue implementations representing different types:
+     * <ul>
+     * <li>{@link StringObjectValue} - string values</li>
+     * <li>{@link NumberObjectValue} - numeric values</li>
+     * <li>{@link DateObjectValue} - date values with objectType</li>
+     * <li>null - for null/empty values</li>
+     * </ul>
      *
      * @return the values
      */
-    public List<String> getValues() {
+    public List<ObjectValue> getValues() {
         return values;
     }
 
     /**
      * Sets the filter values.
+     * <p>
+     * Values should be ObjectValue implementations:
+     * <ul>
+     * <li>{@link StringObjectValue} - for string values</li>
+     * <li>{@link NumberObjectValue} - for numeric values</li>
+     * <li>{@link DateObjectValue} - for date values with objectType</li>
+     * <li>null - for null/empty values</li>
+     * </ul>
+     * <p>
+     * Example usage:
+     * <pre>
+     * criterion.setValues(Arrays.asList(
+     *     new StringObjectValue("value1"),
+     *     new NumberObjectValue(42),
+     *     new DateObjectValue(ObjectValueType.DATE, "2024-01-01")
+     * ));
+     * </pre>
      *
      * @param values the values
      */
-    public ReportFilterCriterion setValues(List<String> values) {
+    public ReportFilterCriterion setValues(List<ObjectValue> values) {
         this.values = values;
         return this;
     }

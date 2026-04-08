@@ -38,6 +38,7 @@ public class ReportColumnIdentifier {
 
     /**
      * Column title to be matched from the source sheets.
+     * The title cannot be empty and no more than 50 characters in length.
      * <p>
      * Note: If {@code primary} is true, then this property can be used to customize the primary column title.
      */
