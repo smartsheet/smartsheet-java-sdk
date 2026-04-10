@@ -433,6 +433,12 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
      */
     @Override
     public List<ReportColumn> addReportColumns(long reportId, List<ReportColumn> columns) throws SmartsheetException {
+        Util.throwIfNull(columns);
+
+        if (columns.isEmpty()) {
+            throw new IllegalArgumentException("columns should not be empty.");
+        }
+
         return this.postAndReceiveList(REPORTS_PATH + reportId + "/columns", columns, ReportColumn.class);
     }
 

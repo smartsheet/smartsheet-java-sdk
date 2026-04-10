@@ -205,6 +205,25 @@ public class TestAddReportColumns {
     }
 
     @Test
+    void testAddReportColumnsInvalidArgument() {
+        String requestId = UUID.randomUUID().toString();
+        WiremockClientWrapper wrapper = Utils.createWiremockSmartsheetClient(
+                "/reports/add-report-columns/all-response-body-properties",
+                requestId
+        );
+        Smartsheet smartsheet = wrapper.getSmartsheet();
+
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            smartsheet.reportResources().addReportColumns(TEST_REPORT_ID, null);
+        });
+
+        IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            smartsheet.reportResources().addReportColumns(TEST_REPORT_ID, new ArrayList<>());
+        });
+        assertThat(exception.getMessage()).isEqualTo("columns should not be empty.");
+    }
+
+    @Test
     void testAddReportColumnsError500Response() {
         String requestId = UUID.randomUUID().toString();
         WiremockClientWrapper wrapper = Utils.createWiremockSmartsheetClient("/errors/500-response", requestId);
