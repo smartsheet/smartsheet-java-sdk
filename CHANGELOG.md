@@ -5,9 +5,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [x.x.x] - unreleased
-- Support for the POST /2.0/reports/{id}/scope endpoint
-- Support for the DELETE /2.0/reports/{id}/scope endpoint
-- WireMock integration tests for contract testing for POST /2.0/reports/{id}/scope and DELETE /2.0/reports/{id}/scope endpoints
+### Added
+- Support for POST /2.0/reports/{reportId}/columns endpoint
+- WireMock integration tests for contract testing for POST /2.0/reports/{reportId}/columns endpoint
+- Support for POST /2.0/reports/{reportId}/scope endpoint
+- Support for DELETE /2.0/reports/{reportId}/scope endpoint
+- WireMock integration tests for contract testing for POST /2.0/reports/{reportId}/scope and DELETE /2.0/reports/{reportId}/scope endpoints
 
 ## [3.10.1] - 2026-03-31
 ### Fixed
