@@ -19,6 +19,7 @@ package com.smartsheet.api;
 import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.PaginationParameters;
 import com.smartsheet.api.models.Report;
+import com.smartsheet.api.models.ReportColumn;
 import com.smartsheet.api.models.ReportPublish;
 import com.smartsheet.api.models.ReportScopeInclusion;
 import com.smartsheet.api.models.SheetEmail;
@@ -267,4 +268,23 @@ public interface ReportResources {
      * @throws SmartsheetException         if there is any other error during the operation
      */
     void removeReportScope(long id, List<ReportScopeInclusion> scopes) throws SmartsheetException;
+
+    /**
+     * <p>Add columns to a report.</p>
+     *
+     * <p>It mirrors to the following Smartsheet REST API method: POST /reports/{reportId}/columns</p>
+     *
+     * <p>Note: All indexes of the columns must be equal.</p>
+     *
+     * @param reportId the ID of the report
+     * @param columns  the list of columns to add (must contain 1-400 items)
+     * @return the list of columns that were added
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetException         if there is any other error during the operation
+     */
+    List<ReportColumn> addReportColumns(long reportId, List<ReportColumn> columns) throws SmartsheetException;
 }

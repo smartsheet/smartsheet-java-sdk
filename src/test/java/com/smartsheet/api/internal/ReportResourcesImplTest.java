@@ -25,7 +25,9 @@ import com.smartsheet.api.models.Recipient;
 import com.smartsheet.api.models.RecipientEmail;
 import com.smartsheet.api.models.RecipientGroup;
 import com.smartsheet.api.models.Report;
+import com.smartsheet.api.models.ReportColumn;
 import com.smartsheet.api.models.SheetEmail;
+import com.smartsheet.api.models.enums.ColumnType;
 import com.smartsheet.api.models.enums.PaperSize;
 import com.smartsheet.api.models.enums.ReportInclusion;
 import com.smartsheet.api.models.enums.SheetEmailFormat;
@@ -136,5 +138,39 @@ class ReportResourcesImplTest extends ResourcesImplBase {
     void testDeleteReport() throws IOException {
         server.setResponseBody(new File("src/test/resources/deleteReport.json"));
         assertThatCode(() -> reportResources.deleteReport(1122334L)).doesNotThrowAnyException();
+    }
+
+    @Test
+    void testAddReportColumns() throws SmartsheetException, IOException {
+        server.setResponseBody(new File("src/test/resources/addReportColumns.json"));
+
+        List<ReportColumn> columnsToAdd = new ArrayList<>();
+
+        ReportColumn column1 = new ReportColumn();
+        column1.setTitle("Item selected");
+        column1.setType(ColumnType.CHECKBOX);
+        column1.setIndex(4);
+
+        ReportColumn column2 = new ReportColumn();
+        column2.setTitle("Sheet name");
+        column2.setType(ColumnType.TEXT_NUMBER);
+        column2.setIndex(5);
+        column2.setSheetNameColumn(true);
+
+        columnsToAdd.add(column1);
+        columnsToAdd.add(column2);
+
+        List<ReportColumn> addedColumns = reportResources.addReportColumns(4583173393803140L, columnsToAdd);
+
+        assertThat(addedColumns).isNotNull();
+        assertThat(addedColumns).hasSize(2);
+        assertThat(addedColumns.get(0).getVirtualId()).isEqualTo(12345L);
+        assertThat(addedColumns.get(0).getTitle()).isEqualTo("Item selected");
+        assertThat(addedColumns.get(0).getType()).isEqualTo(ColumnType.CHECKBOX);
+        assertThat(addedColumns.get(0).getIndex()).isEqualTo(4);
+        assertThat(addedColumns.get(1).getVirtualId()).isEqualTo(12346L);
+        assertThat(addedColumns.get(1).getTitle()).isEqualTo("Sheet name");
+        assertThat(addedColumns.get(1).getType()).isEqualTo(ColumnType.TEXT_NUMBER);
+        assertThat(addedColumns.get(1).getSheetNameColumn()).isTrue();
     }
 }

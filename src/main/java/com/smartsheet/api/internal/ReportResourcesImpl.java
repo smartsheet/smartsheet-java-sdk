@@ -32,6 +32,7 @@ import com.smartsheet.api.internal.util.QueryUtil;
 import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.PaginationParameters;
 import com.smartsheet.api.models.Report;
+import com.smartsheet.api.models.ReportColumn;
 import com.smartsheet.api.models.ReportPublish;
 import com.smartsheet.api.models.ReportScopeInclusion;
 import com.smartsheet.api.models.SheetEmail;
@@ -411,6 +412,28 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
         } finally {
             smartsheet.getHttpClient().releaseConnection();
         }
+    }
+
+    /**
+     * <p>Add columns to a report.</p>
+     *
+     * <p>It mirrors to the following Smartsheet REST API method: POST /reports/{reportId}/columns</p>
+     *
+     * <p>Note: All indexes of the columns must be equal.</p>
+     *
+     * @param reportId the ID of the report
+     * @param columns  the list of columns to add (must contain 1-400 items)
+     * @return the list of columns that were added
+     * @throws IllegalArgumentException    if any argument is null or empty
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetException         if there is any other error during the operation
+     */
+    @Override
+    public List<ReportColumn> addReportColumns(long reportId, List<ReportColumn> columns) throws SmartsheetException {
+        return this.postAndReceiveList(REPORTS_PATH + reportId + "/columns", columns, ReportColumn.class);
     }
 
     private void setRequestEntity(HttpRequest request, Object object) throws JSONSerializerException {
