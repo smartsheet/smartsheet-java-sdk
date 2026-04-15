@@ -176,4 +176,49 @@ public class TestListUsers {
 
         assertThat(exception.getMessage()).contains("Malformed Request");
     }
+
+    @Test
+    void testListUsersWithContributorSeatTypeFilter() throws SmartsheetException {
+        String requestId = UUID.randomUUID().toString();
+        WiremockClientWrapper wrapper = Utils.createWiremockSmartsheetClient(
+                "/users/list-users/contributor-seat-type-filter",
+                requestId
+        );
+        Smartsheet smartsheet = wrapper.getSmartsheet();
+        WiremockClient wiremockClient = wrapper.getWiremockClient();
+
+        smartsheet.userResources().listUsers(null, null, SeatType.CONTRIBUTOR, null);
+
+        LoggedRequest wiremockRequest = wiremockClient.findWiremockRequest(requestId);
+        String path = URI.create(wiremockRequest.getUrl()).getPath();
+        Map<String, QueryParameter> receivedQueryParams = wiremockRequest.getQueryParams();
+
+        assertThat(path).isEqualTo("/2.0/users");
+        assertThat(receivedQueryParams.get("seatType").getValues()).isEqualTo(List.of(SeatType.CONTRIBUTOR.toString()));
+    }
+
+    @Test
+    void testListUsersResponseContainsContributorUser() throws SmartsheetException {
+        String requestId = UUID.randomUUID().toString();
+        WiremockClientWrapper wrapper = Utils.createWiremockSmartsheetClient(
+                "/users/list-users/contributor-seat-type-response",
+                requestId
+        );
+        Smartsheet smartsheet = wrapper.getSmartsheet();
+
+        PagedResult<User> response = smartsheet.userResources()
+                .listUsers(null, null, SeatType.CONTRIBUTOR, null);
+
+        assertThat(response).isNotNull();
+        assertThat(response.getData()).isNotEmpty();
+
+        User contributorUser = response.getData().stream()
+                .filter(user -> user.getSeatType() == SeatType.CONTRIBUTOR)
+                .findFirst()
+                .orElse(null);
+
+        assertThat(contributorUser).isNotNull();
+        assertThat(contributorUser.getSeatType()).isEqualTo(SeatType.CONTRIBUTOR);
+        assertThat(contributorUser.getEmail()).isNotNull();
+    }
 }
