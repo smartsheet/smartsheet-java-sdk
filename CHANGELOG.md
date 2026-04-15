@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [x.x.x] - unreleased
 ### Added
 - Added CONTRIBUTOR to SeatType enum
+- Added CONTRIBUTOR to DowngradeSeatType enum
+- Added WireMock integration tests for CONTRIBUTOR seat type in list users and downgrade user endpoints
 
 ## [3.10.1] - 2026-03-31
 ### Fixed
