@@ -228,7 +228,7 @@ public interface ReportResources {
      * </p>
      *
      * @param id            the ID of the report
-     * @param definition    the ReportDefinition object containing the updated definition
+     * @param reportDefinition    the ReportDefinition object containing the updated definition
      * @throws IllegalArgumentException    if any argument is null
      * @throws InvalidRequestException     if there is any problem with the REST API request
      * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
@@ -236,7 +236,7 @@ public interface ReportResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException         if there is any other error during the operation
      */
-    void updateReportDefinition(long id, ReportDefinition definition) throws SmartsheetException;
+    void updateReportDefinition(long id, ReportDefinition reportDefinition) throws SmartsheetException;
 
     /**
      * <p>Creates an object of ShareResources.</p>

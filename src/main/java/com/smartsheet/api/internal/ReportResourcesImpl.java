@@ -338,7 +338,7 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
      * - SmartsheetException : if there is any other error occurred during the operation
      *
      * @param id         the ID of the report
-     * @param definition the ReportDefinition object containing the updated definition
+     * @param reportDefinition the ReportDefinition object containing the updated definition
      * @throws IllegalArgumentException    if any argument is null
      * @throws InvalidRequestException     if there is any problem with the REST API request
      * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
@@ -346,9 +346,9 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException         if there is any other error during the operation
      */
-    public void updateReportDefinition(long id, ReportDefinition definition) throws SmartsheetException {
+    public void updateReportDefinition(long id, ReportDefinition reportDefinition) throws SmartsheetException {
         String path = REPORTS_PATH + id + "/definition";
-        this.putResource(path, Result.class, definition);
+        this.putResource(path, Result.class, reportDefinition);
     }
 
     /**
