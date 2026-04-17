@@ -27,11 +27,11 @@ import static org.assertj.core.api.Assertions.assertThat;
  * Dedicated test to validate CurrentUserObjectValue serialization.
  * This ensures the objectType field serializes as "CURRENT_USER" and not null.
  */
-public class CurrentUserReportFilterObjectValueSerializationTest {
+public class CurrentUserObjectValueSerializationTest {
 
     @Test
     void testCurrentUserSerializesWithCorrectObjectType() throws JsonProcessingException {
-        CurrentUserReportFilterObjectValue currentUser = new CurrentUserReportFilterObjectValue();
+        CurrentUserObjectValue currentUser = new CurrentUserObjectValue();
 
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
@@ -46,7 +46,7 @@ public class CurrentUserReportFilterObjectValueSerializationTest {
 
     @Test
     void testCurrentUserDoesNotSerializeObjectTypeAsNull() throws JsonProcessingException {
-        CurrentUserReportFilterObjectValue currentUser = new CurrentUserReportFilterObjectValue();
+        CurrentUserObjectValue currentUser = new CurrentUserObjectValue();
 
         ObjectMapper objectMapper = new ObjectMapper();
 
@@ -61,7 +61,7 @@ public class CurrentUserReportFilterObjectValueSerializationTest {
 
     @Test
     void testCurrentUserWithCustomValue() throws JsonProcessingException {
-        CurrentUserReportFilterObjectValue currentUser = new CurrentUserReportFilterObjectValue("custom");
+        CurrentUserObjectValue currentUser = new CurrentUserObjectValue("custom");
 
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
@@ -78,7 +78,7 @@ public class CurrentUserReportFilterObjectValueSerializationTest {
         ReportFilterCriterion criterion = new ReportFilterCriterion();
         criterion.setColumn(new ReportColumnIdentifier().setTitle("Assigned To"));
         criterion.setOperator(com.smartsheet.api.models.enums.ReportFilterOperator.EQUAL);
-        criterion.setValues(java.util.Arrays.asList(new CurrentUserReportFilterObjectValue()));
+        criterion.setValues(java.util.Arrays.asList(new CurrentUserObjectValue()));
 
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);

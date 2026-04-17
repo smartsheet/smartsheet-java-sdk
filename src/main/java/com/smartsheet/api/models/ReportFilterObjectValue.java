@@ -29,7 +29,7 @@ import java.util.Date;
  * <li>{@link StringObjectValue} - for string values</li>
  * <li>{@link NumberObjectValue} - for numeric values</li>
  * <li>{@link DateObjectValue} - for date values</li>
- * <li>{@link CurrentUserReportFilterObjectValue} - for current user filters</li>
+ * <li>{@link CurrentUserObjectValue} - for current user filters</li>
  * </ul>
  * <p>
  * Static factory methods provide convenient ways to create filter values:
@@ -96,6 +96,6 @@ public interface ReportFilterObjectValue extends ObjectValue {
      * @return a CurrentUserObjectValue implementing ReportFilterObjectValue
      */
     static ReportFilterObjectValue currentUser() {
-        return new CurrentUserReportFilterObjectValue();
+        return new CurrentUserObjectValue();
     }
 }

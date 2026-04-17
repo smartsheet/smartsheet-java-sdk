@@ -26,7 +26,7 @@ import com.smartsheet.api.models.enums.ObjectValueType;
  * The objectType is "CURRENT_USER" which is not part of the standard ObjectValueType enum
  * as it's specific to report filters.
  */
-public class CurrentUserReportFilterObjectValue implements ObjectValue, ReportFilterObjectValue {
+public class CurrentUserObjectValue implements ReportFilterObjectValue {
 
     @JsonProperty("objectType")
     private final String objectType = "CURRENT_USER";
@@ -38,7 +38,7 @@ public class CurrentUserReportFilterObjectValue implements ObjectValue, ReportFi
      * Default constructor.
      * Sets value to empty string which is typical for CURRENT_USER filters.
      */
-    public CurrentUserReportFilterObjectValue() {
+    public CurrentUserObjectValue() {
         this.value = "";
     }
 
@@ -47,7 +47,7 @@ public class CurrentUserReportFilterObjectValue implements ObjectValue, ReportFi
      *
      * @param value the value (typically empty for CURRENT_USER)
      */
-    public CurrentUserReportFilterObjectValue(String value) {
+    public CurrentUserObjectValue(String value) {
         this.value = value;
     }
 
@@ -77,7 +77,7 @@ public class CurrentUserReportFilterObjectValue implements ObjectValue, ReportFi
      * @param value the value
      * @return this CurrentUserObjectValue for method chaining
      */
-    public CurrentUserReportFilterObjectValue setValue(String value) {
+    public CurrentUserObjectValue setValue(String value) {
         this.value = value;
         return this;
     }

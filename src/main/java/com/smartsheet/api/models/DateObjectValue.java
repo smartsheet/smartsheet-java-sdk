@@ -22,7 +22,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class DateObjectValue implements ObjectValue, ReportFilterObjectValue {
+public class DateObjectValue implements ReportFilterObjectValue {
     public static final String ABSTRACT_DATETIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ss";
     public static final String DATETIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ss'Z'";
     public static final String DATE_FORMAT = "yyyy-MM-dd";
