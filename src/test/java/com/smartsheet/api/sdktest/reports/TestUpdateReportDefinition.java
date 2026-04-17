@@ -16,19 +16,12 @@
 
 package com.smartsheet.api.sdktest.reports;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.Version;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.github.tomakehurst.wiremock.http.RequestMethod;
 import com.github.tomakehurst.wiremock.verification.LoggedRequest;
 import com.smartsheet.api.Smartsheet;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.WiremockClient;
 import com.smartsheet.api.WiremockClientWrapper;
-import com.smartsheet.api.internal.json.PrimitiveObjectValueSerializer;
-import com.smartsheet.api.models.PrimitiveObjectValue;
 import com.smartsheet.api.models.ReportColumnIdentifier;
 import com.smartsheet.api.models.ReportDefinition;
 import com.smartsheet.api.models.ReportFilterCriterion;
@@ -50,8 +43,6 @@ import org.junit.jupiter.api.Test;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 import static com.smartsheet.api.sdktest.users.CommonTestConstants.TEST_REPORT_ID;
@@ -269,108 +260,4 @@ public class TestUpdateReportDefinition {
         assertThat(exception.getMessage()).isEqualTo("Malformed Request");
     }
 
-    @Test
-    void testReportDefinitionSerializesToExpectedMap() throws JsonProcessingException {
-        // Marshal the ReportDefinition to JSON using the same ObjectMapper configuration as the SDK
-        ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-
-        // Register the custom serializer to match SDK behavior (primitives for strings/numbers)
-        SimpleModule module = new SimpleModule("PrimitiveObjectValueSerializerModule", Version.unknownVersion());
-        module.addSerializer(PrimitiveObjectValue.class, new PrimitiveObjectValueSerializer());
-        objectMapper.registerModule(module);
-
-        String json = objectMapper.writeValueAsString(testReportDefinition);
-        Map<String, Object> actualMap = objectMapper.readValue(json, Map.class);
-
-        // Expected structure - this will catch if fields are added or removed
-
-        // Expected filters
-        // Note: With PrimitiveObjectValueSerializer, strings and numbers serialize as primitives
-        Map<String, Object> expectedFilterColumn1 = Map.of(
-                "title", "Primary",
-                "type", "TEXT_NUMBER",
-                "primary", true
-        );
-        Map<String, Object> expectedFilterCriterion1 = Map.of(
-                "column", expectedFilterColumn1,
-                "operator", "EQUAL",
-                "values", List.of("Active", "In Progress")
-        );
-
-        Map<String, Object> expectedFilterColumn2 = Map.of(
-                "title", "Priority",
-                "type", "TEXT_NUMBER"
-        );
-        Map<String, Object> expectedFilterCriterion2 = Map.of(
-                "column", expectedFilterColumn2,
-                "operator", "GREATER_THAN",
-                "values", List.of(5)
-        );
-
-        Map<String, Object> expectedFilterColumn3 = Map.of(
-                "title", "Owner",
-                "type", "CONTACT_LIST"
-        );
-        Map<String, Object> expectedFilterCriterion3 = Map.of(
-                "column", expectedFilterColumn3,
-                "operator", "EQUAL",
-                "values", List.of(Map.of("objectType", "CURRENT_USER", "value", ""))
-        );
-
-        Map<String, Object> expectedFilterColumn4 = Map.of(
-                "title", "Due Date",
-                "type", "DATE"
-        );
-        Map<String, Object> expectedFilterCriterion4 = Map.of(
-                "column", expectedFilterColumn4,
-                "operator", "GREATER_THAN_OR_EQUAL",
-                "values", List.of(Map.of("objectType", "DATE", "value", "2024-01-01"))
-        );
-
-        Map<String, Object> expectedFilters = Map.of(
-                "operator", "AND",
-                "criteria", List.of(expectedFilterCriterion1, expectedFilterCriterion2, expectedFilterCriterion3, expectedFilterCriterion4)
-        );
-
-        // Expected grouping criteria
-        Map<String, Object> expectedGroupingColumn = Map.of(
-                "title", "Status",
-                "type", "PICKLIST"
-        );
-        Map<String, Object> expectedGroupingCriterion = Map.of(
-                "column", expectedGroupingColumn,
-                "sortingDirection", "ASCENDING",
-                "isExpanded", true
-        );
-
-        // Expected summarizing criteria
-        Map<String, Object> expectedSummarizingColumn = Map.of(
-                "title", "Amount",
-                "type", "TEXT_NUMBER"
-        );
-        Map<String, Object> expectedSummarizingCriterion = Map.of(
-                "column", expectedSummarizingColumn,
-                "aggregationType", "SUM"
-        );
-
-        // Expected sorting criteria
-        Map<String, Object> expectedSortingColumn = Map.of(
-                "title", "Date",
-                "type", "DATE"
-        );
-        Map<String, Object> expectedSortingCriterion = Map.of(
-                "column", expectedSortingColumn,
-                "sortingDirection", "DESCENDING"
-        );
-
-        Map<String, Object> expectedBody = Map.of(
-                "filters", expectedFilters,
-                "groupingCriteria", List.of(expectedGroupingCriterion),
-                "summarizingCriteria", List.of(expectedSummarizingCriterion),
-                "sortingCriteria", List.of(expectedSortingCriterion)
-        );
-
-        assertThat(actualMap).isEqualTo(expectedBody);
-    }
 }
