@@ -29,6 +29,7 @@ import com.smartsheet.api.models.ReportColumnIdentifier;
 import com.smartsheet.api.models.ReportDefinition;
 import com.smartsheet.api.models.ReportFilterCriterion;
 import com.smartsheet.api.models.ReportFilterExpression;
+import com.smartsheet.api.models.ReportFilterValue;
 import com.smartsheet.api.models.ReportGroupingCriterion;
 import com.smartsheet.api.models.ReportSortingCriterion;
 import com.smartsheet.api.models.ReportSummarizingCriterion;
@@ -44,6 +45,7 @@ import org.junit.jupiter.api.Test;
 
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -61,7 +63,7 @@ public class TestUpdateReportDefinition {
     void setUp() {
         testReportDefinition = new ReportDefinition();
 
-        // Set filters
+        // Set filters - demonstrates ReportFilterValue helper usage
         testReportDefinition.setFilters(
             new ReportFilterExpression()
                 .setOperator(ReportFilterExpressionOperator.AND)
@@ -75,6 +77,48 @@ public class TestUpdateReportDefinition {
                                                     .setTitle("Primary")
                                                     .setType(ColumnType.TEXT_NUMBER)
                                     )
+                                    // Use ReportFilterValue helper functions for type-safe filter values
+                                    .setValues(Arrays.asList(
+                                            ReportFilterValue.string("Active"),
+                                            ReportFilterValue.string("In Progress")
+                                    ))
+                        );
+                        add(
+                            new ReportFilterCriterion()
+                                    .setOperator(ReportFilterOperator.GREATER_THAN)
+                                    .setColumn(
+                                            new ReportColumnIdentifier()
+                                                    .setTitle("Priority")
+                                                    .setType(ColumnType.TEXT_NUMBER)
+                                    )
+                                    .setValues(Arrays.asList(
+                                            ReportFilterValue.number(5)
+                                    ))
+                        );
+                        add(
+                            new ReportFilterCriterion()
+                                    .setOperator(ReportFilterOperator.EQUAL)
+                                    .setColumn(
+                                            new ReportColumnIdentifier()
+                                                    .setTitle("Owner")
+                                                    .setType(ColumnType.CONTACT_LIST)
+                                    )
+                                    // Use currentUser() for filtering by the authenticated user
+                                    .setValues(Arrays.asList(
+                                            ReportFilterValue.currentUser()
+                                    ))
+                        );
+                        add(
+                            new ReportFilterCriterion()
+                                    .setOperator(ReportFilterOperator.GREATER_THAN_OR_EQUAL)
+                                    .setColumn(
+                                            new ReportColumnIdentifier()
+                                                    .setTitle("Due Date")
+                                                    .setType(ColumnType.DATE)
+                                    )
+                                    .setValues(Arrays.asList(
+                                            ReportFilterValue.date("2024-01-01")
+                                    ))
                         );
                     }})
         );
@@ -121,9 +165,20 @@ public class TestUpdateReportDefinition {
 
         testReportDefinitionJson = "{\"filters\":" +
                 "{\"operator\":\"AND\"," +
-                "\"criteria\":[{\"column\":" +
-                "{\"title\":\"Primary\",\"type\":\"TEXT_NUMBER\",\"primary\":true}," +
-                "\"operator\":\"EQUAL\"}]}," +
+                "\"criteria\":[" +
+                "{\"column\":{\"title\":\"Primary\",\"type\":\"TEXT_NUMBER\",\"primary\":true}," +
+                "\"operator\":\"EQUAL\"," +
+                "\"values\":[\"Active\",\"In Progress\"]}," +
+                "{\"column\":{\"title\":\"Priority\",\"type\":\"TEXT_NUMBER\"}," +
+                "\"operator\":\"GREATER_THAN\"," +
+                "\"values\":[5]}," +
+                "{\"column\":{\"title\":\"Owner\",\"type\":\"CONTACT_LIST\"}," +
+                "\"operator\":\"EQUAL\"," +
+                "\"values\":[{\"objectType\":\"CURRENT_USER\",\"value\":\"\"}]}," +
+                "{\"column\":{\"title\":\"Due Date\",\"type\":\"DATE\"}," +
+                "\"operator\":\"GREATER_THAN_OR_EQUAL\"," +
+                "\"values\":[{\"objectType\":\"DATE\",\"value\":\"2024-01-01\"}]}" +
+                "]}," +
                 "\"groupingCriteria\":[{\"column\":" +
                 "{\"title\":\"Status\",\"type\":\"PICKLIST\"}," +
                 "\"sortingDirection\":\"ASCENDING\",\"isExpanded\":true}]," +
@@ -151,9 +206,6 @@ public class TestUpdateReportDefinition {
 
         assertThat(path).isEqualTo("/2.0/reports/" + TEST_REPORT_ID + "/definition");
         assertThat(wiremockRequest.getMethod()).isEqualTo(RequestMethod.PUT);
-
-        String requestBody = wiremockRequest.getBodyAsString();
-        assertThat(requestBody).isEqualTo(testReportDefinitionJson);
     }
 
     @Test
@@ -164,8 +216,13 @@ public class TestUpdateReportDefinition {
                 requestId
         );
         Smartsheet smartsheet = wrapper.getSmartsheet();
+        WiremockClient wiremockClient = wrapper.getWiremockClient();
 
         assertThatNoException().isThrownBy(() -> smartsheet.reportResources().updateReportDefinition(TEST_REPORT_ID, testReportDefinition));
+
+        LoggedRequest wiremockRequest = wiremockClient.findWiremockRequest(requestId);
+        String requestBody = wiremockRequest.getBodyAsString();
+        assertThat(requestBody).isEqualTo(testReportDefinitionJson);
     }
 
     @Test
@@ -220,18 +277,54 @@ public class TestUpdateReportDefinition {
         // Expected structure - this will catch if fields are added or removed
 
         // Expected filters
-        Map<String, Object> expectedFilterColumn = Map.of(
+        // Note: ObjectMapper serialization includes objectType for all value types
+        Map<String, Object> expectedFilterColumn1 = Map.of(
                 "title", "Primary",
                 "type", "TEXT_NUMBER",
                 "primary", true
         );
-        Map<String, Object> expectedFilterCriterion = Map.of(
-                "column", expectedFilterColumn,
-                "operator", "EQUAL"
+        Map<String, Object> expectedFilterCriterion1 = Map.of(
+                "column", expectedFilterColumn1,
+                "operator", "EQUAL",
+                "values", List.of(
+                        Map.of("objectType", "STRING", "value", "Active"),
+                        Map.of("objectType", "STRING", "value", "In Progress")
+                )
         );
+
+        Map<String, Object> expectedFilterColumn2 = Map.of(
+                "title", "Priority",
+                "type", "TEXT_NUMBER"
+        );
+        Map<String, Object> expectedFilterCriterion2 = Map.of(
+                "column", expectedFilterColumn2,
+                "operator", "GREATER_THAN",
+                "values", List.of(Map.of("objectType", "NUMBER", "value", 5))
+        );
+
+        Map<String, Object> expectedFilterColumn3 = Map.of(
+                "title", "Owner",
+                "type", "CONTACT_LIST"
+        );
+        Map<String, Object> expectedFilterCriterion3 = Map.of(
+                "column", expectedFilterColumn3,
+                "operator", "EQUAL",
+                "values", List.of(Map.of("objectType", "CURRENT_USER", "value", ""))
+        );
+
+        Map<String, Object> expectedFilterColumn4 = Map.of(
+                "title", "Due Date",
+                "type", "DATE"
+        );
+        Map<String, Object> expectedFilterCriterion4 = Map.of(
+                "column", expectedFilterColumn4,
+                "operator", "GREATER_THAN_OR_EQUAL",
+                "values", List.of(Map.of("objectType", "DATE", "value", "2024-01-01"))
+        );
+
         Map<String, Object> expectedFilters = Map.of(
                 "operator", "AND",
-                "criteria", List.of(expectedFilterCriterion)
+                "criteria", List.of(expectedFilterCriterion1, expectedFilterCriterion2, expectedFilterCriterion3, expectedFilterCriterion4)
         );
 
         // Expected grouping criteria
