@@ -18,13 +18,17 @@ package com.smartsheet.api.sdktest.reports;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.Version;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.github.tomakehurst.wiremock.http.RequestMethod;
 import com.github.tomakehurst.wiremock.verification.LoggedRequest;
 import com.smartsheet.api.Smartsheet;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.WiremockClient;
 import com.smartsheet.api.WiremockClientWrapper;
+import com.smartsheet.api.internal.json.PrimitiveObjectValueSerializer;
+import com.smartsheet.api.models.PrimitiveObjectValue;
 import com.smartsheet.api.models.ReportColumnIdentifier;
 import com.smartsheet.api.models.ReportDefinition;
 import com.smartsheet.api.models.ReportFilterCriterion;
@@ -271,13 +275,18 @@ public class TestUpdateReportDefinition {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
 
+        // Register the custom serializer to match SDK behavior (primitives for strings/numbers)
+        SimpleModule module = new SimpleModule("PrimitiveObjectValueSerializerModule", Version.unknownVersion());
+        module.addSerializer(PrimitiveObjectValue.class, new PrimitiveObjectValueSerializer());
+        objectMapper.registerModule(module);
+
         String json = objectMapper.writeValueAsString(testReportDefinition);
         Map<String, Object> actualMap = objectMapper.readValue(json, Map.class);
 
         // Expected structure - this will catch if fields are added or removed
 
         // Expected filters
-        // Note: ObjectMapper serialization includes objectType for all value types
+        // Note: With PrimitiveObjectValueSerializer, strings and numbers serialize as primitives
         Map<String, Object> expectedFilterColumn1 = Map.of(
                 "title", "Primary",
                 "type", "TEXT_NUMBER",
@@ -286,10 +295,7 @@ public class TestUpdateReportDefinition {
         Map<String, Object> expectedFilterCriterion1 = Map.of(
                 "column", expectedFilterColumn1,
                 "operator", "EQUAL",
-                "values", List.of(
-                        Map.of("objectType", "STRING", "value", "Active"),
-                        Map.of("objectType", "STRING", "value", "In Progress")
-                )
+                "values", List.of("Active", "In Progress")
         );
 
         Map<String, Object> expectedFilterColumn2 = Map.of(
@@ -299,7 +305,7 @@ public class TestUpdateReportDefinition {
         Map<String, Object> expectedFilterCriterion2 = Map.of(
                 "column", expectedFilterColumn2,
                 "operator", "GREATER_THAN",
-                "values", List.of(Map.of("objectType", "NUMBER", "value", 5))
+                "values", List.of(5)
         );
 
         Map<String, Object> expectedFilterColumn3 = Map.of(
