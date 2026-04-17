@@ -21,33 +21,36 @@ import com.smartsheet.api.models.enums.ObjectValueType;
 import java.util.Date;
 
 /**
- * Helper class for creating filter values for {@link ReportFilterCriterion}.
+ * Marker interface for filter values used in {@link ReportFilterCriterion}.
  * <p>
- * Provides convenient factory methods for creating properly typed filter values.
+ * This interface extends {@link ObjectValue} and provides type safety for report filter values.
+ * Implementations include:
+ * <ul>
+ * <li>{@link StringObjectValue} - for string values</li>
+ * <li>{@link NumberObjectValue} - for numeric values</li>
+ * <li>{@link DateObjectValue} - for date values</li>
+ * <li>{@link CurrentUserObjectValue} - for current user filters</li>
+ * </ul>
  * <p>
- * Example usage:
+ * Static factory methods provide convenient ways to create filter values:
  * <pre>
  * criterion.setValues(Arrays.asList(
- *     ReportFilterValue.string("value1"),
- *     ReportFilterValue.number(42),
- *     ReportFilterValue.date("2024-01-01"),
- *     ReportFilterValue.currentUser()
+ *     ReportFilterObjectValue.string("value1"),
+ *     ReportFilterObjectValue.number(42),
+ *     ReportFilterObjectValue.date("2024-01-01"),
+ *     ReportFilterObjectValue.currentUser()
  * ));
  * </pre>
  */
-public class ReportFilterValue {
-
-    private ReportFilterValue() {
-        // Utility class - prevent instantiation
-    }
+public interface ReportFilterObjectValue extends ObjectValue {
 
     /**
      * Creates a string filter value.
      *
      * @param value the string value
-     * @return a StringObjectValue
+     * @return a StringObjectValue implementing ReportFilterObjectValue
      */
-    public static ObjectValue string(String value) {
+    static ReportFilterObjectValue string(String value) {
         return new StringObjectValue(value);
     }
 
@@ -55,9 +58,9 @@ public class ReportFilterValue {
      * Creates a numeric filter value.
      *
      * @param value the numeric value
-     * @return a NumberObjectValue
+     * @return a NumberObjectValue implementing ReportFilterObjectValue
      */
-    public static ObjectValue number(Number value) {
+    static ReportFilterObjectValue number(Number value) {
         return new NumberObjectValue(value);
     }
 
@@ -67,9 +70,9 @@ public class ReportFilterValue {
      * The value should be in ISO 8601 format: "yyyy-MM-dd"
      *
      * @param value the date string in "yyyy-MM-dd" format
-     * @return a DateObjectValue with DATE objectType
+     * @return a DateObjectValue with DATE objectType implementing ReportFilterObjectValue
      */
-    public static ObjectValue date(String value) {
+    static ReportFilterObjectValue date(String value) {
         return new DateObjectValue(ObjectValueType.DATE, value);
     }
 
@@ -77,9 +80,9 @@ public class ReportFilterValue {
      * Creates a date filter value from a Java Date object.
      *
      * @param date the Date object
-     * @return a DateObjectValue with DATE objectType
+     * @return a DateObjectValue with DATE objectType implementing ReportFilterObjectValue
      */
-    public static ObjectValue date(Date date) {
+    static ReportFilterObjectValue date(Date date) {
         return DateObjectValue.fromDate(ObjectValueType.DATE, date);
     }
 
@@ -90,9 +93,9 @@ public class ReportFilterValue {
      * The value is typically empty or set to a placeholder as the server interprets this
      * based on the objectType.
      *
-     * @return a CurrentUserObjectValue
+     * @return a CurrentUserObjectValue implementing ReportFilterObjectValue
      */
-    public static ObjectValue currentUser() {
+    static ReportFilterObjectValue currentUser() {
         return new CurrentUserObjectValue();
     }
 }

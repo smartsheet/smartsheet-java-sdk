@@ -26,7 +26,7 @@ import com.smartsheet.api.models.ReportColumnIdentifier;
 import com.smartsheet.api.models.ReportDefinition;
 import com.smartsheet.api.models.ReportFilterCriterion;
 import com.smartsheet.api.models.ReportFilterExpression;
-import com.smartsheet.api.models.ReportFilterValue;
+import com.smartsheet.api.models.ReportFilterObjectValue;
 import com.smartsheet.api.models.ReportGroupingCriterion;
 import com.smartsheet.api.models.ReportSortingCriterion;
 import com.smartsheet.api.models.ReportSummarizingCriterion;
@@ -74,8 +74,8 @@ public class TestUpdateReportDefinition {
                                     )
                                     // Use ReportFilterValue helper functions for type-safe filter values
                                     .setValues(Arrays.asList(
-                                            ReportFilterValue.string("Active"),
-                                            ReportFilterValue.string("In Progress")
+                                            ReportFilterObjectValue.string("Active"),
+                                            ReportFilterObjectValue.string("In Progress")
                                     ))
                         );
                         add(
@@ -87,7 +87,7 @@ public class TestUpdateReportDefinition {
                                                     .setType(ColumnType.TEXT_NUMBER)
                                     )
                                     .setValues(Arrays.asList(
-                                            ReportFilterValue.number(5)
+                                            ReportFilterObjectValue.number(5)
                                     ))
                         );
                         add(
@@ -100,7 +100,7 @@ public class TestUpdateReportDefinition {
                                     )
                                     // Use currentUser() for filtering by the authenticated user
                                     .setValues(Arrays.asList(
-                                            ReportFilterValue.currentUser()
+                                            ReportFilterObjectValue.currentUser()
                                     ))
                         );
                         add(
@@ -112,7 +112,7 @@ public class TestUpdateReportDefinition {
                                                     .setType(ColumnType.DATE)
                                     )
                                     .setValues(Arrays.asList(
-                                            ReportFilterValue.date("2024-01-01")
+                                            ReportFilterObjectValue.date("2024-01-01")
                                     ))
                         );
                     }})

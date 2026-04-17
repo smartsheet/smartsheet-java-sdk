@@ -26,25 +26,25 @@ import java.util.Arrays;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class ReportFilterValueTest {
+public class ReportFilterObjectValueTest {
 
     @Test
     void testStringValue() {
-        ObjectValue value = ReportFilterValue.string("test");
+        ObjectValue value = ReportFilterObjectValue.string("test");
         assertThat(value).isInstanceOf(StringObjectValue.class);
         assertThat(((StringObjectValue) value).getValue()).isEqualTo("test");
     }
 
     @Test
     void testNumberValue() {
-        ObjectValue value = ReportFilterValue.number(42);
+        ObjectValue value = ReportFilterObjectValue.number(42);
         assertThat(value).isInstanceOf(NumberObjectValue.class);
         assertThat(((NumberObjectValue) value).getValue()).isEqualTo(42);
     }
 
     @Test
     void testDateValue() {
-        ObjectValue value = ReportFilterValue.date("2024-01-01");
+        ObjectValue value = ReportFilterObjectValue.date("2024-01-01");
         assertThat(value).isInstanceOf(DateObjectValue.class);
         assertThat(((DateObjectValue) value).getValue()).isEqualTo("2024-01-01");
         assertThat(value.getObjectType()).isEqualTo(ObjectValueType.DATE);
@@ -52,7 +52,7 @@ public class ReportFilterValueTest {
 
     @Test
     void testCurrentUserValue() {
-        ObjectValue value = ReportFilterValue.currentUser();
+        ObjectValue value = ReportFilterObjectValue.currentUser();
         assertThat(value).isInstanceOf(CurrentUserObjectValue.class);
 
         CurrentUserObjectValue currentUserValue = (CurrentUserObjectValue) value;
@@ -64,9 +64,9 @@ public class ReportFilterValueTest {
     void testSerializationOfMixedValues() throws JsonProcessingException {
         ReportFilterCriterion criterion = new ReportFilterCriterion();
         criterion.setValues(Arrays.asList(
-                ReportFilterValue.string("value1"),
-                ReportFilterValue.number(42),
-                ReportFilterValue.date("2024-01-01")
+                ReportFilterObjectValue.string("value1"),
+                ReportFilterObjectValue.number(42),
+                ReportFilterObjectValue.date("2024-01-01")
         ));
 
         ObjectMapper objectMapper = new ObjectMapper();
@@ -106,7 +106,7 @@ public class ReportFilterValueTest {
     void testCurrentUserInFilterCriterion() throws JsonProcessingException {
         ReportFilterCriterion criterion = new ReportFilterCriterion();
         criterion.setValues(Arrays.asList(
-                ReportFilterValue.currentUser()
+                ReportFilterObjectValue.currentUser()
         ));
 
         ObjectMapper objectMapper = new ObjectMapper();

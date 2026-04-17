@@ -38,18 +38,26 @@ public class ReportFilterCriterion {
     /**
      * List of filter values.
      * <p>
-     * Valid value types for report filters:
+     * Valid value types for report filters (all implement {@link ReportFilterObjectValue}):
      * <ul>
      * <li>{@link StringObjectValue} - for string values</li>
      * <li>{@link NumberObjectValue} - for numeric values</li>
      * <li>{@link DateObjectValue} - for DATE objectType</li>
+     * <li>{@link CurrentUserObjectValue} - for CURRENT_USER filters</li>
      * <li>null values are supported</li>
      * </ul>
      * <p>
-     * Note: The ObjectValue implementations handle serialization correctly, with primitives
-     * serialized as raw values and objects (like DATE) serialized with objectType structure.
+     * Use the {@link ReportFilterObjectValue} static factory methods for type-safe value creation:
+     * <pre>
+     * criterion.setValues(Arrays.asList(
+     *     ReportFilterObjectValue.string("value1"),
+     *     ReportFilterObjectValue.number(42),
+     *     ReportFilterObjectValue.date("2024-01-01"),
+     *     ReportFilterObjectValue.currentUser()
+     * ));
+     * </pre>
      */
-    private List<ObjectValue> values;
+    private List<ReportFilterObjectValue> values;
 
     /**
      * Gets the column identifier.
@@ -92,43 +100,46 @@ public class ReportFilterCriterion {
     /**
      * Gets the filter values.
      * <p>
-     * Values are ObjectValue implementations representing different types:
+     * Values are {@link ReportFilterObjectValue} implementations representing different types:
      * <ul>
      * <li>{@link StringObjectValue} - string values</li>
      * <li>{@link NumberObjectValue} - numeric values</li>
      * <li>{@link DateObjectValue} - date values with objectType</li>
+     * <li>{@link CurrentUserObjectValue} - current user filters</li>
      * <li>null - for null/empty values</li>
      * </ul>
      *
      * @return the values
      */
-    public List<ObjectValue> getValues() {
+    public List<ReportFilterObjectValue> getValues() {
         return values;
     }
 
     /**
      * Sets the filter values.
      * <p>
-     * Values should be ObjectValue implementations:
+     * Values should be {@link ReportFilterObjectValue} implementations.
+     * Use the static factory methods for type-safe value creation:
      * <ul>
-     * <li>{@link StringObjectValue} - for string values</li>
-     * <li>{@link NumberObjectValue} - for numeric values</li>
-     * <li>{@link DateObjectValue} - for date values with objectType</li>
-     * <li>null - for null/empty values</li>
+     * <li>{@link ReportFilterObjectValue#string(String)} - for string values</li>
+     * <li>{@link ReportFilterObjectValue#number(Number)} - for numeric values</li>
+     * <li>{@link ReportFilterObjectValue#date(String)} or {@link ReportFilterObjectValue#date(java.util.Date)} - for date values</li>
+     * <li>{@link ReportFilterObjectValue#currentUser()} - for current user filters</li>
      * </ul>
      * <p>
      * Example usage:
      * <pre>
      * criterion.setValues(Arrays.asList(
-     *     new StringObjectValue("value1"),
-     *     new NumberObjectValue(42),
-     *     new DateObjectValue(ObjectValueType.DATE, "2024-01-01")
+     *     ReportFilterObjectValue.string("value1"),
+     *     ReportFilterObjectValue.number(42),
+     *     ReportFilterObjectValue.date("2024-01-01"),
+     *     ReportFilterObjectValue.currentUser()
      * ));
      * </pre>
      *
      * @param values the values
      */
-    public ReportFilterCriterion setValues(List<ObjectValue> values) {
+    public ReportFilterCriterion setValues(List<ReportFilterObjectValue> values) {
         this.values = values;
         return this;
     }

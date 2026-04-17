@@ -26,7 +26,7 @@ import com.smartsheet.api.models.enums.ObjectValueType;
  * The objectType is "CURRENT_USER" which is not part of the standard ObjectValueType enum
  * as it's specific to report filters.
  */
-public class CurrentUserObjectValue implements ObjectValue {
+public class CurrentUserObjectValue implements ObjectValue, ReportFilterObjectValue {
 
     @JsonProperty("objectType")
     private final String objectType = "CURRENT_USER";

@@ -170,41 +170,41 @@ To add new mock API tests:
 
 ## Working with Report Filter Values
 
-When creating or updating report definitions with filters, the SDK provides a `ReportFilterValue` helper class to create properly typed filter values. This ensures type safety and correct serialization of filter values.
+When creating or updating report definitions with filters, the SDK provides a `ReportFilterObjectValue` interface with static factory methods to create properly typed filter values. This interface ensures type safety by restricting filter values to only the types supported by report filters.
 
 ### Available Filter Value Types
 
-The `ReportFilterValue` class provides factory methods for creating different types of filter values:
+The `ReportFilterObjectValue` class provides factory methods for creating different types of filter values:
 
 #### String Values
-Use `ReportFilterValue.string()` for text-based filters:
+Use `ReportFilterObjectValue.string()` for text-based filters:
 ```java
-ReportFilterValue.string("Active")
-ReportFilterValue.string("In Progress")
+ReportFilterObjectValue.string("Active")
+ReportFilterObjectValue.string("In Progress")
 ```
 
 #### Numeric Values
-Use `ReportFilterValue.number()` for numeric filters:
+Use `ReportFilterObjectValue.number()` for numeric filters:
 ```java
-ReportFilterValue.number(5)
-ReportFilterValue.number(100.5)
+ReportFilterObjectValue.number(5)
+ReportFilterObjectValue.number(100.5)
 ```
 
 #### Date Values
-Use `ReportFilterValue.date()` for date-based filters. You can provide either an ISO 8601 date string or a Java `Date` object:
+Use `ReportFilterObjectValue.date()` for date-based filters. You can provide either an ISO 8601 date string or a Java `Date` object:
 ```java
 // Using ISO 8601 date string (yyyy-MM-dd)
-ReportFilterValue.date("2024-01-01")
+ReportFilterObjectValue.date("2024-01-01")
 
 // Using Java Date object
 Date dueDate = new Date();
-ReportFilterValue.date(dueDate)
+ReportFilterObjectValue.date(dueDate)
 ```
 
 #### Current User
-Use `ReportFilterValue.currentUser()` to filter by the authenticated user. This is particularly useful for contact list columns:
+Use `ReportFilterObjectValue.currentUser()` to filter by the authenticated user. This is particularly useful for contact list columns:
 ```java
-ReportFilterValue.currentUser()
+ReportFilterObjectValue.currentUser()
 ```
 
 ### Complete Example
@@ -214,7 +214,7 @@ Here’s a complete example showing how to create a report definition with multi
 ```java
 ReportDefinition reportDefinition = new ReportDefinition();
 
-// Create filters using ReportFilterValue helpers
+// Create filters using ReportFilterObjectValue helpers
 reportDefinition.setFilters(
     new ReportFilterExpression()
         .setOperator(ReportFilterExpressionOperator.AND)
@@ -228,8 +228,8 @@ reportDefinition.setFilters(
                         .setType(ColumnType.PICKLIST)
                 )
                 .setValues(Arrays.asList(
-                    ReportFilterValue.string("Active"),
-                    ReportFilterValue.string("In Progress")
+                    ReportFilterObjectValue.string("Active"),
+                    ReportFilterObjectValue.string("In Progress")
                 )),
             
             // Numeric filter: priority greater than 5
@@ -241,7 +241,7 @@ reportDefinition.setFilters(
                         .setType(ColumnType.TEXT_NUMBER)
                 )
                 .setValues(Arrays.asList(
-                    ReportFilterValue.number(5)
+                    ReportFilterObjectValue.number(5)
                 )),
             
             // Current user filter: items assigned to me
@@ -253,7 +253,7 @@ reportDefinition.setFilters(
                         .setType(ColumnType.CONTACT_LIST)
                 )
                 .setValues(Arrays.asList(
-                    ReportFilterValue.currentUser()
+                    ReportFilterObjectValue.currentUser()
                 )),
             
             // Date filter: due date on or after 2024-01-01
@@ -265,7 +265,7 @@ reportDefinition.setFilters(
                         .setType(ColumnType.DATE)
                 )
                 .setValues(Arrays.asList(
-                    ReportFilterValue.date("2024-01-01")
+                    ReportFilterObjectValue.date("2024-01-01")
                 ))
         ))
 );
