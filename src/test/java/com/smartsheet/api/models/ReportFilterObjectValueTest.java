@@ -53,9 +53,9 @@ public class ReportFilterObjectValueTest {
     @Test
     void testCurrentUserValue() {
         ObjectValue value = ReportFilterObjectValue.currentUser();
-        assertThat(value).isInstanceOf(CurrentUserObjectValue.class);
+        assertThat(value).isInstanceOf(CurrentUserReportFilterObjectValue.class);
 
-        CurrentUserObjectValue currentUserValue = (CurrentUserObjectValue) value;
+        CurrentUserReportFilterObjectValue currentUserValue = (CurrentUserReportFilterObjectValue) value;
         assertThat(currentUserValue.getObjectTypeString()).isEqualTo("CURRENT_USER");
         assertThat(currentUserValue.getValue()).isEqualTo("");
     }
@@ -83,7 +83,7 @@ public class ReportFilterObjectValueTest {
 
     @Test
     void testCurrentUserSerialization() throws JsonProcessingException {
-        CurrentUserObjectValue currentUser = new CurrentUserObjectValue();
+        CurrentUserReportFilterObjectValue currentUser = new CurrentUserReportFilterObjectValue();
 
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);

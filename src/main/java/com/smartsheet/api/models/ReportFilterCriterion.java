@@ -43,7 +43,7 @@ public class ReportFilterCriterion {
      * <li>{@link StringObjectValue} - for string values</li>
      * <li>{@link NumberObjectValue} - for numeric values</li>
      * <li>{@link DateObjectValue} - for DATE objectType</li>
-     * <li>{@link CurrentUserObjectValue} - for CURRENT_USER filters</li>
+     * <li>{@link CurrentUserReportFilterObjectValue} - for CURRENT_USER filters</li>
      * <li>null values are supported</li>
      * </ul>
      * <p>
@@ -105,7 +105,7 @@ public class ReportFilterCriterion {
      * <li>{@link StringObjectValue} - string values</li>
      * <li>{@link NumberObjectValue} - numeric values</li>
      * <li>{@link DateObjectValue} - date values with objectType</li>
-     * <li>{@link CurrentUserObjectValue} - current user filters</li>
+     * <li>{@link CurrentUserReportFilterObjectValue} - current user filters</li>
      * <li>null - for null/empty values</li>
      * </ul>
      *
