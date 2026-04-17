@@ -88,7 +88,6 @@ public class CurrentUserObjectValue implements ReportFilterObjectValue {
      *
      * @return null
      */
-    @Override
     public ObjectValueType getObjectType() {
         return null;
     }

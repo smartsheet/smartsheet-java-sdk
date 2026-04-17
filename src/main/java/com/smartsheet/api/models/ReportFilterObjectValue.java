@@ -42,7 +42,7 @@ import java.util.Date;
  * ));
  * </pre>
  */
-public interface ReportFilterObjectValue extends ObjectValue {
+public interface ReportFilterObjectValue {
 
     /**
      * Creates a string filter value.

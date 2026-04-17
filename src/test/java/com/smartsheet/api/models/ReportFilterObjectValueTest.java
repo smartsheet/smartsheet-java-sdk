@@ -30,29 +30,29 @@ public class ReportFilterObjectValueTest {
 
     @Test
     void testStringValue() {
-        ObjectValue value = ReportFilterObjectValue.string("test");
+        ReportFilterObjectValue value = ReportFilterObjectValue.string("test");
         assertThat(value).isInstanceOf(StringObjectValue.class);
         assertThat(((StringObjectValue) value).getValue()).isEqualTo("test");
     }
 
     @Test
     void testNumberValue() {
-        ObjectValue value = ReportFilterObjectValue.number(42);
+        ReportFilterObjectValue value = ReportFilterObjectValue.number(42);
         assertThat(value).isInstanceOf(NumberObjectValue.class);
         assertThat(((NumberObjectValue) value).getValue()).isEqualTo(42);
     }
 
     @Test
     void testDateValue() {
-        ObjectValue value = ReportFilterObjectValue.date("2024-01-01");
+        ReportFilterObjectValue value = ReportFilterObjectValue.date("2024-01-01");
         assertThat(value).isInstanceOf(DateObjectValue.class);
         assertThat(((DateObjectValue) value).getValue()).isEqualTo("2024-01-01");
-        assertThat(value.getObjectType()).isEqualTo(ObjectValueType.DATE);
+        assertThat(((DateObjectValue) value).getObjectType()).isEqualTo(ObjectValueType.DATE);
     }
 
     @Test
     void testCurrentUserValue() {
-        ObjectValue value = ReportFilterObjectValue.currentUser();
+        ReportFilterObjectValue value = ReportFilterObjectValue.currentUser();
         assertThat(value).isInstanceOf(CurrentUserObjectValue.class);
 
         CurrentUserObjectValue currentUserValue = (CurrentUserObjectValue) value;
