@@ -99,19 +99,12 @@ public class TestAddReportColumns {
         assertThat(path).isEqualTo("/2.0/reports/" + TEST_REPORT_ID + "/columns");
         assertThat(wiremockRequest.getMethod()).isEqualTo(RequestMethod.POST);
 
-        // Validate the request body was marshalled correctly according to OpenAPI spec
+        // Validate the request body matches the expected structure as a whole
         String requestBody = wiremockRequest.getBodyAsString();
         ObjectMapper objectMapper = new ObjectMapper();
-        @SuppressWarnings("unchecked")
-        List<Map<String, Object>> requestBodyList = objectMapper.readValue(requestBody, List.class);
-
-        // Verify we sent 2 columns
-        assertThat(requestBodyList).hasSize(2);
-
-        // Validate request body matches expected structure exactly
-        // This will catch any unintentional field additions or removals
-        assertThat(requestBodyList.get(0)).isEqualTo(EXPECTED_COLUMN1_REQUEST);
-        assertThat(requestBodyList.get(1)).isEqualTo(EXPECTED_COLUMN2_REQUEST);
+        List<Map<String, Object>> expectedRequestBody = List.of(EXPECTED_COLUMN1_REQUEST, EXPECTED_COLUMN2_REQUEST);
+        String expectedJson = objectMapper.writeValueAsString(expectedRequestBody);
+        assertThat(objectMapper.readTree(requestBody)).isEqualTo(objectMapper.readTree(expectedJson));
     }
 
     @Test
@@ -126,17 +119,13 @@ public class TestAddReportColumns {
 
         List<ReportColumn> addedColumns = smartsheet.reportResources().addReportColumns(TEST_REPORT_ID, testColumns);
 
-        // Validate request body matches expected structure exactly
+        // Validate request body matches expected structure as a whole
         LoggedRequest wiremockRequest = wiremockClient.findWiremockRequest(requestId);
         String requestBody = wiremockRequest.getBodyAsString();
         ObjectMapper objectMapper = new ObjectMapper();
-        @SuppressWarnings("unchecked")
-        List<Map<String, Object>> requestBodyList = objectMapper.readValue(requestBody, List.class);
-
-        // Verify request body matches expected maps - this catches unintentional field changes
-        assertThat(requestBodyList).hasSize(2);
-        assertThat(requestBodyList.get(0)).isEqualTo(EXPECTED_COLUMN1_REQUEST);
-        assertThat(requestBodyList.get(1)).isEqualTo(EXPECTED_COLUMN2_REQUEST);
+        List<Map<String, Object>> expectedRequestBody = List.of(EXPECTED_COLUMN1_REQUEST, EXPECTED_COLUMN2_REQUEST);
+        String expectedJson = objectMapper.writeValueAsString(expectedRequestBody);
+        assertThat(objectMapper.readTree(requestBody)).isEqualTo(objectMapper.readTree(expectedJson));
 
         // Verify response: all properties including virtualId
         assertThat(addedColumns).isNotNull();
@@ -174,18 +163,13 @@ public class TestAddReportColumns {
 
         List<ReportColumn> addedColumns = smartsheet.reportResources().addReportColumns(TEST_REPORT_ID, testColumns);
 
-        // Validate request body matches expected structure exactly (per OpenAPI spec)
+        // Validate request body matches expected structure as a whole (per OpenAPI spec)
         LoggedRequest wiremockRequest = wiremockClient.findWiremockRequest(requestId);
         String requestBody = wiremockRequest.getBodyAsString();
         ObjectMapper objectMapper = new ObjectMapper();
-        @SuppressWarnings("unchecked")
-        List<Map<String, Object>> requestBodyList = objectMapper.readValue(requestBody, List.class);
-
-        // Verify request body matches expected maps exactly
-        // This will catch any unintentional field additions or removals
-        assertThat(requestBodyList).hasSize(2);
-        assertThat(requestBodyList.get(0)).isEqualTo(EXPECTED_COLUMN1_REQUEST);
-        assertThat(requestBodyList.get(1)).isEqualTo(EXPECTED_COLUMN2_REQUEST);
+        List<Map<String, Object>> expectedRequestBody = List.of(EXPECTED_COLUMN1_REQUEST, EXPECTED_COLUMN2_REQUEST);
+        String expectedJson = objectMapper.writeValueAsString(expectedRequestBody);
+        assertThat(objectMapper.readTree(requestBody)).isEqualTo(objectMapper.readTree(expectedJson));
 
         // Verify response parsing
         assertThat(addedColumns).isNotNull();

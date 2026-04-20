@@ -301,7 +301,7 @@ public interface ReportResources {
      * <p>Note: All indexes of the columns must be equal.</p>
      *
      * @param reportId the ID of the report
-     * @param columns  the list of columns to add (must contain 1-400 items)
+     * @param reportColumns  the list of columns to add (must contain 1-400 items)
      * @return the list of columns that were added
      * @throws IllegalArgumentException    if any argument is null or empty string
      * @throws InvalidRequestException     if there is any problem with the REST API request
@@ -310,5 +310,5 @@ public interface ReportResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException         if there is any other error during the operation
      */
-    List<ReportColumn> addReportColumns(long reportId, List<ReportColumn> columns) throws SmartsheetException;
+    List<ReportColumn> addReportColumns(long reportId, List<ReportColumn> reportColumns) throws SmartsheetException;
 }

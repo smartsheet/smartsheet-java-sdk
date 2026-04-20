@@ -450,15 +450,15 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
     }
 
     /**
-     * <p>Add columns to a report.</p>
+     * <p>Add reportColumns to a report.</p>
      *
-     * <p>It mirrors to the following Smartsheet REST API method: POST /reports/{reportId}/columns</p>
+     * <p>It mirrors to the following Smartsheet REST API method: POST /reports/{reportId}/reportColumns</p>
      *
-     * <p>Note: All indexes of the columns must be equal.</p>
+     * <p>Note: All indexes of the reportColumns must be equal.</p>
      *
      * @param reportId the ID of the report
-     * @param columns  the list of columns to add (must contain 1-400 items)
-     * @return the list of columns that were added
+     * @param reportColumns  the list of reportColumns to add (must contain 1-400 items)
+     * @return the list of reportColumns that were added
      * @throws IllegalArgumentException    if any argument is null or empty
      * @throws InvalidRequestException     if there is any problem with the REST API request
      * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
@@ -467,14 +467,14 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
      * @throws SmartsheetException         if there is any other error during the operation
      */
     @Override
-    public List<ReportColumn> addReportColumns(long reportId, List<ReportColumn> columns) throws SmartsheetException {
-        Util.throwIfNull(columns);
+    public List<ReportColumn> addReportColumns(long reportId, List<ReportColumn> reportColumns) throws SmartsheetException {
+        Util.throwIfNull(reportColumns);
 
-        if (columns.isEmpty()) {
-            throw new IllegalArgumentException("columns should not be empty.");
+        if (reportColumns.isEmpty()) {
+            throw new IllegalArgumentException("reportColumns should not be empty.");
         }
 
-        return this.postAndReceiveList(REPORTS_PATH + reportId + "/columns", columns, ReportColumn.class);
+        return this.postAndReceiveList(REPORTS_PATH + reportId + "/reportColumns", reportColumns, ReportColumn.class);
     }
 
     private void setRequestEntity(HttpRequest request, Object object) throws JSONSerializerException {
