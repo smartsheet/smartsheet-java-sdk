@@ -21,7 +21,7 @@ import com.smartsheet.api.models.enums.ObjectValueType;
 
 import java.io.IOException;
 
-public class StringObjectValue implements PrimitiveObjectValue<String> {
+public class StringObjectValue implements PrimitiveObjectValue<String>, ReportFilterObjectValue {
     private String value;
 
     public StringObjectValue() {
