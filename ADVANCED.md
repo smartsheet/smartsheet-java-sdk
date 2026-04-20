@@ -168,6 +168,112 @@ To add new mock API tests:
     }
 ```
 
+## Working with Report Filter Values
+
+When creating or updating report definitions with filters, the SDK provides a `ReportFilterObjectValue` interface with static factory methods to create properly typed filter values. This interface ensures type safety by restricting filter values to only the types supported by report filters.
+
+### Available Filter Value Types
+
+The `ReportFilterObjectValue` class provides factory methods for creating different types of filter values:
+
+#### String Values
+Use `ReportFilterObjectValue.string()` for text-based filters:
+```java
+ReportFilterObjectValue.string("Active")
+ReportFilterObjectValue.string("In Progress")
+```
+
+#### Numeric Values
+Use `ReportFilterObjectValue.number()` for numeric filters:
+```java
+ReportFilterObjectValue.number(5)
+ReportFilterObjectValue.number(100.5)
+```
+
+#### Date Values
+Use `ReportFilterObjectValue.date()` for date-based filters. You can provide either an ISO 8601 date string or a Java `Date` object:
+```java
+// Using ISO 8601 date string (yyyy-MM-dd)
+ReportFilterObjectValue.date("2024-01-01")
+
+// Using Java Date object
+Date dueDate = new Date();
+ReportFilterObjectValue.date(dueDate)
+```
+
+#### Current User
+Use `ReportFilterObjectValue.currentUser()` to filter by the authenticated user. This is particularly useful for contact list columns:
+```java
+ReportFilterObjectValue.currentUser()
+```
+
+### Complete Example
+
+Here’s a complete example showing how to create a report definition with multiple filter types:
+
+```java
+ReportDefinition reportDefinition = new ReportDefinition();
+
+// Create filters using ReportFilterObjectValue helpers
+reportDefinition.setFilters(
+    new ReportFilterExpression()
+        .setOperator(ReportFilterExpressionOperator.AND)
+        .setCriteria(Arrays.asList(
+            // String filter: filter for "Active" or "In Progress" status
+            new ReportFilterCriterion()
+                .setOperator(ReportFilterOperator.EQUAL)
+                .setColumn(
+                    new ReportColumnIdentifier()
+                        .setTitle("Status")
+                        .setType(ColumnType.PICKLIST)
+                )
+                .setValues(Arrays.asList(
+                    ReportFilterObjectValue.string("Active"),
+                    ReportFilterObjectValue.string("In Progress")
+                )),
+            
+            // Numeric filter: priority greater than 5
+            new ReportFilterCriterion()
+                .setOperator(ReportFilterOperator.GREATER_THAN)
+                .setColumn(
+                    new ReportColumnIdentifier()
+                        .setTitle("Priority")
+                        .setType(ColumnType.TEXT_NUMBER)
+                )
+                .setValues(Arrays.asList(
+                    ReportFilterObjectValue.number(5)
+                )),
+            
+            // Current user filter: items assigned to me
+            new ReportFilterCriterion()
+                .setOperator(ReportFilterOperator.EQUAL)
+                .setColumn(
+                    new ReportColumnIdentifier()
+                        .setTitle("Assigned To")
+                        .setType(ColumnType.CONTACT_LIST)
+                )
+                .setValues(Arrays.asList(
+                    ReportFilterObjectValue.currentUser()
+                )),
+            
+            // Date filter: due date on or after 2024-01-01
+            new ReportFilterCriterion()
+                .setOperator(ReportFilterOperator.GREATER_THAN_OR_EQUAL)
+                .setColumn(
+                    new ReportColumnIdentifier()
+                        .setTitle("Due Date")
+                        .setType(ColumnType.DATE)
+                )
+                .setValues(Arrays.asList(
+                    ReportFilterObjectValue.date("2024-01-01")
+                ))
+        ))
+);
+
+// Update the report definition
+smartsheet.reportResources().updateReportDefinition(reportId, reportDefinition);
+```
+
 ## Android
 Google doesn’t support the Apache HTTP Client on Android (used as the default HTTP client by the SDK). In order to make it easier to use the Smartsheet Java SDK, the SDK contains a 2nd HTTP client class, AndroidHttpClient. The AndroidHttpClient class is included with version 2.68.4+ of the SDK. To use the Smartsheet Java SDK on Android, follow these steps:
 
