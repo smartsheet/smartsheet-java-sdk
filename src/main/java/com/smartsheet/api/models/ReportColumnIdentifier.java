@@ -17,7 +17,7 @@
 package com.smartsheet.api.models;
 
 import com.smartsheet.api.models.enums.ColumnType;
-import com.smartsheet.api.models.enums.ReportSystemColumnType;
+import com.smartsheet.api.models.enums.SystemColumnType;
 
 /**
  * Object used to match a sheet column for a report.
@@ -52,7 +52,7 @@ public class ReportColumnIdentifier {
     /**
      * System column type to be matched from the source sheets.
      */
-    private ReportSystemColumnType systemColumnType;
+    private SystemColumnType systemColumnType;
 
     /**
      * Indicates if the matched column is primary (default: false).
@@ -109,7 +109,7 @@ public class ReportColumnIdentifier {
      *
      * @return the system column type
      */
-    public ReportSystemColumnType getSystemColumnType() {
+    public SystemColumnType getSystemColumnType() {
         return systemColumnType;
     }
 
@@ -118,7 +118,7 @@ public class ReportColumnIdentifier {
      *
      * @param systemColumnType the system column type
      */
-    public ReportColumnIdentifier setSystemColumnType(ReportSystemColumnType systemColumnType) {
+    public ReportColumnIdentifier setSystemColumnType(SystemColumnType systemColumnType) {
         this.systemColumnType = systemColumnType;
         return this;
     }
