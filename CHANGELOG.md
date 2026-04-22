@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [x.x.x] - unreleased
 
+## [3.11.0] - 2026-04-22
+### Added
+- Added `objectIdStr` field to Event model to support alphanumeric object identifiers in v2.0 events endpoint
+- Field is optional and maintains full backward compatibility with existing implementations
+
 ## [3.10.1] - 2026-03-31
 ### Fixed
 - Fixed WORKSPACES endpoint constant in SheetResourcesImpl to use lowercase "workspaces" instead of uppercase "WORKSPACES", resolving 404 errors when creating sheets in workspaces
