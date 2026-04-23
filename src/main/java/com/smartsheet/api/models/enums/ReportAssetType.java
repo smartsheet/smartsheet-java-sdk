@@ -16,6 +16,8 @@
 
 package com.smartsheet.api.models.enums;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * Represents the type of asset that is included in the report.
  */
@@ -23,10 +25,12 @@ public enum ReportAssetType {
     /**
      * A sheet that is included in the report.
      */
+    @JsonProperty("sheet")
     SHEET,
 
     /**
      * A workspace that is included in the report.
      */
+    @JsonProperty("workspace")
     WORKSPACE
 }
