@@ -18,6 +18,8 @@ package com.smartsheet.api.internal;
 
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
+import com.smartsheet.api.models.CreateReportRequest;
+import com.smartsheet.api.models.CreateReportResult;
 import com.smartsheet.api.models.FormatDetails;
 import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.PaginationParameters;
@@ -26,9 +28,14 @@ import com.smartsheet.api.models.RecipientEmail;
 import com.smartsheet.api.models.RecipientGroup;
 import com.smartsheet.api.models.Report;
 import com.smartsheet.api.models.ReportColumn;
+import com.smartsheet.api.models.ReportDestination;
+import com.smartsheet.api.models.ReportScopeInclusion;
 import com.smartsheet.api.models.SheetEmail;
+import com.smartsheet.api.models.enums.AccessLevel;
 import com.smartsheet.api.models.enums.ColumnType;
 import com.smartsheet.api.models.enums.PaperSize;
+import com.smartsheet.api.models.enums.ReportAssetType;
+import com.smartsheet.api.models.enums.ReportDestinationType;
 import com.smartsheet.api.models.enums.ReportInclusion;
 import com.smartsheet.api.models.enums.SheetEmailFormat;
 import org.apache.commons.io.output.ByteArrayOutputStream;
@@ -44,6 +51,7 @@ import java.util.EnumSet;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatCode;
 
 class ReportResourcesImplTest extends ResourcesImplBase {
@@ -172,5 +180,50 @@ class ReportResourcesImplTest extends ResourcesImplBase {
         assertThat(addedColumns.get(1).getTitle()).isEqualTo("Sheet name");
         assertThat(addedColumns.get(1).getType()).isEqualTo(ColumnType.TEXT_NUMBER);
         assertThat(addedColumns.get(1).getSheetNameColumn()).isTrue();
+    }
+
+    @Test
+    void testCreateReport() throws SmartsheetException, IOException {
+        server.setResponseBody(new File("src/test/resources/createReport.json"));
+
+        ReportDestination destination = new ReportDestination();
+        destination.setDestinationId(12345L);
+        destination.setDestinationType(ReportDestinationType.FOLDER);
+
+        List<ReportColumn> columns = new ArrayList<>();
+        ReportColumn column = new ReportColumn();
+        column.setTitle("Task Name");
+        column.setType(ColumnType.TEXT_NUMBER);
+        column.setPrimary(true);
+        column.setIndex(0);
+        columns.add(column);
+
+        List<ReportScopeInclusion> scope = new ArrayList<>();
+        ReportScopeInclusion scopeItem = new ReportScopeInclusion();
+        scopeItem.setAssetType(ReportAssetType.SHEET);
+        scopeItem.setAssetId(67890L);
+        scope.add(scopeItem);
+
+        CreateReportRequest request = new CreateReportRequest();
+        request.setName("Q2 Earnings");
+        request.setDestination(destination);
+        request.setColumns(columns);
+        request.setScope(scope);
+        request.setIsSummaryReport(false);
+
+        CreateReportResult result = reportResources.createReport(request);
+
+        assertThat(result).isNotNull();
+        assertThat(result.getId()).isEqualTo(987654321L);
+        assertThat(result.getName()).isEqualTo("Q2 Earnings");
+        assertThat(result.getAccessLevel()).isEqualTo(AccessLevel.OWNER);
+        assertThat(result.getPermalink()).isEqualTo("https://app.smartsheet.com/reports/c8gJxw87cXpRCvCC5PPw6jFhFRrf5r8PxCrxvW21");
+        assertThat(result.getIsSummaryReport()).isFalse();
+    }
+
+    @Test
+    void testCreateReportNullRequest() {
+        assertThatThrownBy(() -> reportResources.createReport(null))
+                .isInstanceOf(IllegalArgumentException.class);
     }
 }
