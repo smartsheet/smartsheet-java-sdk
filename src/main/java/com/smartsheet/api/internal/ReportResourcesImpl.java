@@ -45,7 +45,6 @@ import com.smartsheet.api.models.enums.ReportInclusion;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -499,33 +498,14 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
     public CreateReportResult createReport(CreateReportRequest request) throws SmartsheetException {
         Util.throwIfNull(request);
 
-        String path = "reports";
-        HttpRequest httpRequest = createHttpRequest(smartsheet.getBaseURI().resolve(path), HttpMethod.POST);
-        setRequestEntity(httpRequest, request);
+        // The API returns an array with a single result for this endpoint
+        List<CreateReportResult> results = this.postAndReceiveList("reports", request, CreateReportResult.class);
 
-        CreateReportResult createReportResult;
-        try {
-            HttpResponse response = this.smartsheet.getHttpClient().request(httpRequest);
-
-            if (response.getStatusCode() != 200) {
-                handleError(response);
-            }
-
-            List<CreateReportResult> results = this.smartsheet.getJsonSerializer().deserializeListResult(
-                CreateReportResult.class,
-                response.getEntity().getContent()
-            ).getResult();
-
-            if (results == null || results.isEmpty()) {
-                throw new SmartsheetException("No report result returned from API");
-            }
-
-            createReportResult = results.get(0);
-        } finally {
-            smartsheet.getHttpClient().releaseConnection();
+        if (results == null || results.isEmpty()) {
+            throw new SmartsheetException("No report result returned from API");
         }
 
-        return createReportResult;
+        return results.get(0);
     }
 
     private void setRequestEntity(HttpRequest request, Object object) throws JSONSerializerException {
