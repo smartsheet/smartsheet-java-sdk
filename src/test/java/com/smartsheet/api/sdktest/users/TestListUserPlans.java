@@ -132,4 +132,58 @@ public class TestListUserPlans {
 
         assertThat(exception.getMessage()).isEqualTo("Malformed Request");
     }
+
+    @Test
+    void testListUserPlansDisplayContributorSeatTypeTrueGeneratesCorrectUrl() throws SmartsheetException {
+        String requestId = UUID.randomUUID().toString();
+        WiremockClientWrapper wrapper = Utils.createWiremockSmartsheetClient(
+                "/users/list-user-plans/display-contributor-seat-type-true",
+                requestId
+        );
+        Smartsheet smartsheet = wrapper.getSmartsheet();
+        WiremockClient wiremockClient = wrapper.getWiremockClient();
+
+        smartsheet.userResources().listUserPlans(TEST_USER_ID, null, null, true);
+
+        LoggedRequest wiremockRequest = wiremockClient.findWiremockRequest(requestId);
+        String path = URI.create(wiremockRequest.getUrl()).getPath();
+        Map<String, QueryParameter> receivedQueryParams = wiremockRequest.getQueryParams();
+
+        assertThat(path).isEqualTo("/2.0/users/1234567890/plans");
+        assertThat(receivedQueryParams.get("displayContributorSeatType").getValues()).isEqualTo(List.of("true"));
+    }
+
+    @Test
+    void testListUserPlansDisplayContributorSeatTypeTrueReturnsContributor() throws SmartsheetException {
+        String requestId = UUID.randomUUID().toString();
+        WiremockClientWrapper wrapper = Utils.createWiremockSmartsheetClient(
+                "/users/list-user-plans/display-contributor-seat-type-true",
+                requestId
+        );
+        Smartsheet smartsheet = wrapper.getSmartsheet();
+
+        TokenPaginatedResult<UserPlan> response = smartsheet.userResources()
+                .listUserPlans(TEST_USER_ID, null, null, true);
+
+        assertThat(response).isNotNull();
+        assertThat(response.getData()).isNotEmpty();
+        assertThat(response.getData().get(0).getSeatType()).isEqualTo(SeatType.CONTRIBUTOR);
+    }
+
+    @Test
+    void testListUserPlansDisplayContributorSeatTypeFalseReturnsViewer() throws SmartsheetException {
+        String requestId = UUID.randomUUID().toString();
+        WiremockClientWrapper wrapper = Utils.createWiremockSmartsheetClient(
+                "/users/list-user-plans/display-contributor-seat-type-false",
+                requestId
+        );
+        Smartsheet smartsheet = wrapper.getSmartsheet();
+
+        TokenPaginatedResult<UserPlan> response = smartsheet.userResources()
+                .listUserPlans(TEST_USER_ID, null, null, false);
+
+        assertThat(response).isNotNull();
+        assertThat(response.getData()).isNotEmpty();
+        assertThat(response.getData().get(0).getSeatType()).isEqualTo(SeatType.VIEWER);
+    }
 }
