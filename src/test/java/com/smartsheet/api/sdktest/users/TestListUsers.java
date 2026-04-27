@@ -59,6 +59,9 @@ public class TestListUsers {
     private static final boolean TEST_IS_INTERNAL_TRUE = true;
     private static final String TEST_LAST_LOGIN = "2020-10-04T18:32:47Z";
     private static final String TEST_CUSTOM_WELCOME_SCREEN_VIEWED = "2020-08-25T12:15:47Z";
+    private static final String TEST_CONTRIBUTOR_EMAIL = "contributor.user@smartsheet.com";
+    private static final String TEST_CONTRIBUTOR_FIRST_NAME = "Contributor";
+    private static final String TEST_CONTRIBUTOR_LAST_NAME = "User";
 
     @Test
     void testListUsersGeneratedUrlIsCorrect() throws SmartsheetException {
@@ -126,9 +129,9 @@ public class TestListUsers {
 
         // Verify second user (CONTRIBUTOR)
         assertThat(response.getData().get(1).getSeatType()).isEqualTo(SeatType.CONTRIBUTOR);
-        assertThat(response.getData().get(1).getEmail()).isEqualTo("contributor.user@smartsheet.com");
-        assertThat(response.getData().get(1).getFirstName()).isEqualTo("Contributor");
-        assertThat(response.getData().get(1).getLastName()).isEqualTo("User");
+        assertThat(response.getData().get(1).getEmail()).isEqualTo(TEST_CONTRIBUTOR_EMAIL);
+        assertThat(response.getData().get(1).getFirstName()).isEqualTo(TEST_CONTRIBUTOR_FIRST_NAME);
+        assertThat(response.getData().get(1).getLastName()).isEqualTo(TEST_CONTRIBUTOR_LAST_NAME);
     }
 
     @Test
