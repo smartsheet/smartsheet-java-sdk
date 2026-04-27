@@ -216,7 +216,7 @@ public class TestUserUpgradeDowngrade {
     void testDowngradeUserToContributor() throws SmartsheetException, JsonProcessingException {
         String requestId = UUID.randomUUID().toString();
         WiremockClientWrapper wrapper = Utils.createWiremockSmartsheetClient(
-                "/users/downgrade-user/to-contributor",
+                "/users/downgrade-user/all-response-body-properties",
                 requestId
         );
         Smartsheet smartsheet = wrapper.getSmartsheet();

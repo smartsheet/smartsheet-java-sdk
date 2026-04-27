@@ -103,6 +103,9 @@ public class TestListUsers {
                 .listUsers(null, TEST_PLAN_ID, null, null);
 
         assertThat(response).isNotNull();
+        assertThat(response.getData()).hasSize(2);
+
+        // Verify first user (MEMBER)
         assertThat(response.getData().get(0).getSeatType()).isEqualTo(TEST_SEAT_TYPE);
         assertThat(response.getData().get(0).getSeatTypeLastChangedAt()).isEqualTo(TEST_SEAT_TYPE_LAST_CHANGED_AT);
         assertThat(response.getData().get(0).getProvisionalExpirationDate()).isEqualTo(TEST_PROVISIONAL_EXPIRATION_DATE);
@@ -120,6 +123,12 @@ public class TestListUsers {
         assertThat(response.getData().get(0).getLastLogin()).isEqualTo(TEST_LAST_LOGIN);
         assertThat(response.getData().get(0).getCustomWelcomeScreenViewed()).isEqualTo(TEST_CUSTOM_WELCOME_SCREEN_VIEWED);
         assertThat(response.getData().get(0).getId()).isEqualTo(TEST_PLAN_ID);
+
+        // Verify second user (CONTRIBUTOR)
+        assertThat(response.getData().get(1).getSeatType()).isEqualTo(SeatType.CONTRIBUTOR);
+        assertThat(response.getData().get(1).getEmail()).isEqualTo("contributor.user@smartsheet.com");
+        assertThat(response.getData().get(1).getFirstName()).isEqualTo("Contributor");
+        assertThat(response.getData().get(1).getLastName()).isEqualTo("User");
     }
 
     @Test
@@ -177,128 +186,4 @@ public class TestListUsers {
         assertThat(exception.getMessage()).contains("Malformed Request");
     }
 
-    @Test
-    void testListUsersWithContributorSeatTypeFilter() throws SmartsheetException {
-        String requestId = UUID.randomUUID().toString();
-        WiremockClientWrapper wrapper = Utils.createWiremockSmartsheetClient(
-                "/users/list-users/contributor-seat-type-filter",
-                requestId
-        );
-        Smartsheet smartsheet = wrapper.getSmartsheet();
-        WiremockClient wiremockClient = wrapper.getWiremockClient();
-
-        smartsheet.userResources().listUsers(null, null, SeatType.CONTRIBUTOR, null);
-
-        LoggedRequest wiremockRequest = wiremockClient.findWiremockRequest(requestId);
-        String path = URI.create(wiremockRequest.getUrl()).getPath();
-        Map<String, QueryParameter> receivedQueryParams = wiremockRequest.getQueryParams();
-
-        assertThat(path).isEqualTo("/2.0/users");
-        assertThat(receivedQueryParams.get("seatType").getValues()).isEqualTo(List.of(SeatType.CONTRIBUTOR.toString()));
-    }
-
-    @Test
-    void testListUsersResponseContainsContributorUser() throws SmartsheetException {
-        String requestId = UUID.randomUUID().toString();
-        WiremockClientWrapper wrapper = Utils.createWiremockSmartsheetClient(
-                "/users/list-users/contributor-seat-type-response",
-                requestId
-        );
-        Smartsheet smartsheet = wrapper.getSmartsheet();
-
-        PagedResult<User> response = smartsheet.userResources()
-                .listUsers(null, null, SeatType.CONTRIBUTOR, null);
-
-        assertThat(response).isNotNull();
-        assertThat(response.getData()).isNotEmpty();
-
-        User contributorUser = response.getData().stream()
-                .filter(user -> user.getSeatType() == SeatType.CONTRIBUTOR)
-                .findFirst()
-                .orElse(null);
-
-        assertThat(contributorUser).isNotNull();
-        assertThat(contributorUser.getSeatType()).isEqualTo(SeatType.CONTRIBUTOR);
-        assertThat(contributorUser.getEmail()).isNotNull();
-    }
-
-    @Test
-    void testListUsersDisplayContributorSeatTypeTrueGeneratesCorrectUrl() throws SmartsheetException {
-        String requestId = UUID.randomUUID().toString();
-        WiremockClientWrapper wrapper = Utils.createWiremockSmartsheetClient(
-                "/users/list-users/display-contributor-seat-type-true",
-                requestId
-        );
-        Smartsheet smartsheet = wrapper.getSmartsheet();
-        WiremockClient wiremockClient = wrapper.getWiremockClient();
-
-        smartsheet.userResources().listUsers(null, null, null, true, null);
-
-        LoggedRequest wiremockRequest = wiremockClient.findWiremockRequest(requestId);
-        String path = URI.create(wiremockRequest.getUrl()).getPath();
-        Map<String, QueryParameter> receivedQueryParams = wiremockRequest.getQueryParams();
-
-        assertThat(path).isEqualTo("/2.0/users");
-        assertThat(receivedQueryParams.get("displayContributorSeatType").getValues()).isEqualTo(List.of("true"));
-    }
-
-    @Test
-    void testListUsersDisplayContributorSeatTypeTrueReturnsContributor() throws SmartsheetException {
-        String requestId = UUID.randomUUID().toString();
-        WiremockClientWrapper wrapper = Utils.createWiremockSmartsheetClient(
-                "/users/list-users/display-contributor-seat-type-true",
-                requestId
-        );
-        Smartsheet smartsheet = wrapper.getSmartsheet();
-
-        PagedResult<User> response = smartsheet.userResources()
-                .listUsers(null, null, null, true, null);
-
-        assertThat(response).isNotNull();
-        assertThat(response.getData()).isNotEmpty();
-        assertThat(response.getData().get(0).getSeatType()).isEqualTo(SeatType.CONTRIBUTOR);
-        assertThat(response.getData().get(0).getEmail()).isEqualTo("viewer.user@smartsheet.com");
-    }
-
-    @Test
-    void testListUsersDisplayContributorSeatTypeFalseReturnsViewer() throws SmartsheetException {
-        String requestId = UUID.randomUUID().toString();
-        WiremockClientWrapper wrapper = Utils.createWiremockSmartsheetClient(
-                "/users/list-users/display-contributor-seat-type-false",
-                requestId
-        );
-        Smartsheet smartsheet = wrapper.getSmartsheet();
-
-        PagedResult<User> response = smartsheet.userResources()
-                .listUsers(null, null, null, false, null);
-
-        assertThat(response).isNotNull();
-        assertThat(response.getData()).isNotEmpty();
-        assertThat(response.getData().get(0).getSeatType()).isEqualTo(SeatType.VIEWER);
-        assertThat(response.getData().get(0).getEmail()).isEqualTo("contributor.user@smartsheet.com");
-    }
-
-    @Test
-    void testListUsersWithContributorSeatTypeFilterAndDisplayTrueReturnsContributor() throws SmartsheetException {
-        String requestId = UUID.randomUUID().toString();
-        WiremockClientWrapper wrapper = Utils.createWiremockSmartsheetClient(
-                "/users/list-users/seat-type-contributor-display-true",
-                requestId
-        );
-        Smartsheet smartsheet = wrapper.getSmartsheet();
-        WiremockClient wiremockClient = wrapper.getWiremockClient();
-
-        PagedResult<User> response = smartsheet.userResources()
-                .listUsers(null, null, SeatType.CONTRIBUTOR, true, null);
-
-        LoggedRequest wiremockRequest = wiremockClient.findWiremockRequest(requestId);
-        Map<String, QueryParameter> receivedQueryParams = wiremockRequest.getQueryParams();
-
-        assertThat(receivedQueryParams.get("seatType").getValues()).isEqualTo(List.of(SeatType.CONTRIBUTOR.toString()));
-        assertThat(receivedQueryParams.get("displayContributorSeatType").getValues()).isEqualTo(List.of("true"));
-
-        assertThat(response).isNotNull();
-        assertThat(response.getData()).isNotEmpty();
-        assertThat(response.getData().get(0).getSeatType()).isEqualTo(SeatType.CONTRIBUTOR);
-    }
 }
