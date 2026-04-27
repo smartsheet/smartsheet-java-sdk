@@ -498,14 +498,7 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
     public CreateReportResult createReport(CreateReportRequest request) throws SmartsheetException {
         Util.throwIfNull(request);
 
-        // The API returns an array with a single result for this endpoint
-        List<CreateReportResult> results = this.postAndReceiveList("reports", request, CreateReportResult.class);
-
-        if (results == null || results.isEmpty()) {
-            throw new SmartsheetException("No report result returned from API");
-        }
-
-        return results.get(0);
+        return this.createResource("reports", CreateReportResult.class, request);
     }
 
     private void setRequestEntity(HttpRequest request, Object object) throws JSONSerializerException {

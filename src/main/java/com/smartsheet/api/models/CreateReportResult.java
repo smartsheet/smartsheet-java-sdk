@@ -18,6 +18,8 @@ package com.smartsheet.api.models;
 
 import com.smartsheet.api.models.enums.AccessLevel;
 
+import java.util.List;
+
 /**
  * Represents the result returned when creating a new report.
  */
@@ -46,6 +48,11 @@ public class CreateReportResult {
      * True if the report is a sheet summary; false if it is a row report.
      */
     private Boolean isSummaryReport;
+
+    /**
+     * The columns in the newly created report.
+     */
+    private List<ReportColumn> columns;
 
     /**
      * Gets the report ID.
@@ -139,6 +146,25 @@ public class CreateReportResult {
      */
     public CreateReportResult setIsSummaryReport(Boolean isSummaryReport) {
         this.isSummaryReport = isSummaryReport;
+        return this;
+    }
+
+    /**
+     * Gets the columns in the report.
+     *
+     * @return the list of report columns
+     */
+    public List<ReportColumn> getColumns() {
+        return columns;
+    }
+
+    /**
+     * Sets the columns in the report.
+     *
+     * @param columns the list of report columns
+     */
+    public CreateReportResult setColumns(List<ReportColumn> columns) {
+        this.columns = columns;
         return this;
     }
 }

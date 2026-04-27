@@ -219,6 +219,14 @@ class ReportResourcesImplTest extends ResourcesImplBase {
         assertThat(result.getAccessLevel()).isEqualTo(AccessLevel.OWNER);
         assertThat(result.getPermalink()).isEqualTo("https://app.smartsheet.com/reports/c8gJxw87cXpRCvCC5PPw6jFhFRrf5r8PxCrxvW21");
         assertThat(result.getIsSummaryReport()).isFalse();
+
+        // Verify columns are returned
+        assertThat(result.getColumns()).isNotNull();
+        assertThat(result.getColumns()).hasSize(1);
+        assertThat(result.getColumns().get(0).getVirtualId()).isEqualTo(1234567890123456L);
+        assertThat(result.getColumns().get(0).getTitle()).isEqualTo("Primary column");
+        assertThat(result.getColumns().get(0).getType()).isEqualTo(ColumnType.TEXT_NUMBER);
+        assertThat(result.getColumns().get(0).getPrimary()).isTrue();
     }
 
     @Test

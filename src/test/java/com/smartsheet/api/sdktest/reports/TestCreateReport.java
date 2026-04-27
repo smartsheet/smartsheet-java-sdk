@@ -33,6 +33,7 @@ import com.smartsheet.api.models.enums.AccessLevel;
 import com.smartsheet.api.models.enums.ColumnType;
 import com.smartsheet.api.models.enums.ReportAssetType;
 import com.smartsheet.api.models.enums.ReportDestinationType;
+import com.smartsheet.api.models.enums.SystemColumnType;
 import com.smartsheet.api.sdktest.Utils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -155,6 +156,41 @@ public class TestCreateReport {
         assertThat(result.getAccessLevel()).isEqualTo(AccessLevel.OWNER);
         assertThat(result.getPermalink()).isEqualTo("https://app.smartsheet.com/reports/c8gJxw87cXpRCvCC5PPw6jFhFRrf5r8PxCrxvW21");
         assertThat(result.getIsSummaryReport()).isFalse();
+
+        // Verify columns are returned
+        assertThat(result.getColumns()).isNotNull();
+        assertThat(result.getColumns()).hasSize(4);
+
+        // Verify first column (primary column)
+        ReportColumn col1 = result.getColumns().get(0);
+        assertThat(col1.getVirtualId()).isEqualTo(1234567890123456L);
+        assertThat(col1.getIndex()).isEqualTo(0);
+        assertThat(col1.getTitle()).isEqualTo("Primary column");
+        assertThat(col1.getType()).isEqualTo(ColumnType.TEXT_NUMBER);
+        assertThat(col1.getPrimary()).isTrue();
+
+        // Verify second column (sheet name column)
+        ReportColumn col2 = result.getColumns().get(1);
+        assertThat(col2.getVirtualId()).isEqualTo(2345678901234567L);
+        assertThat(col2.getIndex()).isEqualTo(1);
+        assertThat(col2.getTitle()).isEqualTo("Sheet name");
+        assertThat(col2.getType()).isEqualTo(ColumnType.TEXT_NUMBER);
+        assertThat(col2.getSheetNameColumn()).isTrue();
+
+        // Verify third column (system column)
+        ReportColumn col3 = result.getColumns().get(2);
+        assertThat(col3.getVirtualId()).isEqualTo(3456789012345678L);
+        assertThat(col3.getIndex()).isEqualTo(2);
+        assertThat(col3.getTitle()).isEqualTo("Created at");
+        assertThat(col3.getType()).isEqualTo(ColumnType.DATETIME);
+        assertThat(col3.getSystemColumnType()).isEqualTo(SystemColumnType.CREATED_DATE);
+
+        // Verify fourth column (picklist column)
+        ReportColumn col4 = result.getColumns().get(3);
+        assertThat(col4.getVirtualId()).isEqualTo(4567890123456789L);
+        assertThat(col4.getIndex()).isEqualTo(3);
+        assertThat(col4.getTitle()).isEqualTo("Selected item");
+        assertThat(col4.getType()).isEqualTo(ColumnType.PICKLIST);
     }
 
     @Test
