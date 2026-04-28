@@ -16,6 +16,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Support for the DELETE /2.0/reports/{id}/scope endpoint
 - Support for the DELETE /2.0/reports/{id} endpoint
 - WireMock integration tests for contract testing for POST /2.0/reports/{id}/scope and DELETE /2.0/reports/{id}/scope endpoints
+- Support for the POST /2.0/reports endpoint
+- WireMock integration tests for contract testing for POST /2.0/reports endpoint
 
 ## [3.10.1] - 2026-03-31
 ### Fixed

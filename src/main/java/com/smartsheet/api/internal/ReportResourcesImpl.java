@@ -29,6 +29,8 @@ import com.smartsheet.api.internal.http.HttpRequest;
 import com.smartsheet.api.internal.http.HttpResponse;
 import com.smartsheet.api.internal.json.JSONSerializerException;
 import com.smartsheet.api.internal.util.QueryUtil;
+import com.smartsheet.api.models.CreateReportRequest;
+import com.smartsheet.api.models.CreateReportResult;
 import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.PaginationParameters;
 import com.smartsheet.api.models.Report;
@@ -475,6 +477,28 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
         }
 
         return this.postAndReceiveList(REPORTS_PATH + reportId + "/reportColumns", reportColumns, ReportColumn.class);
+    }
+
+    /**
+     * <p>Create a new report.</p>
+     *
+     * <p>It mirrors to the following Smartsheet REST API method: POST /reports</p>
+     *
+     * <p>Creates a new report by specifying name, destination, scope, columns and definition.</p>
+     *
+     * @param request the CreateReportRequest containing report specifications
+     * @return the CreateReportResult containing the newly created report information
+     * @throws IllegalArgumentException    if any argument is null
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetException         if there is any other error during the operation
+     */
+    @Override
+    public CreateReportResult createReport(CreateReportRequest request) throws SmartsheetException {
+        Util.throwIfNull(request);
+
+        return this.createResource("reports", CreateReportResult.class, request);
     }
 
     private void setRequestEntity(HttpRequest request, Object object) throws JSONSerializerException {

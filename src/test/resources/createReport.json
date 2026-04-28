@@ -1,0 +1,24 @@
+{
+  "resultCode": 0,
+  "message": "SUCCESS",
+  "result": {
+    "id": 987654321,
+    "name": "Q2 Earnings",
+    "accessLevel": "OWNER",
+    "permalink": "https://app.smartsheet.com/reports/c8gJxw87cXpRCvCC5PPw6jFhFRrf5r8PxCrxvW21",
+    "isSummaryReport": false,
+    "columns": [
+      {
+        "virtualId": 1234567890123456,
+        "index": 0,
+        "title": "Primary column",
+        "type": "TEXT_NUMBER",
+        "primary": true,
+        "hidden": false,
+        "version": 0,
+        "width": 200,
+        "validation": false
+      }
+    ]
+  }
+}
