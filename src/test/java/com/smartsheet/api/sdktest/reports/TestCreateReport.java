@@ -53,12 +53,13 @@ public class TestCreateReport {
 
     /**
      * Expected request body structure - per OpenAPI spec.
+     * Note: destinationType and assetType should be lowercase per API spec.
      */
     private static final Map<String, Object> EXPECTED_REQUEST_BODY = Map.of(
             "name", "Q2 Earnings Report",
             "destination", Map.of(
                     "destinationId", 12345,
-                    "destinationType", "folder"  // lowercase per API spec
+                    "destinationType", "folder"
             ),
             "columns", List.of(
                     Map.of(
@@ -71,7 +72,7 @@ public class TestCreateReport {
             ),
             "scope", List.of(
                     Map.of(
-                            "assetType", "sheet",  // lowercase per API spec
+                            "assetType", "sheet",
                             "assetId", 67890
                     )
             ),
@@ -154,7 +155,8 @@ public class TestCreateReport {
         assertThat(result.getId()).isEqualTo(987654321L);
         assertThat(result.getName()).isEqualTo("Q2 Earnings Report");
         assertThat(result.getAccessLevel()).isEqualTo(AccessLevel.OWNER);
-        assertThat(result.getPermalink()).isEqualTo("https://app.smartsheet.com/reports/c8gJxw87cXpRCvCC5PPw6jFhFRrf5r8PxCrxvW21");
+        assertThat(result.getPermalink())
+                .isEqualTo("https://app.smartsheet.com/reports/c8gJxw87cXpRCvCC5PPw6jFhFRrf5r8PxCrxvW21");
         assertThat(result.getIsSummaryReport()).isFalse();
 
         // Verify columns are returned
@@ -217,7 +219,8 @@ public class TestCreateReport {
         assertThat(result.getId()).isEqualTo(987654321L);
         assertThat(result.getName()).isEqualTo("Q2 Earnings Report");
         assertThat(result.getAccessLevel()).isEqualTo(AccessLevel.OWNER);
-        assertThat(result.getPermalink()).isEqualTo("https://app.smartsheet.com/reports/c8gJxw87cXpRCvCC5PPw6jFhFRrf5r8PxCrxvW21");
+        assertThat(result.getPermalink())
+                .isEqualTo("https://app.smartsheet.com/reports/c8gJxw87cXpRCvCC5PPw6jFhFRrf5r8PxCrxvW21");
         // isSummaryReport is optional, not returned in required response
     }
 
@@ -238,7 +241,9 @@ public class TestCreateReport {
     @Test
     void testCreateReportError400Response() {
         String requestId = UUID.randomUUID().toString();
-        WiremockClientWrapper wrapper = Utils.createWiremockSmartsheetClient("/errors/400-response", requestId);
+        WiremockClientWrapper wrapper = Utils.createWiremockSmartsheetClient(
+                "/errors/400-response",
+                requestId);
         Smartsheet smartsheet = wrapper.getSmartsheet();
 
         SmartsheetException exception = Assertions.assertThrows(SmartsheetException.class, () -> {
@@ -251,7 +256,9 @@ public class TestCreateReport {
     @Test
     void testCreateReportError500Response() {
         String requestId = UUID.randomUUID().toString();
-        WiremockClientWrapper wrapper = Utils.createWiremockSmartsheetClient("/errors/500-response", requestId);
+        WiremockClientWrapper wrapper = Utils.createWiremockSmartsheetClient(
+                "/errors/500-response",
+                requestId);
         Smartsheet smartsheet = wrapper.getSmartsheet();
 
         SmartsheetException exception = Assertions.assertThrows(SmartsheetException.class, () -> {

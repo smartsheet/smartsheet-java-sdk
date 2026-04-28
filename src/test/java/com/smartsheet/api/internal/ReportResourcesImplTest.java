@@ -68,9 +68,12 @@ class ReportResourcesImplTest extends ResourcesImplBase {
     @Test
     void testGetReport() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/getReport.json"));
-        EnumSet<ReportInclusion> reportInclusions = EnumSet.of(ReportInclusion.ATTACHMENTS, ReportInclusion.DISCUSSIONS);
+        EnumSet<ReportInclusion> reportInclusions = EnumSet.of(
+                ReportInclusion.ATTACHMENTS,
+                ReportInclusion.DISCUSSIONS);
         Report report = reportResources.getReport(4583173393803140L, reportInclusions, 1, 1);
-        assertThat(report.getPermalink()).isEqualTo("https://app.smartsheet.com/b/home?lx=pWNSDH9itjBXxBzFmyf-5w");
+        assertThat(report.getPermalink())
+                .isEqualTo("https://app.smartsheet.com/b/home?lx=pWNSDH9itjBXxBzFmyf-5w");
         assertThat(report.getColumns().get(0).getVirtualId()).isEqualTo(4583173393803140L);
     }
 
@@ -217,7 +220,8 @@ class ReportResourcesImplTest extends ResourcesImplBase {
         assertThat(result.getId()).isEqualTo(987654321L);
         assertThat(result.getName()).isEqualTo("Q2 Earnings");
         assertThat(result.getAccessLevel()).isEqualTo(AccessLevel.OWNER);
-        assertThat(result.getPermalink()).isEqualTo("https://app.smartsheet.com/reports/c8gJxw87cXpRCvCC5PPw6jFhFRrf5r8PxCrxvW21");
+        assertThat(result.getPermalink())
+                .isEqualTo("https://app.smartsheet.com/reports/c8gJxw87cXpRCvCC5PPw6jFhFRrf5r8PxCrxvW21");
         assertThat(result.getIsSummaryReport()).isFalse();
 
         // Verify columns are returned

@@ -262,7 +262,7 @@ public interface ReportResources {
      * @throws SmartsheetException         if there is any other error during the operation
      */
     void deleteReport(long id) throws SmartsheetException;
-    
+
     /**
      * <p>Adds one or more specified sheet or workspace to the report scope.</p>
      *
