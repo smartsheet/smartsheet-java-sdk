@@ -206,7 +206,7 @@ public class TestAddReportColumns {
         IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class, () -> {
             smartsheet.reportResources().addReportColumns(TEST_REPORT_ID, new ArrayList<>());
         });
-        assertThat(exception.getMessage()).isEqualTo("columns should not be empty.");
+        assertThat(exception.getMessage()).isEqualTo("reportColumns should not be empty.");
     }
 
     @Test
