@@ -54,7 +54,7 @@ public class TestListUserPlans {
         Smartsheet smartsheet = wrapper.getSmartsheet();
         WiremockClient wiremockClient = wrapper.getWiremockClient();
 
-        smartsheet.userResources().listUserPlans(TEST_USER_ID, TEST_LAST_KEY, TEST_MAX_ITEMS);
+        smartsheet.userResources().listUserPlans(TEST_USER_ID, TEST_LAST_KEY, TEST_MAX_ITEMS, true);
         LoggedRequest wiremockRequest = wiremockClient.findWiremockRequest(requestId);
         String path = URI.create(wiremockRequest.getUrl()).getPath();
         Map<String, QueryParameter> receivedQueryParams = wiremockRequest.getQueryParams();
@@ -62,6 +62,7 @@ public class TestListUserPlans {
         assertThat(path).isEqualTo("/2.0/users/1234567890/plans");
         assertThat(receivedQueryParams.get("maxItems").getValues()).isEqualTo(List.of(Long.toString(TEST_MAX_ITEMS)));
         assertThat(receivedQueryParams.get("lastKey").getValues()).isEqualTo(List.of(TEST_LAST_KEY));
+        assertThat(receivedQueryParams.get("displayContributorSeatType").getValues()).isEqualTo(List.of("true"));
     }
 
     @Test
