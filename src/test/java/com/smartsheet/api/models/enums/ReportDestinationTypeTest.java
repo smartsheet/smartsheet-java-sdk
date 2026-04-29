@@ -26,10 +26,10 @@ class ReportDestinationTypeTest {
     @Test
     void testSerializationToLowercase() throws Exception {
         ObjectMapper mapper = new ObjectMapper();
-        
+
         String folderJson = mapper.writeValueAsString(ReportDestinationType.FOLDER);
         assertThat(folderJson).isEqualTo("\"folder\"");
-        
+
         String workspaceJson = mapper.writeValueAsString(ReportDestinationType.WORKSPACE);
         assertThat(workspaceJson).isEqualTo("\"workspace\"");
     }
@@ -37,10 +37,10 @@ class ReportDestinationTypeTest {
     @Test
     void testDeserializationFromLowercase() throws Exception {
         ObjectMapper mapper = new ObjectMapper();
-        
+
         ReportDestinationType folder = mapper.readValue("\"folder\"", ReportDestinationType.class);
         assertThat(folder).isEqualTo(ReportDestinationType.FOLDER);
-        
+
         ReportDestinationType workspace = mapper.readValue("\"workspace\"", ReportDestinationType.class);
         assertThat(workspace).isEqualTo(ReportDestinationType.WORKSPACE);
     }

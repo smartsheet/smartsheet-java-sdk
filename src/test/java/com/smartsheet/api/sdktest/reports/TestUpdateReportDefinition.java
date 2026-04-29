@@ -62,103 +62,126 @@ public class TestUpdateReportDefinition {
         testReportDefinition.setFilters(
             new ReportFilterExpression()
                 .setOperator(ReportFilterExpressionOperator.AND)
-                .setCriteria(new ArrayList<>() {{
-                        add(
-                            new ReportFilterCriterion()
-                                    .setOperator(ReportFilterOperator.EQUAL)
-                                    .setColumn(
-                                            new ReportColumnIdentifier()
-                                                    .setPrimary(true)
-                                                    .setTitle("Primary")
-                                                    .setType(ColumnType.TEXT_NUMBER)
-                                    )
-                                    // Use ReportFilterValue helper functions for type-safe filter values
-                                    .setValues(Arrays.asList(
-                                            ReportFilterObjectValue.string("Active"),
-                                            ReportFilterObjectValue.string("In Progress")
-                                    ))
-                        );
-                        add(
-                            new ReportFilterCriterion()
-                                    .setOperator(ReportFilterOperator.GREATER_THAN)
-                                    .setColumn(
-                                            new ReportColumnIdentifier()
-                                                    .setTitle("Priority")
-                                                    .setType(ColumnType.TEXT_NUMBER)
-                                    )
-                                    .setValues(Arrays.asList(
-                                            ReportFilterObjectValue.number(5)
-                                    ))
-                        );
-                        add(
-                            new ReportFilterCriterion()
-                                    .setOperator(ReportFilterOperator.EQUAL)
-                                    .setColumn(
-                                            new ReportColumnIdentifier()
-                                                    .setTitle("Owner")
-                                                    .setType(ColumnType.CONTACT_LIST)
-                                    )
-                                    // Use currentUser() for filtering by the authenticated user
-                                    .setValues(Arrays.asList(
-                                            ReportFilterObjectValue.currentUser()
-                                    ))
-                        );
-                        add(
-                            new ReportFilterCriterion()
-                                    .setOperator(ReportFilterOperator.GREATER_THAN_OR_EQUAL)
-                                    .setColumn(
-                                            new ReportColumnIdentifier()
-                                                    .setTitle("Due Date")
-                                                    .setType(ColumnType.DATE)
-                                    )
-                                    .setValues(Arrays.asList(
-                                            ReportFilterObjectValue.date("2024-01-01")
-                                    ))
-                        );
-                    }})
+                .setCriteria(createFilterCriteria())
         );
 
         // Set grouping criteria
-        testReportDefinition.setGroupingCriteria(new ArrayList<>() {{
-            add(
-                new ReportGroupingCriterion()
-                        .setColumn(
-                                new ReportColumnIdentifier()
-                                        .setTitle("Status")
-                                        .setType(ColumnType.PICKLIST)
-                        )
-                        .setSortingDirection(SortDirection.ASCENDING)
-                        .setIsExpanded(true)
-            );
-        }});
+        testReportDefinition.setGroupingCriteria(createGroupingCriteria());
 
         // Set summarizing criteria
-        testReportDefinition.setSummarizingCriteria(new ArrayList<>() {{
-            add(
-                new ReportSummarizingCriterion()
-                        .setColumn(
-                                new ReportColumnIdentifier()
-                                        .setTitle("Amount")
-                                        .setType(ColumnType.TEXT_NUMBER)
-                        )
-                        .setAggregationType(ReportAggregationType.SUM)
-            );
-        }});
+        testReportDefinition.setSummarizingCriteria(createSummarizingCriteria());
 
         // Set sorting criteria
-        testReportDefinition.setSortingCriteria(new ArrayList<>() {{
-            add(
-                new ReportSortingCriterion()
-                        .setColumn(
-                                new ReportColumnIdentifier()
-                                        .setTitle("Date")
-                                        .setType(ColumnType.DATE)
-                        )
-                        .setSortingDirection(SortDirection.DESCENDING)
-            );
-        }});
+        testReportDefinition.setSortingCriteria(createSortingCriteria());
 
-        testReportDefinitionJson = "{\"filters\":" +
+        testReportDefinitionJson = buildExpectedJson();
+    }
+
+    private ArrayList<ReportFilterCriterion> createFilterCriteria() {
+        ArrayList<ReportFilterCriterion> criteria = new ArrayList<>();
+
+        criteria.add(
+            new ReportFilterCriterion()
+                    .setOperator(ReportFilterOperator.EQUAL)
+                    .setColumn(
+                            new ReportColumnIdentifier()
+                                    .setPrimary(true)
+                                    .setTitle("Primary")
+                                    .setType(ColumnType.TEXT_NUMBER)
+                    )
+                    .setValues(Arrays.asList(
+                            ReportFilterObjectValue.string("Active"),
+                            ReportFilterObjectValue.string("In Progress")
+                    ))
+        );
+
+        criteria.add(
+            new ReportFilterCriterion()
+                    .setOperator(ReportFilterOperator.GREATER_THAN)
+                    .setColumn(
+                            new ReportColumnIdentifier()
+                                    .setTitle("Priority")
+                                    .setType(ColumnType.TEXT_NUMBER)
+                    )
+                    .setValues(Arrays.asList(
+                            ReportFilterObjectValue.number(5)
+                    ))
+        );
+
+        criteria.add(
+            new ReportFilterCriterion()
+                    .setOperator(ReportFilterOperator.EQUAL)
+                    .setColumn(
+                            new ReportColumnIdentifier()
+                                    .setTitle("Owner")
+                                    .setType(ColumnType.CONTACT_LIST)
+                    )
+                    .setValues(Arrays.asList(
+                            ReportFilterObjectValue.currentUser()
+                    ))
+        );
+
+        criteria.add(
+            new ReportFilterCriterion()
+                    .setOperator(ReportFilterOperator.GREATER_THAN_OR_EQUAL)
+                    .setColumn(
+                            new ReportColumnIdentifier()
+                                    .setTitle("Due Date")
+                                    .setType(ColumnType.DATE)
+                    )
+                    .setValues(Arrays.asList(
+                            ReportFilterObjectValue.date("2024-01-01")
+                    ))
+        );
+
+        return criteria;
+    }
+
+    private ArrayList<ReportGroupingCriterion> createGroupingCriteria() {
+        ArrayList<ReportGroupingCriterion> criteria = new ArrayList<>();
+        criteria.add(
+            new ReportGroupingCriterion()
+                    .setColumn(
+                            new ReportColumnIdentifier()
+                                    .setTitle("Status")
+                                    .setType(ColumnType.PICKLIST)
+                    )
+                    .setSortingDirection(SortDirection.ASCENDING)
+                    .setIsExpanded(true)
+        );
+        return criteria;
+    }
+
+    private ArrayList<ReportSummarizingCriterion> createSummarizingCriteria() {
+        ArrayList<ReportSummarizingCriterion> criteria = new ArrayList<>();
+        criteria.add(
+            new ReportSummarizingCriterion()
+                    .setColumn(
+                            new ReportColumnIdentifier()
+                                    .setTitle("Amount")
+                                    .setType(ColumnType.TEXT_NUMBER)
+                    )
+                    .setAggregationType(ReportAggregationType.SUM)
+        );
+        return criteria;
+    }
+
+    private ArrayList<ReportSortingCriterion> createSortingCriteria() {
+        ArrayList<ReportSortingCriterion> criteria = new ArrayList<>();
+        criteria.add(
+            new ReportSortingCriterion()
+                    .setColumn(
+                            new ReportColumnIdentifier()
+                                    .setTitle("Date")
+                                    .setType(ColumnType.DATE)
+                    )
+                    .setSortingDirection(SortDirection.DESCENDING)
+        );
+        return criteria;
+    }
+
+    private String buildExpectedJson() {
+        return "{\"filters\":" +
                 "{\"operator\":\"AND\"," +
                 "\"criteria\":[" +
                 "{\"column\":{\"title\":\"Primary\",\"type\":\"TEXT_NUMBER\",\"primary\":true}," +

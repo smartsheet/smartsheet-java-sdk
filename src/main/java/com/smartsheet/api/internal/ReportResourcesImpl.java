@@ -476,7 +476,7 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
             throw new IllegalArgumentException("reportColumns should not be empty.");
         }
 
-        return this.postAndReceiveList(REPORTS_PATH + reportId + "/reportColumns", reportColumns, ReportColumn.class);
+        return this.postAndReceiveList(REPORTS_PATH + reportId + "/columns", reportColumns, ReportColumn.class);
     }
 
     /**
