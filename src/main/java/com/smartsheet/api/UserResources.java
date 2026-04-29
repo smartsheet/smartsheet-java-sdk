@@ -118,6 +118,30 @@ public interface UserResources {
                                 SeatType seatType, PaginationParameters pagination) throws SmartsheetException;
 
     /**
+     * List all users.
+     * <p>
+     * It mirrors to the following Smartsheet REST API method: GET /users
+     * <p>
+     * Exceptions:
+     *   - InvalidRequestException : if there is any problem with the REST API request
+     *   - AuthorizationException : if there is any problem with the REST API authorization(access token)
+     *   - ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     *   - SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     *   - SmartsheetException : if there is any other error occurred during the operation
+     *
+     * @param email the list of email addresses
+     * @param pagination the object containing the pagination query parameters
+     * @param planId filtering all users part of the specific plan
+     * @param seatType filter users by seat type
+     * @param displayContributorSeatType if true, returns CONTRIBUTOR instead of VIEWER for eligible users
+     * @return all users (note that empty list will be returned if there is none)
+     * @throws SmartsheetException the smartsheet exception
+     */
+    PagedResult<User> listUsers(Set<String> email, Long planId,
+                                SeatType seatType, Boolean displayContributorSeatType,
+                                PaginationParameters pagination) throws SmartsheetException;
+
+    /**
      * <p>Add a user to the organization, without sending email.</p>
      *
      * <p>It mirrors to the following Smartsheet REST API method: POST /users</p>
@@ -229,6 +253,30 @@ public interface UserResources {
      * @throws SmartsheetException         if there is any other error during the operation
      */
     TokenPaginatedResult<UserPlan> listUserPlans(long userId, String lastKey, Long maxItems) throws SmartsheetException;
+
+    /**
+     * <p>Fetch all user's plans.</p>
+     *
+     * <p>It mirrors to the following Smartsheet REST API method: GET /users/{userId}/plans</p>
+     *
+     * @param userId the id of the user whose plans to fetch
+     * @param lastKey lastKey from previous response to get next page of results
+     * @param maxItems maximum number of items to return
+     * @param displayContributorSeatType if true, returns CONTRIBUTOR instead of VIEWER for eligible users
+     * @return UserPlansResponse json response
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetException         if there is any other error during the operation
+     */
+    TokenPaginatedResult<UserPlan> listUserPlans(
+            long userId,
+            String lastKey,
+            Long maxItems,
+            Boolean displayContributorSeatType
+    ) throws SmartsheetException;
 
     /**
      * <p>Remove's a user from a plan.</p>

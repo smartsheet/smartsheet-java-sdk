@@ -212,4 +212,26 @@ public class TestUserUpgradeDowngrade {
 
         assertThat(exception.getMessage()).isEqualTo("Malformed Request");
     }
+
+    @Test
+    void testDowngradeUserToContributor() throws SmartsheetException, JsonProcessingException {
+        String requestId = UUID.randomUUID().toString();
+        WiremockClientWrapper wrapper = Utils.createWiremockSmartsheetClient(
+                "/users/downgrade-user/all-response-body-properties",
+                requestId
+        );
+        Smartsheet smartsheet = wrapper.getSmartsheet();
+        WiremockClient wiremockClient = wrapper.getWiremockClient();
+
+        Assertions.assertDoesNotThrow(() -> {
+            smartsheet.userResources().downgradeUser(TEST_USER_ID, TEST_PLAN_ID, DowngradeSeatType.CONTRIBUTOR);
+        });
+
+        LoggedRequest wiremockRequest = wiremockClient.findWiremockRequest(requestId);
+        String requestBody = wiremockRequest.getBodyAsString();
+        ObjectMapper objectMapper = new ObjectMapper();
+        Map<String, Object> requestBodyMap = objectMapper.readValue(requestBody, Map.class);
+
+        assertThat(requestBodyMap).isEqualTo(Map.of("seatType", "CONTRIBUTOR"));
+    }
 }

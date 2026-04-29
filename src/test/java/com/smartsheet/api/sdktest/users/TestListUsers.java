@@ -60,6 +60,9 @@ public class TestListUsers {
     private static final boolean TEST_IS_INTERNAL_TRUE = true;
     private static final String TEST_LAST_LOGIN = "2020-10-04T18:32:47Z";
     private static final String TEST_CUSTOM_WELCOME_SCREEN_VIEWED = "2020-08-25T12:15:47Z";
+    private static final String TEST_CONTRIBUTOR_EMAIL = "contributor.user@smartsheet.com";
+    private static final String TEST_CONTRIBUTOR_FIRST_NAME = "Contributor";
+    private static final String TEST_CONTRIBUTOR_LAST_NAME = "User";
 
     @Test
     void testListUsersGeneratedUrlIsCorrect() throws SmartsheetException {
@@ -76,7 +79,7 @@ public class TestListUsers {
                 .setPageSize(TEST_PAGE_SIZE)
                 .setIncludeAll(TEST_INCLUDE_ALL);
 
-        smartsheet.userResources().listUsers(TEST_EMAILS, TEST_PLAN_ID, TEST_SEAT_TYPE, pagination);
+        smartsheet.userResources().listUsers(TEST_EMAILS, TEST_PLAN_ID, TEST_SEAT_TYPE, true, pagination);
 
         LoggedRequest wiremockRequest = wiremockClient.findWiremockRequest(requestId);
         String path = URI.create(wiremockRequest.getUrl()).getPath();
@@ -89,6 +92,7 @@ public class TestListUsers {
         assertThat(receivedQueryParams.get("includeAll")).isNull();
         assertThat(receivedQueryParams.get("email").getValues().size()).isEqualTo(TEST_EMAILS.size());
         assertThat(receivedQueryParams.get("email").getValues().containsAll(TEST_EMAILS)).isEqualTo(true);
+        assertThat(receivedQueryParams.get("displayContributorSeatType").getValues()).isEqualTo(List.of("true"));
     }
 
     @Test
@@ -104,6 +108,9 @@ public class TestListUsers {
                 .listUsers(null, TEST_PLAN_ID, null, null);
 
         assertThat(response).isNotNull();
+        assertThat(response.getData()).hasSize(2);
+
+        // Verify first user (MEMBER)
         assertThat(response.getData().get(0).getSeatType()).isEqualTo(TEST_SEAT_TYPE);
         assertThat(response.getData().get(0).getSeatTypeLastChangedAt()).isEqualTo(TEST_SEAT_TYPE_LAST_CHANGED_AT);
         assertThat(response.getData().get(0).getProvisionalExpirationDate()).isEqualTo(TEST_PROVISIONAL_EXPIRATION_DATE);
@@ -121,6 +128,12 @@ public class TestListUsers {
         assertThat(response.getData().get(0).getLastLogin()).isEqualTo(TEST_LAST_LOGIN);
         assertThat(response.getData().get(0).getCustomWelcomeScreenViewed()).isEqualTo(TEST_CUSTOM_WELCOME_SCREEN_VIEWED);
         assertThat(response.getData().get(0).getId()).isEqualTo(TEST_PLAN_ID);
+
+        // Verify second user (CONTRIBUTOR)
+        assertThat(response.getData().get(1).getSeatType()).isEqualTo(SeatType.CONTRIBUTOR);
+        assertThat(response.getData().get(1).getEmail()).isEqualTo(TEST_CONTRIBUTOR_EMAIL);
+        assertThat(response.getData().get(1).getFirstName()).isEqualTo(TEST_CONTRIBUTOR_FIRST_NAME);
+        assertThat(response.getData().get(1).getLastName()).isEqualTo(TEST_CONTRIBUTOR_LAST_NAME);
     }
 
     @Test
@@ -177,4 +190,5 @@ public class TestListUsers {
 
         assertThat(exception.getMessage()).contains("Malformed Request");
     }
+
 }
