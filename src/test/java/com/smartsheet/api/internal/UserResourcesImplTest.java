@@ -302,6 +302,8 @@ class UserResourcesImplTest extends ResourcesImplBase {
         assertThat(result.getPageSize()).isEqualTo(100);
         assertThat(result.getData().get(0).getEmail()).isEqualTo("user1@example.com");
         assertThat(result.getData().get(1).getEmail()).isEqualTo("user2@example.com");
+        assertThat(result.getData().get(2).getEmail()).isEqualTo("user3@example.com");
+        assertThat(result.getData().get(2).getSeatType()).isEqualTo(SeatType.CONTRIBUTOR);
     }
 
     @Test

@@ -54,7 +54,7 @@ public class TestListUserPlans {
         Smartsheet smartsheet = wrapper.getSmartsheet();
         WiremockClient wiremockClient = wrapper.getWiremockClient();
 
-        smartsheet.userResources().listUserPlans(TEST_USER_ID, TEST_LAST_KEY, TEST_MAX_ITEMS);
+        smartsheet.userResources().listUserPlans(TEST_USER_ID, TEST_LAST_KEY, TEST_MAX_ITEMS, true);
         LoggedRequest wiremockRequest = wiremockClient.findWiremockRequest(requestId);
         String path = URI.create(wiremockRequest.getUrl()).getPath();
         Map<String, QueryParameter> receivedQueryParams = wiremockRequest.getQueryParams();
@@ -62,6 +62,7 @@ public class TestListUserPlans {
         assertThat(path).isEqualTo("/2.0/users/1234567890/plans");
         assertThat(receivedQueryParams.get("maxItems").getValues()).isEqualTo(List.of(Long.toString(TEST_MAX_ITEMS)));
         assertThat(receivedQueryParams.get("lastKey").getValues()).isEqualTo(List.of(TEST_LAST_KEY));
+        assertThat(receivedQueryParams.get("displayContributorSeatType").getValues()).isEqualTo(List.of("true"));
     }
 
     @Test
@@ -78,11 +79,20 @@ public class TestListUserPlans {
 
         assertThat(response).isNotNull();
         assertThat(response.getLastKey()).isEqualTo(TEST_LAST_KEY);
+        assertThat(response.getData()).hasSize(2);
+
+        // Verify first plan (MEMBER)
         assertThat(response.getData().get(0).getPlanId()).isEqualTo(TEST_PLAN_ID);
         assertThat(response.getData().get(0).getSeatType()).isEqualTo(TEST_SEAT_TYPE);
         assertThat(response.getData().get(0).getSeatTypeLastChangedAt()).isEqualTo(TEST_SEAT_TYPE_LAST_CHANGED_AT);
         assertThat(response.getData().get(0).getProvisionalExpirationDate()).isEqualTo(TEST_PROVISIONAL_EXPIRATION_DATE);
         assertThat(response.getData().get(0).getIsInternal()).isFalse();
+
+        // Verify second plan (CONTRIBUTOR)
+        assertThat(response.getData().get(1).getSeatType()).isEqualTo(SeatType.CONTRIBUTOR);
+        assertThat(response.getData().get(1).getSeatTypeLastChangedAt()).isEqualTo(TEST_SEAT_TYPE_LAST_CHANGED_AT);
+        assertThat(response.getData().get(1).getProvisionalExpirationDate()).isEqualTo(TEST_PROVISIONAL_EXPIRATION_DATE);
+        assertThat(response.getData().get(1).getIsInternal()).isFalse();
     }
 
     @Test
@@ -132,4 +142,5 @@ public class TestListUserPlans {
 
         assertThat(exception.getMessage()).isEqualTo("Malformed Request");
     }
+
 }
