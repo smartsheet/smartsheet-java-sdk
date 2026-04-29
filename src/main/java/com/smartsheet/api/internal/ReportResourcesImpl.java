@@ -70,6 +70,7 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
 
     private static final String JSON_CONTENT_TYPE = "application/json";
     private static final String REPORTS_PATH = "reports/";
+    private static final String REPORTS = "reports";
 
     /**
      * Constructor.
@@ -82,7 +83,7 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
      */
     public ReportResourcesImpl(SmartsheetImpl smartsheet) {
         super(smartsheet);
-        this.shares = new ShareResourcesImpl(smartsheet, "reports");
+        this.shares = new ShareResourcesImpl(smartsheet, REPORTS);
     }
 
     /**
@@ -204,7 +205,7 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
      * List all reports.
      */
     public PagedResult<Report> listReports(PaginationParameters pagination, Date modifiedSince) throws SmartsheetException {
-        String path = "reports";
+        String path = REPORTS;
 
         Map<String, Object> parameters = new HashMap<>();
         if (pagination != null) {
@@ -363,7 +364,6 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
         return this.shares;
     }
 
-
     /**
      * <p>Deletes a report.</p>
      *
@@ -498,7 +498,7 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
     public CreateReportResult createReport(CreateReportRequest request) throws SmartsheetException {
         Util.throwIfNull(request);
 
-        return this.createResource("reports", CreateReportResult.class, request);
+        return this.createResource(REPORTS, CreateReportResult.class, request);
     }
 
     private void setRequestEntity(HttpRequest request, Object object) throws JSONSerializerException {
