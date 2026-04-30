@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [x.x.x] - unreleased
+
+## [3.11.0] - 2026-04-30
 ### Added
 - Support for POST /2.0/reports/{reportId}/columns endpoint
 - WireMock integration tests for contract testing for POST /2.0/reports/{reportId}/columns endpoint
