@@ -23,20 +23,35 @@ import com.smartsheet.api.ResourceNotFoundException;
 import com.smartsheet.api.ServiceUnavailableException;
 import com.smartsheet.api.ShareResources;
 import com.smartsheet.api.SmartsheetException;
+import com.smartsheet.api.internal.http.HttpEntity;
+import com.smartsheet.api.internal.http.HttpMethod;
+import com.smartsheet.api.internal.http.HttpRequest;
+import com.smartsheet.api.internal.http.HttpResponse;
+import com.smartsheet.api.internal.json.JSONSerializerException;
 import com.smartsheet.api.internal.util.QueryUtil;
+import com.smartsheet.api.models.CreateReportRequest;
+import com.smartsheet.api.models.CreateReportResult;
 import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.PaginationParameters;
 import com.smartsheet.api.models.Report;
+import com.smartsheet.api.models.ReportColumn;
+import com.smartsheet.api.models.ReportDefinition;
 import com.smartsheet.api.models.ReportPublish;
+import com.smartsheet.api.models.Result;
+import com.smartsheet.api.models.ReportScopeInclusion;
 import com.smartsheet.api.models.SheetEmail;
+import com.smartsheet.api.internal.util.Util;
 import com.smartsheet.api.models.enums.ReportInclusion;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.List;
 
 /**
  * This is the implementation of the ReportResources.
@@ -53,7 +68,9 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
      */
     private ShareResources shares;
 
+    private static final String JSON_CONTENT_TYPE = "application/json";
     private static final String REPORTS_PATH = "reports/";
+    private static final String REPORTS = "reports";
 
     /**
      * Constructor.
@@ -66,7 +83,7 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
      */
     public ReportResourcesImpl(SmartsheetImpl smartsheet) {
         super(smartsheet);
-        this.shares = new ShareResourcesImpl(smartsheet, "reports");
+        this.shares = new ShareResourcesImpl(smartsheet, REPORTS);
     }
 
     /**
@@ -188,7 +205,7 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
      * List all reports.
      */
     public PagedResult<Report> listReports(PaginationParameters pagination, Date modifiedSince) throws SmartsheetException {
-        String path = "reports";
+        String path = REPORTS;
 
         Map<String, Object> parameters = new HashMap<>();
         if (pagination != null) {
@@ -306,11 +323,191 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
     }
 
     /**
+     * Updates a report's definition (filters, grouping, summarizing, and sorting).
+     * <p>
+     * It mirrors to the following Smartsheet REST API method: PUT /reports/{id}/definition
+     * <p>
+     * This endpoint supports partial updates only on root level properties of the report definition,
+     * such as filters, groupingCriteria, and summarizingCriteria. For example, you can update the
+     * report's filters without affecting its grouping criteria. However, nested properties within
+     * these objects, such as a specific filter or grouping criterion, cannot be updated individually
+     * and require a full replacement of the respective section.
+     * <p>
+     * Exceptions:
+     * - InvalidRequestException : if there is any problem with the REST API request
+     * - AuthorizationException : if there is any problem with the REST API authorization(access token)
+     * - ResourceNotFoundException : if the resource can not be found
+     * - ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     * - SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     * - SmartsheetException : if there is any other error occurred during the operation
+     *
+     * @param id         the ID of the report
+     * @param reportDefinition the ReportDefinition object containing the updated definition
+     * @throws IllegalArgumentException    if any argument is null
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetException         if there is any other error during the operation
+     */
+    public void updateReportDefinition(long id, ReportDefinition reportDefinition) throws SmartsheetException {
+        String path = REPORTS_PATH + id + "/definition";
+        this.putResource(path, Result.class, reportDefinition);
+    }
+
+    /**
      * <p>Creates an object of ShareResources.</p>
      *
      * @return the created ShareResources object
      */
     public ShareResources shareResources() {
         return this.shares;
+    }
+
+    /**
+     * <p>Deletes a report.</p>
+     *
+     * <p>Mirrors the following Smartsheet REST API method: DELETE /reports/{reportId}</p>
+     *
+     * @param id the id of the report
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetException         if there is any other error during the operation
+     */
+    public void deleteReport(long id) throws SmartsheetException {
+        this.deleteResource(REPORTS_PATH + id, Report.class);
+    }
+
+    /**
+     * <p>Adds one or more specified sheet or workspace to the report scope.</p>
+     *
+     * @param id          the ID of the report
+     * @param scopes A list of one or more objects denoting the sheets or workspaces associated with
+     *               the report to be added to the report scope.
+     * @throws IllegalArgumentException    if any argument is null or empty
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetException         if there is any other error during the operation
+     */
+    @Override
+    public void addReportScope(long id, List<ReportScopeInclusion> scopes) throws SmartsheetException {
+        Util.throwIfNull(scopes);
+
+        if (scopes.isEmpty()) {
+            throw new IllegalArgumentException("scopes should not be empty.");
+        }
+
+        String path = REPORTS_PATH + id + "/scope";
+        HttpRequest request = createHttpRequest(smartsheet.getBaseURI().resolve(path), HttpMethod.POST);
+        setRequestEntity(request, scopes);
+
+        try {
+            HttpResponse response = this.smartsheet.getHttpClient().request(request);
+            if (response.getStatusCode() != 200) {
+                handleError(response);
+            }
+        } finally {
+            smartsheet.getHttpClient().releaseConnection();
+        }
+    }
+
+    /**
+     * <p>Removes one or more specified sheet or workspace from the report scope.</p>
+     *
+     * @param id             the ID of the report
+     * @param scopes A list of one or more objects denoting the sheets or workspaces associated with
+     *               the report to be removed from the report scope.
+     * @throws IllegalArgumentException    if any argument is null or empty
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetException         if there is any other error during the operation
+     */
+    @Override
+    public void removeReportScope(long id, List<ReportScopeInclusion> scopes) throws SmartsheetException {
+        Util.throwIfNull(scopes);
+
+        if (scopes.isEmpty()) {
+            throw new IllegalArgumentException("scopes should not be empty.");
+        }
+
+        String path = REPORTS_PATH + id + "/scope";
+        HttpRequest request = createHttpRequest(smartsheet.getBaseURI().resolve(path), HttpMethod.DELETE);
+        setRequestEntity(request, scopes);
+
+        try {
+            HttpResponse response = this.smartsheet.getHttpClient().request(request);
+            if (response.getStatusCode() != 200) {
+                handleError(response);
+            }
+        } finally {
+            smartsheet.getHttpClient().releaseConnection();
+        }
+    }
+
+    /**
+     * <p>Add reportColumns to a report.</p>
+     *
+     * <p>It mirrors to the following Smartsheet REST API method: POST /reports/{reportId}/reportColumns</p>
+     *
+     * <p>Note: All indexes of the reportColumns must be equal.</p>
+     *
+     * @param reportId the ID of the report
+     * @param reportColumns  the list of reportColumns to add (must contain 1-400 items)
+     * @return the list of reportColumns that were added
+     * @throws IllegalArgumentException    if any argument is null or empty
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetException         if there is any other error during the operation
+     */
+    @Override
+    public List<ReportColumn> addReportColumns(long reportId, List<ReportColumn> reportColumns) throws SmartsheetException {
+        Util.throwIfNull(reportColumns);
+
+        if (reportColumns.isEmpty()) {
+            throw new IllegalArgumentException("reportColumns should not be empty.");
+        }
+
+        return this.postAndReceiveList(REPORTS_PATH + reportId + "/columns", reportColumns, ReportColumn.class);
+    }
+
+    /**
+     * <p>Create a new report.</p>
+     *
+     * <p>It mirrors to the following Smartsheet REST API method: POST /reports</p>
+     *
+     * <p>Creates a new report by specifying name, destination, scope, columns and definition.</p>
+     *
+     * @param request the CreateReportRequest containing report specifications
+     * @return the CreateReportResult containing the newly created report information
+     * @throws IllegalArgumentException    if any argument is null
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetException         if there is any other error during the operation
+     */
+    @Override
+    public CreateReportResult createReport(CreateReportRequest request) throws SmartsheetException {
+        Util.throwIfNull(request);
+
+        return this.createResource(REPORTS, CreateReportResult.class, request);
+    }
+
+    private void setRequestEntity(HttpRequest request, Object object) throws JSONSerializerException {
+        ByteArrayOutputStream objectBytesStream = new ByteArrayOutputStream();
+        this.smartsheet.getJsonSerializer().serialize(object, objectBytesStream);
+        HttpEntity entity = new HttpEntity();
+        entity.setContentType(JSON_CONTENT_TYPE);
+        entity.setContent(new ByteArrayInputStream(objectBytesStream.toByteArray()));
+        entity.setContentLength(objectBytesStream.size());
+        request.setEntity(entity);
     }
 }

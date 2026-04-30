@@ -18,6 +18,8 @@ package com.smartsheet.api.internal;
 
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
+import com.smartsheet.api.models.CreateReportRequest;
+import com.smartsheet.api.models.CreateReportResult;
 import com.smartsheet.api.models.FormatDetails;
 import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.PaginationParameters;
@@ -25,8 +27,15 @@ import com.smartsheet.api.models.Recipient;
 import com.smartsheet.api.models.RecipientEmail;
 import com.smartsheet.api.models.RecipientGroup;
 import com.smartsheet.api.models.Report;
+import com.smartsheet.api.models.ReportColumn;
+import com.smartsheet.api.models.ReportDestination;
+import com.smartsheet.api.models.ReportScopeInclusion;
 import com.smartsheet.api.models.SheetEmail;
+import com.smartsheet.api.models.enums.AccessLevel;
+import com.smartsheet.api.models.enums.ColumnType;
 import com.smartsheet.api.models.enums.PaperSize;
+import com.smartsheet.api.models.enums.ReportAssetType;
+import com.smartsheet.api.models.enums.ReportDestinationType;
 import com.smartsheet.api.models.enums.ReportInclusion;
 import com.smartsheet.api.models.enums.SheetEmailFormat;
 import org.apache.commons.io.output.ByteArrayOutputStream;
@@ -42,6 +51,7 @@ import java.util.EnumSet;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatCode;
 
 class ReportResourcesImplTest extends ResourcesImplBase {
@@ -58,9 +68,12 @@ class ReportResourcesImplTest extends ResourcesImplBase {
     @Test
     void testGetReport() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/getReport.json"));
-        EnumSet<ReportInclusion> reportInclusions = EnumSet.of(ReportInclusion.ATTACHMENTS, ReportInclusion.DISCUSSIONS);
+        EnumSet<ReportInclusion> reportInclusions = EnumSet.of(
+                ReportInclusion.ATTACHMENTS,
+                ReportInclusion.DISCUSSIONS);
         Report report = reportResources.getReport(4583173393803140L, reportInclusions, 1, 1);
-        assertThat(report.getPermalink()).isEqualTo("https://app.smartsheet.com/b/home?lx=pWNSDH9itjBXxBzFmyf-5w");
+        assertThat(report.getPermalink())
+                .isEqualTo("https://app.smartsheet.com/b/home?lx=pWNSDH9itjBXxBzFmyf-5w");
         assertThat(report.getColumns().get(0).getVirtualId()).isEqualTo(4583173393803140L);
     }
 
@@ -130,5 +143,99 @@ class ReportResourcesImplTest extends ResourcesImplBase {
 
         byte[] data = Files.readAllBytes(Paths.get(file.getPath()));
         assertThat(output.toByteArray()).hasSameSizeAs(data);
+    }
+
+    @Test
+    void testDeleteReport() throws IOException {
+        server.setResponseBody(new File("src/test/resources/deleteReport.json"));
+        assertThatCode(() -> reportResources.deleteReport(1122334L)).doesNotThrowAnyException();
+    }
+
+    @Test
+    void testAddReportColumns() throws SmartsheetException, IOException {
+        server.setResponseBody(new File("src/test/resources/addReportColumns.json"));
+
+        List<ReportColumn> columnsToAdd = new ArrayList<>();
+
+        ReportColumn column1 = new ReportColumn();
+        column1.setTitle("Item selected");
+        column1.setType(ColumnType.CHECKBOX);
+        column1.setIndex(4);
+
+        ReportColumn column2 = new ReportColumn();
+        column2.setTitle("Sheet name");
+        column2.setType(ColumnType.TEXT_NUMBER);
+        column2.setIndex(5);
+        column2.setSheetNameColumn(true);
+
+        columnsToAdd.add(column1);
+        columnsToAdd.add(column2);
+
+        List<ReportColumn> addedColumns = reportResources.addReportColumns(4583173393803140L, columnsToAdd);
+
+        assertThat(addedColumns).isNotNull();
+        assertThat(addedColumns).hasSize(2);
+        assertThat(addedColumns.get(0).getVirtualId()).isEqualTo(12345L);
+        assertThat(addedColumns.get(0).getTitle()).isEqualTo("Item selected");
+        assertThat(addedColumns.get(0).getType()).isEqualTo(ColumnType.CHECKBOX);
+        assertThat(addedColumns.get(0).getIndex()).isEqualTo(4);
+        assertThat(addedColumns.get(1).getVirtualId()).isEqualTo(12346L);
+        assertThat(addedColumns.get(1).getTitle()).isEqualTo("Sheet name");
+        assertThat(addedColumns.get(1).getType()).isEqualTo(ColumnType.TEXT_NUMBER);
+        assertThat(addedColumns.get(1).getSheetNameColumn()).isTrue();
+    }
+
+    @Test
+    void testCreateReport() throws SmartsheetException, IOException {
+        server.setResponseBody(new File("src/test/resources/createReport.json"));
+
+        ReportDestination destination = new ReportDestination();
+        destination.setDestinationId(12345L);
+        destination.setDestinationType(ReportDestinationType.FOLDER);
+
+        List<ReportColumn> columns = new ArrayList<>();
+        ReportColumn column = new ReportColumn();
+        column.setTitle("Task Name");
+        column.setType(ColumnType.TEXT_NUMBER);
+        column.setPrimary(true);
+        column.setIndex(0);
+        columns.add(column);
+
+        List<ReportScopeInclusion> scope = new ArrayList<>();
+        ReportScopeInclusion scopeItem = new ReportScopeInclusion();
+        scopeItem.setAssetType(ReportAssetType.SHEET);
+        scopeItem.setAssetId(67890L);
+        scope.add(scopeItem);
+
+        CreateReportRequest request = new CreateReportRequest();
+        request.setName("Q2 Earnings");
+        request.setDestination(destination);
+        request.setColumns(columns);
+        request.setScope(scope);
+        request.setIsSummaryReport(false);
+
+        CreateReportResult result = reportResources.createReport(request);
+
+        assertThat(result).isNotNull();
+        assertThat(result.getId()).isEqualTo(987654321L);
+        assertThat(result.getName()).isEqualTo("Q2 Earnings");
+        assertThat(result.getAccessLevel()).isEqualTo(AccessLevel.OWNER);
+        assertThat(result.getPermalink())
+                .isEqualTo("https://app.smartsheet.com/reports/c8gJxw87cXpRCvCC5PPw6jFhFRrf5r8PxCrxvW21");
+        assertThat(result.getIsSummaryReport()).isFalse();
+
+        // Verify columns are returned
+        assertThat(result.getColumns()).isNotNull();
+        assertThat(result.getColumns()).hasSize(1);
+        assertThat(result.getColumns().get(0).getVirtualId()).isEqualTo(1234567890123456L);
+        assertThat(result.getColumns().get(0).getTitle()).isEqualTo("Primary column");
+        assertThat(result.getColumns().get(0).getType()).isEqualTo(ColumnType.TEXT_NUMBER);
+        assertThat(result.getColumns().get(0).getPrimary()).isTrue();
+    }
+
+    @Test
+    void testCreateReportNullRequest() {
+        assertThatThrownBy(() -> reportResources.createReport(null))
+                .isInstanceOf(IllegalArgumentException.class);
     }
 }

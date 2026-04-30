@@ -6,6 +6,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [x.x.x] - unreleased
 ### Added
+- Support for POST /2.0/reports/{reportId}/columns endpoint
+- WireMock integration tests for contract testing for POST /2.0/reports/{reportId}/columns endpoint
+- Support for POST /2.0/reports/{reportId}/scope endpoint
+- Support for DELETE /2.0/reports/{reportId}/scope endpoint
+- WireMock integration tests for contract testing for POST /2.0/reports/{reportId}/scope and DELETE /2.0/reports/{reportId}/scope endpoints
+- Added support for PUT /reports/{reportId}/definition endpoint, Update Report Definition
+- Support for the POST /2.0/reports/{id}/scope endpoint
+- Support for the DELETE /2.0/reports/{id}/scope endpoint
+- Support for the DELETE /2.0/reports/{id} endpoint
+- WireMock integration tests for contract testing for POST /2.0/reports/{id}/scope and DELETE /2.0/reports/{id}/scope endpoints
+- Support for the POST /2.0/reports endpoint
+- WireMock integration tests for contract testing for POST /2.0/reports endpoint
 - Added CONTRIBUTOR to SeatType enum
 - Added CONTRIBUTOR to DowngradeSeatType enum
 - Support for `displayContributorSeatType` query parameter in `listUsers` and `listUserPlans` methods

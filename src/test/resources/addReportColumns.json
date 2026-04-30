@@ -1,0 +1,26 @@
+{
+  "resultCode": 0,
+  "message": "SUCCESS",
+  "result": [
+    {
+      "virtualId": 12345,
+      "index": 4,
+      "title": "Item selected",
+      "type": "CHECKBOX",
+      "hidden": false,
+      "version": 0,
+      "width": 150
+    },
+    {
+      "virtualId": 12346,
+      "index": 5,
+      "title": "Sheet name",
+      "type": "TEXT_NUMBER",
+      "systemColumnType": "SHEET_NAME",
+      "hidden": false,
+      "version": 0,
+      "width": 150,
+      "sheetNameColumn": true
+    }
+  ]
+}

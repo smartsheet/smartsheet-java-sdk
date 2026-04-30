@@ -16,16 +16,22 @@
 
 package com.smartsheet.api;
 
+import com.smartsheet.api.models.CreateReportRequest;
+import com.smartsheet.api.models.CreateReportResult;
 import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.PaginationParameters;
 import com.smartsheet.api.models.Report;
+import com.smartsheet.api.models.ReportColumn;
+import com.smartsheet.api.models.ReportDefinition;
 import com.smartsheet.api.models.ReportPublish;
+import com.smartsheet.api.models.ReportScopeInclusion;
 import com.smartsheet.api.models.SheetEmail;
 import com.smartsheet.api.models.enums.ReportInclusion;
 
 import java.io.OutputStream;
 import java.util.Date;
 import java.util.EnumSet;
+import java.util.List;
 
 /**
  * <p>This interface provides methods to access Report resources.</p>
@@ -213,9 +219,115 @@ public interface ReportResources {
     ReportPublish updatePublishStatus(long id, ReportPublish reportPublish) throws SmartsheetException;
 
     /**
+     * <p>Updates a report's definition (filters, grouping, summarize, and sorting).</p>
+     *
+     * <p>It mirrors to the following Smartsheet REST API method: PUT /reports/{id}/definition</p>
+     *
+     * <p>This endpoint supports partial updates only on root level properties of the report definition,
+     * such as {@code filters}, {@code groupingCriteria}, and {@code summarizingCriteria}. For example,
+     * you can update the report's filters without affecting its grouping criteria. However, nested
+     * properties within these objects, such as a specific filter or grouping criterion, cannot be
+     * updated individually and require a full replacement of the respective section.
+     * </p>
+     *
+     * @param id            the ID of the report
+     * @param reportDefinition    the ReportDefinition object containing the updated definition
+     * @throws IllegalArgumentException    if any argument is null
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetException         if there is any other error during the operation
+     */
+    void updateReportDefinition(long id, ReportDefinition reportDefinition) throws SmartsheetException;
+
+    /**
      * <p>Creates an object of ShareResources.</p>
      *
      * @return the created ShareResources object
      */
     ShareResources shareResources();
+
+    /**
+     * <p>Deletes a report.</p>
+     *
+     * <p>Mirrors the following Smartsheet REST API method: DELETE /reports/{reportId}</p>
+     *
+     * @param id the id of the report
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetException         if there is any other error during the operation
+     */
+    void deleteReport(long id) throws SmartsheetException;
+
+    /**
+     * <p>Adds one or more specified sheet or workspace to the report scope.</p>
+     *
+     * @param id            the ID of the report
+     * @param scopes   A list of one or more objects denoting the sheets or workspaces associated with
+     *                 the report to be added to the report scope.
+     *
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetException         if there is any other error during the operation
+     */
+    void addReportScope(long id, List<ReportScopeInclusion> scopes) throws SmartsheetException;
+
+    /**
+     * <p>Removes one or more specified sheet or workspace from the report scope.</p>
+     *
+     * @param id                the ID of the report
+     * @param scopes    A list of one or more objects denoting the sheets or workspaces associated with
+     *                  the report to be removed from the report scope.
+     *
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetException         if there is any other error during the operation
+     */
+    void removeReportScope(long id, List<ReportScopeInclusion> scopes) throws SmartsheetException;
+
+    /**
+     * <p>Add columns to a report.</p>
+     *
+     * <p>It mirrors to the following Smartsheet REST API method: POST /reports/{reportId}/columns</p>
+     *
+     * <p>Note: All indexes of the columns must be equal.</p>
+     *
+     * @param reportId the ID of the report
+     * @param reportColumns  the list of columns to add (must contain 1-400 items)
+     * @return the list of columns that were added
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetException         if there is any other error during the operation
+     */
+    List<ReportColumn> addReportColumns(long reportId, List<ReportColumn> reportColumns) throws SmartsheetException;
+
+    /**
+     * <p>Create a new report.</p>
+     *
+     * <p>It mirrors to the following Smartsheet REST API method: POST /reports</p>
+     *
+     * <p>Creates a new report by specifying name, destination, scope, columns and definition.</p>
+     *
+     * @param request the CreateReportRequest containing report specifications
+     * @return the CreateReportResult containing the newly created report information
+     * @throws IllegalArgumentException    if any argument is null
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetException         if there is any other error during the operation
+     */
+    CreateReportResult createReport(CreateReportRequest request) throws SmartsheetException;
 }

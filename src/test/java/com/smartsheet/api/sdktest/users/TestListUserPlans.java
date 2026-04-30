@@ -25,6 +25,7 @@ import com.smartsheet.api.WiremockClientWrapper;
 import com.smartsheet.api.models.TokenPaginatedResult;
 import com.smartsheet.api.models.UserPlan;
 import com.smartsheet.api.models.enums.SeatType;
+import com.smartsheet.api.sdktest.Utils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

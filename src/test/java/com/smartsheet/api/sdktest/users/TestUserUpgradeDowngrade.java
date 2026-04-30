@@ -25,6 +25,7 @@ import com.smartsheet.api.WiremockClient;
 import com.smartsheet.api.WiremockClientWrapper;
 import com.smartsheet.api.models.enums.DowngradeSeatType;
 import com.smartsheet.api.models.enums.UpgradeSeatType;
+import com.smartsheet.api.sdktest.Utils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

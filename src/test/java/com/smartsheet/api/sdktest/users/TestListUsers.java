@@ -27,6 +27,7 @@ import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.User;
 import com.smartsheet.api.models.enums.SeatType;
 import com.smartsheet.api.models.enums.UserStatus;
+import com.smartsheet.api.sdktest.Utils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

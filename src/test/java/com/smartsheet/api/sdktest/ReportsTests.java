@@ -14,40 +14,40 @@
  * limitations under the License.
  */
 
-package com.smartsheet.api.sdktest.users;
+package com.smartsheet.api.sdktest;
 
 import com.github.tomakehurst.wiremock.verification.LoggedRequest;
 import com.smartsheet.api.Smartsheet;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.WiremockClient;
 import com.smartsheet.api.WiremockClientWrapper;
-import com.smartsheet.api.sdktest.Utils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.net.URI;
 import java.util.UUID;
 
-import static com.smartsheet.api.sdktest.users.CommonTestConstants.TEST_PLAN_ID;
-import static com.smartsheet.api.sdktest.users.CommonTestConstants.TEST_USER_ID;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class TestRemoveUserFromPlan {
+public class ReportsTests {
+
+    private static final long TEST_REPORT_ID = 1123581321L;
+
     @Test
-    void testRemoveUserFromPlanGeneratedUrlIsCorrect() throws SmartsheetException {
+    void testDeleteReportGeneratedUrlIsCorrect() throws SmartsheetException {
         String requestId = UUID.randomUUID().toString();
         WiremockClientWrapper wrapper = Utils.createWiremockSmartsheetClient(
-                "/users/remove-user-from-plan/all-response-body-properties",
+                "/reports/delete-report/all-response-body-properties",
                 requestId
         );
         Smartsheet smartsheet = wrapper.getSmartsheet();
         WiremockClient wiremockClient = wrapper.getWiremockClient();
 
-        smartsheet.userResources().removeUserFromPlan(TEST_USER_ID, TEST_PLAN_ID);
+        smartsheet.reportResources().deleteReport(TEST_REPORT_ID);
         LoggedRequest wiremockRequest = wiremockClient.findWiremockRequest(requestId);
         String path = URI.create(wiremockRequest.getUrl()).getPath();
 
-        assertThat(path).isEqualTo("/2.0/users/" + TEST_USER_ID + "/plans/" + TEST_PLAN_ID);
+        assertThat(path).isEqualTo("/2.0/reports/" + TEST_REPORT_ID);
         assertThat(wiremockRequest.getMethod().getName()).isEqualTo("DELETE");
     }
 
@@ -55,13 +55,13 @@ public class TestRemoveUserFromPlan {
     void testRemoveUserFromPlanAllResponseBodyProperties() throws SmartsheetException {
         String requestId = UUID.randomUUID().toString();
         WiremockClientWrapper wrapper = Utils.createWiremockSmartsheetClient(
-                "/users/remove-user-from-plan/all-response-body-properties",
+                "/reports/delete-report/all-response-body-properties",
                 requestId
         );
         Smartsheet smartsheet = wrapper.getSmartsheet();
 
         Assertions.assertDoesNotThrow(() -> {
-            smartsheet.userResources().removeUserFromPlan(TEST_USER_ID, TEST_PLAN_ID);
+            smartsheet.reportResources().deleteReport(TEST_REPORT_ID);
         });
     }
 
@@ -72,7 +72,7 @@ public class TestRemoveUserFromPlan {
         Smartsheet smartsheet = wrapper.getSmartsheet();
 
         SmartsheetException exception = Assertions.assertThrows(SmartsheetException.class, () -> {
-            smartsheet.userResources().removeUserFromPlan(TEST_USER_ID, TEST_PLAN_ID);
+            smartsheet.reportResources().deleteReport(TEST_REPORT_ID);
         });
 
         assertThat(exception.getMessage()).contains("Internal Server Error");
@@ -85,9 +85,10 @@ public class TestRemoveUserFromPlan {
         Smartsheet smartsheet = wrapper.getSmartsheet();
 
         SmartsheetException exception = Assertions.assertThrows(SmartsheetException.class, () -> {
-            smartsheet.userResources().removeUserFromPlan(TEST_USER_ID, TEST_PLAN_ID);
+            smartsheet.reportResources().deleteReport(TEST_REPORT_ID);
         });
 
         assertThat(exception.getMessage()).contains("Malformed Request");
     }
+
 }
