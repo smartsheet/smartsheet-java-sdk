@@ -19,6 +19,7 @@ package com.smartsheet.api.models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.smartsheet.api.models.enums.AccessLevel;
 import com.smartsheet.api.models.enums.AttachmentType;
+import com.smartsheet.api.models.enums.DataClassificationType;
 import com.smartsheet.api.models.enums.ResourceManagementType;
 
 import java.util.Date;
@@ -75,6 +76,11 @@ public abstract class AbstractSheet<TRow extends AbstractRow<TColumn, TCell>, TC
      * Dependencies Functionality</a>
      */
     private Boolean dependenciesEnabled;
+
+    /**
+     * Represents the data classification of the sheet.
+     */
+    private DataClassificationType dataClassification;
 
     /**
      * Represents the discussions for the sheet.
@@ -364,6 +370,26 @@ public abstract class AbstractSheet<TRow extends AbstractRow<TColumn, TCell>, TC
     @SuppressWarnings("unchecked")
     public <T extends AbstractSheet<TRow, TColumn, TCell>> T setDependenciesEnabled(Boolean dependenciesEnabled) {
         this.dependenciesEnabled = dependenciesEnabled;
+        return (T) this;
+    }
+
+    /**
+     * Gets the data classification of the sheet.
+     *
+     * @return the data classification
+     */
+    public DataClassificationType getDataClassification() {
+        return dataClassification;
+    }
+
+    /**
+     * Sets the data classification of the sheet.
+     *
+     * @param dataClassification the data classification
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends AbstractSheet<TRow, TColumn, TCell>> T setDataClassification(DataClassificationType dataClassification) {
+        this.dataClassification = dataClassification;
         return (T) this;
     }
 
