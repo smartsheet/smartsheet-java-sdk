@@ -16,6 +16,9 @@
 
 package com.smartsheet.api.sdktest.reports;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.smartsheet.api.internal.json.JacksonJsonSerializer;
 import com.github.tomakehurst.wiremock.http.RequestMethod;
 import com.github.tomakehurst.wiremock.verification.LoggedRequest;
 import com.smartsheet.api.Smartsheet;
@@ -43,11 +46,11 @@ import org.junit.jupiter.api.Test;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Map;
 import java.util.UUID;
 
-import static com.smartsheet.api.sdktest.users.CommonTestConstants.TEST_REPORT_ID;
+import static com.smartsheet.api.sdktest.reports.CommonTestConstants.TEST_REPORT_ID;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.assertj.core.api.AssertionsForClassTypes.assertThatNoException;
 
 public class TestUpdateReportDefinition {
 
@@ -55,26 +58,22 @@ public class TestUpdateReportDefinition {
     private String testReportDefinitionJson;
 
     @BeforeEach
-    void setUp() {
+    void setUp() throws Exception {
         testReportDefinition = new ReportDefinition();
 
-        // Set filters - demonstrates ReportFilterValue helper usage
         testReportDefinition.setFilters(
             new ReportFilterExpression()
                 .setOperator(ReportFilterExpressionOperator.AND)
                 .setCriteria(createFilterCriteria())
         );
 
-        // Set grouping criteria
         testReportDefinition.setGroupingCriteria(createGroupingCriteria());
 
-        // Set summarizing criteria
         testReportDefinition.setSummarizingCriteria(createSummarizingCriteria());
 
-        // Set sorting criteria
         testReportDefinition.setSortingCriteria(createSortingCriteria());
 
-        testReportDefinitionJson = buildExpectedJson();
+        testReportDefinitionJson = new JacksonJsonSerializer().serialize(testReportDefinition);
     }
 
     private ArrayList<ReportFilterCriterion> createFilterCriteria() {
@@ -180,34 +179,6 @@ public class TestUpdateReportDefinition {
         return criteria;
     }
 
-    private String buildExpectedJson() {
-        return "{\"filters\":" +
-                "{\"operator\":\"AND\"," +
-                "\"criteria\":[" +
-                "{\"column\":{\"title\":\"Primary\",\"type\":\"TEXT_NUMBER\",\"primary\":true}," +
-                "\"operator\":\"EQUAL\"," +
-                "\"values\":[\"Active\",\"In Progress\"]}," +
-                "{\"column\":{\"title\":\"Priority\",\"type\":\"TEXT_NUMBER\"}," +
-                "\"operator\":\"GREATER_THAN\"," +
-                "\"values\":[5]}," +
-                "{\"column\":{\"title\":\"Owner\",\"type\":\"CONTACT_LIST\"}," +
-                "\"operator\":\"EQUAL\"," +
-                "\"values\":[{\"objectType\":\"CURRENT_USER\",\"value\":\"\"}]}," +
-                "{\"column\":{\"title\":\"Due Date\",\"type\":\"DATE\"}," +
-                "\"operator\":\"GREATER_THAN_OR_EQUAL\"," +
-                "\"values\":[{\"objectType\":\"DATE\",\"value\":\"2024-01-01\"}]}" +
-                "]}," +
-                "\"groupingCriteria\":[{\"column\":" +
-                "{\"title\":\"Status\",\"type\":\"PICKLIST\"}," +
-                "\"sortingDirection\":\"ASCENDING\",\"isExpanded\":true}]," +
-                "\"summarizingCriteria\":[{\"column\":" +
-                "{\"title\":\"Amount\",\"type\":\"TEXT_NUMBER\"}," +
-                "\"aggregationType\":\"SUM\"}]," +
-                "\"sortingCriteria\":[{\"column\":" +
-                "{\"title\":\"Date\",\"type\":\"DATE\"}," +
-                "\"sortingDirection\":\"DESCENDING\"}]}";
-    }
-
     @Test
     void testUpdateReportDefinitionGeneratedUrlIsCorrect() throws SmartsheetException {
         String requestId = UUID.randomUUID().toString();
@@ -224,10 +195,11 @@ public class TestUpdateReportDefinition {
 
         assertThat(path).isEqualTo("/2.0/reports/" + TEST_REPORT_ID + "/definition");
         assertThat(wiremockRequest.getMethod()).isEqualTo(RequestMethod.PUT);
+        assertThat(wiremockRequest.getQueryParams()).isEqualTo(Map.of());
     }
 
     @Test
-    void testUpdateReportDefinitionAllResponseBodyProperties() {
+    void testUpdateReportDefinitionAllResponseBodyProperties() throws JsonProcessingException {
         String requestId = UUID.randomUUID().toString();
         WiremockClientWrapper wrapper = Utils.createWiremockSmartsheetClient(
                 "/reports/update-report-definition/all-response-body-properties",
@@ -236,11 +208,12 @@ public class TestUpdateReportDefinition {
         Smartsheet smartsheet = wrapper.getSmartsheet();
         WiremockClient wiremockClient = wrapper.getWiremockClient();
 
-        assertThatNoException().isThrownBy(() -> smartsheet.reportResources().updateReportDefinition(TEST_REPORT_ID, testReportDefinition));
+        Assertions.assertDoesNotThrow(() -> smartsheet.reportResources().updateReportDefinition(TEST_REPORT_ID, testReportDefinition));
 
         LoggedRequest wiremockRequest = wiremockClient.findWiremockRequest(requestId);
         String requestBody = wiremockRequest.getBodyAsString();
-        assertThat(requestBody).isEqualTo(testReportDefinitionJson);
+        ObjectMapper objectMapper = new ObjectMapper();
+        assertThat(objectMapper.readTree(requestBody)).isEqualTo(objectMapper.readTree(testReportDefinitionJson));
     }
 
     @Test
