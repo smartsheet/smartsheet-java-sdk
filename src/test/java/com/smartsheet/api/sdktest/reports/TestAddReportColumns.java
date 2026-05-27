@@ -24,8 +24,10 @@ import com.smartsheet.api.Smartsheet;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.WiremockClient;
 import com.smartsheet.api.WiremockClientWrapper;
+import com.smartsheet.api.models.AutoNumberFormat;
 import com.smartsheet.api.models.ReportColumn;
 import com.smartsheet.api.models.enums.ColumnType;
+import com.smartsheet.api.models.enums.SystemColumnType;
 import com.smartsheet.api.sdktest.Utils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -37,16 +39,129 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import static com.smartsheet.api.sdktest.users.CommonTestConstants.TEST_REPORT_ID;
+import static com.smartsheet.api.sdktest.reports.CommonTestConstants.TEST_REPORT_ID;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class TestAddReportColumns {
 
     private List<ReportColumn> testColumns;
 
-    /**
-     * Expected request body for column 1 (checkbox) - per OpenAPI spec.
-     */
+    private static final List<ReportColumn> EXPECTED_ALL_COLUMNS;
+    private static final List<ReportColumn> EXPECTED_REQUIRED_COLUMNS;
+
+    static {
+        ReportColumn col1All = new ReportColumn();
+        col1All.setVirtualId(12345L);
+        col1All.setIndex(4);
+        col1All.setTitle("Item selected");
+        col1All.setType(ColumnType.CHECKBOX);
+        col1All.setHidden(false);
+        col1All.setVersion(0);
+        col1All.setWidth(150);
+        col1All.setValidation(false);
+
+        ReportColumn col2All = new ReportColumn();
+        col2All.setVirtualId(12346L);
+        col2All.setIndex(5);
+        col2All.setTitle("Sheet name");
+        col2All.setType(ColumnType.TEXT_NUMBER);
+        col2All.setSheetNameColumn(true);
+        col2All.setHidden(false);
+        col2All.setVersion(0);
+        col2All.setWidth(150);
+        col2All.setValidation(false);
+
+        ReportColumn col3All = new ReportColumn();
+        col3All.setVirtualId(12347L);
+        col3All.setIndex(6);
+        col3All.setTitle("Created By");
+        col3All.setType(ColumnType.CONTACT_LIST);
+        col3All.setSystemColumnType(SystemColumnType.CREATED_BY);
+        col3All.setHidden(false);
+        col3All.setVersion(0);
+        col3All.setWidth(150);
+        col3All.setValidation(false);
+
+        ReportColumn col4All = new ReportColumn();
+        col4All.setVirtualId(12348L);
+        col4All.setIndex(7);
+        col4All.setTitle("Primary");
+        col4All.setType(ColumnType.TEXT_NUMBER);
+        col4All.setPrimary(true);
+        col4All.setHidden(false);
+        col4All.setVersion(0);
+        col4All.setWidth(200);
+        col4All.setValidation(false);
+
+        AutoNumberFormat autoNumberFormat = new AutoNumberFormat();
+        autoNumberFormat.setFill("000");
+        autoNumberFormat.setPrefix("TASK-");
+        autoNumberFormat.setStartingNumber(1L);
+        autoNumberFormat.setSuffix("");
+
+        ReportColumn col5All = new ReportColumn();
+        col5All.setVirtualId(12349L);
+        col5All.setIndex(8);
+        col5All.setTitle("Row Number");
+        col5All.setType(ColumnType.TEXT_NUMBER);
+        col5All.setSystemColumnType(SystemColumnType.AUTO_NUMBER);
+        col5All.setHidden(false);
+        col5All.setVersion(0);
+        col5All.setWidth(100);
+        col5All.setValidation(false);
+        col5All.setAutoNumberFormat(autoNumberFormat);
+
+        EXPECTED_ALL_COLUMNS = List.of(col1All, col2All, col3All, col4All, col5All);
+
+        ReportColumn col1Req = new ReportColumn();
+        col1Req.setVirtualId(12345L);
+        col1Req.setIndex(4);
+        col1Req.setTitle("Item selected");
+        col1Req.setType(ColumnType.CHECKBOX);
+        col1Req.setVersion(0);
+
+        ReportColumn col2Req = new ReportColumn();
+        col2Req.setVirtualId(12346L);
+        col2Req.setIndex(5);
+        col2Req.setTitle("Sheet name");
+        col2Req.setType(ColumnType.TEXT_NUMBER);
+        col2Req.setSheetNameColumn(true);
+        col2Req.setVersion(0);
+
+        ReportColumn col3Req = new ReportColumn();
+        col3Req.setVirtualId(12347L);
+        col3Req.setIndex(6);
+        col3Req.setTitle("Created By");
+        col3Req.setType(ColumnType.CONTACT_LIST);
+        col3Req.setSystemColumnType(SystemColumnType.CREATED_BY);
+        col3Req.setVersion(0);
+
+        ReportColumn col4Req = new ReportColumn();
+        col4Req.setVirtualId(12348L);
+        col4Req.setIndex(7);
+        col4Req.setTitle("Primary");
+        col4Req.setType(ColumnType.TEXT_NUMBER);
+        col4Req.setPrimary(true);
+        col4Req.setVersion(0);
+
+        AutoNumberFormat autoNumberFormatReq = new AutoNumberFormat();
+        autoNumberFormatReq.setFill("000");
+        autoNumberFormatReq.setPrefix("TASK-");
+        autoNumberFormatReq.setStartingNumber(1L);
+        autoNumberFormatReq.setSuffix("");
+
+        ReportColumn col5Req = new ReportColumn();
+        col5Req.setVirtualId(12349L);
+        col5Req.setIndex(8);
+        col5Req.setTitle("Row Number");
+        col5Req.setType(ColumnType.TEXT_NUMBER);
+        col5Req.setSystemColumnType(SystemColumnType.AUTO_NUMBER);
+        col5Req.setVersion(0);
+        col5Req.setAutoNumberFormat(autoNumberFormatReq);
+
+        EXPECTED_REQUIRED_COLUMNS = List.of(col1Req, col2Req, col3Req, col4Req, col5Req);
+    }
+
     private static final Map<String, Object> EXPECTED_COLUMN1_REQUEST = Map.of(
             "title", "Item selected",
             "type", "CHECKBOX",
@@ -54,9 +169,6 @@ public class TestAddReportColumns {
             "sheetNameColumn", false
     );
 
-    /**
-     * Expected request body for column 2 (sheet name) - per OpenAPI spec.
-     */
     private static final Map<String, Object> EXPECTED_COLUMN2_REQUEST = Map.of(
             "title", "Sheet name",
             "type", "TEXT_NUMBER",
@@ -70,6 +182,7 @@ public class TestAddReportColumns {
         column1.setTitle("Item selected");
         column1.setType(ColumnType.CHECKBOX);
         column1.setIndex(4);
+        column1.setSheetNameColumn(false);
 
         ReportColumn column2 = new ReportColumn();
         column2.setTitle("Sheet name");
@@ -83,7 +196,7 @@ public class TestAddReportColumns {
     }
 
     @Test
-    void testAddReportColumnsGeneratedUrlIsCorrect() throws SmartsheetException, JsonProcessingException {
+    void testAddReportColumnsGeneratedUrlIsCorrect() throws SmartsheetException {
         String requestId = UUID.randomUUID().toString();
         WiremockClientWrapper wrapper = Utils.createWiremockSmartsheetClient(
                 "/reports/add-report-columns/all-response-body-properties",
@@ -98,13 +211,7 @@ public class TestAddReportColumns {
 
         assertThat(path).isEqualTo("/2.0/reports/" + TEST_REPORT_ID + "/columns");
         assertThat(wiremockRequest.getMethod()).isEqualTo(RequestMethod.POST);
-
-        // Validate the request body matches the expected structure as a whole
-        String requestBody = wiremockRequest.getBodyAsString();
-        ObjectMapper objectMapper = new ObjectMapper();
-        List<Map<String, Object>> expectedRequestBody = List.of(EXPECTED_COLUMN1_REQUEST, EXPECTED_COLUMN2_REQUEST);
-        String expectedJson = objectMapper.writeValueAsString(expectedRequestBody);
-        assertThat(objectMapper.readTree(requestBody)).isEqualTo(objectMapper.readTree(expectedJson));
+        assertThat(wiremockRequest.getQueryParams()).isEqualTo(Map.of());
     }
 
     @Test
@@ -119,7 +226,6 @@ public class TestAddReportColumns {
 
         List<ReportColumn> addedColumns = smartsheet.reportResources().addReportColumns(TEST_REPORT_ID, testColumns);
 
-        // Validate request body matches expected structure as a whole
         LoggedRequest wiremockRequest = wiremockClient.findWiremockRequest(requestId);
         String requestBody = wiremockRequest.getBodyAsString();
         ObjectMapper objectMapper = new ObjectMapper();
@@ -127,29 +233,7 @@ public class TestAddReportColumns {
         String expectedJson = objectMapper.writeValueAsString(expectedRequestBody);
         assertThat(objectMapper.readTree(requestBody)).isEqualTo(objectMapper.readTree(expectedJson));
 
-        // Verify response: all properties including virtualId
-        // Response may include additional columns beyond those we added
-        assertThat(addedColumns).isNotNull();
-        assertThat(addedColumns).hasSizeGreaterThanOrEqualTo(2);
-
-        // Verify first column - checkbox (response includes all properties)
-        assertThat(addedColumns.get(0).getVirtualId()).isEqualTo(12345L);
-        assertThat(addedColumns.get(0).getTitle()).isEqualTo("Item selected");
-        assertThat(addedColumns.get(0).getType()).isEqualTo(ColumnType.CHECKBOX);
-        assertThat(addedColumns.get(0).getIndex()).isEqualTo(4);
-        assertThat(addedColumns.get(0).getHidden()).isFalse();
-        assertThat(addedColumns.get(0).getVersion()).isEqualTo(0);
-        assertThat(addedColumns.get(0).getWidth()).isEqualTo(150);
-
-        // Verify second column - sheet name (response includes all properties)
-        assertThat(addedColumns.get(1).getVirtualId()).isEqualTo(12346L);
-        assertThat(addedColumns.get(1).getTitle()).isEqualTo("Sheet name");
-        assertThat(addedColumns.get(1).getType()).isEqualTo(ColumnType.TEXT_NUMBER);
-        assertThat(addedColumns.get(1).getIndex()).isEqualTo(5);
-        assertThat(addedColumns.get(1).getSheetNameColumn()).isTrue();
-        assertThat(addedColumns.get(1).getHidden()).isFalse();
-        assertThat(addedColumns.get(1).getVersion()).isEqualTo(0);
-        assertThat(addedColumns.get(1).getWidth()).isEqualTo(150);
+        assertThat(addedColumns).usingRecursiveComparison().isEqualTo(EXPECTED_ALL_COLUMNS);
     }
 
     @Test
@@ -164,7 +248,6 @@ public class TestAddReportColumns {
 
         List<ReportColumn> addedColumns = smartsheet.reportResources().addReportColumns(TEST_REPORT_ID, testColumns);
 
-        // Validate request body matches expected structure as a whole (per OpenAPI spec)
         LoggedRequest wiremockRequest = wiremockClient.findWiremockRequest(requestId);
         String requestBody = wiremockRequest.getBodyAsString();
         ObjectMapper objectMapper = new ObjectMapper();
@@ -172,22 +255,7 @@ public class TestAddReportColumns {
         String expectedJson = objectMapper.writeValueAsString(expectedRequestBody);
         assertThat(objectMapper.readTree(requestBody)).isEqualTo(objectMapper.readTree(expectedJson));
 
-        // Verify response parsing
-        // Response may include additional columns beyond those we added
-        assertThat(addedColumns).isNotNull();
-        assertThat(addedColumns).hasSizeGreaterThanOrEqualTo(2);
-
-        // Verify first column - required properties only
-        assertThat(addedColumns.get(0).getVirtualId()).isEqualTo(12345L);
-        assertThat(addedColumns.get(0).getTitle()).isEqualTo("Item selected");
-        assertThat(addedColumns.get(0).getType()).isEqualTo(ColumnType.CHECKBOX);
-        assertThat(addedColumns.get(0).getIndex()).isEqualTo(4);
-
-        // Verify second column - required properties only
-        assertThat(addedColumns.get(1).getVirtualId()).isEqualTo(12346L);
-        assertThat(addedColumns.get(1).getTitle()).isEqualTo("Sheet name");
-        assertThat(addedColumns.get(1).getType()).isEqualTo(ColumnType.TEXT_NUMBER);
-        assertThat(addedColumns.get(1).getIndex()).isEqualTo(5);
+        assertThat(addedColumns).usingRecursiveComparison().isEqualTo(EXPECTED_REQUIRED_COLUMNS);
     }
 
     @Test
