@@ -18,6 +18,7 @@ package com.smartsheet.api.sdktest.reports;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.smartsheet.api.internal.json.JacksonJsonSerializer;
 import com.github.tomakehurst.wiremock.http.RequestMethod;
 import com.github.tomakehurst.wiremock.verification.LoggedRequest;
 import com.smartsheet.api.Smartsheet;
@@ -51,14 +52,13 @@ import java.util.UUID;
 import static com.smartsheet.api.sdktest.reports.CommonTestConstants.TEST_REPORT_ID;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-
 public class TestUpdateReportDefinition {
 
     private ReportDefinition testReportDefinition;
     private String testReportDefinitionJson;
 
     @BeforeEach
-    void setUp() throws JsonProcessingException {
+    void setUp() throws Exception {
         testReportDefinition = new ReportDefinition();
 
         testReportDefinition.setFilters(
@@ -73,7 +73,7 @@ public class TestUpdateReportDefinition {
 
         testReportDefinition.setSortingCriteria(createSortingCriteria());
 
-        testReportDefinitionJson = new ObjectMapper().writeValueAsString(testReportDefinition);
+        testReportDefinitionJson = new JacksonJsonSerializer().serialize(testReportDefinition);
     }
 
     private ArrayList<ReportFilterCriterion> createFilterCriteria() {

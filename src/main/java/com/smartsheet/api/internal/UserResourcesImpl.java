@@ -784,7 +784,8 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
      *
      * @param userId the id of the user to deactivate
      * @throws IllegalArgumentException    if any argument is null or empty string
-     * @throws InvalidRequestException     if there is any problem with the REST API request (e.g., user email belongs to ISP domain or user is managed by external source)
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     *                                     (e.g., user email belongs to ISP domain or user is managed by external source)
      * @throws AuthorizationException      if there is any problem with the REST API authorization (access token)
      * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
