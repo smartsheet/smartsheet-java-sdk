@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2025 Smartsheet
+ * Copyright (C) 2026 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -89,5 +89,31 @@ public class TestListEvents {
         );
 
         assertThat(exception.getMessage()).contains("Not Found");
+    }
+
+    @Test
+    void testListEventsError400Response() {
+        String requestId = UUID.randomUUID().toString();
+        WiremockClientWrapper wrapper = Utils.createWiremockSmartsheetClient("/errors/400-response", requestId);
+        Smartsheet smartsheet = wrapper.getSmartsheet();
+
+        SmartsheetException exception = Assertions.assertThrows(SmartsheetException.class, () -> {
+            smartsheet.eventResources().listEvents("2024-05-06T00:00:00Z", null, 5, false);
+        });
+
+        assertThat(exception.getMessage()).contains("Malformed Request");
+    }
+
+    @Test
+    void testListEventsError500Response() {
+        String requestId = UUID.randomUUID().toString();
+        WiremockClientWrapper wrapper = Utils.createWiremockSmartsheetClient("/errors/500-response", requestId);
+        Smartsheet smartsheet = wrapper.getSmartsheet();
+
+        SmartsheetException exception = Assertions.assertThrows(SmartsheetException.class, () -> {
+            smartsheet.eventResources().listEvents("2024-05-06T00:00:00Z", null, 5, false);
+        });
+
+        assertThat(exception.getMessage()).contains("Internal Server Error");
     }
 }
