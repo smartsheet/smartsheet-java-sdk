@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [x.x.x] - unreleased
 
+### Added
+- AI assisted workflows via claude skills (`implement-api-endpoint` and `review-api-endpoint`).
+
 ## [3.11.0] - 2026-04-30
 ### Added
 - Support for POST /2.0/reports/{reportId}/columns endpoint

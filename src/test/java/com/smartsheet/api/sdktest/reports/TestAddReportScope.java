@@ -16,14 +16,14 @@
 
 package com.smartsheet.api.sdktest.reports;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.tomakehurst.wiremock.http.RequestMethod;
 import com.github.tomakehurst.wiremock.verification.LoggedRequest;
 import com.smartsheet.api.Smartsheet;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.WiremockClient;
 import com.smartsheet.api.WiremockClientWrapper;
-import com.smartsheet.api.internal.json.JSONSerializerException;
-import com.smartsheet.api.internal.json.JacksonJsonSerializer;
 import com.smartsheet.api.models.ReportScopeInclusion;
 import com.smartsheet.api.models.enums.ReportAssetType;
 import com.smartsheet.api.sdktest.Utils;
@@ -31,14 +31,14 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.io.ByteArrayOutputStream;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
-import static com.smartsheet.api.sdktest.users.CommonTestConstants.TEST_REPORT_ID;
-import static com.smartsheet.api.sdktest.users.CommonTestConstants.TEST_SHEET_ID;
+import static com.smartsheet.api.sdktest.reports.CommonTestConstants.TEST_REPORT_ID;
+import static com.smartsheet.api.sdktest.reports.CommonTestConstants.TEST_SHEET_ID;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class TestAddReportScope {
@@ -47,7 +47,7 @@ public class TestAddReportScope {
     private String testScopesJson;
 
     @BeforeEach
-    void setUp() throws JSONSerializerException {
+    void setUp() throws JsonProcessingException {
         ReportScopeInclusion scope = new ReportScopeInclusion();
         scope.setAssetType(ReportAssetType.SHEET);
         scope.setAssetId(TEST_SHEET_ID);
@@ -55,9 +55,7 @@ public class TestAddReportScope {
         testScopes = new ArrayList<>();
         testScopes.add(scope);
 
-        ByteArrayOutputStream objectBytesStream = new ByteArrayOutputStream();
-        new JacksonJsonSerializer().serialize(testScopes, objectBytesStream);
-        testScopesJson = objectBytesStream.toString();
+        testScopesJson = new ObjectMapper().writeValueAsString(testScopes);
     }
 
     @Test
@@ -76,23 +74,27 @@ public class TestAddReportScope {
 
         assertThat(path).isEqualTo("/2.0/reports/" + TEST_REPORT_ID + "/scope");
         assertThat(wiremockRequest.getMethod()).isEqualTo(RequestMethod.POST);
-
-        String requestBody = wiremockRequest.getBodyAsString();
-        assertThat(requestBody).isEqualTo(testScopesJson);
+        assertThat(wiremockRequest.getQueryParams()).isEqualTo(Map.of());
     }
 
     @Test
-    void testAddReportScopeAllResponseBodyProperties() {
+    void testAddReportScopeAllResponseBodyProperties() throws JsonProcessingException {
         String requestId = UUID.randomUUID().toString();
         WiremockClientWrapper wrapper = Utils.createWiremockSmartsheetClient(
                 "/reports/add-report-scope/all-response-body-properties",
                 requestId
         );
         Smartsheet smartsheet = wrapper.getSmartsheet();
+        WiremockClient wiremockClient = wrapper.getWiremockClient();
 
         Assertions.assertDoesNotThrow(() -> {
             smartsheet.reportResources().addReportScope(TEST_REPORT_ID, testScopes);
         });
+
+        LoggedRequest wiremockRequest = wiremockClient.findWiremockRequest(requestId);
+        String requestBody = wiremockRequest.getBodyAsString();
+        ObjectMapper objectMapper = new ObjectMapper();
+        assertThat(objectMapper.readTree(requestBody)).isEqualTo(objectMapper.readTree(testScopesJson));
     }
 
     @Test
