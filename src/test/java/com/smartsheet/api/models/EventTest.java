@@ -17,6 +17,7 @@
 package com.smartsheet.api.models;
 
 import com.smartsheet.api.internal.json.JacksonJsonSerializer;
+import com.smartsheet.api.models.enums.EventObjectType;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
@@ -68,8 +69,20 @@ class EventTest {
 
             Event event = deserialize(json);
 
+            // Fields present in the JSON must be correctly deserialized
             assertThat(event.getEventId()).isEqualTo("evt-42");
+            assertThat(event.getObjectId()).isEqualTo(999);
             assertThat(event.getObjectIdStr()).isEqualTo("xyz-789");
+            assertThat(event.getObjectType()).isEqualTo(EventObjectType.SHEET);
+
+            // Fields absent from the JSON must remain null
+            assertThat(event.getAction()).isNull();
+            assertThat(event.getSource()).isNull();
+            assertThat(event.getUserId()).isNull();
+            assertThat(event.getRequestUserId()).isNull();
+            assertThat(event.getAccessTokenName()).isNull();
+            assertThat(event.getAdditionalDetails()).isNull();
+            assertThat(event.getEventTimestamp()).isNull();
         }
     }
 
