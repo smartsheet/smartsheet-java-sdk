@@ -14,9 +14,10 @@
  * limitations under the License.
  */
 
-package com.smartsheet.api.sdktest;
+package com.smartsheet.api.sdktest.events;
 
 import com.github.tomakehurst.wiremock.http.RequestMethod;
+import com.smartsheet.api.sdktest.Utils;
 import com.github.tomakehurst.wiremock.verification.LoggedRequest;
 import com.smartsheet.api.Smartsheet;
 import com.smartsheet.api.SmartsheetException;
