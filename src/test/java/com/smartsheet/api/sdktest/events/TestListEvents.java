@@ -235,11 +235,7 @@ public class TestListEvents {
 
         EventResult result = smartsheet.eventResources().listEvents("2024-05-06T00:00:00Z", null, 5, false);
 
-        assertThat(result)
-                .usingRecursiveComparison()
-                .ignoringFields("data.eventTimestamp")
-                .isEqualTo(EXPECTED_ALL_RESULT);
-        result.getData().forEach(event -> assertThat(event.getEventTimestamp()).isNotNull());
+        assertThat(result).usingRecursiveComparison().isEqualTo(EXPECTED_ALL_RESULT);
     }
 
     /**
@@ -258,11 +254,7 @@ public class TestListEvents {
 
         EventResult result = smartsheet.eventResources().listEvents("2024-05-06T00:00:00Z", null, 5, false);
 
-        assertThat(result)
-                .usingRecursiveComparison()
-                .ignoringFields("data.eventTimestamp")
-                .isEqualTo(EXPECTED_REQUIRED_RESULT);
-        result.getData().forEach(event -> assertThat(event.getEventTimestamp()).isNotNull());
+        assertThat(result).usingRecursiveComparison().isEqualTo(EXPECTED_REQUIRED_RESULT);
     }
 
     /**
