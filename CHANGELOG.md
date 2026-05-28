@@ -5,9 +5,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [x.x.x] - unreleased
-
 ### Added
-- AI assisted workflows via claude skills (`implement-api-endpoint` and `review-api-endpoint`).
+- Added `objectIdStr` field to Event model to support alphanumeric object identifiers in v2.0 events endpoint
+- Field is optional and maintains full backward compatibility with existing implementations
+- AI assisted workflows via claude skills (`implement-api-endpoint` and `review-api-endpoint`)
 
 ## [3.11.0] - 2026-04-30
 ### Added

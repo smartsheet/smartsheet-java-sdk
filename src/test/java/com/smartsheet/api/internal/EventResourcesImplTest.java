@@ -63,6 +63,7 @@ class EventResourcesImplTest extends ResourcesImplBase {
         assertThat(eventResult.getData().get(0).getEventTimestamp()).isNotNull();
         assertThat(eventResult.getData().get(0).getSource().name()).isEqualTo(EventSource.WEB_APP.name());
         assertThat(eventResult.getData().get(0).getObjectType().name()).isEqualTo(EventObjectType.ACCESS_TOKEN.name());
+        assertThat(eventResult.getData().get(0).getObjectIdStr()).isEqualTo("abc-def-123");
 
         assertThat(eventResult.getData().get(1).getEventId()).isNotBlank();
         assertThat(eventResult.getData().get(1).getUserId()).isNotNull();
@@ -71,6 +72,7 @@ class EventResourcesImplTest extends ResourcesImplBase {
         assertThat(eventResult.getData().get(1).getEventTimestamp()).isNotNull();
         assertThat(eventResult.getData().get(1).getSource().name()).isEqualTo(EventSource.WEB_APP.name());
         assertThat(eventResult.getData().get(1).getObjectType().name()).isEqualTo(EventObjectType.ACCESS_TOKEN.name());
+        assertThat(eventResult.getData().get(1).getObjectIdStr()).isNull();
     }
 
     @Test
@@ -95,6 +97,7 @@ class EventResourcesImplTest extends ResourcesImplBase {
         assertThat(eventResult.getData().get(0).getEventTimestamp()).isNotNull();
         assertThat(eventResult.getData().get(0).getSource().name()).isEqualTo(EventSource.WEB_APP.name());
         assertThat(eventResult.getData().get(0).getObjectType().name()).isEqualTo(EventObjectType.ACCESS_TOKEN.name());
+        assertThat(eventResult.getData().get(0).getObjectIdStr()).isEqualTo("abc-def-123");
 
         assertThat(eventResult.getData().get(1).getEventId()).isNotBlank();
         assertThat(eventResult.getData().get(1).getUserId()).isNotNull();
@@ -103,6 +106,7 @@ class EventResourcesImplTest extends ResourcesImplBase {
         assertThat(eventResult.getData().get(1).getEventTimestamp()).isNotNull();
         assertThat(eventResult.getData().get(1).getSource().name()).isEqualTo(EventSource.WEB_APP.name());
         assertThat(eventResult.getData().get(1).getObjectType().name()).isEqualTo(EventObjectType.ACCESS_TOKEN.name());
+        assertThat(eventResult.getData().get(1).getObjectIdStr()).isNull();
     }
 
     @Test

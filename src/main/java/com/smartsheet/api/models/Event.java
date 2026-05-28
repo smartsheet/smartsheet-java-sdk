@@ -57,6 +57,11 @@ public class Event {
     private Object objectId;
 
     /**
+     * Alphanumeric object identifier for v2.0+ support
+     */
+    private String objectIdStr;
+
+    /**
      * The Smartsheet resource impacted by the event
      */
     private EventObjectType objectType;
@@ -195,6 +200,26 @@ public class Event {
      */
     public Event setObjectId(Object objectId) {
         this.objectId = objectId;
+        return this;
+    }
+
+    /**
+     * Gets the alphanumeric object identifier
+     *
+     * @return the alphanumeric object identifier
+     */
+    public String getObjectIdStr() {
+        return objectIdStr;
+    }
+
+    /**
+     * Sets the alphanumeric object identifier
+     *
+     * @param objectIdStr the alphanumeric object identifier
+     * @return this Event, for method chaining
+     */
+    public Event setObjectIdStr(String objectIdStr) {
+        this.objectIdStr = objectIdStr;
         return this;
     }
 
