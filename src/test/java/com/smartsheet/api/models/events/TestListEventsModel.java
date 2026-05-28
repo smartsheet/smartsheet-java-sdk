@@ -14,9 +14,10 @@
  * limitations under the License.
  */
 
-package com.smartsheet.api.models;
+package com.smartsheet.api.models.events;
 
 import com.smartsheet.api.internal.json.JacksonJsonSerializer;
+import com.smartsheet.api.models.Event;
 import com.smartsheet.api.models.enums.EventObjectType;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -26,7 +27,7 @@ import java.nio.charset.StandardCharsets;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class EventTest {
+class TestListEventsModel {
 
     private static Event deserialize(String json) throws Exception {
         JacksonJsonSerializer serializer = new JacksonJsonSerializer();
