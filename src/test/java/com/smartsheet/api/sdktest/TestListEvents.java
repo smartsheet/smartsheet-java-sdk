@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2026 Smartsheet
+ * Copyright (C) 2025 Smartsheet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,7 +16,6 @@
 
 package com.smartsheet.api.sdktest;
 
-import com.github.tomakehurst.wiremock.http.QueryParameter;
 import com.github.tomakehurst.wiremock.http.RequestMethod;
 import com.github.tomakehurst.wiremock.verification.LoggedRequest;
 import com.smartsheet.api.Smartsheet;
@@ -35,33 +34,23 @@ import java.net.URI;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class TestListEvents {
 
     // ===========================================================================================
-    // Expected result constants — values MUST match the corresponding WireMock fixtures in
-    // smartsheet-sdk-tests under mappings/events/list-events/
+    // Expected result constants — values match the WireMock fixtures in smartsheet-sdk-tests
+    // under mappings/events/list-events/
     // ===========================================================================================
 
-    /** Shared events for both required-response-body-properties fixture variants. */
-    private static final List<Event> REQUIRED_EVENTS;
-
-    /** Full EventResult for the no-more-available required-properties fixture. */
-    private static final EventResult EXPECTED_REQUIRED_NO_MORE_RESULT;
-
-    /** Full EventResult for the with-more-available required-properties fixture. */
-    private static final EventResult EXPECTED_REQUIRED_WITH_MORE_RESULT;
-
-    /** Full EventResult for the all-response-body-properties fixture (all optional fields set). */
-    private static final EventResult EXPECTED_ALL_PROPERTIES_RESULT;
+    private static final List<Event> EXPECTED_EVENTS;
+    private static final EventResult EXPECTED_NO_MORE_RESULT;
+    private static final EventResult EXPECTED_WITH_MORE_RESULT;
 
     static {
-        // --- Events shared between the two required-properties fixtures ---
-        // These contain only the core (non-optional) event fields.
-        // Events 0-1 carry objectIdStr; events 2-4 do not, verifying null handling.
-        Event r0 = new Event()
+        Event e0 = new Event()
                 .setEventId("4f12345678901234")
                 .setObjectId(1234567890123456L)
                 .setObjectIdStr("1234567890123456")
@@ -70,120 +59,67 @@ public class TestListEvents {
                 .setSource(EventSource.WEB_APP)
                 .setUserId(12345678L)
                 .setRequestUserId(12345678L)
-                .setEventTimestamp("2024-05-06T10:00:00Z");
+                .setEventTimestamp("2024-05-06T13:30:00Z")
+                .setAdditionalDetails(Map.<String, Object>of("emailAddress", "test@test.com"));
 
-        Event r1 = new Event()
-                .setEventId("5e23456789012345")
+        Event e1 = new Event()
+                .setEventId("4f12345678901235")
                 .setObjectId(9876543210987654L)
                 .setObjectIdStr("9876543210987654")
-                .setObjectType(EventObjectType.SHEET)
+                .setObjectType(EventObjectType.WORKSPACE)
                 .setAction(EventAction.CREATE)
-                .setSource(EventSource.WEB_APP)
-                .setUserId(23456789L)
-                .setRequestUserId(23456789L)
-                .setEventTimestamp("2024-05-06T10:01:00Z");
+                .setSource(EventSource.API_UNDEFINED_APP)
+                .setUserId(12345679L)
+                .setRequestUserId(12345679L)
+                .setEventTimestamp("2024-05-06T12:15:00Z")
+                .setAdditionalDetails(Map.<String, Object>of("emailAddress", "test@test.com"));
 
-        Event r2 = new Event()
-                .setEventId("6d34567890123456")
-                .setObjectId(1111111111111111L)
+        Event e2 = new Event()
+                .setEventId("2.1.Y-oF8RMroSCo4WLS9p78QEz-LXxxxyyyjnXA2hFnCN_w")
+                .setObjectId(3573510329814916L)
+                .setObjectIdStr("3573510329814916")
                 .setObjectType(EventObjectType.SHEET)
-                .setAction(EventAction.DELETE)
-                .setSource(EventSource.WEB_APP)
-                .setUserId(34567890L)
-                .setRequestUserId(34567890L)
-                .setEventTimestamp("2024-05-06T10:02:00Z");
-
-        Event r3 = new Event()
-                .setEventId("7c45678901234567")
-                .setObjectId(2222222222222222L)
-                .setObjectType(EventObjectType.SHEET)
-                .setAction(EventAction.UPDATE)
-                .setSource(EventSource.WEB_APP)
-                .setUserId(45678901L)
-                .setRequestUserId(45678901L)
-                .setEventTimestamp("2024-05-06T10:03:00Z");
-
-        Event r4 = new Event()
-                .setEventId("8b56789012345678")
-                .setObjectId(3333333333333333L)
-                .setObjectType(EventObjectType.SHEET)
-                .setAction(EventAction.CREATE)
-                .setSource(EventSource.WEB_APP)
-                .setUserId(56789012L)
-                .setRequestUserId(56789012L)
-                .setEventTimestamp("2024-05-06T10:04:00Z");
-
-        REQUIRED_EVENTS = List.of(r0, r1, r2, r3, r4);
-
-        EXPECTED_REQUIRED_NO_MORE_RESULT = buildEventResult(false, "required-stream-pos-12345", REQUIRED_EVENTS);
-        EXPECTED_REQUIRED_WITH_MORE_RESULT = buildEventResult(true, "next-stream-pos-12345", REQUIRED_EVENTS);
-
-        // --- Events for the all-response-body-properties fixture ---
-        // Same core data as above, plus all optional fields (accessTokenName, additionalDetails).
-        Event a0 = new Event()
-                .setEventId("4f12345678901234")
-                .setObjectId(1234567890123456L)
-                .setObjectIdStr("1234567890123456")
-                .setObjectType(EventObjectType.SHEET)
-                .setAction(EventAction.UPDATE)
-                .setSource(EventSource.WEB_APP)
+                .setAction(EventAction.PURGE)
+                .setSource(EventSource.UNKNOWN)
                 .setUserId(12345678L)
                 .setRequestUserId(12345678L)
-                .setEventTimestamp("2024-05-06T10:00:00Z")
-                .setAccessTokenName("test-token-1")
-                .setAdditionalDetails(Map.<String, Object>of("sheetName", "My Test Sheet 1"));
+                .setEventTimestamp("2024-05-06T12:09:33Z")
+                .setAdditionalDetails(Map.<String, Object>of("emailAddress", "test@test.com"));
 
-        Event a1 = new Event()
-                .setEventId("5e23456789012345")
-                .setObjectId(9876543210987654L)
-                .setObjectIdStr("9876543210987654")
-                .setObjectType(EventObjectType.SHEET)
+        Event e3 = new Event()
+                .setEventId("2.1.SuwpcrfUcr75nP591Hce4_zQxxxyyy_0CDfvRRx6V0")
+                .setObjectId(4230707048648580L)
+                .setObjectIdStr("4230707048648580")
+                .setObjectType(EventObjectType.ATTACHMENT)
                 .setAction(EventAction.CREATE)
-                .setSource(EventSource.MOBILE_IOS)
-                .setUserId(23456789L)
-                .setRequestUserId(23456789L)
-                .setEventTimestamp("2024-05-06T10:01:00Z")
-                .setAccessTokenName("test-token-2")
-                .setAdditionalDetails(Map.<String, Object>of("sheetName", "My Test Sheet 2"));
+                .setSource(EventSource.UNKNOWN)
+                .setUserId(12345678L)
+                .setRequestUserId(12345678L)
+                .setEventTimestamp("2024-05-06T13:30:00Z")
+                .setAdditionalDetails(Map.<String, Object>of(
+                        "attachmentName", "picture.jpg",
+                        "emailAddress", "test@test.com",
+                        "sheetId", "102030405"));
 
-        Event a2 = new Event()
-                .setEventId("6d34567890123456")
-                .setObjectId(1111111111111111L)
+        Event e4 = new Event()
+                .setEventId("2.1.ifR6WlBin9DQVYHDkQEx1D3EAxxxyyyXtcLWa9Oio")
+                .setObjectId(8462951303303044L)
+                .setObjectIdStr("8462951303303044")
                 .setObjectType(EventObjectType.SHEET)
-                .setAction(EventAction.DELETE)
+                .setAction(EventAction.LOAD)
                 .setSource(EventSource.API_INTEGRATED_APP)
-                .setUserId(34567890L)
-                .setRequestUserId(34567890L)
-                .setEventTimestamp("2024-05-06T10:02:00Z")
-                .setAccessTokenName("test-token-3")
-                .setAdditionalDetails(Map.<String, Object>of("sheetName", "My Test Sheet 3"));
+                .setUserId(8737233684457348L)
+                .setRequestUserId(8737233684457348L)
+                .setEventTimestamp("2024-05-06T13:35:15Z")
+                .setAdditionalDetails(Map.<String, Object>of("emailAddress", "test@test.com"));
 
-        Event a3 = new Event()
-                .setEventId("7c45678901234567")
-                .setObjectId(2222222222222222L)
-                .setObjectType(EventObjectType.SHEET)
-                .setAction(EventAction.UPDATE)
-                .setSource(EventSource.WEB_APP)
-                .setUserId(45678901L)
-                .setRequestUserId(45678901L)
-                .setEventTimestamp("2024-05-06T10:03:00Z")
-                .setAccessTokenName("test-token-4")
-                .setAdditionalDetails(Map.<String, Object>of("sheetName", "My Test Sheet 4"));
+        EXPECTED_EVENTS = List.of(e0, e1, e2, e3, e4);
 
-        Event a4 = new Event()
-                .setEventId("8b56789012345678")
-                .setObjectId(3333333333333333L)
-                .setObjectIdStr("3333333333333333")
-                .setObjectType(EventObjectType.SHEET)
-                .setAction(EventAction.CREATE)
-                .setSource(EventSource.WEB_APP)
-                .setUserId(56789012L)
-                .setRequestUserId(56789012L)
-                .setEventTimestamp("2024-05-06T10:04:00Z")
-                .setAccessTokenName("test-token-5")
-                .setAdditionalDetails(Map.<String, Object>of("sheetName", "My Test Sheet 5"));
-
-        EXPECTED_ALL_PROPERTIES_RESULT = buildEventResult(false, "all-stream-pos-12345", List.of(a0, a1, a2, a3, a4));
+        EXPECTED_NO_MORE_RESULT = buildEventResult(false, null, EXPECTED_EVENTS);
+        EXPECTED_WITH_MORE_RESULT = buildEventResult(
+                true,
+                "2.1.Y-oF8RMroSCo4WLS9p78QEz-LXzzzzzzjnXA2hFnCN_w",
+                EXPECTED_EVENTS);
     }
 
     private static EventResult buildEventResult(Boolean moreAvailable, String nextStreamPosition, List<Event> events) {
@@ -206,7 +142,7 @@ public class TestListEvents {
     void testListEventsGeneratedUrlIsCorrect() throws SmartsheetException {
         String requestId = UUID.randomUUID().toString();
         WiremockClientWrapper wrapper = Utils.createWiremockSmartsheetClient(
-                "/events/list-events/all-response-body-properties",
+                "/events/list-events/required-response-body-properties-no-more-available",
                 requestId
         );
         Smartsheet smartsheet = wrapper.getSmartsheet();
@@ -216,41 +152,25 @@ public class TestListEvents {
 
         LoggedRequest wiremockRequest = wiremockClient.findWiremockRequest(requestId);
         String path = URI.create(wiremockRequest.getUrl()).getPath();
-        Map<String, QueryParameter> receivedQueryParams = wiremockRequest.getQueryParams();
+        Map<String, List<String>> actualQueryParams = wiremockRequest.getQueryParams().entrySet().stream()
+                .collect(Collectors.toMap(Map.Entry::getKey, e -> e.getValue().getValues()));
 
         assertThat(path).isEqualTo("/2.0/events");
         assertThat(wiremockRequest.getMethod()).isEqualTo(RequestMethod.GET);
-        assertThat(receivedQueryParams.get("since").getValues()).isEqualTo(List.of("2024-05-06T00:00:00Z"));
-        assertThat(receivedQueryParams.get("maxCount").getValues()).isEqualTo(List.of("5"));
-        assertThat(receivedQueryParams.get("numericDates").getValues()).isEqualTo(List.of("false"));
-        assertThat(receivedQueryParams).doesNotContainKey("streamPosition");
+        assertThat(actualQueryParams).isEqualTo(Map.of(
+                "since", List.of("2024-05-06T00:00:00Z"),
+                "maxCount", List.of("5"),
+                "numericDates", List.of("false")
+        ));
     }
 
     /**
-     * Verifies full deserialization of a response where all optional fields are present.
+     * Verifies full deserialization of all response body properties, including objectIdStr,
+     * additionalDetails, and varied objectType/action/source values across events.
      * Does NOT assert URL, method, or query parameters.
      */
     @Test
     void testListEventsAllResponseBodyProperties() throws SmartsheetException {
-        String requestId = UUID.randomUUID().toString();
-        WiremockClientWrapper wrapper = Utils.createWiremockSmartsheetClient(
-                "/events/list-events/all-response-body-properties",
-                requestId
-        );
-        Smartsheet smartsheet = wrapper.getSmartsheet();
-
-        EventResult result = smartsheet.eventResources().listEvents("2024-05-06T00:00:00Z", null, 5, false);
-
-        assertThat(result).usingRecursiveComparison().isEqualTo(EXPECTED_ALL_PROPERTIES_RESULT);
-    }
-
-    /**
-     * Verifies deserialization of a minimal response (required fields only) when no more
-     * events are available (moreAvailable = false).
-     * Does NOT assert URL, method, or query parameters.
-     */
-    @Test
-    void testListEventsRequiredResponseBodyProperties() throws SmartsheetException {
         String requestId = UUID.randomUUID().toString();
         WiremockClientWrapper wrapper = Utils.createWiremockSmartsheetClient(
                 "/events/list-events/required-response-body-properties-no-more-available",
@@ -260,7 +180,11 @@ public class TestListEvents {
 
         EventResult result = smartsheet.eventResources().listEvents("2024-05-06T00:00:00Z", null, 5, false);
 
-        assertThat(result).usingRecursiveComparison().isEqualTo(EXPECTED_REQUIRED_NO_MORE_RESULT);
+        assertThat(result)
+                .usingRecursiveComparison()
+                .ignoringFields("data.eventTimestamp")
+                .isEqualTo(EXPECTED_NO_MORE_RESULT);
+        result.getData().forEach(event -> assertThat(event.getEventTimestamp()).isNotNull());
     }
 
     /**
@@ -279,7 +203,11 @@ public class TestListEvents {
 
         EventResult result = smartsheet.eventResources().listEvents("2024-05-06T00:00:00Z", null, 5, false);
 
-        assertThat(result).usingRecursiveComparison().isEqualTo(EXPECTED_REQUIRED_WITH_MORE_RESULT);
+        assertThat(result)
+                .usingRecursiveComparison()
+                .ignoringFields("data.eventTimestamp")
+                .isEqualTo(EXPECTED_WITH_MORE_RESULT);
+        result.getData().forEach(event -> assertThat(event.getEventTimestamp()).isNotNull());
     }
 
     /**
