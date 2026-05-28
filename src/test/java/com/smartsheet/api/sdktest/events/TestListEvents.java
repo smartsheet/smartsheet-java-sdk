@@ -46,12 +46,15 @@ public class TestListEvents {
     // under mappings/events/list-events/
     // ===========================================================================================
 
-    private static final List<Event> EXPECTED_EVENTS;
-    private static final EventResult EXPECTED_NO_MORE_RESULT;
-    private static final EventResult EXPECTED_WITH_MORE_RESULT;
+    /** Expected result for the all-response-body-properties fixture. */
+    private static final EventResult EXPECTED_ALL_RESULT;
+
+    /** Expected result for the required-response-body-properties fixture. */
+    private static final EventResult EXPECTED_REQUIRED_RESULT;
 
     static {
-        Event e0 = new Event()
+        // --- All-properties events: all optional fields populated ---
+        Event a0 = new Event()
                 .setEventId("4f12345678901234")
                 .setObjectId(1234567890123456L)
                 .setObjectIdStr("1234567890123456")
@@ -60,10 +63,10 @@ public class TestListEvents {
                 .setSource(EventSource.WEB_APP)
                 .setUserId(12345678L)
                 .setRequestUserId(12345678L)
-                .setEventTimestamp("2024-05-06T13:30:00Z")
+                .setEventTimestamp("2024-05-06T10:30:00Z")
                 .setAdditionalDetails(Map.<String, Object>of("emailAddress", "test@test.com"));
 
-        Event e1 = new Event()
+        Event a1 = new Event()
                 .setEventId("4f12345678901235")
                 .setObjectId(9876543210987654L)
                 .setObjectIdStr("9876543210987654")
@@ -72,10 +75,10 @@ public class TestListEvents {
                 .setSource(EventSource.API_UNDEFINED_APP)
                 .setUserId(12345679L)
                 .setRequestUserId(12345679L)
-                .setEventTimestamp("2024-05-06T12:15:00Z")
+                .setEventTimestamp("2024-05-06T09:15:00Z")
                 .setAdditionalDetails(Map.<String, Object>of("emailAddress", "test@test.com"));
 
-        Event e2 = new Event()
+        Event a2 = new Event()
                 .setEventId("2.1.Y-oF8RMroSCo4WLS9p78QEz-LXxxxyyyjnXA2hFnCN_w")
                 .setObjectId(3573510329814916L)
                 .setObjectIdStr("3573510329814916")
@@ -84,10 +87,10 @@ public class TestListEvents {
                 .setSource(EventSource.UNKNOWN)
                 .setUserId(12345678L)
                 .setRequestUserId(12345678L)
-                .setEventTimestamp("2024-05-06T12:09:33Z")
+                .setEventTimestamp("2024-05-06T09:09:33Z")
                 .setAdditionalDetails(Map.<String, Object>of("emailAddress", "test@test.com"));
 
-        Event e3 = new Event()
+        Event a3 = new Event()
                 .setEventId("2.1.SuwpcrfUcr75nP591Hce4_zQxxxyyy_0CDfvRRx6V0")
                 .setObjectId(4230707048648580L)
                 .setObjectIdStr("4230707048648580")
@@ -96,13 +99,13 @@ public class TestListEvents {
                 .setSource(EventSource.UNKNOWN)
                 .setUserId(12345678L)
                 .setRequestUserId(12345678L)
-                .setEventTimestamp("2024-05-06T13:30:00Z")
+                .setEventTimestamp("2024-05-06T10:30:00Z")
                 .setAdditionalDetails(Map.<String, Object>of(
                         "attachmentName", "picture.jpg",
                         "emailAddress", "test@test.com",
                         "sheetId", "102030405"));
 
-        Event e4 = new Event()
+        Event a4 = new Event()
                 .setEventId("2.1.ifR6WlBin9DQVYHDkQEx1D3EAxxxyyyXtcLWa9Oio")
                 .setObjectId(8462951303303044L)
                 .setObjectIdStr("8462951303303044")
@@ -111,16 +114,66 @@ public class TestListEvents {
                 .setSource(EventSource.API_INTEGRATED_APP)
                 .setUserId(8737233684457348L)
                 .setRequestUserId(8737233684457348L)
-                .setEventTimestamp("2024-05-06T13:35:15Z")
+                .setEventTimestamp("2024-05-06T10:35:15Z")
                 .setAdditionalDetails(Map.<String, Object>of("emailAddress", "test@test.com"));
 
-        EXPECTED_EVENTS = List.of(e0, e1, e2, e3, e4);
-
-        EXPECTED_NO_MORE_RESULT = buildEventResult(false, null, EXPECTED_EVENTS);
-        EXPECTED_WITH_MORE_RESULT = buildEventResult(
+        EXPECTED_ALL_RESULT = buildEventResult(
                 true,
                 "2.1.Y-oF8RMroSCo4WLS9p78QEz-LXzzzzzzjnXA2hFnCN_w",
-                EXPECTED_EVENTS);
+                List.of(a0, a1, a2, a3, a4));
+
+        // --- Required-properties events: no objectIdStr, no additionalDetails ---
+        Event r0 = new Event()
+                .setEventId("4f12345678901234")
+                .setObjectId(1234567890123456L)
+                .setObjectType(EventObjectType.SHEET)
+                .setAction(EventAction.UPDATE)
+                .setSource(EventSource.WEB_APP)
+                .setUserId(12345678L)
+                .setRequestUserId(12345678L)
+                .setEventTimestamp("2024-05-06T10:30:00Z");
+
+        Event r1 = new Event()
+                .setEventId("4f12345678901235")
+                .setObjectId(9876543210987654L)
+                .setObjectType(EventObjectType.WORKSPACE)
+                .setAction(EventAction.CREATE)
+                .setSource(EventSource.API_UNDEFINED_APP)
+                .setUserId(12345679L)
+                .setRequestUserId(12345679L)
+                .setEventTimestamp("2024-05-06T09:15:00Z");
+
+        Event r2 = new Event()
+                .setEventId("2.1.Y-oF8RMroSCo4WLS9p78QEz-LXxxxyyyjnXA2hFnCN_w")
+                .setObjectId(3573510329814916L)
+                .setObjectType(EventObjectType.SHEET)
+                .setAction(EventAction.PURGE)
+                .setSource(EventSource.UNKNOWN)
+                .setUserId(12345678L)
+                .setRequestUserId(12345678L)
+                .setEventTimestamp("2024-05-06T09:09:33Z");
+
+        Event r3 = new Event()
+                .setEventId("2.1.SuwpcrfUcr75nP591Hce4_zQxxxyyy_0CDfvRRx6V0")
+                .setObjectId(4230707048648580L)
+                .setObjectType(EventObjectType.ATTACHMENT)
+                .setAction(EventAction.CREATE)
+                .setSource(EventSource.UNKNOWN)
+                .setUserId(12345678L)
+                .setRequestUserId(12345678L)
+                .setEventTimestamp("2024-05-06T10:30:00Z");
+
+        Event r4 = new Event()
+                .setEventId("2.1.ifR6WlBin9DQVYHDkQEx1D3EAxxxyyyXtcLWa9Oio")
+                .setObjectId(8462951303303044L)
+                .setObjectType(EventObjectType.SHEET)
+                .setAction(EventAction.LOAD)
+                .setSource(EventSource.API_INTEGRATED_APP)
+                .setUserId(8737233684457348L)
+                .setRequestUserId(8737233684457348L)
+                .setEventTimestamp("2024-05-06T10:35:15Z");
+
+        EXPECTED_REQUIRED_RESULT = buildEventResult(false, null, List.of(r0, r1, r2, r3, r4));
     }
 
     private static EventResult buildEventResult(Boolean moreAvailable, String nextStreamPosition, List<Event> events) {
@@ -143,7 +196,7 @@ public class TestListEvents {
     void testListEventsGeneratedUrlIsCorrect() throws SmartsheetException {
         String requestId = UUID.randomUUID().toString();
         WiremockClientWrapper wrapper = Utils.createWiremockSmartsheetClient(
-                "/events/list-events/required-response-body-properties-no-more-available",
+                "/events/list-events/required-response-body-properties",
                 requestId
         );
         Smartsheet smartsheet = wrapper.getSmartsheet();
@@ -167,14 +220,15 @@ public class TestListEvents {
 
     /**
      * Verifies full deserialization of all response body properties, including objectIdStr,
-     * additionalDetails, and varied objectType/action/source values across events.
+     * additionalDetails, moreAvailable, nextStreamPosition, and varied objectType/action/source
+     * values across events.
      * Does NOT assert URL, method, or query parameters.
      */
     @Test
     void testListEventsAllResponseBodyProperties() throws SmartsheetException {
         String requestId = UUID.randomUUID().toString();
         WiremockClientWrapper wrapper = Utils.createWiremockSmartsheetClient(
-                "/events/list-events/required-response-body-properties-no-more-available",
+                "/events/list-events/all-response-body-properties",
                 requestId
         );
         Smartsheet smartsheet = wrapper.getSmartsheet();
@@ -184,20 +238,20 @@ public class TestListEvents {
         assertThat(result)
                 .usingRecursiveComparison()
                 .ignoringFields("data.eventTimestamp")
-                .isEqualTo(EXPECTED_NO_MORE_RESULT);
+                .isEqualTo(EXPECTED_ALL_RESULT);
         result.getData().forEach(event -> assertThat(event.getEventTimestamp()).isNotNull());
     }
 
     /**
-     * Verifies that moreAvailable=true and a non-empty nextStreamPosition are returned
-     * correctly, enabling callers to paginate through the event stream.
+     * Verifies deserialization of a minimal response containing only required fields —
+     * no objectIdStr, no additionalDetails, moreAvailable=false, no nextStreamPosition.
      * Does NOT assert URL, method, or query parameters.
      */
     @Test
-    void testListEventsMoreAvailableNavigation() throws SmartsheetException {
+    void testListEventsRequiredResponseBodyProperties() throws SmartsheetException {
         String requestId = UUID.randomUUID().toString();
         WiremockClientWrapper wrapper = Utils.createWiremockSmartsheetClient(
-                "/events/list-events/required-response-body-properties-with-more-available",
+                "/events/list-events/required-response-body-properties",
                 requestId
         );
         Smartsheet smartsheet = wrapper.getSmartsheet();
@@ -207,7 +261,7 @@ public class TestListEvents {
         assertThat(result)
                 .usingRecursiveComparison()
                 .ignoringFields("data.eventTimestamp")
-                .isEqualTo(EXPECTED_WITH_MORE_RESULT);
+                .isEqualTo(EXPECTED_REQUIRED_RESULT);
         result.getData().forEach(event -> assertThat(event.getEventTimestamp()).isNotNull());
     }
 
