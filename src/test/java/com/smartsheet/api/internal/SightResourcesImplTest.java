@@ -19,9 +19,9 @@ package com.smartsheet.api.internal;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
 import com.smartsheet.api.models.ContainerDestination;
-import com.smartsheet.api.models.PagedResult;
-import com.smartsheet.api.models.PaginationParameters;
 import com.smartsheet.api.models.Sight;
+import com.smartsheet.api.models.TokenPaginatedResult;
+import com.smartsheet.api.models.TokenPaginationParameters;
 import com.smartsheet.api.models.SightPublish;
 import com.smartsheet.api.models.enums.AccessLevel;
 import com.smartsheet.api.models.enums.SightInclusion;
@@ -54,12 +54,9 @@ class SightResourcesImplTest extends ResourcesImplBase {
     void testListSights() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/listSights.json"));
 
-        PaginationParameters pagination = new PaginationParameters();
-        pagination.setIncludeAll(true);
-        pagination.setPageSize(1);
-        pagination.setPage(1);
+        TokenPaginationParameters pagination = new TokenPaginationParameters(null, 10);
 
-        PagedResult<Sight> sightPagedResult = sightResourcesImpl.listSights(pagination, null);
+        TokenPaginatedResult<Sight> sightPagedResult = sightResourcesImpl.listSights(pagination);
         assertThat(sightPagedResult.getData()).isNotNull();
         assertThat(sightPagedResult.getData()).isNotEmpty();
         assertThat(sightPagedResult.getData()).hasSize(1);
@@ -68,6 +65,8 @@ class SightResourcesImplTest extends ResourcesImplBase {
         assertThat(sightPagedResult.getData().get(0).getWidgets()).isEmpty();
         assertThat(sightPagedResult.getData().get(0).getWorkspace()).isNotNull();
         assertThat(sightPagedResult.getData().get(0).getPermalink()).isNotBlank();
+        assertThat(sightPagedResult.hasMorePages()).isTrue();
+        assertThat(sightPagedResult.getLastKey()).isEqualTo("abcDefGhIjKlMnOpQrStUvWxYz");
     }
 
     @Test
@@ -121,11 +120,6 @@ class SightResourcesImplTest extends ResourcesImplBase {
     @Test
     void testUpdateSight() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/updateSight.json"));
-
-        PaginationParameters pagination = new PaginationParameters();
-        pagination.setIncludeAll(true);
-        pagination.setPageSize(1);
-        pagination.setPage(1);
 
         Sight sight = sightResourcesImpl.updateSight(new Sight());
         assertThat(sight).isNotNull();

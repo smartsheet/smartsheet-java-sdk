@@ -10,6 +10,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Field is optional and maintains full backward compatibility with existing implementations
 - AI assisted workflows via claude skills (`implement-api-endpoint` and `review-api-endpoint`)
 
+### Removed
+- ⚠️ **BREAKING**: Removed deprecated offset-based pagination parameters (`includeAll`, `page`, `pageSize`) and `modifiedSince` from `listSights`. These parameters were [deprecated by the Smartsheet API](https://developers.smartsheet.com/api/smartsheet/changelog#deprecated-includeall-and-offset-based-pagination-for-dashboards) (sunset Jun-03-2026). The response no longer includes `pageNumber`, `pageSize`, `totalPages`, or `totalCount`. Use token-based pagination instead: `new TokenPaginationParameters(lastKey, maxItems)`.
+
+### Changed
+- ⚠️ **BREAKING**: `TokenPaginationParameters` no longer exposes `paginationType` as a field, constructor argument, or getter/setter. The value is now hardcoded to `"token"` in the emitted query string, matching the C# SDK. The previous `TokenPaginationParameters(String paginationType, String lastKey, Integer maxItems)` constructor has been replaced with `TokenPaginationParameters(String lastKey, Integer maxItems)`.
+
 ## [3.11.0] - 2026-04-30
 ### Added
 - Support for POST /2.0/reports/{reportId}/columns endpoint
