@@ -17,8 +17,6 @@
 package com.smartsheet.api;
 
 import com.smartsheet.api.models.ContainerDestination;
-import com.smartsheet.api.models.PagedResult;
-import com.smartsheet.api.models.PaginationParameters;
 import com.smartsheet.api.models.Workspace;
 import com.smartsheet.api.models.enums.CopyExclusion;
 import com.smartsheet.api.models.enums.SourceInclusion;
@@ -28,6 +26,7 @@ import com.smartsheet.api.models.enums.GetWorkspaceMetadataInclusion;
 import com.smartsheet.api.models.enums.GetWorkspaceChildrenInclusion;
 import com.smartsheet.api.models.enums.ChildrenResourceType;
 import com.smartsheet.api.models.TokenPaginatedResult;
+import com.smartsheet.api.models.TokenPaginationParameters;
 
 import java.util.EnumSet;
 
@@ -43,16 +42,16 @@ public interface WorkspaceResources {
      *
      * <p>It mirrors to the following Smartsheet REST API method: GET /workspaces</p>
      *
-     * @param parameters the object containing the pagination parameters
-     * @return the list of workspaces (note that an empty list will be returned if there are none)
+     * @param paging the object containing the token-based pagination parameters
+     * @return TokenPaginatedResult of workspaces (empty list if there are none)
      * @throws IllegalArgumentException    if any argument is null or empty string
      * @throws InvalidRequestException     if there is any problem with the REST API request
-     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws AuthorizationException      if there is any problem with the REST API authorization (access token)
      * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException         if there is any other error during the operation
      */
-    PagedResult<Workspace> listWorkspaces(PaginationParameters parameters) throws SmartsheetException;
+    TokenPaginatedResult<Workspace> listWorkspaces(TokenPaginationParameters paging) throws SmartsheetException;
 
     /**
      * <p>Get a workspace.</p>

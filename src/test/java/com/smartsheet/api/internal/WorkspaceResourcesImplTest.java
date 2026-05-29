@@ -20,10 +20,10 @@ import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
 import com.smartsheet.api.models.ContainerDestination;
 import com.smartsheet.api.models.Folder;
-import com.smartsheet.api.models.PagedResult;
-import com.smartsheet.api.models.PaginationParameters;
 import com.smartsheet.api.models.Sheet;
 import com.smartsheet.api.models.Source;
+import com.smartsheet.api.models.TokenPaginatedResult;
+import com.smartsheet.api.models.TokenPaginationParameters;
 import com.smartsheet.api.models.Workspace;
 import com.smartsheet.api.models.enums.AccessLevel;
 import com.smartsheet.api.models.enums.DestinationType;
@@ -49,56 +49,25 @@ class WorkspaceResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    void testListWorkspaces() throws SmartsheetException, IOException {
-        server.setResponseBody(new File("src/test/resources/listWorkspaces.json"));
-        PaginationParameters parameters = new PaginationParameters(false, 1, 1);
-        PagedResult<Workspace> workspace = workspaceResources.listWorkspaces(parameters);
-        assertThat(workspace.getPageNumber().longValue()).isEqualTo(1);
-        assertThat(workspace.getPageSize().longValue()).isEqualTo(100);
-        assertThat(workspace.getTotalPages().longValue()).isEqualTo(1);
-        assertThat(workspace.getTotalCount().longValue()).isEqualTo(2);
-
-        assertThat(workspace.getData()).hasSize(2);
-        assertThat(workspace.getData().get(0).getAccessLevel()).isEqualTo(AccessLevel.ADMIN);
-        assertThat(workspace.getData().get(0).getId().longValue()).isEqualTo(3457273486960516L);
-        assertThat(workspace.getData().get(0).getName()).isEqualTo("workspace 1");
-        assertThat(workspace.getData().get(0).getPermalink()).isEqualTo("https://app.smartsheet.com/b/home?lx=JNL0bgXtXc0pzni9tzAc4g");
-        assertThat(server.getLastRequestUrl())
-                .isEqualTo("/1.1/workspaces?pageSize=1&page=1");
-    }
-
-    @Test
-    void testListWorkspacesWithIncludeAll() throws SmartsheetException, IOException {
-        server.setResponseBody(new File("src/test/resources/listWorkspaces.json"));
-        PaginationParameters parameters = new PaginationParameters(true, 1, 1);
-        PagedResult<Workspace> workspace = workspaceResources.listWorkspaces(parameters);
-        assertThat(workspace.getPageNumber().longValue()).isEqualTo(1);
-        assertThat(workspace.getPageSize().longValue()).isEqualTo(100);
-        assertThat(workspace.getTotalPages().longValue()).isEqualTo(1);
-        assertThat(workspace.getTotalCount().longValue()).isEqualTo(2);
-
-        assertThat(workspace.getData()).hasSize(2);
-        assertThat(workspace.getData().get(0).getAccessLevel()).isEqualTo(AccessLevel.ADMIN);
-        assertThat(workspace.getData().get(0).getId().longValue()).isEqualTo(3457273486960516L);
-        assertThat(workspace.getData().get(0).getName()).isEqualTo("workspace 1");
-        assertThat(workspace.getData().get(0).getPermalink()).isEqualTo("https://app.smartsheet.com/b/home?lx=JNL0bgXtXc0pzni9tzAc4g");
-        assertThat(server.getLastRequestUrl())
-                .isEqualTo("/1.1/workspaces?includeAll=true");
-    }
-
-    @Test
     void testListWorkspacesWithTokenPagination() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/listWorkspacesTokenPagination.json"));
-        PaginationParameters parameters = new PaginationParameters("token", "token123", 500);
-        PagedResult<Workspace> workspace = workspaceResources.listWorkspaces(parameters);
-        assertThat(workspace.getLastKey()).isEqualTo("nextToken456");
-        assertThat(workspace.getData()).hasSize(2);
-        assertThat(workspace.getData().get(0).getAccessLevel()).isEqualTo(AccessLevel.ADMIN);
-        assertThat(workspace.getData().get(0).getId().longValue()).isEqualTo(3457273486960516L);
-        assertThat(workspace.getData().get(0).getName()).isEqualTo("workspace 1");
-        assertThat(workspace.getData().get(0).getPermalink()).isEqualTo("https://app.smartsheet.com/b/home?lx=JNL0bgXtXc0pzni9tzAc4g");
-        assertThat(server.getLastRequestUrl())
-                .isEqualTo("/1.1/workspaces?maxItems=500&paginationType=token&lastKey=token123");
+
+        TokenPaginationParameters pagination = new TokenPaginationParameters("token123", 500);
+
+        TokenPaginatedResult<Workspace> workspaces = workspaceResources.listWorkspaces(pagination);
+
+        assertThat(workspaces.getData()).isNotNull();
+        assertThat(workspaces.getData()).hasSize(2);
+        assertThat(workspaces.getData().get(0).getAccessLevel()).isEqualTo(AccessLevel.ADMIN);
+        assertThat(workspaces.getData().get(0).getId().longValue()).isEqualTo(3457273486960516L);
+        assertThat(workspaces.getData().get(0).getName()).isEqualTo("workspace 1");
+        assertThat(workspaces.getData().get(0).getPermalink()).isEqualTo("https://app.smartsheet.com/b/home?lx=JNL0bgXtXc0pzni9tzAc4g");
+        assertThat(workspaces.getLastKey()).isEqualTo("nextToken456");
+        assertThat(workspaces.hasMorePages()).isTrue();
+        assertThat(server.getLastRequestUrl()).startsWith("/1.1/workspaces?");
+        assertThat(server.getLastRequestUrl()).contains("lastKey=token123");
+        assertThat(server.getLastRequestUrl()).contains("maxItems=500");
+        assertThat(server.getLastRequestUrl()).contains("paginationType=token");
     }
 
     @Test

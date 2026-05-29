@@ -22,8 +22,6 @@ import com.smartsheet.api.WorkspaceFolderResources;
 import com.smartsheet.api.WorkspaceResources;
 import com.smartsheet.api.internal.util.QueryUtil;
 import com.smartsheet.api.models.ContainerDestination;
-import com.smartsheet.api.models.PagedResult;
-import com.smartsheet.api.models.PaginationParameters;
 import com.smartsheet.api.models.Workspace;
 import com.smartsheet.api.models.enums.CopyExclusion;
 import com.smartsheet.api.models.enums.SourceInclusion;
@@ -33,6 +31,7 @@ import com.smartsheet.api.models.enums.GetWorkspaceMetadataInclusion;
 import com.smartsheet.api.models.enums.GetWorkspaceChildrenInclusion;
 import com.smartsheet.api.models.enums.ChildrenResourceType;
 import com.smartsheet.api.models.TokenPaginatedResult;
+import com.smartsheet.api.models.TokenPaginationParameters;
 import com.smartsheet.api.internal.json.ChildrenResourceDeserializer;
 
 import java.util.EnumSet;
@@ -88,17 +87,16 @@ public class WorkspaceResourcesImpl extends AbstractResources implements Workspa
      * - SmartsheetRestException : if there is any other REST API related error occurred during the operation
      * - SmartsheetException : if there is any other error occurred during the operation
      *
-     * @param parameters the object containing the pagination parameters
-     * @return all workspaces (note that empty list will be returned if there is none)
+     * @param paging the object containing the token-based pagination parameters
+     * @return TokenPaginatedResult of workspaces (empty list if there are none)
      * @throws SmartsheetException the smartsheet exception
      */
-    public PagedResult<Workspace> listWorkspaces(PaginationParameters parameters) throws SmartsheetException {
+    public TokenPaginatedResult<Workspace> listWorkspaces(TokenPaginationParameters paging) throws SmartsheetException {
         String path = WORKSPACES;
-
-        if (parameters != null) {
-            path += parameters.toQueryString();
+        if (paging != null) {
+            path += paging.toQueryString();
         }
-        return this.listResourcesWithWrapper(path, Workspace.class);
+        return this.listResourcesWithTokenPagination(path, Workspace.class);
     }
 
     /**
