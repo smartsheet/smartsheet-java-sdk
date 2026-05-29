@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Changed
 - ⚠️ **BREAKING**: `TokenPaginationParameters` no longer exposes `paginationType` as a field, constructor argument, or getter/setter. The value is now hardcoded to `"token"` in the emitted query string, matching the C# SDK. The previous `TokenPaginationParameters(String paginationType, String lastKey, Integer maxItems)` constructor has been replaced with `TokenPaginationParameters(String lastKey, Integer maxItems)`.
+- `listWebhooks` Javadoc updated to reflect Smartsheet API behavior changes effective Jun-03-2026: `includeAll` is no longer honored by the server for this endpoint and is ignored if set on `PaginationParameters` (`PaginationParameters` remains a shared class — other endpoints still support `includeAll`), `pageSize` is server-capped at 10,000, `totalCount` and `totalPages` are returned as `-1`, and webhooks are sorted by creation date (most recent first) instead of name. SDK signature unchanged. See [Smartsheet API changelog 2025-08-04](https://developers.smartsheet.com/api/smartsheet/changelog#2025-08-04).
 
 ## [3.11.0] - 2026-04-30
 ### Added
