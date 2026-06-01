@@ -162,14 +162,6 @@ public interface WorkspaceResources {
     WorkspaceFolderResources folderResources();
 
     /**
-     * <p>Return the ShareResources object that provides access to Share resources associated with Workspace
-     * resources.</p>
-     *
-     * @return the share resources object
-     */
-    ShareResources shareResources();
-
-    /**
      * <p>Get metadata of a workspace.</p>
      *
      * <p>It mirrors to the following Smartsheet REST API method: GET /workspaces/{workspaceId}/metadata</p>

@@ -191,12 +191,4 @@ public interface SightResources {
      * @throws SmartsheetException         if there is any other error during the operation
      */
     SightPublish setPublishStatus(long sightId, SightPublish sightPublish) throws SmartsheetException;
-
-    /**
-     * <p>Return the ShareResources object that provides access to share resources associated with
-     * Sight resources.</p>
-     *
-     * @return the associated share resources
-     */
-    ShareResources shareResources();
 }

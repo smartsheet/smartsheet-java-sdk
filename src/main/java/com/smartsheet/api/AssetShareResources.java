@@ -20,6 +20,7 @@ import com.smartsheet.api.models.CreateShareRequest;
 import com.smartsheet.api.models.ShareResponse;
 import com.smartsheet.api.models.UpdateShareRequest;
 import com.smartsheet.api.models.ListAssetSharesResponse;
+import com.smartsheet.api.models.enums.ShareScope;
 
 import java.util.List;
 
@@ -54,7 +55,7 @@ public interface AssetShareResources {
             String assetType,
             String lastKey,
             Long maxItems,
-            String sharingInclude
+            ShareScope sharingInclude
     ) throws SmartsheetException;
 
     /**

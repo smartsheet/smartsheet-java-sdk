@@ -756,13 +756,6 @@ public interface SheetResources {
     Sheet sortSheet(long sheetId, SortSpecifier sortSpecifier, Integer level) throws SmartsheetException;
 
     /**
-     * <p>Return the ShareResources object that provides access to Share resources associated with Sheet resources.</p>
-     *
-     * @return the share resources object
-     */
-    ShareResources shareResources();
-
-    /**
      * <p>Return the SheetRowResources object that provides access to Row resources associated with Sheet resources.</p>
      *
      * @return the sheet row resources

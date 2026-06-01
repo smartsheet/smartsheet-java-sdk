@@ -242,13 +242,6 @@ public interface ReportResources {
     void updateReportDefinition(long id, ReportDefinition reportDefinition) throws SmartsheetException;
 
     /**
-     * <p>Creates an object of ShareResources.</p>
-     *
-     * @return the created ShareResources object
-     */
-    ShareResources shareResources();
-
-    /**
      * <p>Deletes a report.</p>
      *
      * <p>Mirrors the following Smartsheet REST API method: DELETE /reports/{reportId}</p>

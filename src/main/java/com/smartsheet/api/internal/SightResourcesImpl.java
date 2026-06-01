@@ -20,7 +20,6 @@ import com.smartsheet.api.AuthorizationException;
 import com.smartsheet.api.InvalidRequestException;
 import com.smartsheet.api.ResourceNotFoundException;
 import com.smartsheet.api.ServiceUnavailableException;
-import com.smartsheet.api.ShareResources;
 import com.smartsheet.api.SightResources;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.util.QueryUtil;
@@ -38,8 +37,6 @@ import java.util.Map;
 
 public class SightResourcesImpl extends AbstractResources implements SightResources {
 
-    private ShareResources shares;
-
     private static final String SIGHTS = "sights";
 
     /**
@@ -51,7 +48,6 @@ public class SightResourcesImpl extends AbstractResources implements SightResour
      */
     public SightResourcesImpl(SmartsheetImpl smartsheet) {
         super(smartsheet);
-        this.shares = new ShareResourcesImpl(smartsheet, SIGHTS);
     }
 
     /**
@@ -253,16 +249,6 @@ public class SightResourcesImpl extends AbstractResources implements SightResour
     public SightPublish setPublishStatus(long sightId, SightPublish sightPublish) throws SmartsheetException {
         Util.throwIfNull(sightPublish);
         return this.updateResource(SIGHTS + "/" + sightId + "/publish", SightPublish.class, sightPublish);
-    }
-
-    /**
-     * Return the ShareResources object that provides access to share resources associated with
-     * Sight resources.
-     *
-     * @return the associated share resources
-     */
-    public ShareResources shareResources() {
-        return this.shares;
     }
 
 }

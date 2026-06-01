@@ -21,7 +21,6 @@ import com.smartsheet.api.InvalidRequestException;
 import com.smartsheet.api.ReportResources;
 import com.smartsheet.api.ResourceNotFoundException;
 import com.smartsheet.api.ServiceUnavailableException;
-import com.smartsheet.api.ShareResources;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.http.HttpEntity;
 import com.smartsheet.api.internal.http.HttpMethod;
@@ -61,13 +60,6 @@ import java.util.List;
 
 public class ReportResourcesImpl extends AbstractResources implements ReportResources {
 
-    /**
-     * Represents the ShareResources.
-     * <p>
-     * It will be initialized in constructor and will not change afterwards.
-     */
-    private ShareResources shares;
-
     private static final String JSON_CONTENT_TYPE = "application/json";
     private static final String REPORTS_PATH = "reports/";
     private static final String REPORTS = "reports";
@@ -83,7 +75,6 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
      */
     public ReportResourcesImpl(SmartsheetImpl smartsheet) {
         super(smartsheet);
-        this.shares = new ShareResourcesImpl(smartsheet, REPORTS);
     }
 
     /**
@@ -355,14 +346,6 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
         this.putResource(path, Result.class, reportDefinition);
     }
 
-    /**
-     * <p>Creates an object of ShareResources.</p>
-     *
-     * @return the created ShareResources object
-     */
-    public ShareResources shareResources() {
-        return this.shares;
-    }
 
     /**
      * <p>Deletes a report.</p>

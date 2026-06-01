@@ -28,6 +28,7 @@ import com.smartsheet.api.models.CreateShareRequest;
 import com.smartsheet.api.models.ShareResponse;
 import com.smartsheet.api.models.UpdateShareRequest;
 import com.smartsheet.api.models.ListAssetSharesResponse;
+import com.smartsheet.api.models.enums.ShareScope;
 
 import java.util.HashMap;
 import java.util.List;
@@ -80,7 +81,7 @@ public class AssetShareResourcesImpl extends AbstractResources implements AssetS
             String assetType,
             String lastKey,
             Long maxItems,
-            String sharingInclude
+            ShareScope sharingInclude
     ) throws SmartsheetException {
         String path = SHARES_PATH;
 
@@ -97,7 +98,7 @@ public class AssetShareResourcesImpl extends AbstractResources implements AssetS
         }
 
         if (sharingInclude != null) {
-            queryParameters.put("sharingInclude", sharingInclude);
+            queryParameters.put("sharingInclude", sharingInclude.name());
         }
 
         path += QueryUtil.generateUrl(null, queryParameters);

@@ -16,7 +16,6 @@
 
 package com.smartsheet.api.internal;
 
-import com.smartsheet.api.ShareResources;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.WorkspaceFolderResources;
 import com.smartsheet.api.WorkspaceResources;
@@ -54,13 +53,6 @@ public class WorkspaceResourcesImpl extends AbstractResources implements Workspa
     private WorkspaceFolderResources folders;
 
     /**
-     * Represents the ShareResources.
-     * <p>
-     * It will be initialized in constructor and will not change afterwards.
-     */
-    private ShareResources shares;
-
-    /**
      * Constructor.
      * <p>
      * Exceptions:
@@ -70,7 +62,6 @@ public class WorkspaceResourcesImpl extends AbstractResources implements Workspa
      */
     public WorkspaceResourcesImpl(SmartsheetImpl smartsheet) {
         super(smartsheet);
-        this.shares = new ShareResourcesImpl(smartsheet, WORKSPACES);
         this.folders = new WorkspaceFolderResourcesImpl(smartsheet);
     }
 
@@ -237,15 +228,6 @@ public class WorkspaceResourcesImpl extends AbstractResources implements Workspa
      */
     public WorkspaceFolderResources folderResources() {
         return this.folders;
-    }
-
-    /**
-     * Return the ShareResources object that provides access to Share resources associated with Workspace resources.
-     *
-     * @return the share resources
-     */
-    public ShareResources shareResources() {
-        return this.shares;
     }
 
     /**
