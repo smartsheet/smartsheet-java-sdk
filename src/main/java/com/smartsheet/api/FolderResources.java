@@ -18,13 +18,10 @@ package com.smartsheet.api;
 
 import com.smartsheet.api.models.ContainerDestination;
 import com.smartsheet.api.models.Folder;
-import com.smartsheet.api.models.PagedResult;
-import com.smartsheet.api.models.PaginationParameters;
 import com.smartsheet.api.models.TokenPaginatedResult;
 import com.smartsheet.api.models.enums.CopyExclusion;
 import com.smartsheet.api.models.enums.FolderCopyInclusion;
 import com.smartsheet.api.models.enums.FolderRemapExclusion;
-import com.smartsheet.api.models.enums.SourceInclusion;
 import com.smartsheet.api.models.enums.GetFolderMetadataInclusion;
 import com.smartsheet.api.models.enums.GetFolderChildrenInclusion;
 import com.smartsheet.api.models.enums.ChildrenResourceType;
@@ -37,25 +34,6 @@ import java.util.EnumSet;
  * <p>Thread Safety: Implementation of this interface must be thread safe.</p>
  */
 public interface FolderResources {
-
-    /**
-     * <p>Get a folder.</p>
-     *
-     * <p>It mirrors to the following Smartsheet REST API method: GET /folder/{id}</p>
-     *
-     * @param folderId the folder id
-     * @param includes the include parameters
-     * @return the folder (note that if there is no such resource, this method will throw ResourceNotFoundException
-     * rather than returning null)
-     * @throws IllegalArgumentException    if any argument is null or empty string
-     * @throws InvalidRequestException     if there is any problem with the REST API request
-     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException   if the resource cannot be found
-     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException         if there is any other error during the operation
-     */
-    @Deprecated(since = "3.4.0", forRemoval = true)
-    Folder getFolder(long folderId, EnumSet<SourceInclusion> includes) throws SmartsheetException;
 
     /**
      * <p>Update a folder.</p>
@@ -86,24 +64,6 @@ public interface FolderResources {
      * @throws SmartsheetException         if there is any other error during the operation
      */
     void deleteFolder(long folderId) throws SmartsheetException;
-
-    /**
-     * <p>List child folders of a given folder.</p>
-     *
-     * <p>It mirrors to the following Smartsheet REST API method: GET /folder/{id}/folders</p>
-     *
-     * @param parentFolderId the parent folder id
-     * @param parameters     the parameters for pagination
-     * @return the child folders (note that an empty list will be returned if no child folder is found).
-     * @throws IllegalArgumentException    if any argument is null or empty string
-     * @throws InvalidRequestException     if there is any problem with the REST API request
-     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException   if the resource cannot be found
-     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException         if there is any other error during the operation
-     */
-    @Deprecated(since = "3.4.0", forRemoval = true)
-    PagedResult<Folder> listFolders(long parentFolderId, PaginationParameters parameters) throws SmartsheetException;
 
     /**
      * <p>Create a folder.</p>

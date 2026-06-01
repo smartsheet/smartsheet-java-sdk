@@ -20,20 +20,16 @@ import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
 import com.smartsheet.api.models.ContainerDestination;
 import com.smartsheet.api.models.Folder;
-import com.smartsheet.api.models.Sheet;
-import com.smartsheet.api.models.Source;
 import com.smartsheet.api.models.TokenPaginatedResult;
 import com.smartsheet.api.models.TokenPaginationParameters;
 import com.smartsheet.api.models.Workspace;
 import com.smartsheet.api.models.enums.AccessLevel;
 import com.smartsheet.api.models.enums.DestinationType;
-import com.smartsheet.api.models.enums.SourceInclusion;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.EnumSet;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatCode;
@@ -68,27 +64,6 @@ class WorkspaceResourcesImplTest extends ResourcesImplBase {
         assertThat(server.getLastRequestUrl()).contains("lastKey=token123");
         assertThat(server.getLastRequestUrl()).contains("maxItems=500");
         assertThat(server.getLastRequestUrl()).contains("paginationType=token");
-    }
-
-    @Test
-    void testGetWorkspace() throws IOException, SmartsheetException {
-        server.setResponseBody(new File("src/test/resources/getWorkspace.json"));
-
-        Workspace workspace = workspaceResources.getWorkspace(1234L, true, EnumSet.allOf(SourceInclusion.class));
-        assertThat(workspace.getSheets()).hasSize(1);
-
-        Sheet sheet = workspace.getSheets().get(0);
-        assertThat(sheet.getName()).isEqualTo("sheet 1");
-
-        Source source = sheet.getSource();
-        assertThat(source.getId()).isNotNull();
-        assertThat(source.getType()).isNotNull();
-
-        assertThat(workspace.getId().longValue()).isEqualTo(7116448184199044L);
-        assertThat(workspace.getName()).isEqualTo("New workspace");
-
-        assertThat(workspace.getAccessLevel()).isEqualTo(AccessLevel.OWNER);
-        assertThat(workspace.getPermalink()).isEqualTo("https://app.smartsheet.com/b/home?lx=8Z0XuFUEAkxmHCSsMw4Zgg");
     }
 
     @Test
