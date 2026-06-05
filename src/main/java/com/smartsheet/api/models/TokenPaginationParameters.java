@@ -39,6 +39,10 @@ public class TokenPaginationParameters {
     public TokenPaginationParameters() {
     }
 
+    /**
+     * @param lastKey  the lastKey for token-based pagination
+     * @param maxItems the maxItems for token-based pagination
+     */
     public TokenPaginationParameters(String lastKey, Integer maxItems) {
         this.lastKey = lastKey;
         this.maxItems = maxItems;

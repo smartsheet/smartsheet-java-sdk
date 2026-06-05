@@ -346,7 +346,6 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
         this.putResource(path, Result.class, reportDefinition);
     }
 
-
     /**
      * <p>Deletes a report.</p>
      *

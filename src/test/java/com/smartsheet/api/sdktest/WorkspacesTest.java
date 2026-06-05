@@ -54,7 +54,7 @@ public class WorkspacesTest {
         assertThat(workspaces.getData().get(0).getName()).isEqualTo("Engineering Workspace");
         assertThat(workspaces.getData().get(1).getId()).isEqualTo(1004L);
         assertThat(workspaces.getData().get(1).getName()).isEqualTo("HR Workspace");
-        assertThat(workspaces.getLastKey()).isEqualTo("eyJsYXN0SWQiOjEwMDJ9");
+        assertThat(workspaces.getLastKey()).isEqualTo("eyJsYXN0SWQiOjEwMDR9");
     }
 
     @Test

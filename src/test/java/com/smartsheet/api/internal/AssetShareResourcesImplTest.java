@@ -48,7 +48,8 @@ class AssetShareResourcesImplTest extends ResourcesImplBase {
     @Test
     void testListShares_IncludeWorkspacesFalse() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/listSharesUpdated.json"));
-        ListAssetSharesResponse<ShareResponse> shares = assetShareResourcesImpl.listShares("2906571706525572", "sheet", null, 3L, ShareScope.ITEM);
+        ListAssetSharesResponse<ShareResponse> shares =
+                assetShareResourcesImpl.listShares("2906571706525572", "sheet", null, 3L, ShareScope.ITEM);
         assertThat(shares.getItems().size()).isEqualTo(2);
 
         assertThat(shares.getItems().get(0).getEmail()).isEqualTo("john.doe@smartsheet.com");
@@ -60,7 +61,8 @@ class AssetShareResourcesImplTest extends ResourcesImplBase {
     @Test
     void testListShares_IncludeWorkspacesNull() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/listSharesUpdated.json"));
-        ListAssetSharesResponse<ShareResponse> shares = assetShareResourcesImpl.listShares("2906571706525572", "sheet", null, 3L, ShareScope.ITEM);
+        ListAssetSharesResponse<ShareResponse> shares =
+                assetShareResourcesImpl.listShares("2906571706525572", "sheet", null, 3L, ShareScope.ITEM);
         assertThat(shares.getItems().size()).isEqualTo(2);
 
         assertThat(shares.getItems().get(0).getEmail()).isEqualTo("john.doe@smartsheet.com");
@@ -70,7 +72,8 @@ class AssetShareResourcesImplTest extends ResourcesImplBase {
     @Test
     void testListShares_IncludeWorkspacesTrue() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/listSharesUpdated.json"));
-        ListAssetSharesResponse<ShareResponse> shares = assetShareResourcesImpl.listShares("2906571706525572", "sheet", null, 3L, ShareScope.ITEM);
+        ListAssetSharesResponse<ShareResponse> shares =
+                assetShareResourcesImpl.listShares("2906571706525572", "sheet", null, 3L, ShareScope.ITEM);
         assertThat(shares.getItems().size()).isEqualTo(2);
 
         assertThat(shares.getItems().get(0).getEmail()).isEqualTo("john.doe@smartsheet.com");
