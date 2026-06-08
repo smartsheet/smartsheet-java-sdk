@@ -3,5 +3,6 @@
   "type": "GROUP",
   "groupId": 2331373580117892,
   "name": "Group 1",
-  "accessLevel": "ADMIN"
+  "accessLevel": "ADMIN",
+  "scope": "WORKSPACE"
 }

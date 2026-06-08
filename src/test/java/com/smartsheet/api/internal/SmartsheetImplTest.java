@@ -77,11 +77,6 @@ class SmartsheetImplTest extends ResourcesImplBase {
     }
 
     @Test
-    void testTemplates() {
-        assertThat(smartsheet.templateResources()).isNotNull();
-    }
-
-    @Test
     void testSheets() {
         assertThat(smartsheet.sheetResources()).isNotNull();
     }

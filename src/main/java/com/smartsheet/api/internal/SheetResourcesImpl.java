@@ -20,7 +20,6 @@ import com.smartsheet.api.AuthorizationException;
 import com.smartsheet.api.InvalidRequestException;
 import com.smartsheet.api.ResourceNotFoundException;
 import com.smartsheet.api.ServiceUnavailableException;
-import com.smartsheet.api.ShareResources;
 import com.smartsheet.api.SheetAttachmentResources;
 import com.smartsheet.api.SheetAutomationRuleResources;
 import com.smartsheet.api.SheetColumnResources;
@@ -93,12 +92,6 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
     private static final String WORKSPACES = "workspaces";
     private static final String XLSX_CONTENT_TYPE = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
 
-    /**
-     * Represents the ShareResources.
-     * <p>
-     * It will be initialized in constructor and will not change afterward.
-     */
-    private ShareResources shares;
     /**
      * Represents the SheetRowResources.
      * <p>
@@ -174,7 +167,6 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
      */
     public SheetResourcesImpl(SmartsheetImpl smartsheet) {
         super(smartsheet);
-        this.shares = new ShareResourcesImpl(smartsheet, SHEETS);
         this.rows = new SheetRowResourcesImpl(smartsheet);
         this.columns = new SheetColumnResourcesImpl(smartsheet);
         this.attachments = new SheetAttachmentResourcesImpl(smartsheet);
@@ -1094,15 +1086,6 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
             smartsheet.getHttpClient().releaseConnection();
         }
         return obj;
-    }
-
-    /**
-     * Return the ShareResources object that provides access to Share resources associated with Sheet resources.
-     *
-     * @return the ShareResources object
-     */
-    public ShareResources shareResources() {
-        return this.shares;
     }
 
     /**

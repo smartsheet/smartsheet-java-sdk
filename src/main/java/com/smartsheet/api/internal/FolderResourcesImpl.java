@@ -21,12 +21,9 @@ import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.util.QueryUtil;
 import com.smartsheet.api.models.ContainerDestination;
 import com.smartsheet.api.models.Folder;
-import com.smartsheet.api.models.PagedResult;
-import com.smartsheet.api.models.PaginationParameters;
 import com.smartsheet.api.models.enums.CopyExclusion;
 import com.smartsheet.api.models.enums.FolderCopyInclusion;
 import com.smartsheet.api.models.enums.FolderRemapExclusion;
-import com.smartsheet.api.models.enums.SourceInclusion;
 import com.smartsheet.api.models.enums.GetFolderMetadataInclusion;
 import com.smartsheet.api.models.enums.GetFolderChildrenInclusion;
 import com.smartsheet.api.models.enums.ChildrenResourceType;
@@ -57,36 +54,6 @@ public class FolderResourcesImpl extends AbstractResources implements FolderReso
      */
     public FolderResourcesImpl(SmartsheetImpl smartsheet) {
         super(smartsheet);
-    }
-
-    /**
-     * Get a folder.
-     * <p>
-     * It mirrors to the following Smartsheet REST API method: GET /folder/{id}
-     * <p>
-     * Exceptions:
-     * InvalidRequestException : if there is any problem with the REST API request
-     * AuthorizationException : if there is any problem with the REST API authorization(access token)
-     * ResourceNotFoundException : if the resource can not be found
-     * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-     * SmartsheetRestException : if there is any other REST API related error occurred during the operation
-     * SmartsheetException : if there is any other error occurred during the operation
-     *
-     * @param folderId the folder id
-     * @param includes the include parameters
-     * @return the folder (note that if there is no such resource, this method will throw ResourceNotFoundException
-     * rather than returning null)
-     * @throws SmartsheetException the smartsheet exception
-     */
-    @Override
-    @Deprecated(since = "3.4.0", forRemoval = true)
-    public Folder getFolder(long folderId, EnumSet<SourceInclusion> includes) throws SmartsheetException {
-        String path = FOLDERS_PATH + folderId;
-        Map<String, Object> parameters = new HashMap<>();
-        parameters.put(INCLUDE_PARAM, QueryUtil.generateCommaSeparatedList(includes));
-        path += QueryUtil.generateUrl(null, parameters);
-
-        return this.getResource(path, Folder.class);
     }
 
     /**
@@ -132,37 +99,6 @@ public class FolderResourcesImpl extends AbstractResources implements FolderReso
     public void deleteFolder(long folderId) throws SmartsheetException {
 
         this.deleteResource(FOLDERS_PATH + folderId, Folder.class);
-    }
-
-    /**
-     * List child folders of a given folder.
-     * <p>
-     * It mirrors to the following Smartsheet REST API method: GET /folder/{id}/folders
-     * <p>
-     * Parameters: - parentFolderId : the parent folder ID
-     * <p>
-     * Exceptions:
-     * InvalidRequestException : if there is any problem with the REST API request
-     * AuthorizationException : if there is any problem with the REST API authorization(access token)
-     * ResourceNotFoundException : if the resource can not be found
-     * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-     * SmartsheetRestException : if there is any other REST API related error occurred during the operation
-     * SmartsheetException : if there is any other error occurred during the operation
-     *
-     * @param parentFolderId the parent folder id
-     * @param parameters     the parameters for pagination
-     * @return the child folders (note that empty list will be returned if no child folder found)
-     * @throws SmartsheetException the smartsheet exception
-     */
-    @Deprecated(since = "3.4.0", forRemoval = true)
-    public PagedResult<Folder> listFolders(long parentFolderId, PaginationParameters parameters) throws SmartsheetException {
-        String path = FOLDERS_PATH + parentFolderId + "/folders";
-
-        if (parameters != null) {
-            path += parameters.toQueryString();
-        }
-
-        return this.listResourcesWithWrapper(path, Folder.class);
     }
 
     /**

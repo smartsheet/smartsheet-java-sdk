@@ -17,6 +17,7 @@
 package com.smartsheet.api.models;
 
 import com.smartsheet.api.models.enums.AccessLevel;
+import com.smartsheet.api.models.enums.ShareScope;
 
 /**
  * Represents a ShareResponse object in the Smartsheet API.
@@ -63,7 +64,7 @@ public class ShareResponse {
      * WORKSPACE: a workspace-level share (that is, the workspace that contains the asset to which the share applies
      * is shared with the user or group).
      */
-    private String scope;
+    private ShareScope scope;
 
     /**
      * Gets the id of the share.
@@ -203,7 +204,7 @@ public class ShareResponse {
      *
      * @return the scope
      */
-    public String getScope() {
+    public ShareScope getScope() {
         return scope;
     }
 
@@ -212,7 +213,7 @@ public class ShareResponse {
      *
      * @param scope the scope
      */
-    public ShareResponse setScope(String scope) {
+    public ShareResponse setScope(ShareScope scope) {
         this.scope = scope;
         return this;
     }

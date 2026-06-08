@@ -101,13 +101,6 @@ public interface Smartsheet {
     FolderResources folderResources();
 
     /**
-     * <p>Returns the TemplateResources instance that provides access to Template resources.</p>
-     *
-     * @return the template resources instance
-     */
-    TemplateResources templateResources();
-
-    /**
      * <p>Returns the SheetResources instance that provides access to Sheet resources.</p>
      *
      * @return the sheet resources instance

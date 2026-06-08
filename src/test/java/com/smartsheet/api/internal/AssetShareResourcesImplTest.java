@@ -23,6 +23,7 @@ import com.smartsheet.api.models.ShareResponse;
 import com.smartsheet.api.models.UpdateShareRequest;
 import com.smartsheet.api.models.ListAssetSharesResponse;
 import com.smartsheet.api.models.enums.AccessLevel;
+import com.smartsheet.api.models.enums.ShareScope;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -47,17 +48,21 @@ class AssetShareResourcesImplTest extends ResourcesImplBase {
     @Test
     void testListShares_IncludeWorkspacesFalse() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/listSharesUpdated.json"));
-        ListAssetSharesResponse<ShareResponse> shares = assetShareResourcesImpl.listShares("2906571706525572", "sheet", null, 3L, "ITEM");
+        ListAssetSharesResponse<ShareResponse> shares =
+                assetShareResourcesImpl.listShares("2906571706525572", "sheet", null, 3L, ShareScope.ITEM);
         assertThat(shares.getItems().size()).isEqualTo(2);
 
         assertThat(shares.getItems().get(0).getEmail()).isEqualTo("john.doe@smartsheet.com");
         assertThat(shares.getItems().get(1).getEmail()).isNull();
+        assertThat(shares.getItems().get(0).getScope()).isEqualTo(ShareScope.ITEM);
+        assertThat(shares.getItems().get(1).getScope()).isEqualTo(ShareScope.WORKSPACE);
     }
 
     @Test
     void testListShares_IncludeWorkspacesNull() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/listSharesUpdated.json"));
-        ListAssetSharesResponse<ShareResponse> shares = assetShareResourcesImpl.listShares("2906571706525572", "sheet", null, 3L, "ITEM");
+        ListAssetSharesResponse<ShareResponse> shares =
+                assetShareResourcesImpl.listShares("2906571706525572", "sheet", null, 3L, ShareScope.ITEM);
         assertThat(shares.getItems().size()).isEqualTo(2);
 
         assertThat(shares.getItems().get(0).getEmail()).isEqualTo("john.doe@smartsheet.com");
@@ -67,11 +72,21 @@ class AssetShareResourcesImplTest extends ResourcesImplBase {
     @Test
     void testListShares_IncludeWorkspacesTrue() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/listSharesUpdated.json"));
-        ListAssetSharesResponse<ShareResponse> shares = assetShareResourcesImpl.listShares("2906571706525572", "sheet", null, 3L, "ITEM");
+        ListAssetSharesResponse<ShareResponse> shares =
+                assetShareResourcesImpl.listShares("2906571706525572", "sheet", null, 3L, ShareScope.ITEM);
         assertThat(shares.getItems().size()).isEqualTo(2);
 
         assertThat(shares.getItems().get(0).getEmail()).isEqualTo("john.doe@smartsheet.com");
         assertThat(shares.getItems().get(1).getEmail()).isNull();
+    }
+
+    @Test
+    void testListShares_SharingIncludeSerializedAsEnumName() throws SmartsheetException, IOException {
+        server.setResponseBody(new File("src/test/resources/listSharesUpdated.json"));
+
+        assetShareResourcesImpl.listShares("2906571706525572", "sheet", null, 3L, ShareScope.WORKSPACE);
+
+        assertThat(server.getLastRequestUrl()).contains("sharingInclude=WORKSPACE");
     }
 
     @Test
@@ -83,6 +98,7 @@ class AssetShareResourcesImplTest extends ResourcesImplBase {
         assertThat(share.getName()).isEqualTo("Group 1");
         assertThat(share.getAccessLevel()).isEqualTo(AccessLevel.ADMIN);
         assertThat(share.getId()).isEqualTo("AQAISF82FOeE");
+        assertThat(share.getScope()).isEqualTo(ShareScope.WORKSPACE);
     }
 
     @Test

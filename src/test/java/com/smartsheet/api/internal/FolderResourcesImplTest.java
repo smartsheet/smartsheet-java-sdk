@@ -20,16 +20,12 @@ import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
 import com.smartsheet.api.models.ContainerDestination;
 import com.smartsheet.api.models.Folder;
-import com.smartsheet.api.models.PagedResult;
-import com.smartsheet.api.models.PaginationParameters;
 import com.smartsheet.api.models.enums.DestinationType;
-import com.smartsheet.api.models.enums.SourceInclusion;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.EnumSet;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatCode;
@@ -41,21 +37,6 @@ class FolderResourcesImplTest extends ResourcesImplBase {
         // Create a folder resource
         folderResource = new FolderResourcesImpl(new SmartsheetImpl("http://localhost:9090/1.1/", "accessToken",
                 new DefaultHttpClient(), serializer));
-    }
-
-    @Test
-    void testGetFolder() throws SmartsheetException, IOException {
-
-        // Set a fake response
-        server.setResponseBody(new File("src/test/resources/getFolder.json"));
-
-        Folder folder = folderResource.getFolder(123L, EnumSet.of(SourceInclusion.SOURCE));
-
-        // Verify results
-        assertThat(folder.getName()).isEqualTo("Personal");
-        assertThat(folder.getSheets()).hasSize(2);
-        assertThat(folder.getFolders()).isEmpty();
-        assertThat(folder.getSheets().get(0).getPermalink()).isEqualTo("https://app.smartsheet.com/b/home?lx=uWicCItTmkbxJwpCfQ5wiwW");
     }
 
     @Test
@@ -72,19 +53,6 @@ class FolderResourcesImplTest extends ResourcesImplBase {
     void testDeleteFolder() throws IOException {
         server.setResponseBody(new File("src/test/resources/deleteFolder.json"));
         assertThatCode(() -> folderResource.deleteFolder(7752230582413188L)).doesNotThrowAnyException();
-    }
-
-    @Test
-    void testListFolders() throws SmartsheetException, IOException {
-
-        server.setResponseBody(new File("src/test/resources/listFolders.json"));
-        PaginationParameters parameters = new PaginationParameters(true, 1, 1);
-        PagedResult<Folder> foldersWrapper = folderResource.listFolders(12345L, parameters);
-
-        assertThat(foldersWrapper.getPageSize()).isEqualTo(100);
-        assertThat(foldersWrapper.getData().get(0).getName()).isEqualTo("Folder 1");
-        assertThat(foldersWrapper.getData().get(1).getName()).isEqualTo("Folder 2");
-        assertThat(foldersWrapper.getData().get(0).getId()).isEqualTo(7116448184199044L);
     }
 
     @Test

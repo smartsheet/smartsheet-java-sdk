@@ -19,8 +19,8 @@ package com.smartsheet.api.sdktest;
 import com.smartsheet.api.Smartsheet;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.models.ContainerDestination;
-import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.Sight;
+import com.smartsheet.api.models.TokenPaginatedResult;
 import com.smartsheet.api.models.SightPublish;
 import com.smartsheet.api.models.enums.DestinationType;
 import org.junit.jupiter.api.Disabled;
@@ -33,8 +33,9 @@ class SightsTest {
     @Test
     void listSights() throws SmartsheetException {
         Smartsheet ss = HelperFunctions.SetupClient("List Sights");
-        PagedResult<Sight> sights = ss.sightResources().listSights(null, null);
-        assertThat(sights.getTotalCount()).isEqualTo(6);
+        TokenPaginatedResult<Sight> sights = ss.sightResources().listSights(null);
+        assertThat(sights.getData()).hasSize(6);
+        assertThat(sights.getLastKey()).isEqualTo("abcDefGhIjKlMnOpQrStUvWxYz");
     }
 
     @Test

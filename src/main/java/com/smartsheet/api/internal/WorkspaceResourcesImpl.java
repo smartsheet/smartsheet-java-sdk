@@ -16,23 +16,20 @@
 
 package com.smartsheet.api.internal;
 
-import com.smartsheet.api.ShareResources;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.WorkspaceFolderResources;
 import com.smartsheet.api.WorkspaceResources;
 import com.smartsheet.api.internal.util.QueryUtil;
 import com.smartsheet.api.models.ContainerDestination;
-import com.smartsheet.api.models.PagedResult;
-import com.smartsheet.api.models.PaginationParameters;
 import com.smartsheet.api.models.Workspace;
 import com.smartsheet.api.models.enums.CopyExclusion;
-import com.smartsheet.api.models.enums.SourceInclusion;
 import com.smartsheet.api.models.enums.WorkspaceCopyInclusion;
 import com.smartsheet.api.models.enums.WorkspaceRemapExclusion;
 import com.smartsheet.api.models.enums.GetWorkspaceMetadataInclusion;
 import com.smartsheet.api.models.enums.GetWorkspaceChildrenInclusion;
 import com.smartsheet.api.models.enums.ChildrenResourceType;
 import com.smartsheet.api.models.TokenPaginatedResult;
+import com.smartsheet.api.models.TokenPaginationParameters;
 import com.smartsheet.api.internal.json.ChildrenResourceDeserializer;
 
 import java.util.EnumSet;
@@ -56,13 +53,6 @@ public class WorkspaceResourcesImpl extends AbstractResources implements Workspa
     private WorkspaceFolderResources folders;
 
     /**
-     * Represents the ShareResources.
-     * <p>
-     * It will be initialized in constructor and will not change afterwards.
-     */
-    private ShareResources shares;
-
-    /**
      * Constructor.
      * <p>
      * Exceptions:
@@ -72,7 +62,6 @@ public class WorkspaceResourcesImpl extends AbstractResources implements Workspa
      */
     public WorkspaceResourcesImpl(SmartsheetImpl smartsheet) {
         super(smartsheet);
-        this.shares = new ShareResourcesImpl(smartsheet, WORKSPACES);
         this.folders = new WorkspaceFolderResourcesImpl(smartsheet);
     }
 
@@ -88,55 +77,16 @@ public class WorkspaceResourcesImpl extends AbstractResources implements Workspa
      * - SmartsheetRestException : if there is any other REST API related error occurred during the operation
      * - SmartsheetException : if there is any other error occurred during the operation
      *
-     * @param parameters the object containing the pagination parameters
-     * @return all workspaces (note that empty list will be returned if there is none)
+     * @param paging the object containing the token-based pagination parameters
+     * @return TokenPaginatedResult of workspaces (empty list if there are none)
      * @throws SmartsheetException the smartsheet exception
      */
-    public PagedResult<Workspace> listWorkspaces(PaginationParameters parameters) throws SmartsheetException {
+    public TokenPaginatedResult<Workspace> listWorkspaces(TokenPaginationParameters paging) throws SmartsheetException {
         String path = WORKSPACES;
-
-        if (parameters != null) {
-            path += parameters.toQueryString();
+        if (paging != null) {
+            path += paging.toQueryString();
         }
-        return this.listResourcesWithWrapper(path, Workspace.class);
-    }
-
-    /**
-     * Get a workspace.
-     * <p>
-     * It mirrors to the following Smartsheet REST API method: GET /workspace/{id}
-     * <p>
-     * Exceptions:
-     * - InvalidRequestException : if there is any problem with the REST API request
-     * - AuthorizationException : if there is any problem with the REST API authorization(access token)
-     * - ResourceNotFoundException : if the resource can not be found
-     * - ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-     * - SmartsheetRestException : if there is any other REST API related error occurred during the operation
-     * - SmartsheetException : if there is any other error occurred during the operation
-     *
-     * @param id       the id
-     * @param loadAll  load all contents in a workspace
-     * @param includes used to specify the optional objects to include
-     * @return the resource (note that if there is no such resource, this method will throw ResourceNotFoundException
-     * rather than returning null).
-     * @throws SmartsheetException the smartsheet exception
-     */
-    @Override
-    @Deprecated(since = "3.4.0", forRemoval = true)
-    public Workspace getWorkspace(long id, Boolean loadAll, EnumSet<SourceInclusion> includes) throws SmartsheetException {
-        String path = WORKSPACES + "/" + id;
-
-        // Add the parameters to a map and build the query string at the end
-        Map<String, Object> parameters = new HashMap<>();
-
-        parameters.put(INCLUDE_PARAM, QueryUtil.generateCommaSeparatedList(includes));
-        if (loadAll != null) {
-            parameters.put("loadAll", Boolean.toString(loadAll));
-        }
-
-        path += QueryUtil.generateUrl(null, parameters);
-
-        return this.getResource(path, Workspace.class);
+        return this.listResourcesWithTokenPagination(path, Workspace.class);
     }
 
     /**
@@ -278,15 +228,6 @@ public class WorkspaceResourcesImpl extends AbstractResources implements Workspa
      */
     public WorkspaceFolderResources folderResources() {
         return this.folders;
-    }
-
-    /**
-     * Return the ShareResources object that provides access to Share resources associated with Workspace resources.
-     *
-     * @return the share resources
-     */
-    public ShareResources shareResources() {
-        return this.shares;
     }
 
     /**

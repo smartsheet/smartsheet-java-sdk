@@ -24,16 +24,26 @@ import com.smartsheet.api.models.WebhookSharedSecret;
 public interface WebhookResources {
     /**
      * <p>Gets the list of all Webhooks that the user owns (if a user generated token was used to make the request)
-     * or the list of all Webhooks associated with the third-party app (if a third-party app made the request). Items
-     * in the response are ordered by API Client name, then Webhook name, then creation date.</p>
+     * or the list of all Webhooks associated with the third-party app (if a third-party app made the request).</p>
      *
      * <p>It mirrors to the following Smartsheet REST API method: GET /webhooks</p>
      *
+     * <p>Note: as of the Jun-03-2026 sunset date:</p>
+     * <ul>
+     *   <li>{@code includeAll} is no longer honored by the server for this endpoint and is ignored if set on
+     *       {@link PaginationParameters}. {@link PaginationParameters} remains a shared class — other endpoints
+     *       still support {@code includeAll}.</li>
+     *   <li>{@code pageSize} is server-capped at 10,000.</li>
+     *   <li>{@code totalCount} and {@code totalPages} on the response are returned as {@code -1}.</li>
+     *   <li>Webhooks are sorted by creation date (most recent first), no longer by name.</li>
+     * </ul>
+     * <p>See <a href="https://developers.smartsheet.com/api/smartsheet/changelog#2025-08-04">Smartsheet API changelog 2025-08-04</a>.</p>
+     *
      * @param paging the object containing the pagination parameters
-     * @return IndexResult object containing an array of Webhook objects.
+     * @return PagedResult object containing an array of Webhook objects.
      * @throws IllegalArgumentException    if any argument is null or empty string
      * @throws InvalidRequestException     if there is any problem with the REST API request
-     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws AuthorizationException      if there is any problem with the REST API authorization (access token)
      * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException         if there is any other error during the operation

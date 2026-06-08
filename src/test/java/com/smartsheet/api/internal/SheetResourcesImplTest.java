@@ -352,11 +352,6 @@ class SheetResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    void testShares() {
-        sheetResource.shareResources();
-    }
-
-    @Test
     void testRows() {
         sheetResource.rowResources();
     }

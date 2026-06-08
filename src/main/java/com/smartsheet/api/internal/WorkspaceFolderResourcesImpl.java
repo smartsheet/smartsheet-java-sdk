@@ -19,8 +19,6 @@ package com.smartsheet.api.internal;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.WorkspaceFolderResources;
 import com.smartsheet.api.models.Folder;
-import com.smartsheet.api.models.PagedResult;
-import com.smartsheet.api.models.PaginationParameters;
 
 /**
  * This is the implementation of the WorkspaceFolderResources.
@@ -38,35 +36,6 @@ public class WorkspaceFolderResourcesImpl extends AbstractResources implements W
      */
     public WorkspaceFolderResourcesImpl(SmartsheetImpl smartsheet) {
         super(smartsheet);
-    }
-
-    /**
-     * List folders of a given workspace.
-     * <p>
-     * It mirrors to the following Smartsheet REST API method: GET /workspace/{id}/folders
-     * <p>
-     * Exceptions:
-     * - InvalidRequestException : if there is any problem with the REST API request
-     * - AuthorizationException : if there is any problem with the REST API authorization(access token)
-     * - ResourceNotFoundException : if the resource can not be found
-     * - ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-     * - SmartsheetRestException : if there is any other REST API related error occurred during the operation
-     * - SmartsheetException : if there is any other error occurred during the operation
-     *
-     * @param workspaceId the ID of the workspace
-     * @param parameters  the pagination parameters
-     * @return the folders (note that empty list will be returned if there is none)
-     * @throws SmartsheetException the smartsheet exception
-     */
-    @Deprecated(since = "3.4.0", forRemoval = true)
-    public PagedResult<Folder> listFolders(long workspaceId, PaginationParameters parameters) throws SmartsheetException {
-        String path = "workspaces/" + workspaceId + "/folders";
-
-        if (parameters != null) {
-            path += parameters.toQueryString();
-        }
-
-        return this.listResourcesWithWrapper(path, Folder.class);
     }
 
     /**

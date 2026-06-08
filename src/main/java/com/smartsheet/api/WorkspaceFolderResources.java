@@ -17,8 +17,6 @@
 package com.smartsheet.api;
 
 import com.smartsheet.api.models.Folder;
-import com.smartsheet.api.models.PagedResult;
-import com.smartsheet.api.models.PaginationParameters;
 
 /**
  * T<p>his interface provides methods to access Folder resources that are associated to a workspace object.</p>
@@ -26,24 +24,6 @@ import com.smartsheet.api.models.PaginationParameters;
  * <p>Thread Safety: Implementation of this interface must be thread safe.</p>
  */
 public interface WorkspaceFolderResources {
-
-    /**
-     * <p>List folders of a given workspace.</p>
-     *
-     * <p>It mirrors to the following Smartsheet REST API method: GET /workspace/{id}/folders</p>
-     *
-     * @param workspaceId the workspace id
-     * @param parameters  the pagination parameters
-     * @return the list of folders (note that an empty list will be returned if there are none)
-     * @throws IllegalArgumentException    if any argument is null or empty string
-     * @throws InvalidRequestException     if there is any problem with the REST API request
-     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException   if the resource cannot be found
-     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException         if there is any other error during the operation
-     */
-    @Deprecated(since = "3.4.0", forRemoval = true)
-    PagedResult<Folder> listFolders(long workspaceId, PaginationParameters parameters) throws SmartsheetException;
 
     /**
      * <p>Create a folder in the workspace.</p>
