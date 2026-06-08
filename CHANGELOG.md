@@ -4,7 +4,9 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [x.x.x] - unreleased
+## [x.x.x] - Unreleased
+
+## [4.0.0] - 2026-06-08
 ### Added
 - Added `objectIdStr` field to Event model to support alphanumeric object identifiers in v2.0 events endpoint
 - Field is optional and maintains full backward compatibility with existing implementations
