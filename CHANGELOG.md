@@ -6,6 +6,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [x.x.x] - Unreleased
 
+### Fixed
+
+- Deprecation related corrections
+
+### Added
+
+- Hardcode `paginationType=token` for `listWorkspaces`.
+
 ## [4.0.0] - 2026-06-08
 ### Added
 - Added `objectIdStr` field to Event model to support alphanumeric object identifiers in v2.0 events endpoint
@@ -15,7 +23,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Removed
 - ⚠️ **BREAKING**: Removed deprecated offset-based pagination parameters (`includeAll`, `page`, `pageSize`) and `modifiedSince` from `listSights`. These parameters were [deprecated by the Smartsheet API](https://developers.smartsheet.com/api/smartsheet/changelog#deprecated-includeall-and-offset-based-pagination-for-dashboards) (sunset Jun-03-2026). The response no longer includes `pageNumber`, `pageSize`, `totalPages`, or `totalCount`. Use token-based pagination instead: `new TokenPaginationParameters(lastKey, maxItems)`.
 - ⚠️ **BREAKING**: Removed deprecated offset-based pagination overload of `listWorkspaces`. `listWorkspaces(PaginationParameters)` and the `PagedResult<Workspace>` return type have been replaced with `listWorkspaces(TokenPaginationParameters)` returning `TokenPaginatedResult<Workspace>`. These offset parameters were [deprecated by the Smartsheet API](https://developers.smartsheet.com/api/smartsheet/changelog#2025-08-04) (sunset Jun-03-2026). Use `new TokenPaginationParameters(lastKey, maxItems)`. The new shape mirrors `listSights`.
-- ⚠️ **BREAKING**: Removed `listPublicTemplates` and `listUserCreatedTemplates` from `TemplateResources`. The `TemplateResources` interface, implementation, and `Smartsheet.templateResources()` accessor have been removed entirely. The underlying `GET /templates` and `GET /templates/public` endpoints were [deprecated by the Smartsheet API](https://developers.smartsheet.com/api/smartsheet/changelog#2025-08-04) (sunset Jun-03-2026). Migrate to `getWorkspaceChildren` / `getFolderChildren` with `childrenResourceTypes` including `TEMPLATES` to list templates within a specific workspace or folder.
+- ⚠️ **BREAKING**: Removed `listPublicTemplates` and `listUserCreatedTemplates` from `TemplateResources`. The `TemplateResources` interface, implementation, and `Smartsheet.templateResources()` accessor have been removed entirely. The underlying `GET /templates` and `GET /templates/public` endpoints were [deprecated by the Smartsheet API](https://developers.smartsheet.com/api/smartsheet/changelog#2025-08-04) (sunset Jun-03-2026). Migrate to `getWorkspaceChildren` / `getFolderChildren` with `childrenResourceTypes` including `TEMPLATES,SHEETS` to list templates within a specific workspace or folder.
 - ⚠️ **BREAKING**: Removed `getFolder` and `listFolders` from `FolderResources`, `getWorkspace` from `WorkspaceResources`, and `listFolders` from `WorkspaceFolderResources`. (`WorkspaceFolderResources.createFolder` and `Smartsheet.workspaceResources().folderResources()` are retained.) The underlying `GET /folders/{folderId}`, `GET /folders/{folderId}/folders`, `GET /workspaces/{workspaceId}`, and `GET /workspaces/{workspaceId}/folders` endpoints were [deprecated by the Smartsheet API](https://developers.smartsheet.com/api/smartsheet/changelog#2025-08-04) (sunset Jun-03-2026). Migrate to `getFolderMetadata` + `getFolderChildren` and `getWorkspaceMetadata` + `getWorkspaceChildren`. Use `childrenResourceTypes` to filter the children response (e.g., `FOLDERS` to replicate the old list-folders behavior).
 - ⚠️ **BREAKING**: Removed the deprecated `ShareResources` interface and the `shareResources()` accessor from `SheetResources`, `ReportResources`, `SightResources`, and `WorkspaceResources`. The underlying asset-specific sharing endpoints were [deprecated by the Smartsheet API](https://developers.smartsheet.com/api/smartsheet/changelog#2025-08-04) (sunset Jun-03-2026). Migrate to `Smartsheet.assetShareResources()` (`listShares`, `getShare`, `shareTo`, `updateShare`, `deleteShare`), passing `assetId` and `assetType`. Note updates now use `PATCH` instead of `PUT`.
 
