@@ -49,6 +49,7 @@ import com.smartsheet.api.models.SheetEmail;
 import com.smartsheet.api.models.SheetPublish;
 import com.smartsheet.api.models.SortSpecifier;
 import com.smartsheet.api.models.UpdateRequest;
+import com.smartsheet.api.models.SheetPathNode;
 import com.smartsheet.api.models.enums.CopyExclusion;
 import com.smartsheet.api.models.enums.ObjectExclusion;
 import com.smartsheet.api.models.enums.PaperSize;
@@ -1295,6 +1296,20 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
         }
 
         getSmartsheet().getHttpClient().releaseConnection();
+    }
+
+    /**
+     * Get the path of a sheet (workspace/folder hierarchy).
+     * <p>
+     * It mirrors to the following Smartsheet REST API method: GET /sheets/{sheetId}/path
+     *
+     * @param sheetId the sheet id
+     * @return the container path
+     * @throws SmartsheetException the smartsheet exception
+     */
+    @Override
+    public SheetPathNode getSheetPath(long sheetId) throws SmartsheetException {
+        return this.getResource(SHEETS + "/" + sheetId + "/path", SheetPathNode.class);
     }
 
     /**

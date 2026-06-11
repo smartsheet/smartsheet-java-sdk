@@ -16,10 +16,14 @@
 
 package com.smartsheet.api.internal;
 
+import com.smartsheet.api.InvalidRequestException;
+import com.smartsheet.api.ResourceNotFoundException;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
 import com.smartsheet.api.models.CreateReportRequest;
 import com.smartsheet.api.models.CreateReportResult;
+import com.smartsheet.api.models.PathLeaf;
+import com.smartsheet.api.models.ReportPathNode;
 import com.smartsheet.api.models.FormatDetails;
 import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.PaginationParameters;
@@ -44,6 +48,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.ZonedDateTime;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -237,5 +242,61 @@ class ReportResourcesImplTest extends ResourcesImplBase {
     void testCreateReportNullRequest() {
         assertThatThrownBy(() -> reportResources.createReport(null))
                 .isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
+    void testGetReportPath() throws SmartsheetException, IOException {
+        server.setResponseBody(new File("src/test/resources/getReportPath.json"));
+
+        ReportPathNode result = reportResources.getReportPath(1234567890L);
+
+        assertThat(result).isNotNull();
+        assertThat(result.getId()).isEqualTo(4509918431602564L);
+        assertThat(result.getName()).isEqualTo("Sample Workspace");
+        assertThat(result.getAccessLevel()).isEqualTo(AccessLevel.OWNER);
+        assertThat(result.getFolders()).hasSize(1);
+    }
+
+    @Test
+    void testGetReportPath_getReport() throws SmartsheetException, IOException {
+        server.setResponseBody(new File("src/test/resources/getReportPath.json"));
+
+        ReportPathNode result = reportResources.getReportPath(1234567890L);
+        PathLeaf leaf = result.getReport();
+
+        assertThat(leaf).isNotNull();
+        assertThat(leaf.getName()).isEqualTo("Project Report");
+        assertThat(leaf.getId()).isEqualTo(3456789012345678L);
+        assertThat(leaf.getAccessLevel()).isEqualTo(AccessLevel.ADMIN);
+        assertThat(leaf.getCreatedAt()).isEqualTo(ZonedDateTime.parse("2024-01-01T00:00:00Z"));
+        assertThat(leaf.getModifiedAt()).isEqualTo(ZonedDateTime.parse("2024-06-01T00:00:00Z"));
+    }
+
+    @Test
+    void testGetReportPath_getReportPath() throws SmartsheetException, IOException {
+        server.setResponseBody(new File("src/test/resources/getReportPath.json"));
+
+        ReportPathNode result = reportResources.getReportPath(1234567890L);
+
+        assertThat(result.getReportPath())
+                .isEqualTo("Sample Workspace/Project Plans/Project Plans Subfolder/Project Report");
+    }
+
+    @Test
+    void testGetReportPath_404_throwsResourceNotFoundException() throws IOException {
+        server.setStatus(404);
+        server.setResponseBody(new File("src/test/resources/pathError.json"));
+
+        assertThatThrownBy(() -> reportResources.getReportPath(1234567890L))
+                .isInstanceOf(ResourceNotFoundException.class);
+    }
+
+    @Test
+    void testGetReportPath_500_throwsInvalidRequestException() throws IOException {
+        server.setStatus(500);
+        server.setResponseBody(new File("src/test/resources/pathError.json"));
+
+        assertThatThrownBy(() -> reportResources.getReportPath(1234567890L))
+                .isInstanceOf(InvalidRequestException.class);
     }
 }

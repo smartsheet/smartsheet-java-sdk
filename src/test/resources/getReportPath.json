@@ -1,0 +1,30 @@
+{
+  "id": 4509918431602564,
+  "name": "Sample Workspace",
+  "permalink": "https://app.smartsheet.com/workspaces/mock_workspace_id",
+  "accessLevel": "OWNER",
+  "folders": [
+    {
+      "id": 1234567890123456,
+      "name": "Project Plans",
+      "permalink": "https://app.smartsheet.com/folders/1234567890123456",
+      "folders": [
+        {
+          "id": 2345678901234567,
+          "name": "Project Plans Subfolder",
+          "permalink": "https://app.smartsheet.com/folders/2345678901234567",
+          "reports": [
+            {
+              "id": 3456789012345678,
+              "name": "Project Report",
+              "permalink": "https://app.smartsheet.com/reports/3456789012345678",
+              "accessLevel": "ADMIN",
+              "createdAt": "2024-01-01T00:00:00Z",
+              "modifiedAt": "2024-06-01T00:00:00Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

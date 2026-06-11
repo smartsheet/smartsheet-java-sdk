@@ -16,10 +16,14 @@
 
 package com.smartsheet.api.internal;
 
+import com.smartsheet.api.InvalidRequestException;
+import com.smartsheet.api.ResourceNotFoundException;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
 import com.smartsheet.api.models.ContainerDestination;
+import com.smartsheet.api.models.PathLeaf;
 import com.smartsheet.api.models.Sight;
+import com.smartsheet.api.models.SightPathNode;
 import com.smartsheet.api.models.TokenPaginatedResult;
 import com.smartsheet.api.models.TokenPaginationParameters;
 import com.smartsheet.api.models.SightPublish;
@@ -30,6 +34,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.ZonedDateTime;
 import java.util.EnumSet;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -158,6 +163,62 @@ class SightResourcesImplTest extends ResourcesImplBase {
         assertThat(sightPublish.getReadOnlyFullAccessibleBy()).isEqualTo(Boolean.FALSE.toString());
         assertThat(sightPublish.getReadOnlyFullEnabled()).isEqualTo(Boolean.FALSE);
         assertThat(sightPublish.getReadOnlyFullUrl()).isNotBlank();
+    }
+
+    @Test
+    void testGetSightPath() throws SmartsheetException, IOException {
+        server.setResponseBody(new File("src/test/resources/getSightPath.json"));
+
+        SightPathNode result = sightResourcesImpl.getSightPath(1234567890L);
+
+        assertThat(result).isNotNull();
+        assertThat(result.getId()).isEqualTo(4509918431602564L);
+        assertThat(result.getName()).isEqualTo("Sample Workspace");
+        assertThat(result.getAccessLevel()).isEqualTo(AccessLevel.OWNER);
+        assertThat(result.getFolders()).hasSize(1);
+    }
+
+    @Test
+    void testGetSightPath_getSight() throws SmartsheetException, IOException {
+        server.setResponseBody(new File("src/test/resources/getSightPath.json"));
+
+        SightPathNode result = sightResourcesImpl.getSightPath(1234567890L);
+        PathLeaf leaf = result.getSight();
+
+        assertThat(leaf).isNotNull();
+        assertThat(leaf.getName()).isEqualTo("Project Dashboard");
+        assertThat(leaf.getId()).isEqualTo(3456789012345678L);
+        assertThat(leaf.getAccessLevel()).isEqualTo(AccessLevel.ADMIN);
+        assertThat(leaf.getCreatedAt()).isEqualTo(ZonedDateTime.parse("2024-01-01T00:00:00Z"));
+        assertThat(leaf.getModifiedAt()).isEqualTo(ZonedDateTime.parse("2024-06-01T00:00:00Z"));
+    }
+
+    @Test
+    void testGetSightPath_getSightPath() throws SmartsheetException, IOException {
+        server.setResponseBody(new File("src/test/resources/getSightPath.json"));
+
+        SightPathNode result = sightResourcesImpl.getSightPath(1234567890L);
+
+        assertThat(result.getSightPath())
+                .isEqualTo("Sample Workspace/Project Plans/Project Plans Subfolder/Project Dashboard");
+    }
+
+    @Test
+    void testGetSightPath_404_throwsResourceNotFoundException() throws IOException {
+        server.setStatus(404);
+        server.setResponseBody(new File("src/test/resources/pathError.json"));
+
+        assertThatThrownBy(() -> sightResourcesImpl.getSightPath(1234567890L))
+                .isInstanceOf(ResourceNotFoundException.class);
+    }
+
+    @Test
+    void testGetSightPath_500_throwsInvalidRequestException() throws IOException {
+        server.setStatus(500);
+        server.setResponseBody(new File("src/test/resources/pathError.json"));
+
+        assertThatThrownBy(() -> sightResourcesImpl.getSightPath(1234567890L))
+                .isInstanceOf(InvalidRequestException.class);
     }
 
     @Test
