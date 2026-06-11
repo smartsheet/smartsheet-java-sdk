@@ -31,6 +31,7 @@ import org.junit.jupiter.api.Test;
 
 import java.net.URI;
 import java.time.ZonedDateTime;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -43,7 +44,54 @@ public class TestGetSheetPath {
     private static final long WORKSPACE_ID = 4509918431602564L;
     private static final String WORKSPACE_NAME = "Sample Workspace";
     private static final String WORKSPACE_PERMALINK = "https://app.smartsheet.com/workspaces/mock_workspace_id";
-    private static final long NESTED_SHEET_ID = 3456789012345678L;
+    private static final long ROOT_SHEET_ID = 5678901234567890L;
+
+    private static final SheetPathNode EXPECTED_NESTED_RESULT;
+    private static final SheetPathNode EXPECTED_ROOT_RESULT;
+
+    static {
+        PathLeaf nestedSheet = new PathLeaf();
+        nestedSheet.setId(3456789012345678L);
+        nestedSheet.setName("Project Plan");
+        nestedSheet.setPermalink("https://app.smartsheet.com/sheets/3456789012345678");
+        nestedSheet.setAccessLevel(AccessLevel.ADMIN);
+        nestedSheet.setCreatedAt(ZonedDateTime.parse("2024-01-01T00:00:00Z"));
+        nestedSheet.setModifiedAt(ZonedDateTime.parse("2024-06-01T00:00:00Z"));
+
+        SheetPathNode subfolder = new SheetPathNode();
+        subfolder.setId(2345678901234567L);
+        subfolder.setName("Project Plans Subfolder");
+        subfolder.setPermalink("https://app.smartsheet.com/folders/2345678901234567");
+        subfolder.setSheets(List.of(nestedSheet));
+
+        SheetPathNode folder = new SheetPathNode();
+        folder.setId(1234567890123456L);
+        folder.setName("Project Plans");
+        folder.setPermalink("https://app.smartsheet.com/folders/1234567890123456");
+        folder.setFolders(List.of(subfolder));
+
+        EXPECTED_NESTED_RESULT = new SheetPathNode();
+        EXPECTED_NESTED_RESULT.setId(WORKSPACE_ID);
+        EXPECTED_NESTED_RESULT.setName(WORKSPACE_NAME);
+        EXPECTED_NESTED_RESULT.setPermalink(WORKSPACE_PERMALINK);
+        EXPECTED_NESTED_RESULT.setAccessLevel(AccessLevel.OWNER);
+        EXPECTED_NESTED_RESULT.setFolders(List.of(folder));
+
+        PathLeaf rootSheet = new PathLeaf();
+        rootSheet.setId(ROOT_SHEET_ID);
+        rootSheet.setName("Root Level Sheet");
+        rootSheet.setPermalink("https://app.smartsheet.com/sheets/rootlevel");
+        rootSheet.setAccessLevel(AccessLevel.ADMIN);
+        rootSheet.setCreatedAt(ZonedDateTime.parse("2024-01-01T00:00:00Z"));
+        rootSheet.setModifiedAt(ZonedDateTime.parse("2024-06-01T00:00:00Z"));
+
+        EXPECTED_ROOT_RESULT = new SheetPathNode();
+        EXPECTED_ROOT_RESULT.setId(WORKSPACE_ID);
+        EXPECTED_ROOT_RESULT.setName(WORKSPACE_NAME);
+        EXPECTED_ROOT_RESULT.setPermalink(WORKSPACE_PERMALINK);
+        EXPECTED_ROOT_RESULT.setAccessLevel(AccessLevel.OWNER);
+        EXPECTED_ROOT_RESULT.setSheets(List.of(rootSheet));
+    }
 
     @Test
     void testGetSheetPathGeneratedUrlIsCorrect() throws SmartsheetException {
@@ -75,22 +123,23 @@ public class TestGetSheetPath {
 
         SheetPathNode result = smartsheet.sheetResources().getSheetPath(TEST_SHEET_ID);
 
-        assertThat(result).isNotNull();
-        assertThat(result.getId()).isEqualTo(WORKSPACE_ID);
-        assertThat(result.getName()).isEqualTo(WORKSPACE_NAME);
-        assertThat(result.getPermalink()).isEqualTo(WORKSPACE_PERMALINK);
-        assertThat(result.getAccessLevel()).isEqualTo(AccessLevel.OWNER);
-        assertThat(result.getFolders()).hasSize(1);
-
-        PathLeaf leaf = result.getSheet();
-        assertThat(leaf).isNotNull();
-        assertThat(leaf.getId()).isEqualTo(NESTED_SHEET_ID);
-        assertThat(leaf.getName()).isEqualTo("Project Plan");
-        assertThat(leaf.getPermalink()).isEqualTo("https://app.smartsheet.com/sheets/3456789012345678");
-        assertThat(leaf.getAccessLevel()).isEqualTo(AccessLevel.ADMIN);
-        assertThat(leaf.getCreatedAt()).isEqualTo(ZonedDateTime.parse("2024-01-01T00:00:00Z"));
-        assertThat(leaf.getModifiedAt()).isEqualTo(ZonedDateTime.parse("2024-06-01T00:00:00Z"));
+        assertThat(result).usingRecursiveComparison().isEqualTo(EXPECTED_NESTED_RESULT);
         assertThat(result.getSheetPath()).isEqualTo("Sample Workspace/Project Plans/Project Plans Subfolder/Project Plan");
+    }
+
+    @Test
+    void testGetSheetPathRootLevelAllResponseBodyProperties() throws SmartsheetException {
+        String requestId = UUID.randomUUID().toString();
+        WiremockClientWrapper wrapper = Utils.createWiremockSmartsheetClient(
+                "/sheets/get-root-sheet-path/all-response-body-properties",
+                requestId
+        );
+        Smartsheet smartsheet = wrapper.getSmartsheet();
+
+        SheetPathNode result = smartsheet.sheetResources().getSheetPath(TEST_SHEET_ID);
+
+        assertThat(result).usingRecursiveComparison().isEqualTo(EXPECTED_ROOT_RESULT);
+        assertThat(result.getSheetPath()).isEqualTo("Sample Workspace/Root Level Sheet");
     }
 
     @Test

@@ -486,6 +486,7 @@ class SheetResourcesImplTest extends ResourcesImplBase {
         assertThat(result).isNotNull();
         assertThat(result.getId()).isEqualTo(4509918431602564L);
         assertThat(result.getName()).isEqualTo("Sample Workspace");
+        assertThat(result.getPermalink()).isEqualTo("https://app.smartsheet.com/workspaces/mock_workspace_id");
         assertThat(result.getAccessLevel()).isEqualTo(AccessLevel.OWNER);
         assertThat(result.getFolders()).hasSize(1);
     }
@@ -500,6 +501,7 @@ class SheetResourcesImplTest extends ResourcesImplBase {
         assertThat(leaf).isNotNull();
         assertThat(leaf.getName()).isEqualTo("Project Plan");
         assertThat(leaf.getId()).isEqualTo(3456789012345678L);
+        assertThat(leaf.getPermalink()).isEqualTo("https://app.smartsheet.com/sheets/3456789012345678");
         assertThat(leaf.getAccessLevel()).isEqualTo(AccessLevel.ADMIN);
         assertThat(leaf.getCreatedAt()).isEqualTo(ZonedDateTime.parse("2024-01-01T00:00:00Z"));
         assertThat(leaf.getModifiedAt()).isEqualTo(ZonedDateTime.parse("2024-06-01T00:00:00Z"));

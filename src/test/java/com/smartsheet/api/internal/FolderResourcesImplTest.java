@@ -99,9 +99,11 @@ class FolderResourcesImplTest extends ResourcesImplBase {
         assertThat(result).isNotNull();
         assertThat(result.getId()).isEqualTo(4509918431602564L);
         assertThat(result.getName()).isEqualTo("Sample Workspace");
+        assertThat(result.getPermalink()).isEqualTo("https://app.smartsheet.com/workspaces/mock_workspace_id");
         assertThat(result.getAccessLevel()).isEqualTo(AccessLevel.OWNER);
         assertThat(result.getFolders()).hasSize(1);
         assertThat(result.getFolders().get(0).getName()).isEqualTo("Project Plans");
+        assertThat(result.getFolders().get(0).getPermalink()).isEqualTo("https://app.smartsheet.com/folders/1234567890123456");
     }
 
     @Test
@@ -114,6 +116,7 @@ class FolderResourcesImplTest extends ResourcesImplBase {
         assertThat(leaf).isNotNull();
         assertThat(leaf.getName()).isEqualTo("Project Plans Sub-Subfolder");
         assertThat(leaf.getId()).isEqualTo(3456789012345678L);
+        assertThat(leaf.getPermalink()).isEqualTo("https://app.smartsheet.com/folders/3456789012345678");
         assertThat(leaf.getFolders()).isNullOrEmpty();
     }
 

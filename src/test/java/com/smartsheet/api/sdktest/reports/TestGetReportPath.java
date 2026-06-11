@@ -31,6 +31,7 @@ import org.junit.jupiter.api.Test;
 
 import java.net.URI;
 import java.time.ZonedDateTime;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -43,8 +44,54 @@ public class TestGetReportPath {
     private static final long WORKSPACE_ID = 4509918431602564L;
     private static final String WORKSPACE_NAME = "Sample Workspace";
     private static final String WORKSPACE_PERMALINK = "https://app.smartsheet.com/workspaces/mock_workspace_id";
-    private static final long NESTED_REPORT_ID = 3456789012345678L;
     private static final long ROOT_REPORT_ID = 5678901234567890L;
+
+    private static final ReportPathNode EXPECTED_NESTED_RESULT;
+    private static final ReportPathNode EXPECTED_ROOT_RESULT;
+
+    static {
+        PathLeaf nestedReport = new PathLeaf();
+        nestedReport.setId(3456789012345678L);
+        nestedReport.setName("Project Report");
+        nestedReport.setPermalink("https://app.smartsheet.com/reports/3456789012345678");
+        nestedReport.setAccessLevel(AccessLevel.ADMIN);
+        nestedReport.setCreatedAt(ZonedDateTime.parse("2024-01-01T00:00:00Z"));
+        nestedReport.setModifiedAt(ZonedDateTime.parse("2024-06-01T00:00:00Z"));
+
+        ReportPathNode subfolder = new ReportPathNode();
+        subfolder.setId(2345678901234567L);
+        subfolder.setName("Project Plans Subfolder");
+        subfolder.setPermalink("https://app.smartsheet.com/folders/2345678901234567");
+        subfolder.setReports(List.of(nestedReport));
+
+        ReportPathNode folder = new ReportPathNode();
+        folder.setId(1234567890123456L);
+        folder.setName("Project Plans");
+        folder.setPermalink("https://app.smartsheet.com/folders/1234567890123456");
+        folder.setFolders(List.of(subfolder));
+
+        EXPECTED_NESTED_RESULT = new ReportPathNode();
+        EXPECTED_NESTED_RESULT.setId(WORKSPACE_ID);
+        EXPECTED_NESTED_RESULT.setName(WORKSPACE_NAME);
+        EXPECTED_NESTED_RESULT.setPermalink(WORKSPACE_PERMALINK);
+        EXPECTED_NESTED_RESULT.setAccessLevel(AccessLevel.OWNER);
+        EXPECTED_NESTED_RESULT.setFolders(List.of(folder));
+
+        PathLeaf rootReport = new PathLeaf();
+        rootReport.setId(ROOT_REPORT_ID);
+        rootReport.setName("Root Level Report");
+        rootReport.setPermalink("https://app.smartsheet.com/reports/rootlevel");
+        rootReport.setAccessLevel(AccessLevel.ADMIN);
+        rootReport.setCreatedAt(ZonedDateTime.parse("2024-01-01T00:00:00Z"));
+        rootReport.setModifiedAt(ZonedDateTime.parse("2024-06-01T00:00:00Z"));
+
+        EXPECTED_ROOT_RESULT = new ReportPathNode();
+        EXPECTED_ROOT_RESULT.setId(WORKSPACE_ID);
+        EXPECTED_ROOT_RESULT.setName(WORKSPACE_NAME);
+        EXPECTED_ROOT_RESULT.setPermalink(WORKSPACE_PERMALINK);
+        EXPECTED_ROOT_RESULT.setAccessLevel(AccessLevel.OWNER);
+        EXPECTED_ROOT_RESULT.setReports(List.of(rootReport));
+    }
 
     @Test
     void testGetReportPathGeneratedUrlIsCorrect() throws SmartsheetException {
@@ -76,21 +123,7 @@ public class TestGetReportPath {
 
         ReportPathNode result = smartsheet.reportResources().getReportPath(TEST_REPORT_ID);
 
-        assertThat(result).isNotNull();
-        assertThat(result.getId()).isEqualTo(WORKSPACE_ID);
-        assertThat(result.getName()).isEqualTo(WORKSPACE_NAME);
-        assertThat(result.getPermalink()).isEqualTo(WORKSPACE_PERMALINK);
-        assertThat(result.getAccessLevel()).isEqualTo(AccessLevel.OWNER);
-        assertThat(result.getFolders()).hasSize(1);
-
-        PathLeaf leaf = result.getReport();
-        assertThat(leaf).isNotNull();
-        assertThat(leaf.getId()).isEqualTo(NESTED_REPORT_ID);
-        assertThat(leaf.getName()).isEqualTo("Project Report");
-        assertThat(leaf.getPermalink()).isEqualTo("https://app.smartsheet.com/reports/3456789012345678");
-        assertThat(leaf.getAccessLevel()).isEqualTo(AccessLevel.ADMIN);
-        assertThat(leaf.getCreatedAt()).isEqualTo(ZonedDateTime.parse("2024-01-01T00:00:00Z"));
-        assertThat(leaf.getModifiedAt()).isEqualTo(ZonedDateTime.parse("2024-06-01T00:00:00Z"));
+        assertThat(result).usingRecursiveComparison().isEqualTo(EXPECTED_NESTED_RESULT);
         assertThat(result.getReportPath()).isEqualTo("Sample Workspace/Project Plans/Project Plans Subfolder/Project Report");
     }
 
@@ -105,16 +138,7 @@ public class TestGetReportPath {
 
         ReportPathNode result = smartsheet.reportResources().getReportPath(TEST_REPORT_ID);
 
-        assertThat(result).isNotNull();
-        assertThat(result.getId()).isEqualTo(WORKSPACE_ID);
-        assertThat(result.getName()).isEqualTo(WORKSPACE_NAME);
-        assertThat(result.getFolders()).isNullOrEmpty();
-
-        PathLeaf leaf = result.getReport();
-        assertThat(leaf).isNotNull();
-        assertThat(leaf.getId()).isEqualTo(ROOT_REPORT_ID);
-        assertThat(leaf.getName()).isEqualTo("Root Level Report");
-        assertThat(leaf.getAccessLevel()).isEqualTo(AccessLevel.ADMIN);
+        assertThat(result).usingRecursiveComparison().isEqualTo(EXPECTED_ROOT_RESULT);
         assertThat(result.getReportPath()).isEqualTo("Sample Workspace/Root Level Report");
     }
 

@@ -29,6 +29,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.net.URI;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -41,7 +42,48 @@ public class TestGetFolderPath {
     private static final long WORKSPACE_ID = 4509918431602564L;
     private static final String WORKSPACE_NAME = "Sample Workspace";
     private static final String WORKSPACE_PERMALINK = "https://app.smartsheet.com/workspaces/mock_workspace_id";
-    private static final long NESTED_FOLDER_ID = 3456789012345678L;
+    private static final long ROOT_FOLDER_ID = 5678901234567890L;
+
+    private static final FolderPathNode EXPECTED_NESTED_RESULT;
+    private static final FolderPathNode EXPECTED_ROOT_RESULT;
+
+    static {
+        FolderPathNode subSubfolder = new FolderPathNode();
+        subSubfolder.setId(3456789012345678L);
+        subSubfolder.setName("Project Plans Sub-Subfolder");
+        subSubfolder.setPermalink("https://app.smartsheet.com/folders/3456789012345678");
+
+        FolderPathNode subfolder = new FolderPathNode();
+        subfolder.setId(2345678901234567L);
+        subfolder.setName("Project Plans Subfolder");
+        subfolder.setPermalink("https://app.smartsheet.com/folders/2345678901234567");
+        subfolder.setFolders(List.of(subSubfolder));
+
+        FolderPathNode folder = new FolderPathNode();
+        folder.setId(1234567890123456L);
+        folder.setName("Project Plans");
+        folder.setPermalink("https://app.smartsheet.com/folders/1234567890123456");
+        folder.setFolders(List.of(subfolder));
+
+        EXPECTED_NESTED_RESULT = new FolderPathNode();
+        EXPECTED_NESTED_RESULT.setId(WORKSPACE_ID);
+        EXPECTED_NESTED_RESULT.setName(WORKSPACE_NAME);
+        EXPECTED_NESTED_RESULT.setPermalink(WORKSPACE_PERMALINK);
+        EXPECTED_NESTED_RESULT.setAccessLevel(AccessLevel.OWNER);
+        EXPECTED_NESTED_RESULT.setFolders(List.of(folder));
+
+        FolderPathNode rootFolder = new FolderPathNode();
+        rootFolder.setId(ROOT_FOLDER_ID);
+        rootFolder.setName("Root Level Folder");
+        rootFolder.setPermalink("https://app.smartsheet.com/folders/rootlevel");
+
+        EXPECTED_ROOT_RESULT = new FolderPathNode();
+        EXPECTED_ROOT_RESULT.setId(WORKSPACE_ID);
+        EXPECTED_ROOT_RESULT.setName(WORKSPACE_NAME);
+        EXPECTED_ROOT_RESULT.setPermalink(WORKSPACE_PERMALINK);
+        EXPECTED_ROOT_RESULT.setAccessLevel(AccessLevel.OWNER);
+        EXPECTED_ROOT_RESULT.setFolders(List.of(rootFolder));
+    }
 
     @Test
     void testGetFolderPathGeneratedUrlIsCorrect() throws SmartsheetException {
@@ -73,20 +115,23 @@ public class TestGetFolderPath {
 
         FolderPathNode result = smartsheet.folderResources().getFolderPath(TEST_FOLDER_ID);
 
-        assertThat(result).isNotNull();
-        assertThat(result.getId()).isEqualTo(WORKSPACE_ID);
-        assertThat(result.getName()).isEqualTo(WORKSPACE_NAME);
-        assertThat(result.getPermalink()).isEqualTo(WORKSPACE_PERMALINK);
-        assertThat(result.getAccessLevel()).isEqualTo(AccessLevel.OWNER);
-        assertThat(result.getFolders()).hasSize(1);
-
-        FolderPathNode leaf = result.getFolder();
-        assertThat(leaf).isNotNull();
-        assertThat(leaf.getId()).isEqualTo(NESTED_FOLDER_ID);
-        assertThat(leaf.getName()).isEqualTo("Project Plans Sub-Subfolder");
-        assertThat(leaf.getPermalink()).isEqualTo("https://app.smartsheet.com/folders/3456789012345678");
-        assertThat(leaf.getFolders()).isNullOrEmpty();
+        assertThat(result).usingRecursiveComparison().isEqualTo(EXPECTED_NESTED_RESULT);
         assertThat(result.getFolderPath()).isEqualTo("Sample Workspace/Project Plans/Project Plans Subfolder/Project Plans Sub-Subfolder");
+    }
+
+    @Test
+    void testGetFolderPathRootLevelAllResponseBodyProperties() throws SmartsheetException {
+        String requestId = UUID.randomUUID().toString();
+        WiremockClientWrapper wrapper = Utils.createWiremockSmartsheetClient(
+                "/folders/get-root-folder-path/all-response-body-properties",
+                requestId
+        );
+        Smartsheet smartsheet = wrapper.getSmartsheet();
+
+        FolderPathNode result = smartsheet.folderResources().getFolderPath(TEST_FOLDER_ID);
+
+        assertThat(result).usingRecursiveComparison().isEqualTo(EXPECTED_ROOT_RESULT);
+        assertThat(result.getFolderPath()).isEqualTo("Sample Workspace/Root Level Folder");
     }
 
     @Test
