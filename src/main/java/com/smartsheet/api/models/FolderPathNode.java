@@ -16,7 +16,6 @@
 
 package com.smartsheet.api.models;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -39,48 +38,30 @@ public class FolderPathNode extends PathNode {
     }
 
     /**
-     * Walks the nested {@code folders} list recursively and returns the deepest (target) folder node.
-     *
-     * <p>If this node has no nested folders (i.e. the folder is at the root of the workspace or the API
-     * returned only a single-level path), {@code this} is returned.</p>
-     *
-     * @return the deepest {@link FolderPathNode} reachable from this node; never {@code null}
+     * Walks down through folders until reaching the deepest (target) folder node, then returns it.
      */
-    public FolderPathNode getFolder() {
-        FolderPathNode node = this;
-        while (node.getFolders() != null && !node.getFolders().isEmpty()) {
-            node = node.getFolders().get(0);
+    public FolderPathNode getLeafFolder() {
+        if (folders == null || folders.isEmpty()) {
+            return this;
         }
-        return node;
+
+        return folders.getFirst().getLeafFolder();
     }
 
     /**
-     * Returns a {@code /}-joined string of names from the root node down to the target (deepest) folder.
-     *
-     * <p>Each path segment is the {@link #getName()} of the corresponding node in the hierarchy. When
-     * this node has no nested folders (e.g. the folder lives directly under the workspace), only the
-     * name of this node is returned with no separator.</p>
+     * Returns a UNIX style {@code /}-joined path of folder names down to the target folder.
      *
      * <p>Examples:</p>
      * <ul>
-     *   <li>Workspace → FolderA → FolderB → Target returns {@code "Workspace/FolderA/FolderB/Target"}</li>
-     *   <li>Workspace → Target (no intermediate folders) returns {@code "Workspace/Target"}</li>
-     *   <li>Target at root (no workspace or folders in response) returns {@code "Target"}</li>
+     *   <li>Workspace → FolderA → FolderB → Target returns {@code "/Workspace/FolderA/FolderB/Target"}</li>
+     *   <li>Workspace → Target (no intermediate folders) returns {@code "/Workspace/Target"}</li>
      * </ul>
-     *
-     * @return a non-null path string; contains only the node name when there are no nested folders
      */
-    public String getFolderPath() {
-        List<String> names = new ArrayList<>();
-        FolderPathNode node = this;
-        while (node != null) {
-            names.add(node.getName());
-            if (node.getFolders() != null && !node.getFolders().isEmpty()) {
-                node = node.getFolders().get(0);
-            } else {
-                break;
-            }
+    public String getLeafFolderPath() {
+        if (folders == null || folders.isEmpty()) {
+            return String.format("/%s", getName());
         }
-        return String.join("/", names);
+
+        return String.format("/%s%s", getName(), folders.getFirst().getLeafFolderPath());
     }
 }

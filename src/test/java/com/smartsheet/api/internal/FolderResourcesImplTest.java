@@ -96,14 +96,31 @@ class FolderResourcesImplTest extends ResourcesImplBase {
 
         FolderPathNode result = folderResource.getFolderPath(1234567890L);
 
+        // workspace root
         assertThat(result).isNotNull();
         assertThat(result.getId()).isEqualTo(4509918431602564L);
         assertThat(result.getName()).isEqualTo("Sample Workspace");
         assertThat(result.getPermalink()).isEqualTo("https://app.smartsheet.com/workspaces/mock_workspace_id");
         assertThat(result.getAccessLevel()).isEqualTo(AccessLevel.OWNER);
+        // level-1 folder
         assertThat(result.getFolders()).hasSize(1);
-        assertThat(result.getFolders().get(0).getName()).isEqualTo("Project Plans");
-        assertThat(result.getFolders().get(0).getPermalink()).isEqualTo("https://app.smartsheet.com/folders/1234567890123456");
+        FolderPathNode level1 = result.getFolders().get(0);
+        assertThat(level1.getId()).isEqualTo(1234567890123456L);
+        assertThat(level1.getName()).isEqualTo("Project Plans");
+        assertThat(level1.getPermalink()).isEqualTo("https://app.smartsheet.com/folders/1234567890123456");
+        // level-2 folder
+        assertThat(level1.getFolders()).hasSize(1);
+        FolderPathNode level2 = level1.getFolders().get(0);
+        assertThat(level2.getId()).isEqualTo(2345678901234567L);
+        assertThat(level2.getName()).isEqualTo("Project Plans Subfolder");
+        assertThat(level2.getPermalink()).isEqualTo("https://app.smartsheet.com/folders/2345678901234567");
+        // level-3 (leaf) folder
+        assertThat(level2.getFolders()).hasSize(1);
+        FolderPathNode level3 = level2.getFolders().get(0);
+        assertThat(level3.getId()).isEqualTo(3456789012345678L);
+        assertThat(level3.getName()).isEqualTo("Project Plans Sub-Subfolder");
+        assertThat(level3.getPermalink()).isEqualTo("https://app.smartsheet.com/folders/3456789012345678");
+        assertThat(level3.getFolders()).isNullOrEmpty();
     }
 
     @Test
@@ -111,7 +128,7 @@ class FolderResourcesImplTest extends ResourcesImplBase {
         server.setResponseBody(new File("src/test/resources/getFolderPath.json"));
 
         FolderPathNode result = folderResource.getFolderPath(1234567890L);
-        FolderPathNode leaf = result.getFolder();
+        FolderPathNode leaf = result.getLeafFolder();
 
         assertThat(leaf).isNotNull();
         assertThat(leaf.getName()).isEqualTo("Project Plans Sub-Subfolder");
@@ -126,8 +143,8 @@ class FolderResourcesImplTest extends ResourcesImplBase {
 
         FolderPathNode result = folderResource.getFolderPath(1234567890L);
 
-        assertThat(result.getFolderPath())
-                .isEqualTo("Sample Workspace/Project Plans/Project Plans Subfolder/Project Plans Sub-Subfolder");
+        assertThat(result.getLeafFolderPath())
+                .isEqualTo("/Sample Workspace/Project Plans/Project Plans Subfolder/Project Plans Sub-Subfolder");
     }
 
     @Test

@@ -16,7 +16,6 @@
 
 package com.smartsheet.api.models;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -55,44 +54,36 @@ public class ReportPathNode extends PathNode {
     /**
      * Walks down through folders until a node contains reports, then returns the first report.
      */
-    public PathLeaf getReport() {
-        ReportPathNode node = this;
-        while (node != null) {
-            if (node.getReports() != null && !node.getReports().isEmpty()) {
-                return node.getReports().get(0);
-            }
-            if (node.getFolders() != null && !node.getFolders().isEmpty()) {
-                node = node.getFolders().get(0);
-            } else {
-                break;
-            }
+    public PathLeaf getLeafReport() {
+        if (reports != null && !reports.isEmpty()) {
+            return reports.getFirst();
         }
+
+        if (folders != null && !folders.isEmpty()) {
+            return folders.getFirst().getLeafReport();
+        }
+
         return null;
     }
 
     /**
-     * Returns a {@code /}-joined path of folder names plus the target report name.
+     * Returns a UNIX style {@code /}-joined path of folder names plus the target report name.
+     *
+     * <p>Examples:</p>
+     * <ul>
+     *   <li>Workspace → Folder → Report returns {@code "/Workspace/Folder/Report"}</li>
+     *   <li>Workspace → Report (no intermediate folders) returns {@code "/Workspace/Report"}</li>
+     * </ul>
      */
-    public String getReportPath() {
-        List<String> names = new ArrayList<>();
-        ReportPathNode node = this;
-        PathLeaf leaf = null;
-        while (node != null) {
-            names.add(node.getName());
-            if (node.getReports() != null && !node.getReports().isEmpty()) {
-                leaf = node.getReports().get(0);
-                break;
-            }
-            if (node.getFolders() != null && !node.getFolders().isEmpty()) {
-                node = node.getFolders().get(0);
-            } else {
-                break;
-            }
+    public String getLeafReportPath() {
+        if (reports != null && !reports.isEmpty()) {
+            return String.format("/%s/%s", getName(), reports.getFirst().getName());
         }
-        if (leaf == null) {
-            return null;
+
+        if (folders != null && !folders.isEmpty()) {
+            return String.format("/%s%s", getName(), folders.get(0).getLeafReportPath());
         }
-        names.add(leaf.getName());
-        return String.join("/", names);
+
+        return null;
     }
 }

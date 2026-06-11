@@ -16,7 +16,6 @@
 
 package com.smartsheet.api.models;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -55,44 +54,36 @@ public class SheetPathNode extends PathNode {
     /**
      * Walks down through folders until a node contains sheets, then returns the first sheet.
      */
-    public PathLeaf getSheet() {
-        SheetPathNode node = this;
-        while (node != null) {
-            if (node.getSheets() != null && !node.getSheets().isEmpty()) {
-                return node.getSheets().get(0);
-            }
-            if (node.getFolders() != null && !node.getFolders().isEmpty()) {
-                node = node.getFolders().get(0);
-            } else {
-                break;
-            }
+    public PathLeaf getLeafSheet() {
+        if (sheets != null && !sheets.isEmpty()) {
+            return sheets.getFirst();
         }
+
+        if (folders != null && !folders.isEmpty()) {
+            return folders.getFirst().getLeafSheet();
+        }
+
         return null;
     }
 
     /**
-     * Returns a {@code /}-joined path of folder names plus the target sheet name.
+     * Returns a UNIX style {@code /}-joined path of folder names plus the target sheet name.
+     *
+     * <p>Examples:</p>
+     * <ul>
+     *   <li>Workspace → Folder → Sheet returns {@code "/Workspace/Folder/Sheet"}</li>
+     *   <li>Workspace → Sheet (no intermediate folders) returns {@code "/Workspace/Sheet"}</li>
+     * </ul>
      */
-    public String getSheetPath() {
-        List<String> names = new ArrayList<>();
-        SheetPathNode node = this;
-        PathLeaf leaf = null;
-        while (node != null) {
-            names.add(node.getName());
-            if (node.getSheets() != null && !node.getSheets().isEmpty()) {
-                leaf = node.getSheets().get(0);
-                break;
-            }
-            if (node.getFolders() != null && !node.getFolders().isEmpty()) {
-                node = node.getFolders().get(0);
-            } else {
-                break;
-            }
+    public String getLeafSheetPath() {
+        if (sheets != null && !sheets.isEmpty()) {
+            return String.format("/%s/%s", getName(), sheets.getFirst().getName());
         }
-        if (leaf == null) {
-            return null;
+
+        if (folders != null && !folders.isEmpty()) {
+            return String.format("/%s%s", getName(), folders.get(0).getLeafSheetPath());
         }
-        names.add(leaf.getName());
-        return String.join("/", names);
+
+        return null;
     }
 }

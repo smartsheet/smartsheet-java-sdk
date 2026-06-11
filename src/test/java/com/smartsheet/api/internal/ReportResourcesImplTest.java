@@ -250,12 +250,33 @@ class ReportResourcesImplTest extends ResourcesImplBase {
 
         ReportPathNode result = reportResources.getReportPath(1234567890L);
 
+        // workspace root
         assertThat(result).isNotNull();
         assertThat(result.getId()).isEqualTo(4509918431602564L);
         assertThat(result.getName()).isEqualTo("Sample Workspace");
         assertThat(result.getPermalink()).isEqualTo("https://app.smartsheet.com/workspaces/mock_workspace_id");
         assertThat(result.getAccessLevel()).isEqualTo(AccessLevel.OWNER);
+        // level-1 folder
         assertThat(result.getFolders()).hasSize(1);
+        ReportPathNode level1 = result.getFolders().get(0);
+        assertThat(level1.getId()).isEqualTo(1234567890123456L);
+        assertThat(level1.getName()).isEqualTo("Project Plans");
+        assertThat(level1.getPermalink()).isEqualTo("https://app.smartsheet.com/folders/1234567890123456");
+        // level-2 folder (contains the leaf report)
+        assertThat(level1.getFolders()).hasSize(1);
+        ReportPathNode level2 = level1.getFolders().get(0);
+        assertThat(level2.getId()).isEqualTo(2345678901234567L);
+        assertThat(level2.getName()).isEqualTo("Project Plans Subfolder");
+        assertThat(level2.getPermalink()).isEqualTo("https://app.smartsheet.com/folders/2345678901234567");
+        // leaf report
+        assertThat(level2.getReports()).hasSize(1);
+        PathLeaf report = level2.getReports().get(0);
+        assertThat(report.getId()).isEqualTo(3456789012345678L);
+        assertThat(report.getName()).isEqualTo("Project Report");
+        assertThat(report.getPermalink()).isEqualTo("https://app.smartsheet.com/reports/3456789012345678");
+        assertThat(report.getAccessLevel()).isEqualTo(AccessLevel.ADMIN);
+        assertThat(report.getCreatedAt()).isEqualTo(ZonedDateTime.parse("2024-01-01T00:00:00Z"));
+        assertThat(report.getModifiedAt()).isEqualTo(ZonedDateTime.parse("2024-06-01T00:00:00Z"));
     }
 
     @Test
@@ -263,7 +284,7 @@ class ReportResourcesImplTest extends ResourcesImplBase {
         server.setResponseBody(new File("src/test/resources/getReportPath.json"));
 
         ReportPathNode result = reportResources.getReportPath(1234567890L);
-        PathLeaf leaf = result.getReport();
+        PathLeaf leaf = result.getLeafReport();
 
         assertThat(leaf).isNotNull();
         assertThat(leaf.getName()).isEqualTo("Project Report");
@@ -280,8 +301,8 @@ class ReportResourcesImplTest extends ResourcesImplBase {
 
         ReportPathNode result = reportResources.getReportPath(1234567890L);
 
-        assertThat(result.getReportPath())
-                .isEqualTo("Sample Workspace/Project Plans/Project Plans Subfolder/Project Report");
+        assertThat(result.getLeafReportPath())
+                .isEqualTo("/Sample Workspace/Project Plans/Project Plans Subfolder/Project Report");
     }
 
     @Test

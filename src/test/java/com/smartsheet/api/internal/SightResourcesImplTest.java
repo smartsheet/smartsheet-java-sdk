@@ -171,12 +171,33 @@ class SightResourcesImplTest extends ResourcesImplBase {
 
         SightPathNode result = sightResourcesImpl.getSightPath(1234567890L);
 
+        // workspace root
         assertThat(result).isNotNull();
         assertThat(result.getId()).isEqualTo(4509918431602564L);
         assertThat(result.getName()).isEqualTo("Sample Workspace");
         assertThat(result.getPermalink()).isEqualTo("https://app.smartsheet.com/workspaces/mock_workspace_id");
         assertThat(result.getAccessLevel()).isEqualTo(AccessLevel.OWNER);
+        // level-1 folder
         assertThat(result.getFolders()).hasSize(1);
+        SightPathNode level1 = result.getFolders().get(0);
+        assertThat(level1.getId()).isEqualTo(1234567890123456L);
+        assertThat(level1.getName()).isEqualTo("Project Plans");
+        assertThat(level1.getPermalink()).isEqualTo("https://app.smartsheet.com/folders/1234567890123456");
+        // level-2 folder (contains the leaf sight)
+        assertThat(level1.getFolders()).hasSize(1);
+        SightPathNode level2 = level1.getFolders().get(0);
+        assertThat(level2.getId()).isEqualTo(2345678901234567L);
+        assertThat(level2.getName()).isEqualTo("Project Plans Subfolder");
+        assertThat(level2.getPermalink()).isEqualTo("https://app.smartsheet.com/folders/2345678901234567");
+        // leaf sight
+        assertThat(level2.getSights()).hasSize(1);
+        PathLeaf sight = level2.getSights().get(0);
+        assertThat(sight.getId()).isEqualTo(3456789012345678L);
+        assertThat(sight.getName()).isEqualTo("Project Dashboard");
+        assertThat(sight.getPermalink()).isEqualTo("https://app.smartsheet.com/sights/3456789012345678");
+        assertThat(sight.getAccessLevel()).isEqualTo(AccessLevel.ADMIN);
+        assertThat(sight.getCreatedAt()).isEqualTo(ZonedDateTime.parse("2024-01-01T00:00:00Z"));
+        assertThat(sight.getModifiedAt()).isEqualTo(ZonedDateTime.parse("2024-06-01T00:00:00Z"));
     }
 
     @Test
@@ -184,7 +205,7 @@ class SightResourcesImplTest extends ResourcesImplBase {
         server.setResponseBody(new File("src/test/resources/getSightPath.json"));
 
         SightPathNode result = sightResourcesImpl.getSightPath(1234567890L);
-        PathLeaf leaf = result.getSight();
+        PathLeaf leaf = result.getLeafSight();
 
         assertThat(leaf).isNotNull();
         assertThat(leaf.getName()).isEqualTo("Project Dashboard");
@@ -201,8 +222,8 @@ class SightResourcesImplTest extends ResourcesImplBase {
 
         SightPathNode result = sightResourcesImpl.getSightPath(1234567890L);
 
-        assertThat(result.getSightPath())
-                .isEqualTo("Sample Workspace/Project Plans/Project Plans Subfolder/Project Dashboard");
+        assertThat(result.getLeafSightPath())
+                .isEqualTo("/Sample Workspace/Project Plans/Project Plans Subfolder/Project Dashboard");
     }
 
     @Test

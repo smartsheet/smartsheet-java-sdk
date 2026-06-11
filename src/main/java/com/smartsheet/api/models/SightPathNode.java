@@ -16,7 +16,6 @@
 
 package com.smartsheet.api.models;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -55,44 +54,36 @@ public class SightPathNode extends PathNode {
     /**
      * Walks down through folders until a node contains sights, then returns the first sight.
      */
-    public PathLeaf getSight() {
-        SightPathNode node = this;
-        while (node != null) {
-            if (node.getSights() != null && !node.getSights().isEmpty()) {
-                return node.getSights().get(0);
-            }
-            if (node.getFolders() != null && !node.getFolders().isEmpty()) {
-                node = node.getFolders().get(0);
-            } else {
-                break;
-            }
+    public PathLeaf getLeafSight() {
+        if (sights != null && !sights.isEmpty()) {
+            return sights.getFirst();
         }
+
+        if (folders != null && !folders.isEmpty()) {
+            return folders.getFirst().getLeafSight();
+        }
+
         return null;
     }
 
     /**
-     * Returns a {@code /}-joined path of folder names plus the target sight name.
+     * Returns a UNIX style {@code /}-joined path of folder names plus the target sight name.
+     *
+     * <p>Examples:</p>
+     * <ul>
+     *   <li>Workspace → Folder → Sight returns {@code "/Workspace/Folder/Sight"}</li>
+     *   <li>Workspace → Sight (no intermediate folders) returns {@code "/Workspace/Sight"}</li>
+     * </ul>
      */
-    public String getSightPath() {
-        List<String> names = new ArrayList<>();
-        SightPathNode node = this;
-        PathLeaf leaf = null;
-        while (node != null) {
-            names.add(node.getName());
-            if (node.getSights() != null && !node.getSights().isEmpty()) {
-                leaf = node.getSights().get(0);
-                break;
-            }
-            if (node.getFolders() != null && !node.getFolders().isEmpty()) {
-                node = node.getFolders().get(0);
-            } else {
-                break;
-            }
+    public String getLeafSightPath() {
+        if (sights != null && !sights.isEmpty()) {
+            return String.format("/%s/%s", getName(), sights.getFirst().getName());
         }
-        if (leaf == null) {
-            return null;
+
+        if (folders != null && !folders.isEmpty()) {
+            return String.format("/%s%s", getName(), folders.get(0).getLeafSightPath());
         }
-        names.add(leaf.getName());
-        return String.join("/", names);
+
+        return null;
     }
 }

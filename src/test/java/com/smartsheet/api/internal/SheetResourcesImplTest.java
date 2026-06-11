@@ -483,12 +483,33 @@ class SheetResourcesImplTest extends ResourcesImplBase {
 
         SheetPathNode result = sheetResource.getSheetPath(1234567890L);
 
+        // workspace root
         assertThat(result).isNotNull();
         assertThat(result.getId()).isEqualTo(4509918431602564L);
         assertThat(result.getName()).isEqualTo("Sample Workspace");
         assertThat(result.getPermalink()).isEqualTo("https://app.smartsheet.com/workspaces/mock_workspace_id");
         assertThat(result.getAccessLevel()).isEqualTo(AccessLevel.OWNER);
+        // level-1 folder
         assertThat(result.getFolders()).hasSize(1);
+        SheetPathNode level1 = result.getFolders().get(0);
+        assertThat(level1.getId()).isEqualTo(1234567890123456L);
+        assertThat(level1.getName()).isEqualTo("Project Plans");
+        assertThat(level1.getPermalink()).isEqualTo("https://app.smartsheet.com/folders/1234567890123456");
+        // level-2 folder (contains the leaf sheet)
+        assertThat(level1.getFolders()).hasSize(1);
+        SheetPathNode level2 = level1.getFolders().get(0);
+        assertThat(level2.getId()).isEqualTo(2345678901234567L);
+        assertThat(level2.getName()).isEqualTo("Project Plans Subfolder");
+        assertThat(level2.getPermalink()).isEqualTo("https://app.smartsheet.com/folders/2345678901234567");
+        // leaf sheet
+        assertThat(level2.getSheets()).hasSize(1);
+        PathLeaf sheet = level2.getSheets().get(0);
+        assertThat(sheet.getId()).isEqualTo(3456789012345678L);
+        assertThat(sheet.getName()).isEqualTo("Project Plan");
+        assertThat(sheet.getPermalink()).isEqualTo("https://app.smartsheet.com/sheets/3456789012345678");
+        assertThat(sheet.getAccessLevel()).isEqualTo(AccessLevel.ADMIN);
+        assertThat(sheet.getCreatedAt()).isEqualTo(ZonedDateTime.parse("2024-01-01T00:00:00Z"));
+        assertThat(sheet.getModifiedAt()).isEqualTo(ZonedDateTime.parse("2024-06-01T00:00:00Z"));
     }
 
     @Test
@@ -496,7 +517,7 @@ class SheetResourcesImplTest extends ResourcesImplBase {
         server.setResponseBody(new File("src/test/resources/getSheetPath.json"));
 
         SheetPathNode result = sheetResource.getSheetPath(1234567890L);
-        PathLeaf leaf = result.getSheet();
+        PathLeaf leaf = result.getLeafSheet();
 
         assertThat(leaf).isNotNull();
         assertThat(leaf.getName()).isEqualTo("Project Plan");
@@ -513,8 +534,8 @@ class SheetResourcesImplTest extends ResourcesImplBase {
 
         SheetPathNode result = sheetResource.getSheetPath(1234567890L);
 
-        assertThat(result.getSheetPath())
-                .isEqualTo("Sample Workspace/Project Plans/Project Plans Subfolder/Project Plan");
+        assertThat(result.getLeafSheetPath())
+                .isEqualTo("/Sample Workspace/Project Plans/Project Plans Subfolder/Project Plan");
     }
 
     @Test
