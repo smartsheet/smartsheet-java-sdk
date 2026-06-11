@@ -42,6 +42,7 @@ public class TestGetFolderPath {
     private static final String WORKSPACE_NAME = "Sample Workspace";
     private static final String WORKSPACE_PERMALINK = "https://app.smartsheet.com/workspaces/mock_workspace_id";
     private static final long NESTED_FOLDER_ID = 3456789012345678L;
+
     @Test
     void testGetFolderPathGeneratedUrlIsCorrect() throws SmartsheetException {
         String requestId = UUID.randomUUID().toString();
