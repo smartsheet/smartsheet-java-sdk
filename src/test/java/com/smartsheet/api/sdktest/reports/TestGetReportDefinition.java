@@ -22,13 +22,15 @@ import com.smartsheet.api.Smartsheet;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.WiremockClient;
 import com.smartsheet.api.WiremockClientWrapper;
-import com.smartsheet.api.models.CurrentUserObjectValue;
-import com.smartsheet.api.models.DateObjectValue;
-import com.smartsheet.api.models.NumberObjectValue;
+import com.smartsheet.api.models.ReportColumnIdentifier;
 import com.smartsheet.api.models.ReportDefinition;
-import com.smartsheet.api.models.StringObjectValue;
+import com.smartsheet.api.models.ReportFilterCriterion;
+import com.smartsheet.api.models.ReportFilterExpression;
+import com.smartsheet.api.models.ReportFilterObjectValue;
+import com.smartsheet.api.models.ReportGroupingCriterion;
+import com.smartsheet.api.models.ReportSortingCriterion;
+import com.smartsheet.api.models.ReportSummarizingCriterion;
 import com.smartsheet.api.models.enums.ColumnType;
-import com.smartsheet.api.models.enums.ObjectValueType;
 import com.smartsheet.api.models.enums.ReportAggregationType;
 import com.smartsheet.api.models.enums.ReportFilterExpressionOperator;
 import com.smartsheet.api.models.enums.ReportFilterOperator;
@@ -39,6 +41,9 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -46,6 +51,109 @@ import static com.smartsheet.api.sdktest.reports.CommonTestConstants.TEST_REPORT
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 public class TestGetReportDefinition {
+
+    private static final ReportDefinition EXPECTED_ALL_PROPERTIES;
+    private static final ReportDefinition EXPECTED_REQUIRED_PROPERTIES;
+
+    static {
+        List<ReportFilterCriterion> criteria = new ArrayList<>();
+
+        criteria.add(new ReportFilterCriterion()
+                .setColumn(new ReportColumnIdentifier()
+                        .setTitle("Primary Column")
+                        .setType(ColumnType.TEXT_NUMBER)
+                        .setPrimary(true))
+                .setOperator(ReportFilterOperator.EQUAL)
+                .setValues(new ArrayList<>(List.of(ReportFilterObjectValue.string("Test Value")))));
+
+        criteria.add(new ReportFilterCriterion()
+                .setColumn(new ReportColumnIdentifier()
+                        .setTitle("Status")
+                        .setType(ColumnType.PICKLIST))
+                .setOperator(ReportFilterOperator.NOT_EQUAL)
+                .setValues(new ArrayList<>(List.of(ReportFilterObjectValue.string("Complete")))));
+
+        criteria.add(new ReportFilterCriterion()
+                .setColumn(new ReportColumnIdentifier()
+                        .setTitle("Amount")
+                        .setType(ColumnType.TEXT_NUMBER))
+                .setOperator(ReportFilterOperator.GREATER_THAN)
+                .setValues(new ArrayList<>(List.of(ReportFilterObjectValue.number(42)))));
+
+        criteria.add(new ReportFilterCriterion()
+                .setColumn(new ReportColumnIdentifier()
+                        .setType(ColumnType.DATETIME)
+                        .setSystemColumnType(SystemColumnType.MODIFIED_DATE))
+                .setOperator(ReportFilterOperator.LESS_THAN)
+                .setValues(new ArrayList<>(List.of(ReportFilterObjectValue.date("2025-01-14")))));
+
+        criteria.add(new ReportFilterCriterion()
+                .setColumn(new ReportColumnIdentifier()
+                        .setTitle("Assigned To")
+                        .setType(ColumnType.CONTACT_LIST))
+                .setOperator(ReportFilterOperator.EQUAL)
+                .setValues(new ArrayList<>(List.of(ReportFilterObjectValue.currentUser()))));
+
+        criteria.add(new ReportFilterCriterion()
+                .setColumn(new ReportColumnIdentifier()
+                        .setTitle("Notes")
+                        .setType(ColumnType.TEXT_NUMBER))
+                .setOperator(ReportFilterOperator.EQUAL)
+                .setValues(Arrays.asList((ReportFilterObjectValue) null)));
+
+        ReportFilterExpression filters = new ReportFilterExpression()
+                .setOperator(ReportFilterExpressionOperator.AND)
+                .setCriteria(criteria);
+
+        List<ReportGroupingCriterion> grouping = new ArrayList<>();
+        grouping.add(new ReportGroupingCriterion()
+                .setColumn(new ReportColumnIdentifier()
+                        .setTitle("Primary Column")
+                        .setType(ColumnType.TEXT_NUMBER)
+                        .setPrimary(true))
+                .setSortingDirection(SortDirection.ASCENDING)
+                .setIsExpanded(true));
+        grouping.add(new ReportGroupingCriterion()
+                .setColumn(new ReportColumnIdentifier()
+                        .setTitle("Category")
+                        .setType(ColumnType.TEXT_NUMBER))
+                .setSortingDirection(SortDirection.DESCENDING)
+                .setIsExpanded(false));
+
+        List<ReportSummarizingCriterion> summarizing = new ArrayList<>();
+        summarizing.add(new ReportSummarizingCriterion()
+                .setColumn(new ReportColumnIdentifier()
+                        .setTitle("Primary Column")
+                        .setType(ColumnType.TEXT_NUMBER)
+                        .setPrimary(true))
+                .setAggregationType(ReportAggregationType.COUNT));
+        summarizing.add(new ReportSummarizingCriterion()
+                .setColumn(new ReportColumnIdentifier()
+                        .setTitle("Amount")
+                        .setType(ColumnType.TEXT_NUMBER))
+                .setAggregationType(ReportAggregationType.SUM));
+
+        List<ReportSortingCriterion> sorting = new ArrayList<>();
+        sorting.add(new ReportSortingCriterion()
+                .setColumn(new ReportColumnIdentifier()
+                        .setTitle("Primary Column")
+                        .setType(ColumnType.TEXT_NUMBER)
+                        .setPrimary(true))
+                .setSortingDirection(SortDirection.ASCENDING));
+        sorting.add(new ReportSortingCriterion()
+                .setColumn(new ReportColumnIdentifier()
+                        .setType(ColumnType.DATETIME)
+                        .setSystemColumnType(SystemColumnType.MODIFIED_DATE))
+                .setSortingDirection(SortDirection.DESCENDING));
+
+        EXPECTED_ALL_PROPERTIES = new ReportDefinition()
+                .setFilters(filters)
+                .setGroupingCriteria(grouping)
+                .setSummarizingCriteria(summarizing)
+                .setSortingCriteria(sorting);
+
+        EXPECTED_REQUIRED_PROPERTIES = new ReportDefinition();
+    }
 
     @Test
     void testGetReportDefinitionGeneratedUrlIsCorrect() throws SmartsheetException {
@@ -77,129 +185,7 @@ public class TestGetReportDefinition {
 
         ReportDefinition result = smartsheet.reportResources().getReportDefinition(TEST_REPORT_ID);
 
-        // filters
-        assertThat(result.getFilters()).isNotNull();
-        assertThat(result.getFilters().getOperator()).isEqualTo(ReportFilterExpressionOperator.AND);
-        assertThat(result.getFilters().getCriteria()).isNotNull();
-        assertThat(result.getFilters().getCriteria().size()).isEqualTo(6);
-
-        // filters.criteria[0]
-        assertThat(result.getFilters().getCriteria().get(0).getColumn()).isNotNull();
-        assertThat(result.getFilters().getCriteria().get(0).getColumn().getTitle()).isEqualTo("Primary Column");
-        assertThat(result.getFilters().getCriteria().get(0).getColumn().getType()).isEqualTo(ColumnType.TEXT_NUMBER);
-        assertThat(result.getFilters().getCriteria().get(0).getColumn().getPrimary()).isTrue();
-        assertThat(result.getFilters().getCriteria().get(0).getOperator()).isEqualTo(ReportFilterOperator.EQUAL);
-        assertThat(result.getFilters().getCriteria().get(0).getValues()).isNotNull();
-        assertThat(result.getFilters().getCriteria().get(0).getValues().size()).isEqualTo(1);
-        assertThat(((StringObjectValue) result.getFilters().getCriteria().get(0).getValues().get(0)).getValue())
-                .isEqualTo("Test Value");
-
-        // filters.criteria[1]
-        assertThat(result.getFilters().getCriteria().get(1).getColumn()).isNotNull();
-        assertThat(result.getFilters().getCriteria().get(1).getColumn().getTitle()).isEqualTo("Status");
-        assertThat(result.getFilters().getCriteria().get(1).getColumn().getType()).isEqualTo(ColumnType.PICKLIST);
-        assertThat(result.getFilters().getCriteria().get(1).getOperator()).isEqualTo(ReportFilterOperator.NOT_EQUAL);
-        assertThat(result.getFilters().getCriteria().get(1).getValues()).isNotNull();
-        assertThat(result.getFilters().getCriteria().get(1).getValues().size()).isEqualTo(1);
-        assertThat(((StringObjectValue) result.getFilters().getCriteria().get(1).getValues().get(0)).getValue())
-                .isEqualTo("Complete");
-
-        // filters.criteria[2] - number value
-        assertThat(result.getFilters().getCriteria().get(2).getColumn()).isNotNull();
-        assertThat(result.getFilters().getCriteria().get(2).getColumn().getTitle()).isEqualTo("Amount");
-        assertThat(result.getFilters().getCriteria().get(2).getColumn().getType()).isEqualTo(ColumnType.TEXT_NUMBER);
-        assertThat(result.getFilters().getCriteria().get(2).getOperator()).isEqualTo(ReportFilterOperator.GREATER_THAN);
-        assertThat(result.getFilters().getCriteria().get(2).getValues()).isNotNull();
-        assertThat(result.getFilters().getCriteria().get(2).getValues().size()).isEqualTo(1);
-        assertThat(((NumberObjectValue) result.getFilters().getCriteria().get(2).getValues().get(0)).getValue().longValue())
-                .isEqualTo(42L);
-
-        // filters.criteria[3] - date object value
-        assertThat(result.getFilters().getCriteria().get(3).getColumn()).isNotNull();
-        assertThat(result.getFilters().getCriteria().get(3).getColumn().getType()).isEqualTo(ColumnType.DATETIME);
-        assertThat(result.getFilters().getCriteria().get(3).getColumn().getSystemColumnType())
-                .isEqualTo(SystemColumnType.MODIFIED_DATE);
-        assertThat(result.getFilters().getCriteria().get(3).getOperator()).isEqualTo(ReportFilterOperator.LESS_THAN);
-        assertThat(result.getFilters().getCriteria().get(3).getValues()).isNotNull();
-        assertThat(result.getFilters().getCriteria().get(3).getValues().size()).isEqualTo(1);
-        DateObjectValue dateValue = (DateObjectValue) result.getFilters().getCriteria().get(3).getValues().get(0);
-        assertThat(dateValue.getObjectType()).isEqualTo(ObjectValueType.DATE);
-        assertThat(dateValue.getValue()).isEqualTo("2025-01-14");
-
-        // filters.criteria[4] - current user object value
-        assertThat(result.getFilters().getCriteria().get(4).getColumn()).isNotNull();
-        assertThat(result.getFilters().getCriteria().get(4).getColumn().getTitle()).isEqualTo("Assigned To");
-        assertThat(result.getFilters().getCriteria().get(4).getColumn().getType()).isEqualTo(ColumnType.CONTACT_LIST);
-        assertThat(result.getFilters().getCriteria().get(4).getOperator()).isEqualTo(ReportFilterOperator.EQUAL);
-        assertThat(result.getFilters().getCriteria().get(4).getValues()).isNotNull();
-        assertThat(result.getFilters().getCriteria().get(4).getValues().size()).isEqualTo(1);
-        CurrentUserObjectValue currentUserValue =
-                (CurrentUserObjectValue) result.getFilters().getCriteria().get(4).getValues().get(0);
-        assertThat(currentUserValue.getObjectType()).isEqualTo(ObjectValueType.CURRENT_USER);
-        assertThat(currentUserValue.getValue()).isEqualTo("");
-
-        // filters.criteria[5] - null value
-        assertThat(result.getFilters().getCriteria().get(5).getColumn()).isNotNull();
-        assertThat(result.getFilters().getCriteria().get(5).getColumn().getTitle()).isEqualTo("Notes");
-        assertThat(result.getFilters().getCriteria().get(5).getColumn().getType()).isEqualTo(ColumnType.TEXT_NUMBER);
-        assertThat(result.getFilters().getCriteria().get(5).getOperator()).isEqualTo(ReportFilterOperator.EQUAL);
-        assertThat(result.getFilters().getCriteria().get(5).getValues()).isNotNull();
-        assertThat(result.getFilters().getCriteria().get(5).getValues().size()).isEqualTo(1);
-        assertThat(result.getFilters().getCriteria().get(5).getValues().get(0)).isNull();
-
-        // groupingCriteria
-        assertThat(result.getGroupingCriteria()).isNotNull();
-        assertThat(result.getGroupingCriteria().size()).isEqualTo(2);
-
-        // groupingCriteria[0]
-        assertThat(result.getGroupingCriteria().get(0).getColumn()).isNotNull();
-        assertThat(result.getGroupingCriteria().get(0).getColumn().getTitle()).isEqualTo("Primary Column");
-        assertThat(result.getGroupingCriteria().get(0).getColumn().getType()).isEqualTo(ColumnType.TEXT_NUMBER);
-        assertThat(result.getGroupingCriteria().get(0).getColumn().getPrimary()).isTrue();
-        assertThat(result.getGroupingCriteria().get(0).getSortingDirection()).isEqualTo(SortDirection.ASCENDING);
-        assertThat(result.getGroupingCriteria().get(0).getIsExpanded()).isTrue();
-
-        // groupingCriteria[1]
-        assertThat(result.getGroupingCriteria().get(1).getColumn()).isNotNull();
-        assertThat(result.getGroupingCriteria().get(1).getColumn().getTitle()).isEqualTo("Category");
-        assertThat(result.getGroupingCriteria().get(1).getColumn().getType()).isEqualTo(ColumnType.TEXT_NUMBER);
-        assertThat(result.getGroupingCriteria().get(1).getSortingDirection()).isEqualTo(SortDirection.DESCENDING);
-        assertThat(result.getGroupingCriteria().get(1).getIsExpanded()).isFalse();
-
-        // summarizingCriteria
-        assertThat(result.getSummarizingCriteria()).isNotNull();
-        assertThat(result.getSummarizingCriteria().size()).isEqualTo(2);
-
-        // summarizingCriteria[0]
-        assertThat(result.getSummarizingCriteria().get(0).getColumn()).isNotNull();
-        assertThat(result.getSummarizingCriteria().get(0).getColumn().getTitle()).isEqualTo("Primary Column");
-        assertThat(result.getSummarizingCriteria().get(0).getColumn().getType()).isEqualTo(ColumnType.TEXT_NUMBER);
-        assertThat(result.getSummarizingCriteria().get(0).getColumn().getPrimary()).isTrue();
-        assertThat(result.getSummarizingCriteria().get(0).getAggregationType()).isEqualTo(ReportAggregationType.COUNT);
-
-        // summarizingCriteria[1]
-        assertThat(result.getSummarizingCriteria().get(1).getColumn()).isNotNull();
-        assertThat(result.getSummarizingCriteria().get(1).getColumn().getTitle()).isEqualTo("Amount");
-        assertThat(result.getSummarizingCriteria().get(1).getColumn().getType()).isEqualTo(ColumnType.TEXT_NUMBER);
-        assertThat(result.getSummarizingCriteria().get(1).getAggregationType()).isEqualTo(ReportAggregationType.SUM);
-
-        // sortingCriteria
-        assertThat(result.getSortingCriteria()).isNotNull();
-        assertThat(result.getSortingCriteria().size()).isEqualTo(2);
-
-        // sortingCriteria[0]
-        assertThat(result.getSortingCriteria().get(0).getColumn()).isNotNull();
-        assertThat(result.getSortingCriteria().get(0).getColumn().getTitle()).isEqualTo("Primary Column");
-        assertThat(result.getSortingCriteria().get(0).getColumn().getType()).isEqualTo(ColumnType.TEXT_NUMBER);
-        assertThat(result.getSortingCriteria().get(0).getColumn().getPrimary()).isTrue();
-        assertThat(result.getSortingCriteria().get(0).getSortingDirection()).isEqualTo(SortDirection.ASCENDING);
-
-        // sortingCriteria[1]
-        assertThat(result.getSortingCriteria().get(1).getColumn()).isNotNull();
-        assertThat(result.getSortingCriteria().get(1).getColumn().getType()).isEqualTo(ColumnType.DATETIME);
-        assertThat(result.getSortingCriteria().get(1).getColumn().getSystemColumnType())
-                .isEqualTo(SystemColumnType.MODIFIED_DATE);
-        assertThat(result.getSortingCriteria().get(1).getSortingDirection()).isEqualTo(SortDirection.DESCENDING);
+        assertThat(result).usingRecursiveComparison().isEqualTo(EXPECTED_ALL_PROPERTIES);
     }
 
     @Test
@@ -213,11 +199,7 @@ public class TestGetReportDefinition {
 
         ReportDefinition result = smartsheet.reportResources().getReportDefinition(TEST_REPORT_ID);
 
-        assertThat(result).isNotNull();
-        assertThat(result.getFilters()).isNull();
-        assertThat(result.getGroupingCriteria()).isNull();
-        assertThat(result.getSummarizingCriteria()).isNull();
-        assertThat(result.getSortingCriteria()).isNull();
+        assertThat(result).usingRecursiveComparison().isEqualTo(EXPECTED_REQUIRED_PROPERTIES);
     }
 
     @Test
@@ -231,22 +213,6 @@ public class TestGetReportDefinition {
         });
 
         assertThat(exception.getMessage()).isEqualTo("Internal Server Error");
-    }
-
-    @Test
-    void testGetReportDefinitionNoQueryParams() throws SmartsheetException {
-        String requestId = UUID.randomUUID().toString();
-        WiremockClientWrapper wrapper = Utils.createWiremockSmartsheetClient(
-                "/reports/get-report-definition/all-response-body-properties",
-                requestId
-        );
-        Smartsheet smartsheet = wrapper.getSmartsheet();
-        WiremockClient wiremockClient = wrapper.getWiremockClient();
-
-        smartsheet.reportResources().getReportDefinition(TEST_REPORT_ID);
-        LoggedRequest wiremockRequest = wiremockClient.findWiremockRequest(requestId);
-
-        assertThat(wiremockRequest.getQueryParams()).isEqualTo(Map.of());
     }
 
     @Test

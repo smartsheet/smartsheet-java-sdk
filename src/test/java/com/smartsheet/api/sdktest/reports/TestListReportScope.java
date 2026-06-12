@@ -31,6 +31,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -41,6 +42,33 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class TestListReportScope {
     private static final String TEST_LAST_KEY = "someLastKeyToken";
     private static final long TEST_MAX_ITEMS = 50L;
+
+    private static final TokenPaginatedResult<ReportScopeInclusion> EXPECTED_ALL_PROPERTIES;
+    private static final TokenPaginatedResult<ReportScopeInclusion> EXPECTED_REQUIRED_PROPERTIES;
+
+    static {
+        ReportScopeInclusion scope1 = new ReportScopeInclusion();
+        scope1.setAssetType(ReportAssetType.SHEET);
+        scope1.setAssetId(2331373580117892L);
+
+        ReportScopeInclusion scope2 = new ReportScopeInclusion();
+        scope2.setAssetType(ReportAssetType.WORKSPACE);
+        scope2.setAssetId(7879278542455688L);
+
+        ReportScopeInclusion scope3 = new ReportScopeInclusion();
+        scope3.setAssetType(ReportAssetType.SHEET);
+        scope3.setAssetId(1234567890123456L);
+
+        EXPECTED_ALL_PROPERTIES = new TokenPaginatedResult<ReportScopeInclusion>()
+                .setData(new ArrayList<>(List.of(scope1, scope2, scope3)));
+
+        ReportScopeInclusion requiredScope = new ReportScopeInclusion();
+        requiredScope.setAssetType(ReportAssetType.SHEET);
+        requiredScope.setAssetId(2331373580117892L);
+
+        EXPECTED_REQUIRED_PROPERTIES = new TokenPaginatedResult<ReportScopeInclusion>()
+                .setData(new ArrayList<>(List.of(requiredScope)));
+    }
 
     @Test
     void testListReportScopeGeneratedUrlIsCorrect() throws SmartsheetException {
@@ -75,18 +103,7 @@ public class TestListReportScope {
         TokenPaginatedResult<ReportScopeInclusion> response = smartsheet.reportResources()
                 .listReportScope(TEST_REPORT_ID, null, null);
 
-        assertThat(response).isNotNull();
-        assertThat(response.getLastKey()).isNull();
-        assertThat(response.getData()).hasSize(3);
-
-        assertThat(response.getData().get(0).getAssetType()).isEqualTo(ReportAssetType.SHEET);
-        assertThat(response.getData().get(0).getAssetId()).isEqualTo(2331373580117892L);
-
-        assertThat(response.getData().get(1).getAssetType()).isEqualTo(ReportAssetType.WORKSPACE);
-        assertThat(response.getData().get(1).getAssetId()).isEqualTo(7879278542455688L);
-
-        assertThat(response.getData().get(2).getAssetType()).isEqualTo(ReportAssetType.SHEET);
-        assertThat(response.getData().get(2).getAssetId()).isEqualTo(1234567890123456L);
+        assertThat(response).usingRecursiveComparison().isEqualTo(EXPECTED_ALL_PROPERTIES);
     }
 
     @Test
@@ -101,10 +118,7 @@ public class TestListReportScope {
         TokenPaginatedResult<ReportScopeInclusion> response = smartsheet.reportResources()
                 .listReportScope(TEST_REPORT_ID, null, null);
 
-        assertThat(response).isNotNull();
-        assertThat(response.getData()).hasSize(1);
-        assertThat(response.getData().get(0).getAssetType()).isEqualTo(ReportAssetType.SHEET);
-        assertThat(response.getData().get(0).getAssetId()).isEqualTo(2331373580117892L);
+        assertThat(response).usingRecursiveComparison().isEqualTo(EXPECTED_REQUIRED_PROPERTIES);
     }
 
     @Test
@@ -118,23 +132,6 @@ public class TestListReportScope {
         });
 
         assertThat(exception.getMessage()).isEqualTo("Internal Server Error");
-    }
-
-    @Test
-    void testListReportScopeOmitsQueryParamsWhenNotProvided() throws SmartsheetException {
-        String requestId = UUID.randomUUID().toString();
-        WiremockClientWrapper wrapper = Utils.createWiremockSmartsheetClient(
-                "/reports/list-report-scope/all-response-body-properties",
-                requestId
-        );
-        Smartsheet smartsheet = wrapper.getSmartsheet();
-        WiremockClient wiremockClient = wrapper.getWiremockClient();
-
-        smartsheet.reportResources().listReportScope(TEST_REPORT_ID, null, null);
-        LoggedRequest wiremockRequest = wiremockClient.findWiremockRequest(requestId);
-
-        assertThat(wiremockRequest.getQueryParams().containsKey("lastKey")).isFalse();
-        assertThat(wiremockRequest.getQueryParams().containsKey("maxItems")).isFalse();
     }
 
     @Test

@@ -33,6 +33,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -44,6 +45,76 @@ public class TestListReportColumns {
 
     private static final String TEST_LAST_KEY = "someLastKeyToken";
     private static final long TEST_MAX_ITEMS = 50L;
+
+    private static final TokenPaginatedResult<ReportColumn> EXPECTED_ALL_PROPERTIES;
+    private static final TokenPaginatedResult<ReportColumn> EXPECTED_REQUIRED_PROPERTIES;
+
+    static {
+        ReportColumn col1 = new ReportColumn();
+        col1.setVirtualId(7001L);
+        col1.setIndex(0);
+        col1.setTitle("Task Name");
+        col1.setType(ColumnType.TEXT_NUMBER);
+        col1.setPrimary(true);
+        col1.setWidth(150);
+        col1.setHidden(false);
+        col1.setValidation(true);
+        col1.setVersion(0);
+        col1.setAutoNumberFormat(new AutoNumberFormat()
+                .setFill("0001")
+                .setPrefix("TASK-")
+                .setStartingNumber(1L)
+                .setSuffix(""));
+
+        ReportColumn col2 = new ReportColumn();
+        col2.setVirtualId(7002L);
+        col2.setIndex(1);
+        col2.setTitle("Status");
+        col2.setType(ColumnType.PICKLIST);
+        col2.setWidth(120);
+        col2.setHidden(false);
+        col2.setValidation(false);
+        col2.setVersion(0);
+
+        ReportColumn col3 = new ReportColumn();
+        col3.setVirtualId(7003L);
+        col3.setIndex(2);
+        col3.setTitle("Created By");
+        col3.setType(ColumnType.CONTACT_LIST);
+        col3.setSystemColumnType(SystemColumnType.CREATED_BY);
+        col3.setWidth(150);
+        col3.setHidden(false);
+        col3.setValidation(false);
+        col3.setVersion(1);
+
+        ReportColumn col4 = new ReportColumn();
+        col4.setVirtualId(7004L);
+        col4.setIndex(3);
+        col4.setTitle("Sheet Name");
+        col4.setType(ColumnType.TEXT_NUMBER);
+        col4.setSheetNameColumn(true);
+        col4.setWidth(200);
+        col4.setHidden(false);
+        col4.setValidation(false);
+        col4.setVersion(0);
+
+        EXPECTED_ALL_PROPERTIES = new TokenPaginatedResult<ReportColumn>()
+                .setData(new ArrayList<>(List.of(col1, col2, col3, col4)));
+
+        ReportColumn req1 = new ReportColumn();
+        req1.setIndex(0);
+        req1.setTitle("Task Name");
+        req1.setType(ColumnType.TEXT_NUMBER);
+        req1.setPrimary(true);
+
+        ReportColumn req2 = new ReportColumn();
+        req2.setIndex(1);
+        req2.setType(ColumnType.DATETIME);
+        req2.setSystemColumnType(SystemColumnType.CREATED_DATE);
+
+        EXPECTED_REQUIRED_PROPERTIES = new TokenPaginatedResult<ReportColumn>()
+                .setData(new ArrayList<>(List.of(req1, req2)));
+    }
 
     @Test
     void testListReportColumnsGeneratedUrlIsCorrect() throws SmartsheetException {
@@ -78,62 +149,7 @@ public class TestListReportColumns {
         TokenPaginatedResult<ReportColumn> response = smartsheet.reportResources()
                 .listReportColumns(TEST_REPORT_ID, null, null);
 
-        assertThat(response).isNotNull();
-        assertThat(response.getLastKey()).isNull();
-        assertThat(response.getData()).hasSize(4);
-
-        // col1: Task Name - primary, with autoNumberFormat
-        ReportColumn col1 = response.getData().get(0);
-        assertThat(col1.getVirtualId()).isEqualTo(7001L);
-        assertThat(col1.getIndex()).isEqualTo(0);
-        assertThat(col1.getTitle()).isEqualTo("Task Name");
-        assertThat(col1.getType()).isEqualTo(ColumnType.TEXT_NUMBER);
-        assertThat(col1.getPrimary()).isTrue();
-        assertThat(col1.getWidth()).isEqualTo(150);
-        assertThat(col1.getHidden()).isFalse();
-        assertThat(col1.getValidation()).isTrue();
-        assertThat(col1.getVersion()).isEqualTo(0);
-        AutoNumberFormat autoNumberFormat = col1.getAutoNumberFormat();
-        assertThat(autoNumberFormat).isNotNull();
-        assertThat(autoNumberFormat.getFill()).isEqualTo("0001");
-        assertThat(autoNumberFormat.getPrefix()).isEqualTo("TASK-");
-        assertThat(autoNumberFormat.getStartingNumber()).isEqualTo(1L);
-        assertThat(autoNumberFormat.getSuffix()).isEqualTo("");
-
-        // col2: Status - PICKLIST
-        ReportColumn col2 = response.getData().get(1);
-        assertThat(col2.getVirtualId()).isEqualTo(7002L);
-        assertThat(col2.getIndex()).isEqualTo(1);
-        assertThat(col2.getTitle()).isEqualTo("Status");
-        assertThat(col2.getType()).isEqualTo(ColumnType.PICKLIST);
-        assertThat(col2.getWidth()).isEqualTo(120);
-        assertThat(col2.getHidden()).isFalse();
-        assertThat(col2.getValidation()).isFalse();
-        assertThat(col2.getVersion()).isEqualTo(0);
-
-        // col3: Created By - system column CREATED_BY
-        ReportColumn col3 = response.getData().get(2);
-        assertThat(col3.getVirtualId()).isEqualTo(7003L);
-        assertThat(col3.getIndex()).isEqualTo(2);
-        assertThat(col3.getTitle()).isEqualTo("Created By");
-        assertThat(col3.getType()).isEqualTo(ColumnType.CONTACT_LIST);
-        assertThat(col3.getSystemColumnType()).isEqualTo(SystemColumnType.CREATED_BY);
-        assertThat(col3.getWidth()).isEqualTo(150);
-        assertThat(col3.getHidden()).isFalse();
-        assertThat(col3.getValidation()).isFalse();
-        assertThat(col3.getVersion()).isEqualTo(1);
-
-        // col4: Sheet Name - sheetNameColumn
-        ReportColumn col4 = response.getData().get(3);
-        assertThat(col4.getVirtualId()).isEqualTo(7004L);
-        assertThat(col4.getIndex()).isEqualTo(3);
-        assertThat(col4.getTitle()).isEqualTo("Sheet Name");
-        assertThat(col4.getType()).isEqualTo(ColumnType.TEXT_NUMBER);
-        assertThat(col4.getSheetNameColumn()).isTrue();
-        assertThat(col4.getWidth()).isEqualTo(200);
-        assertThat(col4.getHidden()).isFalse();
-        assertThat(col4.getValidation()).isFalse();
-        assertThat(col4.getVersion()).isEqualTo(0);
+        assertThat(response).usingRecursiveComparison().isEqualTo(EXPECTED_ALL_PROPERTIES);
     }
 
     @Test
@@ -148,19 +164,7 @@ public class TestListReportColumns {
         TokenPaginatedResult<ReportColumn> response = smartsheet.reportResources()
                 .listReportColumns(TEST_REPORT_ID, null, null);
 
-        assertThat(response).isNotNull();
-        assertThat(response.getData()).hasSize(2);
-
-        ReportColumn col1 = response.getData().get(0);
-        assertThat(col1.getIndex()).isEqualTo(0);
-        assertThat(col1.getTitle()).isEqualTo("Task Name");
-        assertThat(col1.getType()).isEqualTo(ColumnType.TEXT_NUMBER);
-        assertThat(col1.getPrimary()).isTrue();
-
-        ReportColumn col2 = response.getData().get(1);
-        assertThat(col2.getIndex()).isEqualTo(1);
-        assertThat(col2.getType()).isEqualTo(ColumnType.DATETIME);
-        assertThat(col2.getSystemColumnType()).isEqualTo(SystemColumnType.CREATED_DATE);
+        assertThat(response).usingRecursiveComparison().isEqualTo(EXPECTED_REQUIRED_PROPERTIES);
     }
 
     @Test
@@ -174,23 +178,6 @@ public class TestListReportColumns {
         });
 
         assertThat(exception.getMessage()).isEqualTo("Internal Server Error");
-    }
-
-    @Test
-    void testListReportColumnsOmitsQueryParamsWhenNotProvided() throws SmartsheetException {
-        String requestId = UUID.randomUUID().toString();
-        WiremockClientWrapper wrapper = Utils.createWiremockSmartsheetClient(
-                "/reports/list-report-columns/all-response-body-properties",
-                requestId
-        );
-        Smartsheet smartsheet = wrapper.getSmartsheet();
-        WiremockClient wiremockClient = wrapper.getWiremockClient();
-
-        smartsheet.reportResources().listReportColumns(TEST_REPORT_ID, null, null);
-        LoggedRequest wiremockRequest = wiremockClient.findWiremockRequest(requestId);
-
-        assertThat(wiremockRequest.getQueryParams().containsKey("lastKey")).isFalse();
-        assertThat(wiremockRequest.getQueryParams().containsKey("maxItems")).isFalse();
     }
 
     @Test

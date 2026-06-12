@@ -46,6 +46,33 @@ public class TestUpdateReportColumn {
 
     private UpdateReportColumnRequest testRequest;
 
+    private static final ReportColumn EXPECTED_ALL_PROPERTIES;
+    private static final ReportColumn EXPECTED_REQUIRED_PROPERTIES;
+
+    static {
+        EXPECTED_ALL_PROPERTIES = new ReportColumn();
+        EXPECTED_ALL_PROPERTIES.setVirtualId(7001L);
+        EXPECTED_ALL_PROPERTIES.setIndex(2);
+        EXPECTED_ALL_PROPERTIES.setTitle("Updated Task Name");
+        EXPECTED_ALL_PROPERTIES.setType(ColumnType.TEXT_NUMBER);
+        EXPECTED_ALL_PROPERTIES.setPrimary(true);
+        EXPECTED_ALL_PROPERTIES.setWidth(200);
+        EXPECTED_ALL_PROPERTIES.setHidden(false);
+        EXPECTED_ALL_PROPERTIES.setValidation(true);
+        EXPECTED_ALL_PROPERTIES.setVersion(0);
+        EXPECTED_ALL_PROPERTIES.setAutoNumberFormat(new AutoNumberFormat()
+                .setFill("0001")
+                .setPrefix("TASK-")
+                .setStartingNumber(1L)
+                .setSuffix(""));
+
+        EXPECTED_REQUIRED_PROPERTIES = new ReportColumn();
+        EXPECTED_REQUIRED_PROPERTIES.setIndex(1);
+        EXPECTED_REQUIRED_PROPERTIES.setTitle("Updated Column");
+        EXPECTED_REQUIRED_PROPERTIES.setType(ColumnType.TEXT_NUMBER);
+        EXPECTED_REQUIRED_PROPERTIES.setPrimary(true);
+    }
+
     private static final Map<String, Object> EXPECTED_REQUEST_BODY = Map.of(
             "title", "Updated Task Name",
             "index", 2,
@@ -99,23 +126,7 @@ public class TestUpdateReportColumn {
         String expectedJson = objectMapper.writeValueAsString(EXPECTED_REQUEST_BODY);
         assertThat(objectMapper.readTree(requestBody)).isEqualTo(objectMapper.readTree(expectedJson));
 
-        assertThat(result).isInstanceOf(ReportColumn.class);
-        assertThat(result.getVirtualId()).isEqualTo(7001L);
-        assertThat(result.getIndex()).isEqualTo(2);
-        assertThat(result.getTitle()).isEqualTo("Updated Task Name");
-        assertThat(result.getType()).isEqualTo(ColumnType.TEXT_NUMBER);
-        assertThat(result.getPrimary()).isTrue();
-        assertThat(result.getWidth()).isEqualTo(200);
-        assertThat(result.getHidden()).isFalse();
-        assertThat(result.getValidation()).isTrue();
-        assertThat(result.getVersion()).isEqualTo(0);
-
-        AutoNumberFormat autoNumberFormat = result.getAutoNumberFormat();
-        assertThat(autoNumberFormat).isNotNull();
-        assertThat(autoNumberFormat.getFill()).isEqualTo("0001");
-        assertThat(autoNumberFormat.getPrefix()).isEqualTo("TASK-");
-        assertThat(autoNumberFormat.getStartingNumber()).isEqualTo(1L);
-        assertThat(autoNumberFormat.getSuffix()).isEqualTo("");
+        assertThat(result).usingRecursiveComparison().isEqualTo(EXPECTED_ALL_PROPERTIES);
     }
 
     @Test
@@ -136,12 +147,7 @@ public class TestUpdateReportColumn {
         String expectedJson = objectMapper.writeValueAsString(EXPECTED_REQUEST_BODY);
         assertThat(objectMapper.readTree(requestBody)).isEqualTo(objectMapper.readTree(expectedJson));
 
-        assertThat(result).isInstanceOf(ReportColumn.class);
-        assertThat(result.getIndex()).isEqualTo(1);
-        assertThat(result.getTitle()).isEqualTo("Updated Column");
-        assertThat(result.getType()).isEqualTo(ColumnType.TEXT_NUMBER);
-        assertThat(result.getPrimary()).isTrue();
-        assertThat(result.getVirtualId()).isNull();
+        assertThat(result).usingRecursiveComparison().isEqualTo(EXPECTED_REQUIRED_PROPERTIES);
     }
 
     @Test

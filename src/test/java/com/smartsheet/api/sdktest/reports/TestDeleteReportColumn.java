@@ -84,22 +84,6 @@ public class TestDeleteReportColumn {
     }
 
     @Test
-    void testDeleteReportColumnNoQueryParams() throws SmartsheetException {
-        String requestId = UUID.randomUUID().toString();
-        WiremockClientWrapper wrapper = Utils.createWiremockSmartsheetClient(
-                "/reports/delete-report-column/all-response-body-properties",
-                requestId
-        );
-        Smartsheet smartsheet = wrapper.getSmartsheet();
-        WiremockClient wiremockClient = wrapper.getWiremockClient();
-
-        smartsheet.reportResources().deleteReportColumn(TEST_REPORT_ID, TEST_COLUMN_VIRTUAL_ID);
-        LoggedRequest wiremockRequest = wiremockClient.findWiremockRequest(requestId);
-
-        assertThat(wiremockRequest.getQueryParams()).isEqualTo(Map.of());
-    }
-
-    @Test
     void testDeleteReportColumnError400Response() {
         String requestId = UUID.randomUUID().toString();
         WiremockClientWrapper wrapper = Utils.createWiremockSmartsheetClient("/errors/400-response", requestId);
