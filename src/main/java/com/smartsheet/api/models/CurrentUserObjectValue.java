@@ -16,6 +16,7 @@
 
 package com.smartsheet.api.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.smartsheet.api.models.enums.ObjectValueType;
 
@@ -23,8 +24,8 @@ import com.smartsheet.api.models.enums.ObjectValueType;
  * Represents a CURRENT_USER filter value for report filters.
  * <p>
  * This is used to match against the current authenticated user in report filter criteria.
- * The objectType is "CURRENT_USER" which is not part of the standard ObjectValueType enum
- * as it's specific to report filters.
+ * The objectType is represented by {@link com.smartsheet.api.models.enums.ObjectValueType#CURRENT_USER},
+ * which is specific to report filters.
  */
 public class CurrentUserObjectValue implements ReportFilterObjectValue {
 
@@ -83,12 +84,16 @@ public class CurrentUserObjectValue implements ReportFilterObjectValue {
     }
 
     /**
-     * Returns null since CURRENT_USER is not part of the standard ObjectValueType enum.
-     * The objectType field is handled separately via {@link #getObjectTypeString()}.
+     * Returns the object value type for a CURRENT_USER filter value.
+     * Annotated {@link JsonIgnore} so serialization is driven solely by
+     * {@link #getObjectTypeString()}, keeping the wire format
+     * {@code {"objectType":"CURRENT_USER","value":""}}.
      *
-     * @return null
+     * @return {@link ObjectValueType#CURRENT_USER}
      */
+    @JsonIgnore
+    @Override
     public ObjectValueType getObjectType() {
-        return null;
+        return ObjectValueType.CURRENT_USER;
     }
 }

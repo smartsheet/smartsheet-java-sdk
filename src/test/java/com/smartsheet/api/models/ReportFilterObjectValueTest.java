@@ -61,6 +61,18 @@ public class ReportFilterObjectValueTest {
     }
 
     @Test
+    void testGetObjectTypeForEachImplementation() {
+        assertThat(ReportFilterObjectValue.string("x").getObjectType())
+                .isEqualTo(ObjectValueType.STRING);
+        assertThat(ReportFilterObjectValue.number(42).getObjectType())
+                .isEqualTo(ObjectValueType.NUMBER);
+        assertThat(ReportFilterObjectValue.date("2024-01-01").getObjectType())
+                .isEqualTo(ObjectValueType.DATE);
+        assertThat(ReportFilterObjectValue.currentUser().getObjectType())
+                .isEqualTo(ObjectValueType.CURRENT_USER);
+    }
+
+    @Test
     void testSerializationOfMixedValues() throws JsonProcessingException {
         ReportFilterCriterion criterion = new ReportFilterCriterion();
         criterion.setValues(Arrays.asList(

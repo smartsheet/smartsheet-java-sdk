@@ -23,7 +23,8 @@ import java.util.Date;
 /**
  * Marker interface for filter values used in {@link ReportFilterCriterion}.
  * <p>
- * This interface extends {@link ObjectValue} and provides type safety for report filter values.
+ * This is a standalone interface (it does not extend {@link ObjectValue}) that provides type
+ * safety for report filter values and exposes each value's {@link ObjectValueType}.
  * Implementations include:
  * <ul>
  * <li>{@link StringObjectValue} - for string values</li>
@@ -43,6 +44,13 @@ import java.util.Date;
  * </pre>
  */
 public interface ReportFilterObjectValue {
+
+    /**
+     * Gets the object value type for this filter value.
+     *
+     * @return the {@link ObjectValueType}
+     */
+    ObjectValueType getObjectType();
 
     /**
      * Creates a string filter value.

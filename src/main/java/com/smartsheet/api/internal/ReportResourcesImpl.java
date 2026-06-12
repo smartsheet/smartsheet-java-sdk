@@ -583,7 +583,7 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
      */
     @Override
     public ReportColumn updateReportColumn(long reportId, long columnVirtualId, UpdateReportColumnRequest request) throws SmartsheetException {
-        return this.putResource(REPORTS_PATH + reportId + "/columns/" + columnVirtualId,
+        return this.updateResource(REPORTS_PATH + reportId + "/columns/" + columnVirtualId,
                 ReportColumn.class, request);
     }
 

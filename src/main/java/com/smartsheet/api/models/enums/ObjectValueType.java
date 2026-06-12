@@ -65,4 +65,8 @@ public enum ObjectValueType {
      * NULL
      */
     NULL,
+    /**
+     * CURRENT_USER (report filter specific)
+     */
+    CURRENT_USER,
 }

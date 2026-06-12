@@ -22,9 +22,13 @@ import com.smartsheet.api.Smartsheet;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.WiremockClient;
 import com.smartsheet.api.WiremockClientWrapper;
+import com.smartsheet.api.models.CurrentUserObjectValue;
+import com.smartsheet.api.models.DateObjectValue;
+import com.smartsheet.api.models.NumberObjectValue;
 import com.smartsheet.api.models.ReportDefinition;
 import com.smartsheet.api.models.StringObjectValue;
 import com.smartsheet.api.models.enums.ColumnType;
+import com.smartsheet.api.models.enums.ObjectValueType;
 import com.smartsheet.api.models.enums.ReportAggregationType;
 import com.smartsheet.api.models.enums.ReportFilterExpressionOperator;
 import com.smartsheet.api.models.enums.ReportFilterOperator;
@@ -77,7 +81,7 @@ public class TestGetReportDefinition {
         assertThat(result.getFilters()).isNotNull();
         assertThat(result.getFilters().getOperator()).isEqualTo(ReportFilterExpressionOperator.AND);
         assertThat(result.getFilters().getCriteria()).isNotNull();
-        assertThat(result.getFilters().getCriteria().size()).isEqualTo(2);
+        assertThat(result.getFilters().getCriteria().size()).isEqualTo(6);
 
         // filters.criteria[0]
         assertThat(result.getFilters().getCriteria().get(0).getColumn()).isNotNull();
@@ -99,6 +103,49 @@ public class TestGetReportDefinition {
         assertThat(result.getFilters().getCriteria().get(1).getValues().size()).isEqualTo(1);
         assertThat(((StringObjectValue) result.getFilters().getCriteria().get(1).getValues().get(0)).getValue())
                 .isEqualTo("Complete");
+
+        // filters.criteria[2] - number value
+        assertThat(result.getFilters().getCriteria().get(2).getColumn()).isNotNull();
+        assertThat(result.getFilters().getCriteria().get(2).getColumn().getTitle()).isEqualTo("Amount");
+        assertThat(result.getFilters().getCriteria().get(2).getColumn().getType()).isEqualTo(ColumnType.TEXT_NUMBER);
+        assertThat(result.getFilters().getCriteria().get(2).getOperator()).isEqualTo(ReportFilterOperator.GREATER_THAN);
+        assertThat(result.getFilters().getCriteria().get(2).getValues()).isNotNull();
+        assertThat(result.getFilters().getCriteria().get(2).getValues().size()).isEqualTo(1);
+        assertThat(((NumberObjectValue) result.getFilters().getCriteria().get(2).getValues().get(0)).getValue().longValue())
+                .isEqualTo(42L);
+
+        // filters.criteria[3] - date object value
+        assertThat(result.getFilters().getCriteria().get(3).getColumn()).isNotNull();
+        assertThat(result.getFilters().getCriteria().get(3).getColumn().getType()).isEqualTo(ColumnType.DATETIME);
+        assertThat(result.getFilters().getCriteria().get(3).getColumn().getSystemColumnType())
+                .isEqualTo(SystemColumnType.MODIFIED_DATE);
+        assertThat(result.getFilters().getCriteria().get(3).getOperator()).isEqualTo(ReportFilterOperator.LESS_THAN);
+        assertThat(result.getFilters().getCriteria().get(3).getValues()).isNotNull();
+        assertThat(result.getFilters().getCriteria().get(3).getValues().size()).isEqualTo(1);
+        DateObjectValue dateValue = (DateObjectValue) result.getFilters().getCriteria().get(3).getValues().get(0);
+        assertThat(dateValue.getObjectType()).isEqualTo(ObjectValueType.DATE);
+        assertThat(dateValue.getValue()).isEqualTo("2025-01-14");
+
+        // filters.criteria[4] - current user object value
+        assertThat(result.getFilters().getCriteria().get(4).getColumn()).isNotNull();
+        assertThat(result.getFilters().getCriteria().get(4).getColumn().getTitle()).isEqualTo("Assigned To");
+        assertThat(result.getFilters().getCriteria().get(4).getColumn().getType()).isEqualTo(ColumnType.CONTACT_LIST);
+        assertThat(result.getFilters().getCriteria().get(4).getOperator()).isEqualTo(ReportFilterOperator.EQUAL);
+        assertThat(result.getFilters().getCriteria().get(4).getValues()).isNotNull();
+        assertThat(result.getFilters().getCriteria().get(4).getValues().size()).isEqualTo(1);
+        CurrentUserObjectValue currentUserValue =
+                (CurrentUserObjectValue) result.getFilters().getCriteria().get(4).getValues().get(0);
+        assertThat(currentUserValue.getObjectType()).isEqualTo(ObjectValueType.CURRENT_USER);
+        assertThat(currentUserValue.getValue()).isEqualTo("");
+
+        // filters.criteria[5] - null value
+        assertThat(result.getFilters().getCriteria().get(5).getColumn()).isNotNull();
+        assertThat(result.getFilters().getCriteria().get(5).getColumn().getTitle()).isEqualTo("Notes");
+        assertThat(result.getFilters().getCriteria().get(5).getColumn().getType()).isEqualTo(ColumnType.TEXT_NUMBER);
+        assertThat(result.getFilters().getCriteria().get(5).getOperator()).isEqualTo(ReportFilterOperator.EQUAL);
+        assertThat(result.getFilters().getCriteria().get(5).getValues()).isNotNull();
+        assertThat(result.getFilters().getCriteria().get(5).getValues().size()).isEqualTo(1);
+        assertThat(result.getFilters().getCriteria().get(5).getValues().get(0)).isNull();
 
         // groupingCriteria
         assertThat(result.getGroupingCriteria()).isNotNull();
