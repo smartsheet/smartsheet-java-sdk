@@ -65,6 +65,8 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
     private static final String JSON_CONTENT_TYPE = "application/json";
     private static final String REPORTS_PATH = "reports/";
     private static final String REPORTS = "reports";
+    private static final String SCOPE_PATH = "/scope";
+    private static final String COLUMNS_PATH = "/columns/";
 
     /**
      * Constructor.
@@ -400,7 +402,7 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
             throw new IllegalArgumentException("scopes should not be empty.");
         }
 
-        String path = REPORTS_PATH + id + "/scope";
+        String path = REPORTS_PATH + id + SCOPE_PATH;
         HttpRequest request = createHttpRequest(smartsheet.getBaseURI().resolve(path), HttpMethod.POST);
         setRequestEntity(request, scopes);
 
@@ -435,7 +437,7 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
             throw new IllegalArgumentException("scopes should not be empty.");
         }
 
-        String path = REPORTS_PATH + id + "/scope";
+        String path = REPORTS_PATH + id + SCOPE_PATH;
         HttpRequest request = createHttpRequest(smartsheet.getBaseURI().resolve(path), HttpMethod.DELETE);
         setRequestEntity(request, scopes);
 
@@ -492,8 +494,12 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
     public TokenPaginatedResult<ReportColumn> listReportColumns(long reportId, String lastKey, Long maxItems) throws SmartsheetException {
         String path = REPORTS_PATH + reportId + "/columns";
         Map<String, Object> parameters = new HashMap<>();
-        if (lastKey != null) parameters.put("lastKey", lastKey);
-        if (maxItems != null) parameters.put("maxItems", maxItems);
+        if (lastKey != null) {
+            parameters.put("lastKey", lastKey);
+        }
+        if (maxItems != null) {
+            parameters.put("maxItems", maxItems);
+        }
         path += QueryUtil.generateUrl(null, parameters);
         return listResourcesWithTokenPagination(path, ReportColumn.class);
     }
@@ -510,11 +516,16 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
      * @throws SmartsheetException if there is any error during the operation
      */
     @Override
-    public TokenPaginatedResult<ReportScopeInclusion> listReportScope(long reportId, String lastKey, Long maxItems) throws SmartsheetException {
-        String path = REPORTS_PATH + reportId + "/scope";
+    public TokenPaginatedResult<ReportScopeInclusion> listReportScope(
+            long reportId, String lastKey, Long maxItems) throws SmartsheetException {
+        String path = REPORTS_PATH + reportId + SCOPE_PATH;
         Map<String, Object> parameters = new HashMap<>();
-        if (lastKey != null) parameters.put("lastKey", lastKey);
-        if (maxItems != null) parameters.put("maxItems", maxItems);
+        if (lastKey != null) {
+            parameters.put("lastKey", lastKey);
+        }
+        if (maxItems != null) {
+            parameters.put("maxItems", maxItems);
+        }
         path += QueryUtil.generateUrl(null, parameters);
         return listResourcesWithTokenPagination(path, ReportScopeInclusion.class);
     }
@@ -553,7 +564,7 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
      */
     @Override
     public ReportColumn getReportColumn(long reportId, long columnVirtualId) throws SmartsheetException {
-        return this.getResource(REPORTS_PATH + reportId + "/columns/" + columnVirtualId, ReportColumn.class);
+        return this.getResource(REPORTS_PATH + reportId + COLUMNS_PATH + columnVirtualId, ReportColumn.class);
     }
 
     /**
@@ -567,7 +578,7 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
      */
     @Override
     public void deleteReportColumn(long reportId, long columnVirtualId) throws SmartsheetException {
-        this.deleteResource(REPORTS_PATH + reportId + "/columns/" + columnVirtualId, ReportColumn.class);
+        this.deleteResource(REPORTS_PATH + reportId + COLUMNS_PATH + columnVirtualId, ReportColumn.class);
     }
 
     /**
@@ -582,8 +593,9 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
      * @throws SmartsheetException the smartsheet exception
      */
     @Override
-    public ReportColumn updateReportColumn(long reportId, long columnVirtualId, UpdateReportColumnRequest request) throws SmartsheetException {
-        return this.updateResource(REPORTS_PATH + reportId + "/columns/" + columnVirtualId,
+    public ReportColumn updateReportColumn(
+            long reportId, long columnVirtualId, UpdateReportColumnRequest request) throws SmartsheetException {
+        return this.updateResource(REPORTS_PATH + reportId + COLUMNS_PATH + columnVirtualId,
                 ReportColumn.class, request);
     }
 

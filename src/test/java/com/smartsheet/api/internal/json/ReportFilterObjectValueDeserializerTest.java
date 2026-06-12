@@ -118,8 +118,8 @@ class ReportFilterObjectValueDeserializerTest {
 
     @Test
     void mixedValues_roundTrip() throws IOException, JSONSerializerException {
-        String json = "[\"value1\",42,{\"objectType\":\"DATE\",\"value\":\"2024-01-01\"},"
-                + "{\"objectType\":\"CURRENT_USER\",\"value\":\"\"}]";
+        String json = "[\"value1\",42,{\"objectType\":\"DATE\",\"value\":\"2024-01-01\"}," +
+                "{\"objectType\":\"CURRENT_USER\",\"value\":\"\"}]";
 
         List<ReportFilterObjectValue> values = getValues(json);
 
