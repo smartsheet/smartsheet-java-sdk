@@ -145,10 +145,13 @@ public class TestListReportColumns {
                 requestId
         );
         Smartsheet smartsheet = wrapper.getSmartsheet();
+        WiremockClient wiremockClient = wrapper.getWiremockClient();
 
         TokenPaginatedResult<ReportColumn> response = smartsheet.reportResources()
                 .listReportColumns(TEST_REPORT_ID, null, null);
 
+        LoggedRequest wiremockRequest = wiremockClient.findWiremockRequest(requestId);
+        assertThat(wiremockRequest.getBodyAsString()).isEmpty();
         assertThat(response).usingRecursiveComparison().isEqualTo(EXPECTED_ALL_PROPERTIES);
     }
 

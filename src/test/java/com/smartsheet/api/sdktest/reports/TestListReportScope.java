@@ -85,7 +85,7 @@ public class TestListReportScope {
         String path = URI.create(wiremockRequest.getUrl()).getPath();
         Map<String, QueryParameter> receivedQueryParams = wiremockRequest.getQueryParams();
 
-        assertThat(path).isEqualTo("/2.0/reports/2233445566/scope");
+        assertThat(path).isEqualTo("/2.0/reports/" + TEST_REPORT_ID + "/scope");
         assertThat(wiremockRequest.getMethod()).isEqualTo(RequestMethod.GET);
         assertThat(receivedQueryParams.get("lastKey").getValues()).isEqualTo(List.of(TEST_LAST_KEY));
         assertThat(receivedQueryParams.get("maxItems").getValues()).isEqualTo(List.of(Long.toString(TEST_MAX_ITEMS)));
@@ -99,10 +99,13 @@ public class TestListReportScope {
                 requestId
         );
         Smartsheet smartsheet = wrapper.getSmartsheet();
+        WiremockClient wiremockClient = wrapper.getWiremockClient();
 
         TokenPaginatedResult<ReportScopeInclusion> response = smartsheet.reportResources()
                 .listReportScope(TEST_REPORT_ID, null, null);
 
+        LoggedRequest wiremockRequest = wiremockClient.findWiremockRequest(requestId);
+        assertThat(wiremockRequest.getBodyAsString()).isEmpty();
         assertThat(response).usingRecursiveComparison().isEqualTo(EXPECTED_ALL_PROPERTIES);
     }
 

@@ -182,9 +182,12 @@ public class TestGetReportDefinition {
                 requestId
         );
         Smartsheet smartsheet = wrapper.getSmartsheet();
+        WiremockClient wiremockClient = wrapper.getWiremockClient();
 
         ReportDefinition result = smartsheet.reportResources().getReportDefinition(TEST_REPORT_ID);
 
+        LoggedRequest wiremockRequest = wiremockClient.findWiremockRequest(requestId);
+        assertThat(wiremockRequest.getBodyAsString()).isEmpty();
         assertThat(result).usingRecursiveComparison().isEqualTo(EXPECTED_ALL_PROPERTIES);
     }
 

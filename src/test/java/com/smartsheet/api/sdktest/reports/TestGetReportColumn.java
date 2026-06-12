@@ -94,9 +94,12 @@ public class TestGetReportColumn {
                 requestId
         );
         Smartsheet smartsheet = wrapper.getSmartsheet();
+        WiremockClient wiremockClient = wrapper.getWiremockClient();
 
         ReportColumn column = smartsheet.reportResources().getReportColumn(TEST_REPORT_ID, TEST_COLUMN_VIRTUAL_ID);
 
+        LoggedRequest wiremockRequest = wiremockClient.findWiremockRequest(requestId);
+        assertThat(wiremockRequest.getBodyAsString()).isEmpty();
         assertThat(column).usingRecursiveComparison().isEqualTo(EXPECTED_ALL_PROPERTIES);
     }
 
