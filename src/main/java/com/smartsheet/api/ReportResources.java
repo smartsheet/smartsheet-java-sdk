@@ -26,6 +26,8 @@ import com.smartsheet.api.models.ReportDefinition;
 import com.smartsheet.api.models.ReportPublish;
 import com.smartsheet.api.models.ReportScopeInclusion;
 import com.smartsheet.api.models.SheetEmail;
+import com.smartsheet.api.models.TokenPaginatedResult;
+import com.smartsheet.api.models.UpdateReportColumnRequest;
 import com.smartsheet.api.models.enums.ReportInclusion;
 
 import java.io.OutputStream;
@@ -219,6 +221,22 @@ public interface ReportResources {
     ReportPublish updatePublishStatus(long id, ReportPublish reportPublish) throws SmartsheetException;
 
     /**
+     * <p>Gets a report's definition (filters, grouping, summarize, and sorting).</p>
+     *
+     * <p>It mirrors to the following Smartsheet REST API method: GET /reports/{id}/definition</p>
+     *
+     * @param reportId the ID of the report
+     * @return the ReportDefinition object
+     * @throws IllegalArgumentException    if any argument is null
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetException         if there is any other error during the operation
+     */
+    ReportDefinition getReportDefinition(long reportId) throws SmartsheetException;
+
+    /**
      * <p>Updates a report's definition (filters, grouping, summarize, and sorting).</p>
      *
      * <p>It mirrors to the following Smartsheet REST API method: PUT /reports/{id}/definition</p>
@@ -289,6 +307,24 @@ public interface ReportResources {
     void removeReportScope(long id, List<ReportScopeInclusion> scopes) throws SmartsheetException;
 
     /**
+     * <p>List the scope of a report (the sheets and workspaces included in the report).</p>
+     *
+     * <p>It mirrors to the following Smartsheet REST API method: GET /reports/{reportId}/scope</p>
+     *
+     * @param reportId the ID of the report
+     * @param lastKey  token for retrieving the next page of results (optional)
+     * @param maxItems maximum number of items to return (optional)
+     * @return a TokenPaginatedResult containing the list of ReportScopeInclusion objects
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetException         if there is any other error during the operation
+     */
+    TokenPaginatedResult<ReportScopeInclusion> listReportScope(long reportId, String lastKey, Long maxItems) throws SmartsheetException;
+
+    /**
      * <p>Add columns to a report.</p>
      *
      * <p>It mirrors to the following Smartsheet REST API method: POST /reports/{reportId}/columns</p>
@@ -308,6 +344,42 @@ public interface ReportResources {
     List<ReportColumn> addReportColumns(long reportId, List<ReportColumn> reportColumns) throws SmartsheetException;
 
     /**
+     * <p>List columns for a report.</p>
+     *
+     * <p>It mirrors to the following Smartsheet REST API method: GET /reports/{reportId}/columns</p>
+     *
+     * @param reportId the ID of the report
+     * @param lastKey  token for retrieving the next page of results (optional)
+     * @param maxItems maximum number of items to return (optional)
+     * @return a TokenPaginatedResult containing the list of ReportColumn objects and a lastKey for pagination
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetException         if there is any other error during the operation
+     */
+    TokenPaginatedResult<ReportColumn> listReportColumns(long reportId, String lastKey, Long maxItems) throws SmartsheetException;
+
+    /**
+     * <p>Updates a report column.</p>
+     *
+     * <p>It mirrors to the following Smartsheet REST API method: PUT /reports/{reportId}/columns/{columnVirtualId}</p>
+     *
+     * @param reportId        the ID of the report
+     * @param columnVirtualId the virtual ID of the column to update
+     * @param request         the UpdateReportColumnRequest containing the fields to update
+     * @return the updated ReportColumn
+     * @throws IllegalArgumentException    if any argument is null
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetException         if there is any other error during the operation
+     */
+    ReportColumn updateReportColumn(long reportId, long columnVirtualId, UpdateReportColumnRequest request) throws SmartsheetException;
+
+    /**
      * <p>Create a new report.</p>
      *
      * <p>It mirrors to the following Smartsheet REST API method: POST /reports</p>
@@ -323,4 +395,38 @@ public interface ReportResources {
      * @throws SmartsheetException         if there is any other error during the operation
      */
     CreateReportResult createReport(CreateReportRequest request) throws SmartsheetException;
+
+    /**
+     * <p>Get a single column from a report.</p>
+     *
+     * <p>It mirrors to the following Smartsheet REST API method: GET /reports/{reportId}/columns/{columnVirtualId}</p>
+     *
+     * @param reportId        the ID of the report
+     * @param columnVirtualId the virtual ID of the column
+     * @return the ReportColumn (note that if there is no such resource, this method will throw
+     * ResourceNotFoundException rather than returning null)
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetException         if there is any other error during the operation
+     */
+    ReportColumn getReportColumn(long reportId, long columnVirtualId) throws SmartsheetException;
+
+    /**
+     * <p>Delete a single column from a report.</p>
+     *
+     * <p>It mirrors to the following Smartsheet REST API method: DELETE /reports/{reportId}/columns/{columnVirtualId}</p>
+     *
+     * @param reportId        the ID of the report
+     * @param columnVirtualId the virtual ID of the column
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetException         if there is any other error during the operation
+     */
+    void deleteReportColumn(long reportId, long columnVirtualId) throws SmartsheetException;
 }

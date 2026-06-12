@@ -39,6 +39,8 @@ import com.smartsheet.api.models.ReportPublish;
 import com.smartsheet.api.models.Result;
 import com.smartsheet.api.models.ReportScopeInclusion;
 import com.smartsheet.api.models.SheetEmail;
+import com.smartsheet.api.models.TokenPaginatedResult;
+import com.smartsheet.api.models.UpdateReportColumnRequest;
 import com.smartsheet.api.internal.util.Util;
 import com.smartsheet.api.models.enums.ReportInclusion;
 
@@ -314,6 +316,20 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
     }
 
     /**
+     * Gets a report's definition (filters, grouping, summarizing, and sorting).
+     * <p>
+     * It mirrors to the following Smartsheet REST API method: GET /reports/{id}/definition
+     *
+     * @param reportId the ID of the report
+     * @return the ReportDefinition object
+     * @throws SmartsheetException the smartsheet exception
+     */
+    @Override
+    public ReportDefinition getReportDefinition(long reportId) throws SmartsheetException {
+        return this.getResource(REPORTS_PATH + reportId + "/definition", ReportDefinition.class);
+    }
+
+    /**
      * Updates a report's definition (filters, grouping, summarizing, and sorting).
      * <p>
      * It mirrors to the following Smartsheet REST API method: PUT /reports/{id}/definition
@@ -462,6 +478,48 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
     }
 
     /**
+     * <p>List columns for a report.</p>
+     *
+     * <p>It mirrors to the following Smartsheet REST API method: GET /reports/{reportId}/columns</p>
+     *
+     * @param reportId the ID of the report
+     * @param lastKey  token for retrieving the next page of results (optional)
+     * @param maxItems maximum number of items to return (optional)
+     * @return a TokenPaginatedResult containing the list of ReportColumn objects and a lastKey for pagination
+     * @throws SmartsheetException if there is any error during the operation
+     */
+    @Override
+    public TokenPaginatedResult<ReportColumn> listReportColumns(long reportId, String lastKey, Long maxItems) throws SmartsheetException {
+        String path = REPORTS_PATH + reportId + "/columns";
+        Map<String, Object> parameters = new HashMap<>();
+        if (lastKey != null) parameters.put("lastKey", lastKey);
+        if (maxItems != null) parameters.put("maxItems", maxItems);
+        path += QueryUtil.generateUrl(null, parameters);
+        return listResourcesWithTokenPagination(path, ReportColumn.class);
+    }
+
+    /**
+     * <p>List the scope of a report (the sheets and workspaces included in the report).</p>
+     *
+     * <p>It mirrors to the following Smartsheet REST API method: GET /reports/{reportId}/scope</p>
+     *
+     * @param reportId the ID of the report
+     * @param lastKey  token for retrieving the next page of results (optional)
+     * @param maxItems maximum number of items to return (optional)
+     * @return a TokenPaginatedResult containing the list of ReportScopeInclusion objects
+     * @throws SmartsheetException if there is any error during the operation
+     */
+    @Override
+    public TokenPaginatedResult<ReportScopeInclusion> listReportScope(long reportId, String lastKey, Long maxItems) throws SmartsheetException {
+        String path = REPORTS_PATH + reportId + "/scope";
+        Map<String, Object> parameters = new HashMap<>();
+        if (lastKey != null) parameters.put("lastKey", lastKey);
+        if (maxItems != null) parameters.put("maxItems", maxItems);
+        path += QueryUtil.generateUrl(null, parameters);
+        return listResourcesWithTokenPagination(path, ReportScopeInclusion.class);
+    }
+
+    /**
      * <p>Create a new report.</p>
      *
      * <p>It mirrors to the following Smartsheet REST API method: POST /reports</p>
@@ -481,6 +539,52 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
         Util.throwIfNull(request);
 
         return this.createResource(REPORTS, CreateReportResult.class, request);
+    }
+
+    /**
+     * Get a single column from a report.
+     * <p>
+     * It mirrors to the following Smartsheet REST API method: GET /reports/{reportId}/columns/{columnVirtualId}
+     *
+     * @param reportId        the ID of the report
+     * @param columnVirtualId the virtual ID of the column
+     * @return the ReportColumn
+     * @throws SmartsheetException the smartsheet exception
+     */
+    @Override
+    public ReportColumn getReportColumn(long reportId, long columnVirtualId) throws SmartsheetException {
+        return this.getResource(REPORTS_PATH + reportId + "/columns/" + columnVirtualId, ReportColumn.class);
+    }
+
+    /**
+     * Delete a single column from a report.
+     * <p>
+     * It mirrors to the following Smartsheet REST API method: DELETE /reports/{reportId}/columns/{columnVirtualId}
+     *
+     * @param reportId        the ID of the report
+     * @param columnVirtualId the virtual ID of the column
+     * @throws SmartsheetException the smartsheet exception
+     */
+    @Override
+    public void deleteReportColumn(long reportId, long columnVirtualId) throws SmartsheetException {
+        this.deleteResource(REPORTS_PATH + reportId + "/columns/" + columnVirtualId, ReportColumn.class);
+    }
+
+    /**
+     * Updates a report column.
+     * <p>
+     * It mirrors to the following Smartsheet REST API method: PUT /reports/{reportId}/columns/{columnVirtualId}
+     *
+     * @param reportId        the ID of the report
+     * @param columnVirtualId the virtual ID of the column to update
+     * @param request         the UpdateReportColumnRequest containing the fields to update
+     * @return the updated ReportColumn
+     * @throws SmartsheetException the smartsheet exception
+     */
+    @Override
+    public ReportColumn updateReportColumn(long reportId, long columnVirtualId, UpdateReportColumnRequest request) throws SmartsheetException {
+        return this.putResource(REPORTS_PATH + reportId + "/columns/" + columnVirtualId,
+                ReportColumn.class, request);
     }
 
     private void setRequestEntity(HttpRequest request, Object object) throws JSONSerializerException {
