@@ -9,10 +9,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Fixed
 
 - Deprecation related corrections
+- `CurrentUserObjectValue` no longer sends a `value` for `CURRENT_USER` object values
+- Added `ReportFilterObjectValueDeserializer` to correctly deserialize report filter object values
 
 ### Added
 
 - Hardcode `paginationType=token` for `listWorkspaces`.
+- Support for GET /2.0/reports/{reportId}/definition (`ReportResources.getReportDefinition`)
+- Support for GET /2.0/reports/{reportId}/columns (`ReportResources.listReportColumns`)
+- Support for GET /2.0/reports/{reportId}/columns/{columnVirtualId} (`ReportResources.getReportColumn`)
+- Support for PUT /2.0/reports/{reportId}/columns/{columnVirtualId} (`ReportResources.updateReportColumn`)
+- Support for DELETE /2.0/reports/{reportId}/columns/{columnVirtualId} (`ReportResources.deleteReportColumn`)
+- Support for GET /2.0/reports/{reportId}/scope (`ReportResources.listReportScope`)
 
 ## [4.0.0] - 2026-06-08
 ### Added
