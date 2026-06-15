@@ -32,7 +32,6 @@ public class CurrentUserObjectValue implements ReportFilterObjectValue {
     @JsonProperty("objectType")
     private final String objectType = "CURRENT_USER";
 
-    @JsonProperty("value")
     private String value;
 
     /**
@@ -65,9 +64,13 @@ public class CurrentUserObjectValue implements ReportFilterObjectValue {
 
     /**
      * Gets the value.
+     * <p>
+     * Annotated {@link JsonIgnore} because the CURRENT_USER filter wire format defines only
+     * {@code objectType}; the value is an SDK-side convenience and is not sent to the API.
      *
      * @return the value (typically empty string)
      */
+    @JsonIgnore
     public String getValue() {
         return value;
     }

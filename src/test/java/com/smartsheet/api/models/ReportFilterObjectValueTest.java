@@ -105,13 +105,12 @@ public class ReportFilterObjectValueTest {
         // Verify CURRENT_USER serializes with correct objectType
         assertThat(json).contains("\"objectType\"");
         assertThat(json).contains("\"CURRENT_USER\"");
-        assertThat(json).contains("\"value\"");
 
         // Verify it does NOT serialize as null
         assertThat(json).doesNotContain("\"objectType\":null");
 
-        // Verify exact structure
-        assertThat(json).isEqualTo("{\"objectType\":\"CURRENT_USER\",\"value\":\"\"}");
+        // Verify exact structure: only objectType is on the wire (value is not part of the spec)
+        assertThat(json).isEqualTo("{\"objectType\":\"CURRENT_USER\"}");
     }
 
     @Test
