@@ -541,7 +541,7 @@ class SheetResourcesImplTest extends ResourcesImplBase {
     @Test
     void testGetSheetPath_404_throwsResourceNotFoundException() throws IOException {
         server.setStatus(404);
-        server.setResponseBody(new File("src/test/resources/pathError.json"));
+        server.setResponseBody(new File("src/test/resources/notFoundError.json"));
 
         assertThatThrownBy(() -> sheetResource.getSheetPath(1234567890L))
                 .isInstanceOf(ResourceNotFoundException.class);
@@ -550,7 +550,7 @@ class SheetResourcesImplTest extends ResourcesImplBase {
     @Test
     void testGetSheetPath_500_throwsInvalidRequestException() throws IOException {
         server.setStatus(500);
-        server.setResponseBody(new File("src/test/resources/pathError.json"));
+        server.setResponseBody(new File("src/test/resources/notFoundError.json"));
 
         assertThatThrownBy(() -> sheetResource.getSheetPath(1234567890L))
                 .isInstanceOf(InvalidRequestException.class);

@@ -229,7 +229,7 @@ class SightResourcesImplTest extends ResourcesImplBase {
     @Test
     void testGetSightPath_404_throwsResourceNotFoundException() throws IOException {
         server.setStatus(404);
-        server.setResponseBody(new File("src/test/resources/pathError.json"));
+        server.setResponseBody(new File("src/test/resources/notFoundError.json"));
 
         assertThatThrownBy(() -> sightResourcesImpl.getSightPath(1234567890L))
                 .isInstanceOf(ResourceNotFoundException.class);
@@ -238,7 +238,7 @@ class SightResourcesImplTest extends ResourcesImplBase {
     @Test
     void testGetSightPath_500_throwsInvalidRequestException() throws IOException {
         server.setStatus(500);
-        server.setResponseBody(new File("src/test/resources/pathError.json"));
+        server.setResponseBody(new File("src/test/resources/notFoundError.json"));
 
         assertThatThrownBy(() -> sightResourcesImpl.getSightPath(1234567890L))
                 .isInstanceOf(InvalidRequestException.class);

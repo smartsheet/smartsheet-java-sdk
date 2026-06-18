@@ -308,7 +308,7 @@ class ReportResourcesImplTest extends ResourcesImplBase {
     @Test
     void testGetReportPath_404_throwsResourceNotFoundException() throws IOException {
         server.setStatus(404);
-        server.setResponseBody(new File("src/test/resources/pathError.json"));
+        server.setResponseBody(new File("src/test/resources/notFoundError.json"));
 
         assertThatThrownBy(() -> reportResources.getReportPath(1234567890L))
                 .isInstanceOf(ResourceNotFoundException.class);
@@ -317,7 +317,7 @@ class ReportResourcesImplTest extends ResourcesImplBase {
     @Test
     void testGetReportPath_500_throwsInvalidRequestException() throws IOException {
         server.setStatus(500);
-        server.setResponseBody(new File("src/test/resources/pathError.json"));
+        server.setResponseBody(new File("src/test/resources/notFoundError.json"));
 
         assertThatThrownBy(() -> reportResources.getReportPath(1234567890L))
                 .isInstanceOf(InvalidRequestException.class);
