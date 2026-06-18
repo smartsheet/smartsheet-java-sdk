@@ -56,11 +56,11 @@ public class ReportPathNode extends PathNode {
      */
     public PathLeaf getLeafReport() {
         if (reports != null && !reports.isEmpty()) {
-            return reports.getFirst();
+            return reports.get(0);
         }
 
         if (folders != null && !folders.isEmpty()) {
-            return folders.getFirst().getLeafReport();
+            return folders.get(0).getLeafReport();
         }
 
         return null;
@@ -77,7 +77,7 @@ public class ReportPathNode extends PathNode {
      */
     public String getLeafReportPath() {
         if (reports != null && !reports.isEmpty()) {
-            return String.format("/%s/%s", getName(), reports.getFirst().getName());
+            return String.format("/%s/%s", getName(), reports.get(0).getName());
         }
 
         if (folders != null && !folders.isEmpty()) {

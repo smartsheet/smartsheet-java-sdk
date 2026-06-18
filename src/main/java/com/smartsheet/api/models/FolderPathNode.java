@@ -45,7 +45,7 @@ public class FolderPathNode extends PathNode {
             return this;
         }
 
-        return folders.getFirst().getLeafFolder();
+        return folders.get(0).getLeafFolder();
     }
 
     /**
@@ -62,6 +62,6 @@ public class FolderPathNode extends PathNode {
             return String.format("/%s", getName());
         }
 
-        return String.format("/%s%s", getName(), folders.getFirst().getLeafFolderPath());
+        return String.format("/%s%s", getName(), folders.get(0).getLeafFolderPath());
     }
 }

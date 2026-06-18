@@ -56,11 +56,11 @@ public class SightPathNode extends PathNode {
      */
     public PathLeaf getLeafSight() {
         if (sights != null && !sights.isEmpty()) {
-            return sights.getFirst();
+            return sights.get(0);
         }
 
         if (folders != null && !folders.isEmpty()) {
-            return folders.getFirst().getLeafSight();
+            return folders.get(0).getLeafSight();
         }
 
         return null;
@@ -77,7 +77,7 @@ public class SightPathNode extends PathNode {
      */
     public String getLeafSightPath() {
         if (sights != null && !sights.isEmpty()) {
-            return String.format("/%s/%s", getName(), sights.getFirst().getName());
+            return String.format("/%s/%s", getName(), sights.get(0).getName());
         }
 
         if (folders != null && !folders.isEmpty()) {

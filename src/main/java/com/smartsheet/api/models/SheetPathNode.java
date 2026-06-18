@@ -56,11 +56,11 @@ public class SheetPathNode extends PathNode {
      */
     public PathLeaf getLeafSheet() {
         if (sheets != null && !sheets.isEmpty()) {
-            return sheets.getFirst();
+            return sheets.get(0);
         }
 
         if (folders != null && !folders.isEmpty()) {
-            return folders.getFirst().getLeafSheet();
+            return folders.get(0).getLeafSheet();
         }
 
         return null;
@@ -77,7 +77,7 @@ public class SheetPathNode extends PathNode {
      */
     public String getLeafSheetPath() {
         if (sheets != null && !sheets.isEmpty()) {
-            return String.format("/%s/%s", getName(), sheets.getFirst().getName());
+            return String.format("/%s/%s", getName(), sheets.get(0).getName());
         }
 
         if (folders != null && !folders.isEmpty()) {
