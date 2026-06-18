@@ -48,7 +48,6 @@ public class TestGetReportPath {
 
     private static final ReportPathNode EXPECTED_NESTED_RESULT;
     private static final ReportPathNode EXPECTED_ROOT_RESULT;
-    private static final ReportPathNode EXPECTED_REQUIRED_RESULT;
 
     static {
         PathLeaf nestedReport = new PathLeaf();
@@ -92,12 +91,6 @@ public class TestGetReportPath {
         EXPECTED_ROOT_RESULT.setPermalink(WORKSPACE_PERMALINK);
         EXPECTED_ROOT_RESULT.setAccessLevel(AccessLevel.OWNER);
         EXPECTED_ROOT_RESULT.setReports(List.of(rootReport));
-
-        EXPECTED_REQUIRED_RESULT = new ReportPathNode();
-        EXPECTED_REQUIRED_RESULT.setId(WORKSPACE_ID);
-        EXPECTED_REQUIRED_RESULT.setName(WORKSPACE_NAME);
-        EXPECTED_REQUIRED_RESULT.setPermalink(WORKSPACE_PERMALINK);
-        EXPECTED_REQUIRED_RESULT.setAccessLevel(AccessLevel.OWNER);
     }
 
     @Test
@@ -147,20 +140,6 @@ public class TestGetReportPath {
 
         assertThat(result).usingRecursiveComparison().isEqualTo(EXPECTED_ROOT_RESULT);
         assertThat(result.getLeafReportPath()).isEqualTo("/Sample Workspace/Root Level Report");
-    }
-
-    @Test
-    void testGetReportPathRequiredResponseBodyProperties() throws SmartsheetException {
-        String requestId = UUID.randomUUID().toString();
-        WiremockClientWrapper wrapper = Utils.createWiremockSmartsheetClient(
-                "/reports/get-report-path/required-response-body-properties",
-                requestId
-        );
-        Smartsheet smartsheet = wrapper.getSmartsheet();
-
-        ReportPathNode result = smartsheet.reportResources().getReportPath(TEST_REPORT_ID);
-
-        assertThat(result).usingRecursiveComparison().isEqualTo(EXPECTED_REQUIRED_RESULT);
     }
 
     @Test

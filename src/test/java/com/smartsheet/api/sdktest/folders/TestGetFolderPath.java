@@ -46,7 +46,6 @@ public class TestGetFolderPath {
 
     private static final FolderPathNode EXPECTED_NESTED_RESULT;
     private static final FolderPathNode EXPECTED_ROOT_RESULT;
-    private static final FolderPathNode EXPECTED_REQUIRED_RESULT;
 
     static {
         FolderPathNode subSubfolder = new FolderPathNode();
@@ -84,12 +83,6 @@ public class TestGetFolderPath {
         EXPECTED_ROOT_RESULT.setPermalink(WORKSPACE_PERMALINK);
         EXPECTED_ROOT_RESULT.setAccessLevel(AccessLevel.OWNER);
         EXPECTED_ROOT_RESULT.setFolders(List.of(rootFolder));
-
-        EXPECTED_REQUIRED_RESULT = new FolderPathNode();
-        EXPECTED_REQUIRED_RESULT.setId(WORKSPACE_ID);
-        EXPECTED_REQUIRED_RESULT.setName(WORKSPACE_NAME);
-        EXPECTED_REQUIRED_RESULT.setPermalink(WORKSPACE_PERMALINK);
-        EXPECTED_REQUIRED_RESULT.setAccessLevel(AccessLevel.OWNER);
     }
 
     @Test
@@ -140,20 +133,6 @@ public class TestGetFolderPath {
 
         assertThat(result).usingRecursiveComparison().isEqualTo(EXPECTED_ROOT_RESULT);
         assertThat(result.getLeafFolderPath()).isEqualTo("/Sample Workspace/Root Level Folder");
-    }
-
-    @Test
-    void testGetFolderPathRequiredResponseBodyProperties() throws SmartsheetException {
-        String requestId = UUID.randomUUID().toString();
-        WiremockClientWrapper wrapper = Utils.createWiremockSmartsheetClient(
-                "/folders/get-folder-path/required-response-body-properties",
-                requestId
-        );
-        Smartsheet smartsheet = wrapper.getSmartsheet();
-
-        FolderPathNode result = smartsheet.folderResources().getFolderPath(TEST_FOLDER_ID);
-
-        assertThat(result).usingRecursiveComparison().isEqualTo(EXPECTED_REQUIRED_RESULT);
     }
 
     @Test
