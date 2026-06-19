@@ -25,6 +25,7 @@ import com.smartsheet.api.models.SheetEmail;
 import com.smartsheet.api.models.SheetPublish;
 import com.smartsheet.api.models.SortSpecifier;
 import com.smartsheet.api.models.UpdateRequest;
+import com.smartsheet.api.models.SheetPathNode;
 import com.smartsheet.api.models.enums.CopyExclusion;
 import com.smartsheet.api.models.enums.ObjectExclusion;
 import com.smartsheet.api.models.enums.PaperSize;
@@ -832,4 +833,20 @@ public interface SheetResources {
      * @return the sheet summary resources
      */
     SheetSummaryResources summaryResources();
+
+    /**
+     * <p>Get the path of a sheet (workspace/folder hierarchy).</p>
+     *
+     * <p>It mirrors to the following Smartsheet REST API method: GET /sheets/{sheetId}/path</p>
+     *
+     * @param sheetId the sheet id
+     * @return the container path representing the hierarchy from the workspace down to the sheet
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetException         if there is any other error during the operation
+     */
+    SheetPathNode getSheetPath(long sheetId) throws SmartsheetException;
 }
