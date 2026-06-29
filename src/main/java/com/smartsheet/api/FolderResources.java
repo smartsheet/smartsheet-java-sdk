@@ -19,6 +19,7 @@ package com.smartsheet.api;
 import com.smartsheet.api.models.ContainerDestination;
 import com.smartsheet.api.models.Folder;
 import com.smartsheet.api.models.TokenPaginatedResult;
+import com.smartsheet.api.models.FolderPathNode;
 import com.smartsheet.api.models.enums.CopyExclusion;
 import com.smartsheet.api.models.enums.FolderCopyInclusion;
 import com.smartsheet.api.models.enums.FolderRemapExclusion;
@@ -197,4 +198,20 @@ public interface FolderResources {
     TokenPaginatedResult<Object> getFolderChildren(long folderId, EnumSet<ChildrenResourceType> childrenResourceTypes,
                                                 EnumSet<GetFolderChildrenInclusion> includes,
                                                 String lastKey, Integer maxItems) throws SmartsheetException;
+
+    /**
+     * <p>Get the path of a folder (workspace/folder hierarchy).</p>
+     *
+     * <p>It mirrors to the following Smartsheet REST API method: GET /folders/{folderId}/path</p>
+     *
+     * @param folderId the folder id
+     * @return the container path representing the hierarchy from the workspace down to the folder
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetException         if there is any other error during the operation
+     */
+    FolderPathNode getFolderPath(long folderId) throws SmartsheetException;
 }

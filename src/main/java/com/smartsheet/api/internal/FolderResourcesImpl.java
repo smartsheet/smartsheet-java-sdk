@@ -21,6 +21,7 @@ import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.util.QueryUtil;
 import com.smartsheet.api.models.ContainerDestination;
 import com.smartsheet.api.models.Folder;
+import com.smartsheet.api.models.FolderPathNode;
 import com.smartsheet.api.models.enums.CopyExclusion;
 import com.smartsheet.api.models.enums.FolderCopyInclusion;
 import com.smartsheet.api.models.enums.FolderRemapExclusion;
@@ -267,8 +268,8 @@ public class FolderResourcesImpl extends AbstractResources implements FolderReso
      */
     @Override
     public TokenPaginatedResult<Object> getFolderChildren(long folderId, EnumSet<ChildrenResourceType> childrenResourceTypes,
-                                                       EnumSet<GetFolderChildrenInclusion> includes,
-                                                       String lastKey, Integer maxItems) throws SmartsheetException {
+                                                          EnumSet<GetFolderChildrenInclusion> includes,
+                                                          String lastKey, Integer maxItems) throws SmartsheetException {
         String path = FOLDERS_PATH + folderId + "/children";
 
         // Add the parameters to a map and build the query string at the end
@@ -286,5 +287,19 @@ public class FolderResourcesImpl extends AbstractResources implements FolderReso
         path += QueryUtil.generateUrl(null, parameters);
 
         return this.listResourcesWithTokenPagination(path, new ChildrenResourceDeserializer());
+    }
+
+    /**
+     * Get the path of a folder (workspace/folder hierarchy).
+     * <p>
+     * It mirrors to the following Smartsheet REST API method: GET /folders/{folderId}/path
+     *
+     * @param folderId the folder id
+     * @return the container path
+     * @throws SmartsheetException the smartsheet exception
+     */
+    @Override
+    public FolderPathNode getFolderPath(long folderId) throws SmartsheetException {
+        return this.getResource(FOLDERS_PATH + folderId + "/path", FolderPathNode.class);
     }
 }

@@ -16,6 +16,8 @@
 
 package com.smartsheet.api.internal;
 
+import com.smartsheet.api.InvalidRequestException;
+import com.smartsheet.api.ResourceNotFoundException;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
 import com.smartsheet.api.models.Column;
@@ -27,8 +29,10 @@ import com.smartsheet.api.models.PaginationParameters;
 import com.smartsheet.api.models.Recipient;
 import com.smartsheet.api.models.RecipientEmail;
 import com.smartsheet.api.models.RecipientGroup;
+import com.smartsheet.api.models.PathLeaf;
 import com.smartsheet.api.models.Sheet;
 import com.smartsheet.api.models.SheetEmail;
+import com.smartsheet.api.models.SheetPathNode;
 import com.smartsheet.api.models.SheetPublish;
 import com.smartsheet.api.models.SortCriterion;
 import com.smartsheet.api.models.SortSpecifier;
@@ -53,6 +57,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.HashSet;
@@ -61,6 +66,7 @@ import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class SheetResourcesImplTest extends ResourcesImplBase {
     private SheetResourcesImpl sheetResource;
@@ -469,5 +475,84 @@ class SheetResourcesImplTest extends ResourcesImplBase {
         assertThat(sheet.getId().longValue()).isEqualTo(295123319904012164L);
         assertThat(sheet.getAccessLevel()).isEqualTo(AccessLevel.OWNER);
         assertThat(sheet.getPermalink()).isNotBlank();
+    }
+
+    @Test
+    void testGetSheetPath() throws SmartsheetException, IOException {
+        server.setResponseBody(new File("src/test/resources/getSheetPath.json"));
+
+        SheetPathNode result = sheetResource.getSheetPath(1234567890L);
+
+        // workspace root
+        assertThat(result).isNotNull();
+        assertThat(result.getId()).isEqualTo(4509918431602564L);
+        assertThat(result.getName()).isEqualTo("Sample Workspace");
+        assertThat(result.getPermalink()).isEqualTo("https://app.smartsheet.com/workspaces/mock_workspace_id");
+        assertThat(result.getAccessLevel()).isEqualTo(AccessLevel.OWNER);
+        // level-1 folder
+        assertThat(result.getFolders()).hasSize(1);
+        SheetPathNode level1 = result.getFolders().get(0);
+        assertThat(level1.getId()).isEqualTo(1234567890123456L);
+        assertThat(level1.getName()).isEqualTo("Project Plans");
+        assertThat(level1.getPermalink()).isEqualTo("https://app.smartsheet.com/folders/1234567890123456");
+        // level-2 folder (contains the leaf sheet)
+        assertThat(level1.getFolders()).hasSize(1);
+        SheetPathNode level2 = level1.getFolders().get(0);
+        assertThat(level2.getId()).isEqualTo(2345678901234567L);
+        assertThat(level2.getName()).isEqualTo("Project Plans Subfolder");
+        assertThat(level2.getPermalink()).isEqualTo("https://app.smartsheet.com/folders/2345678901234567");
+        // leaf sheet
+        assertThat(level2.getSheets()).hasSize(1);
+        PathLeaf sheet = level2.getSheets().get(0);
+        assertThat(sheet.getId()).isEqualTo(3456789012345678L);
+        assertThat(sheet.getName()).isEqualTo("Project Plan");
+        assertThat(sheet.getPermalink()).isEqualTo("https://app.smartsheet.com/sheets/3456789012345678");
+        assertThat(sheet.getAccessLevel()).isEqualTo(AccessLevel.ADMIN);
+        assertThat(sheet.getCreatedAt()).isEqualTo(ZonedDateTime.parse("2024-01-01T00:00:00Z"));
+        assertThat(sheet.getModifiedAt()).isEqualTo(ZonedDateTime.parse("2024-06-01T00:00:00Z"));
+    }
+
+    @Test
+    void testGetSheetPath_getSheet() throws SmartsheetException, IOException {
+        server.setResponseBody(new File("src/test/resources/getSheetPath.json"));
+
+        SheetPathNode result = sheetResource.getSheetPath(1234567890L);
+        PathLeaf leaf = result.getLeafSheet();
+
+        assertThat(leaf).isNotNull();
+        assertThat(leaf.getName()).isEqualTo("Project Plan");
+        assertThat(leaf.getId()).isEqualTo(3456789012345678L);
+        assertThat(leaf.getPermalink()).isEqualTo("https://app.smartsheet.com/sheets/3456789012345678");
+        assertThat(leaf.getAccessLevel()).isEqualTo(AccessLevel.ADMIN);
+        assertThat(leaf.getCreatedAt()).isEqualTo(ZonedDateTime.parse("2024-01-01T00:00:00Z"));
+        assertThat(leaf.getModifiedAt()).isEqualTo(ZonedDateTime.parse("2024-06-01T00:00:00Z"));
+    }
+
+    @Test
+    void testGetSheetPath_getSheetPath() throws SmartsheetException, IOException {
+        server.setResponseBody(new File("src/test/resources/getSheetPath.json"));
+
+        SheetPathNode result = sheetResource.getSheetPath(1234567890L);
+
+        assertThat(result.getLeafSheetPath())
+                .isEqualTo("/Sample Workspace/Project Plans/Project Plans Subfolder/Project Plan");
+    }
+
+    @Test
+    void testGetSheetPath_404_throwsResourceNotFoundException() throws IOException {
+        server.setStatus(404);
+        server.setResponseBody(new File("src/test/resources/notFoundError.json"));
+
+        assertThatThrownBy(() -> sheetResource.getSheetPath(1234567890L))
+                .isInstanceOf(ResourceNotFoundException.class);
+    }
+
+    @Test
+    void testGetSheetPath_500_throwsInvalidRequestException() throws IOException {
+        server.setStatus(500);
+        server.setResponseBody(new File("src/test/resources/notFoundError.json"));
+
+        assertThatThrownBy(() -> sheetResource.getSheetPath(1234567890L))
+                .isInstanceOf(InvalidRequestException.class);
     }
 }
