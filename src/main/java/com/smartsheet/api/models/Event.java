@@ -187,10 +187,10 @@ public class Event {
     /**
      * Get the object ID of the object associated with the event.
      *
+     * @return the object ID
      * @deprecated Use {@link #getObjectIdStr()} instead. {@code objectId} is numeric only and
      *     returns -1 for non-numeric identifiers. It is not scheduled for removal, but new code
      *     should read {@code objectIdStr}, which represents all identifier values.
-     * @return the object ID
      */
     @Deprecated
     public Object getObjectId() {

@@ -64,7 +64,6 @@ class EventTest {
         }
 
         @Test
-        @SuppressWarnings("deprecation") // exercises the deprecated getObjectId() accessor on purpose
         void deserialize_doesNotAffectOtherFields() throws Exception {
             String json = "{\"eventId\":\"evt-42\",\"objectId\":999,\"objectIdStr\":\"xyz-789\",\"objectType\":\"SHEET\"}";
 
