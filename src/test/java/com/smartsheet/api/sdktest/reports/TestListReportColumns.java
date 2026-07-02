@@ -138,6 +138,27 @@ public class TestListReportColumns {
     }
 
     @Test
+    void testListReportColumnsWithLevelGeneratedUrlIsCorrect() throws SmartsheetException {
+        String requestId = UUID.randomUUID().toString();
+        WiremockClientWrapper wrapper = Utils.createWiremockSmartsheetClient(
+                "/reports/list-report-columns/all-response-body-properties",
+                requestId
+        );
+        Smartsheet smartsheet = wrapper.getSmartsheet();
+        WiremockClient wiremockClient = wrapper.getWiremockClient();
+
+        smartsheet.reportResources().listReportColumns(TEST_REPORT_ID, TEST_LAST_KEY, TEST_MAX_ITEMS, 3);
+        LoggedRequest wiremockRequest = wiremockClient.findWiremockRequest(requestId);
+        String path = URI.create(wiremockRequest.getUrl()).getPath();
+        Map<String, QueryParameter> receivedQueryParams = wiremockRequest.getQueryParams();
+
+        assertThat(path).isEqualTo("/2.0/reports/" + TEST_REPORT_ID + "/columns?level=3");
+        assertThat(wiremockRequest.getMethod()).isEqualTo(RequestMethod.GET);
+        assertThat(receivedQueryParams.get("lastKey").getValues()).isEqualTo(List.of(TEST_LAST_KEY));
+        assertThat(receivedQueryParams.get("maxItems").getValues()).isEqualTo(List.of(Long.toString(TEST_MAX_ITEMS)));
+    }
+
+    @Test
     void testListReportColumnsAllResponseBodyProperties() throws SmartsheetException {
         String requestId = UUID.randomUUID().toString();
         WiremockClientWrapper wrapper = Utils.createWiremockSmartsheetClient(
