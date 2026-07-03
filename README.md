@@ -28,11 +28,10 @@ Add the SDK as a dependency in your project.
 </dependency>
 ```
 
-The current artifact version reference can be found [here](https://oss.sonatype.org/#nexus-search;quick~smartsheet)
+The current artifact version reference can be found [here](https://central.sonatype.com/artifact/com.smartsheet/smartsheet-sdk-java)
 
 ### Install By Downloading the Jar File
-<!--* [The SDK packaged in a jar with Dependencies](https://oss.sonatype.org/service/local/artifact/maven/redirect?r=releases&g=com.smartsheet&a=smartsheet-sdk-java&v=LATEST) built in.-->
-[SDK packaged as a jar](https://oss.sonatype.org/service/local/artifact/maven/redirect?r=releases&g=com.smartsheet&a=smartsheet-sdk-java&v=LATEST). This jar requires that all of the following dependencies are manually added to the path:
+[SDK jar files on Maven Central](https://central.sonatype.com/artifact/com.smartsheet/smartsheet-sdk-java). Navigate to the desired version and download the jar. This jar requires that all of the following dependencies are manually added to the path:
 
 ```
     Apache HttpComponents 4.5
@@ -109,7 +108,7 @@ For details about logging, testing, how to use a passthrough option, and how to 
 
 The full Smartsheet API documentation is here: <https://developers.smartsheet.com/api/smartsheet>
 
-The generated SDK javadoc is here: [https://smartsheet.github.io/smartsheet-java-sdk/apidocs/](https://smartsheet.github.io/smartsheet-java-sdk/apidocs/) (Download as a jar file [here](http://oss.sonatype.org/service/local/artifact/maven/redirect?r=releases&g=com.smartsheet&a=smartsheet-sdk-java&v=LATEST&c=javadoc).)
+The generated SDK javadoc is here: [https://smartsheet.github.io/smartsheet-java-sdk/apidocs/](https://smartsheet.github.io/smartsheet-java-sdk/apidocs/)
 
 ## Contributing
 
