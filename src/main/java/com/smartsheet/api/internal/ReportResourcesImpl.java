@@ -488,10 +488,32 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
      * @param lastKey  token for retrieving the next page of results (optional)
      * @param maxItems maximum number of items to return (optional)
      * @return a TokenPaginatedResult containing the list of ReportColumn objects and a lastKey for pagination
-     * @throws SmartsheetException if there is any error during the operation
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     @Override
     public TokenPaginatedResult<ReportColumn> listReportColumns(long reportId, String lastKey, Long maxItems) throws SmartsheetException {
+        return listReportColumns(reportId, lastKey, maxItems, null);
+    }
+
+    /**
+     * <p>List columns for a report.</p>
+     *
+     * <p>It mirrors to the following Smartsheet REST API method: GET /reports/{reportId}/columns</p>
+     *
+     * @param reportId the ID of the report
+     * @param lastKey  token for retrieving the next page of results (optional)
+     * @param maxItems maximum number of items to return (optional)
+     * @param level compatibility level
+     * @return a TokenPaginatedResult containing the list of ReportColumn objects and a lastKey for pagination
+     * @throws SmartsheetException if there is any error during the operation
+     */
+    @Override
+    public TokenPaginatedResult<ReportColumn> listReportColumns(long reportId, String lastKey, Long maxItems, Integer level) throws SmartsheetException {
         String path = REPORTS_PATH + reportId + "/columns";
         Map<String, Object> parameters = new HashMap<>();
         if (lastKey != null) {
@@ -499,6 +521,9 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
         }
         if (maxItems != null) {
             parameters.put("maxItems", maxItems);
+        }
+        if (level != null) {
+            parameters.put("level", level);
         }
         path += QueryUtil.generateUrl(null, parameters);
         return listResourcesWithTokenPagination(path, ReportColumn.class);
@@ -564,7 +589,30 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
      */
     @Override
     public ReportColumn getReportColumn(long reportId, long columnVirtualId) throws SmartsheetException {
-        return this.getResource(REPORTS_PATH + reportId + COLUMNS_PATH + columnVirtualId, ReportColumn.class);
+        return getReportColumn(reportId, columnVirtualId, null);
+    }
+
+    /**
+     * Get a single column from a report.
+     * <p>
+     * It mirrors to the following Smartsheet REST API method: GET /reports/{reportId}/columns/{columnVirtualId}
+     *
+     * @param reportId        the ID of the report
+     * @param columnVirtualId the virtual ID of the column
+     * @param level           compatibility level
+     * @return the ReportColumn
+     * @throws SmartsheetException the smartsheet exception
+     */
+    @Override
+    public ReportColumn getReportColumn(long reportId, long columnVirtualId, Integer level) throws SmartsheetException {
+        String path = REPORTS_PATH + reportId + COLUMNS_PATH + columnVirtualId;
+        Map<String, Object> parameters = new HashMap<>();
+        if (level != null) {
+            parameters.put("level", level);
+        }
+        path += QueryUtil.generateUrl(null, parameters);
+
+        return this.getResource(path, ReportColumn.class);
     }
 
     /**

@@ -87,6 +87,25 @@ public class TestGetReportColumn {
     }
 
     @Test
+    void testGetReportColumnWithLevelGeneratedUrlIsCorrect() throws SmartsheetException {
+        String requestId = UUID.randomUUID().toString();
+        WiremockClientWrapper wrapper = Utils.createWiremockSmartsheetClient(
+                "/reports/get-report-column/all-response-body-properties",
+                requestId
+        );
+        Smartsheet smartsheet = wrapper.getSmartsheet();
+        WiremockClient wiremockClient = wrapper.getWiremockClient();
+
+        smartsheet.reportResources().getReportColumn(TEST_REPORT_ID, TEST_COLUMN_VIRTUAL_ID, 3);
+        LoggedRequest wiremockRequest = wiremockClient.findWiremockRequest(requestId);
+        String path = URI.create(wiremockRequest.getUrl()).getPath();
+
+        assertThat(path).isEqualTo("/2.0/reports/" + TEST_REPORT_ID + "/columns/" + TEST_COLUMN_VIRTUAL_ID + "?level=3");
+        assertThat(wiremockRequest.getMethod()).isEqualTo(RequestMethod.GET);
+        assertThat(wiremockRequest.getQueryParams()).isEqualTo(Map.of());
+    }
+
+    @Test
     void testGetReportColumnAllResponseBodyProperties() throws SmartsheetException {
         String requestId = UUID.randomUUID().toString();
         WiremockClientWrapper wrapper = Utils.createWiremockSmartsheetClient(

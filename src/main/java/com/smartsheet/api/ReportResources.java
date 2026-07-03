@@ -362,6 +362,25 @@ public interface ReportResources {
     TokenPaginatedResult<ReportColumn> listReportColumns(long reportId, String lastKey, Long maxItems) throws SmartsheetException;
 
     /**
+     * <p>List columns for a report.</p>
+     *
+     * <p>It mirrors to the following Smartsheet REST API method: GET /reports/{reportId}/columns</p>
+     *
+     * @param reportId the ID of the report
+     * @param lastKey  token for retrieving the next page of results (optional)
+     * @param maxItems maximum number of items to return (optional)
+     * @param level compatibility level
+     * @return a TokenPaginatedResult containing the list of ReportColumn objects and a lastKey for pagination
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetException         if there is any other error during the operation
+     */
+    TokenPaginatedResult<ReportColumn> listReportColumns(long reportId, String lastKey, Long maxItems, Integer level) throws SmartsheetException;
+
+    /**
      * <p>Updates a report column.</p>
      *
      * <p>It mirrors to the following Smartsheet REST API method: PUT /reports/{reportId}/columns/{columnVirtualId}</p>
@@ -413,6 +432,25 @@ public interface ReportResources {
      * @throws SmartsheetException         if there is any other error during the operation
      */
     ReportColumn getReportColumn(long reportId, long columnVirtualId) throws SmartsheetException;
+
+    /**
+     * <p>Get a single column from a report.</p>
+     *
+     * <p>It mirrors to the following Smartsheet REST API method: GET /reports/{reportId}/columns/{columnVirtualId}</p>
+     *
+     * @param reportId        the ID of the report
+     * @param columnVirtualId the virtual ID of the column
+     * @param level           compatibility level
+     * @return the ReportColumn (note that if there is no such resource, this method will throw
+     * ResourceNotFoundException rather than returning null)
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetException         if there is any other error during the operation
+     */
+    ReportColumn getReportColumn(long reportId, long columnVirtualId, Integer level) throws SmartsheetException;
 
     /**
      * <p>Delete a single column from a report.</p>
