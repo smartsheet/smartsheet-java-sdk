@@ -86,17 +86,7 @@ Publishing the release (not just saving as a draft) triggers `release.yml`, whic
 
 Go to [Workflow runs](https://github.com/smartsheet/smartsheet-java-sdk/actions) and confirm both the `publish-docs` and `publish` jobs succeeded.
 
-### 6. Verify on Sonatype
-
-Check that the new version appears in the Sonatype Nexus repository:
-
-```
-https://oss.sonatype.org/#nexus-search;quick~smartsheet-java-sdk
-```
-
-Look under the **release repository** → `com/smartsheet/smartsheet-java-sdk`. Credentials are stored in the team's Smartsheet sheet (see your team lead).
-
-### 7. Verify on Maven Central
+### 6. Verify on Maven Central
 
 Maven Central syncs from Sonatype approximately once per day. After ~24 hours, verify:
 
