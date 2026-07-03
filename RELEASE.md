@@ -91,7 +91,7 @@ Go to [Workflow runs](https://github.com/smartsheet/smartsheet-java-sdk/actions)
 Maven Central syncs from Sonatype approximately once per day. After ~24 hours, verify:
 
 ```
-https://central.sonatype.com/artifact/com.smartsheet/smartsheet-java-sdk
+https://central.sonatype.com/artifact/com.smartsheet/smartsheet-sdk-java
 ```
 
 or check the standard Maven Central search at `https://search.maven.org`.
