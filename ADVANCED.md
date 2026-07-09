@@ -534,6 +534,22 @@ Many events have additional information available as part of the event. That inf
 HashMap stored in the `additionalDetails` property. Information about the additional details provided can be found
 [here.](https://smartsheet.redoc.ly/tag/eventsDescription)
 
+Each event identifies the object it affected. Use the `getObjectIdStr()` accessor, which returns the
+object identifier as a `String` and supports both numeric and non-numeric identifiers. The older
+`getObjectId()` accessor is deprecated and kept only for backward compatibility: when the identifier
+is numeric it returns the number, and when the identifier is non-numeric it returns `-1` while the
+real value is available from `getObjectIdStr()`. New code should read `getObjectIdStr()`.
+
+```java
+for (Event event : events) {
+    // Preferred: works for all identifier types
+    System.out.println(event.getObjectIdStr());
+
+    // Deprecated: numeric only; returns -1 for non-numeric identifiers
+    // System.out.println(event.getObjectId());
+}
+```
+
 ```java
 public class Sample {
     

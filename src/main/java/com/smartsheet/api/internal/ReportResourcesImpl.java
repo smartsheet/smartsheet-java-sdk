@@ -39,6 +39,7 @@ import com.smartsheet.api.models.ReportPublish;
 import com.smartsheet.api.models.Result;
 import com.smartsheet.api.models.ReportScopeInclusion;
 import com.smartsheet.api.models.SheetEmail;
+import com.smartsheet.api.models.ReportPathNode;
 import com.smartsheet.api.models.TokenPaginatedResult;
 import com.smartsheet.api.models.UpdateReportColumnRequest;
 import com.smartsheet.api.internal.util.Util;
@@ -575,6 +576,20 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
         Util.throwIfNull(request);
 
         return this.createResource(REPORTS, CreateReportResult.class, request);
+    }
+
+    /**
+     * Get the path of a report (workspace/folder hierarchy).
+     * <p>
+     * It mirrors to the following Smartsheet REST API method: GET /reports/{reportId}/path
+     *
+     * @param reportId the report id
+     * @return the container path
+     * @throws SmartsheetException the smartsheet exception
+     */
+    @Override
+    public ReportPathNode getReportPath(long reportId) throws SmartsheetException {
+        return this.getResource(REPORTS_PATH + reportId + "/path", ReportPathNode.class);
     }
 
     /**

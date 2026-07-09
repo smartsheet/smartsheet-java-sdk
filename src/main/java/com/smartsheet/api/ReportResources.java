@@ -26,6 +26,7 @@ import com.smartsheet.api.models.ReportDefinition;
 import com.smartsheet.api.models.ReportPublish;
 import com.smartsheet.api.models.ReportScopeInclusion;
 import com.smartsheet.api.models.SheetEmail;
+import com.smartsheet.api.models.ReportPathNode;
 import com.smartsheet.api.models.TokenPaginatedResult;
 import com.smartsheet.api.models.UpdateReportColumnRequest;
 import com.smartsheet.api.models.enums.ReportInclusion;
@@ -414,6 +415,22 @@ public interface ReportResources {
      * @throws SmartsheetException         if there is any other error during the operation
      */
     CreateReportResult createReport(CreateReportRequest request) throws SmartsheetException;
+
+    /**
+     * <p>Get the path of a report (workspace/folder hierarchy).</p>
+     *
+     * <p>It mirrors to the following Smartsheet REST API method: GET /reports/{reportId}/path</p>
+     *
+     * @param reportId the report id
+     * @return the container path representing the hierarchy from the workspace down to the report
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetException         if there is any other error during the operation
+     */
+    ReportPathNode getReportPath(long reportId) throws SmartsheetException;
 
     /**
      * <p>Get a single column from a report.</p>

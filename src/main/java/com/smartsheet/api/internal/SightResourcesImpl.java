@@ -29,6 +29,7 @@ import com.smartsheet.api.models.Sight;
 import com.smartsheet.api.models.SightPublish;
 import com.smartsheet.api.models.TokenPaginatedResult;
 import com.smartsheet.api.models.TokenPaginationParameters;
+import com.smartsheet.api.models.SightPathNode;
 import com.smartsheet.api.models.enums.SightInclusion;
 
 import java.util.EnumSet;
@@ -249,6 +250,20 @@ public class SightResourcesImpl extends AbstractResources implements SightResour
     public SightPublish setPublishStatus(long sightId, SightPublish sightPublish) throws SmartsheetException {
         Util.throwIfNull(sightPublish);
         return this.updateResource(SIGHTS + "/" + sightId + "/publish", SightPublish.class, sightPublish);
+    }
+
+    /**
+     * Get the path of a sight (workspace/folder hierarchy).
+     * <p>
+     * It mirrors to the following Smartsheet REST API method: GET /sights/{sightId}/path
+     *
+     * @param sightId the sight id
+     * @return the container path
+     * @throws SmartsheetException the smartsheet exception
+     */
+    @Override
+    public SightPathNode getSightPath(long sightId) throws SmartsheetException {
+        return this.getResource(SIGHTS + "/" + sightId + "/path", SightPathNode.class);
     }
 
 }
