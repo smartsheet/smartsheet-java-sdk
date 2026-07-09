@@ -30,6 +30,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.net.URI;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -100,9 +101,9 @@ public class TestGetReportColumn {
         LoggedRequest wiremockRequest = wiremockClient.findWiremockRequest(requestId);
         String path = URI.create(wiremockRequest.getUrl()).getPath();
 
-        assertThat(path).isEqualTo("/2.0/reports/" + TEST_REPORT_ID + "/columns/" + TEST_COLUMN_VIRTUAL_ID + "?level=3");
+        assertThat(path).isEqualTo("/2.0/reports/" + TEST_REPORT_ID + "/columns/" + TEST_COLUMN_VIRTUAL_ID);
         assertThat(wiremockRequest.getMethod()).isEqualTo(RequestMethod.GET);
-        assertThat(wiremockRequest.getQueryParams()).isEqualTo(Map.of());
+        assertThat(wiremockRequest.getQueryParams().get("level").getValues()).isEqualTo(List.of("3"));
     }
 
     @Test

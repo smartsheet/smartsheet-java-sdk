@@ -152,10 +152,11 @@ public class TestListReportColumns {
         String path = URI.create(wiremockRequest.getUrl()).getPath();
         Map<String, QueryParameter> receivedQueryParams = wiremockRequest.getQueryParams();
 
-        assertThat(path).isEqualTo("/2.0/reports/" + TEST_REPORT_ID + "/columns?level=3");
+        assertThat(path).isEqualTo("/2.0/reports/" + TEST_REPORT_ID + "/columns");
         assertThat(wiremockRequest.getMethod()).isEqualTo(RequestMethod.GET);
         assertThat(receivedQueryParams.get("lastKey").getValues()).isEqualTo(List.of(TEST_LAST_KEY));
         assertThat(receivedQueryParams.get("maxItems").getValues()).isEqualTo(List.of(Long.toString(TEST_MAX_ITEMS)));
+        assertThat(receivedQueryParams.get("level").getValues()).isEqualTo(List.of("3"));
     }
 
     @Test
