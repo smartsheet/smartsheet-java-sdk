@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [x.x.x] - Unreleased
 
+## [4.2.0] - 2026-07-09
+
 ### Added
 - Support for GET /2.0/reports/{reportId}/definition (`ReportResources.getReportDefinition`)
 - Support for GET /2.0/reports/{reportId}/columns (`ReportResources.listReportColumns`)
