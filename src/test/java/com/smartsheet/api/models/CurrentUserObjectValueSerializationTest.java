@@ -41,7 +41,7 @@ public class CurrentUserObjectValueSerializationTest {
         System.out.println("Serialized CurrentUserObjectValue: " + json);
 
         // Verify the exact JSON structure
-        assertThat(json).isEqualTo("{\"objectType\":\"CURRENT_USER\",\"value\":\"\"}");
+        assertThat(json).isEqualTo("{\"objectType\":\"CURRENT_USER\"}");
     }
 
     @Test
@@ -70,7 +70,7 @@ public class CurrentUserObjectValueSerializationTest {
 
         System.out.println("Serialized CurrentUserObjectValue with custom value: " + json);
 
-        assertThat(json).isEqualTo("{\"objectType\":\"CURRENT_USER\",\"value\":\"custom\"}");
+        assertThat(json).isEqualTo("{\"objectType\":\"CURRENT_USER\"}");
     }
 
     @Test

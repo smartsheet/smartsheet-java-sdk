@@ -39,6 +39,7 @@ import com.smartsheet.api.models.ObjectValue;
 import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.PrimitiveObjectValue;
 import com.smartsheet.api.models.Recipient;
+import com.smartsheet.api.models.ReportFilterObjectValue;
 import com.smartsheet.api.models.Result;
 import com.smartsheet.api.models.TokenPaginatedResult;
 import com.smartsheet.api.models.ListAssetSharesResponse;
@@ -96,6 +97,10 @@ public class JacksonJsonSerializer implements JsonSerializer {
 
         module = new SimpleModule("ObjectValueDeserializerModule", Version.unknownVersion());
         module.addDeserializer(ObjectValue.class, new ObjectValueDeserializer());
+        OBJECT_MAPPER.registerModule(module);
+
+        module = new SimpleModule("ReportFilterObjectValueDeserializerModule", Version.unknownVersion());
+        module.addDeserializer(ReportFilterObjectValue.class, new ReportFilterObjectValueDeserializer());
         OBJECT_MAPPER.registerModule(module);
 
         module = new SimpleModule("PrimitiveObjectValueSerializerModule", Version.unknownVersion());

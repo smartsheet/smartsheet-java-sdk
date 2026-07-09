@@ -6,6 +6,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [x.x.x] - Unreleased
 
+### Added
+- Support for GET /2.0/reports/{reportId}/definition (`ReportResources.getReportDefinition`)
+- Support for GET /2.0/reports/{reportId}/columns (`ReportResources.listReportColumns`)
+- Support for GET /2.0/reports/{reportId}/columns/{columnVirtualId} (`ReportResources.getReportColumn`)
+- Support for PUT /2.0/reports/{reportId}/columns/{columnVirtualId} (`ReportResources.updateReportColumn`)
+- Support for DELETE /2.0/reports/{reportId}/columns/{columnVirtualId} (`ReportResources.deleteReportColumn`)
+- Support for GET /2.0/reports/{reportId}/scope (`ReportResources.listReportScope`)
+
 ### Deprecated
 
 - Deprecated `Event.getObjectId()`; use `Event.getObjectIdStr()` instead. `objectId` is numeric only and returns -1 for non-numeric identifiers. It is not scheduled for removal.
@@ -15,6 +23,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Fixed
 
 - Deprecation related corrections
+- `CurrentUserObjectValue` no longer sends a `value` for `CURRENT_USER` object values
+- Added `ReportFilterObjectValueDeserializer` to correctly deserialize report filter object values
 
 ### Added
 
