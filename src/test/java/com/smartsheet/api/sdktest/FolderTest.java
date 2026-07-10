@@ -23,6 +23,8 @@ import com.smartsheet.api.models.TokenPaginatedResult;
 import com.smartsheet.api.models.Report;
 import com.smartsheet.api.models.Sheet;
 import com.smartsheet.api.models.Sight;
+import com.smartsheet.api.models.enums.AccessLevel;
+import com.smartsheet.api.models.enums.ChildResourceType;
 import com.smartsheet.api.models.enums.ChildrenResourceType;
 import com.smartsheet.api.models.enums.GetFolderChildrenInclusion;
 import com.smartsheet.api.models.enums.GetFolderMetadataInclusion;
@@ -68,24 +70,28 @@ class FolderTest {
         Folder folder = (Folder) firstItem;
         assertThat(folder.getName()).isEqualTo("Subfolder");
         assertThat(folder.getId()).isEqualTo(987L);
+        assertThat(folder.getResourceType()).isEqualTo(ChildResourceType.FOLDER);
 
         Object secondItem = response.getData().get(1);
         assertThat(secondItem).isInstanceOf(Sheet.class);
         Sheet sheet = (Sheet) secondItem;
         assertThat(sheet.getName()).isEqualTo("Task List");
         assertThat(sheet.getId()).isEqualTo(234L);
+        assertThat(sheet.getResourceType()).isEqualTo(ChildResourceType.SHEET);
 
         Object thirdItem = response.getData().get(2);
         assertThat(thirdItem).isInstanceOf(Sight.class);
         Sight sight = (Sight) thirdItem;
         assertThat(sight.getName()).isEqualTo("Project Dashboard");
         assertThat(sight.getId()).isEqualTo(567L);
+        assertThat(sight.getResourceType()).isEqualTo(ChildResourceType.SIGHT);
 
         Object fourthItem = response.getData().get(3);
         assertThat(fourthItem).isInstanceOf(Report.class);
         Report report = (Report) fourthItem;
         assertThat(report.getName()).isEqualTo("Status Report");
         assertThat(report.getId()).isEqualTo(890L);
+        assertThat(report.getResourceType()).isEqualTo(ChildResourceType.REPORT);
     }
 
     @Test
@@ -99,14 +105,17 @@ class FolderTest {
         Sight firstSight = (Sight) response.getData().get(0);
         assertThat(firstSight.getName()).isEqualTo("Project Dashboard");
         assertThat(firstSight.getId()).isEqualTo(567L);
+        assertThat(firstSight.getResourceType()).isEqualTo(ChildResourceType.SIGHT);
 
         Sight secondSight = (Sight) response.getData().get(1);
         assertThat(secondSight.getName()).isEqualTo("Executive Summary");
         assertThat(secondSight.getId()).isEqualTo(1567L);
+        assertThat(secondSight.getResourceType()).isEqualTo(ChildResourceType.SIGHT);
 
         Report report = (Report) response.getData().get(2);
         assertThat(report.getName()).isEqualTo("Status Report");
         assertThat(report.getId()).isEqualTo(890L);
+        assertThat(report.getResourceType()).isEqualTo(ChildResourceType.REPORT);
     }
 
     @Test
@@ -124,6 +133,7 @@ class FolderTest {
         assertThat(folder.getSource()).isNotNull();
         assertThat(folder.getSource().getId()).isEqualTo(444L);
         assertThat(folder.getSource().getType()).isEqualTo(SourceType.FOLDER);
+        assertThat(folder.getResourceType()).isEqualTo(ChildResourceType.FOLDER);
 
         // Check sheet with source and owner info
         Object secondItem = response.getData().get(1);
@@ -135,6 +145,7 @@ class FolderTest {
         assertThat(sheet.getSource().getType()).isEqualTo(SourceType.SHEET);
         assertThat(sheet.getOwner()).isEqualTo("jane.smith@example.com");
         assertThat(sheet.getOwnerId()).isEqualTo(2002L);
+        assertThat(sheet.getResourceType()).isEqualTo(ChildResourceType.SHEET);
 
         // Check sight with source
         Object thirdItem = response.getData().get(2);
@@ -144,6 +155,7 @@ class FolderTest {
         assertThat(sight.getSource()).isNotNull();
         assertThat(sight.getSource().getId()).isEqualTo(222L);
         assertThat(sight.getSource().getType()).isEqualTo(SourceType.SIGHT);
+        assertThat(sight.getResourceType()).isEqualTo(ChildResourceType.SIGHT);
 
         // Check report with source
         Object fourthItem = response.getData().get(3);
@@ -153,6 +165,7 @@ class FolderTest {
         assertThat(report.getSource()).isNotNull();
         assertThat(report.getSource().getId()).isEqualTo(111L);
         assertThat(report.getSource().getType()).isEqualTo(SourceType.REPORT);
+        assertThat(report.getResourceType()).isEqualTo(ChildResourceType.REPORT);
     }
 
     @Test

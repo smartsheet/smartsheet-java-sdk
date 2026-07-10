@@ -17,8 +17,10 @@
 package com.smartsheet.api.models;
 
 import com.smartsheet.api.models.enums.AccessLevel;
+import com.smartsheet.api.models.enums.ChildResourceType;
 import com.smartsheet.api.models.enums.GlobalTemplate;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -76,6 +78,26 @@ public class Template extends NamedModel<Long> {
      * Type of global template. One of "BLANK_SHEET", "TASK_LIST", or "PROJECT_SHEET"
      */
     private GlobalTemplate globalTemplate;
+
+    /**
+     * The resource permalink
+     */
+    private String permalink;
+
+    /**
+     * The resource creation date
+     */
+    private Date createdAt;
+
+    /**
+     * The resource last modified date
+     */
+    private Date modifiedAt;
+
+    /**
+     * The resource type
+     */
+    private ChildResourceType resourceType;
 
     /**
      * Gets the description of the template.
@@ -246,6 +268,82 @@ public class Template extends NamedModel<Long> {
      */
     public Template setGlobalTemplate(GlobalTemplate globalTemplate) {
         this.globalTemplate = globalTemplate;
+        return this;
+    }
+
+    /**
+     * Gets the permalink.
+     *
+     * @return the permalink
+     */
+    public String getPermalink() {
+        return permalink;
+    }
+
+    /**
+     * Sets the permalink.
+     *
+     * @param permalink the permalink
+     */
+    public Template setPermalink(String permalink) {
+        this.permalink = permalink;
+        return this;
+    }
+
+    /**
+     * Gets the creation date.
+     *
+     * @return the created at
+     */
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    /**
+     * Sets the creation date.
+     *
+     * @param createdAt the creation date
+     */
+    public Template setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+        return this;
+    }
+
+    /**
+     * Gets the last modified date.
+     *
+     * @return the modified at
+     */
+    public Date getModifiedAt() {
+        return modifiedAt;
+    }
+
+    /**
+     * Sets the last modified date.
+     *
+     * @param modifiedAt the last modified date
+     */
+    public Template setModifiedAt(Date modifiedAt) {
+        this.modifiedAt = modifiedAt;
+        return this;
+    }
+
+    /**
+     * Gets the resource type.
+     *
+     * @return the resource type
+     */
+    public ChildResourceType getResourceType() {
+        return resourceType;
+    }
+
+    /**
+     * Sets the resource type.
+     *
+     * @param resourceType the resource type
+     */
+    public Template setResourceType(ChildResourceType resourceType) {
+        this.resourceType = resourceType;
         return this;
     }
 }

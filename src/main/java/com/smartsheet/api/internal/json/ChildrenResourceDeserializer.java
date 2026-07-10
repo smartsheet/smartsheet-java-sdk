@@ -27,6 +27,7 @@ import com.smartsheet.api.models.Folder;
 import com.smartsheet.api.models.Report;
 import com.smartsheet.api.models.Sheet;
 import com.smartsheet.api.models.Sight;
+import com.smartsheet.api.models.Template;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -35,7 +36,7 @@ import java.util.List;
 /**
  * Custom deserializer for children resources that deserializes each item based
  * on its resourceType property.
- * Items can be deserialized as Sheet, Folder, Report, or Sight objects.
+ * Items can be deserialized as Sheet, Folder, Report, Sight, or Template objects.
  */
 public class ChildrenResourceDeserializer extends JsonDeserializer<List<Object>> {
 
@@ -72,6 +73,9 @@ public class ChildrenResourceDeserializer extends JsonDeserializer<List<Object>>
                                     break;
                                 case "sight":
                                     child = mapper.treeToValue(node, Sight.class);
+                                    break;
+                                case "template":
+                                    child = mapper.treeToValue(node, Template.class);
                                     break;
                                 default:
                                     // If a new resource type is introduced that this version of the SDK doesn't
