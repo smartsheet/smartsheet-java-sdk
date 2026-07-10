@@ -23,7 +23,6 @@ import com.smartsheet.api.models.TokenPaginatedResult;
 import com.smartsheet.api.models.Report;
 import com.smartsheet.api.models.Sheet;
 import com.smartsheet.api.models.Sight;
-import com.smartsheet.api.models.enums.AccessLevel;
 import com.smartsheet.api.models.enums.ChildResourceType;
 import com.smartsheet.api.models.enums.ChildrenResourceType;
 import com.smartsheet.api.models.enums.GetFolderChildrenInclusion;
