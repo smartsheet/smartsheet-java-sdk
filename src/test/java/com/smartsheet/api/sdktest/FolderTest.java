@@ -62,7 +62,7 @@ class FolderTest {
     void getFolderChildren_NoParams() throws SmartsheetException {
         Smartsheet ss = HelperFunctions.SetupClient("Get Folder Children - No Params");
         TokenPaginatedResult<Object> response = ss.folderResources().getFolderChildren(456L, null, null, null, null);
-        assertThat(response.getData()).hasSize(4);
+        assertThat(response.getData()).hasSize(5);
 
         // Check that we have different resource types
         Object firstItem = response.getData().get(0);
