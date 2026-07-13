@@ -19,7 +19,6 @@ package com.smartsheet.api.models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.smartsheet.api.models.enums.AccessLevel;
 import com.smartsheet.api.models.enums.AttachmentType;
-import com.smartsheet.api.models.enums.ChildResourceType;
 import com.smartsheet.api.models.enums.ResourceManagementType;
 
 import java.util.Date;
@@ -189,11 +188,6 @@ public abstract class AbstractSheet<TRow extends AbstractRow<TColumn, TCell>, TC
      * A Workspace object containing Id and Name (if this sheet is in a Workspace)
      */
     private Workspace workspace;
-
-    /**
-     * The resource type
-     */
-    private ChildResourceType resourceType;
 
     /**
      * Gets the ID of the sheet/template from which the sheet was created.
@@ -903,25 +897,5 @@ public abstract class AbstractSheet<TRow extends AbstractRow<TColumn, TCell>, TC
             }
         }
         return result;
-    }
-
-    /**
-     * Gets the resource type.
-     *
-     * @return the resource type
-     */
-    public ChildResourceType getResourceType() {
-        return resourceType;
-    }
-
-    /**
-     * Sets the resource type.
-     *
-     * @param resourceType the resource type
-     */
-    @SuppressWarnings("unchecked")
-    public <T extends AbstractSheet<TRow, TColumn, TCell>> T setResourceType(ChildResourceType resourceType) {
-        this.resourceType = resourceType;
-        return (T) this;
     }
 }

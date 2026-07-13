@@ -16,8 +16,6 @@
 
 package com.smartsheet.api.models;
 
-import com.smartsheet.api.models.enums.ChildResourceType;
-
 import java.util.Date;
 import java.util.List;
 
@@ -78,11 +76,6 @@ public class Folder extends NamedModel<Long> {
      * Represents the folder last modified date.
      */
     private Date modifiedAt;
-
-    /**
-     * The resource type
-     */
-    private ChildResourceType resourceType;
 
     /**
      * Default constructor
@@ -300,25 +293,6 @@ public class Folder extends NamedModel<Long> {
      */
     public Folder setModifiedAt(Date modifiedAt) {
         this.modifiedAt = modifiedAt;
-        return this;
-    }
-
-    /**
-     * Gets the resource type.
-     *
-     * @return the resource type
-     */
-    public ChildResourceType getResourceType() {
-        return resourceType;
-    }
-
-    /**
-     * Sets the resource type.
-     *
-     * @param resourceType the resource type
-     */
-    public Folder setResourceType(ChildResourceType resourceType) {
-        this.resourceType = resourceType;
         return this;
     }
 

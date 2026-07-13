@@ -28,6 +28,7 @@ import com.smartsheet.api.models.Report;
 import com.smartsheet.api.models.Sheet;
 import com.smartsheet.api.models.Sight;
 import com.smartsheet.api.models.Template;
+import com.smartsheet.api.models.enums.ChildResourceType;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -57,24 +58,25 @@ public class ChildrenResourceDeserializer extends JsonDeserializer<List<Object>>
                     JsonNode resourceTypeNode = node.get("resourceType");
 
                     if (resourceTypeNode != null && resourceTypeNode.isTextual()) {
-                        String resourceType = resourceTypeNode.asText().toLowerCase();
                         Object child = null;
 
                         try {
+                            ChildResourceType resourceType = mapper.treeToValue(resourceTypeNode, ChildResourceType.class);
+
                             switch (resourceType) {
-                                case "sheet":
+                                case SHEET:
                                     child = mapper.treeToValue(node, Sheet.class);
                                     break;
-                                case "folder":
+                                case FOLDER:
                                     child = mapper.treeToValue(node, Folder.class);
                                     break;
-                                case "report":
+                                case REPORT:
                                     child = mapper.treeToValue(node, Report.class);
                                     break;
-                                case "sight":
+                                case SIGHT:
                                     child = mapper.treeToValue(node, Sight.class);
                                     break;
-                                case "template":
+                                case TEMPLATE:
                                     child = mapper.treeToValue(node, Template.class);
                                     break;
                                 default:

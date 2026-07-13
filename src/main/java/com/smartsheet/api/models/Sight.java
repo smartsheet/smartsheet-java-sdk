@@ -17,7 +17,6 @@
 package com.smartsheet.api.models;
 
 import com.smartsheet.api.models.enums.AccessLevel;
-import com.smartsheet.api.models.enums.ChildResourceType;
 
 import java.util.Date;
 import java.util.List;
@@ -76,11 +75,6 @@ public class Sight extends NamedModel<Long> {
      * The background color of the Sight
      */
     private String backgroundColor;
-
-    /**
-     * The resource type
-     */
-    private ChildResourceType resourceType;
 
     /**
      * Provide an 'override' of setName (returns Sight not NamedModel)
@@ -271,24 +265,4 @@ public class Sight extends NamedModel<Long> {
         this.backgroundColor = backgroundColor;
         return this;
     }
-
-    /**
-     * Gets the resource type.
-     *
-     * @return the resource type
-     */
-    public ChildResourceType getResourceType() {
-        return resourceType;
-    }
-
-    /**
-     * Sets the resource type.
-     *
-     * @param resourceType the resource type
-     */
-    public Sight setResourceType(ChildResourceType resourceType) {
-        this.resourceType = resourceType;
-        return this;
-    }
 }
-
