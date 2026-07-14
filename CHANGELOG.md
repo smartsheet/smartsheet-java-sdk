@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [x.x.x] - Unreleased
 
+### Added
+- `ChildResourceType` enum 
+- Test cases for a template resource type
+
 ## [4.2.0] - 2026-07-09
 
 ### Added
