@@ -45,7 +45,18 @@
           "value": "In Progress",
           "displayValue": "In Progress"
         }
-      ]
+      ],
+      "proof": {
+        "id": 8834704717089156,
+        "originalId": 8834704717089156,
+        "name": "Design mockup",
+        "type": "IMAGE",
+        "documentType": "PNG",
+        "proofRequestUrl": "https://app.smartsheet.com/proofs/8834704717089156",
+        "version": 1,
+        "lastUpdatedAt": "2014-10-02T15:05:35Z",
+        "isCompleted": false
+      }
     }
 
   ]

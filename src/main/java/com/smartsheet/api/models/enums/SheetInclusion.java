@@ -30,6 +30,7 @@ public enum SheetInclusion {
     FORMAT("format"),
     OBJECT_VALUE("objectValue"),
     OWNER_INFO("ownerInfo"),
+    PROOFS("proofs"),
     ROW_PERMALINK("rowPermalink"),
     // deprecated, use writerInfo
     ROW_WRITER_INFO("rowWriterInfo"),

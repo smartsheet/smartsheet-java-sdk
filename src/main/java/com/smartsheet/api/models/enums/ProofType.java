@@ -17,27 +17,12 @@
 package com.smartsheet.api.models.enums;
 
 /**
- * Represents specific objects that can be included in some responses.
+ * Represents the type of a proof.
  */
-public enum ReportInclusion {
-    ATTACHMENTS("attachments"),
-    DISCUSSIONS("discussions"),
-    FORMAT("format"),
-    OBJECTVALUE("objectValue"),
-    PROOFS("proofs"),
-    SCOPE("scope"),
-    SOURCE("source"),
-    SOURCESHEETS("sourceSheets"),
-    SHEETVERSION("sheetVersion");
-
-    String inclusion;
-
-    ReportInclusion(String inclusion) {
-        this.inclusion = inclusion;
-    }
-
-    @Override
-    public String toString() {
-        return inclusion;
-    }
+public enum ProofType {
+    DOCUMENT,
+    IMAGE,
+    MIXED,
+    NONE,
+    VIDEO
 }

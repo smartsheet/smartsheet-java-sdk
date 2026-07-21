@@ -27,6 +27,7 @@ import com.smartsheet.api.models.ReportPathNode;
 import com.smartsheet.api.models.FormatDetails;
 import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.PaginationParameters;
+import com.smartsheet.api.models.Proof;
 import com.smartsheet.api.models.Recipient;
 import com.smartsheet.api.models.RecipientEmail;
 import com.smartsheet.api.models.RecipientGroup;
@@ -41,6 +42,7 @@ import com.smartsheet.api.models.enums.PaperSize;
 import com.smartsheet.api.models.enums.ReportAssetType;
 import com.smartsheet.api.models.enums.ReportDestinationType;
 import com.smartsheet.api.models.enums.ReportInclusion;
+import com.smartsheet.api.models.enums.ProofType;
 import com.smartsheet.api.models.enums.SheetEmailFormat;
 import org.apache.commons.io.output.ByteArrayOutputStream;
 import org.junit.jupiter.api.BeforeEach;
@@ -75,11 +77,19 @@ class ReportResourcesImplTest extends ResourcesImplBase {
         server.setResponseBody(new File("src/test/resources/getReport.json"));
         EnumSet<ReportInclusion> reportInclusions = EnumSet.of(
                 ReportInclusion.ATTACHMENTS,
-                ReportInclusion.DISCUSSIONS);
+                ReportInclusion.DISCUSSIONS,
+                ReportInclusion.PROOFS);
         Report report = reportResources.getReport(4583173393803140L, reportInclusions, 1, 1);
         assertThat(report.getPermalink())
                 .isEqualTo("https://app.smartsheet.com/b/home?lx=pWNSDH9itjBXxBzFmyf-5w");
         assertThat(report.getColumns().get(0).getVirtualId()).isEqualTo(4583173393803140L);
+
+        Proof proof = report.getRows().get(0).getProof();
+        assertThat(proof).isNotNull();
+        assertThat(proof.getId()).isEqualTo(8834704717089156L);
+        assertThat(proof.getName()).isEqualTo("Design mockup");
+        assertThat(proof.getType()).isEqualTo(ProofType.IMAGE);
+        assertThat(proof.getIsCompleted()).isFalse();
     }
 
     @Test
