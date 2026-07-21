@@ -29,6 +29,7 @@ public enum RowInclusion {
     ROW_PERMALINK("rowPermalink"),
     ROW_WRITER_INFO("rowWriterInfo"),
     OBJECT_VALUE("objectValue"),
+    PROOFS("proofs"),
     ;
 
     String inclusion;

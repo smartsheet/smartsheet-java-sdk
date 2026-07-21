@@ -83,6 +83,11 @@ public abstract class AbstractRow<TColumn extends Column, TCell extends Cell> ex
     private List<Attachment> attachments;
 
     /**
+     * Represents the proof for this row.
+     */
+    private Proof proof;
+
+    /**
      * Represents the columns for this row.
      */
     private List<TColumn> columns;
@@ -395,6 +400,26 @@ public abstract class AbstractRow<TColumn extends Column, TCell extends Cell> ex
     @SuppressWarnings("unchecked")
     public <T extends AbstractRow<TColumn, TCell>> T setAttachments(List<Attachment> attachments) {
         this.attachments = attachments;
+        return (T) this;
+    }
+
+    /**
+     * Gets the proof.
+     *
+     * @return the proof
+     */
+    public Proof getProof() {
+        return proof;
+    }
+
+    /**
+     * Sets the proof.
+     *
+     * @param proof the new proof
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends AbstractRow<TColumn, TCell>> T setProof(Proof proof) {
+        this.proof = proof;
         return (T) this;
     }
 
