@@ -178,17 +178,19 @@ public class TestAddReportColumns {
 
     @BeforeEach
     void setUp() {
-        ReportColumn column1 = new ReportColumn();
-        column1.setTitle("Item selected");
-        column1.setType(ColumnType.CHECKBOX);
-        column1.setIndex(4);
-        column1.setSheetNameColumn(false);
+        ReportColumn column1 = new ReportColumn.AddReportColumnBuilder()
+                .setTitle("Item selected")
+                .setType(ColumnType.CHECKBOX)
+                .setIndex(4)
+                .setSheetNameColumn(false)
+                .build();
 
-        ReportColumn column2 = new ReportColumn();
-        column2.setTitle("Sheet name");
-        column2.setType(ColumnType.TEXT_NUMBER);
-        column2.setIndex(5);
-        column2.setSheetNameColumn(true);
+        ReportColumn column2 = new ReportColumn.AddReportColumnBuilder()
+                .setTitle("Sheet name")
+                .setType(ColumnType.TEXT_NUMBER)
+                .setIndex(5)
+                .setSheetNameColumn(true)
+                .build();
 
         testColumns = new ArrayList<>();
         testColumns.add(column1);

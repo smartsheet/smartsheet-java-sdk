@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - `Proof` model and `ProofType` enum
 - `proof` property on rows returned by `getSheet` and `getReport`
 - `PROOFS` inclusion value for `SheetInclusion`, `ReportInclusion`, and `RowInclusion`
+- `ReportColumn.AddReportColumnBuilder` for constructing report columns
 
 ## [4.3.0] - 2026-07-20
 
