@@ -30,6 +30,7 @@ class AccessLevelTest {
         assertThat(AccessLevel.valueOf("EDITOR_SHARE")).isNotNull();
         assertThat(AccessLevel.valueOf("ADMIN")).isNotNull();
         assertThat(AccessLevel.valueOf("OWNER")).isNotNull();
-        assertThat(AccessLevel.values()).hasSize(5);
+        assertThat(AccessLevel.valueOf("COMMENTER")).isNotNull();
+        assertThat(AccessLevel.values()).hasSize(6);
     }
 }

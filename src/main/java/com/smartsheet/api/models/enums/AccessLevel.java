@@ -26,5 +26,6 @@ public enum AccessLevel {
     EDITOR,
     EDITOR_SHARE,
     ADMIN,
-    OWNER
+    OWNER,
+    COMMENTER
 }
