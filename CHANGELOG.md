@@ -12,6 +12,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - `PROOFS` inclusion value for `SheetInclusion`, `ReportInclusion`, and `RowInclusion`
 - `ReportColumn.AddReportColumnBuilder` for constructing report columns
 
+### Fixed
+- `COMMENTER` value for `AccessLevel`, which previously deserialized to `null` on sheets, reports, workspaces, and shares. Fixes [smartsheet-csharp-sdk#218](https://github.com/smartsheet/smartsheet-csharp-sdk/issues/218)
+
 ## [4.3.0] - 2026-07-20
 
 ### Added
