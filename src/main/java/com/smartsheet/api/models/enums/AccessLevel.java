@@ -19,13 +19,13 @@ package com.smartsheet.api.models.enums;
 /**
  * Represents access levels that users can have.
  *
- * @see <a href="https://smartsheet.redoc.ly/#section/Security/Access-Levels">Access Level Help</a>
+ * @see <a href="https://developers.smartsheet.com/api/smartsheet/guides/basics/resource-access-levels">Resource Access Levels</a>
  */
 public enum AccessLevel {
     VIEWER,
+    COMMENTER,
     EDITOR,
     EDITOR_SHARE,
     ADMIN,
-    OWNER,
-    COMMENTER
+    OWNER
 }

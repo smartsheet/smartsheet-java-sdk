@@ -33,4 +33,16 @@ class AccessLevelTest {
         assertThat(AccessLevel.valueOf("COMMENTER")).isNotNull();
         assertThat(AccessLevel.values()).hasSize(6);
     }
+
+    @Test
+    void declarationOrderMatchesSpecification() {
+        assertThat(AccessLevel.values()).containsExactly(
+                AccessLevel.VIEWER,
+                AccessLevel.COMMENTER,
+                AccessLevel.EDITOR,
+                AccessLevel.EDITOR_SHARE,
+                AccessLevel.ADMIN,
+                AccessLevel.OWNER
+        );
+    }
 }
