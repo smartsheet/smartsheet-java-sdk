@@ -46,7 +46,7 @@ public class TestListUserPlans {
     private static final SeatType TEST_SEAT_TYPE = SeatType.MEMBER;
     private static final String TEST_SEAT_TYPE_LAST_CHANGED_AT = "2025-01-01T00:00:00.123456789Z";
     private static final String TEST_PROVISIONAL_EXPIRATION_DATE = "2026-12-13T12:17:52.525696Z";
-    private static final EnumSet<UserPlanInclusion> TEST_INCLUDES = EnumSet.of(UserPlanInclusion.PLAN_NAMES);
+    private static final EnumSet<UserPlanInclusion> TEST_INCLUDES = EnumSet.of(UserPlanInclusion.PLAN_NAME);
     private static final String TEST_PLAN_NAME = "Acme Corporation";
 
     @Test
@@ -68,7 +68,7 @@ public class TestListUserPlans {
         assertThat(receivedQueryParams.get("maxItems").getValues()).isEqualTo(List.of(Long.toString(TEST_MAX_ITEMS)));
         assertThat(receivedQueryParams.get("lastKey").getValues()).isEqualTo(List.of(TEST_LAST_KEY));
         assertThat(receivedQueryParams.get("displayContributorSeatType").getValues()).isEqualTo(List.of("true"));
-        assertThat(receivedQueryParams.get("include").getValues()).isEqualTo(List.of("planNames"));
+        assertThat(receivedQueryParams.get("include").getValues()).isEqualTo(List.of("planName"));
     }
 
     @Test

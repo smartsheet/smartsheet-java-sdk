@@ -289,7 +289,7 @@ public interface UserResources {
      * @param maxItems maximum number of items to return
      * @param displayContributorSeatType if true, returns CONTRIBUTOR instead of VIEWER for eligible users
      * @param includes elements to include in the response. Specifying
-     *                 {@link UserPlanInclusion#PLAN_NAMES} populates {@link UserPlan#getPlanName()}
+     *                 {@link UserPlanInclusion#PLAN_NAME} populates {@link UserPlan#getPlanName()}
      *                 with the name of the organization that owns each plan. Organization names are
      *                 cached server side for several hours, so a recently renamed organization may
      *                 briefly report its previous name.

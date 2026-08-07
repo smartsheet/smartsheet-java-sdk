@@ -41,7 +41,7 @@ public class UserPlan {
     /**
      * <p>The name of the organization that owns this plan.</p>
      *
-     * <p>Only populated when {@code planNames} was requested via the {@code include} parameter of
+     * <p>Only populated when {@code planName} was requested via the {@code include} parameter of
      * {@code listUserPlans}. It is also null for a plan whose owning organization has no name, so
      * a null value does not by itself mean the enrichment was not requested.</p>
      *

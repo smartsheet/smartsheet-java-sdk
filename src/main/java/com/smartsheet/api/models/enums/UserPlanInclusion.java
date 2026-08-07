@@ -20,7 +20,7 @@ package com.smartsheet.api.models.enums;
  * Represents specific objects that can be included with the ListUserPlans request.
  */
 public enum UserPlanInclusion {
-    PLAN_NAMES("planNames"),
+    PLAN_NAME("planName"),
     ;
 
     String inclusion;
