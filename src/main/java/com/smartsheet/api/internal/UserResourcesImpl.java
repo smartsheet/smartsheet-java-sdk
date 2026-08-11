@@ -674,11 +674,11 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
      * @param lastKey lastKey from previous response to get next page of results
      * @param maxItems maximum number of items to return
      * @param displayContributorSeatType if true, returns CONTRIBUTOR instead of VIEWER for eligible users
-     * @param includes elements to include in the response. Specifying
-     *                 {@link UserPlanInclusion#PLAN_NAME} populates {@link UserPlan#getPlanName()}
-     *                 with the name of the organization that owns each plan. Organization names are
-     *                 cached server side for several hours, so a recently renamed organization may
-     *                 briefly report its previous name.
+     * @param include elements to include in the response. Specifying
+     *                {@link UserPlanInclusion#PLAN_NAME} populates {@link UserPlan#getPlanName()}
+     *                with the name of the organization that owns each plan. Organization names are
+     *                cached server side for several hours, so a recently renamed organization may
+     *                briefly report its previous name.
      * @return UserPlansResponse json response
      * @throws IllegalArgumentException    if any argument is null or empty string
      * @throws InvalidRequestException     if there is any problem with the REST API request
@@ -693,7 +693,7 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
             String lastKey,
             Long maxItems,
             Boolean displayContributorSeatType,
-            EnumSet<UserPlanInclusion> includes
+            EnumSet<UserPlanInclusion> include
     ) throws SmartsheetException {
 
         String path = USERS + "/" + userId + "/plans";
@@ -711,8 +711,8 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
             parameters.put("displayContributorSeatType", displayContributorSeatType);
         }
 
-        if (includes != null) {
-            parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
+        if (include != null) {
+            parameters.put("include", QueryUtil.generateCommaSeparatedList(include));
         }
 
         path += QueryUtil.generateUrl(null, parameters);
