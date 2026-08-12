@@ -25,11 +25,13 @@ import com.smartsheet.api.WiremockClientWrapper;
 import com.smartsheet.api.models.TokenPaginatedResult;
 import com.smartsheet.api.models.UserPlan;
 import com.smartsheet.api.models.enums.SeatType;
+import com.smartsheet.api.models.enums.UserPlanInclusion;
 import com.smartsheet.api.sdktest.Utils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.net.URI;
+import java.util.EnumSet;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -44,6 +46,8 @@ public class TestListUserPlans {
     private static final SeatType TEST_SEAT_TYPE = SeatType.MEMBER;
     private static final String TEST_SEAT_TYPE_LAST_CHANGED_AT = "2025-01-01T00:00:00.123456789Z";
     private static final String TEST_PROVISIONAL_EXPIRATION_DATE = "2026-12-13T12:17:52.525696Z";
+    private static final EnumSet<UserPlanInclusion> TEST_INCLUDES = EnumSet.of(UserPlanInclusion.PLAN_NAME);
+    private static final String TEST_PLAN_NAME = "Acme Corporation";
 
     @Test
     void testListUserPlansGeneratedUrlIsCorrect() throws SmartsheetException {
@@ -55,7 +59,7 @@ public class TestListUserPlans {
         Smartsheet smartsheet = wrapper.getSmartsheet();
         WiremockClient wiremockClient = wrapper.getWiremockClient();
 
-        smartsheet.userResources().listUserPlans(TEST_USER_ID, TEST_LAST_KEY, TEST_MAX_ITEMS, true);
+        smartsheet.userResources().listUserPlans(TEST_USER_ID, TEST_LAST_KEY, TEST_MAX_ITEMS, true, TEST_INCLUDES);
         LoggedRequest wiremockRequest = wiremockClient.findWiremockRequest(requestId);
         String path = URI.create(wiremockRequest.getUrl()).getPath();
         Map<String, QueryParameter> receivedQueryParams = wiremockRequest.getQueryParams();
@@ -64,6 +68,7 @@ public class TestListUserPlans {
         assertThat(receivedQueryParams.get("maxItems").getValues()).isEqualTo(List.of(Long.toString(TEST_MAX_ITEMS)));
         assertThat(receivedQueryParams.get("lastKey").getValues()).isEqualTo(List.of(TEST_LAST_KEY));
         assertThat(receivedQueryParams.get("displayContributorSeatType").getValues()).isEqualTo(List.of("true"));
+        assertThat(receivedQueryParams.get("include").getValues()).isEqualTo(List.of("planName"));
     }
 
     @Test
@@ -76,7 +81,7 @@ public class TestListUserPlans {
         Smartsheet smartsheet = wrapper.getSmartsheet();
 
         TokenPaginatedResult<UserPlan> response = smartsheet.userResources()
-                .listUserPlans(TEST_USER_ID, TEST_LAST_KEY, TEST_MAX_ITEMS);
+                .listUserPlans(TEST_USER_ID, TEST_LAST_KEY, TEST_MAX_ITEMS, null, TEST_INCLUDES);
 
         assertThat(response).isNotNull();
         assertThat(response.getLastKey()).isEqualTo(TEST_LAST_KEY);
@@ -84,12 +89,14 @@ public class TestListUserPlans {
 
         // Verify first plan (MEMBER)
         assertThat(response.getData().get(0).getPlanId()).isEqualTo(TEST_PLAN_ID);
+        assertThat(response.getData().get(0).getPlanName()).isEqualTo(TEST_PLAN_NAME);
         assertThat(response.getData().get(0).getSeatType()).isEqualTo(TEST_SEAT_TYPE);
         assertThat(response.getData().get(0).getSeatTypeLastChangedAt()).isEqualTo(TEST_SEAT_TYPE_LAST_CHANGED_AT);
         assertThat(response.getData().get(0).getProvisionalExpirationDate()).isEqualTo(TEST_PROVISIONAL_EXPIRATION_DATE);
         assertThat(response.getData().get(0).getIsInternal()).isFalse();
 
-        // Verify second plan (CONTRIBUTOR)
+        // Verify second plan (CONTRIBUTOR), which omits the optional planName
+        assertThat(response.getData().get(1).getPlanName()).isNull();
         assertThat(response.getData().get(1).getSeatType()).isEqualTo(SeatType.CONTRIBUTOR);
         assertThat(response.getData().get(1).getSeatTypeLastChangedAt()).isEqualTo(TEST_SEAT_TYPE_LAST_CHANGED_AT);
         assertThat(response.getData().get(1).getProvisionalExpirationDate()).isEqualTo(TEST_PROVISIONAL_EXPIRATION_DATE);
@@ -110,6 +117,7 @@ public class TestListUserPlans {
 
         assertThat(response).isNotNull();
         assertThat(response.getData().get(0).getPlanId()).isEqualTo(TEST_PLAN_ID);
+        assertThat(response.getData().get(0).getPlanName()).isNull();
         assertThat(response.getData().get(0).getSeatType()).isEqualTo(TEST_SEAT_TYPE);
         assertThat(response.getData().get(0).getSeatTypeLastChangedAt()).isNull();
         assertThat(response.getData().get(0).getProvisionalExpirationDate()).isNull();

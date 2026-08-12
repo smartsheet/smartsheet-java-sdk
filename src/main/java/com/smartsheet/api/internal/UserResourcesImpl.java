@@ -43,6 +43,7 @@ import com.smartsheet.api.models.enums.SeatType;
 import com.smartsheet.api.models.enums.UpgradeSeatType;
 import com.smartsheet.api.models.enums.DowngradeSeatType;
 import com.smartsheet.api.models.enums.UserInclusion;
+import com.smartsheet.api.models.enums.UserPlanInclusion;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -661,6 +662,39 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
             Long maxItems,
             Boolean displayContributorSeatType
     ) throws SmartsheetException {
+        return listUserPlans(userId, lastKey, maxItems, displayContributorSeatType, null);
+    }
+
+    /**
+     * <p>Fetch all user's plans.</p>
+     *
+     * <p>It mirrors to the following Smartsheet REST API method: GET /users/{userId}/plans</p>
+     *
+     * @param userId the id of the user whose plans to fetch
+     * @param lastKey lastKey from previous response to get next page of results
+     * @param maxItems maximum number of items to return
+     * @param displayContributorSeatType if true, returns CONTRIBUTOR instead of VIEWER for eligible users
+     * @param include elements to include in the response. Specifying
+     *                {@link UserPlanInclusion#PLAN_NAME} populates {@link UserPlan#getPlanName()}
+     *                with the name of the organization that owns each plan. Organization names are
+     *                cached server side for several hours, so a recently renamed organization may
+     *                briefly report its previous name.
+     * @return UserPlansResponse json response
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetException         if there is any other error during the operation
+     */
+    @Override
+    public TokenPaginatedResult<UserPlan> listUserPlans(
+            long userId,
+            String lastKey,
+            Long maxItems,
+            Boolean displayContributorSeatType,
+            EnumSet<UserPlanInclusion> include
+    ) throws SmartsheetException {
 
         String path = USERS + "/" + userId + "/plans";
         Map<String, Object> parameters = new HashMap<>();
@@ -675,6 +709,10 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
 
         if (displayContributorSeatType != null) {
             parameters.put("displayContributorSeatType", displayContributorSeatType);
+        }
+
+        if (include != null) {
+            parameters.put("include", QueryUtil.generateCommaSeparatedList(include));
         }
 
         path += QueryUtil.generateUrl(null, parameters);
