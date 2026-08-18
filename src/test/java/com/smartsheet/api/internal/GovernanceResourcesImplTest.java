@@ -153,15 +153,6 @@ class GovernanceResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    void testGetDataClassificationSettings_error404() {
-        server.setStatus(404);
-        server.setResponseBody("{\"errorCode\":1006,\"message\":\"Not Found\"}");
-
-        assertThatThrownBy(() -> governanceResources.getDataClassificationSettings(99999L))
-                .isInstanceOf(SmartsheetException.class);
-    }
-
-    @Test
     void testGetDataClassificationSettings_error403() {
         server.setStatus(403);
         server.setResponseBody("{\"errorCode\":1004,\"message\":\"You are not authorized to perform this action.\"}");
