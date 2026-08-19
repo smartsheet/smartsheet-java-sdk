@@ -22,7 +22,6 @@ import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.WiremockClient;
 import com.smartsheet.api.WiremockClientWrapper;
 import com.smartsheet.api.models.DataClassification;
-import com.smartsheet.api.models.enums.DataClassificationType;
 import com.smartsheet.api.sdktest.Utils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -46,7 +45,7 @@ public class TestSetDataClassification {
         WiremockClient wiremockClient = wrapper.getWiremockClient();
 
         DataClassification dataClassification = new DataClassification()
-                .setDataClassification(DataClassificationType.CONFIDENTIAL);
+                .setDataClassification("CONFIDENTIAL");
 
         smartsheet.sheetResources().setDataClassification(TEST_SHEET_ID, dataClassification);
         LoggedRequest wiremockRequest = wiremockClient.findWiremockRequest(requestId);
@@ -66,7 +65,7 @@ public class TestSetDataClassification {
         WiremockClient wiremockClient = wrapper.getWiremockClient();
 
         DataClassification dataClassification = new DataClassification()
-                .setDataClassification(DataClassificationType.CONFIDENTIAL);
+                .setDataClassification("CONFIDENTIAL");
 
         Assertions.assertDoesNotThrow(() ->
                 smartsheet.sheetResources().setDataClassification(TEST_SHEET_ID, dataClassification)
@@ -78,13 +77,37 @@ public class TestSetDataClassification {
     }
 
     @Test
+    void testSetDataClassificationAcceptsCustomPlanDefinedLabel() throws SmartsheetException {
+        // dataClassification is a free-form string: valid values are whatever labels a plan admin has
+        // published in Admin Center, not a fixed set. This proves a non-canonical, custom label is accepted.
+        String requestId = UUID.randomUUID().toString();
+        WiremockClientWrapper wrapper = Utils.createWiremockSmartsheetClient(
+                "/sheets/set-data-classification/all-response-body-properties",
+                requestId
+        );
+        Smartsheet smartsheet = wrapper.getSmartsheet();
+        WiremockClient wiremockClient = wrapper.getWiremockClient();
+
+        DataClassification dataClassification = new DataClassification()
+                .setDataClassification("Top Secret");
+
+        Assertions.assertDoesNotThrow(() ->
+                smartsheet.sheetResources().setDataClassification(TEST_SHEET_ID, dataClassification)
+        );
+
+        LoggedRequest wiremockRequest = wiremockClient.findWiremockRequest(requestId);
+        String requestBody = wiremockRequest.getBodyAsString();
+        assertThat(requestBody).isEqualTo("{\"dataClassification\":\"Top Secret\"}");
+    }
+
+    @Test
     void testSetDataClassificationError500Response() {
         String requestId = UUID.randomUUID().toString();
         WiremockClientWrapper wrapper = Utils.createWiremockSmartsheetClient("/errors/500-response", requestId);
         Smartsheet smartsheet = wrapper.getSmartsheet();
 
         DataClassification dataClassification = new DataClassification()
-                .setDataClassification(DataClassificationType.CONFIDENTIAL);
+                .setDataClassification("CONFIDENTIAL");
 
         SmartsheetException exception = Assertions.assertThrows(SmartsheetException.class, () ->
                 smartsheet.sheetResources().setDataClassification(TEST_SHEET_ID, dataClassification)
@@ -100,7 +123,7 @@ public class TestSetDataClassification {
         Smartsheet smartsheet = wrapper.getSmartsheet();
 
         DataClassification dataClassification = new DataClassification()
-                .setDataClassification(DataClassificationType.CONFIDENTIAL);
+                .setDataClassification("CONFIDENTIAL");
 
         SmartsheetException exception = Assertions.assertThrows(SmartsheetException.class, () ->
                 smartsheet.sheetResources().setDataClassification(TEST_SHEET_ID, dataClassification)

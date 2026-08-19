@@ -16,31 +16,30 @@
 
 package com.smartsheet.api.models;
 
-import com.smartsheet.api.models.enums.DataClassificationType;
-
 /**
- * Represents the data classification of a sheet.
+ * Represents the data classification of a sheet, as a label from the plan's published classification labels.
+ * Valid values are whatever labels a plan admin has published in Admin Center, and can change at any time.
  */
 public class DataClassification {
 
-    private DataClassificationType dataClassification;
+    private String dataClassification;
 
     /**
      * Gets the data classification.
      *
-     * @return the data classification
+     * @return the data classification, as a label from the plan's published classification labels
      */
-    public DataClassificationType getDataClassification() {
+    public String getDataClassification() {
         return dataClassification;
     }
 
     /**
      * Sets the data classification.
      *
-     * @param dataClassification the data classification
+     * @param dataClassification the data classification, as a label from the plan's published classification labels
      * @return this DataClassification object for chaining
      */
-    public DataClassification setDataClassification(DataClassificationType dataClassification) {
+    public DataClassification setDataClassification(String dataClassification) {
         this.dataClassification = dataClassification;
         return this;
     }
