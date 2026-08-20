@@ -41,6 +41,7 @@ import com.smartsheet.api.internal.http.HttpResponse;
 import com.smartsheet.api.internal.util.QueryUtil;
 import com.smartsheet.api.internal.util.Util;
 import com.smartsheet.api.models.ContainerDestination;
+import com.smartsheet.api.models.DataClassification;
 import com.smartsheet.api.models.MultiRowEmail;
 import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.PaginationParameters;
@@ -797,6 +798,42 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
      */
     public void deleteSheet(long id) throws SmartsheetException {
         this.deleteResource(SHEETS + "/" + id, Sheet.class);
+    }
+
+    /**
+     * Sets the data classification on a sheet.
+     * <p>
+     * It mirrors to the following Smartsheet REST API method: PUT /sheets/{sheetId}/dataclassification
+     *
+     * @param sheetId the sheet id
+     * @param dataClassification the DataClassification object
+     * @throws IllegalArgumentException    : if any argument is null
+     * @throws InvalidRequestException     : if there is any problem with the REST API request
+     * @throws AuthorizationException      : if there is any problem with the REST API authorization(access token)
+     * @throws ResourceNotFoundException   : if the resource can not be found
+     * @throws ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetRestException     : if there is any other REST API related error occurred during the operation
+     * @throws SmartsheetException         : if there is any other error occurred during the operation
+     */
+    public void setDataClassification(long sheetId, DataClassification dataClassification) throws SmartsheetException {
+        this.updateResource(SHEETS + "/" + sheetId + "/dataclassification", DataClassification.class, dataClassification);
+    }
+
+    /**
+     * Removes the data classification from a sheet. Requires ADMIN or OWNER access.
+     * <p>
+     * It mirrors to the following Smartsheet REST API method: DELETE /sheets/{sheetId}/dataclassification
+     *
+     * @param sheetId the sheet id
+     * @throws InvalidRequestException     : if there is any problem with the REST API request
+     * @throws AuthorizationException      : if there is any problem with the REST API authorization(access token)
+     * @throws ResourceNotFoundException   : if the resource can not be found
+     * @throws ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetRestException     : if there is any other REST API related error occurred during the operation
+     * @throws SmartsheetException         : if there is any other error occurred during the operation
+     */
+    public void deleteDataClassification(long sheetId) throws SmartsheetException {
+        this.deleteResource(SHEETS + "/" + sheetId + "/dataclassification", DataClassification.class);
     }
 
     /**

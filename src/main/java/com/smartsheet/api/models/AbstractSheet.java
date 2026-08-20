@@ -77,6 +77,11 @@ public abstract class AbstractSheet<TRow extends AbstractRow<TColumn, TCell>, TC
     private Boolean dependenciesEnabled;
 
     /**
+     * Represents the data classification of the sheet, as a label from the plan's published classification labels.
+     */
+    private String dataClassification;
+
+    /**
      * Represents the discussions for the sheet.
      */
     private List<Discussion> discussions;
@@ -364,6 +369,26 @@ public abstract class AbstractSheet<TRow extends AbstractRow<TColumn, TCell>, TC
     @SuppressWarnings("unchecked")
     public <T extends AbstractSheet<TRow, TColumn, TCell>> T setDependenciesEnabled(Boolean dependenciesEnabled) {
         this.dependenciesEnabled = dependenciesEnabled;
+        return (T) this;
+    }
+
+    /**
+     * Gets the data classification of the sheet.
+     *
+     * @return the data classification, as a label from the plan's published classification labels
+     */
+    public String getDataClassification() {
+        return dataClassification;
+    }
+
+    /**
+     * Sets the data classification of the sheet.
+     *
+     * @param dataClassification the data classification, as a label from the plan's published classification labels
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends AbstractSheet<TRow, TColumn, TCell>> T setDataClassification(String dataClassification) {
+        this.dataClassification = dataClassification;
         return (T) this;
     }
 
