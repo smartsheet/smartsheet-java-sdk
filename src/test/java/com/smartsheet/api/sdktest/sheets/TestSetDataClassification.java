@@ -16,6 +16,7 @@
 
 package com.smartsheet.api.sdktest.sheets;
 
+import com.github.tomakehurst.wiremock.http.RequestMethod;
 import com.github.tomakehurst.wiremock.verification.LoggedRequest;
 import com.smartsheet.api.Smartsheet;
 import com.smartsheet.api.SmartsheetException;
@@ -27,6 +28,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.net.URI;
+import java.util.Map;
 import java.util.UUID;
 
 import static com.smartsheet.api.sdktest.sheets.CommonTestConstants.TEST_SHEET_ID;
@@ -52,6 +54,8 @@ public class TestSetDataClassification {
         String path = URI.create(wiremockRequest.getUrl()).getPath();
 
         assertThat(path).isEqualTo("/2.0/sheets/" + TEST_SHEET_ID + "/dataclassification");
+        assertThat(wiremockRequest.getMethod()).isEqualTo(RequestMethod.PUT);
+        assertThat(wiremockRequest.getQueryParams()).isEqualTo(Map.of());
     }
 
     @Test
