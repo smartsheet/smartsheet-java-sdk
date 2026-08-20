@@ -17,13 +17,13 @@
 package com.smartsheet.api;
 
 import com.smartsheet.api.models.ContainerDestination;
-import com.smartsheet.api.models.PagedResult;
-import com.smartsheet.api.models.PaginationParameters;
 import com.smartsheet.api.models.Sight;
 import com.smartsheet.api.models.SightPublish;
+import com.smartsheet.api.models.TokenPaginatedResult;
+import com.smartsheet.api.models.TokenPaginationParameters;
+import com.smartsheet.api.models.SightPathNode;
 import com.smartsheet.api.models.enums.SightInclusion;
 
-import java.util.Date;
 import java.util.EnumSet;
 
 public interface SightResources {
@@ -34,8 +34,7 @@ public interface SightResources {
      * <p>It mirrors to the following Smartsheet REST API method: GET /sights</p>
      *
      * @param paging        the pagination parameters
-     * @param modifiedSince include sights modified on or after this date
-     * @return IndexResult object containing an array of Sight objects limited to the following attributes:
+     * @return TokenPaginatedResult object containing an array of Sight objects limited to the following attributes:
      * id, name, accessLevel, permalink, createdAt, modifiedAt.
      * @throws IllegalArgumentException    if any argument is null or empty string
      * @throws InvalidRequestException     if there is any problem with the REST API request
@@ -44,7 +43,7 @@ public interface SightResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException         if there is any other error during the operation
      */
-    PagedResult<Sight> listSights(PaginationParameters paging, Date modifiedSince) throws SmartsheetException;
+    TokenPaginatedResult<Sight> listSights(TokenPaginationParameters paging) throws SmartsheetException;
 
     /**
      * <p>Get a specified Sight.</p>
@@ -195,10 +194,18 @@ public interface SightResources {
     SightPublish setPublishStatus(long sightId, SightPublish sightPublish) throws SmartsheetException;
 
     /**
-     * <p>Return the ShareResources object that provides access to share resources associated with
-     * Sight resources.</p>
+     * <p>Get the path of a sight (workspace/folder hierarchy).</p>
      *
-     * @return the associated share resources
+     * <p>It mirrors to the following Smartsheet REST API method: GET /sights/{sightId}/path</p>
+     *
+     * @param sightId the sight id
+     * @return the container path representing the hierarchy from the workspace down to the sight
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetException         if there is any other error during the operation
      */
-    ShareResources shareResources();
+    SightPathNode getSightPath(long sightId) throws SmartsheetException;
 }

@@ -25,11 +25,15 @@ import com.smartsheet.api.models.Hyperlink;
 import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.Predecessor;
 import com.smartsheet.api.models.PredecessorList;
+import com.smartsheet.api.models.Proof;
 import com.smartsheet.api.models.Row;
 import com.smartsheet.api.models.Sheet;
+import com.smartsheet.api.models.enums.ProofType;
+import com.smartsheet.api.models.enums.RowInclusion;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
+import java.util.EnumSet;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -41,6 +45,26 @@ class RowTest {
         Smartsheet ss = HelperFunctions.SetupClient("List Sheets - No Params");
         PagedResult<Sheet> sheets = ss.sheetResources().listSheets();
         assertThat(sheets.getData().get(0).getName()).isEqualTo("Copy of Sample Sheet");
+    }
+
+    @Test
+    void getRow_Serialization_Proof() throws SmartsheetException {
+        Smartsheet ss = HelperFunctions.SetupClient("Serialization - Proof");
+
+        Row row = ss.sheetResources().rowResources().getRow(1, 2, EnumSet.of(RowInclusion.PROOFS), null);
+
+        Proof proof = row.getProof();
+        assertThat(proof).isNotNull();
+        assertThat(proof.getId()).isEqualTo(100L);
+        assertThat(proof.getOriginalId()).isEqualTo(100L);
+        assertThat(proof.getName()).isEqualTo("Sample Proof Document");
+        assertThat(proof.getType()).isEqualTo(ProofType.IMAGE);
+        assertThat(proof.getDocumentType()).isEqualTo("NONE");
+        assertThat(proof.getProofRequestUrl())
+                .isEqualTo("https://app.smartsheet.com/b/proofs/sheets/test123/proofs/proof456");
+        assertThat(proof.getVersion()).isEqualTo(1);
+        assertThat(proof.getLastUpdatedBy().getEmail()).isEqualTo("john.doe@smartsheet.com");
+        assertThat(proof.getIsCompleted()).isFalse();
     }
 
     @Test

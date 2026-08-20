@@ -16,22 +16,23 @@
 
 package com.smartsheet.api.internal;
 
+import com.smartsheet.api.InvalidRequestException;
+import com.smartsheet.api.ResourceNotFoundException;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
 import com.smartsheet.api.models.ContainerDestination;
 import com.smartsheet.api.models.Folder;
-import com.smartsheet.api.models.PagedResult;
-import com.smartsheet.api.models.PaginationParameters;
+import com.smartsheet.api.models.FolderPathNode;
+import com.smartsheet.api.models.enums.AccessLevel;
 import com.smartsheet.api.models.enums.DestinationType;
-import com.smartsheet.api.models.enums.SourceInclusion;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.EnumSet;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatCode;
 
 class FolderResourcesImplTest extends ResourcesImplBase {
@@ -41,21 +42,6 @@ class FolderResourcesImplTest extends ResourcesImplBase {
         // Create a folder resource
         folderResource = new FolderResourcesImpl(new SmartsheetImpl("http://localhost:9090/1.1/", "accessToken",
                 new DefaultHttpClient(), serializer));
-    }
-
-    @Test
-    void testGetFolder() throws SmartsheetException, IOException {
-
-        // Set a fake response
-        server.setResponseBody(new File("src/test/resources/getFolder.json"));
-
-        Folder folder = folderResource.getFolder(123L, EnumSet.of(SourceInclusion.SOURCE));
-
-        // Verify results
-        assertThat(folder.getName()).isEqualTo("Personal");
-        assertThat(folder.getSheets()).hasSize(2);
-        assertThat(folder.getFolders()).isEmpty();
-        assertThat(folder.getSheets().get(0).getPermalink()).isEqualTo("https://app.smartsheet.com/b/home?lx=uWicCItTmkbxJwpCfQ5wiwW");
     }
 
     @Test
@@ -72,19 +58,6 @@ class FolderResourcesImplTest extends ResourcesImplBase {
     void testDeleteFolder() throws IOException {
         server.setResponseBody(new File("src/test/resources/deleteFolder.json"));
         assertThatCode(() -> folderResource.deleteFolder(7752230582413188L)).doesNotThrowAnyException();
-    }
-
-    @Test
-    void testListFolders() throws SmartsheetException, IOException {
-
-        server.setResponseBody(new File("src/test/resources/listFolders.json"));
-        PaginationParameters parameters = new PaginationParameters(true, 1, 1);
-        PagedResult<Folder> foldersWrapper = folderResource.listFolders(12345L, parameters);
-
-        assertThat(foldersWrapper.getPageSize()).isEqualTo(100);
-        assertThat(foldersWrapper.getData().get(0).getName()).isEqualTo("Folder 1");
-        assertThat(foldersWrapper.getData().get(1).getName()).isEqualTo("Folder 2");
-        assertThat(foldersWrapper.getData().get(0).getId()).isEqualTo(7116448184199044L);
     }
 
     @Test
@@ -115,5 +88,80 @@ class FolderResourcesImplTest extends ResourcesImplBase {
 
         Folder folder = folderResource.moveFolder(123L, containerDestination);
         assertThat(folder.getId()).isEqualTo(4509918431602564L);
+    }
+
+    @Test
+    void testGetFolderPath() throws SmartsheetException, IOException {
+        server.setResponseBody(new File("src/test/resources/getFolderPath.json"));
+
+        FolderPathNode result = folderResource.getFolderPath(1234567890L);
+
+        // workspace root
+        assertThat(result).isNotNull();
+        assertThat(result.getId()).isEqualTo(4509918431602564L);
+        assertThat(result.getName()).isEqualTo("Sample Workspace");
+        assertThat(result.getPermalink()).isEqualTo("https://app.smartsheet.com/workspaces/mock_workspace_id");
+        assertThat(result.getAccessLevel()).isEqualTo(AccessLevel.OWNER);
+        // level-1 folder
+        assertThat(result.getFolders()).hasSize(1);
+        FolderPathNode level1 = result.getFolders().get(0);
+        assertThat(level1.getId()).isEqualTo(1234567890123456L);
+        assertThat(level1.getName()).isEqualTo("Project Plans");
+        assertThat(level1.getPermalink()).isEqualTo("https://app.smartsheet.com/folders/1234567890123456");
+        // level-2 folder
+        assertThat(level1.getFolders()).hasSize(1);
+        FolderPathNode level2 = level1.getFolders().get(0);
+        assertThat(level2.getId()).isEqualTo(2345678901234567L);
+        assertThat(level2.getName()).isEqualTo("Project Plans Subfolder");
+        assertThat(level2.getPermalink()).isEqualTo("https://app.smartsheet.com/folders/2345678901234567");
+        // level-3 (leaf) folder
+        assertThat(level2.getFolders()).hasSize(1);
+        FolderPathNode level3 = level2.getFolders().get(0);
+        assertThat(level3.getId()).isEqualTo(3456789012345678L);
+        assertThat(level3.getName()).isEqualTo("Project Plans Sub-Subfolder");
+        assertThat(level3.getPermalink()).isEqualTo("https://app.smartsheet.com/folders/3456789012345678");
+        assertThat(level3.getFolders()).isNullOrEmpty();
+    }
+
+    @Test
+    void testGetFolderPath_getFolder() throws SmartsheetException, IOException {
+        server.setResponseBody(new File("src/test/resources/getFolderPath.json"));
+
+        FolderPathNode result = folderResource.getFolderPath(1234567890L);
+        FolderPathNode leaf = result.getLeafFolder();
+
+        assertThat(leaf).isNotNull();
+        assertThat(leaf.getName()).isEqualTo("Project Plans Sub-Subfolder");
+        assertThat(leaf.getId()).isEqualTo(3456789012345678L);
+        assertThat(leaf.getPermalink()).isEqualTo("https://app.smartsheet.com/folders/3456789012345678");
+        assertThat(leaf.getFolders()).isNullOrEmpty();
+    }
+
+    @Test
+    void testGetFolderPath_getFolderPath() throws SmartsheetException, IOException {
+        server.setResponseBody(new File("src/test/resources/getFolderPath.json"));
+
+        FolderPathNode result = folderResource.getFolderPath(1234567890L);
+
+        assertThat(result.getLeafFolderPath())
+                .isEqualTo("/Sample Workspace/Project Plans/Project Plans Subfolder/Project Plans Sub-Subfolder");
+    }
+
+    @Test
+    void testGetFolderPath_404_throwsResourceNotFoundException() throws IOException {
+        server.setStatus(404);
+        server.setResponseBody(new File("src/test/resources/notFoundError.json"));
+
+        assertThatThrownBy(() -> folderResource.getFolderPath(1234567890L))
+                .isInstanceOf(ResourceNotFoundException.class);
+    }
+
+    @Test
+    void testGetFolderPath_500_throwsInvalidRequestException() throws IOException {
+        server.setStatus(500);
+        server.setResponseBody(new File("src/test/resources/notFoundError.json"));
+
+        assertThatThrownBy(() -> folderResource.getFolderPath(1234567890L))
+                .isInstanceOf(InvalidRequestException.class);
     }
 }

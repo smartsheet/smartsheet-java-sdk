@@ -51,14 +51,10 @@ public class TestCreateReport {
 
     private CreateReportRequest testRequest;
 
-    /**
-     * Expected request body structure - per OpenAPI spec.
-     * Note: destinationType and assetType should be lowercase per API spec.
-     */
     private static final Map<String, Object> EXPECTED_REQUEST_BODY = Map.of(
             "name", "Q2 Earnings Report",
             "destination", Map.of(
-                    "destinationId", 12345,
+                    "destinationId", 12345L,
                     "destinationType", "folder"
             ),
             "columns", List.of(
@@ -73,11 +69,72 @@ public class TestCreateReport {
             "scope", List.of(
                     Map.of(
                             "assetType", "sheet",
-                            "assetId", 67890
+                            "assetId", 67890L
                     )
             ),
             "isSummaryReport", false
     );
+
+    private static final CreateReportResult EXPECTED_ALL_PROPERTIES_RESULT;
+
+    static {
+        ReportColumn col1 = new ReportColumn();
+        col1.setVirtualId(1234567890123456L);
+        col1.setIndex(0);
+        col1.setTitle("Primary column");
+        col1.setType(ColumnType.TEXT_NUMBER);
+        col1.setPrimary(true);
+        col1.setHidden(false);
+        col1.setVersion(0);
+        col1.setWidth(200);
+        col1.setValidation(false);
+
+        ReportColumn col2 = new ReportColumn();
+        col2.setVirtualId(2345678901234567L);
+        col2.setIndex(1);
+        col2.setTitle("Sheet name");
+        col2.setType(ColumnType.TEXT_NUMBER);
+        col2.setSheetNameColumn(true);
+        col2.setHidden(false);
+        col2.setVersion(0);
+        col2.setWidth(150);
+        col2.setValidation(false);
+
+        ReportColumn col3 = new ReportColumn();
+        col3.setVirtualId(3456789012345678L);
+        col3.setIndex(2);
+        col3.setTitle("Created at");
+        col3.setType(ColumnType.DATETIME);
+        col3.setSystemColumnType(SystemColumnType.CREATED_DATE);
+        col3.setHidden(false);
+        col3.setVersion(0);
+        col3.setWidth(150);
+        col3.setValidation(false);
+
+        ReportColumn col4 = new ReportColumn();
+        col4.setVirtualId(4567890123456789L);
+        col4.setIndex(3);
+        col4.setTitle("Selected item");
+        col4.setType(ColumnType.PICKLIST);
+        col4.setHidden(false);
+        col4.setVersion(0);
+        col4.setWidth(150);
+        col4.setValidation(false);
+
+        EXPECTED_ALL_PROPERTIES_RESULT = new CreateReportResult()
+                .setId(987654321L)
+                .setName("Q2 Earnings Report")
+                .setAccessLevel(AccessLevel.OWNER)
+                .setPermalink("https://app.smartsheet.com/reports/c8gJxw87cXpRCvCC5PPw6jFhFRrf5r8PxCrxvW21")
+                .setIsSummaryReport(false)
+                .setColumns(List.of(col1, col2, col3, col4));
+    }
+
+    private static final CreateReportResult EXPECTED_REQUIRED_PROPERTIES_RESULT = new CreateReportResult()
+            .setId(987654321L)
+            .setName("Q2 Earnings Report")
+            .setAccessLevel(AccessLevel.OWNER)
+            .setPermalink("https://app.smartsheet.com/reports/c8gJxw87cXpRCvCC5PPw6jFhFRrf5r8PxCrxvW21");
 
     @BeforeEach
     void setUp() {
@@ -91,6 +148,7 @@ public class TestCreateReport {
         column.setType(ColumnType.TEXT_NUMBER);
         column.setPrimary(true);
         column.setIndex(0);
+        column.setSheetNameColumn(false);
         columns.add(column);
 
         List<ReportScopeInclusion> scope = new ArrayList<>();
@@ -108,7 +166,7 @@ public class TestCreateReport {
     }
 
     @Test
-    void testCreateReportGeneratedUrlIsCorrect() throws SmartsheetException, JsonProcessingException {
+    void testCreateReportGeneratedUrlIsCorrect() throws SmartsheetException {
         String requestId = UUID.randomUUID().toString();
         WiremockClientWrapper wrapper = Utils.createWiremockSmartsheetClient(
                 "/reports/create-report/all-response-body-properties",
@@ -123,16 +181,11 @@ public class TestCreateReport {
 
         assertThat(path).isEqualTo("/2.0/reports");
         assertThat(wiremockRequest.getMethod()).isEqualTo(RequestMethod.POST);
-
-        // Validate the request body matches the expected structure as a whole
-        String requestBody = wiremockRequest.getBodyAsString();
-        ObjectMapper objectMapper = new ObjectMapper();
-        String expectedJson = objectMapper.writeValueAsString(EXPECTED_REQUEST_BODY);
-        assertThat(objectMapper.readTree(requestBody)).isEqualTo(objectMapper.readTree(expectedJson));
+        assertThat(wiremockRequest.getQueryParams()).isEqualTo(Map.of());
     }
 
     @Test
-    void testCreateReportResponseBodyAllProperties() throws SmartsheetException, JsonProcessingException {
+    void testCreateReportAllResponseBodyProperties() throws SmartsheetException, JsonProcessingException {
         String requestId = UUID.randomUUID().toString();
         WiremockClientWrapper wrapper = Utils.createWiremockSmartsheetClient(
                 "/reports/create-report/all-response-body-properties",
@@ -143,60 +196,17 @@ public class TestCreateReport {
 
         CreateReportResult result = smartsheet.reportResources().createReport(testRequest);
 
-        // Validate request body matches expected structure as a whole (per OpenAPI spec)
         LoggedRequest wiremockRequest = wiremockClient.findWiremockRequest(requestId);
         String requestBody = wiremockRequest.getBodyAsString();
         ObjectMapper objectMapper = new ObjectMapper();
         String expectedJson = objectMapper.writeValueAsString(EXPECTED_REQUEST_BODY);
         assertThat(objectMapper.readTree(requestBody)).isEqualTo(objectMapper.readTree(expectedJson));
 
-        // Verify response parsing - all properties
-        assertThat(result).isNotNull();
-        assertThat(result.getId()).isEqualTo(987654321L);
-        assertThat(result.getName()).isEqualTo("Q2 Earnings Report");
-        assertThat(result.getAccessLevel()).isEqualTo(AccessLevel.OWNER);
-        assertThat(result.getPermalink())
-                .isEqualTo("https://app.smartsheet.com/reports/c8gJxw87cXpRCvCC5PPw6jFhFRrf5r8PxCrxvW21");
-        assertThat(result.getIsSummaryReport()).isFalse();
-
-        // Verify columns are returned
-        assertThat(result.getColumns()).isNotNull();
-        assertThat(result.getColumns()).hasSize(4);
-
-        // Verify first column (primary column)
-        ReportColumn col1 = result.getColumns().get(0);
-        assertThat(col1.getVirtualId()).isEqualTo(1234567890123456L);
-        assertThat(col1.getIndex()).isEqualTo(0);
-        assertThat(col1.getTitle()).isEqualTo("Primary column");
-        assertThat(col1.getType()).isEqualTo(ColumnType.TEXT_NUMBER);
-        assertThat(col1.getPrimary()).isTrue();
-
-        // Verify second column (sheet name column)
-        ReportColumn col2 = result.getColumns().get(1);
-        assertThat(col2.getVirtualId()).isEqualTo(2345678901234567L);
-        assertThat(col2.getIndex()).isEqualTo(1);
-        assertThat(col2.getTitle()).isEqualTo("Sheet name");
-        assertThat(col2.getType()).isEqualTo(ColumnType.TEXT_NUMBER);
-        assertThat(col2.getSheetNameColumn()).isTrue();
-
-        // Verify third column (system column)
-        ReportColumn col3 = result.getColumns().get(2);
-        assertThat(col3.getVirtualId()).isEqualTo(3456789012345678L);
-        assertThat(col3.getIndex()).isEqualTo(2);
-        assertThat(col3.getTitle()).isEqualTo("Created at");
-        assertThat(col3.getType()).isEqualTo(ColumnType.DATETIME);
-        assertThat(col3.getSystemColumnType()).isEqualTo(SystemColumnType.CREATED_DATE);
-
-        // Verify fourth column (picklist column)
-        ReportColumn col4 = result.getColumns().get(3);
-        assertThat(col4.getVirtualId()).isEqualTo(4567890123456789L);
-        assertThat(col4.getIndex()).isEqualTo(3);
-        assertThat(col4.getTitle()).isEqualTo("Selected item");
-        assertThat(col4.getType()).isEqualTo(ColumnType.PICKLIST);
+        assertThat(result).usingRecursiveComparison().isEqualTo(EXPECTED_ALL_PROPERTIES_RESULT);
     }
 
     @Test
-    void testCreateReportResponseBodyRequiredProperties() throws SmartsheetException, JsonProcessingException {
+    void testCreateReportRequiredResponseBodyProperties() throws SmartsheetException, JsonProcessingException {
         String requestId = UUID.randomUUID().toString();
         WiremockClientWrapper wrapper = Utils.createWiremockSmartsheetClient(
                 "/reports/create-report/required-response-body-properties",
@@ -207,21 +217,13 @@ public class TestCreateReport {
 
         CreateReportResult result = smartsheet.reportResources().createReport(testRequest);
 
-        // Validate request body matches expected structure as a whole (per OpenAPI spec)
         LoggedRequest wiremockRequest = wiremockClient.findWiremockRequest(requestId);
         String requestBody = wiremockRequest.getBodyAsString();
         ObjectMapper objectMapper = new ObjectMapper();
         String expectedJson = objectMapper.writeValueAsString(EXPECTED_REQUEST_BODY);
         assertThat(objectMapper.readTree(requestBody)).isEqualTo(objectMapper.readTree(expectedJson));
 
-        // Verify response parsing - required properties only
-        assertThat(result).isNotNull();
-        assertThat(result.getId()).isEqualTo(987654321L);
-        assertThat(result.getName()).isEqualTo("Q2 Earnings Report");
-        assertThat(result.getAccessLevel()).isEqualTo(AccessLevel.OWNER);
-        assertThat(result.getPermalink())
-                .isEqualTo("https://app.smartsheet.com/reports/c8gJxw87cXpRCvCC5PPw6jFhFRrf5r8PxCrxvW21");
-        // isSummaryReport is optional, not returned in required response
+        assertThat(result).usingRecursiveComparison().isEqualTo(EXPECTED_REQUIRED_PROPERTIES_RESULT);
     }
 
     @Test

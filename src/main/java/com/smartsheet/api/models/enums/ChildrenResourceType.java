@@ -23,7 +23,8 @@ public enum ChildrenResourceType {
     FOLDERS("folders"),
     REPORTS("reports"),
     SHEETS("sheets"),
-    SIGHTS("sights");
+    SIGHTS("sights"),
+    TEMPLATES("templates");
 
     final String resourceType;
 

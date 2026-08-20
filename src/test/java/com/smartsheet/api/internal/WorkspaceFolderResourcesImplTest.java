@@ -19,8 +19,6 @@ package com.smartsheet.api.internal;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
 import com.smartsheet.api.models.Folder;
-import com.smartsheet.api.models.PagedResult;
-import com.smartsheet.api.models.PaginationParameters;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -37,21 +35,6 @@ class WorkspaceFolderResourcesImplTest extends ResourcesImplBase {
     public void setUp() throws Exception {
         workspaceFolderResources = new WorkspaceFolderResourcesImpl(new SmartsheetImpl("http://localhost:9090/1.1/",
                 "accessToken", new DefaultHttpClient(), serializer));
-    }
-
-    @Test
-    void testListFolders() throws IOException, SmartsheetException {
-        server.setResponseBody(new File("src/test/resources/listWorkspaceFolders.json"));
-
-        PaginationParameters parameters = new PaginationParameters(true, null, null);
-        PagedResult<Folder> foldersWrapper = workspaceFolderResources.listFolders(1234L, parameters);
-        assertThat(foldersWrapper.getData()).hasSize(2);
-        assertThat(foldersWrapper.getData().get(0).getId().longValue()).isEqualTo(7116448184199044L);
-        assertThat(foldersWrapper.getData().get(1).getId().longValue()).isEqualTo(7116448184188022L);
-        assertThat(foldersWrapper.getData().get(0).getName()).isEqualTo("Folder 1");
-        assertThat(foldersWrapper.getData().get(1).getName()).isEqualTo("Folder 2");
-        assertThat(foldersWrapper.getData().get(0).getPermalink()).isEqualTo("https://app.smartsheet.com/b/home?lx=9sljohj8jEXqvJIbTrK2Hb");
-        assertThat(foldersWrapper.getData().get(1).getPermalink()).isEqualTo("https://app.smartsheet.com/b/home?lx=xgDVrNNbi-O9XwINEpT5Er");
     }
 
     @Test

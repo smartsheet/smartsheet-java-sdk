@@ -24,6 +24,7 @@ public enum ReportInclusion {
     DISCUSSIONS("discussions"),
     FORMAT("format"),
     OBJECTVALUE("objectValue"),
+    PROOFS("proofs"),
     SCOPE("scope"),
     SOURCE("source"),
     SOURCESHEETS("sourceSheets"),

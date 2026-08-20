@@ -57,6 +57,11 @@ public class Event {
     private Object objectId;
 
     /**
+     * Alphanumeric object identifier for v2.0+ support
+     */
+    private String objectIdStr;
+
+    /**
      * The Smartsheet resource impacted by the event
      */
     private EventObjectType objectType;
@@ -180,10 +185,14 @@ public class Event {
     }
 
     /**
-     * Get the object ID of the object associated with the event
+     * Get the object ID of the object associated with the event.
      *
      * @return the object ID
+     * @deprecated Use {@link #getObjectIdStr()} instead. {@code objectId} is numeric only and
+     *     returns -1 for non-numeric identifiers. It is not scheduled for removal, but new code
+     *     should read {@code objectIdStr}, which represents all identifier values.
      */
+    @Deprecated
     public Object getObjectId() {
         return objectId;
     }
@@ -195,6 +204,26 @@ public class Event {
      */
     public Event setObjectId(Object objectId) {
         this.objectId = objectId;
+        return this;
+    }
+
+    /**
+     * Gets the alphanumeric object identifier
+     *
+     * @return the alphanumeric object identifier
+     */
+    public String getObjectIdStr() {
+        return objectIdStr;
+    }
+
+    /**
+     * Sets the alphanumeric object identifier
+     *
+     * @param objectIdStr the alphanumeric object identifier
+     * @return this Event, for method chaining
+     */
+    public Event setObjectIdStr(String objectIdStr) {
+        this.objectIdStr = objectIdStr;
         return this;
     }
 

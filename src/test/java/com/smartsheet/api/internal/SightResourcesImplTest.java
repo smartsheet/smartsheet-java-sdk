@@ -16,12 +16,16 @@
 
 package com.smartsheet.api.internal;
 
+import com.smartsheet.api.InvalidRequestException;
+import com.smartsheet.api.ResourceNotFoundException;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
 import com.smartsheet.api.models.ContainerDestination;
-import com.smartsheet.api.models.PagedResult;
-import com.smartsheet.api.models.PaginationParameters;
+import com.smartsheet.api.models.PathLeaf;
 import com.smartsheet.api.models.Sight;
+import com.smartsheet.api.models.SightPathNode;
+import com.smartsheet.api.models.TokenPaginatedResult;
+import com.smartsheet.api.models.TokenPaginationParameters;
 import com.smartsheet.api.models.SightPublish;
 import com.smartsheet.api.models.enums.AccessLevel;
 import com.smartsheet.api.models.enums.SightInclusion;
@@ -30,6 +34,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.ZonedDateTime;
 import java.util.EnumSet;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -54,12 +59,9 @@ class SightResourcesImplTest extends ResourcesImplBase {
     void testListSights() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/listSights.json"));
 
-        PaginationParameters pagination = new PaginationParameters();
-        pagination.setIncludeAll(true);
-        pagination.setPageSize(1);
-        pagination.setPage(1);
+        TokenPaginationParameters pagination = new TokenPaginationParameters(null, 10);
 
-        PagedResult<Sight> sightPagedResult = sightResourcesImpl.listSights(pagination, null);
+        TokenPaginatedResult<Sight> sightPagedResult = sightResourcesImpl.listSights(pagination);
         assertThat(sightPagedResult.getData()).isNotNull();
         assertThat(sightPagedResult.getData()).isNotEmpty();
         assertThat(sightPagedResult.getData()).hasSize(1);
@@ -68,6 +70,8 @@ class SightResourcesImplTest extends ResourcesImplBase {
         assertThat(sightPagedResult.getData().get(0).getWidgets()).isEmpty();
         assertThat(sightPagedResult.getData().get(0).getWorkspace()).isNotNull();
         assertThat(sightPagedResult.getData().get(0).getPermalink()).isNotBlank();
+        assertThat(sightPagedResult.hasMorePages()).isTrue();
+        assertThat(sightPagedResult.getLastKey()).isEqualTo("abcDefGhIjKlMnOpQrStUvWxYz");
     }
 
     @Test
@@ -122,11 +126,6 @@ class SightResourcesImplTest extends ResourcesImplBase {
     void testUpdateSight() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/updateSight.json"));
 
-        PaginationParameters pagination = new PaginationParameters();
-        pagination.setIncludeAll(true);
-        pagination.setPageSize(1);
-        pagination.setPage(1);
-
         Sight sight = sightResourcesImpl.updateSight(new Sight());
         assertThat(sight).isNotNull();
         assertThat(sight.getAccessLevel()).isEqualTo(AccessLevel.VIEWER);
@@ -164,6 +163,85 @@ class SightResourcesImplTest extends ResourcesImplBase {
         assertThat(sightPublish.getReadOnlyFullAccessibleBy()).isEqualTo(Boolean.FALSE.toString());
         assertThat(sightPublish.getReadOnlyFullEnabled()).isEqualTo(Boolean.FALSE);
         assertThat(sightPublish.getReadOnlyFullUrl()).isNotBlank();
+    }
+
+    @Test
+    void testGetSightPath() throws SmartsheetException, IOException {
+        server.setResponseBody(new File("src/test/resources/getSightPath.json"));
+
+        SightPathNode result = sightResourcesImpl.getSightPath(1234567890L);
+
+        // workspace root
+        assertThat(result).isNotNull();
+        assertThat(result.getId()).isEqualTo(4509918431602564L);
+        assertThat(result.getName()).isEqualTo("Sample Workspace");
+        assertThat(result.getPermalink()).isEqualTo("https://app.smartsheet.com/workspaces/mock_workspace_id");
+        assertThat(result.getAccessLevel()).isEqualTo(AccessLevel.OWNER);
+        // level-1 folder
+        assertThat(result.getFolders()).hasSize(1);
+        SightPathNode level1 = result.getFolders().get(0);
+        assertThat(level1.getId()).isEqualTo(1234567890123456L);
+        assertThat(level1.getName()).isEqualTo("Project Plans");
+        assertThat(level1.getPermalink()).isEqualTo("https://app.smartsheet.com/folders/1234567890123456");
+        // level-2 folder (contains the leaf sight)
+        assertThat(level1.getFolders()).hasSize(1);
+        SightPathNode level2 = level1.getFolders().get(0);
+        assertThat(level2.getId()).isEqualTo(2345678901234567L);
+        assertThat(level2.getName()).isEqualTo("Project Plans Subfolder");
+        assertThat(level2.getPermalink()).isEqualTo("https://app.smartsheet.com/folders/2345678901234567");
+        // leaf sight
+        assertThat(level2.getSights()).hasSize(1);
+        PathLeaf sight = level2.getSights().get(0);
+        assertThat(sight.getId()).isEqualTo(3456789012345678L);
+        assertThat(sight.getName()).isEqualTo("Project Dashboard");
+        assertThat(sight.getPermalink()).isEqualTo("https://app.smartsheet.com/sights/3456789012345678");
+        assertThat(sight.getAccessLevel()).isEqualTo(AccessLevel.ADMIN);
+        assertThat(sight.getCreatedAt()).isEqualTo(ZonedDateTime.parse("2024-01-01T00:00:00Z"));
+        assertThat(sight.getModifiedAt()).isEqualTo(ZonedDateTime.parse("2024-06-01T00:00:00Z"));
+    }
+
+    @Test
+    void testGetSightPath_getSight() throws SmartsheetException, IOException {
+        server.setResponseBody(new File("src/test/resources/getSightPath.json"));
+
+        SightPathNode result = sightResourcesImpl.getSightPath(1234567890L);
+        PathLeaf leaf = result.getLeafSight();
+
+        assertThat(leaf).isNotNull();
+        assertThat(leaf.getName()).isEqualTo("Project Dashboard");
+        assertThat(leaf.getId()).isEqualTo(3456789012345678L);
+        assertThat(leaf.getPermalink()).isEqualTo("https://app.smartsheet.com/sights/3456789012345678");
+        assertThat(leaf.getAccessLevel()).isEqualTo(AccessLevel.ADMIN);
+        assertThat(leaf.getCreatedAt()).isEqualTo(ZonedDateTime.parse("2024-01-01T00:00:00Z"));
+        assertThat(leaf.getModifiedAt()).isEqualTo(ZonedDateTime.parse("2024-06-01T00:00:00Z"));
+    }
+
+    @Test
+    void testGetSightPath_getSightPath() throws SmartsheetException, IOException {
+        server.setResponseBody(new File("src/test/resources/getSightPath.json"));
+
+        SightPathNode result = sightResourcesImpl.getSightPath(1234567890L);
+
+        assertThat(result.getLeafSightPath())
+                .isEqualTo("/Sample Workspace/Project Plans/Project Plans Subfolder/Project Dashboard");
+    }
+
+    @Test
+    void testGetSightPath_404_throwsResourceNotFoundException() throws IOException {
+        server.setStatus(404);
+        server.setResponseBody(new File("src/test/resources/notFoundError.json"));
+
+        assertThatThrownBy(() -> sightResourcesImpl.getSightPath(1234567890L))
+                .isInstanceOf(ResourceNotFoundException.class);
+    }
+
+    @Test
+    void testGetSightPath_500_throwsInvalidRequestException() throws IOException {
+        server.setStatus(500);
+        server.setResponseBody(new File("src/test/resources/notFoundError.json"));
+
+        assertThatThrownBy(() -> sightResourcesImpl.getSightPath(1234567890L))
+                .isInstanceOf(InvalidRequestException.class);
     }
 
     @Test

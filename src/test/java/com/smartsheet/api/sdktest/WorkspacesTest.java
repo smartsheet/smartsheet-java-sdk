@@ -18,8 +18,8 @@ package com.smartsheet.api.sdktest;
 
 import com.smartsheet.api.Smartsheet;
 import com.smartsheet.api.SmartsheetException;
-import com.smartsheet.api.models.PagedResult;
-import com.smartsheet.api.models.PaginationParameters;
+import com.smartsheet.api.models.TokenPaginatedResult;
+import com.smartsheet.api.models.TokenPaginationParameters;
 import com.smartsheet.api.models.Workspace;
 import org.junit.jupiter.api.Test;
 
@@ -31,8 +31,8 @@ public class WorkspacesTest {
     void listWorkspaces_FirstPageWithTokenPagination() throws SmartsheetException {
         Smartsheet ss = HelperFunctions.SetupClient("List Workspaces - First Page with Pagination");
 
-        PaginationParameters params = new PaginationParameters("token", null, 100);
-        PagedResult<Workspace> workspaces = ss.workspaceResources().listWorkspaces(params);
+        TokenPaginationParameters params = new TokenPaginationParameters(null, 100);
+        TokenPaginatedResult<Workspace> workspaces = ss.workspaceResources().listWorkspaces(params);
 
         assertThat(workspaces.getData()).hasSize(2);
         assertThat(workspaces.getData().get(0).getId()).isEqualTo(1001L);
@@ -46,23 +46,23 @@ public class WorkspacesTest {
     void listWorkspaces_MiddlePageWithTokenPagination() throws SmartsheetException {
         Smartsheet ss = HelperFunctions.SetupClient("List Workspaces - Middle Page with Pagination");
 
-        PaginationParameters params = new PaginationParameters("token", "eyJsYXN0SWQiOjEwMDJ9", 100);
-        PagedResult<Workspace> workspaces = ss.workspaceResources().listWorkspaces(params);
+        TokenPaginationParameters params = new TokenPaginationParameters("eyJsYXN0SWQiOjEwMDJ9", 100);
+        TokenPaginatedResult<Workspace> workspaces = ss.workspaceResources().listWorkspaces(params);
 
         assertThat(workspaces.getData()).hasSize(2);
         assertThat(workspaces.getData().get(0).getId()).isEqualTo(1003L);
         assertThat(workspaces.getData().get(0).getName()).isEqualTo("Engineering Workspace");
         assertThat(workspaces.getData().get(1).getId()).isEqualTo(1004L);
         assertThat(workspaces.getData().get(1).getName()).isEqualTo("HR Workspace");
-        assertThat(workspaces.getLastKey()).isEqualTo("eyJsYXN0SWQiOjEwMDJ9");
+        assertThat(workspaces.getLastKey()).isEqualTo("eyJsYXN0SWQiOjEwMDR9");
     }
 
     @Test
     void listWorkspaces_FinalPageWithTokenPagination() throws SmartsheetException {
         Smartsheet ss = HelperFunctions.SetupClient("List Workspaces - Final Page with Pagination");
 
-        PaginationParameters params = new PaginationParameters("token", "eyJsYXN0SWQiOjEwMDR9", 100);
-        PagedResult<Workspace> workspaces = ss.workspaceResources().listWorkspaces(params);
+        TokenPaginationParameters params = new TokenPaginationParameters("eyJsYXN0SWQiOjEwMDR9", 100);
+        TokenPaginatedResult<Workspace> workspaces = ss.workspaceResources().listWorkspaces(params);
 
         assertThat(workspaces.getData()).hasSize(1);
         assertThat(workspaces.getData().get(0).getId()).isEqualTo(1005L);
@@ -73,15 +73,9 @@ public class WorkspacesTest {
     void listWorkspaces_NoPaginationParameters() throws SmartsheetException {
         Smartsheet ss = HelperFunctions.SetupClient("List Workspaces - No Pagination Parameters");
 
-        PaginationParameters params = new PaginationParameters();
-        PagedResult<Workspace> workspaces = ss.workspaceResources().listWorkspaces(params);
+        TokenPaginatedResult<Workspace> workspaces = ss.workspaceResources().listWorkspaces(null);
 
         assertThat(workspaces.getData()).hasSize(5);
-        assertThat(workspaces.getPageNumber()).isEqualTo(1);
-        assertThat(workspaces.getPageSize()).isEqualTo(5);
-        assertThat(workspaces.getTotalPages()).isEqualTo(1);
-        assertThat(workspaces.getTotalCount()).isEqualTo(5);
-
         assertThat(workspaces.getData().get(0).getId()).isEqualTo(1001L);
         assertThat(workspaces.getData().get(0).getName()).isEqualTo("Marketing Workspace");
         assertThat(workspaces.getData().get(4).getId()).isEqualTo(1005L);

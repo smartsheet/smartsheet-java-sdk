@@ -13,3 +13,8 @@ smartsheet-sdk-tests/
 
 build/**
 .gradle/**
+
+# Claude Code settings
+.claude/settings.local.json
+# Superpowers documentation
+docs/superpowers

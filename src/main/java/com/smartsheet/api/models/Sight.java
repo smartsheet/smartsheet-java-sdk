@@ -266,4 +266,3 @@ public class Sight extends NamedModel<Long> {
         return this;
     }
 }
-

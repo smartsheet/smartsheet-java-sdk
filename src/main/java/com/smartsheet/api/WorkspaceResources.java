@@ -17,17 +17,15 @@
 package com.smartsheet.api;
 
 import com.smartsheet.api.models.ContainerDestination;
-import com.smartsheet.api.models.PagedResult;
-import com.smartsheet.api.models.PaginationParameters;
 import com.smartsheet.api.models.Workspace;
 import com.smartsheet.api.models.enums.CopyExclusion;
-import com.smartsheet.api.models.enums.SourceInclusion;
 import com.smartsheet.api.models.enums.WorkspaceCopyInclusion;
 import com.smartsheet.api.models.enums.WorkspaceRemapExclusion;
 import com.smartsheet.api.models.enums.GetWorkspaceMetadataInclusion;
 import com.smartsheet.api.models.enums.GetWorkspaceChildrenInclusion;
 import com.smartsheet.api.models.enums.ChildrenResourceType;
 import com.smartsheet.api.models.TokenPaginatedResult;
+import com.smartsheet.api.models.TokenPaginationParameters;
 
 import java.util.EnumSet;
 
@@ -43,36 +41,16 @@ public interface WorkspaceResources {
      *
      * <p>It mirrors to the following Smartsheet REST API method: GET /workspaces</p>
      *
-     * @param parameters the object containing the pagination parameters
-     * @return the list of workspaces (note that an empty list will be returned if there are none)
+     * @param paging the object containing the token-based pagination parameters
+     * @return TokenPaginatedResult of workspaces (empty list if there are none)
      * @throws IllegalArgumentException    if any argument is null or empty string
      * @throws InvalidRequestException     if there is any problem with the REST API request
-     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws AuthorizationException      if there is any problem with the REST API authorization (access token)
      * @throws ResourceNotFoundException   if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException         if there is any other error during the operation
      */
-    PagedResult<Workspace> listWorkspaces(PaginationParameters parameters) throws SmartsheetException;
-
-    /**
-     * <p>Get a workspace.</p>
-     *
-     * <p>It mirrors to the following Smartsheet REST API method: GET /workspace/{id}</p>
-     *
-     * @param id       the id
-     * @param includes the include parameters
-     * @param loadAll  the loadAll boolean value
-     * @return the workspace (note that if there is no such resource, this method will throw ResourceNotFoundException
-     * rather than returning null)
-     * @throws IllegalArgumentException    if any argument is null or empty string
-     * @throws InvalidRequestException     if there is any problem with the REST API request
-     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException   if the resource cannot be found
-     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException         if there is any other error during the operation
-     */
-    @Deprecated(since = "3.4.0", forRemoval = true)
-    Workspace getWorkspace(long id, Boolean loadAll, EnumSet<SourceInclusion> includes) throws SmartsheetException;
+    TokenPaginatedResult<Workspace> listWorkspaces(TokenPaginationParameters paging) throws SmartsheetException;
 
     /**
      * <p>Create a workspace.</p>
@@ -182,14 +160,6 @@ public interface WorkspaceResources {
      * @return the workspace folder resources
      */
     WorkspaceFolderResources folderResources();
-
-    /**
-     * <p>Return the ShareResources object that provides access to Share resources associated with Workspace
-     * resources.</p>
-     *
-     * @return the share resources object
-     */
-    ShareResources shareResources();
 
     /**
      * <p>Get metadata of a workspace.</p>

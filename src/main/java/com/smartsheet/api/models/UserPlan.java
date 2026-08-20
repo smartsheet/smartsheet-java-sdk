@@ -24,6 +24,7 @@ import com.smartsheet.api.models.enums.SeatType;
  */
 public class UserPlan {
     private Long planId;
+    private String planName;
     private SeatType seatType;
     private ZonedDateTime seatTypeLastChangedAt;
     private ZonedDateTime provisionalExpirationDate;
@@ -35,6 +36,26 @@ public class UserPlan {
 
     public void setPlanId(Long planId) {
         this.planId = planId;
+    }
+
+    /**
+     * <p>The name of the organization that owns this plan.</p>
+     *
+     * <p>Only populated when {@code planName} was requested via the {@code include} parameter of
+     * {@code listUserPlans}. It is also null for a plan whose owning organization has no name, so
+     * a null value does not by itself mean the enrichment was not requested.</p>
+     *
+     * <p>Organization names are cached server side for several hours, so a recently renamed
+     * organization may briefly report its previous name.</p>
+     *
+     * @return the plan name, or null
+     */
+    public String getPlanName() {
+        return planName;
+    }
+
+    public void setPlanName(String planName) {
+        this.planName = planName;
     }
 
     public SeatType getSeatType() {

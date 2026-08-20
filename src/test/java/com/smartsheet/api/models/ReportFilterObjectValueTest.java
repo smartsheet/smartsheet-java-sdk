@@ -61,6 +61,18 @@ public class ReportFilterObjectValueTest {
     }
 
     @Test
+    void testGetObjectTypeForEachImplementation() {
+        assertThat(ReportFilterObjectValue.string("x").getObjectType())
+                .isEqualTo(ObjectValueType.STRING);
+        assertThat(ReportFilterObjectValue.number(42).getObjectType())
+                .isEqualTo(ObjectValueType.NUMBER);
+        assertThat(ReportFilterObjectValue.date("2024-01-01").getObjectType())
+                .isEqualTo(ObjectValueType.DATE);
+        assertThat(ReportFilterObjectValue.currentUser().getObjectType())
+                .isEqualTo(ObjectValueType.CURRENT_USER);
+    }
+
+    @Test
     void testSerializationOfMixedValues() throws JsonProcessingException {
         ReportFilterCriterion criterion = new ReportFilterCriterion();
         criterion.setValues(Arrays.asList(
@@ -93,13 +105,12 @@ public class ReportFilterObjectValueTest {
         // Verify CURRENT_USER serializes with correct objectType
         assertThat(json).contains("\"objectType\"");
         assertThat(json).contains("\"CURRENT_USER\"");
-        assertThat(json).contains("\"value\"");
 
         // Verify it does NOT serialize as null
         assertThat(json).doesNotContain("\"objectType\":null");
 
-        // Verify exact structure
-        assertThat(json).isEqualTo("{\"objectType\":\"CURRENT_USER\",\"value\":\"\"}");
+        // Verify exact structure: only objectType is on the wire (value is not part of the spec)
+        assertThat(json).isEqualTo("{\"objectType\":\"CURRENT_USER\"}");
     }
 
     @Test

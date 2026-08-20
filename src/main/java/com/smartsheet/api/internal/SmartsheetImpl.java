@@ -31,7 +31,6 @@ import com.smartsheet.api.ServerInfoResources;
 import com.smartsheet.api.SheetResources;
 import com.smartsheet.api.SightResources;
 import com.smartsheet.api.Smartsheet;
-import com.smartsheet.api.TemplateResources;
 import com.smartsheet.api.TokenResources;
 import com.smartsheet.api.Trace;
 import com.smartsheet.api.UserResources;
@@ -137,15 +136,6 @@ public class SmartsheetImpl implements Smartsheet {
      * effectively the underlying value is lazily created in a thread safe manner.
      */
     private final AtomicReference<FolderResources> folders;
-
-    /**
-     * Represents the AtomicReference to TemplateResources.
-     * <p>
-     * It will be initialized in constructor and will not change afterward. The underlying value will be initially set
-     * as null, and will be initialized to non-null at the first time it is accessed via corresponding getter, therefore
-     * effectively the underlying value is lazily created in a thread safe manner.
-     */
-    private final AtomicReference<TemplateResources> templates;
 
     /**
      * Represents the AtomicReference to SheetResources.
@@ -325,7 +315,6 @@ public class SmartsheetImpl implements Smartsheet {
         this.home = new AtomicReference<>();
         this.workspaces = new AtomicReference<>();
         this.folders = new AtomicReference<>();
-        this.templates = new AtomicReference<>();
         this.sheets = new AtomicReference<>();
         this.sights = new AtomicReference<>();
         this.favorites = new AtomicReference<>();
@@ -520,18 +509,6 @@ public class SmartsheetImpl implements Smartsheet {
             folders.compareAndSet(null, new FolderResourcesImpl(this));
         }
         return folders.get();
-    }
-
-    /**
-     * Returns the TemplateResources instance that provides access to Template resources.
-     *
-     * @return the template resources
-     */
-    public TemplateResources templateResources() {
-        if (templates.get() == null) {
-            templates.compareAndSet(null, new TemplateResourcesImpl(this));
-        }
-        return templates.get();
     }
 
     /**

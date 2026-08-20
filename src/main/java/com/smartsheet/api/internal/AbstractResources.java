@@ -397,14 +397,15 @@ public abstract class AbstractResources {
      * SmartsheetRestException : if there is any other REST API related error occurred during the operation
      * SmartsheetException : if there is any other error occurred during the operation
      *
-     * @param <T>         the generic type
+     * @param <T>         the response resource type
+     * @param <S>         the request body type
      * @param path        the relative path of the resource
      * @param objectClass the resource object class
      * @param object      the object to create
      * @return the updated resource
      * @throws SmartsheetException the smartsheet exception
      */
-    protected <T> T updateResource(String path, Class<T> objectClass, T object) throws SmartsheetException {
+    protected <T, S> T updateResource(String path, Class<T> objectClass, S object) throws SmartsheetException {
         Util.throwIfNull(path, object);
         Util.throwIfEmpty(path);
 

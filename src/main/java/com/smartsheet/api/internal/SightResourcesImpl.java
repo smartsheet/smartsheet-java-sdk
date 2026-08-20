@@ -20,27 +20,23 @@ import com.smartsheet.api.AuthorizationException;
 import com.smartsheet.api.InvalidRequestException;
 import com.smartsheet.api.ResourceNotFoundException;
 import com.smartsheet.api.ServiceUnavailableException;
-import com.smartsheet.api.ShareResources;
 import com.smartsheet.api.SightResources;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.util.QueryUtil;
 import com.smartsheet.api.internal.util.Util;
 import com.smartsheet.api.models.ContainerDestination;
-import com.smartsheet.api.models.PagedResult;
-import com.smartsheet.api.models.PaginationParameters;
 import com.smartsheet.api.models.Sight;
 import com.smartsheet.api.models.SightPublish;
+import com.smartsheet.api.models.TokenPaginatedResult;
+import com.smartsheet.api.models.TokenPaginationParameters;
+import com.smartsheet.api.models.SightPathNode;
 import com.smartsheet.api.models.enums.SightInclusion;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Map;
 
 public class SightResourcesImpl extends AbstractResources implements SightResources {
-
-    private ShareResources shares;
 
     private static final String SIGHTS = "sights";
 
@@ -53,7 +49,6 @@ public class SightResourcesImpl extends AbstractResources implements SightResour
      */
     public SightResourcesImpl(SmartsheetImpl smartsheet) {
         super(smartsheet);
-        this.shares = new ShareResourcesImpl(smartsheet, SIGHTS);
     }
 
     /**
@@ -61,7 +56,7 @@ public class SightResourcesImpl extends AbstractResources implements SightResour
      * <p>
      * It mirrors to the following Smartsheet REST API method: GET /sights
      *
-     * @return IndexResult object containing an array of Sight objects limited to the following attributes:
+     * @return TokenPaginatedResult object containing an array of Sight objects limited to the following attributes:
      * id, name, accessLevel, permalink, createdAt, modifiedAt.
      * @throws IllegalArgumentException    if any argument is null or empty string
      * @throws InvalidRequestException     if there is any problem with the REST API request
@@ -70,19 +65,15 @@ public class SightResourcesImpl extends AbstractResources implements SightResour
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException         if there is any other error during the operation
      */
-    public PagedResult<Sight> listSights(PaginationParameters paging, Date modifiedSince) throws SmartsheetException {
+    public TokenPaginatedResult<Sight> listSights(TokenPaginationParameters paging) throws SmartsheetException {
         String path = SIGHTS;
 
         Map<String, Object> parameters = new HashMap<>();
         if (paging != null) {
             parameters = paging.toHashMap();
         }
-        if (modifiedSince != null) {
-            String isoDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").format(modifiedSince);
-            parameters.put("modifiedSince", isoDate);
-        }
         path += QueryUtil.generateUrl(null, parameters);
-        return this.listResourcesWithWrapper(path, Sight.class);
+        return this.listResourcesWithTokenPagination(path, Sight.class);
     }
 
     /**
@@ -262,13 +253,17 @@ public class SightResourcesImpl extends AbstractResources implements SightResour
     }
 
     /**
-     * Return the ShareResources object that provides access to share resources associated with
-     * Sight resources.
+     * Get the path of a sight (workspace/folder hierarchy).
+     * <p>
+     * It mirrors to the following Smartsheet REST API method: GET /sights/{sightId}/path
      *
-     * @return the associated share resources
+     * @param sightId the sight id
+     * @return the container path
+     * @throws SmartsheetException the smartsheet exception
      */
-    public ShareResources shareResources() {
-        return this.shares;
+    @Override
+    public SightPathNode getSightPath(long sightId) throws SmartsheetException {
+        return this.getResource(SIGHTS + "/" + sightId + "/path", SightPathNode.class);
     }
 
 }

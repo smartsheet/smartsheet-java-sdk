@@ -6,6 +6,7 @@
       "eventId": "12345",
       "eventTimestamp": "2023-01-30T11:42:30Z",
       "objectId": "23o42843u2kwkhrejwrhkehrw",
+      "objectIdStr": "abc-def-123",
       "objectType": "ACCESS_TOKEN",
       "requestUserId": 548798,
       "source": "WEB_APP",

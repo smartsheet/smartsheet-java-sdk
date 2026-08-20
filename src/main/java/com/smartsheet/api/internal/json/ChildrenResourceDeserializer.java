@@ -27,6 +27,8 @@ import com.smartsheet.api.models.Folder;
 import com.smartsheet.api.models.Report;
 import com.smartsheet.api.models.Sheet;
 import com.smartsheet.api.models.Sight;
+import com.smartsheet.api.models.Template;
+import com.smartsheet.api.models.enums.ChildResourceType;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -35,7 +37,7 @@ import java.util.List;
 /**
  * Custom deserializer for children resources that deserializes each item based
  * on its resourceType property.
- * Items can be deserialized as Sheet, Folder, Report, or Sight objects.
+ * Items can be deserialized as Sheet, Folder, Report, Sight, or Template objects.
  */
 public class ChildrenResourceDeserializer extends JsonDeserializer<List<Object>> {
 
@@ -56,22 +58,26 @@ public class ChildrenResourceDeserializer extends JsonDeserializer<List<Object>>
                     JsonNode resourceTypeNode = node.get("resourceType");
 
                     if (resourceTypeNode != null && resourceTypeNode.isTextual()) {
-                        String resourceType = resourceTypeNode.asText().toLowerCase();
                         Object child = null;
 
                         try {
+                            ChildResourceType resourceType = mapper.treeToValue(resourceTypeNode, ChildResourceType.class);
+
                             switch (resourceType) {
-                                case "sheet":
+                                case SHEET:
                                     child = mapper.treeToValue(node, Sheet.class);
                                     break;
-                                case "folder":
+                                case FOLDER:
                                     child = mapper.treeToValue(node, Folder.class);
                                     break;
-                                case "report":
+                                case REPORT:
                                     child = mapper.treeToValue(node, Report.class);
                                     break;
-                                case "sight":
+                                case SIGHT:
                                     child = mapper.treeToValue(node, Sight.class);
+                                    break;
+                                case TEMPLATE:
+                                    child = mapper.treeToValue(node, Template.class);
                                     break;
                                 default:
                                     // If a new resource type is introduced that this version of the SDK doesn't

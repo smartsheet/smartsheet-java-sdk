@@ -34,6 +34,8 @@ import java.util.EnumSet;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.smartsheet.api.models.Template;
+
 class FolderTest {
 
     @Test
@@ -60,7 +62,7 @@ class FolderTest {
     void getFolderChildren_NoParams() throws SmartsheetException {
         Smartsheet ss = HelperFunctions.SetupClient("Get Folder Children - No Params");
         TokenPaginatedResult<Object> response = ss.folderResources().getFolderChildren(456L, null, null, null, null);
-        assertThat(response.getData()).hasSize(4);
+        assertThat(response.getData()).hasSize(5);
 
         // Check that we have different resource types
         Object firstItem = response.getData().get(0);
@@ -86,6 +88,12 @@ class FolderTest {
         Report report = (Report) fourthItem;
         assertThat(report.getName()).isEqualTo("Status Report");
         assertThat(report.getId()).isEqualTo(890L);
+
+        Object fifthItem = response.getData().get(4);
+        assertThat(fifthItem).isInstanceOf(Template.class);
+        Template template = (Template) fifthItem;
+        assertThat(template.getName()).isEqualTo("Project Template");
+        assertThat(template.getId()).isEqualTo(990L);
     }
 
     @Test

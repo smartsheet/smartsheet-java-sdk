@@ -16,25 +16,25 @@
 
 package com.smartsheet.api.sdktest;
 
+import java.util.EnumSet;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import org.junit.jupiter.api.Test;
+
 import com.smartsheet.api.Smartsheet;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.models.Folder;
-import com.smartsheet.api.models.TokenPaginatedResult;
 import com.smartsheet.api.models.Report;
 import com.smartsheet.api.models.Sheet;
 import com.smartsheet.api.models.Sight;
+import com.smartsheet.api.models.Template;
+import com.smartsheet.api.models.TokenPaginatedResult;
 import com.smartsheet.api.models.Workspace;
 import com.smartsheet.api.models.enums.AccessLevel;
 import com.smartsheet.api.models.enums.ChildrenResourceType;
 import com.smartsheet.api.models.enums.GetWorkspaceChildrenInclusion;
 import com.smartsheet.api.models.enums.GetWorkspaceMetadataInclusion;
 import com.smartsheet.api.models.enums.SourceType;
-
-import org.junit.jupiter.api.Test;
-
-import java.util.EnumSet;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 class WorkspaceTest {
 
@@ -65,7 +65,7 @@ class WorkspaceTest {
     void getWorkspaceChildren_NoParams() throws SmartsheetException {
         Smartsheet ss = HelperFunctions.SetupClient("Get Workspace Children - No Params");
         TokenPaginatedResult<Object> response = ss.workspaceResources().getWorkspaceChildren(123L, null, null, null, null);
-        assertThat(response.getData()).hasSize(4);
+        assertThat(response.getData()).hasSize(5);
 
         // Check that we have different resource types
         Object firstItem = response.getData().get(0);
@@ -95,6 +95,12 @@ class WorkspaceTest {
         assertThat(report.getId()).isEqualTo(654L);
         assertThat(report.getAccessLevel()).isEqualTo(AccessLevel.ADMIN);
 
+        Object fifthItem = response.getData().get(4);
+        assertThat(fifthItem).isInstanceOf(Template.class);
+        Template template = (Template) fifthItem;
+        assertThat(template.getName()).isEqualTo("Budget Template");
+        assertThat(template.getId()).isEqualTo(995L);
+        assertThat(template.getAccessLevel()).isEqualTo(AccessLevel.ADMIN);
     }
 
     @Test
