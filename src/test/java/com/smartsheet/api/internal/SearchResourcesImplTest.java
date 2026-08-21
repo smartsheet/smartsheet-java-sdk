@@ -18,6 +18,7 @@ package com.smartsheet.api.internal;
 
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
+import com.smartsheet.api.models.SearchResponse;
 import com.smartsheet.api.models.SearchResult;
 import com.smartsheet.api.models.SearchResultItem;
 import org.junit.jupiter.api.BeforeEach;
@@ -42,35 +43,61 @@ class SearchResourcesImplTest extends ResourcesImplBase {
 
     @Test
     void testSearch() throws IOException, SmartsheetException {
-        server.setResponseBody(new File("src/test/resources/search.json"));
+        server.setResponseBody(new File("src/test/resources/searchResponse.json"));
 
-        SearchResult result = searchResources.search("brett");
-        assertThat(result.getResults()).isNotNull();
-        List<SearchResultItem> results = result.getResults();
-        assertThat(results).isNotNull().hasSize(50);
-        assertThat(result.getTotalCount().intValue()).isEqualTo(50);
-        assertThat(results.get(0).getText()).isEqualTo("Brett Task Sheet");
-        assertThat(results.get(0).getObjectType()).isEqualTo("sheet");
-        assertThat(results.get(0).getObjectId().longValue()).isEqualTo(714377448974212L);
-        assertThat(results.get(0).getContextData().get(0)).isEqualTo("Platform / Team");
+        SearchResponse result = searchResources.search("budget");
+        assertThat(result).isNotNull();
+        assertThat(result.getTotalCount()).isEqualTo(9);
+        assertThat(result.getSearchResults()).isNotNull().hasSize(9);
     }
 
     @Test
     void testSearchSheet() throws IOException, SmartsheetException {
-        server.setResponseBody(new File("src/test/resources/searchSheet.json"));
+        server.setResponseBody(new File("src/test/resources/searchResponse.json"));
 
-        SearchResult searchSheet = searchResources.searchSheet(1234L, "java");
-        assertThat(searchSheet).isNotNull();
-        List<SearchResultItem> results = searchSheet.getResults();
-        assertThat(results).hasSize(100);
-        assertThat(searchSheet.getTotalCount().intValue()).isEqualTo(130);
-        assertThat(results.get(0).getText()).isEqualTo("HomeResources.java");
-        assertThat(results.get(0).getObjectType()).isEqualTo("row");
-        assertThat(results.get(0).getObjectId().longValue()).isEqualTo(7243572589160324L);
-        assertThat(results.get(0).getContextData().get(0)).isEqualTo("Row 12");
-        assertThat(results.get(0).getParentObjectType()).isEqualTo("sheet");
-        assertThat(results.get(0).getParentObjectId().longValue()).isEqualTo(2630121841551236L);
-        assertThat(results.get(0).getParentObjectName()).isEqualTo("SDK Code Checklist");
+        SearchResponse result = searchResources.searchSheet(1234L, "budget");
+        assertThat(result).isNotNull();
+        assertThat(result.getTotalCount()).isEqualTo(9);
+        assertThat(result.getSearchResults()).isNotNull();
+    }
+
+    @Test
+    void testSearchResponse_allNineTypes() throws IOException, SmartsheetException {
+        server.setResponseBody(new File("src/test/resources/searchResponse.json"));
+
+        SearchResponse result = searchResources.search("budget");
+        List<SearchResultItem> items = result.getSearchResults();
+
+        assertThat(items.get(0).getObjectType()).isEqualTo("GRID_ROW");
+        assertThat(items.get(1).getObjectType()).isEqualTo("ATTACHMENT");
+        assertThat(items.get(2).getObjectType()).isEqualTo("SHEET");
+        assertThat(items.get(5).getObjectType()).isEqualTo("FORM");
+        assertThat(items.get(6).getObjectType()).isEqualTo("COLLECTION_TITLE");
+        assertThat(items.get(7).getObjectType()).isEqualTo("PORTFOLIO_TITLE");
+        assertThat(items.get(8).getObjectType()).isEqualTo("PROJECT_TITLE");
+    }
+
+    @Test
+    void testSearchResponse_typeSpecificFields() throws IOException, SmartsheetException {
+        server.setResponseBody(new File("src/test/resources/searchResponse.json"));
+
+        SearchResponse result = searchResources.search("budget");
+        List<SearchResultItem> items = result.getSearchResults();
+
+        // GRID_ROW: primaryColumnCellText populated
+        assertThat(items.get(0).getPrimaryColumnCellText()).isEqualTo("Budget Review");
+        assertThat(items.get(0).getAttachmentSource()).isNull();
+
+        // ATTACHMENT: attachmentSource and attachmentDescription populated
+        assertThat(items.get(1).getAttachmentSource()).isEqualTo("GRIDROW");
+        assertThat(items.get(1).getAttachmentDescription()).isEqualTo("Monthly budget forecast spreadsheet");
+        assertThat(items.get(1).getPrimaryColumnCellText()).isNull();
+
+        // SHEET (non-template)
+        assertThat(items.get(2).getIsTemplate()).isFalse();
+
+        // SHEET (template)
+        assertThat(items.get(3).getIsTemplate()).isTrue();
     }
 
     @Test
