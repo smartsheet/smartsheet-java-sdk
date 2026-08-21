@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [x.x.x] - Unreleased
 
+### Added
+
+- `SearchResponse` model for the unified search-service response (`searchResults`, `totalCount`, `workspaces`, `personalWorkspaceId`). `SearchResources.search()` and `SearchResources.searchSheet()` now return `SearchResponse`.
+- New fields on `SearchResultItem`: `workspaceId`, `containerId`, `modifyDateTime`, `primaryColumnCellText` (GRID_ROW only), `attachmentSource` (ATTACHMENT only), `attachmentDescription` (ATTACHMENT only), `isTemplate` (SHEET only).
+- The search API now returns 9 object types: `GRID_ROW`, `ATTACHMENT`, `SHEET`, `WORKSPACE`, `FORM`, `COLLECTION_TITLE`, `PORTFOLIO_TITLE`, `PROJECT_TITLE`, `SCENARIO_PLAN_TITLE`.
+
 ## [4.4.0] - 2026-08-12
 
 ### Added
