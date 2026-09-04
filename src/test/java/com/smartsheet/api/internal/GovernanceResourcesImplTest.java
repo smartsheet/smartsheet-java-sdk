@@ -17,6 +17,7 @@
 package com.smartsheet.api.internal;
 
 import com.smartsheet.api.InvalidRequestException;
+import com.smartsheet.api.ResourceNotFoundException;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
 import com.smartsheet.api.models.DataClassificationSettings;
@@ -184,6 +185,15 @@ class GovernanceResourcesImplTest extends ResourcesImplBase {
 
         assertThatThrownBy(() -> governanceResources.getDataClassificationSettings(41878788L))
                 .isInstanceOf(SmartsheetException.class);
+    }
+
+    @Test
+    void testGetDataClassificationSettings_error404() {
+        server.setStatus(404);
+        server.setResponseBody("{\"errorCode\":1006,\"message\":\"Not Found\"}");
+
+        assertThatThrownBy(() -> governanceResources.getDataClassificationSettings(41878788L))
+                .isInstanceOf(ResourceNotFoundException.class);
     }
 
     @Test
