@@ -34,6 +34,7 @@ class GovernanceResourcesImplTest extends ResourcesImplBase {
 
     private GovernanceResourcesImpl governanceResources;
 
+    /** Initialises the governance resources impl backed by a local test server. */
     @BeforeEach
     public void setUp() throws Exception {
         governanceResources = new GovernanceResourcesImpl(new SmartsheetImpl("http://localhost:9090/1.1/",
@@ -42,6 +43,7 @@ class GovernanceResourcesImplTest extends ResourcesImplBase {
 
     // ── URL + query param ─────────────────────────────────────────────────────
 
+    /** Verifies the request URL and planId query param are correct. */
     @Test
     void testGetDataClassificationSettings_urlAndQueryParam() throws IOException, SmartsheetException {
         server.setResponseBody(new File("src/test/resources/getDataClassificationSettings.json"));
@@ -55,6 +57,7 @@ class GovernanceResourcesImplTest extends ResourcesImplBase {
 
     // ── APPROVAL_NEEDED mode (happy path) ─────────────────────────────────────
 
+    /** Verifies all fields are deserialized correctly in APPROVAL_NEEDED mode. */
     @Test
     void testGetDataClassificationSettings_approvalNeededMode() throws IOException, SmartsheetException {
         server.setResponseBody(new File("src/test/resources/getDataClassificationSettings.json"));
@@ -86,6 +89,7 @@ class GovernanceResourcesImplTest extends ResourcesImplBase {
 
     // ── CUSTOM mode ───────────────────────────────────────────────────────────
 
+    /** Verifies per-label approvers are deserialized in CUSTOM mode. */
     @Test
     void testGetDataClassificationSettings_customMode() throws IOException, SmartsheetException {
         server.setResponseBody(new File("src/test/resources/getDataClassificationSettingsCustomMode.json"));
@@ -109,6 +113,7 @@ class GovernanceResourcesImplTest extends ResourcesImplBase {
 
     // ── NONE mode (required-only fields) ──────────────────────────────────────
 
+    /** Verifies optional fields are null when absent in NONE mode. */
     @Test
     void testGetDataClassificationSettings_noneMode() throws IOException, SmartsheetException {
         server.setResponseBody("{\"orgId\":1244212,\"planId\":41878788,\"isDisabled\":false," +
@@ -128,6 +133,7 @@ class GovernanceResourcesImplTest extends ResourcesImplBase {
 
     // ── Disabled plan ─────────────────────────────────────────────────────────
 
+    /** Verifies labels is empty and settings are omitted when the plan is disabled. */
     @Test
     void testGetDataClassificationSettings_disabledPlan() throws IOException, SmartsheetException {
         server.setResponseBody(new File("src/test/resources/getDataClassificationSettingsDisabledPlan.json"));
@@ -144,6 +150,7 @@ class GovernanceResourcesImplTest extends ResourcesImplBase {
 
     // ── assetType + assetId ───────────────────────────────────────────────────
 
+    /** Verifies assetType and assetId are sent as query params and planId is absent. */
     @Test
     void testGetDataClassificationSettings_byAsset_urlContainsAssetParams() throws SmartsheetException, IOException {
         server.setStatus(200);
@@ -157,6 +164,7 @@ class GovernanceResourcesImplTest extends ResourcesImplBase {
                 .doesNotContain("planId");
     }
 
+    /** Verifies a non-null response is returned when using assetType + assetId. */
     @Test
     void testGetDataClassificationSettings_byAsset_returnsSettings() throws SmartsheetException, IOException {
         server.setStatus(200);
@@ -169,6 +177,7 @@ class GovernanceResourcesImplTest extends ResourcesImplBase {
 
 // ── Error responses ───────────────────────────────────────────────────────
 
+    /** Verifies a 400 response throws InvalidRequestException. */
     @Test
     void testGetDataClassificationSettings_error400() {
         server.setStatus(400);
@@ -178,6 +187,7 @@ class GovernanceResourcesImplTest extends ResourcesImplBase {
                 .isInstanceOf(InvalidRequestException.class);
     }
 
+    /** Verifies a 403 response throws SmartsheetException. */
     @Test
     void testGetDataClassificationSettings_error403() {
         server.setStatus(403);
@@ -187,6 +197,7 @@ class GovernanceResourcesImplTest extends ResourcesImplBase {
                 .isInstanceOf(SmartsheetException.class);
     }
 
+    /** Verifies a 404 response throws ResourceNotFoundException. */
     @Test
     void testGetDataClassificationSettings_error404() {
         server.setStatus(404);
@@ -196,6 +207,7 @@ class GovernanceResourcesImplTest extends ResourcesImplBase {
                 .isInstanceOf(ResourceNotFoundException.class);
     }
 
+    /** Verifies a 500 response throws SmartsheetException. */
     @Test
     void testGetDataClassificationSettings_error500() {
         server.setStatus(500);
