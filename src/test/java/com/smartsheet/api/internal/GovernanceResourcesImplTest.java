@@ -141,7 +141,32 @@ class GovernanceResourcesImplTest extends ResourcesImplBase {
         assertThat(settings.getDowngradeApprovalSettings().getApprovers()).isNull();
     }
 
-    // ── Error responses ───────────────────────────────────────────────────────
+    // ── assetType + assetId ───────────────────────────────────────────────────
+
+    @Test
+    void testGetDataClassificationSettings_byAsset_urlContainsAssetParams() throws SmartsheetException, IOException {
+        server.setStatus(200);
+        server.setResponseBody(new File("src/test/resources/mock-api-responses/governance/get_data_classification_settings/all-response-body-properties.json"));
+
+        governanceResources.getDataClassificationSettings("sheet", 112398785741L);
+
+        assertThat(server.getLastRequest().getUri())
+                .contains("assetType=sheet")
+                .contains("assetId=112398785741")
+                .doesNotContain("planId");
+    }
+
+    @Test
+    void testGetDataClassificationSettings_byAsset_returnsSettings() throws SmartsheetException, IOException {
+        server.setStatus(200);
+        server.setResponseBody(new File("src/test/resources/mock-api-responses/governance/get_data_classification_settings/all-response-body-properties.json"));
+
+        DataClassificationSettings settings = governanceResources.getDataClassificationSettings("sheet", 112398785741L);
+
+        assertThat(settings).isNotNull();
+    }
+
+// ── Error responses ───────────────────────────────────────────────────────
 
     @Test
     void testGetDataClassificationSettings_error400() {

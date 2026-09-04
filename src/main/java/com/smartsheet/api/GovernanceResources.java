@@ -24,11 +24,22 @@ import com.smartsheet.api.models.DataClassificationSettings;
 public interface GovernanceResources {
 
     /**
-     * Get the data classification settings for a plan.
+     * Get the data classification settings for a plan by plan ID.
      *
      * @param planId the ID of the plan
      * @return the DataClassificationSettings
      * @throws SmartsheetException if there is any other error during the operation
      */
     DataClassificationSettings getDataClassificationSettings(long planId) throws SmartsheetException;
+
+    /**
+     * Get the data classification settings by resolving the plan from an asset.
+     * Accepted assetType values: "sheet", "report", "sight" (dashboard).
+     *
+     * @param assetType the type of the asset (sheet, report, sight)
+     * @param assetId   the ID of the asset
+     * @return the DataClassificationSettings
+     * @throws SmartsheetException if there is any other error during the operation
+     */
+    DataClassificationSettings getDataClassificationSettings(String assetType, long assetId) throws SmartsheetException;
 }
