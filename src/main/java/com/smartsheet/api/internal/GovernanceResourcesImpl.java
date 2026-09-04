@@ -56,4 +56,24 @@ public class GovernanceResourcesImpl extends AbstractResources implements Govern
                 DataClassificationSettings.class
         );
     }
+
+    /**
+     * Get the data classification settings by resolving the plan from an asset.
+     * Accepted assetType values: "sheet", "report", "sight" (dashboard).
+     *
+     * @param assetType the type of the asset
+     * @param assetId   the ID of the asset
+     * @return the DataClassificationSettings
+     * @throws SmartsheetException if there is any other error during the operation
+     */
+    @Override
+    public DataClassificationSettings getDataClassificationSettings(String assetType, long assetId) throws SmartsheetException {
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("assetType", assetType);
+        parameters.put("assetId", assetId);
+        return this.getResource(
+                "governance/data-classification/settings" + QueryUtil.generateUrl(null, parameters),
+                DataClassificationSettings.class
+        );
+    }
 }
