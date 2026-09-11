@@ -158,7 +158,7 @@ class GovernanceResourcesImplTest extends ResourcesImplBase {
 
         governanceResources.getDataClassificationSettings("sheet", 112398785741L);
 
-        assertThat(server.getLastRequest().getUri())
+        assertThat(server.getLastRequestUrl())
                 .contains("assetType=sheet")
                 .contains("assetId=112398785741")
                 .doesNotContain("planId");
