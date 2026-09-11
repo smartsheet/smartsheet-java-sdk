@@ -154,7 +154,7 @@ class GovernanceResourcesImplTest extends ResourcesImplBase {
     @Test
     void testGetDataClassificationSettings_byAsset_urlContainsAssetParams() throws SmartsheetException, IOException {
         server.setStatus(200);
-        server.setResponseBody(new File("src/test/resources/mock-api-responses/governance/get_data_classification_settings/all-response-body-properties.json"));
+        server.setResponseBody(new File("src/test/resources/getDataClassificationSettings.json"));
 
         governanceResources.getDataClassificationSettings("sheet", 112398785741L);
 
@@ -168,7 +168,7 @@ class GovernanceResourcesImplTest extends ResourcesImplBase {
     @Test
     void testGetDataClassificationSettings_byAsset_returnsSettings() throws SmartsheetException, IOException {
         server.setStatus(200);
-        server.setResponseBody(new File("src/test/resources/mock-api-responses/governance/get_data_classification_settings/all-response-body-properties.json"));
+        server.setResponseBody(new File("src/test/resources/getDataClassificationSettings.json"));
 
         DataClassificationSettings settings = governanceResources.getDataClassificationSettings("sheet", 112398785741L);
 
