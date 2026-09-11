@@ -21,6 +21,7 @@ import com.smartsheet.api.ContactResources;
 import com.smartsheet.api.EventResources;
 import com.smartsheet.api.FavoriteResources;
 import com.smartsheet.api.FolderResources;
+import com.smartsheet.api.GovernanceResources;
 import com.smartsheet.api.GroupResources;
 import com.smartsheet.api.HomeResources;
 import com.smartsheet.api.ImageUrlResources;
@@ -272,6 +273,15 @@ public class SmartsheetImpl implements Smartsheet {
      */
     private final AtomicReference<AssetShareResources> assetShares;
 
+    /**
+     * Represents the AtomicReference for GovernanceResources.
+     * <p>
+     * It will be initialized in constructor and will not change afterward. The underlying value will be initially set
+     * as null, and will be initialized to non-null at the first time it is accessed via corresponding getter, therefore
+     * effectively the underlying value is lazily created in a thread safe manner.
+     */
+    private final AtomicReference<GovernanceResources> governance;
+
     private static final String INVALID_OPERATION_FOR_CLASS = "Invalid operation for class ";
 
     /**
@@ -330,6 +340,7 @@ public class SmartsheetImpl implements Smartsheet {
         this.passthrough = new AtomicReference<>();
         this.events = new AtomicReference<>();
         this.assetShares = new AtomicReference<>();
+        this.governance = new AtomicReference<>();
     }
 
     /**
@@ -689,6 +700,18 @@ public class SmartsheetImpl implements Smartsheet {
             assetShares.compareAndSet(null, new AssetShareResourcesImpl(this));
         }
         return assetShares.get();
+    }
+
+    /**
+     * Returns the GovernanceResources instance that provides access to Governance resources.
+     *
+     * @return the governance resources
+     */
+    public GovernanceResources governanceResources() {
+        if (governance.get() == null) {
+            governance.compareAndSet(null, new GovernanceResourcesImpl(this));
+        }
+        return governance.get();
     }
 
     /**
