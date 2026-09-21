@@ -20,7 +20,7 @@ package com.smartsheet.api.models;
  * Represents the data classification of a sheet, as a label from the plan's published classification labels.
  * Valid values are whatever labels a plan admin has published in Admin Center, and can change at any time.
  */
-public class DataClassification {
+public class SheetDataClassification {
 
     private String dataClassification;
 
@@ -37,9 +37,9 @@ public class DataClassification {
      * Sets the data classification.
      *
      * @param dataClassification the data classification, as a label from the plan's published classification labels
-     * @return this DataClassification object for chaining
+     * @return this SheetDataClassification object for chaining
      */
-    public DataClassification setDataClassification(String dataClassification) {
+    public SheetDataClassification setDataClassification(String dataClassification) {
         this.dataClassification = dataClassification;
         return this;
     }

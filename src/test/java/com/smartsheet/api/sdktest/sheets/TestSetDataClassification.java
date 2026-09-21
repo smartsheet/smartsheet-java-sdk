@@ -22,7 +22,7 @@ import com.smartsheet.api.Smartsheet;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.WiremockClient;
 import com.smartsheet.api.WiremockClientWrapper;
-import com.smartsheet.api.models.DataClassification;
+import com.smartsheet.api.models.SheetDataClassification;
 import com.smartsheet.api.sdktest.Utils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -46,7 +46,7 @@ public class TestSetDataClassification {
         Smartsheet smartsheet = wrapper.getSmartsheet();
         WiremockClient wiremockClient = wrapper.getWiremockClient();
 
-        DataClassification dataClassification = new DataClassification()
+        SheetDataClassification dataClassification = new SheetDataClassification()
                 .setDataClassification("CONFIDENTIAL");
 
         smartsheet.sheetResources().setDataClassification(TEST_SHEET_ID, dataClassification);
@@ -68,7 +68,7 @@ public class TestSetDataClassification {
         Smartsheet smartsheet = wrapper.getSmartsheet();
         WiremockClient wiremockClient = wrapper.getWiremockClient();
 
-        DataClassification dataClassification = new DataClassification()
+        SheetDataClassification dataClassification = new SheetDataClassification()
                 .setDataClassification("CONFIDENTIAL");
 
         Assertions.assertDoesNotThrow(() ->
@@ -92,7 +92,7 @@ public class TestSetDataClassification {
         Smartsheet smartsheet = wrapper.getSmartsheet();
         WiremockClient wiremockClient = wrapper.getWiremockClient();
 
-        DataClassification dataClassification = new DataClassification()
+        SheetDataClassification dataClassification = new SheetDataClassification()
                 .setDataClassification("Top Secret");
 
         Assertions.assertDoesNotThrow(() ->
@@ -110,7 +110,7 @@ public class TestSetDataClassification {
         WiremockClientWrapper wrapper = Utils.createWiremockSmartsheetClient("/errors/500-response", requestId);
         Smartsheet smartsheet = wrapper.getSmartsheet();
 
-        DataClassification dataClassification = new DataClassification()
+        SheetDataClassification dataClassification = new SheetDataClassification()
                 .setDataClassification("CONFIDENTIAL");
 
         SmartsheetException exception = Assertions.assertThrows(SmartsheetException.class, () ->
@@ -126,7 +126,7 @@ public class TestSetDataClassification {
         WiremockClientWrapper wrapper = Utils.createWiremockSmartsheetClient("/errors/400-response", requestId);
         Smartsheet smartsheet = wrapper.getSmartsheet();
 
-        DataClassification dataClassification = new DataClassification()
+        SheetDataClassification dataClassification = new SheetDataClassification()
                 .setDataClassification("CONFIDENTIAL");
 
         SmartsheetException exception = Assertions.assertThrows(SmartsheetException.class, () ->
