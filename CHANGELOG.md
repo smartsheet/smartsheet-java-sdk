@@ -7,7 +7,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [x.x.x] - unreleased
 ### Added
 - Support for PUT /sheets/{sheetId}/dataclassification endpoint (Set Data Classification)
-- Support for DELETE /sheets/{sheetId}/dataclassification endpoint (Remove Data Classification)
 - Added `dataClassification` field to Sheet model
 
 ## [4.4.0] - 2026-08-12

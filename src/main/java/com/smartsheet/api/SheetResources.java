@@ -567,21 +567,6 @@ public interface SheetResources {
     void setDataClassification(long sheetId, DataClassification dataClassification) throws SmartsheetException;
 
     /**
-     * <p>Removes the data classification from a sheet. Requires ADMIN or OWNER access.</p>
-     *
-     * <p>It mirrors to the following Smartsheet REST API method: DELETE /sheets/{sheetId}/dataclassification</p>
-     *
-     * @param sheetId the sheet id
-     * @throws IllegalArgumentException    if any argument is null or empty string
-     * @throws InvalidRequestException     if there is any problem with the REST API request
-     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException   if the resource cannot be found
-     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException         if there is any other error during the operation
-     */
-    void deleteDataClassification(long sheetId) throws SmartsheetException;
-
-    /**
      * <p>Update a sheet.</p>
      *
      * <p>It mirrors to the following Smartsheet REST API method: PUT /sheet/{id}</p>
