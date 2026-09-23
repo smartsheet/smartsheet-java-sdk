@@ -47,7 +47,8 @@ public class TestSetDataClassification {
         WiremockClient wiremockClient = wrapper.getWiremockClient();
 
         SheetDataClassification dataClassification = new SheetDataClassification()
-                .setDataClassification("CONFIDENTIAL");
+                .setDataClassification("CONFIDENTIAL")
+                .setJustification("Contains customer PII");
 
         smartsheet.sheetResources().setDataClassification(TEST_SHEET_ID, dataClassification);
         LoggedRequest wiremockRequest = wiremockClient.findWiremockRequest(requestId);
@@ -69,7 +70,8 @@ public class TestSetDataClassification {
         WiremockClient wiremockClient = wrapper.getWiremockClient();
 
         SheetDataClassification dataClassification = new SheetDataClassification()
-                .setDataClassification("CONFIDENTIAL");
+                .setDataClassification("CONFIDENTIAL")
+                .setJustification("Contains customer PII");
 
         Assertions.assertDoesNotThrow(() ->
                 smartsheet.sheetResources().setDataClassification(TEST_SHEET_ID, dataClassification)
@@ -77,7 +79,7 @@ public class TestSetDataClassification {
 
         LoggedRequest wiremockRequest = wiremockClient.findWiremockRequest(requestId);
         String requestBody = wiremockRequest.getBodyAsString();
-        assertThat(requestBody).isEqualTo("{\"dataClassification\":\"CONFIDENTIAL\"}");
+        assertThat(requestBody).isEqualTo("{\"dataClassification\":\"CONFIDENTIAL\",\"justification\":\"Contains customer PII\"}");
     }
 
     @Test
@@ -93,7 +95,8 @@ public class TestSetDataClassification {
         WiremockClient wiremockClient = wrapper.getWiremockClient();
 
         SheetDataClassification dataClassification = new SheetDataClassification()
-                .setDataClassification("Top Secret");
+                .setDataClassification("Top Secret")
+                .setJustification("Contains customer PII");
 
         Assertions.assertDoesNotThrow(() ->
                 smartsheet.sheetResources().setDataClassification(TEST_SHEET_ID, dataClassification)
@@ -101,7 +104,7 @@ public class TestSetDataClassification {
 
         LoggedRequest wiremockRequest = wiremockClient.findWiremockRequest(requestId);
         String requestBody = wiremockRequest.getBodyAsString();
-        assertThat(requestBody).isEqualTo("{\"dataClassification\":\"Top Secret\"}");
+        assertThat(requestBody).isEqualTo("{\"dataClassification\":\"Top Secret\",\"justification\":\"Contains customer PII\"}");
     }
 
     @Test

@@ -24,6 +24,8 @@ public class SheetDataClassification {
 
     private String dataClassification;
 
+    private String justification;
+
     /**
      * Gets the data classification.
      *
@@ -41,6 +43,26 @@ public class SheetDataClassification {
      */
     public SheetDataClassification setDataClassification(String dataClassification) {
         this.dataClassification = dataClassification;
+        return this;
+    }
+
+    /**
+     * Gets the justification for the data classification change.
+     *
+     * @return the justification
+     */
+    public String getJustification() {
+        return justification;
+    }
+
+    /**
+     * Sets the justification for the data classification change. Required.
+     *
+     * @param justification the justification
+     * @return this SheetDataClassification object for chaining
+     */
+    public SheetDataClassification setJustification(String justification) {
+        this.justification = justification;
         return this;
     }
 }
