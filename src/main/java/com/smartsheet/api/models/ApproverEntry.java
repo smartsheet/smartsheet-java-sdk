@@ -16,6 +16,8 @@
 
 package com.smartsheet.api.models;
 
+import com.smartsheet.api.models.enums.ApproverType;
+
 import java.util.List;
 
 /**
@@ -23,14 +25,14 @@ import java.util.List;
  */
 public class ApproverEntry {
 
-    private String type;
+    private ApproverType type;
     private List<Long> ids;
 
-    public String getType() {
+    public ApproverType getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(ApproverType type) {
         this.type = type;
     }
 

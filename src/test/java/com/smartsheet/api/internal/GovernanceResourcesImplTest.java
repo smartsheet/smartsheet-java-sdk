@@ -21,6 +21,8 @@ import com.smartsheet.api.ResourceNotFoundException;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
 import com.smartsheet.api.models.DataClassificationSettings;
+import com.smartsheet.api.models.enums.ApproverType;
+import com.smartsheet.api.models.enums.DowngradeApprovalMode;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -80,10 +82,11 @@ class GovernanceResourcesImplTest extends ResourcesImplBase {
         assertThat(settings.getLabels().get(0).getIsDefault()).isFalse();
 
         assertThat(settings.getDowngradeApprovalSettings()).isNotNull();
-        assertThat(settings.getDowngradeApprovalSettings().getMode()).isEqualTo("APPROVAL_NEEDED");
+        assertThat(settings.getDowngradeApprovalSettings().getMode()).isEqualTo(DowngradeApprovalMode.APPROVAL_NEEDED);
         assertThat(settings.getDowngradeApprovalSettings().getApprovers()).hasSize(1);
-        assertThat(settings.getDowngradeApprovalSettings().getApprovers().get(0).getType()).isEqualTo("GROUPS");
-        assertThat(settings.getDowngradeApprovalSettings().getApprovers().get(0).getIds()).containsExactly(5129226945881988L, 2877427132196740L);
+        assertThat(settings.getDowngradeApprovalSettings().getApprovers().get(0).getType()).isEqualTo(ApproverType.GROUPS);
+        assertThat(settings.getDowngradeApprovalSettings().getApprovers().get(0).getIds())
+                .containsExactly(5129226945881988L, 2877427132196740L);
         assertThat(settings.getDowngradeApprovalSettings().getLabelApprovers()).isNull();
     }
 
@@ -96,7 +99,7 @@ class GovernanceResourcesImplTest extends ResourcesImplBase {
 
         DataClassificationSettings settings = governanceResources.getDataClassificationSettings(1148023251199876L);
 
-        assertThat(settings.getDowngradeApprovalSettings().getMode()).isEqualTo("CUSTOM");
+        assertThat(settings.getDowngradeApprovalSettings().getMode()).isEqualTo(DowngradeApprovalMode.CUSTOM);
         // CUSTOM: no top-level approvers, only per-label approvers
         assertThat(settings.getDowngradeApprovalSettings().getApprovers()).isNull();
         assertThat(settings.getDowngradeApprovalSettings().getLabelApprovers()).hasSize(1);
@@ -105,9 +108,9 @@ class GovernanceResourcesImplTest extends ResourcesImplBase {
 
         var labelApprovers = settings.getDowngradeApprovalSettings().getLabelApprovers().get(0).getApprovers();
         assertThat(labelApprovers).hasSize(2);
-        assertThat(labelApprovers.get(0).getType()).isEqualTo("USERS");
+        assertThat(labelApprovers.get(0).getType()).isEqualTo(ApproverType.USERS);
         assertThat(labelApprovers.get(0).getIds()).containsExactly(5448085317937028L);
-        assertThat(labelApprovers.get(1).getType()).isEqualTo("WORKSPACE_ADMINS");
+        assertThat(labelApprovers.get(1).getType()).isEqualTo(ApproverType.WORKSPACE_ADMINS);
         assertThat(labelApprovers.get(1).getIds()).isEmpty();
     }
 
@@ -123,7 +126,7 @@ class GovernanceResourcesImplTest extends ResourcesImplBase {
 
         DataClassificationSettings settings = governanceResources.getDataClassificationSettings(1148023251199876L);
 
-        assertThat(settings.getDowngradeApprovalSettings().getMode()).isEqualTo("NONE");
+        assertThat(settings.getDowngradeApprovalSettings().getMode()).isEqualTo(DowngradeApprovalMode.NONE);
         assertThat(settings.getDowngradeApprovalSettings().getApprovers()).isNull();
         assertThat(settings.getDowngradeApprovalSettings().getLabelApprovers()).isNull();
         assertThat(settings.getGuidelinesUrl()).isNull();
@@ -144,7 +147,7 @@ class GovernanceResourcesImplTest extends ResourcesImplBase {
         assertThat(settings.getLabels()).isEmpty();
         assertThat(settings.getGuidelinesUrl()).isNull();
         assertThat(settings.getAllowManualChange()).isNull();
-        assertThat(settings.getDowngradeApprovalSettings().getMode()).isEqualTo("NONE");
+        assertThat(settings.getDowngradeApprovalSettings().getMode()).isEqualTo(DowngradeApprovalMode.NONE);
         assertThat(settings.getDowngradeApprovalSettings().getApprovers()).isNull();
     }
 
@@ -175,7 +178,7 @@ class GovernanceResourcesImplTest extends ResourcesImplBase {
         assertThat(settings).isNotNull();
     }
 
-// ── Error responses ───────────────────────────────────────────────────────
+    // ── Error responses ───────────────────────────────────────────────────────
 
     /** Verifies a 400 response throws InvalidRequestException. */
     @Test
