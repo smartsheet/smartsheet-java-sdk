@@ -16,6 +16,8 @@
 
 package com.smartsheet.api.sdktest.sheets;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.tomakehurst.wiremock.http.RequestMethod;
 import com.github.tomakehurst.wiremock.verification.LoggedRequest;
 import com.smartsheet.api.Smartsheet;
@@ -60,7 +62,7 @@ public class TestSetDataClassification {
     }
 
     @Test
-    void testSetDataClassificationAllResponseBodyProperties() throws SmartsheetException {
+    void testSetDataClassificationAllResponseBodyProperties() throws SmartsheetException, JsonProcessingException {
         String requestId = UUID.randomUUID().toString();
         WiremockClientWrapper wrapper = Utils.createWiremockSmartsheetClient(
                 "/sheets/set-data-classification/all-response-body-properties",
@@ -79,11 +81,13 @@ public class TestSetDataClassification {
 
         LoggedRequest wiremockRequest = wiremockClient.findWiremockRequest(requestId);
         String requestBody = wiremockRequest.getBodyAsString();
-        assertThat(requestBody).isEqualTo("{\"dataClassification\":\"CONFIDENTIAL\",\"justification\":\"Contains customer PII\"}");
+        ObjectMapper objectMapper = new ObjectMapper();
+        String expectedJson = "{\"dataClassification\":\"CONFIDENTIAL\",\"justification\":\"Contains customer PII\"}";
+        assertThat(objectMapper.readTree(requestBody)).isEqualTo(objectMapper.readTree(expectedJson));
     }
 
     @Test
-    void testSetDataClassificationAcceptsCustomPlanDefinedLabel() throws SmartsheetException {
+    void testSetDataClassificationAcceptsCustomPlanDefinedLabel() throws SmartsheetException, JsonProcessingException {
         // dataClassification is a free-form string: valid values are whatever labels a plan admin has
         // published in Admin Center, not a fixed set. This proves a non-canonical, custom label is accepted.
         String requestId = UUID.randomUUID().toString();
@@ -104,7 +108,9 @@ public class TestSetDataClassification {
 
         LoggedRequest wiremockRequest = wiremockClient.findWiremockRequest(requestId);
         String requestBody = wiremockRequest.getBodyAsString();
-        assertThat(requestBody).isEqualTo("{\"dataClassification\":\"Top Secret\",\"justification\":\"Contains customer PII\"}");
+        ObjectMapper objectMapper = new ObjectMapper();
+        String expectedJson = "{\"dataClassification\":\"Top Secret\",\"justification\":\"Contains customer PII\"}";
+        assertThat(objectMapper.readTree(requestBody)).isEqualTo(objectMapper.readTree(expectedJson));
     }
 
     @Test
