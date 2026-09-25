@@ -16,6 +16,8 @@
 
 package com.smartsheet.api.models;
 
+import com.smartsheet.api.models.enums.DowngradeApprovalMode;
+
 import java.util.List;
 
 /**
@@ -23,15 +25,15 @@ import java.util.List;
  */
 public class DowngradeApprovalSettings {
 
-    private String mode;
+    private DowngradeApprovalMode mode;
     private List<ApproverEntry> approvers;
     private List<LabelApproverEntry> labelApprovers;
 
-    public String getMode() {
+    public DowngradeApprovalMode getMode() {
         return mode;
     }
 
-    public void setMode(String mode) {
+    public void setMode(DowngradeApprovalMode mode) {
         this.mode = mode;
     }
 

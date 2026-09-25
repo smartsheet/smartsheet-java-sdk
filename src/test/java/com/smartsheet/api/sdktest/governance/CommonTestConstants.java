@@ -14,33 +14,10 @@
  * limitations under the License.
  */
 
-package com.smartsheet.api.models;
+package com.smartsheet.api.sdktest.governance;
 
-import com.smartsheet.api.models.enums.ApproverType;
-
-import java.util.List;
-
-/**
- * Represents an approver entry in downgrade approval settings.
- */
-public class ApproverEntry {
-
-    private ApproverType type;
-    private List<Long> ids;
-
-    public ApproverType getType() {
-        return type;
-    }
-
-    public void setType(ApproverType type) {
-        this.type = type;
-    }
-
-    public List<Long> getIds() {
-        return ids;
-    }
-
-    public void setIds(List<Long> ids) {
-        this.ids = ids;
-    }
+public class CommonTestConstants {
+    public static final long TEST_PLAN_ID = 1148023251199876L;
+    public static final long TEST_ORG_ID = 1556806293055364L;
+    public static final long TEST_ASSET_ID = 112398785741L;
 }

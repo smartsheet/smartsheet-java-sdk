@@ -14,33 +14,24 @@
  * limitations under the License.
  */
 
-package com.smartsheet.api.models;
-
-import com.smartsheet.api.models.enums.ApproverType;
-
-import java.util.List;
+package com.smartsheet.api.models.enums;
 
 /**
- * Represents an approver entry in downgrade approval settings.
+ * Represents the approval mode for data classification label downgrades.
  */
-public class ApproverEntry {
+public enum DowngradeApprovalMode {
+    /**
+     * No approval is required.
+     */
+    NONE,
 
-    private ApproverType type;
-    private List<Long> ids;
+    /**
+     * Approval is required from the designated approvers.
+     */
+    APPROVAL_NEEDED,
 
-    public ApproverType getType() {
-        return type;
-    }
-
-    public void setType(ApproverType type) {
-        this.type = type;
-    }
-
-    public List<Long> getIds() {
-        return ids;
-    }
-
-    public void setIds(List<Long> ids) {
-        this.ids = ids;
-    }
+    /**
+     * Per-label approver configuration applies.
+     */
+    CUSTOM
 }
