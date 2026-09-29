@@ -41,8 +41,11 @@ public class TestGetSheetDataClassification {
 
         Sheet sheet = smartsheet.sheetResources().getSheet(TEST_SHEET_ID);
 
-        assertThat(sheet.getId()).isEqualTo(8244643726616452L);
-        assertThat(sheet.getName()).isEqualTo("Test Sheet");
-        assertThat(sheet.getDataClassification()).isEqualTo("Confidential");
+        Sheet expectedSheet = new Sheet();
+        expectedSheet.setId(8244643726616452L);
+        expectedSheet.setName("Test Sheet");
+        expectedSheet.setDataClassification("Confidential");
+
+        assertThat(sheet).usingRecursiveComparison().isEqualTo(expectedSheet);
     }
 }
