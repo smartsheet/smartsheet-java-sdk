@@ -38,6 +38,7 @@ plugins {
 group = 'com.smartsheet'
 // The version. This will be added to the end of the Jar and all other resources that are created during the build.
 version = '4.4.0'
+ext.sdkName = 'Smartsheet Java SDK'
 // The Java version:
 sourceCompatibility = '11'
 
@@ -62,6 +63,15 @@ ext {
     slf4jVersion = '1.7.25'
     wiremockVersion = '3.13.1'
     javaxServletVersion = '4.0.1'
+}
+
+// sdk.properties feeds the User-Agent built in SmartsheetImpl.
+processResources {
+    def sdkProperties = [name: sdkName, version: version.toString()]
+    inputs.properties(sdkProperties)
+    filesMatching('sdk.properties') {
+        expand(project: sdkProperties)
+    }
 }
 
 // Tell Gradle where to download dependencies from
@@ -212,7 +222,7 @@ publishing {
             from components.java
             // Details that will be included in our published POM file
             pom {
-                name = 'Smartsheet Java SDK'
+                name = sdkName
                 description = 'Library for connecting to Smartsheet Services'
                 url = 'https://github.com/smartsheet/smartsheet-java-sdk'
                 organization {
