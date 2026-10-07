@@ -116,4 +116,9 @@ class SmartsheetImplTest extends ResourcesImplBase {
         assertThat(smartsheet.sightResources()).isNotNull();
     }
 
+    @Test
+    void testGetUserAgentStartsWithSdkNameAndVersion() {
+        assertThat(smartsheet.getUserAgent()).matches("Smartsheet Java SDK/\\d+\\.\\d+\\.\\d+[^/]*/.*");
+    }
+
 }
