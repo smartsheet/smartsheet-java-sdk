@@ -180,7 +180,13 @@ public interface FolderResources {
     /**
      * <p>Get children of a folder.</p>
      *
-     * <p>It mirrors to the following Smartsheet REST API method: GET /folders/{folderId}/children</p>
+     * <p>This method largely mirrors the REST API operation, except that the data items in the
+     * {@link TokenPaginatedResult} it returns are deserialized into {@link Folder}, {@link Sheet},
+     * {@link Report}, {@link Sight}, or {@link Template} objects. The {@code childrenResourceTypes}
+     * parameter filters on the resource (item) types returned.</p>
+     *
+     * <p>HTTP Method: {@code GET}<br>
+     * REST API path: {@code /2.0/folders/{folderId}/children}</p>
      *
      * @param folderId              the folder id
      * @param childrenResourceTypes the resource type to filter by (optional)
