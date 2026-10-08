@@ -183,8 +183,8 @@ public interface WorkspaceResources {
      * <p>Get children of a workspace.</p>
      *
      * <p>This method largely mirrors the REST API operation, except that the data items in the
-     * {@link TokenPaginatedResult} it returns are deserialized into {@link Folder}, {@link Sheet},
-     * {@link Report}, {@link Sight}, or {@link Template} objects. The {@code childrenResourceTypes}
+     * {@link TokenPaginatedResult} it returns are deserialized into {@code Folder}, {@code Sheet},
+     * {@code Report}, {@code Sight}, or {@code Template} objects. The {@code childrenResourceTypes}
      * parameter filters on the resource (item) types returned.</p>
      *
      * <p>HTTP Method: {@code GET}<br>
