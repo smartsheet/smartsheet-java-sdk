@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [x.x.x] - Unreleased
+### Added
+- Support for PUT /sheets/{sheetId}/dataclassification endpoint (Set Data Classification)
+- Added `dataClassification` field to Sheet model
 
 ### Fixed
 - User-Agent starts with `Smartsheet Java SDK/<version>` again; releases 3.1.2–4.4.0 sent the literal `${project.name}/${project.version}`
