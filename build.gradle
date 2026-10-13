@@ -44,14 +44,14 @@ sourceCompatibility = '11'
 
 // Variables to expose. This is mainly for having a convenient place to store/view dependency versions.
 ext {
-    assertJVersion = '3.24.2'
+    assertJVersion = '3.27.7'
     checkstyleVersion = '10.12.1'
     commonsIoVersion = '2.7'
     httpClientVersion = '4.5.13'
     httpMimeVersion = '4.5'
-    jacksonCoreVersion = '2.9.10'
+    jacksonCoreVersion = '2.18.11'
     jacksonJsr310Version = '2.20.0'
-    jacksonDatabindVersion = '2.9.10.8'
+    jacksonDatabindVersion = '2.18.11'
     jacocoVersion = '0.8.10'
     jettyServerVersion = '9.4.41.v20210516'
     jUnitJupiterVersion = '5.5.1'
