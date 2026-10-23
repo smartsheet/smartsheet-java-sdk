@@ -287,6 +287,7 @@ public class DefaultHttpClient implements HttpClient {
                 this.releaseConnection();
 
             } catch (ClientProtocolException e) {
+                this.releaseConnection();
                 logger.warn("ClientProtocolException " + e.getMessage());
                 logger.warn(LOG_ARG, RequestAndResponseData.of(apacheHttpRequest, requestEntityCopy, smartsheetResponse,
                         responseEntityCopy, REQUEST_RESPONSE_SUMMARY));
@@ -304,6 +305,7 @@ public class DefaultHttpClient implements HttpClient {
                 }
                 throw new HttpClientException(ERROR_OCCURRED, e);
             } catch (NoHttpResponseException e) {
+                this.releaseConnection();
                 logger.warn("NoHttpResponseException {}", e.getMessage());
                 logger.warn(LOG_ARG, RequestAndResponseData.of(apacheHttpRequest, requestEntityCopy, smartsheetResponse,
                         responseEntityCopy, REQUEST_RESPONSE_SUMMARY));
@@ -323,6 +325,7 @@ public class DefaultHttpClient implements HttpClient {
                 }
                 throw new HttpClientException(ERROR_OCCURRED, e);
             } catch (IOException e) {
+                this.releaseConnection();
                 logger.warn(LOG_ARG, RequestAndResponseData.of(apacheHttpRequest, requestEntityCopy, smartsheetResponse,
                         responseEntityCopy, REQUEST_RESPONSE_SUMMARY));
                 throw new HttpClientException(ERROR_OCCURRED, e);
