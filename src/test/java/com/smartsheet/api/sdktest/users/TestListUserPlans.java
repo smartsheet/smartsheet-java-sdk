@@ -59,7 +59,7 @@ public class TestListUserPlans {
         Smartsheet smartsheet = wrapper.getSmartsheet();
         WiremockClient wiremockClient = wrapper.getWiremockClient();
 
-        smartsheet.userResources().listUserPlans(TEST_USER_ID, TEST_LAST_KEY, TEST_MAX_ITEMS, true, TEST_INCLUDES);
+        smartsheet.userResources().listUserPlans(TEST_USER_ID, TEST_LAST_KEY, TEST_MAX_ITEMS, TEST_INCLUDES);
         LoggedRequest wiremockRequest = wiremockClient.findWiremockRequest(requestId);
         String path = URI.create(wiremockRequest.getUrl()).getPath();
         Map<String, QueryParameter> receivedQueryParams = wiremockRequest.getQueryParams();
@@ -67,8 +67,24 @@ public class TestListUserPlans {
         assertThat(path).isEqualTo("/2.0/users/1234567890/plans");
         assertThat(receivedQueryParams.get("maxItems").getValues()).isEqualTo(List.of(Long.toString(TEST_MAX_ITEMS)));
         assertThat(receivedQueryParams.get("lastKey").getValues()).isEqualTo(List.of(TEST_LAST_KEY));
-        assertThat(receivedQueryParams.get("displayContributorSeatType").getValues()).isEqualTo(List.of("true"));
+        assertThat(receivedQueryParams).doesNotContainKey("displayContributorSeatType");
         assertThat(receivedQueryParams.get("include").getValues()).isEqualTo(List.of("planName"));
+    }
+
+    @Test
+    void testListUserPlansNullIncludeSendsNoIncludeOrFlag() throws SmartsheetException {
+        String requestId = UUID.randomUUID().toString();
+        WiremockClientWrapper wrapper = Utils.createWiremockSmartsheetClient(
+                "/users/list-user-plans/all-response-body-properties",
+                requestId
+        );
+        Smartsheet smartsheet = wrapper.getSmartsheet();
+        WiremockClient wiremockClient = wrapper.getWiremockClient();
+
+        smartsheet.userResources().listUserPlans(TEST_USER_ID, null, null, null);
+        Map<String, QueryParameter> receivedQueryParams = wiremockClient.findWiremockRequest(requestId).getQueryParams();
+
+        assertThat(receivedQueryParams).doesNotContainKeys("include", "displayContributorSeatType");
     }
 
     @Test
@@ -81,7 +97,7 @@ public class TestListUserPlans {
         Smartsheet smartsheet = wrapper.getSmartsheet();
 
         TokenPaginatedResult<UserPlan> response = smartsheet.userResources()
-                .listUserPlans(TEST_USER_ID, TEST_LAST_KEY, TEST_MAX_ITEMS, null, TEST_INCLUDES);
+                .listUserPlans(TEST_USER_ID, TEST_LAST_KEY, TEST_MAX_ITEMS, TEST_INCLUDES);
 
         assertThat(response).isNotNull();
         assertThat(response.getLastKey()).isEqualTo(TEST_LAST_KEY);
