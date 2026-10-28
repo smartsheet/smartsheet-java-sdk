@@ -45,6 +45,7 @@ import com.smartsheet.api.models.MultiRowEmail;
 import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.PaginationParameters;
 import com.smartsheet.api.models.Sheet;
+import com.smartsheet.api.models.SheetDataClassification;
 import com.smartsheet.api.models.SheetEmail;
 import com.smartsheet.api.models.SheetPublish;
 import com.smartsheet.api.models.SortSpecifier;
@@ -797,6 +798,25 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
      */
     public void deleteSheet(long id) throws SmartsheetException {
         this.deleteResource(SHEETS + "/" + id, Sheet.class);
+    }
+
+    /**
+     * Sets the data classification on a sheet.
+     * <p>
+     * It mirrors to the following Smartsheet REST API method: PUT /sheets/{sheetId}/dataclassification
+     *
+     * @param sheetId the sheet id
+     * @param dataClassification the SheetDataClassification object
+     * @throws IllegalArgumentException    : if any argument is null
+     * @throws InvalidRequestException     : if there is any problem with the REST API request
+     * @throws AuthorizationException      : if there is any problem with the REST API authorization(access token)
+     * @throws ResourceNotFoundException   : if the resource can not be found
+     * @throws ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetRestException     : if there is any other REST API related error occurred during the operation
+     * @throws SmartsheetException         : if there is any other error occurred during the operation
+     */
+    public void setDataClassification(long sheetId, SheetDataClassification dataClassification) throws SmartsheetException {
+        this.updateResource(SHEETS + "/" + sheetId + "/dataclassification", SheetDataClassification.class, dataClassification);
     }
 
     /**
