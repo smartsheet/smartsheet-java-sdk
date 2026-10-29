@@ -1,0 +1,21 @@
+{
+  "orgId": 1556806293055364,
+  "planId": 1148023251199876,
+  "isDisabled": false,
+  "guidelinesUrl": "https://wiki.example.com/classification-guide",
+  "allowManualChange": true,
+  "labels": [
+    {
+      "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+      "name": "Confidential",
+      "description": "Highly sensitive information",
+      "color": "#ffe0e3",
+      "sensitivityOrder": 1,
+      "isDefault": false
+    }
+  ],
+  "downgradeApprovalSettings": {
+    "mode": "APPROVAL_NEEDED",
+    "approvers": [{"type": "GROUPS", "ids": [5129226945881988, 2877427132196740]}]
+  }
+}
