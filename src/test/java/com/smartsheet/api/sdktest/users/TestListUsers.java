@@ -79,7 +79,7 @@ public class TestListUsers {
                 .setPageSize(TEST_PAGE_SIZE)
                 .setIncludeAll(TEST_INCLUDE_ALL);
 
-        smartsheet.userResources().listUsers(TEST_EMAILS, TEST_PLAN_ID, TEST_SEAT_TYPE, true, pagination);
+        smartsheet.userResources().listUsers(TEST_EMAILS, TEST_PLAN_ID, TEST_SEAT_TYPE, pagination);
 
         LoggedRequest wiremockRequest = wiremockClient.findWiremockRequest(requestId);
         String path = URI.create(wiremockRequest.getUrl()).getPath();
@@ -92,7 +92,7 @@ public class TestListUsers {
         assertThat(receivedQueryParams.get("includeAll")).isNull();
         assertThat(receivedQueryParams.get("email").getValues().size()).isEqualTo(TEST_EMAILS.size());
         assertThat(receivedQueryParams.get("email").getValues().containsAll(TEST_EMAILS)).isEqualTo(true);
-        assertThat(receivedQueryParams.get("displayContributorSeatType").getValues()).isEqualTo(List.of("true"));
+        assertThat(receivedQueryParams).doesNotContainKey("displayContributorSeatType");
     }
 
     @Test
