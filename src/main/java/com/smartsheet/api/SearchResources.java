@@ -16,6 +16,7 @@
 
 package com.smartsheet.api;
 
+import com.smartsheet.api.models.SearchResponse;
 import com.smartsheet.api.models.SearchResult;
 import com.smartsheet.api.models.enums.SearchInclusion;
 import com.smartsheet.api.models.enums.SearchLocation;
@@ -46,7 +47,7 @@ public interface SearchResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException         if there is any other error during the operation
      */
-    SearchResult search(String query) throws SmartsheetException;
+    SearchResponse search(String query) throws SmartsheetException;
 
     /**
      * <p>Performs a search across all Sheets to which user has access.</p>
@@ -68,7 +69,7 @@ public interface SearchResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException         if there is any other error during the operation
      */
-    SearchResult search(
+    SearchResponse search(
             String query,
             EnumSet<SearchInclusion> includes,
             SearchLocation location,
@@ -92,5 +93,5 @@ public interface SearchResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException         if there is any other error during the operation
      */
-    SearchResult searchSheet(long sheetId, String query) throws SmartsheetException;
+    SearchResponse searchSheet(long sheetId, String query) throws SmartsheetException;
 }

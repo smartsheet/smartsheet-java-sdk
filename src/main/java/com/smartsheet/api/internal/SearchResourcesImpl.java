@@ -24,6 +24,7 @@ import com.smartsheet.api.ServiceUnavailableException;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.util.QueryUtil;
 import com.smartsheet.api.internal.util.Util;
+import com.smartsheet.api.models.SearchResponse;
 import com.smartsheet.api.models.SearchResult;
 import com.smartsheet.api.models.enums.SearchInclusion;
 import com.smartsheet.api.models.enums.SearchLocation;
@@ -73,7 +74,7 @@ public class SearchResourcesImpl extends AbstractResources implements SearchReso
      * ResourceNotFoundException rather than returning null).
      * @throws SmartsheetException the smartsheet exception
      */
-    public SearchResult search(String query) throws SmartsheetException {
+    public SearchResponse search(String query) throws SmartsheetException {
         return search(query, null, null, null, null);
     }
 
@@ -97,7 +98,7 @@ public class SearchResourcesImpl extends AbstractResources implements SearchReso
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException         if there is any other error during the operation
      */
-    public SearchResult search(String query, EnumSet<SearchInclusion> includes, SearchLocation location,
+    public SearchResponse search(String query, EnumSet<SearchInclusion> includes, SearchLocation location,
                                Date modifiedSince, EnumSet<SearchScope> scopes) throws SmartsheetException {
         Util.throwIfNull(query);
         Util.throwIfEmpty(query);
@@ -117,7 +118,7 @@ public class SearchResourcesImpl extends AbstractResources implements SearchReso
 
         // Iterate through the map of parameters and generate the query string
         path += QueryUtil.generateUrl(null, parameters);
-        return this.getResource(path, SearchResult.class);
+        return this.getResource(path, SearchResponse.class);
     }
 
     /**
@@ -140,10 +141,10 @@ public class SearchResourcesImpl extends AbstractResources implements SearchReso
      * ResourceNotFoundException rather than returning null).
      * @throws SmartsheetException the smartsheet exception
      */
-    public SearchResult searchSheet(long sheetId, String query) throws SmartsheetException {
+    public SearchResponse searchSheet(long sheetId, String query) throws SmartsheetException {
         Util.throwIfNull(query);
         Util.throwIfEmpty(query);
         String path = "search/sheets/" + sheetId + "?query=" + URLEncoder.encode(query, StandardCharsets.UTF_8);
-        return this.getResource(path, SearchResult.class);
+        return this.getResource(path, SearchResponse.class);
     }
 }

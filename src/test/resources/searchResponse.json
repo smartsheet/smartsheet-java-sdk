@@ -1,0 +1,77 @@
+{
+  "totalCount": 9,
+  "searchResults": [
+    {
+      "objectType": "GRID_ROW",
+      "objectId": 7654321,
+      "text": "Q3 budget forecast",
+      "primaryColumnCellText": "Budget Review",
+      "containerId": "1234567",
+      "workspaceId": "9876543",
+      "modifyDateTime": 1720000000000
+    },
+    {
+      "objectType": "ATTACHMENT",
+      "objectId": 8765432,
+      "text": "forecast.xlsx",
+      "attachmentSource": "GRIDROW",
+      "attachmentDescription": "Monthly budget forecast spreadsheet",
+      "containerId": "1234567",
+      "workspaceId": "9876543",
+      "modifyDateTime": 1720000000000
+    },
+    {
+      "objectType": "SHEET",
+      "objectId": 1234567,
+      "text": "Budget Forecast 2026",
+      "isTemplate": false,
+      "workspaceId": "9876543",
+      "modifyDateTime": 1720000000000
+    },
+    {
+      "objectType": "SHEET",
+      "objectId": 2345678,
+      "text": "Budget Template",
+      "isTemplate": true,
+      "workspaceId": "9876543",
+      "modifyDateTime": 1718000000000
+    },
+    {
+      "objectType": "WORKSPACE",
+      "objectId": 9876543,
+      "text": "Finance Workspace",
+      "modifyDateTime": 1715000000000
+    },
+    {
+      "objectType": "FORM",
+      "objectId": 3456789,
+      "text": "Budget Request Form",
+      "containerId": "1234567",
+      "workspaceId": "9876543",
+      "modifyDateTime": 1719000000000
+    },
+    {
+      "objectType": "COLLECTION_TITLE",
+      "objectId": 4567890,
+      "text": "Finance Collection",
+      "workspaceId": "9876543",
+      "modifyDateTime": 1718500000000
+    },
+    {
+      "objectType": "PORTFOLIO_TITLE",
+      "objectId": 5678901,
+      "text": "Q4 Portfolio",
+      "workspaceId": "9876543",
+      "modifyDateTime": 1717000000000
+    },
+    {
+      "objectType": "PROJECT_TITLE",
+      "objectId": 6789012,
+      "text": "Budget Modernization Project",
+      "workspaceId": "9876543",
+      "modifyDateTime": 1716000000000
+    }
+  ],
+  "workspaces": [],
+  "personalWorkspaceId": null
+}

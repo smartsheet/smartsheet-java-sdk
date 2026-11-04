@@ -79,6 +79,29 @@ public class SearchResultItem {
      */
     private Boolean parentObjectFavorite;
 
+    // Fields added for the unified search-service response
+
+    /** ID of the workspace containing this result. */
+    private String workspaceId;
+
+    /** ID of the direct container (sheet or folder) for this result. */
+    private String containerId;
+
+    /** Last-modified timestamp in milliseconds since the Unix epoch (UTC). */
+    private Long modifyDateTime;
+
+    /** Primary-column cell text. Only populated for GRID_ROW results. */
+    private String primaryColumnCellText;
+
+    /** Object type the attachment belongs to. Only populated for ATTACHMENT results. */
+    private String attachmentSource;
+
+    /** User-provided attachment description. Only populated for ATTACHMENT results. */
+    private String attachmentDescription;
+
+    /** True if this sheet result is a template. Only populated for SHEET results. */
+    private Boolean isTemplate;
+
     /**
      * Gets the text for this specific search result.
      *
@@ -276,4 +299,29 @@ public class SearchResultItem {
     public void setParentObjectFavorite(Boolean parentObjectFavorite) {
         this.parentObjectFavorite = parentObjectFavorite;
     }
+
+    public String getWorkspaceId() { return workspaceId; }
+    public void setWorkspaceId(String workspaceId) { this.workspaceId = workspaceId; }
+
+    public String getContainerId() { return containerId; }
+    public void setContainerId(String containerId) { this.containerId = containerId; }
+
+    public Long getModifyDateTime() { return modifyDateTime; }
+    public void setModifyDateTime(Long modifyDateTime) { this.modifyDateTime = modifyDateTime; }
+
+    /** Gets the primary-column cell text. Only populated for GRID_ROW results. */
+    public String getPrimaryColumnCellText() { return primaryColumnCellText; }
+    public void setPrimaryColumnCellText(String primaryColumnCellText) { this.primaryColumnCellText = primaryColumnCellText; }
+
+    /** Gets the object type the attachment belongs to. Only populated for ATTACHMENT results. */
+    public String getAttachmentSource() { return attachmentSource; }
+    public void setAttachmentSource(String attachmentSource) { this.attachmentSource = attachmentSource; }
+
+    /** Gets the user-provided attachment description. Only populated for ATTACHMENT results. */
+    public String getAttachmentDescription() { return attachmentDescription; }
+    public void setAttachmentDescription(String attachmentDescription) { this.attachmentDescription = attachmentDescription; }
+
+    /** Gets whether this sheet result is a template. Only populated for SHEET results. */
+    public Boolean getIsTemplate() { return isTemplate; }
+    public void setIsTemplate(Boolean isTemplate) { this.isTemplate = isTemplate; }
 }
