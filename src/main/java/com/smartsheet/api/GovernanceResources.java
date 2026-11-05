@@ -24,20 +24,22 @@ import com.smartsheet.api.models.DataClassificationSettings;
 public interface GovernanceResources {
 
     /**
-     * Get the data classification settings for a plan by plan ID.
+     * Get the data classification settings for a plan.
+     * Use this overload to get the settings for a plan.
      *
-     * @param planId the ID of the plan
+     * @param planId the ID of the plan whose classification settings to return
      * @return the DataClassificationSettings
      * @throws SmartsheetException if there is any other error during the operation
      */
     DataClassificationSettings getDataClassificationSettings(long planId) throws SmartsheetException;
 
     /**
-     * Get the data classification settings by resolving the plan from an asset.
+     * Get the data classification settings for a plan.
+     * Use this overload when your request relates to a specific sheet, report, or dashboard.
      * Accepted assetType values: "sheet", "report", "sight" (dashboard).
      *
-     * @param assetType the type of the asset (sheet, report, sight)
-     * @param assetId   the ID of the asset
+     * @param assetType the type of the asset: sheet, report, or sight (dashboard)
+     * @param assetId   the ID of the sheet, report, or dashboard
      * @return the DataClassificationSettings
      * @throws SmartsheetException if there is any other error during the operation
      */

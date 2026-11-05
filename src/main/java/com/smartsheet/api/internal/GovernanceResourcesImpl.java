@@ -58,11 +58,12 @@ public class GovernanceResourcesImpl extends AbstractResources implements Govern
     }
 
     /**
-     * Get the data classification settings by resolving the plan from an asset.
+     * Get the data classification settings for a plan, for a request that relates to a
+     * specific sheet, report, or dashboard.
      * Accepted assetType values: "sheet", "report", "sight" (dashboard).
      *
-     * @param assetType the type of the asset
-     * @param assetId   the ID of the asset
+     * @param assetType the type of the asset: sheet, report, or sight (dashboard)
+     * @param assetId   the ID of the sheet, report, or dashboard
      * @return the DataClassificationSettings
      * @throws SmartsheetException if there is any other error during the operation
      */
