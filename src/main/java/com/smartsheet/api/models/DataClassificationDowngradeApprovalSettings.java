@@ -16,40 +16,40 @@
 
 package com.smartsheet.api.models;
 
-import com.smartsheet.api.models.enums.DowngradeApprovalMode;
+import com.smartsheet.api.models.enums.DataClassificationDowngradeApprovalMode;
 
 import java.util.List;
 
 /**
  * Represents the downgrade approval settings for data classification.
  */
-public class DowngradeApprovalSettings {
+public class DataClassificationDowngradeApprovalSettings {
 
-    private DowngradeApprovalMode mode;
-    private List<ApproverEntry> approvers;
-    private List<LabelApproverEntry> labelApprovers;
+    private DataClassificationDowngradeApprovalMode mode;
+    private List<DataClassificationApproverEntry> approvers;
+    private List<DataClassificationLabelApproverEntry> labelApprovers;
 
-    public DowngradeApprovalMode getMode() {
+    public DataClassificationDowngradeApprovalMode getMode() {
         return mode;
     }
 
-    public void setMode(DowngradeApprovalMode mode) {
+    public void setMode(DataClassificationDowngradeApprovalMode mode) {
         this.mode = mode;
     }
 
-    public List<ApproverEntry> getApprovers() {
+    public List<DataClassificationApproverEntry> getApprovers() {
         return approvers;
     }
 
-    public void setApprovers(List<ApproverEntry> approvers) {
+    public void setApprovers(List<DataClassificationApproverEntry> approvers) {
         this.approvers = approvers;
     }
 
-    public List<LabelApproverEntry> getLabelApprovers() {
+    public List<DataClassificationLabelApproverEntry> getLabelApprovers() {
         return labelApprovers;
     }
 
-    public void setLabelApprovers(List<LabelApproverEntry> labelApprovers) {
+    public void setLabelApprovers(List<DataClassificationLabelApproverEntry> labelApprovers) {
         this.labelApprovers = labelApprovers;
     }
 }

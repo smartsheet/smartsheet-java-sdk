@@ -28,8 +28,8 @@ public class DataClassificationSettings {
     private Boolean isDisabled;
     private String guidelinesUrl;
     private Boolean allowManualChange;
-    private List<ClassificationLabel> labels;
-    private DowngradeApprovalSettings downgradeApprovalSettings;
+    private List<DataClassificationLabel> labels;
+    private DataClassificationDowngradeApprovalSettings downgradeApprovalSettings;
 
     public Long getOrgId() {
         return orgId;
@@ -71,19 +71,19 @@ public class DataClassificationSettings {
         this.allowManualChange = allowManualChange;
     }
 
-    public List<ClassificationLabel> getLabels() {
+    public List<DataClassificationLabel> getLabels() {
         return labels;
     }
 
-    public void setLabels(List<ClassificationLabel> labels) {
+    public void setLabels(List<DataClassificationLabel> labels) {
         this.labels = labels;
     }
 
-    public DowngradeApprovalSettings getDowngradeApprovalSettings() {
+    public DataClassificationDowngradeApprovalSettings getDowngradeApprovalSettings() {
         return downgradeApprovalSettings;
     }
 
-    public void setDowngradeApprovalSettings(DowngradeApprovalSettings downgradeApprovalSettings) {
+    public void setDowngradeApprovalSettings(DataClassificationDowngradeApprovalSettings downgradeApprovalSettings) {
         this.downgradeApprovalSettings = downgradeApprovalSettings;
     }
 }

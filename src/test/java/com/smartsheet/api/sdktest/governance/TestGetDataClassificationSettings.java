@@ -22,13 +22,13 @@ import com.smartsheet.api.Smartsheet;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.WiremockClient;
 import com.smartsheet.api.WiremockClientWrapper;
-import com.smartsheet.api.models.ApproverEntry;
-import com.smartsheet.api.models.ClassificationLabel;
+import com.smartsheet.api.models.DataClassificationApproverEntry;
+import com.smartsheet.api.models.DataClassificationLabel;
 import com.smartsheet.api.models.DataClassificationSettings;
-import com.smartsheet.api.models.DowngradeApprovalSettings;
-import com.smartsheet.api.models.LabelApproverEntry;
-import com.smartsheet.api.models.enums.ApproverType;
-import com.smartsheet.api.models.enums.DowngradeApprovalMode;
+import com.smartsheet.api.models.DataClassificationDowngradeApprovalSettings;
+import com.smartsheet.api.models.DataClassificationLabelApproverEntry;
+import com.smartsheet.api.models.enums.DataClassificationApproverType;
+import com.smartsheet.api.models.enums.DataClassificationDowngradeApprovalMode;
 import com.smartsheet.api.sdktest.Utils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -60,35 +60,35 @@ public class TestGetDataClassificationSettings {
     private static final DataClassificationSettings EXPECTED_APPROVAL_NEEDED;
 
     static {
-        ClassificationLabel confidentialAllProperties = label(CONFIDENTIAL_LABEL_ID, "Confidential",
+        DataClassificationLabel confidentialAllProperties = label(CONFIDENTIAL_LABEL_ID, "Confidential",
                 "Highly sensitive information", "#ffe0e3", 1, false);
-        ClassificationLabel internalAllProperties = label(INTERNAL_LABEL_ID, "Internal",
+        DataClassificationLabel internalAllProperties = label(INTERNAL_LABEL_ID, "Internal",
                 "For internal use only", "#b9f4c3", 2, true);
-        ClassificationLabel confidentialRequired = label(CONFIDENTIAL_LABEL_ID, "Confidential",
+        DataClassificationLabel confidentialRequired = label(CONFIDENTIAL_LABEL_ID, "Confidential",
                 null, "#ffe0e3", 1, false);
 
-        LabelApproverEntry labelApprover = new LabelApproverEntry();
+        DataClassificationLabelApproverEntry labelApprover = new DataClassificationLabelApproverEntry();
         labelApprover.setLabelId(INTERNAL_LABEL_ID);
         labelApprover.setApprovers(List.of(
-                approver(ApproverType.USERS, List.of(TEST_USER_ID)),
-                approver(ApproverType.WORKSPACE_ADMINS, List.of())
+                approver(DataClassificationApproverType.USERS, List.of(TEST_USER_ID)),
+                approver(DataClassificationApproverType.WORKSPACE_ADMINS, List.of())
         ));
 
         EXPECTED_ALL_PROPERTIES = settings(false, List.of(confidentialAllProperties, internalAllProperties),
-                downgrade(DowngradeApprovalMode.CUSTOM, null, List.of(labelApprover)));
+                downgrade(DataClassificationDowngradeApprovalMode.CUSTOM, null, List.of(labelApprover)));
         EXPECTED_ALL_PROPERTIES.setGuidelinesUrl(GUIDELINES_URL);
         EXPECTED_ALL_PROPERTIES.setAllowManualChange(true);
 
         EXPECTED_REQUIRED_PROPERTIES = settings(false, List.of(confidentialRequired),
-                downgrade(DowngradeApprovalMode.NONE, null, null));
+                downgrade(DataClassificationDowngradeApprovalMode.NONE, null, null));
 
         EXPECTED_DISABLED_PLAN = settings(true, List.of(),
-                downgrade(DowngradeApprovalMode.NONE, null, null));
+                downgrade(DataClassificationDowngradeApprovalMode.NONE, null, null));
 
         EXPECTED_APPROVAL_NEEDED = settings(false, List.of(confidentialRequired),
-                downgrade(DowngradeApprovalMode.APPROVAL_NEEDED, List.of(
-                        approver(ApproverType.GROUPS, List.of(TEST_GROUP_ID_1, TEST_GROUP_ID_2)),
-                        approver(ApproverType.USERS, List.of(TEST_USER_ID))
+                downgrade(DataClassificationDowngradeApprovalMode.APPROVAL_NEEDED, List.of(
+                        approver(DataClassificationApproverType.GROUPS, List.of(TEST_GROUP_ID_1, TEST_GROUP_ID_2)),
+                        approver(DataClassificationApproverType.USERS, List.of(TEST_USER_ID))
                 ), null));
         EXPECTED_APPROVAL_NEEDED.setAllowManualChange(true);
     }
@@ -249,8 +249,8 @@ public class TestGetDataClassificationSettings {
                 .collect(Collectors.toMap(Map.Entry::getKey, e -> e.getValue().getValues()));
     }
 
-    private static DataClassificationSettings settings(boolean isDisabled, List<ClassificationLabel> labels,
-                                                       DowngradeApprovalSettings downgradeApprovalSettings) {
+    private static DataClassificationSettings settings(boolean isDisabled, List<DataClassificationLabel> labels,
+                                                       DataClassificationDowngradeApprovalSettings downgradeApprovalSettings) {
         DataClassificationSettings settings = new DataClassificationSettings();
         settings.setOrgId(TEST_ORG_ID);
         settings.setPlanId(TEST_PLAN_ID);
@@ -260,9 +260,9 @@ public class TestGetDataClassificationSettings {
         return settings;
     }
 
-    private static ClassificationLabel label(String id, String name, String description, String color,
+    private static DataClassificationLabel label(String id, String name, String description, String color,
                                              int sensitivityOrder, boolean isDefault) {
-        ClassificationLabel label = new ClassificationLabel();
+        DataClassificationLabel label = new DataClassificationLabel();
         label.setId(id);
         label.setName(name);
         label.setDescription(description);
@@ -272,17 +272,19 @@ public class TestGetDataClassificationSettings {
         return label;
     }
 
-    private static DowngradeApprovalSettings downgrade(DowngradeApprovalMode mode, List<ApproverEntry> approvers,
-                                                       List<LabelApproverEntry> labelApprovers) {
-        DowngradeApprovalSettings downgrade = new DowngradeApprovalSettings();
+    private static DataClassificationDowngradeApprovalSettings downgrade(
+            DataClassificationDowngradeApprovalMode mode,
+            List<DataClassificationApproverEntry> approvers,
+            List<DataClassificationLabelApproverEntry> labelApprovers) {
+        DataClassificationDowngradeApprovalSettings downgrade = new DataClassificationDowngradeApprovalSettings();
         downgrade.setMode(mode);
         downgrade.setApprovers(approvers);
         downgrade.setLabelApprovers(labelApprovers);
         return downgrade;
     }
 
-    private static ApproverEntry approver(ApproverType type, List<Long> ids) {
-        ApproverEntry approver = new ApproverEntry();
+    private static DataClassificationApproverEntry approver(DataClassificationApproverType type, List<Long> ids) {
+        DataClassificationApproverEntry approver = new DataClassificationApproverEntry();
         approver.setType(type);
         approver.setIds(ids);
         return approver;

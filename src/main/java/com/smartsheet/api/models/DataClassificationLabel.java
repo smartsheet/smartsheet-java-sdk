@@ -19,7 +19,7 @@ package com.smartsheet.api.models;
 /**
  * Represents a single classification label.
  */
-public class ClassificationLabel {
+public class DataClassificationLabel {
 
     private String id;
     private String name;

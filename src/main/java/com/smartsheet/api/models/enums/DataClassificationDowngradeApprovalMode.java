@@ -19,7 +19,7 @@ package com.smartsheet.api.models.enums;
 /**
  * Represents the approval mode for data classification label downgrades.
  */
-public enum DowngradeApprovalMode {
+public enum DataClassificationDowngradeApprovalMode {
     /**
      * No approval is required.
      */

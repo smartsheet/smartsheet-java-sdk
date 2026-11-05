@@ -16,31 +16,29 @@
 
 package com.smartsheet.api.models;
 
-import com.smartsheet.api.models.enums.ApproverType;
-
 import java.util.List;
 
 /**
- * Represents an approver entry in downgrade approval settings.
+ * Represents a per-label approver entry in downgrade approval settings.
  */
-public class ApproverEntry {
+public class DataClassificationLabelApproverEntry {
 
-    private ApproverType type;
-    private List<Long> ids;
+    private String labelId;
+    private List<DataClassificationApproverEntry> approvers;
 
-    public ApproverType getType() {
-        return type;
+    public String getLabelId() {
+        return labelId;
     }
 
-    public void setType(ApproverType type) {
-        this.type = type;
+    public void setLabelId(String labelId) {
+        this.labelId = labelId;
     }
 
-    public List<Long> getIds() {
-        return ids;
+    public List<DataClassificationApproverEntry> getApprovers() {
+        return approvers;
     }
 
-    public void setIds(List<Long> ids) {
-        this.ids = ids;
+    public void setApprovers(List<DataClassificationApproverEntry> approvers) {
+        this.approvers = approvers;
     }
 }
