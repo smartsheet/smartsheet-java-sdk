@@ -21,6 +21,7 @@ import com.smartsheet.api.models.MultiRowEmail;
 import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.PaginationParameters;
 import com.smartsheet.api.models.Sheet;
+import com.smartsheet.api.models.SheetDataClassification;
 import com.smartsheet.api.models.SheetEmail;
 import com.smartsheet.api.models.SheetPublish;
 import com.smartsheet.api.models.SortSpecifier;
@@ -548,6 +549,22 @@ public interface SheetResources {
      * @throws SmartsheetException         if there is any other error during the operation
      */
     void deleteSheet(long id) throws SmartsheetException;
+
+    /**
+     * <p>Sets the data classification on a sheet.</p>
+     *
+     * <p>It mirrors to the following Smartsheet REST API method: PUT /sheets/{sheetId}/dataclassification</p>
+     *
+     * @param sheetId the sheet id
+     * @param dataClassification the SheetDataClassification object
+     * @throws IllegalArgumentException    if any argument is null or empty string
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetException         if there is any other error during the operation
+     */
+    void setDataClassification(long sheetId, SheetDataClassification dataClassification) throws SmartsheetException;
 
     /**
      * <p>Update a sheet.</p>

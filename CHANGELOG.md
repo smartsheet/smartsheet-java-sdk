@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [x.x.x] - Unreleased
+### Added
+- Support for PUT /sheets/{sheetId}/dataclassification endpoint (Set Data Classification)
+- Added `dataClassification` field to Sheet model
 
 ### Removed
 - ⚠️ **BREAKING**: Removed `VIEWER` from `SeatType` and `DowngradeSeatType`, and removed the `displayContributorSeatType` parameter from `listUsers` and `listUserPlans`. The overloads that took it are gone, and `listUserPlans(long, String, Long, Boolean, EnumSet<UserPlanInclusion>)` is now `listUserPlans(long, String, Long, EnumSet<UserPlanInclusion>)`. The `VIEWER` seat type was [deprecated by the Smartsheet API](https://developers.smartsheet.com/api/smartsheet/changelog#deprecated-viewer-seat-type-in-favor-of-contributor-new) in favor of `CONTRIBUTOR` (sunset Nov-15-2026). Use `CONTRIBUTOR` instead of `VIEWER` and drop the `displayContributorSeatType` argument.
