@@ -39,7 +39,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class TestUserUpgradeDowngrade {
     private static final UpgradeSeatType TEST_UPGRADE_SEAT_TYPE = UpgradeSeatType.MEMBER;
-    private static final DowngradeSeatType TEST_DOWNGRADE_SEAT_TYPE = DowngradeSeatType.VIEWER;
+    private static final DowngradeSeatType TEST_DOWNGRADE_SEAT_TYPE = DowngradeSeatType.CONTRIBUTOR;
     private static final Map<String, Object> TEST_UPGRADE_BODY = Map.of("seatType", TEST_UPGRADE_SEAT_TYPE.name());
     private static final Map<String, Object> TEST_DOWNGRADE_BODY = Map.of("seatType", TEST_DOWNGRADE_SEAT_TYPE.name());
 
@@ -211,27 +211,5 @@ public class TestUserUpgradeDowngrade {
         });
 
         assertThat(exception.getMessage()).isEqualTo("Malformed Request");
-    }
-
-    @Test
-    void testDowngradeUserToContributor() throws SmartsheetException, JsonProcessingException {
-        String requestId = UUID.randomUUID().toString();
-        WiremockClientWrapper wrapper = Utils.createWiremockSmartsheetClient(
-                "/users/downgrade-user/all-response-body-properties",
-                requestId
-        );
-        Smartsheet smartsheet = wrapper.getSmartsheet();
-        WiremockClient wiremockClient = wrapper.getWiremockClient();
-
-        Assertions.assertDoesNotThrow(() -> {
-            smartsheet.userResources().downgradeUser(TEST_USER_ID, TEST_PLAN_ID, DowngradeSeatType.CONTRIBUTOR);
-        });
-
-        LoggedRequest wiremockRequest = wiremockClient.findWiremockRequest(requestId);
-        String requestBody = wiremockRequest.getBodyAsString();
-        ObjectMapper objectMapper = new ObjectMapper();
-        Map<String, Object> requestBodyMap = objectMapper.readValue(requestBody, Map.class);
-
-        assertThat(requestBodyMap).isEqualTo(Map.of("seatType", "CONTRIBUTOR"));
     }
 }

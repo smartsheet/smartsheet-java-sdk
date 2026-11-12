@@ -2,7 +2,7 @@
   "data": [
     {
       "planId": 123,
-      "seatType": "VIEWER",
+      "seatType": "CONTRIBUTOR",
       "seatTypeLastChangedAt": "2025-01-01T00:00:00Z",
       "isInternal": false
     },
