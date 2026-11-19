@@ -20,15 +20,16 @@ jobs:
         with:
           java-version: '11'
           distribution: 'temurin'
+      - name: Build JavaDoc
+        run: ./gradlew javadoc
       - name: Deploy JavaDoc 🚀
-        uses: MathieuSoysal/Javadoc-publisher.yml@v3.0.2
+        uses: JamesIves/github-pages-deploy-action@v4.7.2
         with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          javadoc-branch: gh-pages
-          java-version: 11
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: gh-pages
+          folder: build/docs/javadoc
           target-folder: apidocs # url will be https://<username>.github.io/<repo>/javadoc
-          project: gradle
-          custom-command: ./gradlew javadoc
+          clean: true
 
   publish:
     runs-on: ubuntu-latest
