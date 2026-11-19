@@ -23,10 +23,10 @@ import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.WiremockClient;
 import com.smartsheet.api.WiremockClientWrapper;
 import com.smartsheet.api.models.DataClassificationApproverEntry;
-import com.smartsheet.api.models.DataClassificationLabel;
-import com.smartsheet.api.models.DataClassificationSettings;
 import com.smartsheet.api.models.DataClassificationDowngradeApprovalSettings;
+import com.smartsheet.api.models.DataClassificationLabel;
 import com.smartsheet.api.models.DataClassificationLabelApproverEntry;
+import com.smartsheet.api.models.DataClassificationSettings;
 import com.smartsheet.api.models.enums.DataClassificationApproverType;
 import com.smartsheet.api.models.enums.DataClassificationDowngradeApprovalMode;
 import com.smartsheet.api.sdktest.Utils;
@@ -79,8 +79,7 @@ public class TestGetDataClassificationSettings {
         EXPECTED_ALL_PROPERTIES.setGuidelinesUrl(GUIDELINES_URL);
         EXPECTED_ALL_PROPERTIES.setAllowManualChange(true);
 
-        EXPECTED_REQUIRED_PROPERTIES = settings(false, List.of(confidentialRequired),
-                downgrade(DataClassificationDowngradeApprovalMode.NONE, null, null));
+        EXPECTED_REQUIRED_PROPERTIES = settings(false, List.of(confidentialRequired), null);
 
         EXPECTED_DISABLED_PLAN = settings(true, List.of(),
                 downgrade(DataClassificationDowngradeApprovalMode.NONE, null, null));

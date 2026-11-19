@@ -24,24 +24,35 @@ import com.smartsheet.api.models.DataClassificationSettings;
 public interface GovernanceResources {
 
     /**
-     * Get the data classification settings for a plan.
-     * Use this overload to get the settings for a plan.
+     * <p>Gets the data classification settings for a plan.</p>
+     *
+     * <p>It mirrors to the following Smartsheet REST API method: GET /governance/data-classification/settings</p>
      *
      * @param planId the ID of the plan whose classification settings to return
      * @return the DataClassificationSettings
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     DataClassificationSettings getDataClassificationSettings(long planId) throws SmartsheetException;
 
     /**
-     * Get the data classification settings for a plan.
-     * Use this overload when your request relates to a specific sheet, report, or dashboard.
-     * Accepted assetType values: "sheet", "report", "sight" (dashboard).
+     * <p>Gets the data classification settings for the plan of a sheet, report, or dashboard.
+     * Use this overload when your request relates to a specific sheet, report, or dashboard.</p>
      *
-     * @param assetType the type of the asset: sheet, report, or sight (dashboard)
+     * <p>It mirrors to the following Smartsheet REST API method:
+     * GET /governance/data-classification/settings?assetType={assetType}&amp;assetId={assetId}</p>
+     *
+     * @param assetType the type of the asset: "sheet", "report", or "sight" (dashboard)
      * @param assetId   the ID of the sheet, report, or dashboard
      * @return the DataClassificationSettings
-     * @throws SmartsheetException if there is any other error during the operation
+     * @throws InvalidRequestException     if there is any problem with the REST API request
+     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException   if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetException         if there is any other error during the operation
      */
     DataClassificationSettings getDataClassificationSettings(String assetType, long assetId) throws SmartsheetException;
 }

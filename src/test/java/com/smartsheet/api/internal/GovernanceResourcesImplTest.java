@@ -43,8 +43,6 @@ class GovernanceResourcesImplTest extends ResourcesImplBase {
                 "accessToken", new DefaultHttpClient(), serializer));
     }
 
-    // ── URL + query param ─────────────────────────────────────────────────────
-
     /** Verifies the request URL and planId query param are correct. */
     @Test
     void testGetDataClassificationSettings_urlAndQueryParam() throws IOException, SmartsheetException {
@@ -57,8 +55,6 @@ class GovernanceResourcesImplTest extends ResourcesImplBase {
         assertThat(requestUrl).contains("planId=1148023251199876");
     }
 
-    // ── APPROVAL_NEEDED mode (happy path) ─────────────────────────────────────
-
     /** Verifies all fields are deserialized correctly in APPROVAL_NEEDED mode. */
     @Test
     void testGetDataClassificationSettings_approvalNeededMode() throws IOException, SmartsheetException {
@@ -66,33 +62,8 @@ class GovernanceResourcesImplTest extends ResourcesImplBase {
 
         DataClassificationSettings settings = governanceResources.getDataClassificationSettings(1148023251199876L);
 
-        assertThat(settings).isNotNull();
-        assertThat(settings.getOrgId()).isEqualTo(1556806293055364L);
-        assertThat(settings.getPlanId()).isEqualTo(1148023251199876L);
-        assertThat(settings.getIsDisabled()).isFalse();
-        assertThat(settings.getGuidelinesUrl()).isEqualTo("https://wiki.example.com/classification-guide");
-        assertThat(settings.getAllowManualChange()).isTrue();
-
-        assertThat(settings.getLabels()).hasSize(1);
-        assertThat(settings.getLabels().get(0).getId()).isEqualTo("3fa85f64-5717-4562-b3fc-2c963f66afa6");
-        assertThat(settings.getLabels().get(0).getName()).isEqualTo("Confidential");
-        assertThat(settings.getLabels().get(0).getDescription()).isEqualTo("Highly sensitive information");
-        assertThat(settings.getLabels().get(0).getColor()).isEqualTo("#ffe0e3");
-        assertThat(settings.getLabels().get(0).getSensitivityOrder()).isEqualTo(1);
-        assertThat(settings.getLabels().get(0).getIsDefault()).isFalse();
-
-        assertThat(settings.getDowngradeApprovalSettings()).isNotNull();
-        assertThat(settings.getDowngradeApprovalSettings().getMode())
-                .isEqualTo(DataClassificationDowngradeApprovalMode.APPROVAL_NEEDED);
-        assertThat(settings.getDowngradeApprovalSettings().getApprovers()).hasSize(1);
-        assertThat(settings.getDowngradeApprovalSettings().getApprovers().get(0).getType())
-                .isEqualTo(DataClassificationApproverType.GROUPS);
-        assertThat(settings.getDowngradeApprovalSettings().getApprovers().get(0).getIds())
-                .containsExactly(5129226945881988L, 2877427132196740L);
-        assertThat(settings.getDowngradeApprovalSettings().getLabelApprovers()).isNull();
+        assertApprovalNeededSettings(settings);
     }
-
-    // ── CUSTOM mode ───────────────────────────────────────────────────────────
 
     /** Verifies per-label approvers are deserialized in CUSTOM mode. */
     @Test
@@ -102,7 +73,6 @@ class GovernanceResourcesImplTest extends ResourcesImplBase {
         DataClassificationSettings settings = governanceResources.getDataClassificationSettings(1148023251199876L);
 
         assertThat(settings.getDowngradeApprovalSettings().getMode()).isEqualTo(DataClassificationDowngradeApprovalMode.CUSTOM);
-        // CUSTOM: no top-level approvers, only per-label approvers
         assertThat(settings.getDowngradeApprovalSettings().getApprovers()).isNull();
         assertThat(settings.getDowngradeApprovalSettings().getLabelApprovers()).hasSize(1);
         assertThat(settings.getDowngradeApprovalSettings().getLabelApprovers().get(0).getLabelId())
@@ -115,8 +85,6 @@ class GovernanceResourcesImplTest extends ResourcesImplBase {
         assertThat(labelApprovers.get(1).getType()).isEqualTo(DataClassificationApproverType.WORKSPACE_ADMINS);
         assertThat(labelApprovers.get(1).getIds()).isEmpty();
     }
-
-    // ── NONE mode (required-only fields) ──────────────────────────────────────
 
     /** Verifies optional fields are null when absent in NONE mode. */
     @Test
@@ -136,8 +104,6 @@ class GovernanceResourcesImplTest extends ResourcesImplBase {
         assertThat(settings.getLabels().get(0).getDescription()).isNull();
     }
 
-    // ── Disabled plan ─────────────────────────────────────────────────────────
-
     /** Verifies labels is empty and settings are omitted when the plan is disabled. */
     @Test
     void testGetDataClassificationSettings_disabledPlan() throws IOException, SmartsheetException {
@@ -153,8 +119,6 @@ class GovernanceResourcesImplTest extends ResourcesImplBase {
         assertThat(settings.getDowngradeApprovalSettings().getApprovers()).isNull();
     }
 
-    // ── assetType + assetId ───────────────────────────────────────────────────
-
     /** Verifies assetType and assetId are sent as query params and planId is absent. */
     @Test
     void testGetDataClassificationSettings_byAsset_urlContainsAssetParams() throws SmartsheetException, IOException {
@@ -169,7 +133,7 @@ class GovernanceResourcesImplTest extends ResourcesImplBase {
                 .doesNotContain("planId");
     }
 
-    /** Verifies a non-null response is returned when using assetType + assetId. */
+    /** Verifies the full response is deserialized when using assetType + assetId. */
     @Test
     void testGetDataClassificationSettings_byAsset_returnsSettings() throws SmartsheetException, IOException {
         server.setStatus(200);
@@ -177,10 +141,8 @@ class GovernanceResourcesImplTest extends ResourcesImplBase {
 
         DataClassificationSettings settings = governanceResources.getDataClassificationSettings("sheet", 112398785741L);
 
-        assertThat(settings).isNotNull();
+        assertApprovalNeededSettings(settings);
     }
-
-    // ── Error responses ───────────────────────────────────────────────────────
 
     /** Verifies a 400 response throws InvalidRequestException. */
     @Test
@@ -220,5 +182,33 @@ class GovernanceResourcesImplTest extends ResourcesImplBase {
 
         assertThatThrownBy(() -> governanceResources.getDataClassificationSettings(1148023251199876L))
                 .isInstanceOf(SmartsheetException.class);
+    }
+
+    /** Asserts every field of src/test/resources/getDataClassificationSettings.json (APPROVAL_NEEDED mode). */
+    private static void assertApprovalNeededSettings(DataClassificationSettings settings) {
+        assertThat(settings).isNotNull();
+        assertThat(settings.getOrgId()).isEqualTo(1556806293055364L);
+        assertThat(settings.getPlanId()).isEqualTo(1148023251199876L);
+        assertThat(settings.getIsDisabled()).isFalse();
+        assertThat(settings.getGuidelinesUrl()).isEqualTo("https://wiki.example.com/classification-guide");
+        assertThat(settings.getAllowManualChange()).isTrue();
+
+        assertThat(settings.getLabels()).hasSize(1);
+        assertThat(settings.getLabels().get(0).getId()).isEqualTo("3fa85f64-5717-4562-b3fc-2c963f66afa6");
+        assertThat(settings.getLabels().get(0).getName()).isEqualTo("Confidential");
+        assertThat(settings.getLabels().get(0).getDescription()).isEqualTo("Highly sensitive information");
+        assertThat(settings.getLabels().get(0).getColor()).isEqualTo("#ffe0e3");
+        assertThat(settings.getLabels().get(0).getSensitivityOrder()).isEqualTo(1);
+        assertThat(settings.getLabels().get(0).getIsDefault()).isFalse();
+
+        assertThat(settings.getDowngradeApprovalSettings()).isNotNull();
+        assertThat(settings.getDowngradeApprovalSettings().getMode())
+                .isEqualTo(DataClassificationDowngradeApprovalMode.APPROVAL_NEEDED);
+        assertThat(settings.getDowngradeApprovalSettings().getApprovers()).hasSize(1);
+        assertThat(settings.getDowngradeApprovalSettings().getApprovers().get(0).getType())
+                .isEqualTo(DataClassificationApproverType.GROUPS);
+        assertThat(settings.getDowngradeApprovalSettings().getApprovers().get(0).getIds())
+                .containsExactly(5129226945881988L, 2877427132196740L);
+        assertThat(settings.getDowngradeApprovalSettings().getLabelApprovers()).isNull();
     }
 }
