@@ -4,9 +4,14 @@ on:
   release:
     types: [published]
 
+permissions:
+  contents: read
+
 jobs:
   publish-docs:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write # pushes the Javadoc to the gh-pages branch
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v6
