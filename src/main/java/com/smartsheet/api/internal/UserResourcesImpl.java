@@ -96,7 +96,7 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
      * @throws SmartsheetException         if there is any other error during the operation
      */
     public PagedResult<User> listUsers() throws SmartsheetException {
-        return this.listUsersInternal(null, null, null, null, null, null);
+        return this.listUsersInternal(null, null, null, null, null);
     }
 
     /**
@@ -116,7 +116,7 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
      * @throws SmartsheetException the smartsheet exception
      */
     public PagedResult<User> listUsers(PaginationParameters pagination) throws SmartsheetException {
-        return this.listUsersInternal(null, null, null, null, null, pagination);
+        return this.listUsersInternal(null, null, null, null, pagination);
     }
 
     /**
@@ -137,7 +137,7 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
      * @throws SmartsheetException the smartsheet exception
      */
     public PagedResult<User> listUsers(Set<String> email, PaginationParameters pagination) throws SmartsheetException {
-        return this.listUsersInternal(email, null, null, null, null, pagination);
+        return this.listUsersInternal(email, null, null, null, pagination);
     }
 
     /**
@@ -160,7 +160,7 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
      */
     public PagedResult<User> listUsers(Set<String> email, EnumSet<ListUserInclusion> includes,
                                        PaginationParameters pagination) throws SmartsheetException {
-        return this.listUsersInternal(email, includes, null, null, null, pagination);
+        return this.listUsersInternal(email, includes, null, null, pagination);
     }
 
     /**
@@ -187,36 +187,7 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
     public PagedResult<User> listUsers(Set<String> email, Long planId,
                                        SeatType seatType, PaginationParameters pagination
                                        ) throws SmartsheetException {
-        return this.listUsersInternal(email, null, planId, seatType, null, pagination);
-    }
-
-    /**
-     * List all users with support for Seat Type and Plan ID. If planID or seatType is provided, then the response
-     * will contain  planId, seatType, seatTypeLastChangedAt, isInternal, otherwise - not
-     * <p>
-     * It mirrors to the following Smartsheet REST API method: GET /users
-     * <p>
-     * Exceptions:
-     *   - InvalidRequestException : if there is any problem with the REST API request
-     *   - AuthorizationException : if there is any problem with the REST API authorization(access token)
-     *   - ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-     *   - SmartsheetRestException : if there is any other REST API related error occurred during the operation
-     *   - SmartsheetException : if there is any other error occurred during the operation
-     *
-     * @param email the list of email addresses
-     * @param pagination the object containing the pagination query parameters
-     * @param planId filtering all users part of the specific plan
-     * @param seatType filter users by seat type
-     * @param displayContributorSeatType if true, returns CONTRIBUTOR instead of VIEWER for eligible users
-     * @return all users (note that empty list will be returned if there is none)
-     * @throws SmartsheetException the smartsheet exception
-     */
-    @Override
-    public PagedResult<User> listUsers(Set<String> email, Long planId,
-                                       SeatType seatType, Boolean displayContributorSeatType,
-                                       PaginationParameters pagination
-                                       ) throws SmartsheetException {
-        return this.listUsersInternal(email, null, planId, seatType, displayContributorSeatType, pagination);
+        return this.listUsersInternal(email, null, planId, seatType, pagination);
     }
 
     /**
@@ -237,12 +208,11 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
      * @param pagination the object containing the pagination query parameters
      * @param planId filtering all users part of the specific plan
      * @param seatType filter users by seat type
-     * @param displayContributorSeatType if true, returns CONTRIBUTOR instead of VIEWER for eligible users
      * @return all users (note that empty list will be returned if there is none)
      * @throws SmartsheetException the smartsheet exception
      */
     private PagedResult<User> listUsersInternal(Set<String> email, EnumSet<ListUserInclusion> includes,
-                                                Long planId, SeatType seatType, Boolean displayContributorSeatType,
+                                                Long planId, SeatType seatType,
                                                 PaginationParameters pagination
                                                 ) throws SmartsheetException {
         String path = USERS;
@@ -267,10 +237,6 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
 
         if (seatType != null) {
             parameters.put("seatType", seatType);
-        }
-
-        if (displayContributorSeatType != null) {
-            parameters.put("displayContributorSeatType", displayContributorSeatType);
         }
 
         path += QueryUtil.generateUrl(null, parameters);
@@ -646,34 +612,6 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
      * @param userId the id of the user whose plans to fetch
      * @param lastKey lastKey from previous response to get next page of results
      * @param maxItems maximum number of items to return
-     * @param displayContributorSeatType if true, returns CONTRIBUTOR instead of VIEWER for eligible users
-     * @return UserPlansResponse json response
-     * @throws IllegalArgumentException    if any argument is null or empty string
-     * @throws InvalidRequestException     if there is any problem with the REST API request
-     * @throws AuthorizationException      if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException   if the resource cannot be found
-     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException         if there is any other error during the operation
-     */
-    @Override
-    public TokenPaginatedResult<UserPlan> listUserPlans(
-            long userId,
-            String lastKey,
-            Long maxItems,
-            Boolean displayContributorSeatType
-    ) throws SmartsheetException {
-        return listUserPlans(userId, lastKey, maxItems, displayContributorSeatType, null);
-    }
-
-    /**
-     * <p>Fetch all user's plans.</p>
-     *
-     * <p>It mirrors to the following Smartsheet REST API method: GET /users/{userId}/plans</p>
-     *
-     * @param userId the id of the user whose plans to fetch
-     * @param lastKey lastKey from previous response to get next page of results
-     * @param maxItems maximum number of items to return
-     * @param displayContributorSeatType if true, returns CONTRIBUTOR instead of VIEWER for eligible users
      * @param include elements to include in the response. Specifying
      *                {@link UserPlanInclusion#PLAN_NAME} populates {@link UserPlan#getPlanName()}
      *                with the name of the organization that owns each plan. Organization names are
@@ -692,7 +630,6 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
             long userId,
             String lastKey,
             Long maxItems,
-            Boolean displayContributorSeatType,
             EnumSet<UserPlanInclusion> include
     ) throws SmartsheetException {
 
@@ -705,10 +642,6 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
 
         if (maxItems != null) {
             parameters.put("maxItems", maxItems);
-        }
-
-        if (displayContributorSeatType != null) {
-            parameters.put("displayContributorSeatType", displayContributorSeatType);
         }
 
         if (include != null) {

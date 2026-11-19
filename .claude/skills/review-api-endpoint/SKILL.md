@@ -298,7 +298,7 @@ UserPlan:
       format: int64
     seatType:
       type: string
-      enum: [MEMBER, VIEWER, EDITOR, ADMIN, CONTRIBUTOR]
+      enum: [MEMBER, PROVISIONAL_MEMBER, GUEST, CONTRIBUTOR]
     seatTypeLastChangedAt:
       type: string
       format: date-time

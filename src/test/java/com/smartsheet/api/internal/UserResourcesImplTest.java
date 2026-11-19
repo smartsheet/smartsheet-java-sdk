@@ -234,7 +234,7 @@ class UserResourcesImplTest extends ResourcesImplBase {
         long userId = 123L;
         long planId = 123L;
 
-        Assertions.assertDoesNotThrow(() -> userResources.downgradeUser(userId, planId, DowngradeSeatType.VIEWER));
+        Assertions.assertDoesNotThrow(() -> userResources.downgradeUser(userId, planId, DowngradeSeatType.CONTRIBUTOR));
     }
 
     @Test
