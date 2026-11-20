@@ -204,4 +204,11 @@ public interface Smartsheet {
      * @return the asset share resources instance
      */
     AssetShareResources assetShareResources();
+
+    /**
+     * Returns the GovernanceResources instance that provides access to Governance resources
+     *
+     * @return the governance resources instance
+     */
+    GovernanceResources governanceResources();
 }

@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [x.x.x] - Unreleased
 
+### Added
+- `GovernanceResources.getDataClassificationSettings(long planId)` and `GovernanceResources.getDataClassificationSettings(String assetType, long assetId)` to retrieve data classification settings for a plan.
+- `DataClassificationSettings`, `DataClassificationLabel`, `DataClassificationDowngradeApprovalSettings`, `DataClassificationApproverEntry`, and `DataClassificationLabelApproverEntry` models.
+- `DataClassificationDowngradeApprovalMode` and `DataClassificationApproverType` enums.
+
 ## [5.0.0] - 2026-11-16
 
 ### Added
